@@ -21,9 +21,6 @@ for el in fileR.name_store:
         nameToSave = el + "_u" + str(k+1) 
         fileSaving(nameToSave, funApprox.theta)
         k += 1
-print("Fin du traitement!")
-
-
 
     
     

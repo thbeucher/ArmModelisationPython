@@ -1,0 +1,25 @@
+import numpy as np
+
+
+class fa_lwr():
+    
+    def __init__(self, nbFeature = 10):
+        self.nbFeat = nbFeature
+        
+    def train_LWR(self, data):
+        c=1
+    
+    def setCentersAndWidths(self):
+        self.centersPP1 = 0
+        self.centersPP2 = 0
+        self.centersP1 = 0
+        self.centersP2 = 0
+        self.widths = 0
+        
+    def getWeight(self, input):
+        W = np.exp(-np.divide(np.square(input - self.centers), self.widths))
+        return W
+        
+        
+        
+        

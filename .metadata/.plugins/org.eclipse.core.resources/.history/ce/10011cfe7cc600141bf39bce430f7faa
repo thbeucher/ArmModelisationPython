@@ -1,0 +1,6 @@
+import pickle
+
+def fileSaving(nameFile, data):
+    with open(nameFile, "w") as file:
+        myPickler = pickle.Pickler(file)
+        myPickler.dump(data)

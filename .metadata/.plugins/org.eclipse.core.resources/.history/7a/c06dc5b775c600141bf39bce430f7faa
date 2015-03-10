@@ -1,0 +1,45 @@
+from ArmModel.FileReading import *
+from Regression.functionApproximator_LWR import *
+
+
+#Lecture des fichiers de trajectoire
+data_store = {}   
+data_store, nameFile, nbFile = recup_data()
+
+#Recuperation des commandes
+
+u1 = []
+u2 = []
+u3 = []
+u4 = []
+u5 = []
+u6 = []
+
+#uCommand[j+1] = 
+
+#Boucle de traitement pour generer le controleur
+i = 0
+nbFeat = 10
+funApprox = fa_lwr(nbFeat)
+uCommand = {}
+while i < nbFile:
+    nameFileTemp = nameFile + str(i+1)
+    j = 0
+    while j < len(data_store[str(nameFileTemp + "_command")]):
+        u1.append(((data_store[str(nameFile + str(i+1) + "_command")])[j])[0])
+        u2.append(((data_store[str(nameFile + str(i+1) + "_command")])[j])[1])
+        u3.append(((data_store[str(nameFile + str(i+1) + "_command")])[j])[2])
+        u4.append(((data_store[str(nameFile + str(i+1) + "_command")])[j])[3])
+        u5.append(((data_store[str(nameFile + str(i+1) + "_command")])[j])[4])
+        u6.append(((data_store[str(nameFile + str(i+1) + "_command")])[j])[5])
+        j += 1
+    k = 0
+    
+    funApprox.train_LWR(data_store[str(nameFileTemp + "_state")], data_store[str(nameFileTemp + "_command")])
+    i += 1
+    
+    
+    
+    
+    
+    

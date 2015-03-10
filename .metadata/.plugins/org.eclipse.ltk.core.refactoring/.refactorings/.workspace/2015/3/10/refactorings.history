@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;FunctionApproximator&apos;" deleteContents="true" description="Delete resource &apos;FunctionApproximator&apos;" element1="/FunctionApproximator" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1425376407156"/>
+</session>
