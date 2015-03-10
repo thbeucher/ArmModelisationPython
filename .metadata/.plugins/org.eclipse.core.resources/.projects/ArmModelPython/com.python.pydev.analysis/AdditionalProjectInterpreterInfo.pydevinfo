@@ -7,9 +7,9 @@ FileProcessing.__init__|1425918667000|/home/beucher/workspace/ArmModelPython/Fil
 ArmModel.ParametresHogan|1424884550000|/home/beucher/workspace/ArmModelPython/ArmModel/ParametresHogan.py
 Regression.functionApproximator_LW|1425662911000|/home/beucher/workspace/ArmModelPython/Regression/functionApproximator_LW.py
 ArmModel.ParametresArmModel|1424884521000|/home/beucher/workspace/ArmModelPython/ArmModel/ParametresArmModel.py
-Regression.LWRControler_creator|1425985291000|/home/beucher/workspace/ArmModelPython/Regression/LWRControler_creator.py
+Regression.LWRControler_creator|1425999384000|/home/beucher/workspace/ArmModelPython/Regression/LWRControler_creator.py
 ArmModel.SavingData|1424884709000|/home/beucher/workspace/ArmModelPython/ArmModel/SavingData.py
-FileProcessing.FileReading|1425984217000|/home/beucher/workspace/ArmModelPython/FileProcessing/FileReading.py
+FileProcessing.FileReading|1425985736000|/home/beucher/workspace/ArmModelPython/FileProcessing/FileReading.py
 ArmModel.ArmModelK|1424885411000|/home/beucher/workspace/ArmModelPython/ArmModel/ArmModelK.py
 Regression.__init__|1425376205000|/home/beucher/workspace/ArmModelPython/Regression/__init__.py
 Regression.functionApproximator|1425648798000|/home/beucher/workspace/ArmModelPython/Regression/functionApproximator.py
@@ -101,7 +101,7 @@ Regression.functionApproximator_PlottingTools|1425570353000|/home/beucher/worksp
 67=ParametresArmModel.set_ut_3
 -- END DICTIONARY
 -- START TREE 1
-48
+49
 !<m|0|
 F|0|
 FU|0|
@@ -132,6 +132,7 @@ par|3|ParametresHogan!73@ParametresArmModel!81@ParametresRobot!89@
 phi|0|
 plo|1|plotFA!18@
 q|1|q!11@
+ran|0|
 rec|0|
 rob|1|robot!11@
 sau|0|
@@ -152,7 +153,7 @@ ye|1|ye!11@
 yh|1|yh!11@
 -- END TREE
 -- START TREE 2
-101
+103
 !<m|0|
 At|1|At!13&83@
 K|1|K!14&75@
@@ -223,6 +224,7 @@ q0|1|q0!13&83@
 q0_|1|q0_i!13&83@
 qde|1|qdes!13&83@
 qsa|1|qsave!72&99@
+ran|0|
 rec|1|recup_data!30&66@
 s1|1|s1!32&91@
 s2|1|s2!32&91@
@@ -252,6 +254,7 @@ ut3|2|ut3save!72&99@ut3!13&83@
 wid|4|widthConstant!73&43@widthConstant!74&35@widths!74&35@widths!73&43@
 xel|1|xEl!72&99@
 xha|1|xHa!72&99@
+xmi|0|
 yel|1|yEl!72&99@
 yha|1|yHa!72&99@
 -- END TREE

@@ -10,7 +10,7 @@ fileR.recup_data()
 #Boucle de traitement pour generer le controleur
 i = 0
 nbFeat = 10
-funApprox = fa_lwr(nbFeat)
+funApprox = fa_lwr(nbFeat, fileR.data_store, fileR.name_store)
 for el in fileR.name_store:
     fileR.tabActivationMuscu(el)
     #Boucle de traitement pour chaque activation musculaire
@@ -23,9 +23,11 @@ for el in fileR.name_store:
         k += 1
 print("Fin du traitement!")
 
+#Plot
 
 
-    
+
+
     
     
     
