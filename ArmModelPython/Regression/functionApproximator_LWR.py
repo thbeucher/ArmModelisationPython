@@ -36,33 +36,31 @@ class fa_lwr():
     ## Fonction pour fixer les centres et les sigmas des gaussiennes utilisees          ##      
     ######################################################################################
     def setCentersAndWidths(self):
-        '''self.centersPP1 = np.linspace((self.xMinxMax[0])[0], (self.xMinxMax[0])[1], self.nbFeat)
+        self.centersPP1 = np.linspace((self.xMinxMax[0])[0], (self.xMinxMax[0])[1], self.nbFeat)
         self.centersPP2 = np.linspace((self.xMinxMax[1])[0], (self.xMinxMax[1])[1], self.nbFeat)
         self.centersP1 = np.linspace((self.xMinxMax[2])[0], (self.xMinxMax[2])[1], self.nbFeat)
         self.centersP2 = np.linspace((self.xMinxMax[3])[0], (self.xMinxMax[3])[1], self.nbFeat)
-        self.widthConstant = 1 / self.nbFeat / 10
-        self.widths = np.ones(self.nbFeat,) * self.widthConstant'''
-        xmin = -7.0
+        self.widthConstant = 1 / self.nbFeat / 1
+        self.widths = np.ones(self.nbFeat,) * self.widthConstant
+        '''xmin = -7.0
         xmax = 7.0
         self.centersPP1 = np.linspace(xmin, xmax, self.nbFeat)
         self.centersPP2 = np.linspace(xmin, xmax, self.nbFeat)
         self.centersP1 = np.linspace(xmin, xmax, self.nbFeat)
         self.centersP2 = np.linspace(xmin, xmax, self.nbFeat)
-        self.widthConstant = (xmax - xmin) / self.nbFeat / 10
+        self.widthConstant = (xmax - xmin) / self.nbFeat / 100
         self.widths = np.ones(self.nbFeat,) * self.widthConstant
-        print(self.xMinxMax)
-        print((self.xMinxMax[0])[0])
-        print((self.xMinxMax[0])[1])
-        print((self.xMinxMax[1])[0])
+        tentersPP1 = np.ones(self.nbFeat,) * self.widthConstant
+        print(tentersPP1)'''
     
     ######################################################################################
     ## Fonction pour calculer le poids de chaque input par des gaussiennes              ##      
     ######################################################################################    
     def getWeights(self, input):
-        W = np.exp(-(np.divide(np.square(input[0] - self.centersPP1), 2*self.widths**2) 
-        + np.divide(np.square(input[1] - self.centersPP2), 2*self.widths**2)
-        + np.divide(np.square(input[2] - self.centersPP2), 2*self.widths**2)
-        + np.divide(np.square(input[3] - self.centersP1), 2*self.widths**2)))
+        W = np.exp(-(np.divide(np.square(input[0] - self.centersPP1), self.widths) 
+        + np.divide(np.square(input[1] - self.centersPP2), self.widths)
+        + np.divide(np.square(input[2] - self.centersP1), self.widths)
+        + np.divide(np.square(input[3] - self.centersP2), self.widths)))
         return W
         
     ######################################################################################

@@ -1,10 +1,1 @@
-INSTUPRegression.LWRControler_creator
-/home/beucher/workspace/ArmModelPython/Regression/LWRControler_creator.py
-INFOS:&&3|1|2|0&&3|3|2|0&&3|4|2|0&&3|5|2|0&&3|6|2|0&&3|7|2|0
-fileR=1
-funApprox=5
-nameToSave=7
-nbFeat=4
-k=6
-Regression.LWRControler_creator=2
-i=3
+DELSTRRegression.functionApproximator_LWR
