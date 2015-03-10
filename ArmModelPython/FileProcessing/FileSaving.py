@@ -5,3 +5,4 @@ def fileSaving(nameFile, data):
     nameToSave = folder + nameFile
     with open(nameToSave, "w") as file:
         file.write(str(data))
+        

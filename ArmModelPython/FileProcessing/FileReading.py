@@ -3,6 +3,7 @@ import ArmModel.ParametresRobot as pr
 import numpy as np
 import math as ma
 import cma as cma
+import os.path as op
 
 class FileReading():
     
@@ -16,6 +17,7 @@ class FileReading():
         self.u6 = []
         self.uCommand = {}
         self.data_store = {}   
+        self.name_store = []
     #target(4) estimated_state(4) actual_state(4) noised_command(6) command(6) estimated_next_state(4) 
     #actual_next_state(4) next_acceleration(2)
     #Recuperation des donnees du fichier dans une matrice
@@ -25,8 +27,11 @@ class FileReading():
         nbFichier = input("Veuillez entrer le nombre de fichier à traiter: ")
         nbFichier = int(nbFichier)
         j = 0
+        nbf = 0
         while j < nbFichier:
-            mat = np.loadtxt(chemin + nameFichier + str(j+1) + ".log")
+            if op.isfile(chemin + nameFichier + str(j+1+nbf) + ".log") == False:
+                nbf += 1
+            mat = np.loadtxt(chemin + nameFichier + str(j+1+nbf) + ".log")
             i = 0
             k = 0
             state = []
@@ -35,15 +40,15 @@ class FileReading():
                 state.append((mat[i][k+8], mat[i][k+9], mat[i][k+10], mat[i][k+11]))
                 command.append((mat[i][k+18], mat[i][k+19], mat[i][k+20], mat[i][k+21], mat[i][k+22], mat[i][k+23]))
                 i += 1
-            self.data_store[str(nameFichier + str(j+1) + "_state")] = state
-            self.data_store[str(nameFichier + str(j+1) + "_command")] = command
+            self.data_store[str(nameFichier + str(j+1+nbf) + "_state")] = state
+            self.data_store[str(nameFichier + str(j+1+nbf) + "_command")] = command
+            self.name_store.append(str(nameFichier + str(j+1+nbf)))
             j += 1
-        return nameFichier, nbFichier
     
     #################################################################################################################
     ## Fonction pour mettre dans tes tableaux separes les differentes activations musculaires                      ##
     #################################################################################################################
-    def tabActivationMuscu(self, i, nameFileTemp):
+    def tabActivationMuscu(self, nameFileTemp):
         #Recuperation dans des tableaux des activations musculaires
         j = 0
         while j < len(self.data_store[str(nameFileTemp + "_command")]):
