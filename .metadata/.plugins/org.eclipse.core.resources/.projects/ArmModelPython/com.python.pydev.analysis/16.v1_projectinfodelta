@@ -1,1 +1,16 @@
-DELSTRRegression.functionApproximator_LWR
+INSTUPRegression.LWRControler_creator
+/home/beucher/workspace/ArmModelPython/Regression/LWRControler_creator.py
+INFOS:&&3|1|2|0&&3|3|2|0&&3|4|2|0&&3|5|2|0&&3|6|2|0&&3|7|2|0&&3|8|2|0&&3|9|2|0&&3|10|2|0&&3|11|2|0&&3|12|2|0&&3|13|2|0
+fileR=1
+b=9
+fig=12
+funApprox=5
+a=8
+ax=13
+nbFeat=4
+nameToSave=7
+k=6
+Regression.LWRControler_creator=2
+i=3
+red_patch=10
+blue_patch=11

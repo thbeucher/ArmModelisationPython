@@ -2417,3 +2417,29 @@ java.lang.RuntimeException: Unhandled: ExtSlice[dims=[Index[value=Num[n=0, type=
 	at org.python.pydev.editor.hover.PyTextHover.getDocstringHover(PyTextHover.java:230)
 	at org.python.pydev.editor.hover.PyTextHover.getHoverInfo(PyTextHover.java:142)
 	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:168)
+
+!ENTRY org.python.pydev.shared_core 4 4 2015-03-10 17:21:16.770
+!MESSAGE Unhandled: ExtSlice[dims=[Index[value=Name[id=rs, ctx=Load, reserved=false]], Slice[lower=Name[id=cs, ctx=Load, reserved=false], upper=Call[func=Name[id=min, ctx=Load, reserved=false], args=[Name[id=cols, ctx=Load, reserved=false], BinOp[left=BinOp[left=Name[id=cs, ctx=Load, reserved=false], op=Add, right=Name[id=cstride, ctx=Load, reserved=false]], op=Add, right=Num[n=1, type=Int, num=1]]], keywords=[], starargs=null, kwargs=null], step=null]]]
+!STACK 0
+java.lang.RuntimeException: Unhandled: ExtSlice[dims=[Index[value=Name[id=rs, ctx=Load, reserved=false]], Slice[lower=Name[id=cs, ctx=Load, reserved=false], upper=Call[func=Name[id=min, ctx=Load, reserved=false], args=[Name[id=cols, ctx=Load, reserved=false], BinOp[left=BinOp[left=Name[id=cs, ctx=Load, reserved=false], op=Add, right=Name[id=cstride, ctx=Load, reserved=false]], op=Add, right=Num[n=1, type=Int, num=1]]], keywords=[], starargs=null, kwargs=null], step=null]]]
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.unhandled_node(MakeAstValidForPrettyPrintingVisitor.java:105)
+	at org.python.pydev.parser.jython.ast.VisitorBase.visitExtSlice(VisitorBase.java:345)
+	at org.python.pydev.parser.jython.ast.ExtSlice.accept(ExtSlice.java:79)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitSubscript(MakeAstValidForPrettyPrintingVisitor.java:933)
+	at org.python.pydev.parser.jython.ast.Subscript.accept(Subscript.java:93)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitAssign(MakeAstValidForPrettyPrintingVisitor.java:184)
+	at org.python.pydev.parser.jython.ast.Assign.accept(Assign.java:90)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitFor(MakeAstValidForPrettyPrintingVisitor.java:457)
+	at org.python.pydev.parser.jython.ast.For.accept(For.java:114)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitFor(MakeAstValidForPrettyPrintingVisitor.java:457)
+	at org.python.pydev.parser.jython.ast.For.accept(For.java:114)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitFor(MakeAstValidForPrettyPrintingVisitor.java:457)
+	at org.python.pydev.parser.jython.ast.For.accept(For.java:114)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitFunctionDef(MakeAstValidForPrettyPrintingVisitor.java:862)
+	at org.python.pydev.parser.jython.ast.FunctionDef.accept(FunctionDef.java:131)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitClassDef(MakeAstValidForPrettyPrintingVisitor.java:722)
+	at org.python.pydev.parser.jython.ast.ClassDef.accept(ClassDef.java:166)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.makeValid(MakeAstValidForPrettyPrintingVisitor.java:171)
+	at org.python.pydev.editor.hover.PyTextHover.getDocstringHover(PyTextHover.java:230)
+	at org.python.pydev.editor.hover.PyTextHover.getHoverInfo(PyTextHover.java:142)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:168)
