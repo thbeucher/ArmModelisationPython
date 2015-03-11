@@ -1,8 +1,0 @@
-
-
-
-class fa_lwr():
-    
-    def __init__(self, nbFeature = 10):
-        self.nbFeat = nbFeature
-        

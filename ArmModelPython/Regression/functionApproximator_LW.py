@@ -86,8 +86,7 @@ class fa_lw():
                 w = self.getWeights(xData[i])
                 wk = float(w[k])
                 Ak += wk*np.dot(self.featureOutput(xData[i]), np.transpose(self.featureOutput(xData[i])))
-                bk += wk*np.dot(self.featureOutput(xData[i]),yData[i])
-                
+                bk += wk*np.dot(self.featureOutput(xData[i]),yData[i]) 
             self.theta[:,k] = np.dot(np.linalg.pinv(Ak), bk)[:,0]
 
         #-----------------------------#    
@@ -170,6 +169,7 @@ class fa_lw():
         elif np.size(input) > 1:
             g = (np.dot(phi.transpose(), self.theta)).transpose() #[numFeats x Ns]
             fa_out = np.sum((W*g), axis=0) / np.sum(W, axis=0)
+            print("phi1: ", phi.shape, "W1: ", W.shape, "theta: ", self.theta.shape, "g: ", g.shape, "fa_out: ", fa_out.shape, "w*g: ", (W*g).shape)
         return fa_out
         
     

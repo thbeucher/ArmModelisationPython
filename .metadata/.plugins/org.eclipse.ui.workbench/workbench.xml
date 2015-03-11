@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="43" version="2.0">
 <workbenchAdvisor/>
-<window height="973" width="1387" x="163" y="24">
+<window height="972" width="1526" x="163" y="24">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -42,25 +42,25 @@
 </folder>
 </info>
 </editorArea>
-<editor id="org.python.pydev.editor.PythonEditor" name="FileReading.py" partName="FileReading" path="/home/beucher/workspace/ArmModelPython/FileProcessing/FileReading.py" title="FileReading" tooltip="ArmModelPython/FileProcessing/FileReading.py" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ArmModelPython/FileProcessing/FileReading.py"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="699" selectionTopPixel="150"/>
-</editor>
 <editor id="org.python.pydev.editor.PythonEditor" name="functionApproximator_LW.py" partName="functionApproximator_LW" path="/home/beucher/workspace/ArmModelPython/Regression/functionApproximator_LW.py" title="functionApproximator_LW" tooltip="ArmModelPython/Regression/functionApproximator_LW.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ArmModelPython/Regression/functionApproximator_LW.py"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1234" selectionTopPixel="1125"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4564" selectionTopPixel="1439"/>
 </editor>
 <editor id="org.python.pydev.editor.PythonEditor" name="functionApproximator_LWR.py" partName="functionApproximator_LWR" path="/home/beucher/workspace/ArmModelPython/Regression/functionApproximator_LWR.py" title="functionApproximator_LWR" tooltip="ArmModelPython/Regression/functionApproximator_LWR.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ArmModelPython/Regression/functionApproximator_LWR.py"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1042" selectionTopPixel="4"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2200" selectionTopPixel="525"/>
 </editor>
 <editor activePart="true" focus="true" id="org.python.pydev.editor.PythonEditor" name="LWRControler_creator.py" partName="LWRControler_creator" path="/home/beucher/workspace/ArmModelPython/Regression/LWRControler_creator.py" title="LWRControler_creator" tooltip="ArmModelPython/Regression/LWRControler_creator.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ArmModelPython/Regression/LWRControler_creator.py"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="822" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1208" selectionTopPixel="217"/>
 </editor>
-<editor id="org.python.pydev.editor.PythonEditor" name="FileSaving.py" partName="FileSaving" path="/home/beucher/workspace/ArmModelPython/FileProcessing/FileSaving.py" title="FileSaving" tooltip="ArmModelPython/FileProcessing/FileSaving.py" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ArmModelPython/FileProcessing/FileSaving.py"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="224" selectionTopPixel="0"/>
+<editor id="org.python.pydev.editor.PythonEditor" name="FileReading.py" partName="FileReading" path="/home/beucher/workspace/ArmModelPython/FileProcessing/FileReading.py" title="FileReading" tooltip="ArmModelPython/FileProcessing/FileReading.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ArmModelPython/FileProcessing/FileReading.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="127" selectionTopPixel="0"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="ArmModelK.py" partName="ArmModelK" path="/home/beucher/workspace/ArmModelPython/ArmModel/ArmModelK.py" title="ArmModelK" tooltip="ArmModelPython/ArmModel/ArmModelK.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ArmModelPython/ArmModel/ArmModelK.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2501" selectionTopPixel="1575"/>
 </editor>
 </editors>
 <views>
@@ -92,11 +92,11 @@
 <expanded IMemento.internal.id="/home/beucher/workspace/ArmModelPython/FileProcessing"/>
 <expanded IMemento.internal.id="/home/beucher/workspace/ArmModelPython/FileProcessing/FileSaving.py"/>
 <expanded IMemento.internal.id="/home/beucher/workspace/ArmModelPython/Regression"/>
-<selected IMemento.internal.id="/home/beucher/workspace/ArmModelPython/FileProcessing/FileSaving.py"/>
+<selected IMemento.internal.id="/home/beucher/workspace/ArmModelPython/ArmModel/ArmModelK.py"/>
 </viewState>
 </view>
 </views>
-<perspectives activePart="org.eclipse.ui.console.ConsoleView" activePerspective="org.python.pydev.ui.PythonPerspective">
+<perspectives activePart="org.python.pydev.editor.PythonEditor" activePerspective="org.python.pydev.ui.PythonPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.ui.internal.ide.application.ResourcePerspective" id="org.eclipse.ui.resourcePerspective" label="Resource"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -236,161 +236,161 @@
 <workingSets/>
 <navigationHistory>
 <editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ArmModelPython/Regression/LWRControler_creator.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ArmModelPython/Regression/functionApproximator_LWR.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ArmModelPython/Regression/LWRControler_creator.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ArmModelPython/Regression/functionApproximator_LW.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ArmModelPython/FileProcessing/FileReading.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ArmModelPython/FileProcessing/FileSaving.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ArmModelPython/Regression/LWRControler_creator.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ArmModelPython/ArmModel/ArmModelK.py"/>
 </editors>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="530" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="791" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="1374" y="0"/>
 </item>
-<item historyLabel="FileSaving" index="3">
-<position info="not_deleted" x="226" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="791" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="1374" y="0"/>
 </item>
-<item historyLabel="FileSaving" index="3">
-<position info="not_deleted" x="226" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="791" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="1374" y="0"/>
 </item>
-<item historyLabel="FileSaving" index="3">
-<position info="not_deleted" x="226" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="791" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="1374" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="790" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position/>
 </item>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="530" y="0"/>
+<item historyLabel="functionApproximator_LW" index="2">
+<position info="not_deleted" x="4564" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="790" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="791" y="0"/>
+<item historyLabel="functionApproximator_LW" index="2">
+<position info="not_deleted" x="4564" y="0"/>
 </item>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="530" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="791" y="0"/>
+<item historyLabel="functionApproximator_LW" index="2">
+<position info="not_deleted" x="4564" y="0"/>
 </item>
-<item historyLabel="FileSaving" index="3">
-<position info="not_deleted" x="226" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position/>
 </item>
-<item historyLabel="FileReading" index="2">
-<position info="not_deleted" x="1543" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="898" y="0"/>
 </item>
-<item historyLabel="FileSaving" index="3">
-<position info="not_deleted" x="181" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="791" y="0"/>
+<item historyLabel="functionApproximator_LW" index="2">
+<position info="not_deleted" x="4564" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="382" y="45"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position info="not_deleted" x="3011" y="0"/>
 </item>
-<item historyLabel="FileReading" index="2">
-<position info="not_deleted" x="2594" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="899" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="382" y="45"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="743" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="511" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="382" y="45"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position/>
 </item>
-<item historyLabel="FileReading" index="2">
-<position info="not_deleted" x="378" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="511" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="382" y="45"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position info="not_deleted" x="2032" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="515" y="112"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="511" y="0"/>
 </item>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="663" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position info="not_deleted" x="2030" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="743" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="511" y="0"/>
 </item>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="663" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position info="not_deleted" x="2030" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="515" y="112"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="478" y="0"/>
 </item>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="663" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position info="not_deleted" x="2030" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="515" y="112"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="300" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="791" y="0"/>
+<item historyLabel="functionApproximator_LWR" index="1">
+<position info="not_deleted" x="2200" y="0"/>
 </item>
-<item historyLabel="FileSaving" index="3">
-<position info="not_deleted" x="224" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="1374" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="842" y="0"/>
+<item historyLabel="FileReading" index="3">
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="663" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="1374" y="0"/>
 </item>
-<item historyLabel="FileSaving" index="3">
-<position info="not_deleted" x="224" y="0"/>
+<item historyLabel="ArmModelK" index="4">
+<position info="not_deleted" x="3101" y="350"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="842" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="1374" y="0"/>
 </item>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="663" y="0"/>
+<item historyLabel="ArmModelK" index="4">
+<position info="not_deleted" x="5672" y="0"/>
 </item>
-<item historyLabel="FileReading" index="2">
-<position info="not_deleted" x="378" y="0"/>
+<item historyLabel="FileReading" index="3">
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="663" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="1374" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="842" y="0"/>
+<item historyLabel="ArmModelK" index="4">
+<position info="not_deleted" x="174" y="31"/>
 </item>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="663" y="0"/>
+<item historyLabel="FileReading" index="3">
+<position info="not_deleted" x="127" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="822" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="240" y="0"/>
 </item>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="663" y="0"/>
+<item historyLabel="ArmModelK" index="4">
+<position info="not_deleted" x="206" y="37"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="822" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="964" y="0"/>
 </item>
-<item historyLabel="functionApproximator_LWR" index="0">
-<position info="not_deleted" x="1042" y="0"/>
+<item historyLabel="ArmModelK" index="4">
+<position info="not_deleted" x="2501" y="0"/>
 </item>
-<item historyLabel="LWRControler_creator" index="1">
-<position info="not_deleted" x="822" y="0"/>
+<item historyLabel="FileReading" index="3">
+<position info="not_deleted" x="127" y="0"/>
 </item>
-<item historyLabel="FileReading" index="2">
-<position info="not_deleted" x="378" y="0"/>
+<item historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="964" y="0"/>
 </item>
-<item active="true" historyLabel="LWRControler_creator" index="4">
-<position info="not_deleted" x="822" y="0"/>
+<item active="true" historyLabel="LWRControler_creator" index="0">
+<position info="not_deleted" x="1466" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -410,8 +410,17 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ArmModelK.py" tooltip="ArmModelPython/ArmModel/ArmModelK.py">
+<persistable path="/ArmModelPython/ArmModel/ArmModelK.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="FileReading.py" tooltip="ArmModelPython/FileProcessing/FileReading.py">
+<persistable path="/ArmModelPython/FileProcessing/FileReading.py"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="FileSaving.py" tooltip="ArmModelPython/FileProcessing/FileSaving.py">
 <persistable path="/ArmModelPython/FileProcessing/FileSaving.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="functionApproximator_PlottingTools.py" tooltip="ArmModelPython/Regression/functionApproximator_PlottingTools.py">
+<persistable path="/ArmModelPython/Regression/functionApproximator_PlottingTools.py"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="__init__.py" tooltip="ArmModelPython/FileProcessing/__init__.py">
 <persistable path="/ArmModelPython/FileProcessing/__init__.py"/>
@@ -431,9 +440,6 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ParametresArmModel.py" tooltip="ArmModelPython/ArmModel/ParametresArmModel.py">
 <persistable path="/ArmModelPython/ArmModel/ParametresArmModel.py"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ArmModelK.py" tooltip="ArmModelPython/ArmModel/ArmModelK.py">
-<persistable path="/ArmModelPython/ArmModel/ArmModelK.py"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="functionApproximator_LWR.py" tooltip="ArmModelPython/Regression/functionApproximator_LWR.py">
 <persistable path="/ArmModelPython/Regression/functionApproximator_LWR.py"/>
 </file>
@@ -443,17 +449,11 @@
 <file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="axes.py" tooltip="/usr/lib/python3/dist-packages/matplotlib/axes.py">
 <persistable uri="file:/usr/lib/python3/dist-packages/matplotlib/axes.py"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="functionApproximator_PlottingTools.py" tooltip="ArmModelPython/Regression/functionApproximator_PlottingTools.py">
-<persistable path="/ArmModelPython/Regression/functionApproximator_PlottingTools.py"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="functionApproximator_LW.py" tooltip="ArmModelPython/Regression/functionApproximator_LW.py">
 <persistable path="/ArmModelPython/Regression/functionApproximator_LW.py"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="run.py" tooltip="ArmModelPython/Regression/run.py">
 <persistable path="/ArmModelPython/Regression/run.py"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="functionApproximator.py" tooltip="FunctionApproximator/Regression/functionApproximator.py">
-<persistable path="/FunctionApproximator/Regression/functionApproximator.py"/>
 </file>
 </mruList>
 </workbench>
