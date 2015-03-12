@@ -18,15 +18,15 @@ class fa_lwr():
     ######################################################################################
     def train_LWR(self, xData, yData):
         if self.dim == 4:
-            self.theta = np.zeros((5,self.nbFeat))
-            Ak = np.zeros((5,5))
-            bk = np.zeros((5,1))
+            self.theta = np.zeros((self.dim+1,self.nbFeat))
+            Ak = np.zeros((self.dim+1,self.dim+1))
+            bk = np.zeros((self.dim+1,1))
         elif self.dim == 2:
             ###################################################################################################
-            #En dimension 2
-            self.theta = np.zeros((3,self.nbFeat))
-            Ak = np.zeros((3,3))
-            bk = np.zeros((3,1))
+            #En dimension 
+            self.theta = np.zeros((self.dim+1,self.nbFeat))
+            Ak = np.zeros((self.dim+1,self.dim+1))
+            bk = np.zeros((self.dim+1,1))
             ###################################################################################################
         numDataPoints = len(xData)
         
@@ -61,34 +61,24 @@ class fa_lwr():
             self.widthConstant = 10 / self.nbFeat
             self.widths = np.ones(self.nbFeat,) * self.widthConstant
         #################################################
-        '''xmin = -7.0
-        xmax = 7.0
-        self.centersPP1 = np.linspace(xmin, xmax, self.nbFeat)
-        self.centersPP2 = np.linspace(xmin, xmax, self.nbFeat)
-        self.centersP1 = np.linspace(xmin, xmax, self.nbFeat)
-        self.centersP2 = np.linspace(xmin, xmax, self.nbFeat)
-        self.widthConstant = (xmax - xmin) / self.nbFeat / 100
-        self.widths = np.ones(self.nbFeat,) * self.widthConstant
-        tentersPP1 = np.ones(self.nbFeat,) * self.widthConstant
-        print(tentersPP1)'''
     
     ######################################################################################
     ## Fonction pour calculer le poids de chaque input par des gaussiennes              ##      
     ######################################################################################    
-    def getWeights(self, input):
+    def getWeights(self, inputgw):
         if self.dim == 4:
-            if np.size(input) == 4:
-                W = np.exp(-(np.divide(np.square(input[0] - self.centersPP1), self.widths) 
-                             + np.divide(np.square(input[1] - self.centersPP2), self.widths)
-                             + np.divide(np.square(input[2] - self.centersP1), self.widths)
-                             + np.divide(np.square(input[3] - self.centersP2), self.widths)))
-            elif np.size(input) > 4:
-                numEvals = ((np.mat(input)).shape)[0]
+            if np.size(inputgw) == 4:
+                W = np.exp(-(np.divide(np.square(inputgw[0] - self.centersPP1), self.widths) 
+                             + np.divide(np.square(inputgw[1] - self.centersPP2), self.widths)
+                             + np.divide(np.square(inputgw[2] - self.centersP1), self.widths)
+                             + np.divide(np.square(inputgw[3] - self.centersP2), self.widths)))
+            elif np.size(inputgw) > 4:
+                numEvals = ((np.mat(inputgw)).shape)[0]
                 el0 = []
                 el1 = []
                 el2 = []
                 el3 = []
-                for el in input:
+                for el in inputgw:
                     el0.append(el[0])
                     el1.append(el[1])
                     el2.append(el[2])
@@ -109,14 +99,14 @@ class fa_lwr():
         ###################################################################################################
         #En dimension 2
         elif self.dim == 2:
-            if np.size(input) == 2:
-                W = np.exp(-(np.divide(np.square(input[0] - self.centersX), self.widths) 
-                             + np.divide(np.square(input[1] - self.centersY), self.widths)))
-            elif np.size(input) > 2:
-                numEvals = ((np.mat(input)).shape)[0]
+            if np.size(inputgw) == 2:
+                W = np.exp(-(np.divide(np.square(inputgw[0] - self.centersX), self.widths) 
+                             + np.divide(np.square(inputgw[1] - self.centersY), self.widths)))
+            elif np.size(inputgw) > 2:
+                numEvals = ((np.mat(inputgw)).shape)[0]
                 el0 = []
                 el1 = []
-                for el in input:
+                for el in inputgw:
                     el0.append(el[0])
                     el1.append(el[1])
                 inputMat0 = np.array([el0,]*self.nbFeat)
@@ -132,19 +122,19 @@ class fa_lwr():
     ######################################################################################
     ## Fonction pour calculer la sortie des features selon l'input                      ##      
     ######################################################################################   
-    def featureOutput(self, input):   
+    def featureOutput(self, inputfo):   
         if self.dim == 4:
-            if np.size(input) == 4:
-                phi = np.vstack(([input[0]],[input[1]],[input[2]],[input[3]], [1]))
-            elif np.size(input) > 4:
-                phi = np.hstack((np.mat(input), np.ones((((np.mat(input)).shape)[0],1))))
+            if np.size(inputfo) == 4:
+                phi = np.vstack(([inputfo[0]],[inputfo[1]],[inputfo[2]],[inputfo[3]], [1]))
+            elif np.size(inputfo) > 4:
+                phi = np.hstack((np.mat(inputfo), np.ones((((np.mat(inputfo)).shape)[0],1))))
         ###################################################################################################
         #En dimension 2
         elif self.dim == 2:
-            if np.size(input) == 2:
-                phi = np.vstack(([input[0]],[input[1]], [1]))
-            elif np.size(input) > 2:
-                phi = np.hstack((np.mat(input), np.ones((((np.mat(input)).shape)[0],1)))) 
+            if np.size(inputfo) == 2:
+                phi = np.vstack(([inputfo[0]],[inputfo[1]], [1]))
+            elif np.size(inputfo) > 2:
+                phi = np.hstack((np.mat(inputfo), np.ones((((np.mat(inputfo)).shape)[0],1)))) 
         ###################################################################################################
         return phi
     
@@ -174,10 +164,10 @@ class fa_lwr():
     ######################################################################################
     ## Fonction pour calculer la sortie selon l'entree souhaitee                        ##      
     ###################################################################################### 
-    def functionApproximatorOutput(self, input):
-        phi = self.featureOutput(input)
-        W = self.getWeights(input)
-        g = (np.dot(phi, self.theta)).transpose() #[numFeats x Ns]
+    def functionApproximatorOutput(self, inputfao):
+        phi = self.featureOutput(inputfao)
+        W = self.getWeights(inputfao)
+        g = (np.dot(phi, self.theta)).transpose()
         fa_out = np.sum((np.array(W)*np.array(g)), axis=0) / np.sum(np.array(W), axis=0)
         print("phi: ", phi.shape, "Theta: ", self.theta.shape, "W: ", W.shape, "g: ", g.shape, "fa_out: ", fa_out.shape)
         return fa_out
