@@ -77,6 +77,7 @@ funcApprox = fa(numFeats, learningRate, minDelta, maxIteration)
 funcApproxLocal = fa_lw(numFeats, minDelta, maxIteration)
 
 funcApproxLocal.train_LWLS(data)
+print("thethathetahtaht: ", funcApproxLocal.theta.shape, funcApproxLocal.theta)
 
 plotFA(funcApproxLocal, data)
 

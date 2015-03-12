@@ -24,6 +24,7 @@ def plotFA(fa_object, data):
     
     # Reconstruct the original function
     Np = np.shape(data)[1]
+    print("Np: ", Np)
     x_values = data[0,:]
     y_noisy = data[1,:]
     y_values = 1 - x_values - np.sin(-2.*math.pi*np.power(x_values,3.))*np.cos(-2.*math.pi*np.power(x_values,3.))*np.exp(-np.power(x_values,4.))
@@ -39,6 +40,7 @@ def plotFA(fa_object, data):
 
     # Get the predicted values from the FA
     y_approx = fa_object.functionApproximatorOutput(x_values)
+    print("yapprox ici: ", y_approx.shape)
 
     
     # Get execution time info

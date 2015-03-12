@@ -3,7 +3,7 @@ from FileProcessing.FileSaving import *
 from Regression.functionApproximator_LWR import *
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d import axes3d
 
 '''#Lecture des fichiers de trajectoire
 fileR = FileReading()
@@ -72,35 +72,33 @@ plt.show(block=True)'''
 X = np.arange(-5, 5, 0.25)
 Y = np.arange(-5, 5, 0.25)
 X, Y = np.meshgrid(X, Y)
-Z = X**2 + Y**2
+Z = np.sin(np.sqrt(X**2 + Y**2))
 xData = []
 zData = []
 for i in range(len(X)):
     for j in range(len(X)):
         xData.append((X[i][j],Y[i][j]))
         zData.append(Z[i][j])
-nbFeat2 = 5
-funApproxDim2 = fa_lwr(nbFeat2, xData, zData)
+nbFeat2 = 10
+funApproxDim2 = fa_lwr(nbFeat2, False, False, 2)
 funApproxDim2.train_LWR(xData, zData)
-print(funApproxDim2.theta.shape)
-print(funApproxDim2.theta)
+print("Theta shape: ",funApproxDim2.theta.shape)
 
 y_approx = funApproxDim2.functionApproximatorOutput(xData)
-print("yapprox: ", y_approx.shape)
-y_approxMat = np.zeros((40,40))
+print("yapprox shape: ", y_approx.shape)
+y_approxMat = np.zeros((len(X),len(X)))
 for i in range(len(X)):
     for j in range(len(X)):
-        y_approxMat[i][j] = y_approx[40*(i-1)+j]
+        y_approxMat[i][j] = y_approx[len(X)*i+j]
 print("ymat: ", y_approxMat.shape)
-#f_approx = plt.plot(x_values, y_approx, 'r')
+print("width: ", funApproxDim2.widthConstant)
 #####################################################################################
-
 fig = plt.figure()
 ax = fig.gca(projection='3d')
 X = np.arange(-5, 5, 0.25)
 Y = np.arange(-5, 5, 0.25)
 X, Y = np.meshgrid(X, Y)
-Z = X**2 + Y**2
+Z = np.sin(np.sqrt(X**2 + Y**2))
 surf = ax.plot_surface(X, Y, Z, rstride=1, cstride=1, linewidth=0, antialiased=False)
 
 fig2 = plt.figure()
@@ -109,6 +107,28 @@ X = np.arange(-5, 5, 0.25)
 Y = np.arange(-5, 5, 0.25)
 X, Y = np.meshgrid(X, Y)
 surf = ax.plot_surface(X, Y, y_approxMat, rstride=1, cstride=1, linewidth=0, antialiased=False)
+
+fig3 = plt.figure()
+ax = fig3.add_subplot(111, projection='3d')
+X = np.arange(-5, 5, 0.25)
+Y = np.arange(-5, 5, 0.25)
+X, Y = np.meshgrid(X, Y)
+Z = np.sin(np.sqrt(X**2 + Y**2))
+ax.plot_wireframe(X, Y, Z, rstride=10, cstride=10)
+ax.scatter(funApproxDim2.centersX,np.zeros(np.shape(funApproxDim2.centersX)),0)
+ax.scatter(np.zeros(np.shape(funApproxDim2.centersY)),funApproxDim2.centersY,0)
+
+fig4 = plt.figure()
+ax = fig4.add_subplot(111, projection='3d')
+X = np.arange(-5, 5, 0.25)
+Y = np.arange(-5, 5, 0.25)
+X, Y = np.meshgrid(X, Y)
+ax.plot_wireframe(X, Y, y_approxMat, rstride=10, cstride=10)
+for i in range(nbFeat2):
+    ax.plot([funApproxDim2.centersX[i]-funApproxDim2.widthConstant/2, funApproxDim2.centersX[i]+funApproxDim2.widthConstant/2], [0,0], 0)
+    ax.plot([0,0], [funApproxDim2.centersY[i]-funApproxDim2.widthConstant/2, funApproxDim2.centersY[i]+funApproxDim2.widthConstant/2], 0)
+
+
 plt.show(block=True)
     
     

@@ -73,13 +73,6 @@ class fa_lw():
         
         Ak = np.zeros((2,2))
         bk = np.zeros((2,1))
-        print("feature: ", self.featureOutput(xData[5]).shape)
-        print(self.featureOutput(xData[5]))
-        print(np.transpose(self.featureOutput(xData[5])))
-        print(np.dot(self.featureOutput(xData[5]), np.transpose(self.featureOutput(xData[5]))))
-        print("pseudo inverse: \n", np.linalg.pinv(np.dot(self.featureOutput(xData[5]), np.transpose(self.featureOutput(xData[5])))))
-        print("test: \n", self.featureOutput([xData[5], xData[6]]))
-        print("ydata[i]", yData[5])
                 
         for k in range(self.numFeatures):
             for i in range(numDataPoints):
@@ -114,6 +107,8 @@ class fa_lw():
         self.centers = np.linspace(xMin, xMax, self.numFeatures)
         self.widthConstant = (xMax - xMin) / self.numFeatures / 10
         self.widths = np.ones(self.numFeatures,) * self.widthConstant
+        print("centers: ", self.centers)
+        print("width: ", self.widths)
  
     
     def getWeights(self, input):
@@ -168,6 +163,8 @@ class fa_lw():
             #fa_out = np.dot(phi, self.theta.transpose())
         elif np.size(input) > 1:
             g = (np.dot(phi.transpose(), self.theta)).transpose() #[numFeats x Ns]
+            #print("phi transpose: ", phi.transpose())
+            #print("theta ici: ", self.theta)
             fa_out = np.sum((W*g), axis=0) / np.sum(W, axis=0)
             print("phi1: ", phi.shape, "W1: ", W.shape, "theta: ", self.theta.shape, "g: ", g.shape, "fa_out: ", fa_out.shape, "w*g: ", (W*g).shape)
         return fa_out
