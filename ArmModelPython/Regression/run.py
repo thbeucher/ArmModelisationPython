@@ -60,7 +60,7 @@ funcApprox = fa(numFeats, learningRate, minDelta, maxIteration)
 #funcApprox.train_GD() #feat=17/lr=0.2/mD=0.00001/mI=40000
 
 ## Least Squares
-#funcApprox.train_LS(data)
+funcApprox.train_LS(data)
 
 ## Recursive Least Squares
 #funcApprox.train_RLS()
@@ -69,16 +69,16 @@ funcApprox = fa(numFeats, learningRate, minDelta, maxIteration)
 #funcApprox.train_RLS2()
 
 
-#plotFA(funcApprox, data)
+plotFA(funcApprox, data)
 #animPlotFA(funcApprox, data)
 
 
 # Create the Locally Weighted FA object called, "funcApproxLocal", and initialize it with the FA variables set above.
-funcApproxLocal = fa_lw(numFeats, minDelta, maxIteration)
+#funcApproxLocal = fa_lw(numFeats, minDelta, maxIteration)
 
-funcApproxLocal.train_LWLS(data)
-print("thethathetahtaht: ", funcApproxLocal.theta.shape, funcApproxLocal.theta)
+#funcApproxLocal.train_LWLS(data)
+#print("thethathetahtaht: ", funcApproxLocal.theta.shape, funcApproxLocal.theta)
 
-plotFA(funcApproxLocal, data)
+#plotFA(funcApproxLocal, data)
 
 
