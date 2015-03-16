@@ -11,7 +11,7 @@
 from Regression.functionApproximator import *
 from Regression.functionApproximator_PlottingTools import *
 from Regression.functionApproximator_LW import *
-
+import numpy as np
 
 
 ### Load data set to be approximated (for batch methods)
@@ -60,7 +60,7 @@ funcApprox = fa(numFeats, learningRate, minDelta, maxIteration)
 #funcApprox.train_GD() #feat=17/lr=0.2/mD=0.00001/mI=40000
 
 ## Least Squares
-funcApprox.train_LS(data)
+#funcApprox.train_LS(data)
 
 ## Recursive Least Squares
 #funcApprox.train_RLS()
@@ -69,7 +69,7 @@ funcApprox.train_LS(data)
 #funcApprox.train_RLS2()
 
 
-plotFA(funcApprox, data)
+#plotFA(funcApprox, data)
 #animPlotFA(funcApprox, data)
 
 
@@ -81,4 +81,6 @@ plotFA(funcApprox, data)
 
 #plotFA(funcApproxLocal, data)
 
+
+    
 

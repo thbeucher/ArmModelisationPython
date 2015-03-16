@@ -212,9 +212,6 @@ plt.show(block=True)
 
 
 
-
-
-
     
     
     

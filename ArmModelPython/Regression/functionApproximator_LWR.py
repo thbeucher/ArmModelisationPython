@@ -6,8 +6,9 @@ class fa_lwr():
     def __init__(self, nbFeature, data, name, dim):
         self.nbFeat = nbFeature
         self.dim = dim
+        self.centers = {}
         self.xMinxMax = []
-        self.thetatest = np.zeros(self.nbFeat,)
+        self.thetaLS = np.zeros(self.nbFeat,)
         self.centersG = np.zeros((nbFeature, nbFeature))
         if data == False and name == False:
             pass
@@ -19,7 +20,7 @@ class fa_lwr():
     ## Fonction d'apprentissage pour la regression                                      ##      
     ######################################################################################
     def train_LS(self, xData, yData):       
-        self.thetatest = np.dot(np.linalg.pinv(np.dot(self.featureOutputLS(xData),np.transpose(self.featureOutputLS(xData)))),np.dot(self.featureOutputLS(xData), yData))
+        self.thetaLS = np.dot(np.linalg.pinv(np.dot(self.featureOutputLS(xData),np.transpose(self.featureOutputLS(xData)))),np.dot(self.featureOutputLS(xData), yData))
     
     def train_LWR(self, xData, yData):
         if self.dim == 4:
@@ -60,7 +61,7 @@ class fa_lwr():
             self.centersPP2 = np.linspace((self.xMinxMax[1])[0], (self.xMinxMax[1])[1], self.nbFeat)
             self.centersP1 = np.linspace((self.xMinxMax[2])[0], (self.xMinxMax[2])[1], self.nbFeat)
             self.centersP2 = np.linspace((self.xMinxMax[3])[0], (self.xMinxMax[3])[1], self.nbFeat)
-            self.widthConstant = 1 / self.nbFeat / 1
+            self.widthConstant = 10 / self.nbFeat
             self.widths = np.ones(self.nbFeat,) * self.widthConstant
         #################################################
         #En dimension 2
@@ -72,6 +73,12 @@ class fa_lwr():
             self.widths = np.ones(self.nbFeat,) * self.widthConstant
             self.widthst = np.ones((self.nbFeat, self.nbFeat)) * self.widthConstant##TEST##
         #################################################
+        #En dimension n
+        centersAxe = {}
+        for i in range(self.dim):
+            centersAxe[i] = np.linspace(-5,5,self.nbFeat)
+        if self.dim == 2:
+            self.centers[0], self.centers[1] = np.meshgrid(centersAxe[0], centersAxe[1])
     
     ######################################################################################
     ## Fonction pour calculer le poids de chaque input par des gaussiennes              ##      
@@ -135,7 +142,6 @@ class fa_lwr():
                 widthsMat = np.array([widthsMatTmp,]*numEvals).transpose()##TEST##
                 W = np.exp(-(np.divide(np.square(inputMat0 - centersMat0), widthsMat)
                              + np.divide(np.square(inputMat1 - centersMat1), widthsMat)))
-                print("W: ", W.shape, "input: ", inputMat0.shape, "centers: ", centersMat0.shape)
         ###################################################################################################
         return W
         
@@ -159,13 +165,44 @@ class fa_lwr():
         return phi
     
     def featureOutputLS(self, inputfols):
-        '''numEvals = np.shape(inputfols)[0]
-        inputMat = np.array([inputfols,]*self.numFeatures)
-        centersMat = np.array([self.centers,]*numEvals).transpose() 
-        widthsMat = np.array([self.widths,]*numEvals).transpose() 
-        phi = np.exp(-np.divide(np.square(inputMat - centersMat), widthsMat))'''
-        
         numEvals = ((np.mat(inputfols)).shape)[0]
+        ##featureOutputLS en n Dimensions
+        ##Les centres ne sont pas correctement mis en n dimensions
+        dicoInput = {}
+        phig = {}
+        phigTmp = {}
+        for i in range(self.dim):
+            dicoInput[i] = []
+        for i in range(len(dicoInput)):
+            for el in inputfols:
+                dicoInput[i].append(el[0 + i])
+        inputMat = {}
+        for i in range(self.dim):
+            inputMat[i] = np.array([dicoInput[i],]*(self.nbFeat**self.dim))
+        '''for i in range(self.dim):
+            phig[i] = np.divide(np.square(inputMat[i] - centersMat[i]), widthMat)
+        phiTmp = 0
+        for i in range(self.dim):
+            phiTmp += phig[i]
+        phit = np.exp(-phiTmp)'''
+        k = 0
+        g = 0
+        for f in range(self.dim):
+            for i in range(self.nbFeat):
+                for j in range(self.nbFeat):
+                    phig[g] = np.divide(np.square(dicoInput[f] - (self.centers[f])[i][j]), self.widthConstant)
+                    g += 1
+        for i in range(int(len(phig)/2)):
+            phigTmp[i] = phig[i] + phig[i+9]
+        for i in range(int(len(phigTmp))):
+            phigTmp[i] = np.exp(-phigTmp[i])
+        for i in range((self.nbFeat**self.dim)-1):
+            if k == 0:
+                phit = np.vstack((phigTmp[i], phigTmp[i+1]))
+                k += 1
+            else:
+                phit = np.vstack((phit, phigTmp[i+1]))
+        ##featureOutpulLS en 2 dimensions    
         el0 = []
         el1 = []
         for el in inputfols:
@@ -185,7 +222,6 @@ class fa_lwr():
         widthsMat = np.array([widthsMatTmp,]*numEvals).transpose()##TEST##
         phi = np.exp(-(np.divide(np.square(inputMat0 - centersMat0), widthsMat)
                         + np.divide(np.square(inputMat1 - centersMat1), widthsMat)))
-        
         return phi
     
     ######################################################################################
@@ -224,7 +260,7 @@ class fa_lwr():
         
     def functionApproximatorOutputLS(self, inputfaols):
         phi = self.featureOutputLS(inputfaols)
-        Theta = self.thetatest
+        Theta = self.thetaLS
         fa_out = np.dot(phi.transpose(), Theta) 
         
         return fa_out
