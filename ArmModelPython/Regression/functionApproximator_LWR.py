@@ -9,7 +9,6 @@ class fa_lwr():
         self.centers = {}
         self.xMinxMax = []
         self.thetaLS = np.zeros(self.nbFeat,)
-        self.centersG = np.zeros((nbFeature, nbFeature))
         if data == False and name == False:
             pass
         else:
@@ -56,29 +55,27 @@ class fa_lwr():
     ## Fonction pour fixer les centres et les sigmas des gaussiennes utilisees          ##      
     ######################################################################################
     def setCentersAndWidths(self):
+        centersAxe = {}
+        self.widthConstant = 10 / self.nbFeat
         if self.dim == 4:
-            self.centersPP1 = np.linspace((self.xMinxMax[0])[0], (self.xMinxMax[0])[1], self.nbFeat)
-            self.centersPP2 = np.linspace((self.xMinxMax[1])[0], (self.xMinxMax[1])[1], self.nbFeat)
-            self.centersP1 = np.linspace((self.xMinxMax[2])[0], (self.xMinxMax[2])[1], self.nbFeat)
-            self.centersP2 = np.linspace((self.xMinxMax[3])[0], (self.xMinxMax[3])[1], self.nbFeat)
-            self.widthConstant = 10 / self.nbFeat
+            centersPP1 = np.linspace((self.xMinxMax[0])[0], (self.xMinxMax[0])[1], self.nbFeat)
+            centersPP2 = np.linspace((self.xMinxMax[1])[0], (self.xMinxMax[1])[1], self.nbFeat)
+            centersP1 = np.linspace((self.xMinxMax[2])[0], (self.xMinxMax[2])[1], self.nbFeat)
+            centersP2 = np.linspace((self.xMinxMax[3])[0], (self.xMinxMax[3])[1], self.nbFeat)
+            self.centers[0], self.centers[1], self.centers[2], self.centers[3] = np.meshgrid(centersPP1, centersPP2, centersP1, centersP2)
             self.widths = np.ones(self.nbFeat,) * self.widthConstant
         #################################################
         #En dimension 2
         elif self.dim == 2:
-            self.centersX = np.linspace(-5,5,self.nbFeat)
+            '''self.centersX = np.linspace(-5,5,self.nbFeat)
             self.centersY = np.linspace(-5,5,self.nbFeat)
             self.centersXt, self.centersYt = np.meshgrid(self.centersX, self.centersY)##TEST##
-            self.widthConstant = 10 / self.nbFeat
             self.widths = np.ones(self.nbFeat,) * self.widthConstant
-            self.widthst = np.ones((self.nbFeat, self.nbFeat)) * self.widthConstant##TEST##
-        #################################################
-        #En dimension n
-        centersAxe = {}
-        for i in range(self.dim):
-            centersAxe[i] = np.linspace(-5,5,self.nbFeat)
-        if self.dim == 2:
+            self.widthst = np.ones((self.nbFeat, self.nbFeat)) * self.widthConstant##TEST##'''
+            for i in range(self.dim):
+                centersAxe[i] = np.linspace(-5,5,self.nbFeat)
             self.centers[0], self.centers[1] = np.meshgrid(centersAxe[0], centersAxe[1])
+        
     
     ######################################################################################
     ## Fonction pour calculer le poids de chaque input par des gaussiennes              ##      
@@ -167,7 +164,6 @@ class fa_lwr():
     def featureOutputLS(self, inputfols):
         numEvals = ((np.mat(inputfols)).shape)[0]
         ##featureOutputLS en n Dimensions
-        ##Les centres ne sont pas correctement mis en n dimensions
         dicoInput = {}
         phig = {}
         phigTmp = {}
@@ -176,15 +172,6 @@ class fa_lwr():
         for i in range(len(dicoInput)):
             for el in inputfols:
                 dicoInput[i].append(el[0 + i])
-        inputMat = {}
-        for i in range(self.dim):
-            inputMat[i] = np.array([dicoInput[i],]*(self.nbFeat**self.dim))
-        '''for i in range(self.dim):
-            phig[i] = np.divide(np.square(inputMat[i] - centersMat[i]), widthMat)
-        phiTmp = 0
-        for i in range(self.dim):
-            phiTmp += phig[i]
-        phit = np.exp(-phiTmp)'''
         k = 0
         g = 0
         for f in range(self.dim):
@@ -193,7 +180,7 @@ class fa_lwr():
                     phig[g] = np.divide(np.square(dicoInput[f] - (self.centers[f])[i][j]), self.widthConstant)
                     g += 1
         for i in range(int(len(phig)/2)):
-            phigTmp[i] = phig[i] + phig[i+9]
+            phigTmp[i] = phig[i] + phig[i+int(len(phig)/2)]
         for i in range(int(len(phigTmp))):
             phigTmp[i] = np.exp(-phigTmp[i])
         for i in range((self.nbFeat**self.dim)-1):
@@ -203,7 +190,7 @@ class fa_lwr():
             else:
                 phit = np.vstack((phit, phigTmp[i+1]))
         ##featureOutpulLS en 2 dimensions    
-        el0 = []
+        '''el0 = []
         el1 = []
         for el in inputfols:
             el0.append(el[0])
@@ -221,8 +208,8 @@ class fa_lwr():
         centersMat1 = np.array([centersYtTmp,]*numEvals).transpose()##TEST##
         widthsMat = np.array([widthsMatTmp,]*numEvals).transpose()##TEST##
         phi = np.exp(-(np.divide(np.square(inputMat0 - centersMat0), widthsMat)
-                        + np.divide(np.square(inputMat1 - centersMat1), widthsMat)))
-        return phi
+                        + np.divide(np.square(inputMat1 - centersMat1), widthsMat)))'''
+        return phit
     
     ######################################################################################
     ## Fonction pour calculer la plage de valeurs des differentes variables             ##      

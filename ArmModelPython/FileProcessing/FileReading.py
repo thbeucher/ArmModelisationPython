@@ -2,7 +2,7 @@ import pickle
 import ArmModel.ParametresRobot as pr
 import numpy as np
 import math as ma
-import cma as cma
+#import cma as cma
 import os.path as op
 
 class FileReading():
