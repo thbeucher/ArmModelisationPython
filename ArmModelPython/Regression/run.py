@@ -12,6 +12,8 @@ from Regression.functionApproximator import *
 from Regression.functionApproximator_PlottingTools import *
 from Regression.functionApproximator_LW import *
 import numpy as np
+from FileProcessing.FileReading import FileReading
+from Regression.ControlerUtil import ControlerUtil
 
 
 ### Load data set to be approximated (for batch methods)
@@ -81,6 +83,19 @@ funcApprox = fa(numFeats, learningRate, minDelta, maxIteration)
 
 #plotFA(funcApproxLocal, data)
 
+fra = FileReading()
+stateAll, commandAll = fra.recup_data()
+a = np.random.rand()
+a = int(a*10)
+#print("a", a, "\nstate", stateAll[a], "\ncommand", commandAll[a])
+#print((stateAll[a])[0])
 
-    
+nbf = input("Nombre de features correspondant au controleur voulu: ")
+nbf = int(nbf)
+nbd = input("Nombre de dimension correspondant au controleur voulu: ")
+nbd = int(nbd)
+cu = ControlerUtil(nbf, nbd)
+cu.getCommand(stateAll[a])
+print(cu.faOutStore["faOut_u1"])
+
 

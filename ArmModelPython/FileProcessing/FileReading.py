@@ -13,6 +13,30 @@ class FileReading():
         self.uCommand = {}
         self.data_store = {}   
         self.name_store = []
+        self.theta_store = {}
+    
+    def getxMinMax(self, nbfeat):
+        folder = getcwd()
+        folder = op.split(folder)
+        folder = folder[0] + "/FileProcessing/RegressionResults/"
+        folderNbFeat = folder + str(nbfeat) + "_feats/xMinMax"
+        with open(folderNbFeat, "rb") as file:
+            mondepickler = pickle.Unpickler(file)
+            data = mondepickler.load()
+        return data
+    
+    def getTheta(self, nbfeat):
+        folder = getcwd()
+        folder = op.split(folder)
+        folder = folder[0] + "/FileProcessing/RegressionResults/"
+        folder = folder + str(nbfeat) + "_feats/AllCommand_u"
+        for i in range(6):
+            name = folder + str(i+1)
+            with open(name, "rb") as file:
+                mondepickler = pickle.Unpickler(file)
+                data = mondepickler.load()
+            self.theta_store[str("u" + str(i+1))] = data
+        
     
     #target(4) estimated_state(4) actual_state(4) noised_command(6) command(6) estimated_next_state(4) 
     #actual_next_state(4) next_acceleration(2)

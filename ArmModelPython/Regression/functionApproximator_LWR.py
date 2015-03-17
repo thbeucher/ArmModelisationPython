@@ -3,16 +3,16 @@ import numpy as np
 
 class fa_lwr():
     
-    def __init__(self, nbFeature, dim, data = False, name = False, a = False):
+    def __init__(self, nbFeature, dim, data = 1, name = 2, xMinMaxE = 3):
         self.nbFeat = nbFeature
         self.dim = dim
         self.centers = {}
-        self.xMinxMax = []
         self.thetaLS = np.zeros(self.nbFeat,)
-        if a == False:
+        self.xMinxMax = []
+        if xMinMaxE == 3:
             self.rangeValueData(data, name)
         else:
-            pass
+            self.xMinxMax = xMinMaxE
         self.setCentersAndWidths()
     
     ######################################################################################
@@ -162,7 +162,7 @@ class fa_lwr():
         ###################################################################################################
         return phi
     
-    def featureOutputLS(self, inputfols):
+    def featureOutputLS(self, inputfols, a = 1):
         numEvals = ((np.mat(inputfols)).shape)[0]
         ##featureOutputLS en n Dimensions
         dicoInput = {}
@@ -172,7 +172,10 @@ class fa_lwr():
             dicoInput[i] = []
         for i in range(len(dicoInput)):
             for el in inputfols:
-                dicoInput[i].append(el[0 + i])
+                if a == 2:
+                    dicoInput[i].append(el)
+                else:
+                    dicoInput[i].append(el[0 + i])
         g = 0
         for f in range(self.dim):
             if self.dim == 2:
@@ -254,9 +257,12 @@ class fa_lwr():
         print("phi: ", phi.shape, "Theta: ", self.theta.shape, "W: ", W.shape, "g: ", g.shape, "fa_out: ", fa_out.shape)
         return fa_out
         
-    def functionApproximatorOutputLS(self, inputfaols):
-        phi = self.featureOutputLS(inputfaols)
-        Theta = self.thetaLS
+    def functionApproximatorOutputLS(self, inputfaols, thethaC, a = 1):
+        phi = self.featureOutputLS(inputfaols, 2)
+        if a == 1:
+            Theta = self.thetaLS
+        else:
+            Theta = thethaC
         fa_out = np.dot(phi.transpose(), Theta) 
         
         return fa_out

@@ -16,7 +16,8 @@ i = 0
 nbFeat = 3
 print("Debut de traitement trajectoire par trajectoire!")
 t0 = time.time()
-funApprox = fa_lwr(nbFeat, 4, fileR.data_store, fileR.name_store)
+funApprox = fa_lwr(nbFeat, 4, fileR.data_store, fileR.name_store, 3)
+fileSaving("xMinMax", funApprox.xMinxMax, funApprox.nbFeat)
 for el in fileR.name_store:
     fileR.tabActivationMuscu(el)
     #Boucle de traitement pour chaque activation musculaire
