@@ -3,16 +3,16 @@ import numpy as np
 
 class fa_lwr():
     
-    def __init__(self, nbFeature, data, name, dim):
+    def __init__(self, nbFeature, dim, data = False, name = False, a = False):
         self.nbFeat = nbFeature
         self.dim = dim
         self.centers = {}
         self.xMinxMax = []
         self.thetaLS = np.zeros(self.nbFeat,)
-        if data == False and name == False:
-            pass
-        else:
+        if a == False:
             self.rangeValueData(data, name)
+        else:
+            pass
         self.setCentersAndWidths()
     
     ######################################################################################

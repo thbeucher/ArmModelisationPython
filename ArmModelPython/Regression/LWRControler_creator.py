@@ -16,7 +16,7 @@ i = 0
 nbFeat = 3
 print("Debut de traitement trajectoire par trajectoire!")
 t0 = time.time()
-funApprox = fa_lwr(nbFeat, fileR.data_store, fileR.name_store, 4)
+funApprox = fa_lwr(nbFeat, 4, fileR.data_store, fileR.name_store)
 for el in fileR.name_store:
     fileR.tabActivationMuscu(el)
     #Boucle de traitement pour chaque activation musculaire
@@ -26,7 +26,7 @@ for el in fileR.name_store:
         funApprox.train_LS(fileR.data_store[str(el + "_state")], fileR.uCommand[str(el + "_u" + str(k+1))])
         #Sauvegarder les donnees de regression dans un fichier
         nameToSave = el + "_u" + str(k+1) 
-        fileSaving(nameToSave, funApprox.thetaLS)
+        fileSaving(nameToSave, funApprox.thetaLS, funApprox.nbFeat)
         k += 1
 t1 = time.time()
 print("Fin du traitement trajectoire par trajectoire! (Temps de traitement: ", (t1 - t0), "s)")
@@ -36,7 +36,7 @@ fileR.tabActivationMuscu("AllCommand", commandAll, True)
 for i in range(6):
     name = str("AllCommand_u" + str(i+1))
     funApprox.train_LS(stateAll, fileR.uCommand[name])
-    fileSaving(name, funApprox.thetaLS)
+    fileSaving(name, funApprox.thetaLS, funApprox.nbFeat)
 t1 = time.time()
 print("Fin de traitement toutes les trajectoires ensembles! (Temps de traitement: ", (t1 - t0), "s)")
 
