@@ -13,8 +13,6 @@ class FileReading():
         self.uCommand = {}
         self.data_store = {}   
         self.name_store = []
-        
-    
     
     #target(4) estimated_state(4) actual_state(4) noised_command(6) command(6) estimated_next_state(4) 
     #actual_next_state(4) next_acceleration(2)
@@ -27,6 +25,7 @@ class FileReading():
         nbFichier = input("Veuillez entrer le nombre de fichier à traiter: ")
         nbFichier = int(nbFichier)
         j = 0
+        l = 0
         nbf = 0
         while j < nbFichier:
             if op.isfile(chemin + nameFichier + str(j+1+nbf) + ".log") == False:
@@ -43,12 +42,20 @@ class FileReading():
             self.data_store[str(nameFichier + str(j+1+nbf) + "_state")] = state
             self.data_store[str(nameFichier + str(j+1+nbf) + "_command")] = command
             self.name_store.append(str(nameFichier + str(j+1+nbf)))
+            if l == 0:
+                stateAll = np.array(state)
+                commandAll = np.array(command)
+                l += 1
+            else:
+                stateAll = np.vstack((stateAll, state))
+                commandAll = np.vstack((commandAll, command))
             j += 1
+        return stateAll, commandAll
     
     #################################################################################################################
     ## Fonction pour mettre dans tes tableaux separes les differentes activations musculaires                      ##
     #################################################################################################################
-    def tabActivationMuscu(self, nameFileTemp):
+    def tabActivationMuscu(self, nameFileTemp, commandAll = None, a = False):
         #Recuperation dans des tableaux des activations musculaires
         j = 0
         u1 = []
@@ -57,14 +64,23 @@ class FileReading():
         u4 = []
         u5 = []
         u6 = []
-        while j < len(self.data_store[str(nameFileTemp + "_command")]):
-            u1.append(((self.data_store[str(nameFileTemp + "_command")])[j])[0])
-            u2.append(((self.data_store[str(nameFileTemp + "_command")])[j])[1])
-            u3.append(((self.data_store[str(nameFileTemp + "_command")])[j])[2])
-            u4.append(((self.data_store[str(nameFileTemp + "_command")])[j])[3])
-            u5.append(((self.data_store[str(nameFileTemp + "_command")])[j])[4])
-            u6.append(((self.data_store[str(nameFileTemp + "_command")])[j])[5])
-            j += 1
+        if a == True:    
+            for el in commandAll:
+                u1.append(el[0])
+                u2.append(el[1])
+                u3.append(el[2])
+                u4.append(el[3])
+                u5.append(el[4])
+                u6.append(el[5])
+        else:
+            while j < len(self.data_store[str(nameFileTemp + "_command")]):
+                u1.append(((self.data_store[str(nameFileTemp + "_command")])[j])[0])
+                u2.append(((self.data_store[str(nameFileTemp + "_command")])[j])[1])
+                u3.append(((self.data_store[str(nameFileTemp + "_command")])[j])[2])
+                u4.append(((self.data_store[str(nameFileTemp + "_command")])[j])[3])
+                u5.append(((self.data_store[str(nameFileTemp + "_command")])[j])[4])
+                u6.append(((self.data_store[str(nameFileTemp + "_command")])[j])[5])
+                j += 1
         #Rangement dans un dictionnaire des differents tableaux d'activations musculaires
         self.uCommand[str(nameFileTemp + "_u1")] = u1
         self.uCommand[str(nameFileTemp + "_u2")] = u2

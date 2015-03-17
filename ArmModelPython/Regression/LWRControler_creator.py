@@ -4,14 +4,18 @@ from Regression.functionApproximator_LWR import *
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from mpl_toolkits.mplot3d import axes3d
+import time
 
 #Lecture des fichiers de trajectoire
 fileR = FileReading()
-fileR.recup_data()
+stateAll, commandAll = fileR.recup_data()
+print("state", stateAll.shape, "command", commandAll.shape)
 
 #Boucle de traitement pour generer le controleur
 i = 0
 nbFeat = 3
+print("Debut de traitement trajectoire par trajectoire!")
+t0 = time.time()
 funApprox = fa_lwr(nbFeat, fileR.data_store, fileR.name_store, 4)
 for el in fileR.name_store:
     fileR.tabActivationMuscu(el)
@@ -24,8 +28,17 @@ for el in fileR.name_store:
         nameToSave = el + "_u" + str(k+1) 
         fileSaving(nameToSave, funApprox.thetaLS)
         k += 1
-print("Fin du traitement!")
-
+t1 = time.time()
+print("Fin du traitement trajectoire par trajectoire! (Temps de traitement: ", (t1 - t0), "s)")
+print("Debut traitement toutes les trajectoires ensembles!")
+t0 = time.time()
+fileR.tabActivationMuscu("AllCommand", commandAll, True)
+for i in range(6):
+    name = str("AllCommand_u" + str(i+1))
+    funApprox.train_LS(stateAll, fileR.uCommand[name])
+    fileSaving(name, funApprox.thetaLS)
+t1 = time.time()
+print("Fin de traitement toutes les trajectoires ensembles! (Temps de traitement: ", (t1 - t0), "s)")
 
 #Plot
 
