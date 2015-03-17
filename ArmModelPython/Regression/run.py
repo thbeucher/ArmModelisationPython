@@ -83,19 +83,22 @@ funcApprox = fa(numFeats, learningRate, minDelta, maxIteration)
 
 #plotFA(funcApproxLocal, data)
 
+#######################################################################################
+##Utilisation du controleur                                                          ##
+#######################################################################################
 fra = FileReading()
 stateAll, commandAll = fra.recup_data()
 a = np.random.rand()
 a = int(a*10)
-#print("a", a, "\nstate", stateAll[a], "\ncommand", commandAll[a])
-#print((stateAll[a])[0])
 
 nbf = input("Nombre de features correspondant au controleur voulu: ")
 nbf = int(nbf)
 nbd = input("Nombre de dimension correspondant au controleur voulu: ")
 nbd = int(nbd)
+nbt = input("Veuillez choisir le numero d'une trajectoire de travail: ")
+nbt = int(nbt)
 cu = ControlerUtil(nbf, nbd)
-cu.getCommand(stateAll[a])
-print(cu.faOutStore["faOut_u1"])
+cu.getCommand(stateAll[a], nbt)
+print(cu.faOutStore)
 
-
+#######################################################################################

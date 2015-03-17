@@ -258,13 +258,16 @@ class fa_lwr():
         return fa_out
         
     def functionApproximatorOutputLS(self, inputfaols, thethaC, a = 1):
-        phi = self.featureOutputLS(inputfaols, 2)
+        phi = self.featureOutputLS(inputfaols, a)
+        print("phi1: ", phi[0], "\nphi2: ", phi[1])
         if a == 1:
             Theta = self.thetaLS
         else:
             Theta = thethaC
+        print("phi: ", phi.shape, "Theta: ", Theta.shape)
         fa_out = np.dot(phi.transpose(), Theta) 
-        
+        print("faout ici: ", fa_out)
+        #c = input("coucou")
         return fa_out
         
         

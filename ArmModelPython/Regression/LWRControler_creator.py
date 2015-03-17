@@ -7,7 +7,7 @@ from mpl_toolkits.mplot3d import axes3d
 import time
 
 #Lecture des fichiers de trajectoire
-fileR = FileReading()
+'''fileR = FileReading()
 stateAll, commandAll = fileR.recup_data()
 print("state", stateAll.shape, "command", commandAll.shape)
 
@@ -39,7 +39,7 @@ for i in range(6):
     funApprox.train_LS(stateAll, fileR.uCommand[name])
     fileSaving(name, funApprox.thetaLS, funApprox.nbFeat)
 t1 = time.time()
-print("Fin de traitement toutes les trajectoires ensembles! (Temps de traitement: ", (t1 - t0), "s)")
+print("Fin de traitement toutes les trajectoires ensembles! (Temps de traitement: ", (t1 - t0), "s)")'''
 
 #Plot
 
@@ -172,7 +172,7 @@ plt.show(block=True)'''
 ###################################################################################################################################
 ##TEST LS
 ###################################################################################################################################
-'''X = np.arange(-5, 5, 0.25)
+X = np.arange(-5, 5, 0.25)
 Y = np.arange(-5, 5, 0.25)
 X, Y = np.meshgrid(X, Y)
 Z = np.sin(np.sqrt(X**2 + Y**2))
@@ -183,9 +183,9 @@ for i in range(len(X)):
         xData.append((X[i][j],Y[i][j]))
         zData.append(Z[i][j])
 nbFeat2 = 20
-funApproxDim2 = fa_lwr(nbFeat2, False, False, 2)
+funApproxDim2 = fa_lwr(nbFeat2, 2, 1, 2, 4)
 funApproxDim2.train_LS(xData, zData)
-y_approxLS = funApproxDim2.functionApproximatorOutputLS(xData)
+y_approxLS = funApproxDim2.functionApproximatorOutputLS(xData, False)
 y_approxMatLS = np.zeros((len(X),len(X)))
 for i in range(len(X)):
     for j in range(len(X)):
@@ -209,7 +209,7 @@ ax.set_zlim(-1,1)
 ax.plot_surface(X, Y, y_approxMatLS, rstride=1, cstride=1, linewidth=0, antialiased=False)
 
 plt.show(block=True)
-'''
+
 
 
 

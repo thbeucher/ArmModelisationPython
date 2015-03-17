@@ -25,11 +25,14 @@ class FileReading():
             data = mondepickler.load()
         return data
     
-    def getTheta(self, nbfeat):
+    def getTheta(self, nbfeat, choix):
         folder = getcwd()
         folder = op.split(folder)
         folder = folder[0] + "/FileProcessing/RegressionResults/"
-        folder = folder + str(nbfeat) + "_feats/AllCommand_u"
+        if choix == 0:
+            folder = folder + str(nbfeat) + "_feats/AllCommand_u"
+        else:
+            folder = folder + str(nbfeat) + "_feats/trajectoire" + str(choix) + "_u"
         for i in range(6):
             name = folder + str(i+1)
             with open(name, "rb") as file:
