@@ -170,12 +170,16 @@ class fa_lwr():
         phigTmp = {}
         for i in range(self.dim):
             dicoInput[i] = []
-        for i in range(len(dicoInput)):
+        if a == 2:
+            y = 0
             for el in inputfols:
-                if a == 2:
-                    dicoInput[i].append(el)
-                else:
+                dicoInput[y].append(el)
+                y += 1
+        else:
+            for i in range(len(dicoInput)):
+                for el in inputfols:
                     dicoInput[i].append(el[0 + i])
+        
         g = 0
         for f in range(self.dim):
             if self.dim == 2:
@@ -259,15 +263,11 @@ class fa_lwr():
         
     def functionApproximatorOutputLS(self, inputfaols, thethaC, a = 1):
         phi = self.featureOutputLS(inputfaols, a)
-        print("phi1: ", phi[0], "\nphi2: ", phi[1])
         if a == 1:
             Theta = self.thetaLS
         else:
             Theta = thethaC
-        print("phi: ", phi.shape, "Theta: ", Theta.shape)
         fa_out = np.dot(phi.transpose(), Theta) 
-        print("faout ici: ", fa_out)
-        #c = input("coucou")
         return fa_out
         
         
