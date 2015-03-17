@@ -18,8 +18,9 @@ class fa_lwr():
     ######################################################################################
     ## Fonction d'apprentissage pour la regression                                      ##      
     ######################################################################################
-    def train_LS(self, xData, yData):       
-        self.thetaLS = np.dot(np.linalg.pinv(np.dot(self.featureOutputLS(xData),np.transpose(self.featureOutputLS(xData)))),np.dot(self.featureOutputLS(xData), yData))
+    def train_LS(self, xData, yData):
+        #print("feature: ", self.featureOutputLS(xData).shape, "\nOutput: ", np.array(yData).shape)      
+        self.thetaLS = np.dot(np.linalg.pinv(np.dot(self.featureOutputLS(xData),np.transpose(self.featureOutputLS(xData)))),np.dot(self.featureOutputLS(xData), np.array(yData)))
     
     def train_LWR(self, xData, yData):
         if self.dim == 4:
@@ -172,17 +173,25 @@ class fa_lwr():
         for i in range(len(dicoInput)):
             for el in inputfols:
                 dicoInput[i].append(el[0 + i])
-        k = 0
         g = 0
         for f in range(self.dim):
-            for i in range(self.nbFeat):
-                for j in range(self.nbFeat):
-                    phig[g] = np.divide(np.square(dicoInput[f] - (self.centers[f])[i][j]), self.widthConstant)
-                    g += 1
+            if self.dim == 2:
+                for i in range(self.nbFeat):
+                    for j in range(self.nbFeat):
+                        phig[g] = np.divide(np.square(dicoInput[f] - (self.centers[f])[i][j]), self.widthConstant)
+                        g += 1
+            elif self.dim == 4:
+                for i in range(self.nbFeat):
+                    for j in range(self.nbFeat):
+                        for k in range(self.nbFeat):
+                            for l in range(self.nbFeat):
+                                phig[g] = np.divide(np.square(dicoInput[f] - (self.centers[f])[i][j][k][l]), self.widthConstant)
+                                g += 1
         for i in range(int(len(phig)/2)):
             phigTmp[i] = phig[i] + phig[i+int(len(phig)/2)]
         for i in range(int(len(phigTmp))):
             phigTmp[i] = np.exp(-phigTmp[i])
+        k = 0
         for i in range((self.nbFeat**self.dim)-1):
             if k == 0:
                 phit = np.vstack((phigTmp[i], phigTmp[i+1]))

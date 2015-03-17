@@ -5,13 +5,13 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from mpl_toolkits.mplot3d import axes3d
 
-'''#Lecture des fichiers de trajectoire
+#Lecture des fichiers de trajectoire
 fileR = FileReading()
 fileR.recup_data()
 
 #Boucle de traitement pour generer le controleur
 i = 0
-nbFeat = 7
+nbFeat = 3
 funApprox = fa_lwr(nbFeat, fileR.data_store, fileR.name_store, 4)
 for el in fileR.name_store:
     fileR.tabActivationMuscu(el)
@@ -19,16 +19,13 @@ for el in fileR.name_store:
     k = 0
     print(el)
     while k < 6:
-        funApprox.train_LWR(fileR.data_store[str(el + "_state")], fileR.uCommand[str("u" + str(k+1))])
+        funApprox.train_LS(fileR.data_store[str(el + "_state")], fileR.uCommand[str(el + "_u" + str(k+1))])
         #Sauvegarder les donnees de regression dans un fichier
         nameToSave = el + "_u" + str(k+1) 
-        fileSaving(nameToSave, funApprox.theta)
+        fileSaving(nameToSave, funApprox.thetaLS)
         k += 1
-print("Fin du traitement!")'''
+print("Fin du traitement!")
 
-#x_values = fileR.data_store["trajectoire1_state"]
-#y_approx = funApprox.functionApproximatorOutput(x_values)
-#f_approx = plt.plot(x_values, y_approx, 'r')
 
 #Plot
 
@@ -161,7 +158,7 @@ plt.show(block=True)'''
 ###################################################################################################################################
 ##TEST LS
 ###################################################################################################################################
-X = np.arange(-5, 5, 0.25)
+'''X = np.arange(-5, 5, 0.25)
 Y = np.arange(-5, 5, 0.25)
 X, Y = np.meshgrid(X, Y)
 Z = np.sin(np.sqrt(X**2 + Y**2))
@@ -198,7 +195,7 @@ ax.set_zlim(-1,1)
 ax.plot_surface(X, Y, y_approxMatLS, rstride=1, cstride=1, linewidth=0, antialiased=False)
 
 plt.show(block=True)
-
+'''
 
 
 

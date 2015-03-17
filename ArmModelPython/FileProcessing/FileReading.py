@@ -4,25 +4,25 @@ import numpy as np
 import math as ma
 #import cma as cma
 import os.path as op
+from nt import getcwd
 
 class FileReading():
     
     def __init__(self):
         #Recuperation des commandes
-        self.u1 = []
-        self.u2 = []
-        self.u3 = []
-        self.u4 = []
-        self.u5 = []
-        self.u6 = []
         self.uCommand = {}
         self.data_store = {}   
         self.name_store = []
+        
+    
+    
     #target(4) estimated_state(4) actual_state(4) noised_command(6) command(6) estimated_next_state(4) 
     #actual_next_state(4) next_acceleration(2)
     #Recuperation des donnees du fichier dans une matrice
     def recup_data(self):
-        chemin = "/home/beucher/workspace/ArmModelPython/FileProcessing/trajectoires/"
+        chemin = getcwd()
+        chemin = op.split(chemin)
+        chemin = chemin[0] + "/FileProcessing/trajectoires/"
         nameFichier = input("Veuillez entrer le nom courant des fichiers à traiter: ")
         nbFichier = input("Veuillez entrer le nombre de fichier à traiter: ")
         nbFichier = int(nbFichier)
@@ -51,21 +51,27 @@ class FileReading():
     def tabActivationMuscu(self, nameFileTemp):
         #Recuperation dans des tableaux des activations musculaires
         j = 0
+        u1 = []
+        u2 = []
+        u3 = []
+        u4 = []
+        u5 = []
+        u6 = []
         while j < len(self.data_store[str(nameFileTemp + "_command")]):
-            self.u1.append(((self.data_store[str(nameFileTemp + "_command")])[j])[0])
-            self.u2.append(((self.data_store[str(nameFileTemp + "_command")])[j])[1])
-            self.u3.append(((self.data_store[str(nameFileTemp + "_command")])[j])[2])
-            self.u4.append(((self.data_store[str(nameFileTemp + "_command")])[j])[3])
-            self.u5.append(((self.data_store[str(nameFileTemp + "_command")])[j])[4])
-            self.u6.append(((self.data_store[str(nameFileTemp + "_command")])[j])[5])
+            u1.append(((self.data_store[str(nameFileTemp + "_command")])[j])[0])
+            u2.append(((self.data_store[str(nameFileTemp + "_command")])[j])[1])
+            u3.append(((self.data_store[str(nameFileTemp + "_command")])[j])[2])
+            u4.append(((self.data_store[str(nameFileTemp + "_command")])[j])[3])
+            u5.append(((self.data_store[str(nameFileTemp + "_command")])[j])[4])
+            u6.append(((self.data_store[str(nameFileTemp + "_command")])[j])[5])
             j += 1
         #Rangement dans un dictionnaire des differents tableaux d'activations musculaires
-        self.uCommand["u1"] = self.u1
-        self.uCommand["u2"] = self.u2
-        self.uCommand["u3"] = self.u3
-        self.uCommand["u4"] = self.u4
-        self.uCommand["u5"] = self.u5
-        self.uCommand["u6"] = self.u6
+        self.uCommand[str(nameFileTemp + "_u1")] = u1
+        self.uCommand[str(nameFileTemp + "_u2")] = u2
+        self.uCommand[str(nameFileTemp + "_u3")] = u3
+        self.uCommand[str(nameFileTemp + "_u4")] = u4
+        self.uCommand[str(nameFileTemp + "_u5")] = u5
+        self.uCommand[str(nameFileTemp + "_u6")] = u6
     '''data_store = {}   
     data_store, nameFichier, nbFichier = recup_data()
     print(len(data_store))
