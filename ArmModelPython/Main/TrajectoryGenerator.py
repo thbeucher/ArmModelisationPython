@@ -8,6 +8,7 @@ from matplotlib import animation
 import matplotlib.pyplot as plt
 from FileProcessing.FileReading import FileReading
 import time
+from Optimisation.costFunction import costFunction
 
 
 #Recuperation des donnees necessaires a la simulation du bras
@@ -36,6 +37,8 @@ save = SavingData()
 coordEL, coordHA = save.calculCoord(q, robot)
 save.SaveTrajectory(coordEL, coordHA)
 
+cf = costFunction()
+
 #Boucle de traitement
 print("Debut du calcul de la trajectoire!")
 t0 = time.time()
@@ -60,12 +63,20 @@ while coordHA[1] < 0.6175:
         save.SaveTrajectory(coordEL, coordHA)
         #Sauvegarde des differents parametres
         save.saveParameters(q, dotq, ddotq, Gamma_AM, arm)
+        
+        #Calcul du cout
+        if coordHA[1] < 0.6175:
+            cf.costFunctionJ(cu.U, 1, arm.t)
+        else:
+            cf.costFunctionJ(cu.U, 2, arm.t)
     else:
         break
     i += 1
+    arm.t += arm.dt
 t1 = time.time()
 print("Fin du traitement! (Temps de traitement: ", (t1-t0), "s)")
 print("Nombre d'iteration pour arriver a la cible: ", len(save.coordHaSave))
+print("Valeur de la fonction cout: ", cf.Ju)
 
 ##########################################################################################
 ##Plot                                                                                  ##
