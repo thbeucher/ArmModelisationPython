@@ -28,6 +28,6 @@ for i in range(6):
     fileSavingStr(nameToSave, resSO)
 t1 = time.time()
 print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
-print(resSO)
+#print(resSO[0])
 
 
