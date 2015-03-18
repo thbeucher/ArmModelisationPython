@@ -1,6 +1,6 @@
 import os as op
-from nt import getcwd
 import pickle
+from posix import getcwd
 
 def fileSaving(nameFile, data, nbfeat):
     folder = getcwd()
@@ -15,5 +15,11 @@ def fileSaving(nameFile, data, nbfeat):
         monPickler = pickle.Pickler(file)
         monPickler.dump(data)
         
-            
+def fileSavingStr(nameFile, data):
+    folder = getcwd()
+    folder = op.path.split(folder)
+    folder = folder[0] + "/FileProcessing/ControlerResult/"
+    nameToSave = folder + nameFile
+    with open(nameToSave, "w") as file:
+        file.write(str(data))
         
