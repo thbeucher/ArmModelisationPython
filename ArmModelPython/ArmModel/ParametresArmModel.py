@@ -25,7 +25,7 @@ class ParametresArmModel:
         # Parametres de la simulation 
         self.__t = 0
         self.__i = 1
-        self.__dt = 0.01
+        self.__dt = 0.002
         # Les matrices de raideur
         # Matrice de raideur K nulle
         self.__Knulle = mat([(0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0)])

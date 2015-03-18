@@ -4,7 +4,8 @@ import numpy as np
 import math as ma
 #import cma as cma
 import os.path as op
-from nt import getcwd
+from posix import getcwd
+#from nt import getcwd
 
 class FileReading():
     
@@ -125,7 +126,7 @@ class FileReading():
     ###########################################################################################
     #La suite de ce code permet de récupérer q1 et q2 à partir du x et du y de la main
     ###########################################################################################
-    '''def convertToAngle(xh, yh, robot):
+    def convertToAngle(self, xh, yh, robot):
         if (xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2) < -1:
             q2 = np.arccos(1)
         else:
@@ -133,7 +134,7 @@ class FileReading():
         q1 = ma.atan2(yh, xh)-ma.atan2(robot.l2*np.sin(q2), robot.l1 + robot.l2*np.cos(q2))
         return q1, q2
     
-    coord = [(-0.2,0.39)]
+    '''coord = [(-0.2,0.39)]
     coord.append((-0.1,0.39))
     coord.append((0.,0.39))
     coord.append((0.1,0.39))

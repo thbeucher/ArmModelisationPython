@@ -99,6 +99,6 @@ nbt = input("Veuillez choisir le numero d'une trajectoire de travail: ")
 nbt = int(nbt)
 cu = ControlerUtil(nbf, nbd)
 cu.getCommand(stateAll[a], nbt)
-print(cu.faOutStore)
+print(cu.U)
 
 #######################################################################################
