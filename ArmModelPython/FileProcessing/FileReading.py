@@ -45,13 +45,17 @@ class FileReading():
     #target(4) estimated_state(4) actual_state(4) noised_command(6) command(6) estimated_next_state(4) 
     #actual_next_state(4) next_acceleration(2)
     #Recuperation des donnees du fichier dans une matrice
-    def recup_data(self):
+    def recup_data(self, choix = 1):
         chemin = getcwd()
         chemin = op.split(chemin)
         chemin = chemin[0] + "/FileProcessing/trajectoires/"
-        nameFichier = input("Veuillez entrer le nom courant des fichiers à traiter: ")
-        nbFichier = input("Veuillez entrer le nombre de fichier à traiter: ")
-        nbFichier = int(nbFichier)
+        if choix == 1:
+            nameFichier = input("Veuillez entrer le nom courant des fichiers à traiter: ")
+            nbFichier = input("Veuillez entrer le nombre de fichier à traiter: ")
+            nbFichier = int(nbFichier)
+        else:
+            nameFichier = "trajectoire"
+            nbFichier = 10
         j = 0
         l = 0
         nbf = 0

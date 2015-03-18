@@ -18,7 +18,7 @@ def fileSaving(nameFile, data, nbfeat):
 def fileSavingStr(nameFile, data):
     folder = getcwd()
     folder = op.path.split(folder)
-    folder = folder[0] + "/FileProcessing/ControlerResult/"
+    folder = folder[0] + "/FileProcessing/"
     nameToSave = folder + nameFile
     with open(nameToSave, "w") as file:
         file.write(str(data))

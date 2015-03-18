@@ -79,7 +79,7 @@ print("Fin du traitement! (Temps de traitement: ", (t1-t0), "s)")
 print("Nombre d'iteration pour arriver a la cible: ", len(save.coordHaSave))
 print("Valeur de la fonction cout: ", cf.Ju)
 #Sauvegarde du coup pour la trajectoire choisie
-name = "trajectoireInit(" + str(save.coordHaSave[0]) + ")Fin(" + str(save.coordHaSave[len(save.coordHaSave)-1]) + ")"
+name = "ControlerResult/trajectoireInit(" + str(save.coordHaSave[0]) + ")Fin(" + str(save.coordHaSave[len(save.coordHaSave)-1]) + ")"
 fileSavingStr(name, cf.Ju)
 
 ##########################################################################################
