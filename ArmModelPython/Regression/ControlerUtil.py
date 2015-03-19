@@ -8,15 +8,19 @@ class ControlerUtil:
         self.dim = dime
         self.faOutStore = {}
         
-    def getCommand(self, inputgc, numTrajectoire):
+    def getCommand(self, inputgc, numTrajectoire, theta, a = 0):
         fr = FileReading()
         xMinMax = fr.getxMinMax(self.nbfeat)
         fa = fa_lwr(self.nbfeat, self.dim, 1, 2, xMinMax)
         #Recuperation des thetas pour chaque u (activations musculaires)
-        fr.getTheta(self.nbfeat, numTrajectoire)
+        if a == 0:
+            fr.getTheta(self.nbfeat, numTrajectoire)
         #Recuperation de la sortie approximee pour chaque u
         for i in range(6):
-            self.faOutStore[str("faOut_u" + str(i+1))] = fa.functionApproximatorOutputLS(inputgc, fr.theta_store[str("u" + str(i+1))], 2)
+            if a == 0:
+                self.faOutStore[str("faOut_u" + str(i+1))] = fa.functionApproximatorOutputLS(inputgc, fr.theta_store[str("u" + str(i+1))], 2)
+            else:
+                self.faOutStore[str("faOut_u" + str(i+1))] = fa.functionApproximatorOutputLS(inputgc, theta[str("u" + str(i+1))], 2)
         #Mise sous forme de vecteur
         self.U = np.zeros((6,1))
         for i in range(6):

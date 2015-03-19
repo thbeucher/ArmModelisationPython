@@ -26,10 +26,13 @@ nbf = 3
 nbd = 4
 nbt = 0
 cu = ControlerUtil(nbf,nbd)
-
+x0 = input("x0: ")
+y0 = input("y0: ")
+x0 = float(x0)
+y0 = float(y0)
 #Choix d'une trajectoire de travail
 fr = FileReading()
-q1, q2 = fr.convertToAngle(0.3, 0.0325, robot)
+q1, q2 = fr.convertToAngle(x0, y0, robot)
 
 #Initialisation ParametresArmModel
 q = np.mat([[q1],[q2]])
@@ -43,14 +46,14 @@ cf = costFunction()
 #Boucle de traitement
 print("Debut du calcul de la trajectoire!")
 t0 = time.time()
-i = 0;
+i = 0
 while coordHA[1] < 0.6175:
     if i < 900:
         #Recuperation du vecteur coordonnees
         inputq = np.array([dotq[0,0], dotq[1,0], q[0,0], q[1,0]])
             
         #Recuperation des activations musculaires
-        cu.getCommand(inputq, nbt)
+        cu.getCommand(inputq, nbt, 0, 0)
             
         # Calcul du couple Gamma pour une raideur non nulle
         Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*cu.U
@@ -66,10 +69,10 @@ while coordHA[1] < 0.6175:
         save.saveParameters(q, dotq, ddotq, Gamma_AM, arm)
         
         #Calcul du cout
-        if coordHA[1] < 0.6175:
-            cf.costFunctionJ(cu.U, 1, arm.t)
-        else:
+        if coordHA[0] == 0.0 and coordHA[1] == 0.6175:
             cf.costFunctionJ(cu.U, 2, arm.t)
+        else:
+            cf.costFunctionJ(cu.U, 1, arm.t)
     else:
         break
     i += 1
@@ -79,7 +82,9 @@ print("Fin du traitement! (Temps de traitement: ", (t1-t0), "s)")
 print("Nombre d'iteration pour arriver a la cible: ", len(save.coordHaSave))
 print("Valeur de la fonction cout: ", cf.Ju)
 #Sauvegarde du coup pour la trajectoire choisie
-name = "ControlerResult/trajectoireInit(" + str(save.coordHaSave[0]) + ")Fin(" + str(save.coordHaSave[len(save.coordHaSave)-1]) + ")"
+nameu = input("Nom de la trajectoire: ")
+name = "ControlerResult/" + nameu
+#name = "ControlerResult/trajectoireInit(" + str(save.coordHaSave[0]) + ")Fin(" + str(save.coordHaSave[len(save.coordHaSave)-1]) + ")"
 fileSavingStr(name, cf.Ju)
 
 ##########################################################################################
