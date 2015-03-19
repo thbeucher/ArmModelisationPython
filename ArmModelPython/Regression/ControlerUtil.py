@@ -10,17 +10,24 @@ class ControlerUtil:
         
     def getCommand(self, inputgc, numTrajectoire, theta, a = 0):
         fr = FileReading()
+        thetaTmp = {}
+        for i in range(6):
+            thetaTmp[i] = []
         xMinMax = fr.getxMinMax(self.nbfeat)
         fa = fa_lwr(self.nbfeat, self.dim, 1, 2, xMinMax)
         #Recuperation des thetas pour chaque u (activations musculaires)
         if a == 0:
             fr.getTheta(self.nbfeat, numTrajectoire)
+        else:
+            for i in range(6):
+                for j in range((theta.shape)[0]/6):
+                    thetaTmp[i].append(theta[j])
         #Recuperation de la sortie approximee pour chaque u
         for i in range(6):
             if a == 0:
                 self.faOutStore[str("faOut_u" + str(i+1))] = fa.functionApproximatorOutputLS(inputgc, fr.theta_store[str("u" + str(i+1))], 2)
             else:
-                self.faOutStore[str("faOut_u" + str(i+1))] = fa.functionApproximatorOutputLS(inputgc, theta[str("u" + str(i+1))], 2)
+                self.faOutStore[str("faOut_u" + str(i+1))] = fa.functionApproximatorOutputLS(inputgc, thetaTmp[i], 2)
         #Mise sous forme de vecteur
         self.U = np.zeros((6,1))
         for i in range(6):
