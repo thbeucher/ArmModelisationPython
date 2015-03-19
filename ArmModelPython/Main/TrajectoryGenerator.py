@@ -29,7 +29,7 @@ cu = ControlerUtil(nbf,nbd)
 
 #Choix d'une trajectoire de travail
 fr = FileReading()
-q1, q2 = fr.convertToAngle(0.2, 0.39, robot)
+q1, q2 = fr.convertToAngle(0.3, 0.0325, robot)
 
 #Initialisation ParametresArmModel
 q = np.mat([[q1],[q2]])
