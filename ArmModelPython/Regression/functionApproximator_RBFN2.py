@@ -10,26 +10,34 @@ class fa_rbfn():
         
     def setTrainingData(self, inputData, outputData):
         #Data should be organize by columns
-        numberOfInputSamples, self.inputDimension = np.shape(inputData)
-        numberOfOutputSamples, self.outputDimension = np.shape(outputData)
+        self.inputData = inputData
+        self.outputData = outputData
+        self.inputDimension, numberOfInputSamples = np.shape(inputData)
+        self.outputDimension, numberOfOutputSamples = np.shape(outputData)
         assert(numberOfInputSamples == numberOfOutputSamples, "Number of sample not equal for output and input")
         self.numberOfSamples = numberOfInputSamples
         self.theta = np.zeros((self.nbFeat, self.outputDimension))
         
 
-    def train_rbfn(self, inputData, outputData):
-        A = np.dot(self.featureOutput(inputData), self.featureOutput(inputData).transpose())
-        b = np.dot(self.featureOutput(inputData), outputData)
+    def train_rbfn(self):
+        A = np.dot(self.featureOutput(self.inputData), self.featureOutput(self.inputData).transpose())
+        b = np.dot(self.featureOutput(self.inputData), self.outputData)
         self.theta = np.dot(np.linalg(A), b)
         #self.thetaLS = np.dot(np.linalg.pinv(np.dot(self.featureOutputLS(xData),np.transpose(self.featureOutputLS(xData)))),np.dot(self.featureOutputLS(xData), np.array(yData)))
 
-    def setCentersAndWidths(self, inputData):
-        min = np.min(inputData, axis = 0)
-        max = np.max(inputData, axis = 0)
-        range = max - min
-        widthConstant = range / self.nbFeat
+    def setCentersAndWidths(self):
+        minInputData = np.min(self.inputData, axis = 1)
+        maxInputData = np.max(self.inputData, axis = 1)
+        centersInEachDimensions = np.zeros((self.inputDimension, self.nbFeat))
+        for i in range(self.inputDimension):
+            centersInEachDimensions[i,:] = np.linspace(minInputData[i], maxInputData[i], self.nbFeat)
+        centersFlat = centersInEachDimensions.flatten()
+        centersMesh1, centersMesh2 = np.meshgrid(centersFlat, centersFlat)
+        #range = max - min
+        #widthConstant = range / self.nbFeat
         
-        print(min, "\n", max, "\n", range, "\n", widthConstant)
+        print(minInputData.shape, "\n", maxInputData.shape, "\ncent:\n ", centersInEachDimensions, "\nflat\n", centersFlat.shape)
+        print(centersMesh1.shape)
 
 
     def featureOutput(self, inputData):
@@ -47,8 +55,8 @@ stateAll, commandAll = fr.recup_data(0)
 print("state: ", stateAll.shape, "command: ", commandAll.shape)
 
 fa = fa_rbfn(3)
-fa.setTrainingData(stateAll, commandAll)
-fa.setCentersAndWidths(stateAll)
+fa.setTrainingData(stateAll.T, commandAll.T)
+fa.setCentersAndWidths()
 
        
        

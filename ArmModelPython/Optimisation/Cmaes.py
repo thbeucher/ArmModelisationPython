@@ -7,6 +7,7 @@ from Optimisation.costFunction import costFunction, costFunctionTest
 import numpy as np
 
 
+cf = costFunction()
 print("Debut du traitement d'optimisation!")
 t0 = time.time()
 fr = FileReading()
@@ -20,7 +21,8 @@ theta = fr.theta_store["u1"]
 for i in range(5):
     theta = np.hstack((theta, fr.theta_store[str("u" + str(i+2))]))
     thetaN = np.hstack((thetaN, thetaNorm[i+1]))
-resSO = cma.fmin(costFunctionTest, thetaN, 0.5)
+#resSO = cma.fmin(costFunctionTest, thetaN, 0.5)
+resSO = cma.fmin(cf.costFunctionTest2, thetaN, 0.5)
 #resSO = cma.fmin(costFunctionTest, thetaN, 0.5, options={'popsize':5})
 print(resSO[0])
 t1 = time.time()
