@@ -29,7 +29,6 @@ class costFunction:
             imReward = 1
         self.Ju += np.exp(-t/self.gamma)*(self.rho*imReward - self.ups*mvtCost)
 
-
 def costFunctionTest(theta):
     robot = ParametresRobot()
     hogan = ParametresHogan()
@@ -59,7 +58,7 @@ def costFunctionTest(theta):
         i = 0
         arm.t = 0
         while coordHA[1] < 0.6175:
-            if i < 900:
+            if i < 500:
                 inputq = np.array([dotq[0,0], dotq[1,0], q[0,0], q[1,0]])
                 cu.getCommand(inputq, nbt, theta, 1)
                 Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*cu.U
@@ -76,9 +75,10 @@ def costFunctionTest(theta):
             i += 1
             arm.t += arm.dt
         print(i)
-        JuCf.append(cf.Ju)
+        JuCf.append(cf.Ju*(-1))
         cf.Ju = 0
     fileSavingStr("CalculCoutTest", JuCf)
+    print("Fin d'appel!")
     return JuCf
 
 '''fra2 = FileReading()

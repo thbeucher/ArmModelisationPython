@@ -14,6 +14,8 @@ from Regression.functionApproximator_LW import *
 import numpy as np
 from FileProcessing.FileReading import FileReading
 from Regression.ControlerUtil import ControlerUtil
+from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
+from Regression.functionApproximator_LWR import fa_lwr
 
 
 ### Load data set to be approximated (for batch methods)
@@ -87,7 +89,7 @@ funcApprox = fa(numFeats, learningRate, minDelta, maxIteration)
 ##Utilisation du controleur                                                          ##
 #######################################################################################
 fra = FileReading()
-stateAll, commandAll = fra.recup_data()
+'''stateAll, commandAll = fra.recup_data()
 a = np.random.rand()
 a = int(a*10)
 
@@ -99,6 +101,6 @@ nbt = input("Veuillez choisir le numero d'une trajectoire de travail: ")
 nbt = int(nbt)
 cu = ControlerUtil(nbf, nbd)
 cu.getCommand(stateAll[a], nbt)
-print(cu.U)
+print(cu.U)'''
 
 #######################################################################################

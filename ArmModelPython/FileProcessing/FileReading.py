@@ -41,6 +41,15 @@ class FileReading():
                 data = mondepickler.load()
             self.theta_store[str("u" + str(i+1))] = data
         
+    def getobjread(self, name):
+        folder = getcwd()
+        folder = op.split(folder)
+        folder = folder[0] + "/FileProcessing/"
+        namet = folder + name
+        with open(namet, "rb") as file:
+                mondepickler = pickle.Unpickler(file)
+                data = mondepickler.load()
+        return data
     
     #target(4) estimated_state(4) actual_state(4) noised_command(6) command(6) estimated_next_state(4) 
     #actual_next_state(4) next_acceleration(2)

@@ -22,4 +22,12 @@ def fileSavingStr(nameFile, data):
     nameToSave = folder + nameFile
     with open(nameToSave, "w") as file:
         file.write(str(data))
-        
+
+def fileSavingBin(nameFile, data):
+    folder = getcwd()
+    folder = op.path.split(folder)
+    folder = folder[0] + "/FileProcessing/"
+    nameToSave = folder + nameFile
+    with open(nameToSave, "wb") as file:
+        monPickler = pickle.Pickler(file)
+        monPickler.dump(data)

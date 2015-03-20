@@ -20,8 +20,9 @@ class ControlerUtil:
             fr.getTheta(self.nbfeat, numTrajectoire)
         else:
             for i in range(6):
-                for j in range((theta.shape)[0]/6):
-                    thetaTmp[i].append(theta[j])
+                coef = fr.getobjread(str("ThetaAllTraj/CoefNormalization_theta_u" + str(i+1)))
+                for j in range(int((theta.shape)[0]/6)):
+                    thetaTmp[i].append(theta[j]*coef)
         #Recuperation de la sortie approximee pour chaque u
         for i in range(6):
             if a == 0:
