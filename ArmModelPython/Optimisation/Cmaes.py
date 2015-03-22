@@ -17,12 +17,12 @@ for i in range(6):
     name = "ThetaAllTraj/Python_thetaNormalize_u" + str(i+1)
     thetaNorm[i] = fr.getobjread(name)
 thetaN = np.array(thetaNorm[0])
-theta = fr.theta_store["u1"]
+theta = np.array(fr.theta_store["u1"])
 for i in range(5):
     theta = np.hstack((theta, fr.theta_store[str("u" + str(i+2))]))
     thetaN = np.hstack((thetaN, thetaNorm[i+1]))
 #resSO = cma.fmin(costFunctionTest, thetaN, 0.5)
-resSO = cma.fmin(cf.costFunctionTest2, thetaN, 0.5)
+resSO = cma.fmin(cf.costFunctionTest2, theta, 0.5)
 #resSO = cma.fmin(costFunctionTest, thetaN, 0.5, options={'popsize':5})
 print(resSO[0])
 t1 = time.time()

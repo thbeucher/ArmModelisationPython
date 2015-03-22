@@ -24,8 +24,19 @@ def normalizeThetaFunction():
     for i in range(6):
         namec = "ThetaAllTraj/CoefNormalization_theta_u" + str(i+1)
         vTmp = fr.getobjread(str("ThetaAllTraj/Python_thetaNormalize_u" + str(i+1)))
-        coef = fr.theta_store[str("u" + str(i+1))][0] / vTmp[0]
+        coef =  np.divide(vTmp, fr.theta_store[str("u" + str(i+1))])
         fileSavingBin(namec, coef)
+        fileSavingStr(str(namec + "_str"), coef)
+
     
     
 normalizeThetaFunction()
+f = FileReading()
+for i in range(6):
+    tn = f.getobjread(str("ThetaAllTraj/Python_thetaNormalize_u" + str(i+1)))
+    coef = f.getobjread(str("ThetaAllTraj/CoefNormalization_theta_u" + str(i+1)))
+    tl = np.divide(tn, coef)
+    fileSavingStr(str("ThetaAllTraj/thetaRetrouve_u" + str(i+1)), tl)
+
+
+

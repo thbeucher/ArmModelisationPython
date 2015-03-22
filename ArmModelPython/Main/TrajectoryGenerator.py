@@ -33,7 +33,6 @@ y0 = float(y0)
 #Choix d'une trajectoire de travail
 fr = FileReading()
 q1, q2 = fr.convertToAngle(x0, y0, robot)
-
 #Initialisation ParametresArmModel
 q = np.mat([[q1],[q2]])
 dotq = arm.dotq0
