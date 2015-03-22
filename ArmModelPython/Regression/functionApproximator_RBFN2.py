@@ -14,7 +14,7 @@ class fa_rbfn():
         self.outputData = outputData
         self.inputDimension, numberOfInputSamples = np.shape(inputData)
         self.outputDimension, numberOfOutputSamples = np.shape(outputData)
-        assert(numberOfInputSamples == numberOfOutputSamples, "Number of sample not equal for output and input")
+        assert(numberOfInputSamples == numberOfOutputSamples, "Number of samples not equal for output and input")
         self.numberOfSamples = numberOfInputSamples
         self.theta = np.zeros((self.nbFeat, self.outputDimension))
         

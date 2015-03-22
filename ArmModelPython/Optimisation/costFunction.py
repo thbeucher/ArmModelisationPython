@@ -31,6 +31,14 @@ class costFunction:
         self.Ju += np.exp(-t/self.gamma)*(self.rho*imReward - self.ups*mvtCost)
         
     def costFunctionTest2(self, theta):
+        nb = 0
+        thetaTmp = {}
+        for i in range(6):
+            thetaTmp[i] = []
+        for i in range(6):
+            for j in range(int((theta.shape)[0]/6)):
+                thetaTmp[i].append(theta[j + nb])
+            nb += 81
         robot = ParametresRobot()
         hogan = ParametresHogan()
         arm = ParametresArmModel(hogan.GammaMax)
@@ -61,7 +69,7 @@ class costFunction:
             while coordHA[1] < 0.6175:
                 if i < 900:
                     inputq = np.array([dotq[0,0], dotq[1,0], q[0,0], q[1,0]])
-                    cu.getCommand(inputq, nbt, theta, 1)
+                    cu.getCommand(inputq, nbt, thetaTmp, 1)
                     Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*cu.U
                     ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
                     dotq += ddotq*arm.dt
