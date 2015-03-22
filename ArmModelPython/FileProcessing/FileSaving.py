@@ -1,6 +1,7 @@
 import os as op
 import pickle
 from posix import getcwd
+from nt import getcwd #Windows for posix
 
 def fileSaving(nameFile, data, nbfeat):
     folder = getcwd()

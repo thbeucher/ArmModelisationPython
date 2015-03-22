@@ -5,7 +5,7 @@ import math as ma
 #import cma as cma
 import os.path as op
 from posix import getcwd
-#from nt import getcwd
+from nt import getcwd #Windows
 
 class FileReading():
     
