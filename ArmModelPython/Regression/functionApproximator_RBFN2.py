@@ -2,6 +2,7 @@ import numpy as np
 import time
 from FileProcessing.FileSaving import fileSavingBin
 from FileProcessing.FileReading import FileReading
+from Regression.VectorCombinaison import cartesian
 
 class fa_rbfn():
     
@@ -28,16 +29,13 @@ class fa_rbfn():
     def setCentersAndWidths(self):
         minInputData = np.min(self.inputData, axis = 1)
         maxInputData = np.max(self.inputData, axis = 1)
-        centersInEachDimensions = np.zeros((self.inputDimension, self.nbFeat))
+        range = max - min
+        widthConstant = range / self.nbFeat
+        linspaceForEachDim = []
         for i in range(self.inputDimension):
-            centersInEachDimensions[i,:] = np.linspace(minInputData[i], maxInputData[i], self.nbFeat)
-        centersFlat = centersInEachDimensions.flatten()
-        centersMesh1, centersMesh2 = np.meshgrid(centersFlat, centersFlat)
-        #range = max - min
-        #widthConstant = range / self.nbFeat
-        
-        print(minInputData.shape, "\n", maxInputData.shape, "\ncent:\n ", centersInEachDimensions, "\nflat\n", centersFlat.shape)
-        print(centersMesh1.shape)
+            linspaceForEachDim.append(np.linspace(minInputData[i], maxInputData[i], self.nbFeat))
+        centersInEachDimensions = cartesian(linspaceForEachDim)
+        print(centersInEachDimensions)
 
 
     def featureOutput(self, inputData):
