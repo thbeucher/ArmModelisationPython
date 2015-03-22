@@ -3,7 +3,7 @@ from FileProcessing.FileReading import FileReading
 import time
 from Regression.functionApproximator_LWR import fa_lwr
 from FileProcessing.FileSaving import fileSavingStr
-from Optimisation.costFunction import costFunction, costFunctionTest
+from Optimisation.costFunction import costFunction
 import numpy as np
 
 
@@ -22,8 +22,8 @@ for i in range(5):
     theta = np.hstack((theta, fr.theta_store[str("u" + str(i+2))]))
     thetaN = np.hstack((thetaN, thetaNorm[i+1]))
 #resSO = cma.fmin(costFunctionTest, thetaN, 0.5)
-resSO = cma.fmin(cf.costFunctionTest2, theta, 0.5)
-#resSO = cma.fmin(costFunctionTest, thetaN, 0.5, options={'popsize':5})
+#resSO = cma.fmin(cf.costFunctionTest2, theta, 0.5)
+resSO = cma.fmin(cf.costFunctionTest2, thetaN, 0.5, options={'popsize':5})
 print(resSO[0])
 t1 = time.time()
 print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
