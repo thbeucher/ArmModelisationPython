@@ -15,7 +15,7 @@ class fa_rbfn():
         self.outputData = outputData
         self.inputDimension, numberOfInputSamples = np.shape(inputData)
         self.outputDimension, numberOfOutputSamples = np.shape(outputData)
-        assert(numberOfInputSamples == numberOfOutputSamples, "Number of samples not equal for output and input")
+        assert(numberOfInputSamples == numberOfOutputSamples), "Number of samples not equal for output and input"
         self.numberOfSamples = numberOfInputSamples
         self.theta = np.zeros((self.nbFeat, self.outputDimension))
         
@@ -29,25 +29,24 @@ class fa_rbfn():
     def setCentersAndWidths(self):
         minInputData = np.min(self.inputData, axis = 1)
         maxInputData = np.max(self.inputData, axis = 1)
-        range = max - min
-        widthConstant = range / self.nbFeat
+        rangeForEachDim = minInputData - maxInputData
+        widthConstant = rangeForEachDim / self.nbFeat
+        self.widths = np.diag(widthConstant)
         linspaceForEachDim = []
         for i in range(self.inputDimension):
             linspaceForEachDim.append(np.linspace(minInputData[i], maxInputData[i], self.nbFeat))
-        centersInEachDimensions = cartesian(linspaceForEachDim)
-        print(centersInEachDimensions)
+        self.centersInEachDimensions = cartesian(linspaceForEachDim)
 
 
-    def featureOutput(self, inputData):
+    def featureOutput(self):
+        
         pass
 
 
     def functionApproximatorOutput(self, inputData):
         pass
+
        
-       
-namex = "TestRBFN2/xData"
-namez = "TestRBFN2/zData"
 fr = FileReading()
 stateAll, commandAll = fr.recup_data(0)
 print("state: ", stateAll.shape, "command: ", commandAll.shape)

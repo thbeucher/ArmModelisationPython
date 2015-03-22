@@ -50,9 +50,9 @@ def cartesian(arrays, out=None):
             out[j*m:(j+1)*m,1:] = out[0:m,1:]
     return out
 
-a = np.array([1,2,3])
+'''a = np.array([1,2,3])
 inputv = []
 nbdim = 3
 for i in range(nbdim):
     inputv.append(a)
-print(cartesian(inputv))
+print(cartesian(inputv))'''
