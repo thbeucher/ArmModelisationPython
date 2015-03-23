@@ -5,6 +5,7 @@ class fa_lwr():
     
     def __init__(self, nbFeature, dim, data = 1, name = 2, xMinMaxE = 3):
         self.nbFeat = nbFeature
+        self.title = "ls"
         self.dim = dim
         self.centers = {}
         self.thetaLS = np.zeros(self.nbFeat,)

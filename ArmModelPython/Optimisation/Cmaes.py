@@ -7,6 +7,7 @@ from Optimisation.costFunction import costFunction
 import numpy as np
 
 
+
 cf = costFunction()
 print("Debut du traitement d'optimisation!")
 t0 = time.time()
@@ -28,5 +29,6 @@ print(resSO[0])
 t1 = time.time()
 print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
 #print(resSO[0])
+
 
 

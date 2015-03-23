@@ -6,6 +6,7 @@ import numpy as np
 def normalizeThetaFunction():
     fr = FileReading()
     fr.getTheta(3, 0)
+    vzeros = []
     #Enregistrement des theta en Str
     for i in range(6):
         name = "ThetaAllTraj/Theta_u" + str(i+1)
@@ -14,8 +15,9 @@ def normalizeThetaFunction():
     for i in range(6):
         mini = np.min(fr.theta_store[str("u" + str(i+1))])
         maxi = np.max(fr.theta_store[str("u" + str(i+1))])
-        v = fr.theta_store[str("u" + str(i+1))]
-        v = (v - mini)/(maxi - mini)
+        vs = fr.theta_store[str("u" + str(i+1))]
+        v = (vs - mini)/(maxi - mini)
+        vtest = v + 0.1
         name = "ThetaAllTraj/thetaNormalize_u" + str(i+1)
         fileSavingStr(name, v)
         nameb = "ThetaAllTraj/Python_thetaNormalize_u" + str(i+1)

@@ -8,6 +8,7 @@ from ArmModel.ParametresRobot import ParametresRobot
 from Regression.ControlerUtil import ControlerUtil
 from ArmModel.SavingData import SavingData
 from FileProcessing.FileSaving import fileSavingStr
+from Regression.functionApproximator_RBFN2 import fa_rbfn
 
 class costFunction:
     
@@ -57,6 +58,12 @@ class costFunction:
         coordStartPts.append((0.2,0.0325))
         coordStartPts.append((0.3,0.0325))
         JuCf = []
+        xMinMax = fr.getxMinMax(nbf)
+        fa = fa_lwr(nbf, nbd, 1, 2, xMinMax)
+        #stateAll, commandAll = fr.recup_data(0)
+        #fa = fa_rbfn(3)
+        #fa.setTrainingData(stateAll.T, commandAll.T)
+        #fa.setCentersAndWidths()
         cu = ControlerUtil(nbf,nbd)
         for el in coordStartPts:
             q1, q2 = fr.convertToAngle(el[0], el[1], robot)
@@ -69,7 +76,7 @@ class costFunction:
             while coordHA[1] < 0.6175:
                 if i < 900:
                     inputq = np.array([dotq[0,0], dotq[1,0], q[0,0], q[1,0]])
-                    cu.getCommand(inputq, nbt, thetaTmp, 1)
+                    cu.getCommand(inputq, nbt, fa, thetaTmp, 1)
                     Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*cu.U
                     ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
                     dotq += ddotq*arm.dt
@@ -84,14 +91,14 @@ class costFunction:
                 i += 1
                 arm.t += arm.dt
             print(i)
-            JuCf.append(self.Ju)
+            JuCf.append(self.Ju*(-1))
         fileSavingStr("CalculCoutTest", JuCf)
         self.suivi += 1
         print("Fin d'appel! (", self.suivi, ")")
         return JuCf
 
 
-'''fra2 = FileReading()
+fra2 = FileReading()
 fra2.getTheta(3, 0)
 thetaNorm = {}
 thetaTmp = {}
@@ -112,7 +119,7 @@ for i in range(6):
         thetaTmp[i].append(thetann[j + nb])
     nb += 81
 res = cf.costFunctionTest2(thetann)
-print(res)'''
+print(res)
 
 
 

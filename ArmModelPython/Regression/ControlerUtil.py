@@ -8,31 +8,24 @@ class ControlerUtil:
         self.dim = dime
         self.faOutStore = {}
 
-    def getCommand(self, inputgc, numTrajectoire, theta, a = 0):
-        fr = FileReading()
-        '''thetaTmp = {}
-        for i in range(6):
-            thetaTmp[i] = []'''
-        xMinMax = fr.getxMinMax(self.nbfeat)
-        fa = fa_lwr(self.nbfeat, self.dim, 1, 2, xMinMax)
+    def getCommand(self, inputgc, numTrajectoire, fa, theta, a = 0):
+        '''xMinMax = fr.getxMinMax(self.nbfeat)
+        fa = fa_lwr(self.nbfeat, self.dim, 1, 2, xMinMax)'''
         #Recuperation des thetas pour chaque u (activations musculaires)
         if a == 0:
+            fr = FileReading()
             fr.getTheta(self.nbfeat, numTrajectoire)
         else:
             pass
-            '''nb = 0
-            for i in range(6):
-                #coef = fr.getobjread(str("ThetaAllTraj/CoefNormalization_theta_u" + str(i+1)))
-                for j in range(int((theta.shape)[0]/6)):
-                    #thetaTmp[i].append(theta[j]*coef[j])
-                    thetaTmp[i].append(theta[j + nb])
-                nb += 81'''
         #Recuperation de la sortie approximee pour chaque u
         for i in range(6):
             if a == 0:
                 self.faOutStore[str("faOut_u" + str(i+1))] = fa.functionApproximatorOutputLS(inputgc, fr.theta_store[str("u" + str(i+1))], 2)
             else:
-                self.faOutStore[str("faOut_u" + str(i+1))] = fa.functionApproximatorOutputLS(inputgc, np.array(theta[i]), 2)
+                if fa.title == "rbfn":
+                    self.faOutStore[str("faOut_u" + str(i+1))] = fa.functionApproximatorOutput(inputgc, np.array(theta[i]))
+                else:
+                    self.faOutStore[str("faOut_u" + str(i+1))] = fa.functionApproximatorOutputLS(inputgc, np.array(theta[i]), 2)
         #Mise sous forme de vecteur
         self.U = np.zeros((6,1))
         for i in range(6):
