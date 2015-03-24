@@ -50,20 +50,16 @@ class costFunction:
         nbt = 0
         coordStartPts = []
         coordStartPts.append((-0.1,0.39))
-        coordStartPts.append((0.0,0.39))
+        '''coordStartPts.append((0.0,0.39))
         coordStartPts.append((0.1,0.39))
         coordStartPts.append((0.2,0.39))
         coordStartPts.append((-0.2,0.0325))
         coordStartPts.append((-0.1,0.0325))
         coordStartPts.append((0.2,0.0325))
-        coordStartPts.append((0.3,0.0325))
+        coordStartPts.append((0.3,0.0325))'''
         JuCf = []
         xMinMax = fr.getxMinMax(nbf)
         fa = fa_lwr(nbf, nbd, 1, 2, xMinMax)
-        #stateAll, commandAll = fr.recup_data(0)
-        #fa = fa_rbfn(3)
-        #fa.setTrainingData(stateAll.T, commandAll.T)
-        #fa.setCentersAndWidths()
         cu = ControlerUtil(nbf,nbd)
         for el in coordStartPts:
             q1, q2 = fr.convertToAngle(el[0], el[1], robot)
@@ -96,9 +92,69 @@ class costFunction:
         self.suivi += 1
         print("Fin d'appel! (", self.suivi, ")")
         return JuCf
+    
+    def costFunctionRBFN2(self, theta):
+        robot = ParametresRobot()
+        hogan = ParametresHogan()
+        arm = ParametresArmModel(hogan.GammaMax)
+        save = SavingData()
+        fr = FileReading()
+        nbf = 3
+        nbd = 4
+        nbt = 0
+        coordStartPts = []
+        coordStartPts.append((-0.2,0.39))
+        coordStartPts.append((-0.1,0.39))
+        coordStartPts.append((0.0,0.39))
+        coordStartPts.append((0.1,0.39))
+        coordStartPts.append((0.2,0.39))
+        coordStartPts.append((-0.3,0.0325))
+        coordStartPts.append((-0.2,0.0325))
+        coordStartPts.append((-0.1,0.0325))
+        coordStartPts.append((0.0,0.0325))
+        coordStartPts.append((0.1,0.0325))
+        coordStartPts.append((0.2,0.0325))
+        coordStartPts.append((0.3,0.0325))
+        JuCf = []
+        stateAll, commandAll = fr.recup_data(0)
+        fa = fa_rbfn(nbf)
+        fa.setTrainingData(stateAll.T, commandAll.T)
+        fa.setCentersAndWidths()
+        cu = ControlerUtil(nbf,nbd)
+        for el in coordStartPts:
+            q1, q2 = fr.convertToAngle(el[0], el[1], robot)
+            q = np.array([[q1],[q2]])
+            dotq = np.array([[0.],[0.]])
+            coordEL, coordHA = save.calculCoord(q, robot)
+            i = 0
+            arm.t = 0
+            self.Ju = 0
+            while coordHA[1] < 0.6175:
+                if i < 900:
+                    inputq = np.array([dotq[0,0], dotq[1,0], q[0,0], q[1,0]])
+                    cu.getCommand(inputq, nbt, fa, theta, 2)
+                    Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)
+                    ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
+                    dotq += ddotq*arm.dt
+                    q += dotq*arm.dt
+                    coordEL, coordHA = save.calculCoord(q, robot)
+                    if coordHA[0] == 0.0 and coordHA[1] == 0.6175:
+                        self.costFunctionJ(cu.U, 2, arm.t)
+                    else:
+                        self.costFunctionJ(cu.U, 1, arm.t)
+                else:
+                    break
+                i += 1
+                arm.t += arm.dt
+            print(i)
+            JuCf.append(self.Ju*(-1))
+        fileSavingStr("CalculCoutTest", JuCf)
+        self.suivi += 1
+        print("Fin d'appel! (", self.suivi, ")")
+        return JuCf
 
 
-fra2 = FileReading()
+'''fra2 = FileReading()
 fra2.getTheta(3, 0)
 thetaNorm = {}
 thetaTmp = {}
@@ -119,8 +175,11 @@ for i in range(6):
         thetaTmp[i].append(thetann[j + nb])
     nb += 81
 res = cf.costFunctionTest2(thetann)
+print(res)'''
+
+fra = FileReading()
+thetaa = fra.getobjread("RBFN2/ThetaBIN")
+cf = costFunction()
+res = cf.costFunctionRBFN2(thetaa)
 print(res)
-
-
-
 
