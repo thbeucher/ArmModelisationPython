@@ -1,5 +1,6 @@
 from math import sqrt
 import numpy as np
+import time
 from FileProcessing.FileReading import FileReading
 from Regression.functionApproximator_LWR import fa_lwr
 from ArmModel.ParametresArmModel import ParametresArmModel
@@ -94,12 +95,13 @@ class costFunction:
         return JuCf
     
     def costFunctionRBFN2(self, theta):
+        t0 = time.time()
         robot = ParametresRobot()
         hogan = ParametresHogan()
         arm = ParametresArmModel(hogan.GammaMax)
         save = SavingData()
         fr = FileReading()
-        nbf = 3
+        nbf = 2
         nbd = 4
         nbt = 0
         coordStartPts = []
@@ -131,7 +133,7 @@ class costFunction:
             self.Ju = 0
             while coordHA[1] < 0.6175:
                 if i < 900:
-                    inputq = np.array([dotq[0,0], dotq[1,0], q[0,0], q[1,0]])
+                    inputq = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                     cu.getCommand(inputq, nbt, fa, theta, 2)
                     Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)
                     ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
@@ -150,7 +152,8 @@ class costFunction:
             JuCf.append(self.Ju*(-1))
         fileSavingStr("CalculCoutTest", JuCf)
         self.suivi += 1
-        print("Fin d'appel! (", self.suivi, ")")
+        t1 = time.time()
+        print("Fin d'appel! (", self.suivi, ") (Temps de traitement:", (t1-t0), "s)")
         return JuCf
 
 
@@ -178,8 +181,8 @@ res = cf.costFunctionTest2(thetann)
 print(res)'''
 
 fra = FileReading()
-thetaa = fra.getobjread("RBFN2/ThetaBIN")
+thetaa = fra.getobjread("RBFN2/2feats/ThetaBIN")
 cf = costFunction()
 res = cf.costFunctionRBFN2(thetaa)
 print(res)
-
+fileSavingStr("RBFN2/2feats/cout", res)

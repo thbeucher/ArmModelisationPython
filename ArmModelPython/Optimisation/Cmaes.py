@@ -25,6 +25,7 @@ for i in range(5):
 #resSO = cma.fmin(costFunctionTest, thetaN, 0.5)
 resSO = cma.fmin(cf.costFunctionTest2, theta, 0.5)
 #resSO = cma.fmin(cf.costFunctionTest2, thetaN, 0.5, options={'popsize':5})
+#resSO = cma.fmin(cf.costFunctionRBFN2, thetaa, 3)
 print(resSO[0])
 t1 = time.time()
 print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
