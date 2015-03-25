@@ -35,13 +35,21 @@ class SavingData:
         coordHand = (robot.l2*np.cos(q[1,0] + q[0,0]) + robot.l1*np.cos(q[0,0]), robot.l2*np.sin(q[1,0] + q[0,0]) + robot.l1*np.sin(q[0,0]))
         return coordElbow, coordHand
     
-    def createCoord(cls):
-        for el in cls.coordElSave:
-            cls.xEl.append(el[0])
-            cls.yEl.append(el[1])
-        for el in cls.coordHaSave:
-            cls.xHa.append(el[0])
-            cls.yHa.append(el[1])
+    def createCoord(cls, a = 1, coordHA = 1, coordEL = 1):
+        if a == 1:  
+            for el in cls.coordElSave:
+                cls.xEl.append(el[0])
+                cls.yEl.append(el[1])
+            for el in cls.coordHaSave:
+                cls.xHa.append(el[0])
+                cls.yHa.append(el[1])
+        else:
+            for el in coordEL:
+                cls.xEl.append(el[0])
+                cls.yEl.append(el[1])
+            for el in coordHA:
+                cls.xHa.append(el[0])
+                cls.yHa.append(el[1])
             
     def saveParameters(cls, q, dotq, ddotq, Gamma_AM, arm):
         # Sauvegarde des parametres

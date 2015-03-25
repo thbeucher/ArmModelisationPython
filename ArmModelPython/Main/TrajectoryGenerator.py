@@ -10,6 +10,7 @@ from FileProcessing.FileReading import FileReading
 import time
 from Optimisation.costFunction import costFunction
 from FileProcessing.FileSaving import fileSavingStr
+from Regression.functionApproximator_LWR import fa_lwr
 
 
 #Recuperation des donnees necessaires a la simulation du bras
@@ -46,13 +47,15 @@ cf = costFunction()
 print("Debut du calcul de la trajectoire!")
 t0 = time.time()
 i = 0
+xMinMax = fr.getxMinMax(nbf)
+fa = fa_lwr(nbf, nbd, 1, 2, xMinMax)
 while coordHA[1] < 0.6175:
     if i < 900:
         #Recuperation du vecteur coordonnees
         inputq = np.array([dotq[0,0], dotq[1,0], q[0,0], q[1,0]])
             
         #Recuperation des activations musculaires
-        cu.getCommand(inputq, nbt, 0, 0)
+        cu.getCommand(inputq, nbt, fa, 0, 0)
             
         # Calcul du couple Gamma pour une raideur non nulle
         Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*cu.U
@@ -81,10 +84,10 @@ print("Fin du traitement! (Temps de traitement: ", (t1-t0), "s)")
 print("Nombre d'iteration pour arriver a la cible: ", len(save.coordHaSave))
 print("Valeur de la fonction cout: ", cf.Ju)
 #Sauvegarde du coup pour la trajectoire choisie
-nameu = input("Nom de la trajectoire: ")
-name = "ControlerResult/" + nameu
+#nameu = input("Nom de la trajectoire: ")
+#name = "ControlerResult/" + nameu
 #name = "ControlerResult/trajectoireInit(" + str(save.coordHaSave[0]) + ")Fin(" + str(save.coordHaSave[len(save.coordHaSave)-1]) + ")"
-fileSavingStr(name, cf.Ju)
+#fileSavingStr(name, cf.Ju)
 
 ##########################################################################################
 ##Plot                                                                                  ##

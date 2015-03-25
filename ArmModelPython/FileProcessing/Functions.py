@@ -1,6 +1,9 @@
 from FileProcessing.FileReading import FileReading
 from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
+from ArmModel.SavingData import SavingData
+import matplotlib.pyplot as plt
+from matplotlib import animation
 
 
 def normalizeThetaFunction():
@@ -32,13 +35,66 @@ def normalizeThetaFunction():
 
     
     
-normalizeThetaFunction()
+'''normalizeThetaFunction()
 f = FileReading()
 for i in range(6):
     tn = f.getobjread(str("ThetaAllTraj/Python_thetaNormalize_u" + str(i+1)))
     coef = f.getobjread(str("ThetaAllTraj/CoefNormalization_theta_u" + str(i+1)))
     tl = np.divide(tn, coef)
-    fileSavingStr(str("ThetaAllTraj/thetaRetrouve_u" + str(i+1)), tl)
+    fileSavingStr(str("ThetaAllTraj/thetaRetrouve_u" + str(i+1)), tl)'''
+
+
+
+################################################################################################
+######################## trajectories Animation ################################################
+################################################################################################
+choix = input("Veuillez choisir la trajectoire à visualiser: ")
+fr = FileReading()
+save = SavingData()
+
+fig = plt.figure()
+upperArm, = plt.plot([],[]) 
+foreArm, = plt.plot([],[])
+plt.xlim(-0.7, 0.7)
+plt.ylim(-0.7,0.7)
+
+def init():
+    upperArm.set_data([0],[0])
+    foreArm.set_data([save.xEl[0]],[save.yEl[0]])
+    return upperArm,foreArm,
+                        
+def animate(i): 
+    xe = (0, save.xEl[i])
+    ye = (0, save.yEl[i])
+    xh = (save.xEl[i], save.xHa[i])
+    yh = (save.yEl[i], save.yHa[i])
+    upperArm.set_data(xe, ye)
+    foreArm.set_data(xh, yh)
+    return upperArm,foreArm
+
+if choix == "All":
+    nameCoordEL = "RBFN2/2feats/CoordTraj/CoordTrajectoireEL" + choix
+    nameCoordHA = "RBFN2/2feats/CoordTraj/CoordTrajectoireHA" + choix
+    coordEL = fr.getobjread(nameCoordEL)
+    coordHA = fr.getobjread(nameCoordHA)
+    save.createCoord(2, coordHA, coordEL)
+    ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(coordEL), blit=True, interval=20, repeat=True)
+    plt.show()
+else: 
+    nameCoordEL = "RBFN2/2feats/CoordTraj/CoordTrajectoireEL" + choix
+    nameCoordHA = "RBFN2/2feats/CoordTraj/CoordTrajectoireHA" + choix
+    coordEL = fr.getobjread(nameCoordEL)
+    coordHA = fr.getobjread(nameCoordHA)
+    save.createCoord(2, coordHA, coordEL)
+    ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(coordEL), blit=True, interval=20, repeat=True)
+    plt.show()
+
+
+
+
+
+
+
 
 
 
