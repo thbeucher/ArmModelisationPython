@@ -72,7 +72,7 @@ class fa_rbfn():
             fa_out = np.dot(phi.T, theta) 
         return fa_out
 
-       
+##Bout de code pour generer les theta du controleur     
 '''fr = FileReading()
 stateAll, commandAll = fr.recup_data(0)
 print("state: ", stateAll.shape, "command: ", commandAll.shape)
