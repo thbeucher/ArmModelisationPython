@@ -8,7 +8,7 @@ from ArmModel.ParametresRobot import ParametresRobot
 from Regression.ControlerUtil import ControlerUtil
 from ArmModel.SavingData import SavingData
 from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
-from Regression.functionApproximator_RBFN2 import fa_rbfn
+from Regression.functionApproximator_RBFN import fa_rbfn
 
 class costFunction:
     
@@ -34,11 +34,25 @@ class costFunction:
     
     def costFunctionRBFN2(self, theta):
         t0 = time.time()
+        #Déclaration des différentes classes utiles 
         robot = ParametresRobot()
         hogan = ParametresHogan()
         arm = ParametresArmModel(hogan.GammaMax)
         save = SavingData()
         fr = FileReading()
+        #Remise sous forme de matrice de theta (quand lancer avec cmaes
+        #Pour l'instant non générique, changer nb(nbfeat**nbdim) pour correspondre au bon theta
+        '''nb = 0
+        for i in range(int(theta.shape[0]/6)):
+            thetaTmp = []
+            for j in range(6):
+                thetaTmp.append(theta[j + nb])
+            if i == 0:
+                thetaf = np.array([thetaTmp])
+            else:
+                thetaf = np.vstack((thetaf, np.array([thetaTmp])))
+            nb += 6
+        theta = thetaf'''
         nbf = 2
         nbd = 4
         nbt = 0
@@ -133,9 +147,9 @@ class costFunction:
         return JuCf
 
 ##code permettant de lancer la fonction de génération de trajectoire
-fra = FileReading()
+'''fra = FileReading()
 thetaa = fra.getobjread("RBFN2/2feats/ThetaBIN")
 cf = costFunction()
 res = cf.costFunctionRBFN2(thetaa)
 print(res)
-fileSavingStr("RBFN2/2feats/cout", res)
+fileSavingStr("RBFN2/2feats/cout", res)'''
