@@ -57,6 +57,8 @@ upperArm, = plt.plot([],[])
 foreArm, = plt.plot([],[])
 plt.xlim(-0.7, 0.7)
 plt.ylim(-0.7,0.7)
+plt.plot([-0.7,0.7], [0.6175, 0.6175])
+plt.scatter(0, 0.6175, c ='g', marker='o', s=50)
 
 def init():
     upperArm.set_data([0],[0])
