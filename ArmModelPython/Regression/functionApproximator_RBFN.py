@@ -1,3 +1,6 @@
+#######################################################################################
+########## Author: Thomas Beucher // Module: functionApproximator_RBFN ################
+#######################################################################################
 import numpy as np
 from Regression.VectorCombinaison import cartesian
 

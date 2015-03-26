@@ -1,9 +1,8 @@
+#######################################################################################
+########## Author: Thomas Beucher // Module: Launcher #################################
+#######################################################################################
 from Script.Animation import animatAct
 from Script.RunRegressionRBFN import runRBFN, test2DRBFN
-
-
-
-
 
 choix = input("Veuillez entrer le choix du script à lancer: ")
 

@@ -1,3 +1,6 @@
+#######################################################################################
+########## Author: Thomas Beucher // Module: Functions ################################
+#######################################################################################
 from FileProcessing.FileReading import FileReading
 from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
