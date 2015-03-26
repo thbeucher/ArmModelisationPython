@@ -1,11 +1,4 @@
 import numpy as np
-import time
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import cm
-from matplotlib.ticker import LinearLocator, FormatStrFormatter
-import matplotlib.pyplot as plt
-from FileProcessing.FileSaving import fileSavingBin, fileSavingStr
-from FileProcessing.FileReading import FileReading
 from Regression.VectorCombinaison import cartesian
 
 class fa_rbfn():
@@ -92,47 +85,5 @@ class fa_rbfn():
             fa_out = np.dot(phi.T, theta) 
         return fa_out
        
-       
-################################################################################################
-## TEST 2D                                                                                    ##
-################################################################################################
-'''X = np.arange(-5, 5, 0.25)
-Y = np.arange(-5, 5, 0.25)
-X, Y = np.meshgrid(X, Y)
-Z = np.sin(np.sqrt(X**2 + Y**2))
-xData = []
-zData = []
-for i in range(len(X)):
-    for j in range(len(X)):
-        xData.append((X[i][j],Y[i][j]))
-        zData.append(Z[i][j])
-nbFeat2 = 3
-funApproxDim2 = fa_rbfn(20)
-funApproxDim2.setTrainingData(np.array(xData).T, np.array([zData]))
-funApproxDim2.setCentersAndWidths()
-funApproxDim2.train_rbfn()
-y_approxRBFN = funApproxDim2.functionApproximatorOutput(np.array(xData), funApproxDim2.theta)
-y_approxMatLS = np.zeros((len(X),len(X)))
-for i in range(len(X)):
-    for j in range(len(X)):
-        y_approxMatLS[i][j] = y_approxRBFN[len(X)*i+j]
-
-
-fig = plt.figure()
-ax = fig.gca(projection='3d')
-X = np.arange(-5, 5, 0.25)
-Y = np.arange(-5, 5, 0.25)
-X, Y = np.meshgrid(X, Y)
-Z = np.sin(np.sqrt(X**2 + Y**2))
-surf = ax.plot_surface(X, Y, Z, rstride=1, cstride=1, linewidth=0, antialiased=False)
-
-fig2 = plt.figure()
-ax = fig2.gca(projection='3d')
-X = np.arange(-5, 5, 0.25)
-Y = np.arange(-5, 5, 0.25)
-X, Y = np.meshgrid(X, Y)
-ax.set_zlim(-1,1)
-ax.plot_surface(X, Y, y_approxMatLS, rstride=1, cstride=1, linewidth=0, antialiased=False)
-
-plt.show(block=True)'''
+    
         

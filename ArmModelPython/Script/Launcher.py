@@ -1,5 +1,5 @@
 from Script.Animation import animatAct
-from Script.RunRegressionRBFN import runRBFN
+from Script.RunRegressionRBFN import runRBFN, test2DRBFN
 
 
 
@@ -16,3 +16,9 @@ elif choix == "rbfn":
     nbfeat = input("Veuillez choisir le nombre de features: ")
     nbfeat = int(nbfeat)
     runRBFN(nbfeat)
+
+elif choix =="rbfn_test2D":
+    #Ce script lance le test de l'algorithme rbfn en dimension 2 pour visualiser les résultats
+    nbfeat = input("Veuillez choisir le nombre de features: ")
+    nbfeat = int(nbfeat)
+    test2DRBFN(nbfeat)
