@@ -12,7 +12,7 @@ from FileProcessing.FileReading import FileReading
 def animatAct():
     ###Mots cles: "All" pour lancer toutes les trajectoires ou alors choississez le numero de la trajectoire souhaitees
 
-    choix = input("Veuillez choisir la trajectoire à visualiser: ")
+    choix = input("Veuillez choisir la trajectoire a visualiser: ")
     fr = FileReading()
     save = SavingData()
     
@@ -24,11 +24,13 @@ def animatAct():
     plt.plot([-0.7,0.7], [0.6175, 0.6175])
     plt.scatter(0, 0.6175, c ='g', marker='o', s=50)
     
+    #Fonction d'initialisation pour l'animation
     def init():
         upperArm.set_data([0],[0])
         foreArm.set_data([save.xEl[0]],[save.yEl[0]])
         return upperArm,foreArm,
-                            
+    
+    #Fonction utiliser pour generer les differentes position du bras pour l'animation     
     def animate(i): 
         xe = (0, save.xEl[i])
         ye = (0, save.yEl[i])

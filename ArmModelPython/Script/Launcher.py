@@ -3,6 +3,9 @@
 #######################################################################################
 from Script.Animation import animatAct
 from Script.RunRegressionRBFN import runRBFN, test2DRBFN
+from FileProcessing.FileReading import FileReading
+from Optimisation.costFunction import costFunction
+from FileProcessing.FileSaving import fileSavingStr
 
 choix = input("Veuillez entrer le choix du script à lancer: ")
 
@@ -21,3 +24,16 @@ elif choix =="rbfn_test2D":
     nbfeat = input("Veuillez choisir le nombre de features: ")
     nbfeat = int(nbfeat)
     test2DRBFN(nbfeat)
+    
+elif choix == "genTraj":
+    ##code permettant de lancer la fonction de génération de trajectoire
+    fra = FileReading()
+    thetaa = fra.getobjread("RBFN2/2feats/ThetaBIN")
+    cf = costFunction()
+    res = cf.costFunctionRBFN2(thetaa)
+    print(res)
+    fileSavingStr("RBFN2/2feats/cout", res)
+    
+    
+    
+    

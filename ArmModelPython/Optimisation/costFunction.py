@@ -149,10 +149,3 @@ class costFunction:
         print("Fin d'appel! (", self.suivi, ") (Temps de traitement:", (t1-t0), "s)")
         return JuCf
 
-##code permettant de lancer la fonction de génération de trajectoire
-'''fra = FileReading()
-thetaa = fra.getobjread("RBFN2/2feats/ThetaBIN")
-cf = costFunction()
-res = cf.costFunctionRBFN2(thetaa)
-print(res)
-fileSavingStr("RBFN2/2feats/cout", res)'''

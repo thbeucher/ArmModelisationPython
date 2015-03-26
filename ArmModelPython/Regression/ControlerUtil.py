@@ -10,7 +10,7 @@ class ControlerUtil:
         self.dim = dime
 
     ########################################################################
-    # Fonction permettant de récupérer la sortie des activations musculaires
+    # Fonction permettant de recuperer la sortie des activations musculaires
     ########################################################################
     def getCommand(self, inputgc, numTrajectoire, fa, theta):
         self.U = fa.functionApproximatorOutput(inputgc, theta)
