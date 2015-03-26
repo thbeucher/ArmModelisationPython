@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 
-
+####################################################################################################
+## runRBFN permet de lancer l'algorithme de regression sur les données de trajectoires du brent ####
+####################################################################################################
 def runRBFN(nbfeat):
     t0 = time.time()
     print("Début de traitement!")
