@@ -24,7 +24,9 @@ def costColorPlot(name):
     
     plt.show()
 
-
+####################################################################################
+############ Fonction pour afficher les activations musculaires U ##################
+####################################################################################
 def plotActivationMuscular(what):
     fr = FileReading()
     if what == "brent":
