@@ -46,8 +46,8 @@ class costFunction:
         fr = FileReading()
         #Remise sous forme de matrice de theta (quand lancer avec cmaes
         #Pour l'instant non générique, changer nb(nbfeat**nbdim) pour correspondre au bon theta
-        '''nb = 0
-        for i in range(int(theta.shape[0]/6)):
+        nb = 0
+        '''for i in range(int(theta.shape[0]/6)):
             thetaTmp = []
             for j in range(6):
                 thetaTmp.append(theta[j + nb])
@@ -71,7 +71,7 @@ class costFunction:
         coordStartPts.append((-0.1,0.0325))#trajectoire8
         coordStartPts.append((0.0,0.0325))#trajectoire9#0000
         coordStartPts.append((0.1,0.0325))#trajectoire10
-        coordStartPts.append((0.2,0.0325))#trajectoire11#1715
+        coordStartPts.append((0.2,0.0325))#trajectoire11
         coordStartPts.append((0.3,0.0325))#trajectoire12
         JuCf = []
         stateAll, commandAll = fr.recup_data(0)
@@ -79,13 +79,16 @@ class costFunction:
         fa.setTrainingData(stateAll.T, commandAll.T)
         fa.setCentersAndWidths()
         cu = ControlerUtil(nbf,nbd)
-        ##############################
-        ##For saving U and coordTraj
+        ############################################################
+        ##For saving U and coordTraj and Unoise
         #y = 0
-        ##############################
+        ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
+        #savei = []
+        #namei = "RBFN2/" + str(nbf) + "feats/nbIteTraj"
+        ############################################################
         for el in coordStartPts:
             #print("x:", el[0], "\ny:", el[1])
-            q1, q2 = fr.convertToAngle(el[0], el[1], robot)
+            q1, q2 = fr.convertToAngle(el[0], el[1], robot) 
             #print("q1:", q1, "\nq2:", q2)
             q = np.array([[q1],[q2]])
             dotq = np.array([[0.],[0.]])
@@ -97,32 +100,35 @@ class costFunction:
             ############################################################
             ##For saving U
             #saveU = []
+            #y += 1
             #nameU = "RBFN2/" + str(nbf) + "feats/ActiMuscuTrajectoire" + str(y+1)
+            ##For saving Unoise
+            #saveU = []
+            #nameUnoise = "RBFN2/" + str(nbf) + "feats/ActiMuscuNoiseTrajectoire" + str(y+1)
             #y += 1
             ##For saving coord Traj
-            #saveTraj = []
-            #nameCoordEL = "RBFN2/2feats/CoordTraj/CoordTrajectoireEL" + str(y+1)
-            #nameCoordHA = "RBFN2/2feats/CoordTraj/CoordTrajectoireHA" + str(y+1)
-            #y += 1
-            #nameCoordEL = "RBFN2/2feats/CoordTraj/CoordTrajectoireELAll"
-            #nameCoordHA = "RBFN2/2feats/CoordTraj/CoordTrajectoireHAAll"
+            #nameCoordEL = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireEL" + str(12)
+            #nameCoordHA = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireHA" + str(12)
+            ##For saving all coord traj
+            #nameCoordEL = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireELAll"
+            #nameCoordHA = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireHAAll"
             ############################################################
             while coordHA[1] < 0.6175:
                 if i < 900:
                     inputq = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                     cu.getCommand(inputq, nbt, fa, theta)
                     ##############################
-                    ##For saving U
+                    ##For saving U and Unoise
                     #saveU.append(cu.U)
                     ##############################
-                    Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)
+                    Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
+                    #Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
                     ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
                     dotq += ddotq*arm.dt
                     q += dotq*arm.dt
                     coordEL, coordHA = save.calculCoord(q, robot)
                     ##############################
                     ##For saving coordTraj
-                    #saveTraj.append((coordEL, coordHA))
                     #save.SaveTrajectory(coordEL, coordHA)
                     ##############################
                     if coordHA[0] == 0.0 and coordHA[1] == 0.6175:
@@ -136,14 +142,25 @@ class costFunction:
             ##############################
             ##For saving U
             #fileSavingBin(nameU, saveU)
+            ##For saving Unoise
+            #fileSavingBin(nameUnoise, saveU)
+            ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
+            #savei.append(i)
+            #fileSavingStr(namei, savei)
             ##For saving coordTraj
-            #fileSavingBin(nameCoord, saveTraj
-            #print("len", len(save.coordElSave))
+            #print("len", len(save.coordHaSave))
             #fileSavingBin(nameCoordEL, save.coordElSave)
             #fileSavingBin(nameCoordHA, save.coordHaSave)
             ##############################
             print(i)
             JuCf.append(self.Ju*(-1))
+        ###########################################
+        ##Pour sauvegarder toutes les coordonnes
+        #fileSavingBin(nameCoordEL, save.coordElSave)
+        #fileSavingBin(nameCoordHA, save.coordHaSave)
+        ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
+        #fileSavingStr(namei, savei)
+        ###########################################
         fileSavingStr("CalculCoutTest", JuCf)
         self.suivi += 1
         t1 = time.time()

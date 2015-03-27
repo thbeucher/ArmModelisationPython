@@ -82,14 +82,6 @@ class FileReading():
     #Cette fonction permet de récupérer q1 et q2 à partir du x et du y de la main
     ###########################################################################################
     def convertToAngle(self, xh, yh, robot):
-        if (xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2) < -1:
-            q2 = np.arccos(1)
-        else:
-            q2 = np.arccos((xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2))
-        q1 = ma.atan2(yh, xh)-ma.atan2(robot.l2*np.sin(q2), robot.l1 + robot.l2*np.cos(q2))
-        return q1, q2
-    
-    def convertToAngleTest(self, xh, yh, robot):
         q2 = ma.atan2(np.sqrt(1-(xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2)), (xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2))
         if q2 < 0:
             q2 = q2*(-1)

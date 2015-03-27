@@ -7,13 +7,16 @@ from FileProcessing.FileReading import FileReading
 from Optimisation.costFunction import costFunction
 from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
 from FileProcessing.plotFunctions import costColorPlot, plotActivationMuscular
+from Optimisation.Cmaes import runCmaes
 
-print("Scripts existants:\n -animation\n -rbfn\n -rbfn_test2D\n -genTraj\n -costColor\n -actiMuscu\n")
+print("Scripts existants:\n -animation\n -rbfn\n -rbfn_test2D\n -genTraj\n -costColor\n -actiMuscu\n -cmaes\n")
 choix = input("Veuillez entrer le choix du script à lancer: ")
 
 if choix == "animation":
     ##Ce script permet de lancer l'animation de trajectoire de votre choix##
-    animatAct()
+    nbfeat = input("Veuillez choisir le nombre de features: ")
+    nbfeat = int(nbfeat)
+    animatAct(nbfeat)
     
 elif choix == "rbfn":
     #Ce script permet de lancer la regression sur l'ensemble des donnees de trajectoires Brent en memoire
@@ -53,5 +56,21 @@ elif choix == "actiMuscu":
     nbfeat = int(nbfeat)
     wha = input("Choisir les activations musculaires a afficher (brent ou RBFN): ")
     plotActivationMuscular(wha, nbfeat)
+    
+elif choix == "cmaes":
+    nbfeat = input("Nombre de features choisies: ")
+    nbfeat = int(nbfeat)
+    runCmaes(nbfeat)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     

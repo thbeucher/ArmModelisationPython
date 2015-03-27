@@ -99,3 +99,24 @@ Fonction pour mettre dans tes tableaux separes les differentes activations muscu
 
 
 
+######################################################
+ Permet de récupérer les theta de lwr 
+#####################################################
+    def getTheta(self, nbfeat, choix):
+        folder = getcwd()
+        folder = op.split(folder)
+        folder = folder[0] + "/FileProcessing/RegressionResults/"
+        if choix == 0:
+            folder = folder + str(nbfeat) + "_feats/AllCommand_u"
+        else:
+            folder = folder + str(nbfeat) + "_feats/trajectoire" + str(choix) + "_u"
+        for i in range(6):
+            name = folder + str(i+1)
+            with open(name, "rb") as file:
+                mondepickler = pickle.Unpickler(file)
+                data = mondepickler.load()
+            self.theta_store[str("u" + str(i+1))] = data
+
+
+
+

@@ -9,7 +9,7 @@ from FileProcessing.FileReading import FileReading
 ################################################################################################
 ######################## trajectories Animation ################################################
 ################################################################################################
-def animatAct():
+def animatAct(nbfeat):
     ###Mots cles: "All" pour lancer toutes les trajectoires ou alors choississez le numero de la trajectoire souhaitees
 
     choix = input("Veuillez choisir la trajectoire a visualiser: ")
@@ -41,16 +41,16 @@ def animatAct():
         return upperArm,foreArm
     
     if choix == "All":
-        nameCoordEL = "RBFN2/2feats/CoordTraj/CoordTrajectoireEL" + choix
-        nameCoordHA = "RBFN2/2feats/CoordTraj/CoordTrajectoireHA" + choix
+        nameCoordEL = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireEL" + choix
+        nameCoordHA = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireHA" + choix
         coordEL = fr.getobjread(nameCoordEL)
         coordHA = fr.getobjread(nameCoordHA)
         save.createCoord(2, coordHA, coordEL)
         ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(coordEL), blit=True, interval=20, repeat=True)
         plt.show()
     else: 
-        nameCoordEL = "RBFN2/2feats/CoordTraj/CoordTrajectoireEL" + choix
-        nameCoordHA = "RBFN2/2feats/CoordTraj/CoordTrajectoireHA" + choix
+        nameCoordEL = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireEL" + choix
+        nameCoordHA = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireHA" + choix
         coordEL = fr.getobjread(nameCoordEL)
         coordHA = fr.getobjread(nameCoordHA)
         save.createCoord(2, coordHA, coordEL)
