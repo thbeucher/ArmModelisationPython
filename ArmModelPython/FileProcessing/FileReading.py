@@ -9,6 +9,7 @@ import os.path as op
 from posix import getcwd
 from ArmModel.ParametresRobot import ParametresRobot
 from FileProcessing.FileSaving import fileSavingStr
+from numpy import isnan
 #from nt import getcwd #Windows
 
 class FileReading():
@@ -102,14 +103,34 @@ a.append((-0.1,0.26))
 a.append((0.0,0.26))
 a.append((0.1,0.26))
 a.append((0.2,0.26))
-a.append((0.3,0.26))
+a.append((0.3,0.26))'''
 
+'''x = np.arange(-0.5,0.5,0.025)
+y = np.arange(0.1,0.6,0.025)
+X, Y = np.meshgrid(x,y)
+print(x.shape, y.shape, X.shape, Y.shape)
 q = []
+fr = FileReading()
+robot = ParametresRobot()
+for i in range(X.shape[0]):
+    for j in range(X.shape[1]):
+        a,b = fr.convertToAngle(X[i,j], Y[i,j], robot)
+        if np.isnan(a) or np.isnan(b):
+            pass
+        else:
+            q.append((a, b))
+print(len(q), np.max(q, axis = 0), np.min(q, axis = 0), "\n", q)
+with open("q1q2747", "w+") as file:
+    for el in q:
+        file.write(str("{" + str(el[0]) + "," + str(el[1]) + "},"))'''
+
+'''q = []
 fr = FileReading()
 robot = ParametresRobot()
 for el in a:
     q.append(fr.convertToAngleTest(el[0], el[1], robot))
-fileSavingStr("q1q2ForPosIni", q)
-print(q)'''
+fileSavingStr("q1q2ForPosIniAlea", q)'''
+
+
 
 

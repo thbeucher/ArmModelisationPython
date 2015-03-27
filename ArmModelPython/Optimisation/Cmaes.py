@@ -20,7 +20,8 @@ def runCmaes(nbfeat):
     thetaTmp = theta[0]
     for i in range(theta.shape[0]-1):
         thetaTmp = np.hstack((thetaTmp, theta[i+1]))
-    resSO = cma.fmin(cf.costFunctionCMAES, thetaTmp, 1)
+    #resSO = cma.fmin(cf.costFunctionCMAES, thetaTmp, 1)
+    resSO = cma.fmin(cf.costFunctionCMAES, thetaTmp, 1, options={'maxiter':5, 'popsize':10})#fmin avec une condition sur le nombre d'iteration
     t1 = time.time()
     print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
     print(resSO[0])
