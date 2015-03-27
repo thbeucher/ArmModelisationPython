@@ -58,6 +58,7 @@ elif choix == "actiMuscu":
     plotActivationMuscular(wha, nbfeat)
     
 elif choix == "cmaes":
+    #Lance l'algorithme cmaes
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
     runCmaes(nbfeat)
