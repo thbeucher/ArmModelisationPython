@@ -46,8 +46,8 @@ class costFunction:
         fr = FileReading()
         #Remise sous forme de matrice de theta (quand lancer avec cmaes
         #Pour l'instant non générique, changer nb(nbfeat**nbdim) pour correspondre au bon theta
-        nb = 0
-        '''for i in range(int(theta.shape[0]/6)):
+        '''nb = 0
+        for i in range(int(theta.shape[0]/6)):
             thetaTmp = []
             for j in range(6):
                 thetaTmp.append(theta[j + nb])
@@ -84,7 +84,9 @@ class costFunction:
         #y = 0
         ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
         #savei = []
+        ##avec noise
         #namei = "RBFN2/" + str(nbf) + "feats/nbIteTraj"
+        #nameinoise = "RBFN2/" + str(nbf) + "feats/nbIteTrajNoise"
         ############################################################
         for el in coordStartPts:
             #print("x:", el[0], "\ny:", el[1])
@@ -112,6 +114,9 @@ class costFunction:
             ##For saving all coord traj
             #nameCoordEL = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireELAll"
             #nameCoordHA = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireHAAll"
+            ##For saving all coord traj noise
+            #nameCoordEL = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireELAllNoise"
+            #nameCoordHA = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireHAAllNoise"
             ############################################################
             while coordHA[1] < 0.6175:
                 if i < 900:
@@ -121,8 +126,8 @@ class costFunction:
                     ##For saving U and Unoise
                     #saveU.append(cu.U)
                     ##############################
-                    Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
-                    #Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
+                    #Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
+                    Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
                     ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
                     dotq += ddotq*arm.dt
                     q += dotq*arm.dt
@@ -146,7 +151,6 @@ class costFunction:
             #fileSavingBin(nameUnoise, saveU)
             ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
             #savei.append(i)
-            #fileSavingStr(namei, savei)
             ##For saving coordTraj
             #print("len", len(save.coordHaSave))
             #fileSavingBin(nameCoordEL, save.coordElSave)
@@ -160,6 +164,8 @@ class costFunction:
         #fileSavingBin(nameCoordHA, save.coordHaSave)
         ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
         #fileSavingStr(namei, savei)
+        ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires noise
+        #fileSavingStr(nameinoise, savei)
         ###########################################
         fileSavingStr("CalculCoutTest", JuCf)
         self.suivi += 1

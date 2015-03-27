@@ -47,7 +47,15 @@ def animatAct(nbfeat):
         coordHA = fr.getobjread(nameCoordHA)
         save.createCoord(2, coordHA, coordEL)
         ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(coordEL), blit=True, interval=20, repeat=True)
-        plt.show()
+        plt.show(block = True)
+    elif choix == "AllNoise":
+        nameCoordEL = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireEL" + choix
+        nameCoordHA = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireHA" + choix
+        coordEL = fr.getobjread(nameCoordEL)
+        coordHA = fr.getobjread(nameCoordHA)
+        save.createCoord(2, coordHA, coordEL)
+        ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(coordEL), blit=True, interval=20, repeat=True)
+        plt.show(block = True)
     else: 
         nameCoordEL = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireEL" + choix
         nameCoordHA = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireHA" + choix
