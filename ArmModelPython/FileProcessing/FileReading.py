@@ -7,6 +7,8 @@ import math as ma
 #import cma as cma
 import os.path as op
 from posix import getcwd
+from ArmModel.ParametresRobot import ParametresRobot
+from FileProcessing.FileSaving import fileSavingStr
 #from nt import getcwd #Windows
 
 class FileReading():
@@ -39,12 +41,14 @@ class FileReading():
         chemin = op.split(chemin)
         chemin = chemin[0] + "/Data/trajectoires/"
         if choix == 1:
-            nameFichier = input("Veuillez entrer le nom courant des fichiers à traiter: ")
+            nameFichier = input("Veuillez entrer le nom courant des fichiers a traiter: ")
             nbFichier = input("Veuillez entrer le nombre de fichier à traiter: ")
             nbFichier = int(nbFichier)
         else:
+            #nom du fichier courant
             nameFichier = "trajectoire"
-            nbFichier = 10
+            #nombre de fichier a traiter
+            nbFichier = 12
         j = 0
         l = 0
         nbf = 0
@@ -85,9 +89,35 @@ class FileReading():
         q1 = ma.atan2(yh, xh)-ma.atan2(robot.l2*np.sin(q2), robot.l1 + robot.l2*np.cos(q2))
         return q1, q2
     
+    def convertToAngleTest(self, xh, yh, robot):
+        q2 = ma.atan2(np.sqrt(1-(xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2)), (xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2))
+        if q2 < 0:
+            q2 = q2*(-1)
+        q1 = ma.atan2(yh, xh)-ma.atan2(robot.l2*np.sin(q2), robot.l1 + robot.l2*np.cos(q2))
+        return q1, q2
 
 
+#Bout de code pour generer les q1, q2 associes aux positions initiales
+'''a = []
+a.append((-0.2,0.39))
+a.append((-0.1,0.39))
+a.append((0.0,0.39))
+a.append((0.1,0.39))
+a.append((0.2,0.39))
+a.append((-0.3,0.26))
+a.append((-0.2,0.26))
+a.append((-0.1,0.26))
+a.append((0.0,0.26))
+a.append((0.1,0.26))
+a.append((0.2,0.26))
+a.append((0.3,0.26))
 
-
+q = []
+fr = FileReading()
+robot = ParametresRobot()
+for el in a:
+    q.append(fr.convertToAngleTest(el[0], el[1], robot))
+fileSavingStr("q1q2ForPosIni", q)
+print(q)'''
 
 

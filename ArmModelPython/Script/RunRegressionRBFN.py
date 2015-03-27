@@ -14,8 +14,8 @@ from matplotlib import cm
 ## runRBFN permet de lancer l'algorithme de regression sur les données de trajectoires du brent ####
 ####################################################################################################
 def runRBFN(nbfeat):
-    t0 = time.time()
     print("Début de traitement!")
+    t0 = time.time()
     fr = FileReading()
     stateAll, commandAll = fr.recup_data(0)
     

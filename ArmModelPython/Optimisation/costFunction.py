@@ -12,6 +12,7 @@ from Regression.ControlerUtil import ControlerUtil
 from ArmModel.SavingData import SavingData
 from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
 from Regression.functionApproximator_RBFN import fa_rbfn
+import math as m
 
 class costFunction:
     
@@ -56,22 +57,22 @@ class costFunction:
                 thetaf = np.vstack((thetaf, np.array([thetaTmp])))
             nb += 6
         theta = thetaf'''
-        nbf = 2
+        nbf = 3
         nbd = 4
         nbt = 0
         coordStartPts = []
-        #coordStartPts.append((-0.2,0.39))#trajectoire1
-        #coordStartPts.append((-0.1,0.39))#trajectoire2
-        #coordStartPts.append((0.0,0.39))#trajectoire3
-        #coordStartPts.append((0.1,0.39))#trajectoire4
-        #coordStartPts.append((0.2,0.39))#trajectoire5
-        #coordStartPts.append((-0.3,0.0325))#trajectoire6
-        #coordStartPts.append((-0.2,0.0325))#trajectoire7
-        #coordStartPts.append((-0.1,0.0325))#trajectoire8
+        coordStartPts.append((-0.2,0.39))#trajectoire1
+        coordStartPts.append((-0.1,0.39))#trajectoire2
+        coordStartPts.append((0.0,0.39))#trajectoire3
+        coordStartPts.append((0.1,0.39))#trajectoire4
+        coordStartPts.append((0.2,0.39))#trajectoire5
+        coordStartPts.append((-0.3,0.0325))#trajectoire6
+        coordStartPts.append((-0.2,0.0325))#trajectoire7
+        coordStartPts.append((-0.1,0.0325))#trajectoire8
         coordStartPts.append((0.0,0.0325))#trajectoire9#0000
-        #coordStartPts.append((0.1,0.0325))#trajectoire10
-        #coordStartPts.append((0.2,0.0325))#trajectoire11#1715
-        #coordStartPts.append((0.3,0.0325))#trajectoire12
+        coordStartPts.append((0.1,0.0325))#trajectoire10
+        coordStartPts.append((0.2,0.0325))#trajectoire11#1715
+        coordStartPts.append((0.3,0.0325))#trajectoire12
         JuCf = []
         stateAll, commandAll = fr.recup_data(0)
         fa = fa_rbfn(nbf)
@@ -83,7 +84,7 @@ class costFunction:
         #y = 0
         ##############################
         for el in coordStartPts:
-            #print("el1:", el[0], "\nel2:", el[1])
+            #print("x:", el[0], "\ny:", el[1])
             q1, q2 = fr.convertToAngle(el[0], el[1], robot)
             #print("q1:", q1, "\nq2:", q2)
             q = np.array([[q1],[q2]])
@@ -96,7 +97,7 @@ class costFunction:
             ############################################################
             ##For saving U
             #saveU = []
-            #nameU = "RBFN2/2feats/ActiMuscuTrajectoire" + str(y+1)
+            #nameU = "RBFN2/" + str(nbf) + "feats/ActiMuscuTrajectoire" + str(y+1)
             #y += 1
             ##For saving coord Traj
             #saveTraj = []
