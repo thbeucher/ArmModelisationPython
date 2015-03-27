@@ -27,7 +27,7 @@ def costColorPlot(name):
 ####################################################################################
 ############ Fonction pour afficher les activations musculaires U ##################
 ####################################################################################
-def plotActivationMuscular(what):
+def plotActivationMuscular(what, nbfeat):
     fr = FileReading()
     if what == "brent":
         #BrentBVPSolver activations muscular
@@ -36,13 +36,14 @@ def plotActivationMuscular(what):
         traj = {}
         trajIte = {}
         trajVal = {}
+        #Récupération des activations musculaires de chaque trajectoire
         for i in range(len(fr.data_store)):
             if str("trajectoire" + str(i) + "_command") in fr.data_store.keys():
                 traj[str("trajectoire" + str(i) + "_command")] = fr.data_store[str("trajectoire" + str(i) + "_command")]
                 j += 1
         j = 0
         trajValTmp = {}
-        for i in range(6*10):
+        for i in range(6*12):
             trajValTmp[i] = []
         u = 0
         l = 0
@@ -73,7 +74,7 @@ def plotActivationMuscular(what):
         u = 0
         for i in range(12):
             trajIteU[i] = []
-            nameU = "RBFN2/2feats/ActiMuscuTrajectoire" + str(i+1)
+            nameU = "RBFN2/" + str(nbfeat) + "feats/ActiMuscuTrajectoire" + str(i+1)
             ut1 = fr.getobjread(nameU)
             for j in range(len(ut1)):
                 trajIteU[i].append(j)

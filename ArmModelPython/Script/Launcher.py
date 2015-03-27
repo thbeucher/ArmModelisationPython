@@ -6,9 +6,9 @@ from Script.RunRegressionRBFN import runRBFN, test2DRBFN
 from FileProcessing.FileReading import FileReading
 from Optimisation.costFunction import costFunction
 from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
-from FileProcessing.plotFunctions import costColorPlot
+from FileProcessing.plotFunctions import costColorPlot, plotActivationMuscular
 
-print("Scripts existants:\n -animation\n -rbfn\n -rbfn_test2D\n -genTraj\n -costColor\n")
+print("Scripts existants:\n -animation\n -rbfn\n -rbfn_test2D\n -genTraj\n -costColor\n -actiMuscu\n")
 choix = input("Veuillez entrer le choix du script à lancer: ")
 
 if choix == "animation":
@@ -48,5 +48,10 @@ elif choix == "costColor":
     name = "RBFN2/" + str(nbfeat) + "feats/cout"
     costColorPlot(name)
     
+elif choix == "actiMuscu":
+    nbfeat = input("Nombre de features choisies: ")
+    nbfeat = int(nbfeat)
+    wha = input("Choisir les activations musculaires a afficher (brent ou RBFN): ")
+    plotActivationMuscular(wha, nbfeat)
     
     
