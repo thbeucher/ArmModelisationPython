@@ -23,8 +23,10 @@ def runRBFN(nbfeat):
     fa.setTrainingData(stateAll.T, commandAll.T)
     fa.setCentersAndWidths()
     fa.train_rbfn()
-    nameSaveStr = "RBFN2/" + str(nbfeat) + "feats/Theta"
-    nameSaveBin = "RBFN2/" + str(nbfeat) + "feats/ThetaBIN"
+    #nameSaveStr = "RBFN2/" + str(nbfeat) + "feats/Theta"##Noms pour les 12 traj
+    #nameSaveBin = "RBFN2/" + str(nbfeat) + "feats/ThetaBIN"##Noms pour les 12 traj
+    nameSaveStr = "RBFN2/" + str(nbfeat) + "feats/ThetaX"##Nom pour les x traj
+    nameSaveBin = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"##Nom pour les x traj
     fileSavingStr(nameSaveStr, fa.theta)
     fileSavingBin(nameSaveBin, fa.theta)
     t1 = time.time()

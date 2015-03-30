@@ -74,7 +74,7 @@ class costFunction:
         coordStartPts.append((0.2,0.0325))#trajectoire11
         coordStartPts.append((0.3,0.0325))#trajectoire12
         JuCf = []
-        stateAll, commandAll = fr.recup_data(0)
+        stateAll, commandAll = fr.recup_data(1)
         fa = fa_rbfn(nbf)
         fa.setTrainingData(stateAll.T, commandAll.T)
         fa.setCentersAndWidths()
@@ -126,8 +126,8 @@ class costFunction:
                     ##For saving U and Unoise
                     #saveU.append(cu.U)
                     ##############################
-                    #Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
-                    Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
+                    Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
+                    #Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
                     ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
                     dotq += ddotq*arm.dt
                     q += dotq*arm.dt

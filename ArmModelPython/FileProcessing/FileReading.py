@@ -6,6 +6,7 @@ import numpy as np
 import math as ma
 #import cma as cma
 import os.path as op
+import os
 from posix import getcwd
 from ArmModel.ParametresRobot import ParametresRobot
 from FileProcessing.FileSaving import fileSavingStr
@@ -42,14 +43,14 @@ class FileReading():
         chemin = op.split(chemin)
         chemin = chemin[0] + "/Data/trajectoires/"
         if choix == 1:
-            nameFichier = input("Veuillez entrer le nom courant des fichiers a traiter: ")
+            nameFichier = input("Veuillez entrer le nom courant des fichiers a traiter (", len(os.listdir(chemin))-1 ,"max): ")
             nbFichier = input("Veuillez entrer le nombre de fichier à traiter: ")
             nbFichier = int(nbFichier)
         else:
             #nom du fichier courant
             nameFichier = "trajectoire"
             #nombre de fichier a traiter
-            nbFichier = 12
+            nbFichier = len(os.listdir(chemin))-1
         j = 0
         l = 0
         nbf = 0
