@@ -4,6 +4,7 @@ Module: ControlerUtil
 '''
 from FileProcessing.FileReading import FileReading
 import numpy as np
+import bigfloat
 
 class ControlerUtil:
     def __init__(self, nbfeature, dime):
@@ -19,7 +20,7 @@ class ControlerUtil:
     def getCommand(self, inputgc, numTrajectoire, fa, theta):
         self.U = fa.functionApproximatorOutput(inputgc, theta)
         #Bruit d'activation musculaire / nombre aléatoire entre 0 et 1
-        noise = np.random.rand(6)
-        self.Unoise = np.array(self.U*noise)
+        self.Unoise = np.divide(np.log(np.exp(500*self.U) + 1), 500)
+
         
         

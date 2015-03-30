@@ -19,6 +19,7 @@ def runRBFN(nbfeat):
     t0 = time.time()
     fr = FileReading()
     stateAll, commandAll = fr.recup_data(0)
+    print("nombre d'echantillons: ", len(stateAll))
     
     fa = fa_rbfn(nbfeat)
     fa.setTrainingData(stateAll.T, commandAll.T)
