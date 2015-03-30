@@ -16,13 +16,16 @@ import math as m
 
 class costFunction:
     
-    def __init__(self, inb = 0):
+    def __init__(self, nbfeat, inb = 0, noise = 0, sauv = 0):
         self.gamma = 0.998
         self.rho = 10
         self.ups = 3000
         self.Ju = 0
         self.suivi = 0
         self.inb = inb
+        self.sauv = sauv
+        self.noise = noise
+        self.nbf = nbfeat
         
     def costFunctionJ(self, U, action, t):
         usquare = np.square(U)
@@ -47,7 +50,6 @@ class costFunction:
         fr = FileReading()
         #Remise sous forme de matrice de theta (quand lancer avec cmaes
         #Pour l'instant non générique, changer nb(nbfeat**nbdim) pour correspondre au bon theta
-        nbf = 3
         nbd = 4
         nbt = 0
         coordStartPts = []
@@ -68,13 +70,14 @@ class costFunction:
             stateAll, commandAll = fr.recup_data(1)
         elif self.inb == 0:
             stateAll, commandAll = fr.recup_data(0)
-        fa = fa_rbfn(nbf)
+        fa = fa_rbfn(self.nbf)
         fa.setTrainingData(stateAll.T, commandAll.T)
         fa.setCentersAndWidths()
-        cu = ControlerUtil(nbf,nbd)
+        cu = ControlerUtil(self.nbf,nbd)
         ############################################################
         ##For saving U and coordTraj and Unoise
-        #y = 0
+        if self.sauv == 1:
+            y = 0
         ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
         #savei = []
         ##avec noise
@@ -94,22 +97,34 @@ class costFunction:
             self.Ju = 0
             ############################################################
             ##For saving U
-            #saveU = []
-            #y += 1
-            #nameU = "RBFN2/" + str(nbf) + "feats/ActiMuscuTrajectoire" + str(y+1)
-            ##For saving Unoise
-            #saveU = []
-            #nameUnoise = "RBFN2/" + str(nbf) + "feats/ActiMuscuNoiseTrajectoire" + str(y+1)
-            #y += 1
+            #Sauv = 1 entraine la sauvegarde des U
+            if self.sauv == 1:
+                saveU = []
+                y += 1
+                if self.inb == 0:
+                    nameU = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuTrajectoireX" + str(y+1)
+                elif self.inb == 1:
+                    nameU = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuTrajectoire" + str(y+1)
+            #Sauv = 2 entraine la sauvegarde des Unoises  
+            elif self.sauv == 2:  
+                ##For saving Unoise
+                saveU = []
+                y += 1
+                if self.inb == 0:
+                    nameUnoise = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireX" + str(y+1)
+                elif self.inb == 1:
+                    nameUnoise = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoire" + str(y+1)
             ##For saving coord Traj
             #nameCoordEL = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireEL" + str(12)
             #nameCoordHA = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireHA" + str(12)
             ##For saving all coord traj
-            #nameCoordEL = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireELAll"
-            #nameCoordHA = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireHAAll"
+            elif self.sauv == 3:
+                nameCoordEL = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireELAll"
+                nameCoordHA = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireHAAll"
             ##For saving all coord traj noise
-            #nameCoordEL = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireELAllNoise"
-            #nameCoordHA = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireHAAllNoise"
+            elif self.sauv == 4:
+                nameCoordEL = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireELAllNoise"
+                nameCoordHA = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireHAAllNoise"
             ############################################################
             while coordHA[1] < 0.6175:
                 if i < 900:
@@ -117,17 +132,21 @@ class costFunction:
                     cu.getCommand(inputq, nbt, fa, theta)
                     ##############################
                     ##For saving U and Unoise
-                    #saveU.append(cu.U)
+                    if self.sauv == 1 or self.sauv == 2:
+                        saveU.append(cu.U)
                     ##############################
-                    Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
-                    #Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
+                    if self.sauv == 0:
+                        Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
+                    elif self.sauv == 1:
+                        Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
                     ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
                     dotq += ddotq*arm.dt
                     q += dotq*arm.dt
                     coordEL, coordHA = save.calculCoord(q, robot)
                     ##############################
                     ##For saving coordTraj
-                    #save.SaveTrajectory(coordEL, coordHA)
+                    if self.sauv == 3 or self.sauv == 4:
+                        save.SaveTrajectory(coordEL, coordHA)
                     ##############################
                     if coordHA[0] == 0.0 and coordHA[1] == 0.6175:
                         self.costFunctionJ(cu.U, 2, arm.t)
@@ -139,9 +158,11 @@ class costFunction:
                 arm.t += arm.dt
             ##############################
             ##For saving U
-            #fileSavingBin(nameU, saveU)
+            if self.sauv == 1:
+                fileSavingBin(nameU, saveU)
             ##For saving Unoise
-            #fileSavingBin(nameUnoise, saveU)
+            if self.sauv == 2:
+                fileSavingBin(nameUnoise, saveU)
             ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
             #savei.append(i)
             ##For saving coordTraj
@@ -153,8 +174,9 @@ class costFunction:
             JuCf.append(self.Ju*(-1))
         ###########################################
         ##Pour sauvegarder toutes les coordonnes
-        #fileSavingBin(nameCoordEL, save.coordElSave)
-        #fileSavingBin(nameCoordHA, save.coordHaSave)
+        if self.sauv == 3 or self.sauv == 4:
+            fileSavingBin(nameCoordEL, save.coordElSave)
+            fileSavingBin(nameCoordHA, save.coordHaSave)
         ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
         #fileSavingStr(namei, savei)
         ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires noise

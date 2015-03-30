@@ -34,18 +34,28 @@ elif choix == "genTraj":
     ##code permettant de lancer la fonction de generation de trajectoire
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
+    noise = input("Avec bruit moteur? (Y or N): ")
+    print("(0: Rien / 1: U / 2: Unoise / 3: CoordTrajU / 4: CoordTrajUnoise")
+    sauv = input("Que voulez vous sauvegarder?: ")
+    sauv = int(sauv)
     fra = FileReading()
     nbtra = input("Sur combien de trajectoire voulez vous le theta(12 ou X): ")
     if nbtra == "12":
         name = "RBFN2/" + str(nbfeat) + "feats/ThetaBIN"
         names = "RBFN2/" + str(nbfeat) + "feats/cout"
         namesb = "RBFN2/" + str(nbfeat) + "feats/coutBIN"
-        cf = costFunction(1)
+        if noise == "Y":
+            cf = costFunction(nbfeat, 1, 1, sauv)
+        elif noise == "N":
+            cf = costFunction(nbfeat, 1, 0, sauv)
     elif nbtra == "X":
         name = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
         names = "RBFN2/" + str(nbfeat) + "feats/coutX"
         namesb = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
-        cf = costFunction()
+        if noise == "Y":
+            cf = costFunction(nbfeat, 0, 1, sauv)
+        elif noise == "N":
+            cf = costFunction(nbfeat, 0, 0, sauv)
     thetaa = fra.getobjread(name)
     res = cf.costFunctionRBFN2(thetaa)
     print(res)

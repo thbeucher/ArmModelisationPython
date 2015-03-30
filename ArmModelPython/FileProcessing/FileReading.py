@@ -43,7 +43,8 @@ class FileReading():
         chemin = op.split(chemin)
         chemin = chemin[0] + "/Data/trajectoires/"
         if choix == 1:
-            nameFichier = input("Veuillez entrer le nom courant des fichiers a traiter (", len(os.listdir(chemin))-1 ,"max): ")
+            print("Nombre de fichier disponible: ", len(os.listdir(chemin))-1)
+            nameFichier = input("Veuillez entrer le nom courant des fichiers a traiter: ")
             nbFichier = input("Veuillez entrer le nombre de fichier à traiter: ")
             nbFichier = int(nbFichier)
         else:
