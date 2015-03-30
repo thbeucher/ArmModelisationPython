@@ -1,8 +1,16 @@
+'''
+Author: Thomas Beucher
+Module: RenamingFile
+'''
 import os
 from posix import getcwd
 from shutil import copyfile
 
 def renameFromOutputSOlver():
+    '''
+    Cette fonction permet de recuperer les trajectoires disponibles dans le dossier outputSolver, de les renommer
+    et de les importer dans l'espace de travail du projet
+    '''
     print("Debut de traitement!")
     pathin = "/home/beucher/workspace/ArmModelPython/Data/trajectoires/"
     i = len(os.listdir(pathin))

@@ -1,6 +1,7 @@
-#######################################################################################
-########## Author: Thomas Beucher // Module: FileReading ##############################
-#######################################################################################
+'''
+Author: Thomas Beucher
+Module: FileReading
+'''
 import pickle
 import numpy as np
 import math as ma
@@ -16,6 +17,9 @@ from numpy import isnan
 class FileReading():
     
     def __init__(self):
+        '''
+        Initialisation des parametres de la classe
+        '''
         #Recuperation des commandes
         self.uCommand = {}
         self.data_store = {}   

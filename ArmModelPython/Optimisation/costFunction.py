@@ -1,6 +1,7 @@
-#######################################################################################
-########## Author: Thomas Beucher // Module: costFunction #############################
-#######################################################################################
+'''
+Author: Thomas Beucher
+Module: costFunction
+'''
 from math import sqrt
 import numpy as np
 import time
@@ -13,10 +14,14 @@ from ArmModel.SavingData import SavingData
 from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
 from Regression.functionApproximator_RBFN import fa_rbfn
 import math as m
+import os
 
 class costFunction:
     
     def __init__(self, nbfeat, inb = 0, noise = 0, sauv = 0):
+        '''
+        Initialisation des parametres de la classe
+        '''
         self.gamma = 0.998
         self.rho = 10
         self.ups = 3000
@@ -28,6 +33,9 @@ class costFunction:
         self.nbf = nbfeat
         
     def costFunctionJ(self, U, action, t):
+        '''
+        Cette fonction permet de calculer le cout d'une trajectoire en terme d'activation musculaire
+        '''
         usquare = np.square(U)
         usum = 0
         for el in usquare:
@@ -76,12 +84,14 @@ class costFunction:
         cu = ControlerUtil(self.nbf,nbd)
         ############################################################
         ##For saving U and coordTraj and Unoise
-        if self.sauv == 1:
-            y = 0
+        y = 0
         ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
-        #savei = []
+        if self.sauv == 5:
+            savei = []
+            pathin = "/home/beucher/workspace/ArmModelPython/Data/trajectoires/"
+            nbTrajTrain = len(os.listdir(pathin))-1
+            namei = "RBFN2/" + str(self.nbf) + "feats/nbIte_" + str(nbTrajTrain) + "Traj"
         ##avec noise
-        #namei = "RBFN2/" + str(nbf) + "feats/nbIteTraj"
         #nameinoise = "RBFN2/" + str(nbf) + "feats/nbIteTrajNoise"
         ############################################################
         for el in coordStartPts:
@@ -135,10 +145,10 @@ class costFunction:
                     if self.sauv == 1 or self.sauv == 2:
                         saveU.append(cu.U)
                     ##############################
-                    if self.sauv == 0:
-                        Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
-                    elif self.sauv == 1:
+                    if self.sauv == 1 or self.sauv == 4:
                         Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
+                    else:
+                        Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
                     ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
                     dotq += ddotq*arm.dt
                     q += dotq*arm.dt
@@ -148,6 +158,7 @@ class costFunction:
                     if self.sauv == 3 or self.sauv == 4:
                         save.SaveTrajectory(coordEL, coordHA)
                     ##############################
+                    #Calcul du cout de la trajectoire
                     if coordHA[0] == 0.0 and coordHA[1] == 0.6175:
                         self.costFunctionJ(cu.U, 2, arm.t)
                     else:
@@ -161,10 +172,11 @@ class costFunction:
             if self.sauv == 1:
                 fileSavingBin(nameU, saveU)
             ##For saving Unoise
-            if self.sauv == 2:
+            elif self.sauv == 2:
                 fileSavingBin(nameUnoise, saveU)
             ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
-            #savei.append(i)
+            elif self.sauv == 5:
+                savei.append(i)
             ##For saving coordTraj
             #print("len", len(save.coordHaSave))
             #fileSavingBin(nameCoordEL, save.coordElSave)
@@ -178,11 +190,12 @@ class costFunction:
             fileSavingBin(nameCoordEL, save.coordElSave)
             fileSavingBin(nameCoordHA, save.coordHaSave)
         ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
-        #fileSavingStr(namei, savei)
+        if self.sauv == 5:
+            fileSavingStr(namei, savei)
         ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires noise
         #fileSavingStr(nameinoise, savei)
         ###########################################
-        fileSavingStr("CalculCoutTest", JuCf)
+        fileSavingStr(str("RBFN2/" + str(self.nbf) + "feats/CalculCoutTest"), JuCf)
         self.suivi += 1
         t1 = time.time()
         print("Fin d'appel! (", self.suivi, ") (Temps de traitement:", (t1-t0), "s)")

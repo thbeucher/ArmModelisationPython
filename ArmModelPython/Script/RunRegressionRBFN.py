@@ -1,6 +1,7 @@
-#######################################################################################
-########## Author: Thomas Beucher // Module: RunRegressionRBFN ########################
-#######################################################################################
+'''
+Author: Thomas Beucher
+Module: RunRegressionRBFN
+'''
 from FileProcessing.FileReading import FileReading
 from FileProcessing.FileSaving import fileSavingBin, fileSavingStr
 from Regression.functionApproximator_RBFN import fa_rbfn

@@ -1,6 +1,7 @@
-#######################################################################################
-########## Author: Thomas Beucher // Module: Cmaes ####################################
-#######################################################################################
+'''
+Author: Thomas Beucher
+Module: Cmaes
+'''
 import cma
 from FileProcessing.FileReading import FileReading
 import time

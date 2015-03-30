@@ -1,8 +1,6 @@
-#######################################################################################
-########## Author: Thomas Beucher // Module: functionApproximator_RBFN ################
-#######################################################################################
 '''
-pydoc -w fa_rbfn
+Author: Thomas Beucher
+Module: functionApproximator_RBFN
 '''
 import numpy as np
 from Regression.VectorCombinaison import cartesian
@@ -10,6 +8,9 @@ from Regression.VectorCombinaison import cartesian
 class fa_rbfn():
     
     def __init__(self, nbFeature):
+        '''
+        Initialisation des parametres de la classe
+        '''
         self.nbFeat = nbFeature
         self.title = "rbfn"
         

@@ -1,11 +1,15 @@
-#######################################################################################
-########## Author: Thomas Beucher // Module: ControlerUtil ############################
-#######################################################################################
+'''
+Author: Thomas Beucher
+Module: ControlerUtil
+'''
 from FileProcessing.FileReading import FileReading
 import numpy as np
 
 class ControlerUtil:
     def __init__(self, nbfeature, dime):
+        '''
+        Initialisation des parametres de la classe
+        '''
         self.nbfeat = nbfeature
         self.dim = dime
 

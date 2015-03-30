@@ -1,6 +1,7 @@
-#######################################################################################
-########## Author: Thomas Beucher // Module: Animation ################################
-#######################################################################################
+'''
+Author: Thomas Beucher
+Module: Animation
+'''
 from ArmModel.SavingData import SavingData
 import matplotlib.pyplot as plt
 from matplotlib import animation

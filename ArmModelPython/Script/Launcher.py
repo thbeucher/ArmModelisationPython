@@ -1,6 +1,7 @@
-#######################################################################################
-########## Author: Thomas Beucher // Module: Launcher #################################
-#######################################################################################
+'''
+Author: Thomas Beucher
+Module: Launcher 
+'''
 from Script.Animation import animatAct
 from Script.RunRegressionRBFN import runRBFN, test2DRBFN
 from FileProcessing.FileReading import FileReading
@@ -35,7 +36,7 @@ elif choix == "genTraj":
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
     noise = input("Avec bruit moteur? (Y or N): ")
-    print("(0: Rien / 1: U / 2: Unoise / 3: CoordTrajU / 4: CoordTrajUnoise")
+    print("(0: Rien / 1: U / 2: Unoise / 3: CoordTrajU / 4: CoordTrajUnoise / 5: nbIte")
     sauv = input("Que voulez vous sauvegarder?: ")
     sauv = int(sauv)
     fra = FileReading()
