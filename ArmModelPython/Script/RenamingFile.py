@@ -7,7 +7,6 @@ def renameFromOutputSOlver():
     pathin = "/home/beucher/workspace/ArmModelPython/Data/trajectoires/"
     i = len(os.listdir(pathin))
     print(i)
-    c = input("tes")
     patho = "/home/beucher/Desktop/Monfray/Codes/Java/output_solver/"
     for el in os.listdir(patho):
         if el.endswith('.log'):
@@ -26,3 +25,4 @@ def renameFromTrajectoires():
             os.rename(patho + el, str(patho + el + ".log"))
         
 renameFromOutputSOlver()
+renameFromTrajectoires()
