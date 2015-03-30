@@ -16,12 +16,13 @@ import math as m
 
 class costFunction:
     
-    def __init__(self):
+    def __init__(self, inb = 0):
         self.gamma = 0.998
         self.rho = 10
         self.ups = 3000
         self.Ju = 0
         self.suivi = 0
+        self.inb = inb
         
     def costFunctionJ(self, U, action, t):
         usquare = np.square(U)
@@ -46,17 +47,6 @@ class costFunction:
         fr = FileReading()
         #Remise sous forme de matrice de theta (quand lancer avec cmaes
         #Pour l'instant non générique, changer nb(nbfeat**nbdim) pour correspondre au bon theta
-        '''nb = 0
-        for i in range(int(theta.shape[0]/6)):
-            thetaTmp = []
-            for j in range(6):
-                thetaTmp.append(theta[j + nb])
-            if i == 0:
-                thetaf = np.array([thetaTmp])
-            else:
-                thetaf = np.vstack((thetaf, np.array([thetaTmp])))
-            nb += 6
-        theta = thetaf'''
         nbf = 3
         nbd = 4
         nbt = 0
@@ -74,7 +64,10 @@ class costFunction:
         coordStartPts.append((0.2,0.0325))#trajectoire11
         coordStartPts.append((0.3,0.0325))#trajectoire12
         JuCf = []
-        stateAll, commandAll = fr.recup_data(1)
+        if self.inb == 1:
+            stateAll, commandAll = fr.recup_data(1)
+        elif self.inb == 0:
+            stateAll, commandAll = fr.recup_data(0)
         fa = fa_rbfn(nbf)
         fa.setTrainingData(stateAll.T, commandAll.T)
         fa.setCentersAndWidths()

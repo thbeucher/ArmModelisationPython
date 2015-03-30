@@ -35,13 +35,20 @@ elif choix == "genTraj":
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
     fra = FileReading()
-    name = "RBFN2/" + str(nbfeat) + "feats/ThetaBIN"
+    nbtra = input("Sur combien de trajectoire voulez vous le theta(12 ou X): ")
+    if nbtra == "12":
+        name = "RBFN2/" + str(nbfeat) + "feats/ThetaBIN"
+        names = "RBFN2/" + str(nbfeat) + "feats/cout"
+        namesb = "RBFN2/" + str(nbfeat) + "feats/coutBIN"
+        cf = costFunction(1)
+    elif nbtra == "X":
+        name = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
+        names = "RBFN2/" + str(nbfeat) + "feats/coutX"
+        namesb = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
+        cf = costFunction()
     thetaa = fra.getobjread(name)
-    cf = costFunction()
     res = cf.costFunctionRBFN2(thetaa)
     print(res)
-    names = "RBFN2/" + str(nbfeat) + "feats/cout"
-    namesb = "RBFN2/" + str(nbfeat) + "feats/coutBIN"
     fileSavingStr(names, res)
     fileSavingBin(names, res)
     
