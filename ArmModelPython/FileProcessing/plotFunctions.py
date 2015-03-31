@@ -136,7 +136,20 @@ def plotAnimationTraj(what):
             ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(save.xEl), blit=True, interval=20, repeat=True)
             plt.show(block=True)
     
-   
+
+def plot_pos_ini():
+    fr = FileReading()
+    xy = fr.recup_pos_ini()
+    x = []
+    y = []
+    for el in xy.values():
+        x.append(el[0])
+        y.append(el[1])
+    plt.figure()
+    plt.scatter(x, y, marker=u'o', s=25)
+    plt.show(block = True)
+
+
 #plotActivationMuscular("brent")    
 #plotActivationMuscular("RBFN")
 #plotAnimationTraj("RBFN")

@@ -7,11 +7,13 @@ from Script.RunRegressionRBFN import runRBFN, test2DRBFN
 from FileProcessing.FileReading import FileReading
 from Optimisation.costFunction import costFunction
 from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
-from FileProcessing.plotFunctions import costColorPlot, plotActivationMuscular
+from FileProcessing.plotFunctions import costColorPlot, plotActivationMuscular,\
+    plot_pos_ini
 from Optimisation.Cmaes import runCmaes
 from matplotlib.mlab import griddata
+from Main.CostEvaluationForBrentBVPSolverTrajectories import costEvalBrent
 
-print("Scripts existants:\n -animation\n -rbfn\n -rbfn_test2D\n -genTraj\n -costColor\n -actiMuscu\n -cmaes\n")
+print("Scripts existants:\n -animation        -posIni\n -rbfn             -costBrent\n -rbfn_test2D\n -genTraj\n -costColor\n -actiMuscu\n -cmaes\n")
 choix = input("Veuillez entrer le choix du script à lancer: ")
 
 if choix == "animation":
@@ -84,9 +86,11 @@ elif choix == "cmaes":
     nbfeat = int(nbfeat)
     runCmaes(nbfeat)
     
-
+elif choix == "posIni":
+    plot_pos_ini()
     
-    
+elif choix == "costBrent":
+    costEvalBrent()
     
     
     

@@ -104,7 +104,8 @@ class FileReading():
                 #recuperation de q1 et q2 initiales et conversion en coordonnees
                 coordElbow, coordHand = save.calculCoord(np.mat([[mati[0,10]], [mati[0,11]]]), robot)
                 angleIni[el] = (coordHand[0], coordHand[1])
-        print(len(angleIni), "\n", angleIni["trajectoire11.log"])
+        return angleIni
+        #print(len(angleIni), "\n", angleIni["trajectoire11.log"])
         
     ###########################################################################################
     #Cette fonction permet de récuperer q1 et q2 à partir du x et du y de la main
@@ -120,8 +121,7 @@ class FileReading():
         return q1, q2
 
 
-fr = FileReading()
-fr.recup_pos_ini()
+
 #Bout de code pour generer les q1, q2 associes aux positions initiales
 '''a = []
 a.append((-0.2,0.39))
