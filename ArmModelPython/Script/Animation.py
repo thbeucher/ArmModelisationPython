@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib import animation
 from FileProcessing.FileReading import FileReading
 
+
 ################################################################################################
 ######################## trajectories Animation ################################################
 ################################################################################################
@@ -65,3 +66,8 @@ def animatAct(nbfeat):
         save.createCoord(2, coordHA, coordEL)
         ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(coordEL), blit=True, interval=20, repeat=True)
         plt.show()
+        
+        
+        
+
+        

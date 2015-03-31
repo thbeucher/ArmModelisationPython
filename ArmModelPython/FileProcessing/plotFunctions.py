@@ -4,25 +4,33 @@ from matplotlib import cm
 from FileProcessing.FileReading import FileReading
 from ArmModel.SavingData import SavingData
 from matplotlib import animation
+from matplotlib.mlab import griddata
 
 
 def costColorPlot(name):
     xt = 0
     yt = 0.6175
-    xo = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0.,0.1,0.2,0.3]
-    yo = [0.39,0.39,0.39,0.39,0.39,0.0325,0.0325,0.0325,0.0325,0.0325,0.0325,0.0325]
-    zo = [0,-13908,-14449,-12625,-13531,0,-3663,-14358,0,0,-85982,-39388,0]
-    x = xo
-    y = yo
+    x0 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0,0.1,0.2,0.3]
+    y0 = [0.39,0.39,0.39,0.39,0.39,0.26,0.26,0.26,0.26,0.26,0.26,0.26]
+    z0 = [4476.5986069261062, 3548.932094627422, 2550.8052246753091, 2243.5188898035408, 3889.8187394899551, 9092.3997452895528, 9542.7502806432221, 7235.5788222904139, 6555.1901482250778, 6800.8533329513602, 9911.0973462760012]
+    
     fr = FileReading()
     z = fr.getobjread(name)
+    z = np.array(z)
+    maxz = np.max(z)
+    minz = np.min(z)
+    zb = (z-minz)/(maxz - minz)
+    xi = np.linspace(-0.40,0.40,100)
+    yi = np.linspace(0.1,0.5,100)
+    zi = griddata(x0, y0, zb, xi, yi)
     
     fig = plt.figure()
-    t1 = plt.scatter(x, y, c=z, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))
+    t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, yt, c ='g', marker='v', s=200)
+    CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
     fig.colorbar(t1, shrink=0.5, aspect=5)
     
-    plt.show()
+    plt.show(block = True)
 
 ####################################################################################
 ############ Fonction pour afficher les activations musculaires U ##################
@@ -74,7 +82,7 @@ def plotActivationMuscular(what, nbfeat):
         u = 0
         for i in range(12):
             trajIteU[i] = []
-            nameU = "RBFN2/" + str(nbfeat) + "feats/ActiMuscuTrajectoire" + str(i+1)
+            nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuTrajectoireX" + str(i+1)
             ut1 = fr.getobjread(nameU)
             for j in range(len(ut1)):
                 trajIteU[i].append(j)

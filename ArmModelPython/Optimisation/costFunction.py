@@ -110,20 +110,20 @@ class costFunction:
             #Sauv = 1 entraine la sauvegarde des U
             if self.sauv == 1:
                 saveU = []
-                y += 1
                 if self.inb == 0:
                     nameU = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuTrajectoireX" + str(y+1)
                 elif self.inb == 1:
                     nameU = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuTrajectoire" + str(y+1)
+                y += 1
             #Sauv = 2 entraine la sauvegarde des Unoises  
             elif self.sauv == 2:  
                 ##For saving Unoise
                 saveU = []
-                y += 1
                 if self.inb == 0:
                     nameUnoise = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireX" + str(y+1)
                 elif self.inb == 1:
                     nameUnoise = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoire" + str(y+1)
+                y += 1
             ##For saving coord Traj
             #nameCoordEL = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireEL" + str(12)
             #nameCoordHA = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireHA" + str(12)
@@ -183,7 +183,7 @@ class costFunction:
             #fileSavingBin(nameCoordHA, save.coordHaSave)
             ##############################
             print(i)
-            JuCf.append(self.Ju*(-1))
+            JuCf.append(self.Ju)
         ###########################################
         ##Pour sauvegarder toutes les coordonnes
         if self.sauv == 3 or self.sauv == 4:

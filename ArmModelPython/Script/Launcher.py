@@ -9,6 +9,7 @@ from Optimisation.costFunction import costFunction
 from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
 from FileProcessing.plotFunctions import costColorPlot, plotActivationMuscular
 from Optimisation.Cmaes import runCmaes
+from matplotlib.mlab import griddata
 
 print("Scripts existants:\n -animation\n -rbfn\n -rbfn_test2D\n -genTraj\n -costColor\n -actiMuscu\n -cmaes\n")
 choix = input("Veuillez entrer le choix du script à lancer: ")
@@ -52,6 +53,7 @@ elif choix == "genTraj":
     elif nbtra == "X":
         name = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
         names = "RBFN2/" + str(nbfeat) + "feats/coutX"
+        names2 = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
         namesb = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
         if noise == "Y":
             cf = costFunction(nbfeat, 0, 1, sauv)
@@ -61,12 +63,12 @@ elif choix == "genTraj":
     res = cf.costFunctionRBFN2(thetaa)
     print(res)
     fileSavingStr(names, res)
-    fileSavingBin(names, res)
+    fileSavingBin(names2, res)
     
 elif choix == "costColor":
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
-    name = "RBFN2/" + str(nbfeat) + "feats/cout"
+    name = "RBFN2/" + str(nbfeat) + "feats/coutX"
     costColorPlot(name)
     
 elif choix == "actiMuscu":
@@ -81,7 +83,7 @@ elif choix == "cmaes":
     nbfeat = int(nbfeat)
     runCmaes(nbfeat)
     
-    
+
     
     
     
