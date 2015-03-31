@@ -90,6 +90,7 @@ class FileReading():
         Cette fonction permet de recuperer toutes les positions initiales des trajectoires utilisees pour
         entrainer l'algorithme de regression
         '''
+        print("Debut de recuperation des positions initiales!")
         chemin = getcwd()
         chemin = op.split(chemin)
         chemin = chemin[0] + "/Data/trajectoires/"
@@ -104,8 +105,9 @@ class FileReading():
                 #recuperation de q1 et q2 initiales et conversion en coordonnees
                 coordElbow, coordHand = save.calculCoord(np.mat([[mati[0,10]], [mati[0,11]]]), robot)
                 angleIni[el] = (coordHand[0], coordHand[1])
+        print("Fin de recuperation des positions initiales!")
+        print(len(angleIni), "\n", angleIni["trajectoire11.log"])
         return angleIni
-        #print(len(angleIni), "\n", angleIni["trajectoire11.log"])
         
     ###########################################################################################
     #Cette fonction permet de récuperer q1 et q2 à partir du x et du y de la main
@@ -121,20 +123,23 @@ class FileReading():
         return q1, q2
 
 
+
+
+'''fr = FileReading()
+fr.recup_pos_ini()
+robot = ParametresRobot()
+q = []
+rec = []
+save = SavingData()
 #Bout de code pour generer les q1, q2 associes aux positions initiales
-'''a = []
-a.append((-0.2,0.39))
-a.append((-0.1,0.39))
-a.append((0.0,0.39))
-a.append((0.1,0.39))
-a.append((0.2,0.39))
-a.append((-0.3,0.26))
-a.append((-0.2,0.26))
-a.append((-0.1,0.26))
-a.append((0.0,0.26))
-a.append((0.1,0.26))
-a.append((0.2,0.26))
-a.append((0.3,0.26))'''
+a = [(-0.2,0.39),(-0.1,0.39),(0.0,0.39),(0.1,0.39),(0.2,0.39),(-0.3,0.26),(-0.2,0.26),(-0.1,0.26),(0.0,0.26),(0.1,0.26),(0.2,0.26),(0.3,0.26)]
+for el in a:
+    q.append(fr.convertToAngle(el[0], el[1], robot))
+fileSavingStr("coucouPOS", q)
+for el in q:
+    coorE, coorH = save.calculCoord(np.mat([[el[0]], [el[1]]]), robot)
+    rec.append(coorH)
+fileSavingStr("coucouRECOR", rec)'''
 
 '''x = np.arange(-0.5,0.5,0.025)
 y = np.arange(0.1,0.6,0.025)

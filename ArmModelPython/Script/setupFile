@@ -1,3 +1,6 @@
 Number of features:3
 Bruit moteur (Y or N):N
 Valeur de k pour le bruit sur U:25
+Parametre gamma cost function:0.998
+Parametre rho cost function:10
+Parametre upsilon cost function:3000

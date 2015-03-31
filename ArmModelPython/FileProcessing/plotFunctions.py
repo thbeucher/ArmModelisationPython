@@ -80,6 +80,7 @@ def plotActivationMuscular(what, nbfeat):
             u += 6
             plt.show(block = True)
     elif what == "RBFN":
+        ch = input("Voulez vous afficher les activations musculaires avec bruit?(Y or N): ")
         trajIteU = {}
         trajVal = {}
         for i in range(6*12):
@@ -87,7 +88,10 @@ def plotActivationMuscular(what, nbfeat):
         u = 0
         for i in range(12):
             trajIteU[i] = []
-            nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuTrajectoireX" + str(i+1)
+            if ch == "N":
+                nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuTrajectoireX" + str(i+1)
+            elif ch == "Y":
+                nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireX" + str(i+1)
             ut1 = fr.getobjread(nameU)
             for j in range(len(ut1)):
                 trajIteU[i].append(j)

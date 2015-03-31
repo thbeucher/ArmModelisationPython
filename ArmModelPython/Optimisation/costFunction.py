@@ -15,6 +15,7 @@ from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
 from Regression.functionApproximator_RBFN import fa_rbfn
 import math as m
 import os
+from Script.ReadSetupFile import ReadSetupFile
 
 class costFunction:
     
@@ -22,9 +23,11 @@ class costFunction:
         '''
         Initialisation des parametres de la classe
         '''
-        self.gamma = 0.998
-        self.rho = 10
-        self.ups = 3000
+        rs = ReadSetupFile()
+        rs.readingSetupFile()
+        self.gamma = rs.gammaCF
+        self.rho = rs.rhoCF
+        self.ups = rs.upsCF
         self.Ju = 0
         self.suivi = 0
         self.inb = inb
