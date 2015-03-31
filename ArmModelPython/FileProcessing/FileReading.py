@@ -117,12 +117,23 @@ class FileReading():
         Cette fonction permet de récuperer q1 et q2 à partir du x et du y de la main
         '''
         q2 = ma.atan2(np.sqrt(1-(xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2)), (xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2))
-        if q2 < 0:
-            q2 = q2*(-1)
+        #if q2 < 0:
+            #q2 = q2*(-1)
         q1 = ma.atan2(yh, xh)-ma.atan2(robot.l2*np.sin(q2), robot.l1 + robot.l2*np.cos(q2))
         return q1, q2
 
-
+fr = FileReading()
+robot = ParametresRobot()
+x = np.linspace(-0.65,0.65,50)
+y = np.linspace(-0.65,0.65,50)
+X,Y = np.meshgrid(x,y)
+q = []
+for i in range(50):
+    for j in range(50):
+        q.append(fr.convertToAngle(X[i,j], Y[i,j], robot))
+for el in q:
+    if isnan(el[0]) or isnan(el[1]):
+        q.remove(el)
 
 
 '''fr = FileReading()
