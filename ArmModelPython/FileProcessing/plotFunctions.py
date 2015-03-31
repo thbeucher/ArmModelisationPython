@@ -146,7 +146,8 @@ def plot_pos_ini():
         x.append(el[0])
         y.append(el[1])
     plt.figure()
-    plt.scatter(x, y, marker=u'o', s=25)
+    c = np.linspace(0,1,len(x))
+    plt.scatter(x, y, c = c, marker=u'o', s=25, cmap=cm.get_cmap('RdYlBu'))
     plt.show(block = True)
 
 

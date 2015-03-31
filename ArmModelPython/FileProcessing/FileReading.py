@@ -121,7 +121,6 @@ class FileReading():
         return q1, q2
 
 
-
 #Bout de code pour generer les q1, q2 associes aux positions initiales
 '''a = []
 a.append((-0.2,0.39))

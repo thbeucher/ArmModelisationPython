@@ -1,7 +1,10 @@
 '''Author: Thomas beucher
     Module: ReadConfFile
     On retrouve dans ce fichier une fonction permettant de lire le fichier de configuration '''
-
+from ArmModel.SavingData import SavingData
+from ArmModel.ParametresRobot import ParametresRobot
+import numpy as np
+from FileProcessing.FileSaving import fileSavingStr
 
 class ReadSetupFile:
     
@@ -19,3 +22,8 @@ class ReadSetupFile:
         self.numfeats = int((allsByLign[0].split(":"))[1])
         #lecture ligne 2, choix d'une simulation avec ou sans bruit moteur
         self.noise = (allsByLign[1].split(":"))[1]
+        #lecture ligne 3, choix de la valeur de k pour le bruit sur U
+        self.knoiseU = (allsByLign[2].split(":"))[1]
+        
+    
+
