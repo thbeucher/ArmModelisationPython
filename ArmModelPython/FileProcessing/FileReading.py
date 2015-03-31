@@ -12,6 +12,7 @@ from posix import getcwd
 from ArmModel.ParametresRobot import ParametresRobot
 from FileProcessing.FileSaving import fileSavingStr
 from numpy import isnan
+from ArmModel.SavingData import SavingData
 #from nt import getcwd #Windows
 
 class FileReading():
@@ -84,11 +85,34 @@ class FileReading():
             j += 1
         return stateAll, commandAll
     
-    
+    def recup_pos_ini(self):
+        '''
+        Cette fonction permet de recuperer toutes les positions initiales des trajectoires utilisees pour
+        entrainer l'algorithme de regression
+        '''
+        chemin = getcwd()
+        chemin = op.split(chemin)
+        chemin = chemin[0] + "/Data/trajectoires/"
+        save = SavingData()
+        robot = ParametresRobot()
+        angleIni = {}
+        fr = FileReading()
+        for el in os.listdir(chemin):
+            if "trajectoire" in el:
+                #Chargement du fichier
+                mati = np.loadtxt(chemin + el)
+                #recuperation de q1 et q2 initiales et conversion en coordonnees
+                coordElbow, coordHand = save.calculCoord(np.mat([[mati[0,10]], [mati[0,11]]]), robot)
+                angleIni[el] = (coordHand[0], coordHand[1])
+        print(len(angleIni), "\n", angleIni["trajectoire11.log"])
+        
     ###########################################################################################
-    #Cette fonction permet de récupérer q1 et q2 à partir du x et du y de la main
+    #Cette fonction permet de récuperer q1 et q2 à partir du x et du y de la main
     ###########################################################################################
     def convertToAngle(self, xh, yh, robot):
+        '''
+        Cette fonction permet de récuperer q1 et q2 à partir du x et du y de la main
+        '''
         q2 = ma.atan2(np.sqrt(1-(xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2)), (xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2))
         if q2 < 0:
             q2 = q2*(-1)
@@ -96,6 +120,8 @@ class FileReading():
         return q1, q2
 
 
+fr = FileReading()
+fr.recup_pos_ini()
 #Bout de code pour generer les q1, q2 associes aux positions initiales
 '''a = []
 a.append((-0.2,0.39))

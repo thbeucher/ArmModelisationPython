@@ -7,18 +7,23 @@ from matplotlib import animation
 from matplotlib.mlab import griddata
 
 
-def costColorPlot(name):
+def costColorPlot(name, wha):
     xt = 0
     yt = 0.6175
     x0 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0,0.1,0.2,0.3]
     y0 = [0.39,0.39,0.39,0.39,0.39,0.26,0.26,0.26,0.26,0.26,0.26,0.26]
-    z0 = [4476.5986069261062, 3548.932094627422, 2550.8052246753091, 2243.5188898035408, 3889.8187394899551, 9092.3997452895528, 9542.7502806432221, 7235.5788222904139, 6555.1901482250778, 6800.8533329513602, 9911.0973462760012]
+    z0 = [-13480.3919842, -11690.6826098, -13782.5180274, -17337.3248452, -20340.5626237, -18479.7272038, -15321.1993046, -13140.0225772, -14854.8759685, -19218.5424885, -22058.2400326, -23979.2321354]
     
     fr = FileReading()
-    z = fr.getobjread(name)
-    z = np.array(z)
-    maxz = np.max(z)
-    minz = np.min(z)
+    if wha == "rbfn":
+        z = fr.getobjread(name)
+        z = np.array(z)
+        maxz = np.max(z)
+        minz = np.min(z)
+    elif wha == "brent":
+        z = np.array(z0)
+        maxz = np.max(z)
+        minz = np.min(z)
     zb = (z-minz)/(maxz - minz)
     xi = np.linspace(-0.40,0.40,100)
     yi = np.linspace(0.1,0.5,100)
@@ -39,7 +44,7 @@ def plotActivationMuscular(what, nbfeat):
     fr = FileReading()
     if what == "brent":
         #BrentBVPSolver activations muscular
-        fr.recup_data(0)
+        fr.recup_data(1)
         j = 0
         traj = {}
         trajIte = {}

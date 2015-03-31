@@ -26,7 +26,7 @@ for i in range(int(len(fileR.data_store)/2)):
         if(coordHA[0] == 0 and coordHA[1] == 0.6175):
             cf.costFunctionJ(fileR.data_store[str("trajectoire" + str(i+1+a) + "_command")][j], 1, 0.002)
         else:
-            cf.costFunctionJ(fileR.data_store[str("trajectoire" + str(i+1+a) + "_command")][j+1], 0, 0.002)
+            cf.costFunctionJ(fileR.data_store[str("trajectoire" + str(i+1+a) + "_command")][j], 0, 0.002)
     #q = np.mat([[(fileR.data_store[str("trajectoire" + str(i+1+a) + "_state")][j+1])[2]],[(fileR.data_store[str("trajectoire" + str(i+1+a) + "_state")][j+1])[3]]])
     #coordEL, coordHA = save.calculCoord(q, robot)
     #print("coordHa: ", coordHA)
