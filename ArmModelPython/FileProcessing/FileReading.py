@@ -13,6 +13,7 @@ from ArmModel.ParametresRobot import ParametresRobot
 from FileProcessing.FileSaving import fileSavingStr
 from numpy import isnan
 from ArmModel.SavingData import SavingData
+from Optimisation.NiemRoot import tronquerNB
 #from nt import getcwd #Windows
 
 class FileReading():
@@ -106,7 +107,6 @@ class FileReading():
                 coordElbow, coordHand = save.calculCoord(np.mat([[mati[0,10]], [mati[0,11]]]), robot)
                 angleIni[el] = (coordHand[0], coordHand[1])
         print("Fin de recuperation des positions initiales!")
-        print(len(angleIni), "\n", angleIni["trajectoire11.log"])
         return angleIni
         
     ###########################################################################################
@@ -124,17 +124,38 @@ class FileReading():
 
 fr = FileReading()
 robot = ParametresRobot()
-x = np.linspace(-0.65,0.65,50)
-y = np.linspace(-0.65,0.65,50)
+save = SavingData()
+x = np.arange(-0.45,0.45,0.05)
+y = np.arange(0.25,0.55,0.05)
 X,Y = np.meshgrid(x,y)
+p = fr.convertToAngle(X[5,5], Y[5,5], robot)
+print(X[5,5], Y[5,5], "\n", p[0], p[1], "\n", save.calculCoord(np.mat([[p[0]],[p[1]]]), robot))
 q = []
-for i in range(50):
-    for j in range(50):
+for i in range(X.shape[0]):
+    for j in range(X.shape[1]):
         q.append(fr.convertToAngle(X[i,j], Y[i,j], robot))
+cor = []
 for el in q:
-    if isnan(el[0]) or isnan(el[1]):
-        q.remove(el)
-
+    if not isnan(el[0]) or not isnan(el[1]):
+        corE, corH = save.calculCoord(np.mat([[el[0]],[el[1]]]), robot)
+        cor.append(corH)
+    elif isnan(el[0]) or isnan(el[1]):
+        cor.append(("nan", "nan"))
+with open("testUnitaireConvertToAngle", "w+") as file:
+    co = 0
+    for i in range(X.shape[0]):
+        for j in range(X.shape[1]):
+            if not isnan(q[j+co][0]):
+                a = tronquerNB(X[i,j], 3)
+                b = tronquerNB(Y[i,j], 3)
+                c = tronquerNB(q[j+co][0], 3)
+                d = tronquerNB(q[j+co][1], 3)
+                e = tronquerNB(cor[j+co][0], 3)
+                f = tronquerNB(cor[j+co][1], 3)
+                g = tronquerNB(e-a, 3)
+                h = tronquerNB(f-b, 3)
+                file.write(str("xy:("+str(a)+","+str(b)+")    q1,q2:("+str(c)+","+str(d)+")    x'y':("+str(e)+","+str(f)+")    err xy:("+str(g)+","+str(h) +")\n"))
+        co += X.shape[1]
 
 '''fr = FileReading()
 fr.recup_pos_ini()

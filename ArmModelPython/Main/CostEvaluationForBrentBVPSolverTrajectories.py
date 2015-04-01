@@ -1,6 +1,6 @@
 from Optimisation.costFunction import costFunction
 from FileProcessing.FileReading import FileReading
-from FileProcessing.FileSaving import fileSavingStr
+from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
 import os
 import numpy as np
 from ArmModel.SavingData import SavingData
@@ -18,6 +18,7 @@ def costEvalBrent():
     a = 0
     nbj = []
     nameX = "trajectoires_cout/trajectoire_coutX"
+    nameXBIN = "trajectoires_cout/trajectoire_coutXBIN"
     nameite = "trajectoires_cout/nbiteX"
     trajC = []
     for i in range(int(len(fileR.data_store)/2)):
@@ -40,5 +41,6 @@ def costEvalBrent():
         trajC.append(cf.Ju)
         cf.Ju = 0
     fileSavingStr(nameX, trajC)
+    fileSavingBin(nameXBIN, trajC)
     fileSavingStr(nameite, nbj)
     print("Fin de traitement!")

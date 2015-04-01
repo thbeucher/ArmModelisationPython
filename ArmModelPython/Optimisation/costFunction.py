@@ -148,9 +148,9 @@ class costFunction:
                     if self.sauv == 1 or self.sauv == 2:
                         saveU.append(cu.U)
                     ##############################
-                    if self.sauv == 1 or self.sauv == 4:
+                    if self.noise == "Y":
                         Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
-                    else:
+                    elif self.noise == "N":
                         Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
                     ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
                     dotq += ddotq*arm.dt

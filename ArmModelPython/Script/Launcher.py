@@ -70,7 +70,7 @@ elif choix == "genTraj":
 elif choix == "costColor":
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
-    name = "RBFN2/" + str(nbfeat) + "feats/coutX"
+    name = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
     wha = input("Choisir les resultats a afficher(brent ou rbfn): ")
     costColorPlot(name, wha)
     

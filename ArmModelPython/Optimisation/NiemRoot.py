@@ -24,3 +24,10 @@ def racin(A, n, x0):
         print(" le système ne converge pas. Ajuster le compteur i ou jouer sur tol ou sur x0")
     return c
         
+def tronquerNB(nb, vir):
+    ex = 10**vir
+    nb = nb*ex
+    nb = int(nb)
+    nb = float(nb)
+    nb = nb/ex
+    return nb

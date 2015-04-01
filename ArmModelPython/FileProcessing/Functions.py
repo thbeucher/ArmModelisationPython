@@ -1,12 +1,14 @@
-#######################################################################################
-########## Author: Thomas Beucher // Module: Functions ################################
-#######################################################################################
-from FileProcessing.FileReading import FileReading
+'''
+Author: Thomas Beucher
+Module: Functions
+'''
 from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
 from ArmModel.SavingData import SavingData
-import matplotlib.pyplot as plt
-from matplotlib import animation
+from FileProcessing.FileReading import FileReading
+
+
+
 
 
 def normalizeThetaFunction():
@@ -45,9 +47,6 @@ for i in range(6):
     coef = f.getobjread(str("ThetaAllTraj/CoefNormalization_theta_u" + str(i+1)))
     tl = np.divide(tn, coef)
     fileSavingStr(str("ThetaAllTraj/thetaRetrouve_u" + str(i+1)), tl)'''
-
-
-
 
 
 

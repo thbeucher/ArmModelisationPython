@@ -12,7 +12,6 @@ def costColorPlot(name, wha):
     yt = 0.6175
     x0 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0,0.1,0.2,0.3]
     y0 = [0.39,0.39,0.39,0.39,0.39,0.26,0.26,0.26,0.26,0.26,0.26,0.26]
-    z0 = [-13480.3919842, -11690.6826098, -13782.5180274, -17337.3248452, -20340.5626237, -18479.7272038, -15321.1993046, -13140.0225772, -14854.8759685, -19218.5424885, -22058.2400326, -23979.2321354]
     
     fr = FileReading()
     if wha == "rbfn":
@@ -21,7 +20,14 @@ def costColorPlot(name, wha):
         maxz = np.max(z)
         minz = np.min(z)
     elif wha == "brent":
-        z = np.array(z0)
+        z = fr.getobjread("trajectoires_cout/trajectoire_coutXBIN")
+        z = np.array(z)
+        xy0tmp = fr.recup_pos_ini()
+        x0 = []
+        y0 = []
+        for el in xy0tmp.values():
+            x0.append(el[0])
+            y0.append(el[1])
         maxz = np.max(z)
         minz = np.min(z)
     zb = (z-minz)/(maxz - minz)

@@ -30,7 +30,7 @@ class ControlerUtil:
             elif U[i] > 1:
                 U[i] = 1
         self.U = U
-        #Bruit d'activation musculaire / nombre aléatoire entre 0 et 1
+        #Bruit d'activation musculaire
         self.Unoise = np.divide(np.log(np.exp(rs.knoiseU*self.U) + 1), rs.knoiseU)
 
         
