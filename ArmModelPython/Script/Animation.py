@@ -12,11 +12,18 @@ from FileProcessing.FileReading import FileReading
 ######################## trajectories Animation ################################################
 ################################################################################################
 def animatAct(nbfeat):
-    ###Mots cles: "All" pour lancer toutes les trajectoires ou alors choississez le numero de la trajectoire souhaitees
-
-    choix = input("Veuillez choisir la trajectoire a visualiser: ")
+    choix = input("Veuillez choisir la trajectoire a visualiser(All or AllNoise): ")
     fr = FileReading()
     save = SavingData()
+    #Recuperation des positions initiales
+    posIni = fr.recup_pos_ini()
+    xIni = []
+    yIni = []
+    for i in range(13):
+        name = "trajectoire" + str(i) + ".log"
+        if name in posIni.keys():
+            xIni.append(posIni[name][0])
+            yIni.append(posIni[name][1])
     
     fig = plt.figure()
     upperArm, = plt.plot([],[]) 
@@ -25,6 +32,8 @@ def animatAct(nbfeat):
     plt.ylim(-0.7,0.7)
     plt.plot([-0.7,0.7], [0.6175, 0.6175])
     plt.scatter(0, 0.6175, c ='g', marker='o', s=50)
+    plt.scatter(xIni,yIni, c='b')
+    
     
     #Fonction d'initialisation pour l'animation
     def init():

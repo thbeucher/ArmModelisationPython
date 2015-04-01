@@ -31,7 +31,13 @@ class ControlerUtil:
                 U[i] = 1
         self.U = U
         #Bruit d'activation musculaire
-        self.Unoise = np.divide(np.log(np.exp(rs.knoiseU*self.U) + 1), rs.knoiseU)
+        UnoiseTmp = self.U*(1+np.random.normal(0,0.5))
+        for i in range(UnoiseTmp.shape[0]):
+            if UnoiseTmp[i] < 0:
+                UnoiseTmp[i] = 0
+            elif UnoiseTmp[i] > 1:
+                UnoiseTmp[i] = 1
+        self.Unoise = UnoiseTmp
 
         
         

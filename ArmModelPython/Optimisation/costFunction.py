@@ -69,13 +69,13 @@ class costFunction:
         coordStartPts.append((0.0,0.39))#trajectoire3
         coordStartPts.append((0.1,0.39))#trajectoire4
         coordStartPts.append((0.2,0.39))#trajectoire5
-        coordStartPts.append((-0.3,0.0325))#trajectoire6
-        coordStartPts.append((-0.2,0.0325))#trajectoire7
-        coordStartPts.append((-0.1,0.0325))#trajectoire8
-        coordStartPts.append((0.0,0.0325))#trajectoire9#0000
-        coordStartPts.append((0.1,0.0325))#trajectoire10
-        coordStartPts.append((0.2,0.0325))#trajectoire11
-        coordStartPts.append((0.3,0.0325))#trajectoire12
+        coordStartPts.append((-0.3,0.26))#trajectoire6
+        coordStartPts.append((-0.2,0.26))#trajectoire7
+        coordStartPts.append((-0.1,0.26))#trajectoire8
+        coordStartPts.append((0.0,0.26))#trajectoire9#0000
+        coordStartPts.append((0.1,0.26))#trajectoire10
+        coordStartPts.append((0.2,0.26))#trajectoire11
+        coordStartPts.append((0.3,0.26))#trajectoire12
         JuCf = []
         if self.inb == 1:
             stateAll, commandAll = fr.recup_data(1)
@@ -121,7 +121,7 @@ class costFunction:
             #Sauv = 2 entraine la sauvegarde des Unoises  
             elif self.sauv == 2:  
                 ##For saving Unoise
-                saveU = []
+                saveUnoise = []
                 if self.inb == 0:
                     nameUnoise = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireX" + str(y+1)
                 elif self.inb == 1:
@@ -140,21 +140,33 @@ class costFunction:
                 nameCoordHA = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireHAAllNoise"
             ############################################################
             while coordHA[1] < 0.6175:
-                if i < 900:
+                if i < 500:
                     inputq = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                     cu.getCommand(inputq, nbt, fa, theta)
                     ##############################
                     ##For saving U and Unoise
-                    if self.sauv == 1 or self.sauv == 2:
+                    if self.sauv == 1:
                         saveU.append(cu.U)
+                    elif self.sauv == 2:
+                        saveUnoise.append(cu.Unoise)
                     ##############################
-                    if self.noise == "Y":
+                    if self.noise == 1:
                         Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
-                    elif self.noise == "N":
+                    elif self.noise == 0:
                         Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
-                    ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
+                    ddotq = arm.MDD(Gamma_AM,q,dotq,robot)
                     dotq += ddotq*arm.dt
                     q += dotq*arm.dt
+                    #Verification du respect des butees articulaires
+                    if q[0,0] < -0.6:
+                        q[0,0] = -0.6
+                    elif q[0,0] > 2.6:
+                        q[0,0] = 2.6
+                    if q[1,0] < -0.2:
+                        q[1,0] = -0.2
+                    elif q[1,0] > 3.0:
+                        q[1,0] = 3.0
+                    #Recuperation des coordonnees dans le plan
                     coordEL, coordHA = save.calculCoord(q, robot)
                     ##############################
                     ##For saving coordTraj
@@ -176,7 +188,7 @@ class costFunction:
                 fileSavingBin(nameU, saveU)
             ##For saving Unoise
             elif self.sauv == 2:
-                fileSavingBin(nameUnoise, saveU)
+                fileSavingBin(nameUnoise, saveUnoise)
             ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
             elif self.sauv == 5:
                 savei.append(i)

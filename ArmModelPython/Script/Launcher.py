@@ -54,12 +54,13 @@ elif choix == "genTraj":
             cf = costFunction(nbfeat, 1, 0, sauv)
     elif nbtra == "X":
         name = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
-        names = "RBFN2/" + str(nbfeat) + "feats/coutX"
-        names2 = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
-        namesb = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
         if noise == "Y":
+            names = "RBFN2/" + str(nbfeat) + "feats/coutNoiseX"
+            names2 = "RBFN2/" + str(nbfeat) + "feats/coutNoiseXBIN"
             cf = costFunction(nbfeat, 0, 1, sauv)
         elif noise == "N":
+            names = "RBFN2/" + str(nbfeat) + "feats/coutX"
+            names2 = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
             cf = costFunction(nbfeat, 0, 0, sauv)
     thetaa = fra.getobjread(name)
     res = cf.costFunctionRBFN2(thetaa)
