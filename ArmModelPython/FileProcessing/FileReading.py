@@ -122,6 +122,8 @@ class FileReading():
         q1 = ma.atan2(yh, xh)-ma.atan2(robot.l2*np.sin(q2), robot.l1 + robot.l2*np.cos(q2))
         return q1, q2
 
+
+#code test xy vers q12 puis re vers xy
 '''fr = FileReading()
 robot = ParametresRobot()
 save = SavingData()
@@ -204,8 +206,8 @@ for el in a:
 fileSavingStr("q1q2ForPosIniAlea", q)'''
         
         
-
-fr = FileReading()
+#Code test q12 vers xy puis re vers q12
+'''fr = FileReading()
 robot = ParametresRobot()
 save = SavingData()
 q1 = np.arange(-0.6,2.6,0.05)
@@ -236,7 +238,7 @@ with open("testUnitaireCalculCoord", "w+") as file:
                 maxminmoy.append((g,h))
                 file.write(str("q1q2:("+str(a)+","+str(b)+")    xy:("+str(c)+","+str(d)+")    q1'q2':("+str(e)+","+str(f)+")    err q1q2:("+str(g)+","+str(h) +")\n"))
         co += Q1.shape[1]
-print("max:", np.max(np.array(maxminmoy)), "min:", np.min(np.array(maxminmoy)), "moy:", np.mean(np.array(maxminmoy)))
+print("max:", np.max(np.array(maxminmoy)), "min:", np.min(np.array(maxminmoy)), "moy:", np.mean(np.array(maxminmoy)))'''
 
 
 
