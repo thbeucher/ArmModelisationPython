@@ -16,14 +16,11 @@ def animatAct(nbfeat):
     fr = FileReading()
     save = SavingData()
     #Recuperation des positions initiales
-    posIni = fr.recup_pos_ini()
-    xIni = []
-    yIni = []
-    for i in range(13):
-        name = "trajectoire" + str(i) + ".log"
-        if name in posIni.keys():
-            xIni.append(posIni[name][0])
-            yIni.append(posIni[name][1])
+    posIni = fr.getobjread("PosIniExperiment1")
+    xIni, yIni = [], []
+    for el in posIni:
+        xIni.append(el[0])
+        yIni.append(el[1])
     
     fig = plt.figure()
     upperArm, = plt.plot([],[]) 

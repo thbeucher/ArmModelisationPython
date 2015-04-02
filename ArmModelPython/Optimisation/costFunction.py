@@ -63,19 +63,8 @@ class costFunction:
         #Pour l'instant non générique, changer nb(nbfeat**nbdim) pour correspondre au bon theta
         nbd = 4
         nbt = 0
-        coordStartPts = []
-        coordStartPts.append((-0.2,0.39))#trajectoire1
-        coordStartPts.append((-0.1,0.39))#trajectoire2
-        coordStartPts.append((0.0,0.39))#trajectoire3
-        coordStartPts.append((0.1,0.39))#trajectoire4
-        coordStartPts.append((0.2,0.39))#trajectoire5
-        coordStartPts.append((-0.3,0.26))#trajectoire6
-        coordStartPts.append((-0.2,0.26))#trajectoire7
-        coordStartPts.append((-0.1,0.26))#trajectoire8
-        coordStartPts.append((0.0,0.26))#trajectoire9#0000
-        coordStartPts.append((0.1,0.26))#trajectoire10
-        coordStartPts.append((0.2,0.26))#trajectoire11
-        coordStartPts.append((0.3,0.26))#trajectoire12
+        #recuperation des positions initiales de l'experimentation en cours
+        posIni = fr.getobjread("PosIniExperiment1")
         JuCf = []
         if self.inb == 1:
             stateAll, commandAll = fr.recup_data(1)
@@ -92,12 +81,12 @@ class costFunction:
         if self.sauv == 5:
             savei = []
             pathin = "/home/beucher/workspace/ArmModelPython/Data/trajectoires/"
-            nbTrajTrain = len(os.listdir(pathin))-1
+            nbTrajTrain = len(os.listdir(pathin))
             namei = "RBFN2/" + str(self.nbf) + "feats/nbIte_" + str(nbTrajTrain) + "Traj"
         ##avec noise
         #nameinoise = "RBFN2/" + str(nbf) + "feats/nbIteTrajNoise"
         ############################################################
-        for el in coordStartPts:
+        for el in posIni:
             #print("x:", el[0], "\ny:", el[1])
             q1, q2 = fr.mgi(el[0], el[1], robot) 
             #print("q1:", q1, "\nq2:", q2)

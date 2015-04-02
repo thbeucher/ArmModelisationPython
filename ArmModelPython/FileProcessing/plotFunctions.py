@@ -111,40 +111,6 @@ def plotActivationMuscular(what, nbfeat):
                 plt.plot(trajIteU[i], trajVal[j+u])
             u += 6
             plt.show(block = True)
-
-    
-def plotAnimationTraj(what):
-    fr = FileReading()
-    if what == "RBFN":
-        for i in range(12):
-            save = SavingData()
-            nameCoordEL = "RBFN2/2feats/CoordTraj/CoordTrajectoireEL" + str(i+1)
-            nameCoordHA = "RBFN2/2feats/CoordTraj/CoordTrajectoireHA" + str(i+1)
-            coordEL = fr.getobjread(nameCoordEL)
-            coordHA = fr.getobjread(nameCoordHA)
-            save.createCoord(2, coordHA, coordEL)
-            fig = plt.figure()
-            upperArm, = plt.plot([],[]) 
-            foreArm, = plt.plot([],[])
-            plt.xlim(-0.7, 0.7)
-            plt.ylim(-0.7,0.7)
-            
-            def init():
-                upperArm.set_data([0],[0])
-                foreArm.set_data([save.xEl[0]],[save.yEl[0]])
-                return upperArm,foreArm,
-                                    
-            def animate(i): 
-                xe = (0, save.xEl[i])
-                ye = (0, save.yEl[i])
-                xh = (save.xEl[i], save.xHa[i])
-                yh = (save.yEl[i], save.yHa[i])
-                upperArm.set_data(xe, ye)
-                foreArm.set_data(xh, yh)
-                return upperArm,foreArm
-            
-            ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(save.xEl), blit=True, interval=20, repeat=True)
-            plt.show(block=True)
     
 
 def plot_pos_ini():
@@ -161,9 +127,31 @@ def plot_pos_ini():
     plt.show(block = True)
 
 
-#plotActivationMuscular("brent")    
-#plotActivationMuscular("RBFN")
-#plotAnimationTraj("RBFN")
+
+def costColorPlotAllRBFN(name, wha):
+    xt = 0
+    yt = 0.6175
+    x0 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0,0.1,0.2,0.3]
+    y0 = [0.39,0.39,0.39,0.39,0.39,0.26,0.26,0.26,0.26,0.26,0.26,0.26]
+    
+    fr = FileReading()
+    if wha == "rbfn":
+        z = fr.getobjread(name)
+        z = np.array(z)
+        maxz = np.max(z)
+        minz = np.min(z)
+    zb = (z-minz)/(maxz - minz)
+    xi = np.linspace(-0.40,0.40,100)
+    yi = np.linspace(0.1,0.5,100)
+    zi = griddata(x0, y0, zb, xi, yi)
+    
+    fig = plt.figure()
+    t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))
+    plt.scatter(xt, yt, c ='g', marker='v', s=200)
+    CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+    fig.colorbar(t1, shrink=0.5, aspect=5)
+    
+    plt.show(block = True)
 
 
 

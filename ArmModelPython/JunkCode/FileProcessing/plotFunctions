@@ -20,3 +20,39 @@
     x4 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0.1,0.2,0.3]
     y4 = [0.39,0.39,0.39,0.39,0.39,0.0325,0.0325,0.0325,0.0325,0.0325,0.0325]
     z4 = [4476.5986069261062, 3548.932094627422, 2550.8052246753091, 2243.5188898035408, 3889.8187394899551, 9092.3997452895528, 9542.7502806432221, 7235.5788222904139, 6555.1901482250778, 6800.8533329513602, 9911.0973462760012]
+
+
+
+
+def plotAnimationTraj(what):
+    fr = FileReading()
+    if what == "RBFN":
+        for i in range(12):
+            save = SavingData()
+            nameCoordEL = "RBFN2/2feats/CoordTraj/CoordTrajectoireEL" + str(i+1)
+            nameCoordHA = "RBFN2/2feats/CoordTraj/CoordTrajectoireHA" + str(i+1)
+            coordEL = fr.getobjread(nameCoordEL)
+            coordHA = fr.getobjread(nameCoordHA)
+            save.createCoord(2, coordHA, coordEL)
+            fig = plt.figure()
+            upperArm, = plt.plot([],[]) 
+            foreArm, = plt.plot([],[])
+            plt.xlim(-0.7, 0.7)
+            plt.ylim(-0.7,0.7)
+            
+            def init():
+                upperArm.set_data([0],[0])
+                foreArm.set_data([save.xEl[0]],[save.yEl[0]])
+                return upperArm,foreArm,
+                                    
+            def animate(i): 
+                xe = (0, save.xEl[i])
+                ye = (0, save.yEl[i])
+                xh = (save.xEl[i], save.xHa[i])
+                yh = (save.yEl[i], save.yHa[i])
+                upperArm.set_data(xe, ye)
+                foreArm.set_data(xh, yh)
+                return upperArm,foreArm
+            
+            ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(save.xEl), blit=True, interval=20, repeat=True)
+            plt.show(block=True)
