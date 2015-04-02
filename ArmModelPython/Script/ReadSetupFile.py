@@ -23,7 +23,7 @@ class ReadSetupFile:
         #lecture ligne 2, choix d'une simulation avec ou sans bruit moteur
         self.noise = (allsByLign[1].split(":"))[1]
         #lecture ligne 3, choix de la valeur de k pour le bruit sur U
-        self.knoiseU = int((allsByLign[2].split(":"))[1])
+        self.knoiseU = float((allsByLign[2].split(":"))[1])
         #lecture ligne 4, choix du Parametre gamma cost function
         self.gammaCF = float((allsByLign[3].split(":"))[1])
         #lecture ligne 5, choix du Parametre rho cost function

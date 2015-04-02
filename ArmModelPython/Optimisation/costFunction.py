@@ -99,7 +99,7 @@ class costFunction:
         ############################################################
         for el in coordStartPts:
             #print("x:", el[0], "\ny:", el[1])
-            q1, q2 = fr.convertToAngle(el[0], el[1], robot) 
+            q1, q2 = fr.mgi(el[0], el[1], robot) 
             #print("q1:", q1, "\nq2:", q2)
             q = np.array([[q1],[q2]])
             dotq = np.array([[0.],[0.]])
@@ -249,13 +249,13 @@ class costFunction:
         coordStartPts.append((0.0,0.39))#trajectoire3
         coordStartPts.append((0.1,0.39))#trajectoire4
         coordStartPts.append((0.2,0.39))#trajectoire5
-        coordStartPts.append((-0.3,0.0325))#trajectoire6
-        coordStartPts.append((-0.2,0.0325))#trajectoire7
-        coordStartPts.append((-0.1,0.0325))#trajectoire8
-        coordStartPts.append((0.0,0.0325))#trajectoire9#0000
-        coordStartPts.append((0.1,0.0325))#trajectoire10
-        coordStartPts.append((0.2,0.0325))#trajectoire11
-        coordStartPts.append((0.3,0.0325))#trajectoire12
+        coordStartPts.append((-0.3,0.26))#trajectoire6
+        coordStartPts.append((-0.2,0.26))#trajectoire7
+        coordStartPts.append((-0.1,0.26))#trajectoire8
+        coordStartPts.append((0.0,0.26))#trajectoire9#0000
+        coordStartPts.append((0.1,0.26))#trajectoire10
+        coordStartPts.append((0.2,0.26))#trajectoire11
+        coordStartPts.append((0.3,0.26))#trajectoire12
         JuCf = []
         stateAll, commandAll = fr.recup_data(0)
         fa = fa_rbfn(nbf)
@@ -263,7 +263,7 @@ class costFunction:
         fa.setCentersAndWidths()
         cu = ControlerUtil(nbf,nbd)
         for el in coordStartPts:
-            q1, q2 = fr.convertToAngle(el[0], el[1], robot) 
+            q1, q2 = fr.mgi(el[0], el[1], robot) 
             q = np.array([[q1],[q2]])
             dotq = np.array([[0.],[0.]])
             coordEL, coordHA = save.calculCoord(q, robot)
