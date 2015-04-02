@@ -280,8 +280,8 @@ class costFunction:
                 i += 1
                 arm.t += arm.dt
             print(i)
-            JuCf.append(self.Ju)
+            JuCf.append(self.Ju*(-1))
         self.suivi += 1
         t1 = time.time()
         print("Fin d'appel! (", self.suivi, ") (Temps de traitement:", (t1-t0), "s)")
-        return JuCf
+        return np.array(JuCf)

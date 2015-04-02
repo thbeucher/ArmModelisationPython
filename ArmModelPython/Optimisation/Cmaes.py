@@ -10,7 +10,7 @@ from Optimisation.costFunction import costFunction
 import numpy as np
 
 def runCmaes(nbfeat):
-    cf = costFunction()
+    cf = costFunction(nbfeat)
     print("Debut du traitement d'optimisation!")
     t0 = time.time()
     fr = FileReading()

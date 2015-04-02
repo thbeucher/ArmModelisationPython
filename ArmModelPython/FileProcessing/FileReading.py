@@ -136,8 +136,8 @@ class FileReading():
             return "None"
         
 
-'''#Permet de visionner l'espace décrit par le bras humain
-save = SavingData()
+#Permet de visionner l'espace décrit par le bras humain
+'''save = SavingData()
 robot = ParametresRobot()
 q1 = np.arange(-0.6,2.6,0.3)
 q2 = np.arange(-0.2,3.0,0.3)
