@@ -15,7 +15,7 @@ def runCmaes(nbfeat):
     t0 = time.time()
     fr = FileReading()
     #Récupération des theta
-    namec = "RBFN2/" + str(nbfeat) + "feats/ThetaBIN"
+    namec = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
     theta = fr.getobjread(namec)
     #Mise sous forme de vecteur simple
     thetaTmp = theta[0]

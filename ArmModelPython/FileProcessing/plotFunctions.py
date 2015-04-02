@@ -128,30 +128,6 @@ def plot_pos_ini():
 
 
 
-def costColorPlotAllRBFN(name, wha):
-    xt = 0
-    yt = 0.6175
-    x0 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0,0.1,0.2,0.3]
-    y0 = [0.39,0.39,0.39,0.39,0.39,0.26,0.26,0.26,0.26,0.26,0.26,0.26]
-    
-    fr = FileReading()
-    if wha == "rbfn":
-        z = fr.getobjread(name)
-        z = np.array(z)
-        maxz = np.max(z)
-        minz = np.min(z)
-    zb = (z-minz)/(maxz - minz)
-    xi = np.linspace(-0.40,0.40,100)
-    yi = np.linspace(0.1,0.5,100)
-    zi = griddata(x0, y0, zb, xi, yi)
-    
-    fig = plt.figure()
-    t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))
-    plt.scatter(xt, yt, c ='g', marker='v', s=200)
-    CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
-    fig.colorbar(t1, shrink=0.5, aspect=5)
-    
-    plt.show(block = True)
 
 
 

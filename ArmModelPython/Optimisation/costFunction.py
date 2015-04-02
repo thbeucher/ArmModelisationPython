@@ -87,13 +87,10 @@ class costFunction:
         #nameinoise = "RBFN2/" + str(nbf) + "feats/nbIteTrajNoise"
         ############################################################
         for el in posIni:
-            #print("x:", el[0], "\ny:", el[1])
             q1, q2 = fr.mgi(el[0], el[1], robot) 
-            #print("q1:", q1, "\nq2:", q2)
             q = np.array([[q1],[q2]])
             dotq = np.array([[0.],[0.]])
             coordEL, coordHA = save.calculCoord(q, robot)
-            #print("coordHA:",coordHA)
             i = 0
             arm.t = 0
             self.Ju = 0
@@ -232,26 +229,18 @@ class costFunction:
         nbf = 3
         nbd = 4
         nbt = 0
-        coordStartPts = []
-        coordStartPts.append((-0.2,0.39))#trajectoire1
-        coordStartPts.append((-0.1,0.39))#trajectoire2
-        coordStartPts.append((0.0,0.39))#trajectoire3
-        coordStartPts.append((0.1,0.39))#trajectoire4
-        coordStartPts.append((0.2,0.39))#trajectoire5
-        coordStartPts.append((-0.3,0.26))#trajectoire6
-        coordStartPts.append((-0.2,0.26))#trajectoire7
-        coordStartPts.append((-0.1,0.26))#trajectoire8
-        coordStartPts.append((0.0,0.26))#trajectoire9#0000
-        coordStartPts.append((0.1,0.26))#trajectoire10
-        coordStartPts.append((0.2,0.26))#trajectoire11
-        coordStartPts.append((0.3,0.26))#trajectoire12
+        #recuperation des positions initiales de l'experimentation en cours
+        posIni = fr.getobjread("PosIniExperiment1")
         JuCf = []
-        stateAll, commandAll = fr.recup_data(0)
+        if self.inb == 1:
+            stateAll, commandAll = fr.recup_data(1)
+        elif self.inb == 0:
+            stateAll, commandAll = fr.recup_data(0)
         fa = fa_rbfn(nbf)
         fa.setTrainingData(stateAll.T, commandAll.T)
         fa.setCentersAndWidths()
         cu = ControlerUtil(nbf,nbd)
-        for el in coordStartPts:
+        for el in posIni:
             q1, q2 = fr.mgi(el[0], el[1], robot) 
             q = np.array([[q1],[q2]])
             dotq = np.array([[0.],[0.]])
@@ -260,15 +249,28 @@ class costFunction:
             arm.t = 0
             self.Ju = 0
             while coordHA[1] < 0.6175:
-                if i < 900:
+                if i < 500:
                     inputq = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                     cu.getCommand(inputq, nbt, fa, theta)
-                    #Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
-                    Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
-                    ddotq = arm.MDD( Gamma_AM,q,dotq,robot)
+                    if self.noise == 1:
+                        Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
+                    elif self.noise == 0:
+                        Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.U]).T)#without noise
+                    ddotq = arm.MDD(Gamma_AM,q,dotq,robot)
                     dotq += ddotq*arm.dt
                     q += dotq*arm.dt
+                    #Verification du respect des butees articulaires
+                    if q[0,0] < -0.6:
+                        q[0,0] = -0.6
+                    elif q[0,0] > 2.6:
+                        q[0,0] = 2.6
+                    if q[1,0] < -0.2:
+                        q[1,0] = -0.2
+                    elif q[1,0] > 3.0:
+                        q[1,0] = 3.0
+                    #Recuperation des coordonnees dans le plan
                     coordEL, coordHA = save.calculCoord(q, robot)
+                    #Calcul du cout de la trajectoire
                     if coordHA[0] == 0.0 and coordHA[1] == 0.6175:
                         self.costFunctionJ(cu.U, 2, arm.t)
                     else:
@@ -278,10 +280,8 @@ class costFunction:
                 i += 1
                 arm.t += arm.dt
             print(i)
-            JuCf.append(self.Ju*(-1))
-        fileSavingStr("CalculCoutTest", JuCf)
+            JuCf.append(self.Ju)
         self.suivi += 1
         t1 = time.time()
         print("Fin d'appel! (", self.suivi, ") (Temps de traitement:", (t1-t0), "s)")
         return JuCf
-
