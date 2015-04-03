@@ -294,17 +294,27 @@ class costFunction:
                         self.costFunctionJ(cu.U, 2, arm.t)
                     else:
                         self.costFunctionJ(cu.U, 1, arm.t)
+                    if i == 498 and coordHA[1] != 0.6175:
+                        self.Ju = -10000
                 else:
                     break
                 i += 1
                 arm.t += arm.dt
             print(i)
+            if self.Ju == 0:
+                self.Ju = -100000
             JuCf.append(self.Ju*(-1))
         self.suivi += 1
         t1 = time.time()
         print("Fin d'appel! (", self.suivi, ") (Temps de traitement:", (t1-t0), "s)")
         print(JuCf)
+        JuCfMean = np.mean(JuCf)
         JuCfSumScalar = 0
         for el in JuCf:
             JuCfSumScalar += el
-        return JuCfSumScalar
+        #return JuCfSumScalar
+        return JuCfMean
+        
+        
+        
+        
