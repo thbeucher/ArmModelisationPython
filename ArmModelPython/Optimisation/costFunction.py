@@ -289,4 +289,7 @@ class costFunction:
         self.suivi += 1
         t1 = time.time()
         print("Fin d'appel! (", self.suivi, ") (Temps de traitement:", (t1-t0), "s)")
-        return np.array(JuCf)
+        JuCfSumScalar = 0
+        for el in JuCf:
+            JuCfSumScalar += el
+        return JuCfSumScalar

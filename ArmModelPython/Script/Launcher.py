@@ -12,8 +12,9 @@ from FileProcessing.plotFunctions import costColorPlot, plotActivationMuscular,\
 from Optimisation.Cmaes import runCmaes
 from matplotlib.mlab import griddata
 from Main.CostEvaluationForBrentBVPSolverTrajectories import costEvalBrent
+from Script.RunTrajectories import runGenTraj
 
-print("Scripts existants:\n -animation        -posIni\n -rbfn             -costBrent\n -rbfn_test2D\n -genTraj\n -costColor\n -actiMuscu\n -cmaes\n")
+print("Scripts existants:\n -animation        -posIni\n -rbfn             -costBrent\n -rbfn_test2D      -testResCma\n -genTraj\n -costColor\n -actiMuscu\n -cmaes\n")
 choix = input("Veuillez entrer le choix du script à lancer: ")
 
 if choix == "animation":
@@ -35,38 +36,7 @@ elif choix =="rbfn_test2D":
     test2DRBFN(nbfeat)
     
 elif choix == "genTraj":
-    ##code permettant de lancer la fonction de generation de trajectoire
-    nbfeat = input("Nombre de features choisies: ")
-    nbfeat = int(nbfeat)
-    noise = input("Avec bruit moteur? (Y or N): ")
-    print("(0: Rien / 1: U / 2: Unoise / 3: CoordTrajU / 4: CoordTrajUnoise / 5: nbIte")
-    sauv = input("Que voulez vous sauvegarder?: ")
-    sauv = int(sauv)
-    fra = FileReading()
-    nbtra = input("Sur combien de trajectoire voulez vous le theta(12 ou X): ")
-    if nbtra == "12":
-        name = "RBFN2/" + str(nbfeat) + "feats/ThetaBIN"
-        names = "RBFN2/" + str(nbfeat) + "feats/cout"
-        namesb = "RBFN2/" + str(nbfeat) + "feats/coutBIN"
-        if noise == "Y":
-            cf = costFunction(nbfeat, 1, 1, sauv)
-        elif noise == "N":
-            cf = costFunction(nbfeat, 1, 0, sauv)
-    elif nbtra == "X":
-        name = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
-        if noise == "Y":
-            names = "RBFN2/" + str(nbfeat) + "feats/coutNoiseX"
-            names2 = "RBFN2/" + str(nbfeat) + "feats/coutNoiseXBIN"
-            cf = costFunction(nbfeat, 0, 1, sauv)
-        elif noise == "N":
-            names = "RBFN2/" + str(nbfeat) + "feats/coutX"
-            names2 = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
-            cf = costFunction(nbfeat, 0, 0, sauv)
-    thetaa = fra.getobjread(name)
-    res = cf.costFunctionRBFN2(thetaa)
-    print(res)
-    fileSavingStr(names, res)
-    fileSavingBin(names2, res)
+    runGenTraj()
     
 elif choix == "costColor":
     nbfeat = input("Nombre de features choisies: ")
@@ -93,6 +63,16 @@ elif choix == "posIni":
 elif choix == "costBrent":
     costEvalBrent()
     
+    
+elif choix == "testResCma":
+    nbfeat = input("Nombre de features choisies: ")
+    nbfeat = int(nbfeat)
+    fr = FileReading()
+    theta = fr.getobjread("OptimisationResults/thetaSolBIN")
+    maxT = fr.getobjread("OptimisationResults/maxTBIN")
+    cf = costFunction(nbfeat)
+    cf.recupMaxThetaN(maxT)
+    cf.costFunctionCMAES(theta)
     
     
     
