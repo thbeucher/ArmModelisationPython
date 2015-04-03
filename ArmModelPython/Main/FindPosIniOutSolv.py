@@ -26,26 +26,29 @@ def allpts():
         cory.append(el[1])
     return corx,cory
 
-patho = "/home/beucher/Desktop/Monfray/Codes/Java/output_solver/"
-elsplit = []
-for el in os.listdir(patho):
-    if not "fail" in el and not "junk" in el:
-        elsplit.append(el.split("_"))
-
-
-cor = []
-for el in elsplit:
-    cor.append(calculCoord(np.mat([[float(el[2])],[float(el[3])]])))
-
-corx,cory = [],[]
-for el in cor:
-    corx.append(el[0])
-    cory.append(el[1])
-
-corxA, coryA = allpts()
-
-plt.figure()
-plt.scatter(corx, cory, c ='b')
-plt.figure()
-plt.scatter(corxA, coryA, c = 'b')
-plt.show()
+def runfpios():
+    patho = "/home/beucher/Desktop/Monfray/Codes/Java/output_solver/"
+    elsplit = []
+    for el in os.listdir(patho):
+        if not "fail" in el and not "junk" in el:
+            elsplit.append(el.split("_"))
+    
+    
+    cor = []
+    for el in elsplit:
+        cor.append(calculCoord(np.mat([[float(el[2])],[float(el[3])]])))
+    
+    corx,cory = [],[]
+    for el in cor:
+        corx.append(el[0])
+        cory.append(el[1])
+    
+    corxA, coryA = allpts()
+    
+    plt.figure()
+    plt.scatter(corx, cory, c ='b')
+    plt.figure()
+    plt.scatter(corxA, coryA, c = 'b')
+    plt.show()
+    
+runfpios()
