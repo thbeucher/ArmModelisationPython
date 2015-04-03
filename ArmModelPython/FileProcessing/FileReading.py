@@ -137,6 +137,7 @@ class FileReading():
         
 
 #Permet de visionner l'espace décrit par le bras humain
+#et de generer les q1, q2 pour nourrir brent
 '''save = SavingData()
 robot = ParametresRobot()
 q1 = np.arange(-0.6,2.6,0.3)

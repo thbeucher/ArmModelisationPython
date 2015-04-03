@@ -8,6 +8,7 @@ import time
 from FileProcessing.FileSaving import fileSavingStr
 from Optimisation.costFunction import costFunction
 import numpy as np
+from FileProcessing.Functions import normalization
 
 def runCmaes(nbfeat):
     cf = costFunction(nbfeat)
@@ -17,12 +18,17 @@ def runCmaes(nbfeat):
     #Récupération des theta
     namec = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
     theta = fr.getobjread(namec)
+    maxT, thetaN = normalization(theta)#Recuperation des theta normalises
+    cf.recupMaxThetaN(maxT)
     #Mise sous forme de vecteur simple
     thetaTmp = theta[0]
+    thetaTmpN = thetaN[0]#theta normalise
     for i in range(theta.shape[0]-1):
         thetaTmp = np.hstack((thetaTmp, theta[i+1]))
+        thetaTmpN = np.hstack((thetaTmpN, thetaN[i+1]))#theta normalise
     #resSO = cma.fmin(cf.costFunctionCMAES, thetaTmp, 1)
-    resSO = cma.fmin(cf.costFunctionCMAES, thetaTmp, 1, options={'maxiter':5, 'popsize':10})#fmin avec une condition sur le nombre d'iteration
+    #resSO = cma.fmin(cf.costFunctionCMAES, thetaTmp, 1, options={'maxiter':5, 'popsize':10})#Avec theta
+    resSO = cma.fmin(cf.costFunctionCMAES, thetaTmpN, 1, options={'maxiter':5, 'popsize':10})#Avec theta normalise
     t1 = time.time()
     print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
     print(resSO[0])

@@ -40,17 +40,16 @@ def normalizeThetaFunction():
 
     
     
-'''normalizeThetaFunction()
-f = FileReading()
-for i in range(6):
-    tn = f.getobjread(str("ThetaAllTraj/Python_thetaNormalize_u" + str(i+1)))
-    coef = f.getobjread(str("ThetaAllTraj/CoefNormalization_theta_u" + str(i+1)))
-    tl = np.divide(tn, coef)
-    fileSavingStr(str("ThetaAllTraj/thetaRetrouve_u" + str(i+1)), tl)'''
-
-
-
-
+def normalization(theta):
+    #fr = FileReading()
+    #data = fr.getobjread("RBFN2/3feats/ThetaXBIN")
+    maxT = (np.max(abs(theta)))
+    #print(np.max(data), np.min(data), np.mean(data))
+    datan = theta/maxT
+    #print(np.max(datan), np.min(datan), np.mean(datan))
+    #datar = datan*maxT
+    #print(np.max(datar), np.min(datar), np.mean(datar))
+    return maxT, datan
 
 
 

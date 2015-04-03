@@ -35,6 +35,9 @@ class costFunction:
         self.noise = noise
         self.nbf = nbfeat
         
+    def recupMaxThetaN(self, maxT):
+        self.maxT = maxT
+        
     def costFunctionJ(self, U, action, t):
         '''
         Cette fonction permet de calculer le cout d'une trajectoire en terme d'activation musculaire
@@ -213,6 +216,8 @@ class costFunction:
         arm = ParametresArmModel(hogan.GammaMax)
         save = SavingData()
         fr = FileReading()
+        #Si on recoit le theta normalise
+        theta = theta*self.maxT
         #Remise sous forme de matrice de theta (quand lancer avec cmaes
         #Pour l'instant non générique, changer nb(nbfeat**nbdim) pour correspondre au bon theta
         nb = 0
