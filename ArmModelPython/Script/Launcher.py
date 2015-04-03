@@ -41,14 +41,13 @@ elif choix == "genTraj":
 elif choix == "costColor":
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
-    name = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
     wha = input("Choisir les resultats a afficher(brent ou rbfn): ")
-    costColorPlot(name, wha)
+    costColorPlot(nbfeat, wha)
     
 elif choix == "actiMuscu":
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
-    wha = input("Choisir les activations musculaires a afficher (brent ou RBFN): ")
+    wha = input("Choisir les activations musculaires a afficher (brent ou RBFN ou cma): ")
     plotActivationMuscular(wha, nbfeat)
     
 elif choix == "cmaes":

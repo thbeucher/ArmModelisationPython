@@ -11,7 +11,7 @@ from matplotlib import animation
 from matplotlib.mlab import griddata
 
 
-def costColorPlot(name, wha):
+def costColorPlot(nbfeat, wha):
     xt = 0
     yt = 0.6175
     x0 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0,0.1,0.2,0.3]
@@ -19,6 +19,13 @@ def costColorPlot(name, wha):
     
     fr = FileReading()
     if wha == "rbfn":
+        name = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
+        z = fr.getobjread(name)
+        z = np.array(z)
+        maxz = np.max(z)
+        minz = np.min(z)
+    elif wha == "cma":
+        name = "RBFN2/" + str(nbfeat) + "feats/coutXCmaBIN"
         z = fr.getobjread(name)
         z = np.array(z)
         maxz = np.max(z)
@@ -102,6 +109,32 @@ def plotActivationMuscular(what, nbfeat):
                 nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuTrajectoireX" + str(i+1)
             elif ch == "Y":
                 nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireX" + str(i+1)
+            ut1 = fr.getobjread(nameU)
+            for j in range(len(ut1)):
+                trajIteU[i].append(j)
+                for t in range(6):
+                    trajVal[t+u].append(ut1[j][t])
+            u += 6
+        u = 0
+        for i in range(12):
+            rbfn = plt.Figure()
+            for j in range(6):
+                plt.plot(trajIteU[i], trajVal[j+u])
+            u += 6
+            plt.show(block = True)
+    elif what == "cma":
+        ch = input("Voulez vous afficher les activations musculaires avec bruit?(Y or N): ")
+        trajIteU = {}
+        trajVal = {}
+        for i in range(6*12):
+            trajVal[i] = []
+        u = 0
+        for i in range(12):
+            trajIteU[i] = []
+            if ch == "N":
+                nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuTrajectoireXCma" + str(i+1)
+            elif ch == "Y":
+                nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireXCma" + str(i+1)
             ut1 = fr.getobjread(nameU)
             for j in range(len(ut1)):
                 trajIteU[i].append(j)
