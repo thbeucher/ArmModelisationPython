@@ -12,7 +12,7 @@ from FileProcessing.plotFunctions import costColorPlot, plotActivationMuscular,\
 from Optimisation.Cmaes import runCmaes
 from matplotlib.mlab import griddata
 from Main.CostEvaluationForBrentBVPSolverTrajectories import costEvalBrent
-from Script.RunTrajectories import runGenTraj
+from Script.RunTrajectories import runGenTraj, runGenTrajCma
 
 print("Scripts existants:\n -animation        -posIni\n -rbfn             -costBrent\n -rbfn_test2D      -testResCma\n -genTraj\n -costColor\n -actiMuscu\n -cmaes\n")
 choix = input("Veuillez entrer le choix du script à lancer: ")
@@ -73,6 +73,7 @@ elif choix == "testResCma":
     cf = costFunction(nbfeat)
     cf.recupMaxThetaN(maxT)
     cf.costFunctionCMAES(theta)
+    runGenTrajCma()
     
     
     

@@ -54,7 +54,7 @@ class costFunction:
         self.Ju += np.exp(-t/self.gamma)*(self.rho*imReward - self.ups*mvtCost)
         
     
-    def costFunctionRBFN2(self, theta):
+    def costFunctionRBFN2(self, theta, cma = 0):
         t0 = time.time()
         #Déclaration des différentes classes utiles 
         robot = ParametresRobot()
@@ -103,7 +103,10 @@ class costFunction:
             if self.sauv == 1:
                 saveU = []
                 if self.inb == 0:
-                    nameU = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuTrajectoireX" + str(y+1)
+                    if cma == 0:
+                        nameU = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuTrajectoireX" + str(y+1)
+                    elif cma == 1:
+                        nameU = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuTrajectoireXCma" + str(y+1)
                 elif self.inb == 1:
                     nameU = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuTrajectoire" + str(y+1)
                 y += 1
@@ -112,7 +115,10 @@ class costFunction:
                 ##For saving Unoise
                 saveUnoise = []
                 if self.inb == 0:
-                    nameUnoise = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireX" + str(y+1)
+                    if cma == 0:
+                        nameUnoise = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireX" + str(y+1)
+                    elif cma == 1:
+                        nameUnoise = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireXCma" + str(y+1)
                 elif self.inb == 1:
                     nameUnoise = "RBFN2/" + str(self.nbf) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoire" + str(y+1)
                 y += 1
@@ -121,12 +127,20 @@ class costFunction:
             #nameCoordHA = "RBFN2/" + str(nbf) + "feats/CoordTraj/CoordTrajectoireHA" + str(12)
             ##For saving all coord traj
             elif self.sauv == 3:
-                nameCoordEL = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireELAll"
-                nameCoordHA = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireHAAll"
+                if cma == 0:
+                    nameCoordEL = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireELAll"
+                    nameCoordHA = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireHAAll"
+                elif cma == 1:
+                    nameCoordEL = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireELAllCma"
+                    nameCoordHA = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireHAAllCma"
             ##For saving all coord traj noise
             elif self.sauv == 4:
-                nameCoordEL = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireELAllNoise"
-                nameCoordHA = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireHAAllNoise"
+                if cma == 0:
+                    nameCoordEL = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireELAllNoise"
+                    nameCoordHA = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireHAAllNoise"
+                elif cma == 1:
+                    nameCoordEL = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireELAllNoiseCma"
+                    nameCoordHA = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireHAAllNoiseCma"
             ############################################################
             while coordHA[1] < 0.6175:
                 if i < 500:
@@ -289,6 +303,7 @@ class costFunction:
         self.suivi += 1
         t1 = time.time()
         print("Fin d'appel! (", self.suivi, ") (Temps de traitement:", (t1-t0), "s)")
+        print(JuCf)
         JuCfSumScalar = 0
         for el in JuCf:
             JuCfSumScalar += el
