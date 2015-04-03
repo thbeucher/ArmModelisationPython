@@ -9,9 +9,12 @@ from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
 from Optimisation.costFunction import costFunction
 import numpy as np
 from FileProcessing.Functions import normalization
+from Script.ReadSetupFile import ReadSetupFile
 
 def runCmaes(nbfeat):
     cf = costFunction(nbfeat)
+    rs = ReadSetupFile()
+    rs.readingSetupFile()
     print("Debut du traitement d'optimisation!")
     t0 = time.time()
     fr = FileReading()
@@ -29,7 +32,7 @@ def runCmaes(nbfeat):
         thetaTmpN = np.hstack((thetaTmpN, thetaN[i+1]))#theta normalise
     #resSO = cma.fmin(cf.costFunctionCMAES, thetaTmp, 1)
     #resSO = cma.fmin(cf.costFunctionCMAES, thetaTmp, 1, options={'maxiter':5, 'popsize':10})#Avec theta
-    resSO = cma.fmin(cf.costFunctionCMAES, thetaTmpN, 1, options={'maxiter':5, 'popsize':10})#Avec theta normalise
+    resSO = cma.fmin(cf.costFunctionCMAES, thetaTmpN, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})#Avec theta normalise
     t1 = time.time()
     print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
     #Sauvegarde des solutions de cmaes

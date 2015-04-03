@@ -30,6 +30,12 @@ class ReadSetupFile:
         self.rhoCF = int((allsByLign[4].split(":"))[1])
         #lecture ligne 6, choix du Parametre upsilon cost function
         self.upsCF = int((allsByLign[5].split(":"))[1])
-        
+        #lecture ligne 7, Pour CMAES, sigma
+        self.sigmaCmaes = float((allsByLign[6].split(":"))[1])
+        #lecture ligne 8, Pour CMAES, maxIteration
+        self.maxIterCmaes = int((allsByLign[7].split(":"))[1])
+        #lecture ligne 9, POUR CMAES, popsize
+        self.popsizeCmaes = int((allsByLign[8].split(":"))[1])
     
+
 
