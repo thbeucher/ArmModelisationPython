@@ -1,14 +1,14 @@
 '''
 Author: Thomas Beucher
+
 Module: Functions
+
+Description: On retrouve dans ce fichier les fonctions pour normaliser theta
 '''
-from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
+
 import numpy as np
-from ArmModel.SavingData import SavingData
-from FileProcessing.FileReading import FileReading
-
-
-
+from Utils.FileReading import FileReading
+from Utils.FileSaving import fileSavingBin, fileSavingStr
 
 
 def normalizeThetaFunction():

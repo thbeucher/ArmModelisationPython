@@ -1,16 +1,17 @@
 '''
 Author: Thomas Beucher
+
 Module: Animation
+
+Description: On retrouve dans ce fichier le script permettant de lancer l'animation des trajectoires realisees
 '''
+
 from ArmModel.SavingData import SavingData
 import matplotlib.pyplot as plt
 from matplotlib import animation
-from FileProcessing.FileReading import FileReading
+from Utils.FileReading import FileReading
 
 
-################################################################################################
-######################## trajectories Animation ################################################
-################################################################################################
 def trajectoriesAnimation(nbfeat):
     choix = input("Veuillez choisir la trajectoire a visualiser(All or AllNoise or AllNoiseCma): ")
     fr = FileReading()

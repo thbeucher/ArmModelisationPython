@@ -2,16 +2,17 @@
 Author: Thomas Beucher
 Module: Launcher 
 '''
-from Script.Animation import trajectoriesAnimation
+
 from Script.RunRegressionRBFN import runRBFN, test2DRBFN
 from Utils.FileReading import FileReading
 from Optimisation.costFunction import costFunction
-from FileProcessing.plotFunctions import costColorPlot, plotActivationMuscular,\
+from Utils.plotFunctions import costColorPlot, plotActivationMuscular,\
     plot_pos_ini
 from Optimisation.Cmaes import runCmaes
 from matplotlib.mlab import griddata
 from Script.RunTrajectories import runGenTraj, runGenTrajCma
 from Script.CostEvaluationForBrentBVPSolverTrajectories import costEvalBrent
+from Utils.TrajectoriesAnimation import trajectoriesAnimation
 
 print("Scripts existants:\n -animation        -posIni\n -rbfn             -costBrent\n -rbfn_test2D      -testResCma\n -genTraj\n -costColor\n -actiMuscu\n -cmaes\n")
 choix = input("Veuillez entrer le choix du script à lancer: ")

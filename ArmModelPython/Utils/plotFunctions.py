@@ -1,17 +1,26 @@
 '''
 Author: Thomas Beucher
+
 Module: plotFunctions
+
+Description: On retrouve dans ce fichier differentes fonctions permettant d'afficher les resultats du projet
 '''
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-from FileProcessing.FileReading import FileReading
+from Utils.FileReading import FileReading
 from ArmModel.SavingData import SavingData
 from matplotlib import animation
 from matplotlib.mlab import griddata
 
 
 def costColorPlot(nbfeat, wha):
+    '''
+    Cette fonction permet d'afficher le profil de cout des trajectoires
+    
+    Entrees:    -nbfeat: nombre de features utilises pour generer le controleur actuel
+                -wha: choix des donnees a afficher
+    '''
     xt = 0
     yt = 0.6175
     x0 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0,0.1,0.2,0.3]
@@ -58,10 +67,15 @@ def costColorPlot(nbfeat, wha):
     
     plt.show(block = True)
 
-####################################################################################
-############ Fonction pour afficher les activations musculaires U ##################
-####################################################################################
+
 def plotActivationMuscular(what, nbfeat):
+    '''
+    Cette fonction permet d'afficher les activations musculaires des trajectoires
+    
+    Entrees:    -wha: choix des donnees a afficher
+                -nbfeat: nombre de features utilises pour generer le controleur actuel
+                
+    '''
     fr = FileReading()
     if what == "brent":
         #BrentBVPSolver activations muscular
@@ -70,7 +84,7 @@ def plotActivationMuscular(what, nbfeat):
         traj = {}
         trajIte = {}
         trajVal = {}
-        #Récupération des activations musculaires de chaque trajectoire
+        #Recuperation des activations musculaires de chaque trajectoire
         for i in range(len(fr.data_store)):
             if str("trajectoire" + str(i) + "_command") in fr.data_store.keys():
                 traj[str("trajectoire" + str(i) + "_command")] = fr.data_store[str("trajectoire" + str(i) + "_command")]
@@ -155,6 +169,10 @@ def plotActivationMuscular(what, nbfeat):
     
 
 def plot_pos_ini():
+    '''
+    Cette fonction permet d'afficher les positions initiales des trajectoires
+    (trajectoire disponible dans le dossier trajectoire)           
+    '''
     fr = FileReading()
     xy = fr.recup_pos_ini()
     x = []
