@@ -1,11 +1,14 @@
 '''
 Author: Thomas Beucher
+
 Module: ControlerUtil
+
+Description: On retrouve dans ce fichier la fonction permettant de donner la sortie approxime en fonction de l'entree fournie
 '''
-from FileProcessing.FileReading import FileReading
+from Utils.FileReading import FileReading
 import numpy as np
 import bigfloat
-from Script.ReadSetupFile import ReadSetupFile
+from Utils.ReadSetupFile import ReadSetupFile
 
 class ControlerUtil:
     def __init__(self, nbfeature, dime):
@@ -15,10 +18,14 @@ class ControlerUtil:
         self.nbfeat = nbfeature
         self.dim = dime
 
-    ########################################################################
-    # Fonction permettant de recuperer la sortie des activations musculaires
-    ########################################################################
-    def getCommand(self, inputgc, numTrajectoire, fa, theta):
+    def getCommand(self, inputgc, fa, theta):
+        '''
+        Fonction permettant de recuperer la sortie des activations musculaires
+        
+        Entrees:    -inputgc: tableau des entrees dont on cherche la sortie approximee
+                    -fa: objet permettant l'acces a la fonction de recuperation de la sortie approximee
+                    -theta: tableau donnant les poids des gaussiennes servant a approximer la fonction utilisee
+        '''
         U = fa.functionApproximatorOutput(inputgc, theta)
         #Recuperation de la valeur de k pour le bruit moteur
         rs = ReadSetupFile()

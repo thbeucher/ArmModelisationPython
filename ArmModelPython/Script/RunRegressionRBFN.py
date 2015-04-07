@@ -1,9 +1,12 @@
 '''
 Author: Thomas Beucher
+
 Module: RunRegressionRBFN
+
+Description: Dans ce fichier on retrouve la fonction permettant de lancer l'algorithme rbfn
 '''
-from FileProcessing.FileReading import FileReading
-from FileProcessing.FileSaving import fileSavingBin, fileSavingStr
+from Utils.FileReading import FileReading
+from Utils.FileSaving import fileSavingBin, fileSavingStr
 from Regression.functionApproximator_RBFN import fa_rbfn
 import time
 import numpy as np

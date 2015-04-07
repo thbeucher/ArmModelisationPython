@@ -62,7 +62,6 @@ class SavingData:
         cls.ut3save.append(arm.ut3)
         
     SaveTrajectory = classmethod(SaveTrajectory)
-    calculCoord = classmethod(calculCoord)
     createCoord = classmethod(createCoord)
     saveParameters = classmethod(saveParameters)
     

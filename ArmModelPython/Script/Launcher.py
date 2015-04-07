@@ -1,6 +1,9 @@
 '''
 Author: Thomas Beucher
+
 Module: Launcher 
+
+Description: On retrouve dans ce fichier l'executable permetttant de lancer les differents scripts disponibles
 '''
 
 from Script.RunRegressionRBFN import runRBFN, test2DRBFN
@@ -9,7 +12,6 @@ from Optimisation.costFunction import costFunction
 from Utils.plotFunctions import costColorPlot, plotActivationMuscular,\
     plot_pos_ini
 from Optimisation.Cmaes import runCmaes
-from matplotlib.mlab import griddata
 from Script.RunTrajectories import runGenTraj, runGenTrajCma
 from Script.CostEvaluationForBrentBVPSolverTrajectories import costEvalBrent
 from Utils.TrajectoriesAnimation import trajectoriesAnimation

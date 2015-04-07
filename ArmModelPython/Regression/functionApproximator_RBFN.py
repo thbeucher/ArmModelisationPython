@@ -1,6 +1,9 @@
 '''
 Author: Thomas Beucher
+
 Module: functionApproximator_RBFN
+
+Description: Dans ce fichier on retrouve les fonctions permettant d'effectuer une regression de type RBFN
 '''
 import numpy as np
 from Utils.CartesianProduct import cartesian
@@ -10,6 +13,7 @@ class fa_rbfn():
     def __init__(self, nbFeature):
         '''
         Initialisation des parametres de la classe
+        
         '''
         self.nbFeat = nbFeature
         self.title = "rbfn"
@@ -26,19 +30,20 @@ class fa_rbfn():
         self.numberOfSamples = numberOfInputSamples
         self.theta = np.zeros((self.nbFeat, self.outputDimension))
 
-    ################################################################################################
-    #### Fonction permettant de calculer les thetas suivant l'algorithme de regression RBFN ########
-    ################################################################################################
     def train_rbfn(self):
+        '''
+        Fonction permettant de calculer les thetas suivant l'algorithme de regression RBFN
+        
+        '''
         A = np.dot(self.featureOutput(self.inputData.T), self.featureOutput(self.inputData.T).T)
         b = np.dot(self.featureOutput(self.inputData.T), self.outputData.T)
         self.theta = np.dot(np.linalg.pinv(A), b)
        
-
-    ################################################################################################
-    ## Fonction permettant de fixer les centres des gaussiennes utilisees et leurs sigma ###########
-    ################################################################################################
     def setCentersAndWidths(self):
+        '''
+        Fonction permettant de fixer les centres des gaussiennes utilisees et leurs sigma 
+        
+        '''
         #Recupere les minimums et maximum dans les donnees d'entrees
         minInputData = np.min(self.inputData, axis = 1)
         maxInputData = np.max(self.inputData, axis = 1)
@@ -56,10 +61,14 @@ class fa_rbfn():
         #Permet de recuperer une matrice contenant toutes les combinaisons possibles pour trouver chaque centre
         self.centersInEachDimensions = cartesian(linspaceForEachDim)
     
-    ################################################################################################
-    ##### Fonction calculant les sorties, selon chaques gaussienne, pour l'entree choisie ##########
-    ################################################################################################
     def featureOutput(self, inputData):
+        '''
+        Fonction calculant les sorties, selon chaques gaussienne, pour l'entree choisie
+        
+        Entrees:    -inputData: tableau numpy contenant les entrees a traiter
+        
+        Sortie:    -phi: tableau numpy contenant les sorties pour chaque feature
+        '''
         #Si il n'y a qu'un seul echantillon
         if inputData.shape[1] == 1:
             x_u = inputData - self.centersInEachDimensions.T
@@ -81,10 +90,14 @@ class fa_rbfn():
                     phi = np.hstack((phi, np.array([xfe]).T))
         return phi
 
-    ################################################################################################
-    ##### Fonction retournant la sortie approximee pour l'entree donnee et le theta fourni #########
-    ################################################################################################
+
     def functionApproximatorOutput(self, inputData, theta):
+        '''
+        Fonction retournant la sortie approximee pour l'entree donnee et le theta fourni
+        
+        Entrees:    -inputData: l'entree dont on veut la sortie
+                    -theta: le theta calcule precedemment en utilisant rbfn
+        '''
         if inputData.shape[1] == 1:
             phi = self.featureOutput(inputData)
             fa_out = np.dot(phi.T, theta) 

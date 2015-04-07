@@ -1,6 +1,9 @@
 '''
 Author: Thomas Beucher
+
 Module: costFunction
+
+Description: On retrouve dans ce fichier 
 '''
 from math import sqrt
 import numpy as np
@@ -15,7 +18,7 @@ from Utils.FileSaving import fileSavingStr, fileSavingBin
 from Regression.functionApproximator_RBFN import fa_rbfn
 import os
 from Utils.ReadSetupFile import ReadSetupFile
-from ArmModel.GeometricModel import mgi
+from ArmModel.GeometricModel import mgi, mgd
 
 class costFunction:
     
@@ -67,7 +70,6 @@ class costFunction:
         #Remise sous forme de matrice de theta (quand lancer avec cmaes
         #Pour l'instant non générique, changer nb(nbfeat**nbdim) pour correspondre au bon theta
         nbd = 4
-        nbt = 0
         #recuperation des positions initiales de l'experimentation en cours
         posIni = fr.getobjread("PosIniExperiment1")
         JuCf = []
@@ -95,7 +97,7 @@ class costFunction:
             q1, q2 = mgi(el[0], el[1], robot.l1, robot.l2) 
             q = np.array([[q1],[q2]])
             dotq = np.array([[0.],[0.]])
-            coordEL, coordHA = save.calculCoord(q, robot.l1, robot.l2)
+            coordEL, coordHA = mgd(q, robot.l1, robot.l2)
             i = 0
             arm.t = 0
             self.Ju = 0
@@ -147,7 +149,7 @@ class costFunction:
             while coordHA[1] < 0.6175:
                 if i < 500:
                     inputq = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
-                    cu.getCommand(inputq, nbt, fa, theta)
+                    cu.getCommand(inputq, fa, theta)
                     ##############################
                     ##For saving U and Unoise
                     if self.sauv == 1:
@@ -172,7 +174,7 @@ class costFunction:
                     elif q[1,0] > 3.0:
                         q[1,0] = 3.0
                     #Recuperation des coordonnees dans le plan
-                    coordEL, coordHA = save.calculCoord(q, robot.l1, robot.l2)
+                    coordEL, coordHA = mgd(q, robot.l1, robot.l2)
                     ##############################
                     ##For saving coordTraj
                     if self.sauv == 3 or self.sauv == 4:
@@ -249,7 +251,6 @@ class costFunction:
         theta = thetaf
         nbf = 3
         nbd = 4
-        nbt = 0
         #recuperation des positions initiales de l'experimentation en cours
         posIni = fr.getobjread("PosIniExperiment1")
         JuCf = []
@@ -265,14 +266,14 @@ class costFunction:
             q1, q2 = mgi(el[0], el[1], robot.l1, robot.l2) 
             q = np.array([[q1],[q2]])
             dotq = np.array([[0.],[0.]])
-            coordEL, coordHA = save.calculCoord(q, robot.l1, robot.l2)
+            coordEL, coordHA = mgd(q, robot.l1, robot.l2)
             i = 0
             arm.t = 0
             self.Ju = 0
             while coordHA[1] < 0.6175:
                 if i < 500:
                     inputq = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
-                    cu.getCommand(inputq, nbt, fa, theta)
+                    cu.getCommand(inputq, fa, theta)
                     if self.noise == 1:
                         Gamma_AM = (arm.At*arm.fmax-(arm.Kraid*np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])))*(np.array([cu.Unoise]).T)#With Noise
                     elif self.noise == 0:
@@ -290,7 +291,7 @@ class costFunction:
                     elif q[1,0] > 3.0:
                         q[1,0] = 3.0
                     #Recuperation des coordonnees dans le plan
-                    coordEL, coordHA = save.calculCoord(q, robot.l1, robot.l2)
+                    coordEL, coordHA = mgd(q, robot.l1, robot.l2)
                     #Calcul du cout de la trajectoire
                     if coordHA[0] == 0.0 and coordHA[1] == 0.6175:
                         self.costFunctionJ(cu.U, 2, arm.t)

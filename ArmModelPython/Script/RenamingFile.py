@@ -1,6 +1,10 @@
 '''
 Author: Thomas Beucher
+
 Module: RenamingFile
+
+Description: On retrouve dans ce fichier les fonctions permettant de recuperer les trajectoires generees par brent et de les importer
+                sous le nom "trajectoire" dans le dossier trajectoires
 '''
 import os
 from shutil import copyfile

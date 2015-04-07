@@ -10,7 +10,7 @@ Description: On retrouve dans ce fichier la fonction resolvant la geometrie inve
 import math
 import numpy as np
 
-def mgi(self, xi, yi, l1, l2):
+def mgi(xi, yi, l1, l2):
     '''
     Modele geometrique inverse d'un robot a deux articulations
         
@@ -35,7 +35,7 @@ def mgi(self, xi, yi, l1, l2):
         return "None"
     
     
-def mgd(cls, q, l1, l2):
+def mgd(q, l1, l2):
     '''
     Modele geometrique directe d'un robot a deux articulations
         

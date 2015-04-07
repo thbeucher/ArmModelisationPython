@@ -1,10 +1,13 @@
 '''
 Author: Thomas Beucher
+
 Module: RunTrajectories
+
+Description: Ce fichier contient les fonctions permettant de lancer la generation des trajectoires
 '''
-from FileProcessing.FileReading import FileReading
+from Utils.FileReading import FileReading
 from Optimisation.costFunction import costFunction
-from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
+from Utils.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
 
 
