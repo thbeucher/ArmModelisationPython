@@ -62,6 +62,8 @@ class costFunction:
         arm = ParametresArmModel(hogan.GammaMax)
         save = SavingData()
         fr = FileReading()
+        rs = ReadSetupFile()
+        rs.readingSetupFile()
         #Remise sous forme de matrice de theta (quand lancer avec cmaes
         #Pour l'instant non générique, changer nb(nbfeat**nbdim) pour correspondre au bon theta
         nbd = 4
@@ -83,7 +85,7 @@ class costFunction:
         ##Pour sauvegarder le nombre d'iteration pour resoudre les trajectoires
         if self.sauv == 5:
             savei = []
-            pathin = "/home/beucher/workspace/ArmModelPython/Data/trajectoires/"
+            pathin = rs.pathFolderTrajectories
             nbTrajTrain = len(os.listdir(pathin))
             namei = "RBFN2/" + str(self.nbf) + "feats/nbIte_" + str(nbTrajTrain) + "Traj"
         ##avec noise
@@ -307,7 +309,7 @@ class costFunction:
         self.suivi += 1
         t1 = time.time()
         print("Fin d'appel! (", self.suivi, ") (Temps de traitement:", (t1-t0), "s)")
-        print(JuCf)
+        #print(JuCf)
         JuCfMean = np.mean(JuCf)
         JuCfSumScalar = 0
         for el in JuCf:

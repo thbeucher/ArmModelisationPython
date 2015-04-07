@@ -15,6 +15,7 @@ from numpy import isnan
 from ArmModel.SavingData import SavingData
 from Optimisation.NiemRoot import tronquerNB
 import matplotlib.pyplot as plt
+from Script.ReadSetupFile import ReadSetupFile
 #from nt import getcwd #Windows
 
 class FileReading():
@@ -33,10 +34,9 @@ class FileReading():
     ######################## Fonction permettant de récupérer les données d'un fichier #############
     ################################################################################################
     def getobjread(self, name):
-        folder = getcwd()
-        folder = op.split(folder)
-        folder = folder[0] + "/Data/"
-        namet = folder + name
+        rs = ReadSetupFile()
+        rs.readingSetupFile()
+        namet = rs.pathFolderData + name
         with open(namet, "rb") as file:
                 mondepickler = pickle.Unpickler(file)
                 data = mondepickler.load()
@@ -46,11 +46,11 @@ class FileReading():
     #actual_next_state(4) next_acceleration(2)
     #Recuperation des donnees du fichier dans une matrice
     def recup_data(self, choix = 1):
-        chemin = getcwd()
-        chemin = op.split(chemin)
-        chemin = chemin[0] + "/Data/trajectoires/"
+        rs = ReadSetupFile()
+        rs.readingSetupFile()
+        patht = rs.pathFolderTrajectories
         if choix == 1:
-            print("Nombre de fichier disponible: ", len(os.listdir(chemin)))
+            print("Nombre de fichier disponible: ", len(os.listdir(patht)))
             nameFichier = input("Veuillez entrer le nom courant des fichiers a traiter: ")
             nbFichier = input("Veuillez entrer le nombre de fichier à traiter: ")
             nbFichier = int(nbFichier)
@@ -58,14 +58,14 @@ class FileReading():
             #nom du fichier courant
             nameFichier = "trajectoire"
             #nombre de fichier a traiter
-            nbFichier = len(os.listdir(chemin))-1
+            nbFichier = len(os.listdir(patht))
         j = 0
         l = 0
         nbf = 0
         while j < nbFichier:
-            if op.isfile(chemin + nameFichier + str(j+1+nbf) + ".log") == False:
+            if op.isfile(patht + nameFichier + str(j+1+nbf) + ".log") == False:
                 nbf += 1
-            mat = np.loadtxt(chemin + nameFichier + str(j+1+nbf) + ".log")
+            mat = np.loadtxt(patht + nameFichier + str(j+1+nbf) + ".log")
             i = 0
             k = 0
             state = []
@@ -93,17 +93,17 @@ class FileReading():
         entrainer l'algorithme de regression
         '''
         print("Debut de recuperation des positions initiales!")
-        chemin = getcwd()
-        chemin = op.split(chemin)
-        chemin = chemin[0] + "/Data/trajectoires/"
+        rs = ReadSetupFile()
+        rs.readingSetupFile()
+        patht = rs.pathFolderTrajectories
         save = SavingData()
         robot = ParametresRobot()
         angleIni = {}
         fr = FileReading()
-        for el in os.listdir(chemin):
+        for el in os.listdir(patht):
             if "trajectoire" in el:
                 #Chargement du fichier
-                mati = np.loadtxt(chemin + el)
+                mati = np.loadtxt(patht + el)
                 #recuperation de q1 et q2 initiales et conversion en coordonnees
                 coordElbow, coordHand = save.calculCoord(np.mat([[mati[0,10]], [mati[0,11]]]), robot)
                 angleIni[el] = (coordHand[0], coordHand[1])
@@ -113,16 +113,6 @@ class FileReading():
     ###########################################################################################
     #Cette fonction permet de récuperer q1 et q2 à partir du x et du y de la main
     ###########################################################################################
-    def convertToAngle(self, xh, yh, robot):
-        '''
-        Cette fonction permet de récuperer q1 et q2 à partir du x et du y de la main
-        '''
-        q2 = math.atan2(np.sqrt(1-(xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2)), (xh**2+yh**2-robot.l1**2-robot.l2**2)/(2*robot.l1*robot.l2))
-        #if q2 < 0:
-            #q2 = q2*(-1)
-        q1 = math.atan2(yh, xh)-math.atan2(robot.l2*np.sin(q2), robot.l1 + robot.l2*np.cos(q2))
-        return q1, q2
-    
     def mgi(self, xi, yi, robot):
         a = ((xi**2)+(yi**2)-(robot.l1**2)-(robot.l2**2))/(2*robot.l1*robot.l2)
         try:
@@ -135,6 +125,7 @@ class FileReading():
             print("Valeur interdite")
             return "None"
         
+
 
 #Permet de visionner l'espace décrit par le bras humain
 #et de generer les q1, q2 pour nourrir brent

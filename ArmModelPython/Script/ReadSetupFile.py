@@ -1,10 +1,6 @@
 '''Author: Thomas beucher
     Module: ReadConfFile
     On retrouve dans ce fichier une fonction permettant de lire le fichier de configuration '''
-from ArmModel.SavingData import SavingData
-from ArmModel.ParametresRobot import ParametresRobot
-import numpy as np
-from FileProcessing.FileSaving import fileSavingStr
 
 class ReadSetupFile:
     
@@ -14,7 +10,7 @@ class ReadSetupFile:
     def readingSetupFile(self):
         '''Cette fonction permet de lire le fichier de configuration '''
         #Recuperation des donnees du fichier de configuration
-        with open("setupFile", "r") as file:
+        with open("/home/beucher/workspace/ArmModelPython/Script/setupFile", "r") as file:
             alls = file.read()
         #Split pour recuperer ligne par ligne
         allsByLign = alls.split("\n")
@@ -36,6 +32,11 @@ class ReadSetupFile:
         self.maxIterCmaes = int((allsByLign[7].split(":"))[1])
         #lecture ligne 9, POUR CMAES, popsize
         self.popsizeCmaes = int((allsByLign[8].split(":"))[1])
+        #lecture ligne 10, chemin du dossier data
+        self.pathFolderData = (allsByLign[9].split(":"))[1]
+        #lecture ligne 11, Chemin du dossier contenant les trajectoires
+        self.pathFolderTrajectories = (allsByLign[10].split(":"))[1]
+
     
 
 

@@ -21,8 +21,8 @@ def renameFromOutputSOlver():
             if "failed" in el:
                 pass
             else:
-                os.rename(patho + el, str(patho + "trajectoire" + str(i)))
-                copyfile(str(patho + "trajectoire" + str(i)), str(pathin + "trajectoire" + str(i)))
+                os.rename(patho + el, str(patho + "trajectoire" + str(i+1)))
+                copyfile(str(patho + "trajectoire" + str(i+1)), str(pathin + "trajectoire" + str(i+1)))
                 i += 1
     print("Fin de traitement!")
     
