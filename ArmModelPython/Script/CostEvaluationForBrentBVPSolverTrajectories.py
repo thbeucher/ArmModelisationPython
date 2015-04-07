@@ -1,6 +1,6 @@
 from Optimisation.costFunction import costFunction
-from FileProcessing.FileReading import FileReading
-from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
+from Utils.FileReading import FileReading
+from Utils.FileSaving import fileSavingStr, fileSavingBin
 import os
 import numpy as np
 from ArmModel.SavingData import SavingData

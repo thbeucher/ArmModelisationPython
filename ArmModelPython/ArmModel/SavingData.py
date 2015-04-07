@@ -30,11 +30,6 @@ class SavingData:
         cls.coordElSave.append(coordEL)
         cls.coordHaSave.append(coordHA)
     
-    def calculCoord(cls, q, robot):
-        coordElbow = (robot.l1*np.cos(q[0,0]), robot.l1*np.sin(q[0,0]))
-        coordHand = (robot.l2*np.cos(q[1,0] + q[0,0]) + robot.l1*np.cos(q[0,0]), robot.l2*np.sin(q[1,0] + q[0,0]) + robot.l1*np.sin(q[0,0]))
-        return coordElbow, coordHand
-    
     def createCoord(cls, a = 1, coordHA = 1, coordEL = 1):
         if a == 1:  
             for el in cls.coordElSave:

@@ -4,10 +4,11 @@ Author: Thomas Beucher
 Module: InverseGeometricModel
 
 Description: On retrouve dans ce fichier la fonction resolvant la geometrie inverse d'un bras a deux articulations
+                ainsi que la fonction resolvant la geometrie directe du bras
 '''
 
 import math
-
+import numpy as np
 
 def mgi(self, xi, yi, l1, l2):
     '''
@@ -32,6 +33,23 @@ def mgi(self, xi, yi, l1, l2):
     except ValueError:
         print("Valeur interdite")
         return "None"
+    
+    
+def mgd(cls, q, l1, l2):
+    '''
+    Modele geometrique directe d'un robot a deux articulations
+        
+    Entrees:    -q: vecteur contenant q1 et q2
+                -l1: longeur du bras
+                -l2: longueur de l'avant bras
+        
+    Sorties:
+                -q1: Angle du bras par rapport a l'axe des abscisse
+                -q2: Angle de l'avant bras par rapport au bras
+    '''
+    coordElbow = (l1*np.cos(q[0,0]), l1*np.sin(q[0,0]))
+    coordHand = (l2*np.cos(q[1,0] + q[0,0]) + l1*np.cos(q[0,0]), l2*np.sin(q[1,0] + q[0,0]) + l1*np.sin(q[0,0]))
+    return coordElbow, coordHand
     
     
     

@@ -15,7 +15,7 @@ from Utils.FileSaving import fileSavingStr, fileSavingBin
 from Regression.functionApproximator_RBFN import fa_rbfn
 import os
 from Utils.ReadSetupFile import ReadSetupFile
-from ArmModel.InverseGeometricModel import mgi
+from ArmModel.GeometricModel import mgi
 
 class costFunction:
     
@@ -95,7 +95,7 @@ class costFunction:
             q1, q2 = mgi(el[0], el[1], robot.l1, robot.l2) 
             q = np.array([[q1],[q2]])
             dotq = np.array([[0.],[0.]])
-            coordEL, coordHA = save.calculCoord(q, robot)
+            coordEL, coordHA = save.calculCoord(q, robot.l1, robot.l2)
             i = 0
             arm.t = 0
             self.Ju = 0
@@ -172,7 +172,7 @@ class costFunction:
                     elif q[1,0] > 3.0:
                         q[1,0] = 3.0
                     #Recuperation des coordonnees dans le plan
-                    coordEL, coordHA = save.calculCoord(q, robot)
+                    coordEL, coordHA = save.calculCoord(q, robot.l1, robot.l2)
                     ##############################
                     ##For saving coordTraj
                     if self.sauv == 3 or self.sauv == 4:
@@ -265,7 +265,7 @@ class costFunction:
             q1, q2 = mgi(el[0], el[1], robot.l1, robot.l2) 
             q = np.array([[q1],[q2]])
             dotq = np.array([[0.],[0.]])
-            coordEL, coordHA = save.calculCoord(q, robot)
+            coordEL, coordHA = save.calculCoord(q, robot.l1, robot.l2)
             i = 0
             arm.t = 0
             self.Ju = 0
@@ -290,7 +290,7 @@ class costFunction:
                     elif q[1,0] > 3.0:
                         q[1,0] = 3.0
                     #Recuperation des coordonnees dans le plan
-                    coordEL, coordHA = save.calculCoord(q, robot)
+                    coordEL, coordHA = save.calculCoord(q, robot.l1, robot.l2)
                     #Calcul du cout de la trajectoire
                     if coordHA[0] == 0.0 and coordHA[1] == 0.6175:
                         self.costFunctionJ(cu.U, 2, arm.t)
