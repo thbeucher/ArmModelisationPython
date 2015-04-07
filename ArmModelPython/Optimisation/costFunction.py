@@ -5,17 +5,17 @@ Module: costFunction
 from math import sqrt
 import numpy as np
 import time
-from FileProcessing.FileReading import FileReading
+from Utils.FileReading import FileReading
 from ArmModel.ParametresArmModel import ParametresArmModel
 from ArmModel.ParametresHogan import ParametresHogan
 from ArmModel.ParametresRobot import ParametresRobot
 from Regression.ControlerUtil import ControlerUtil
 from ArmModel.SavingData import SavingData
-from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
+from Utils.FileSaving import fileSavingStr, fileSavingBin
 from Regression.functionApproximator_RBFN import fa_rbfn
-import math as m
 import os
-from Script.ReadSetupFile import ReadSetupFile
+from Utils.ReadSetupFile import ReadSetupFile
+from ArmModel.InverseGeometricModel import mgi
 
 class costFunction:
     
@@ -92,7 +92,7 @@ class costFunction:
         #nameinoise = "RBFN2/" + str(nbf) + "feats/nbIteTrajNoise"
         ############################################################
         for el in posIni:
-            q1, q2 = fr.mgi(el[0], el[1], robot) 
+            q1, q2 = mgi(el[0], el[1], robot.l1, robot.l2) 
             q = np.array([[q1],[q2]])
             dotq = np.array([[0.],[0.]])
             coordEL, coordHA = save.calculCoord(q, robot)
@@ -262,7 +262,7 @@ class costFunction:
         fa.setCentersAndWidths()
         cu = ControlerUtil(nbf,nbd)
         for el in posIni:
-            q1, q2 = fr.mgi(el[0], el[1], robot) 
+            q1, q2 = mgi(el[0], el[1], robot.l1, robot.l2) 
             q = np.array([[q1],[q2]])
             dotq = np.array([[0.],[0.]])
             coordEL, coordHA = save.calculCoord(q, robot)

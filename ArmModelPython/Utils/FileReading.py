@@ -1,22 +1,15 @@
 '''
 Author: Thomas Beucher
 Module: FileReading
+Description: On retrouve dans ce fichier les fonctions permettant de lire les donnees du projet
 '''
 import pickle
 import numpy as np
-import math
-#import cma as cma
 import os.path as op
 import os
-from posix import getcwd
-from ArmModel.ParametresRobot import ParametresRobot
-from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
-from numpy import isnan
-from ArmModel.SavingData import SavingData
-from Utils.NiemRoot import tronquerNB
-import matplotlib.pyplot as plt
-from Utils.ReadSetupFile import ReadSetupFile
-#from nt import getcwd #Windows
+#from ArmModel.ParametresRobot import ParametresRobot
+#from ArmModel.SavingData import SavingData
+#from Utils.ReadSetupFile import ReadSetupFile
 
 class FileReading():
     
@@ -30,10 +23,15 @@ class FileReading():
         self.name_store = []
         self.theta_store = {}
     
-    ################################################################################################
-    ######################## Fonction permettant de récupérer les données d'un fichier #############
-    ################################################################################################
+    
     def getobjread(self, name):
+        '''
+        Fonction permettant de recuperer les donnees d'un fichier
+        
+        Parametres: name, le nom du fichier a lire
+        
+        Sorties: les donnees du fichier
+        '''
         rs = ReadSetupFile()
         rs.readingSetupFile()
         namet = rs.pathFolderData + name
@@ -44,15 +42,19 @@ class FileReading():
     
     #target(4) estimated_state(4) actual_state(4) noised_command(6) command(6) estimated_next_state(4) 
     #actual_next_state(4) next_acceleration(2)
-    #Recuperation des donnees du fichier dans une matrice
     def recup_data(self, choix = 1):
+        '''
+        Fonction permettant de recuperer les donnees des fichiers de trajectoires pour les ranger dans des matrices
+        
+        Sorties: une matrice contenant tous les etats des trajectoires et une matrice contenant toutes les activations musculaires
+        '''
         rs = ReadSetupFile()
         rs.readingSetupFile()
         patht = rs.pathFolderTrajectories
         if choix == 1:
             print("Nombre de fichier disponible: ", len(os.listdir(patht)))
             nameFichier = input("Veuillez entrer le nom courant des fichiers a traiter: ")
-            nbFichier = input("Veuillez entrer le nombre de fichier à traiter: ")
+            nbFichier = input("Veuillez entrer le nombre de fichier a traiter: ")
             nbFichier = int(nbFichier)
         else:
             #nom du fichier courant
@@ -91,6 +93,8 @@ class FileReading():
         '''
         Cette fonction permet de recuperer toutes les positions initiales des trajectoires utilisees pour
         entrainer l'algorithme de regression
+        
+        Sorties: un dictionnaire avec les coordonnees initiales de chaque trajectoire
         '''
         print("Debut de recuperation des positions initiales!")
         rs = ReadSetupFile()
@@ -110,47 +114,10 @@ class FileReading():
         print("Fin de recuperation des positions initiales!")
         return angleIni
         
-    ###########################################################################################
-    #Cette fonction permet de récuperer q1 et q2 à partir du x et du y de la main
-    ###########################################################################################
-    def mgi(self, xi, yi, robot):
-        a = ((xi**2)+(yi**2)-(robot.l1**2)-(robot.l2**2))/(2*robot.l1*robot.l2)
-        try:
-            q2b = math.acos(a)
-            cb = robot.l1 + robot.l2*(math.cos(q2b))
-            db = robot.l2*(math.sin(q2b))
-            q1b = math.atan2(yi,xi) - math.atan2(db,cb)
-            return q1b, q2b
-        except ValueError:
-            print("Valeur interdite")
-            return "None"
         
 
 
-#Permet de visionner l'espace décrit par le bras humain
-#et de generer les q1, q2 pour nourrir brent
-'''save = SavingData()
-robot = ParametresRobot()
-q1 = np.arange(-0.6,2.6,0.3)
-q2 = np.arange(-0.2,3.0,0.3)
-Q1,Q2 = np.meshgrid(q1,q2)
-print(Q1.shape)
-cor = []
-for i in range(Q1.shape[0]):
-    for j in range(Q1.shape[1]):
-        corE, corH = save.calculCoord(np.mat([[Q1[i,j]],[Q2[i,j]]]), robot)
-        cor.append(corH)
-corx, cory = [], []
-for el in cor:
-    corx.append(el[0])
-    cory.append(el[1])
-plt.figure()
-plt.scatter(corx,cory)
-plt.show()
-with open("q1q2ALL", "w+") as file:
-    for i in range(Q1.shape[0]):
-        for j in range(Q1.shape[1]):
-            file.write(str("{"+str(Q1[i,j])+","+str(Q2[i,j])+"},"))'''
+
 
 
         

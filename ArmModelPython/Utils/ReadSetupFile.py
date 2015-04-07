@@ -8,7 +8,9 @@ class ReadSetupFile:
         self.name = "setup"
     
     def readingSetupFile(self):
-        '''Cette fonction permet de lire le fichier de configuration '''
+        '''
+        Cette fonction permet de lire le fichier de configuration 
+        '''
         #Recuperation des donnees du fichier de configuration
         with open("/home/beucher/workspace/ArmModelPython/ExperimentSetup/setupFile", "r") as file:
             alls = file.read()

@@ -1,16 +1,22 @@
-# Cette fonction basé sur la méthode de Newton-Raphson permet
-#de déterminer la racine n-ième d'un nbre. err est l' erreur relative
-# en cas de non convergence prendre tol grand (exemple  tol=0.5)
-# x0 doit être sous la forme d'un réel (exple x0=1.0)
+'''
+Module: NiemRoot
+
+Description: on retrouve dans ce fichier une fonction permettant de recuperer la raciene n-ieme d'un nombre
+'''
 
 from math import *
 
 def racin(A, n, x0):
+    ''''Cette fonction base sur la methode de Newton-Raphson permet
+    de determiner la racine n-ieme d'un nbre. err est l' erreur relative
+    en cas de non convergence prendre tol grand (exemple  tol=0.5)
+    x0 doit etre sous la forme d'un reel (exple x0=1.0)'''
+    
     i=0
     x=x0
     tol=10e-8
     if x==0:
-        print("Erreur x0 doit être différent de zéro")
+        print("Erreur x0 doit etre different de zero")
     else:
         while (i<3000):
             c=x
@@ -21,7 +27,7 @@ def racin(A, n, x0):
     if (err <tol):
         print(c, err)
     else:
-        print(" le système ne converge pas. Ajuster le compteur i ou jouer sur tol ou sur x0")
+        print(" le systeme ne converge pas. Ajuster le compteur i ou jouer sur tol ou sur x0")
     return c
         
 def tronquerNB(nb, vir):

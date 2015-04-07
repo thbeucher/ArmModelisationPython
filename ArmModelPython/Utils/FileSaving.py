@@ -1,10 +1,13 @@
-#######################################################################################
-########## Author: Thomas Beucher // Module: FileSaving ###############################
-#######################################################################################
+'''
+Author: Thomas Beucher
+
+Module: FileSaving
+
+Description: On retrouve dans ce fichier les fonctions permettant de sauvegarder les donnees du projet
+'''
 import os as op
 import pickle
 from Utils.ReadSetupFile import ReadSetupFile
-#from nt import getcwd #Windows for posix
 
 def fileSaving(nameFile, data, nbfeat):
     rs = ReadSetupFile()
@@ -20,6 +23,13 @@ def fileSaving(nameFile, data, nbfeat):
         monPickler.dump(data)
         
 def fileSavingStr(nameFile, data):
+    '''
+    Cette fonction permet d'enregistrer les donnees sous format str
+    
+    Entrees:    -nameFile: nom du fichier ou enregistrer les donnees
+                -data: donnees a enregistrer
+                
+    '''
     rs = ReadSetupFile()
     rs.readingSetupFile()
     nameToSave = rs.pathFolderData + nameFile
@@ -27,6 +37,13 @@ def fileSavingStr(nameFile, data):
         file.write(str(data))
 
 def fileSavingBin(nameFile, data):
+    '''
+    Cette fonction permet d'enregistrer les donnees sous format binaire
+    
+    Entrees:    -nameFile: nom du fichier ou enregistrer les donnees
+                -data: donnees a enregistrer
+                
+    '''
     rs = ReadSetupFile()
     rs.readingSetupFile()
     nameToSave = rs.pathFolderData + nameFile

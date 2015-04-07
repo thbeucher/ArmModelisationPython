@@ -3,7 +3,6 @@ Author: Thomas Beucher
 Module: RenamingFile
 '''
 import os
-from posix import getcwd
 from shutil import copyfile
 
 def renameFromOutputSOlver():

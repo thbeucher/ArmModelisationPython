@@ -297,6 +297,31 @@ plt.show()'''
 
 
 
+#Trouver q1, q2 pour x, y     
+coordStartPts = []
+coordStartPts.append((-0.2,0.39))#trajectoire1
+coordStartPts.append((-0.1,0.39))#trajectoire2
+coordStartPts.append((0.0,0.39))#trajectoire3
+coordStartPts.append((0.1,0.39))#trajectoire4
+coordStartPts.append((0.2,0.39))#trajectoire5
+coordStartPts.append((-0.3,0.26))#trajectoire6
+coordStartPts.append((-0.2,0.26))#trajectoire7
+coordStartPts.append((-0.1,0.26))#trajectoire8
+coordStartPts.append((0.0,0.26))#trajectoire9#0000
+coordStartPts.append((0.1,0.26))#trajectoire10
+coordStartPts.append((0.2,0.26))#trajectoire11
+coordStartPts.append((0.3,0.26))#trajectoire12
+q = []
+robot = ParametresRobot()
+fr = FileReading()
+for el in coordStartPts:
+    q.append(fr.mgi(el[0], el[1], robot))
+with open("q1q2_12traj", "w+") as file:
+    for el in q:
+        file.write(str("{" + str(el[0]) + "," + str(el[1]) + "},"))
+
+
+
 
 
 
