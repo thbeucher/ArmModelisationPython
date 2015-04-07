@@ -41,7 +41,7 @@ elif choix == "genTraj":
 elif choix == "costColor":
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
-    wha = input("Choisir les resultats a afficher(brent ou rbfn): ")
+    wha = input("Choisir les resultats a afficher(brent ou rbfn ou cma): ")
     costColorPlot(nbfeat, wha)
     
 elif choix == "actiMuscu":
