@@ -49,7 +49,7 @@ elif choix == "costColor":
 elif choix == "actiMuscu":
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
-    wha = input("Choisir les activations musculaires a afficher (brent ou RBFN ou cma): ")
+    wha = input("Choisir les activations musculaires a afficher (brent ou rbfn ou cma): ")
     plotActivationMuscular(wha, nbfeat)
     
 elif choix == "cmaes":

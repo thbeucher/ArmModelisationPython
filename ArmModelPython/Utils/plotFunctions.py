@@ -114,7 +114,7 @@ def plotActivationMuscular(what, nbfeat):
                 plt.plot(trajIte[i], trajValTmp[j+u])
             u += 6
             plt.show(block = True)
-    elif what == "RBFN":
+    elif what == "rbfn":
         ch = input("Voulez vous afficher les activations musculaires avec bruit?(Y or N): ")
         trajIteU = {}
         trajVal = {}
