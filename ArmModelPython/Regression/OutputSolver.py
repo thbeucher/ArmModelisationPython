@@ -1,7 +1,7 @@
 '''
 Author: Thomas Beucher
 
-Module: ControlerUtil
+Module: OutputSolver
 
 Description: On retrouve dans ce fichier la fonction permettant de donner la sortie approxime en fonction de l'entree fournie
 '''
@@ -10,7 +10,7 @@ import numpy as np
 import bigfloat
 from Utils.ReadSetupFile import ReadSetupFile
 
-class ControlerUtil:
+class OutputSolver:
     def __init__(self, nbfeature, dime):
         '''
         Initialisation des parametres de la classe

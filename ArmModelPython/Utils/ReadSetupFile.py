@@ -1,6 +1,10 @@
-'''Author: Thomas beucher
-    Module: ReadConfFile
-    On retrouve dans ce fichier une fonction permettant de lire le fichier de configuration '''
+'''
+Author: Thomas beucher
+
+Module: ReadConfFile
+
+Description: On retrouve dans ce fichier une fonction permettant de lire le fichier de configuration 
+'''
 
 class ReadSetupFile:
     

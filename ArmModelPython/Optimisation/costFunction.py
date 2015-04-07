@@ -12,7 +12,7 @@ from Utils.FileReading import FileReading
 from ArmModel.ParametresArmModel import ParametresArmModel
 from ArmModel.ParametresHogan import ParametresHogan
 from ArmModel.ParametresRobot import ParametresRobot
-from Regression.ControlerUtil import ControlerUtil
+from Regression.OutputSolver import OutputSolver
 from ArmModel.SavingData import SavingData
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 from Regression.functionApproximator_RBFN import fa_rbfn
@@ -80,7 +80,7 @@ class costFunction:
         fa = fa_rbfn(self.nbf)
         fa.setTrainingData(stateAll.T, commandAll.T)
         fa.setCentersAndWidths()
-        cu = ControlerUtil(self.nbf,nbd)
+        cu = OutputSolver(self.nbf,nbd)
         ############################################################
         ##For saving U and coordTraj and Unoise
         y = 0
@@ -261,7 +261,7 @@ class costFunction:
         fa = fa_rbfn(nbf)
         fa.setTrainingData(stateAll.T, commandAll.T)
         fa.setCentersAndWidths()
-        cu = ControlerUtil(nbf,nbd)
+        cu = OutputSolver(nbf,nbd)
         for el in posIni:
             q1, q2 = mgi(el[0], el[1], robot.l1, robot.l2) 
             q = np.array([[q1],[q2]])
