@@ -8,8 +8,8 @@ import numpy as np
 import os.path as op
 import os
 from ArmModel.ParametresRobot import ParametresRobot
-from ArmModel.SavingData import SavingData
 from Utils.ReadSetupFile import ReadSetupFile
+from ArmModel.GeometricModel import mgd
 
 class FileReading():
     
@@ -100,16 +100,14 @@ class FileReading():
         rs = ReadSetupFile()
         rs.readingSetupFile()
         patht = rs.pathFolderTrajectories
-        save = SavingData()
         robot = ParametresRobot()
         angleIni = {}
-        fr = FileReading()
         for el in os.listdir(patht):
             if "trajectoire" in el:
                 #Chargement du fichier
                 mati = np.loadtxt(patht + el)
                 #recuperation de q1 et q2 initiales et conversion en coordonnees
-                coordElbow, coordHand = save.calculCoord(np.mat([[mati[0,10]], [mati[0,11]]]), robot)
+                coordElbow, coordHand = mgd(np.mat([[mati[0,10]], [mati[0,11]]]), robot.l1, robot.l2)
                 angleIni[el] = (coordHand[0], coordHand[1])
         print("Fin de recuperation des positions initiales!")
         return angleIni
