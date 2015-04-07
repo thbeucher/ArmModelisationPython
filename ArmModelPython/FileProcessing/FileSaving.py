@@ -3,8 +3,7 @@
 #######################################################################################
 import os as op
 import pickle
-from posix import getcwd
-from Script.ReadSetupFile import ReadSetupFile
+from Utils.ReadSetupFile import ReadSetupFile
 #from nt import getcwd #Windows for posix
 
 def fileSaving(nameFile, data, nbfeat):

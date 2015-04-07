@@ -11,7 +11,7 @@ from FileProcessing.FileReading import FileReading
 ################################################################################################
 ######################## trajectories Animation ################################################
 ################################################################################################
-def animatAct(nbfeat):
+def trajectoriesAnimation(nbfeat):
     choix = input("Veuillez choisir la trajectoire a visualiser(All or AllNoise or AllNoiseCma): ")
     fr = FileReading()
     save = SavingData()

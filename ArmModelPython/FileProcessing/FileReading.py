@@ -13,9 +13,9 @@ from ArmModel.ParametresRobot import ParametresRobot
 from FileProcessing.FileSaving import fileSavingStr, fileSavingBin
 from numpy import isnan
 from ArmModel.SavingData import SavingData
-from Optimisation.NiemRoot import tronquerNB
+from Utils.NiemRoot import tronquerNB
 import matplotlib.pyplot as plt
-from Script.ReadSetupFile import ReadSetupFile
+from Utils.ReadSetupFile import ReadSetupFile
 #from nt import getcwd #Windows
 
 class FileReading():

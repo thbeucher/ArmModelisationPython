@@ -2,7 +2,7 @@
 Author: Thomas Beucher
 Module: Launcher 
 '''
-from Script.Animation import animatAct
+from Script.Animation import trajectoriesAnimation
 from Script.RunRegressionRBFN import runRBFN, test2DRBFN
 from FileProcessing.FileReading import FileReading
 from Optimisation.costFunction import costFunction
@@ -21,7 +21,7 @@ if choix == "animation":
     ##Ce script permet de lancer l'animation de trajectoire de votre choix##
     nbfeat = input("Veuillez choisir le nombre de features: ")
     nbfeat = int(nbfeat)
-    animatAct(nbfeat)
+    trajectoriesAnimation(nbfeat)
     
 elif choix == "rbfn":
     #Ce script permet de lancer la regression sur l'ensemble des donnees de trajectoires Brent en memoire

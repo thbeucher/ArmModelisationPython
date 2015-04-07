@@ -10,7 +10,7 @@ class ReadSetupFile:
     def readingSetupFile(self):
         '''Cette fonction permet de lire le fichier de configuration '''
         #Recuperation des donnees du fichier de configuration
-        with open("/home/beucher/workspace/ArmModelPython/Script/setupFile", "r") as file:
+        with open("/home/beucher/workspace/ArmModelPython/ExperimentSetup/setupFile", "r") as file:
             alls = file.read()
         #Split pour recuperer ligne par ligne
         allsByLign = alls.split("\n")
