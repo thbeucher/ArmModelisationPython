@@ -55,8 +55,8 @@ def costColorPlot(nbfeat, wha):
         maxz = np.max(z)
         minz = np.min(z)
     zb = (z-minz)/(maxz - minz)
-    xi = np.linspace(-0.40,0.40,100)
-    yi = np.linspace(0.1,0.5,100)
+    xi = np.linspace(-0.6,0.6,100)
+    yi = np.linspace(-0.2,0.65,100)
     zi = griddata(x0, y0, zb, xi, yi)
     
     fig = plt.figure()
