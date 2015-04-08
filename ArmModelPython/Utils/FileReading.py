@@ -109,7 +109,6 @@ class FileReading():
         print("Fin de recuperation des positions initiales!")
         return angleIni
  
-        
 
 
 

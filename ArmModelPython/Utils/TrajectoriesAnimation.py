@@ -10,12 +10,15 @@ from ArmModel.SavingData import SavingData
 import matplotlib.pyplot as plt
 from matplotlib import animation
 from Utils.FileReading import FileReading
+from Utils.ReadSetupFile import ReadSetupFile
 
 
 def trajectoriesAnimation(nbfeat):
     choix = input("Veuillez choisir la trajectoire a visualiser(All or AllNoise or AllNoiseCma): ")
     fr = FileReading()
     save = SavingData()
+    rs = ReadSetupFile()
+    rs.readingSetupFile()
     #Recuperation des positions initiales
     posIni = fr.getobjread("PosIniExperiment1")
     xIni, yIni = [], []
@@ -29,7 +32,7 @@ def trajectoriesAnimation(nbfeat):
     plt.xlim(-0.7, 0.7)
     plt.ylim(-0.7,0.7)
     plt.plot([-0.7,0.7], [0.6175, 0.6175])
-    plt.scatter(0, 0.6175, c ='g', marker='o', s=50)
+    plt.scatter([0-rs.sizeOfTarget/2, 0+rs.sizeOfTarget/2], [rs.targetOrdinate, rs.targetOrdinate], c ='g', marker='o', s=50)
     plt.scatter(xIni,yIni, c='b')
     
     

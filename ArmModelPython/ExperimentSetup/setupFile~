@@ -9,5 +9,5 @@ Pour CMAES, maxIteration(int):10
 POUR CMAES, popsize(int):30
 Chemin du dossier data:/home/beucher/workspace/Data/
 Chemin du dossier contenant les trajectoires:/home/beucher/workspace/Data/trajectoires/
-Taille de la cible pour l'experimentation(mm)(int):10
+Taille de la cible pour l'experimentation(mm)(int):0.1
 Ordonnee de la cible(float):0.6175

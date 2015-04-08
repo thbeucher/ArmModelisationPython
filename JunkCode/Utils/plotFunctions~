@@ -28,7 +28,7 @@ plt.figure()
             copyfile("/home/beucher/workspace/Data/TrajectoireTest/oldTraj/"+el, "/home/beucher/workspace/recupTraj/"+el)
 
 
-
+#Pour supprimer des points trop rapprochés (pts de depart des trajectoires)
 for el in xyt:
         for el1 in xyt:
             a = abs(xyt[el][0] - xyt[el1][0])

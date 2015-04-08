@@ -236,8 +236,9 @@ class costFunction:
         robot = ParametresRobot()
         hogan = ParametresHogan()
         arm = ParametresArmModel(hogan.GammaMax)
-        save = SavingData()
         fr = FileReading()
+        rs = ReadSetupFile()
+        rs.readingSetupFile()
         #Si on recoit le theta normalise
         theta = theta*self.maxT
         #Remise sous forme de matrice de theta (quand lancer avec cmaes
@@ -274,7 +275,7 @@ class costFunction:
             i = 0
             arm.t = 0
             self.Ju = 0
-            while coordHA[1] < 0.6175:
+            while coordHA[1] < rs.targetOrdinate:
                 if i < 500:
                     inputq = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                     cu.getCommand(inputq, fa, theta)
@@ -297,7 +298,7 @@ class costFunction:
                     #Recuperation des coordonnees dans le plan
                     coordEL, coordHA = mgd(q, robot.l1, robot.l2)
                     #Calcul du cout de la trajectoire
-                    if coordHA[0] == 0.0 and coordHA[1] == 0.6175:
+                    if((coordHA[0] >= (0-rs.sizeOfTarget/2) and coordHA[0] <= (0+rs.sizeOfTarget/2)) and coordHA[1] >= rs.targetOrdinate):
                         self.costFunctionJ(cu.U, 2, arm.t)
                     else:
                         self.costFunctionJ(cu.U, 1, arm.t)

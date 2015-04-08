@@ -68,7 +68,7 @@ def costColorPlot(nbfeat, wha):
     zi = griddata(x0, y0, zb, xi, yi)
     
     fig = plt.figure()
-    t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))
+    t1 = plt.scatter(x0, y0, c=zb, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, yt, c ='g', marker='v', s=200)
     CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
     fig.colorbar(t1, shrink=0.5, aspect=5)
@@ -203,11 +203,18 @@ def plot_pos_ini():
             if el[0] == x0[i] and el[1] == y0[i]:
                 a += 1
     print(a)'''
+    xyt = fr.recup_pos_ini("/home/beucher/workspace/recupTraj/")
+    xtt, ytt = [], []
+    for el in xyt.values():
+        xtt.append(el[0])
+        ytt.append(el[1])
         
     plt.figure()
     plt.scatter(x, y, c = "b", marker=u'o', s=25, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
+    
+    plt.scatter(xtt, ytt, c = 'y')
     
     plt.show(block = True)
     
