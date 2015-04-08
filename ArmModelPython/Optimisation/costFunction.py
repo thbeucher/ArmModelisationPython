@@ -150,7 +150,7 @@ class costFunction:
                     nameCoordEL = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireELAllNoiseCma"
                     nameCoordHA = "RBFN2/" + str(self.nbf) + "feats/CoordTraj/CoordTrajectoireHAAllNoiseCma"
             ############################################################
-            while coordHA[1] < 0.6175:
+            while coordHA[1] < rs.targetOrdinate:
                 if i < 500:
                     inputq = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                     cu.getCommand(inputq, fa, theta)
@@ -185,7 +185,7 @@ class costFunction:
                         save.SaveTrajectory(coordEL, coordHA)
                     ##############################
                     #Calcul du cout de la trajectoire
-                    if coordHA[0] == 0.0 and coordHA[1] == 0.6175:
+                    if((coordHA[0] >= (0-rs.sizeOfTarget/2) and coordHA[0] <= (0+rs.sizeOfTarget/2)) and coordHA[1] >= rs.targetOrdinate):
                         self.costFunctionJ(cu.U, 2, arm.t)
                     else:
                         self.costFunctionJ(cu.U, 1, arm.t)

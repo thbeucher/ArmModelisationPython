@@ -89,7 +89,7 @@ class FileReading():
             j += 1
         return stateAll, commandAll
     
-    def recup_pos_ini(self):
+    def recup_pos_ini(self, location):
         '''
         Cette fonction permet de recuperer toutes les positions initiales des trajectoires utilisees pour
         entrainer l'algorithme de regression
@@ -97,21 +97,18 @@ class FileReading():
         Sorties: un dictionnaire avec les coordonnees initiales de chaque trajectoire
         '''
         print("Debut de recuperation des positions initiales!")
-        rs = ReadSetupFile()
-        rs.readingSetupFile()
-        patht = rs.pathFolderTrajectories
         robot = ParametresRobot()
         angleIni = {}
-        for el in os.listdir(patht):
+        for el in os.listdir(location):
             if "trajectoire" in el:
                 #Chargement du fichier
-                mati = np.loadtxt(patht + el)
+                mati = np.loadtxt(location + el)
                 #recuperation de q1 et q2 initiales et conversion en coordonnees
                 coordElbow, coordHand = mgd(np.mat([[mati[0,10]], [mati[0,11]]]), robot.l1, robot.l2)
                 angleIni[el] = (coordHand[0], coordHand[1])
         print("Fin de recuperation des positions initiales!")
         return angleIni
-        
+ 
         
 
 

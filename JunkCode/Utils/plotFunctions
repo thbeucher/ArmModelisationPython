@@ -1,0 +1,37 @@
+plt.figure()
+    xyt = fr.recup_pos_ini("/home/beucher/workspace/Data/TrajectoireTest/")
+    xt, yt = [], []
+    for el in xyt.values():
+        xt.append(el[0])
+        yt.append(el[1])
+    plt.scatter(xt, yt, c = 'b')
+    plt.figure()
+    xytt = fr.recup_pos_ini("/home/beucher/workspace/Data/TrajectoireTest/oldTraj/")
+    xtt, ytt = [], []
+    for el in xytt.values():
+        xtt.append(el[0])
+        ytt.append(el[1])
+    plt.scatter(xtt, ytt, c = 'b')
+    plt.show(block = True)
+    
+    ptsdif = []
+    for el in xytt:
+        for el1 in xy:
+            if el == el1:
+                ptsdif.append(el)
+    for el in os.listdir("/home/beucher/workspace/Data/TrajectoireTest/oldTraj/"):
+        i = 0
+        for el1 in ptsdif:
+            if el == el1:
+                i += 1
+        if i == 0:
+            copyfile("/home/beucher/workspace/Data/TrajectoireTest/oldTraj/"+el, "/home/beucher/workspace/recupTraj/"+el)
+
+
+#Pour supprimer des points trop rapprochés (pts de depart des trajectoires)
+for el in xyt:
+        for el1 in xyt:
+            a = abs(xyt[el][0] - xyt[el1][0])
+            b = abs(xyt[el][1] - xyt[el1][1])
+            if a < 0.02 and a != 0 and b < 0.02 and b != 0:
+                remove("/home/beucher/workspace/recupTraj/"+el)

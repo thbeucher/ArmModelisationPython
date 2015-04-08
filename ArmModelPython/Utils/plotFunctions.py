@@ -12,6 +12,12 @@ from Utils.FileReading import FileReading
 from ArmModel.SavingData import SavingData
 from matplotlib import animation
 from matplotlib.mlab import griddata
+import mpl_toolkits
+from Utils.ReadSetupFile import ReadSetupFile
+import os
+from os.path import isfile
+from shutil import copyfile
+from posix import remove
 
 
 def costColorPlot(nbfeat, wha):
@@ -46,7 +52,9 @@ def costColorPlot(nbfeat, wha):
     elif wha == "brent":
         z = fr.getobjread("trajectoires_cout/trajectoire_coutXBIN")
         z = np.array(z)
-        xy0tmp = fr.recup_pos_ini()
+        rs = ReadSetupFile()
+        rs.readingSetupFile()
+        xy0tmp = fr.recup_pos_ini(rs.pathFolderTrajectories)
         x0 = []
         y0 = []
         for el in xy0tmp.values():
@@ -173,18 +181,39 @@ def plot_pos_ini():
     Cette fonction permet d'afficher les positions initiales des trajectoires
     (trajectoire disponible dans le dossier trajectoire)           
     '''
+    xt = 0
+    yt = 0.6175
+    x0 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0,0.1,0.2,0.3]
+    y0 = [0.39,0.39,0.39,0.39,0.39,0.26,0.26,0.26,0.26,0.26,0.26,0.26]
     fr = FileReading()
-    xy = fr.recup_pos_ini()
-    x = []
-    y = []
+    rs = ReadSetupFile()
+    rs.readingSetupFile()
+    patht = rs.pathFolderTrajectories
+    xy = fr.recup_pos_ini(patht)
+    x, y = [], []
     for el in xy.values():
         x.append(el[0])
         y.append(el[1])
+        
+    '''
+    #verifie si les trajectoires d'entrainement comprenne les trajectoires d'experimentation
+    a = 0
+    for el in xy:
+        for i in range(len(x0)):
+            if el[0] == x0[i] and el[1] == y0[i]:
+                a += 1
+    print(a)'''
+        
     plt.figure()
-    #c = np.linspace(0,1,len(x))
     plt.scatter(x, y, c = "b", marker=u'o', s=25, cmap=cm.get_cmap('RdYlBu'))
+    plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
+    plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
+    
     plt.show(block = True)
+    
 
+    
+                
 
 
 

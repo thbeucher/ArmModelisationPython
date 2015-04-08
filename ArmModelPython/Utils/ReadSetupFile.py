@@ -42,7 +42,9 @@ class ReadSetupFile:
         self.pathFolderData = (allsByLign[9].split(":"))[1]
         #lecture ligne 11, Chemin du dossier contenant les trajectoires
         self.pathFolderTrajectories = (allsByLign[10].split(":"))[1]
-
-    
+        #lecture ligne 12, Taille de la cible pour l'experimentation
+        self.sizeOfTarget = float((allsByLign[11].split(":"))[1])
+        #lecture ligne 13, ordonnee de la cible
+        self.targetOrdinate = float((allsByLign[12].split(":"))[1])
 
 
