@@ -28,9 +28,9 @@ def costEvalBrent():
             q = np.array([[el[2]], [el[3]]])
             coordEL, coordHA = mgd(q, robot.l1, robot.l2)
             if(coordHA[0] == 0 and coordHA[1] == 0.6175):
-                cf.costFunctionJ(fileR.data_store[str("trajectoire" + str(i+1+a) + "_command")][j], 1, 0.002)
+                cf.costFunctionJ(fileR.data_store[str("trajectoire" + str(i+1+a) + "_command")][j], 2, 0.002)
             else:
-                cf.costFunctionJ(fileR.data_store[str("trajectoire" + str(i+1+a) + "_command")][j], 0, 0.002)
+                cf.costFunctionJ(fileR.data_store[str("trajectoire" + str(i+1+a) + "_command")][j], 1, 0.002)
         name = "trajectoires_cout/trajectoire" + str(i+1+a) + "_cout"
         trajC.append(cf.Ju)
         cf.Ju = 0

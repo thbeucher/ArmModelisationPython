@@ -44,6 +44,10 @@ class costFunction:
     def costFunctionJ(self, U, action, t):
         '''
         Cette fonction permet de calculer le cout d'une trajectoire en terme d'activation musculaire
+        
+        Entrees:    -U: Activations musculaires (tableau, numpy 1D array)
+                    -action: si le bras a atteint la cible action = 2 sinon action = 1 (scalar)
+                    -t: pas de temps utilise (scalar)
         '''
         usquare = np.square(U)
         usum = 0
@@ -52,7 +56,7 @@ class costFunction:
         mvtCost = (sqrt(usum))**2
         if action == 1:
             imReward = 0
-        else:
+        elif action == 2:
             imReward = 1
         self.Ju += np.exp(-t/self.gamma)*(self.rho*imReward - self.ups*mvtCost)
         
@@ -319,5 +323,5 @@ class costFunction:
         return JuCfMean
         
         
-        
-        
+    
+
