@@ -8,11 +8,34 @@ Description:    -We find here all muscles parameters
 '''
 import os
 import numpy as np
+import math
 
 class MusclesParameters:
     
     def __init__(self):
+        self.activationVectorInit()
         self.fmaxMatrix()
+        
+        ###############################Annexe parameters########################
+        self.GammaMax = 2
+        #stiffness matrix (null)
+        self.Knulle = np.mat([(0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0)])
+        #stiffness matrix (low)
+        self.Kp1 = 10.
+        self.Kp2 = 10. 
+        self.KP1 = 10.
+        self.KP2 = 10.
+        self.Kraid = np.mat([(self.KP1,self.KP1,0,0,self.Kp1,self.Kp1),(0,0,self.Kp2,self.Kp2,self.KP2,self.KP2)])   
+        #stiffness matrix (high)
+        self.KP22 = (80*self.GammaMax)/math.pi
+        self.Kp22=(60*self.GammaMax)/math.pi
+        self.KP11=(200*self.GammaMax)/math.pi
+        self.Kp11=(100*self.GammaMax)/math.pi
+        self.Kgrand = np.mat([(self.KP11,self.KP11,0,0,self.Kp11,self.Kp11),(0,0,self.Kp22,self.Kp22,self.KP22,self.KP22)])          
+        #Proportional gain
+        self.Kp = 10 # Arbitrary value       
+        #Derivative gain
+        self.Kd = 2*math.sqrt(self.Kp)    
         
     def fmaxMatrix(self):
         '''
@@ -36,9 +59,18 @@ class MusclesParameters:
         #matrix definition
         self.fmax = np.diag([fmax1, fmax2, fmax3, fmax4, fmax5, fmax6])
         
+    def activationVectorInit(self):
+        u1 = 0
+        u2 = 0
+        u3 = 0
+        u4 = 0
+        u5 = 0
+        u6 = 0
+        self.U0 = np.array([[u1],[u2],[u3],[u4],[u5],[u6]])
         
-mp = MusclesParameters()
-print(mp.fmax)
+        
+        
+
         
         
         

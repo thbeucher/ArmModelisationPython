@@ -40,14 +40,6 @@ class ArmParameters:
         self.d1 = float((allsByLign[6].split(":"))[1])
         #line 8, Distance from the center of segment 2 to its center of mass
         self.d2 = float((allsByLign[7].split(":"))[1])
-        #line 9, Damping term k6
-        self.k6 = float((allsByLign[8].split(":"))[1])
-        #line 10, Damping term k7
-        self.k7 = float((allsByLign[9].split(":"))[1])
-        #line 11, Damping term k8
-        self.k8 = float((allsByLign[10].split(":"))[1])
-        #line 12, Damping term k9
-        self.k9 = float((allsByLign[11].split(":"))[1])
         
     def massMatrix(self):
         '''
@@ -57,9 +49,27 @@ class ArmParameters:
         self.k2 = self.m2*self.l1*self.s2
         self.k3 = self.d2
     
+    def BMatrix(self):
+        '''
+        This function allow to define the damping matrix B
+        '''
+        with open(os.path.realpath("Setup/setupArmParameters"), "r") as file:
+            alls = file.read()
+        allsByLign = alls.split("\n")
+        #line 9, Damping term k6
+        k6 = float((allsByLign[8].split(":"))[1])
+        #line 10, Damping term k7
+        k7 = float((allsByLign[9].split(":"))[1])
+        #line 11, Damping term k8
+        k8 = float((allsByLign[10].split(":"))[1])
+        #line 12, Damping term k9
+        k9 = float((allsByLign[11].split(":"))[1])
+        #matrix definition
+        self.B = np.array([[k6,k7],[k8,k9]])
+    
     def AMatrix(self):
         '''
-        This function allow to define the moment arm matrix
+        This function allow to define the moment arm matrix A
         '''
         with open(os.path.realpath("Setup/setupArmParameters"), "r") as file:
             alls = file.read()
