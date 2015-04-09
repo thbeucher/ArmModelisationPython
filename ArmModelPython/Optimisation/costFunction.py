@@ -18,7 +18,7 @@ from Utils.FileSaving import fileSavingStr, fileSavingBin
 from Regression.functionApproximator_RBFN import fa_rbfn
 import os
 from Utils.ReadSetupFile import ReadSetupFile
-from ArmModel.GeometricModel import mgi, mgd
+from ArmModel.GeometricModel import mgi, mgd, jointStop
 
 class costFunction:
     
@@ -169,14 +169,7 @@ class costFunction:
                     dotq += ddotq*arm.dt
                     q += dotq*arm.dt
                     #Verification du respect des butees articulaires
-                    if q[0,0] < -0.6:
-                        q[0,0] = -0.6
-                    elif q[0,0] > 2.6:
-                        q[0,0] = 2.6
-                    if q[1,0] < -0.2:
-                        q[1,0] = -0.2
-                    elif q[1,0] > 3.0:
-                        q[1,0] = 3.0
+                    q = jointStop(q)
                     #Recuperation des coordonnees dans le plan
                     coordEL, coordHA = mgd(q, robot.l1, robot.l2)
                     ##############################
@@ -323,6 +316,9 @@ class costFunction:
         #return JuCfSumScalar
         return JuCfMean
         
-        
+
+
+
+
     
 

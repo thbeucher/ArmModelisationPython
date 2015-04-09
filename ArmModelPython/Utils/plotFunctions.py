@@ -203,18 +203,18 @@ def plot_pos_ini():
             if el[0] == x0[i] and el[1] == y0[i]:
                 a += 1
     print(a)'''
-    xyt = fr.recup_pos_ini("/home/beucher/workspace/recupTraj/")
+    '''xyt = fr.recup_pos_ini("/home/beucher/workspace/recupTraj/")
     xtt, ytt = [], []
     for el in xyt.values():
         xtt.append(el[0])
-        ytt.append(el[1])
+        ytt.append(el[1])'''
         
     plt.figure()
     plt.scatter(x, y, c = "b", marker=u'o', s=25, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
     
-    plt.scatter(xtt, ytt, c = 'y')
+    #plt.scatter(xtt, ytt, c = 'y')
     
     plt.show(block = True)
     

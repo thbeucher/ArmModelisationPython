@@ -6,6 +6,7 @@ from numpy import *
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib import animation
+from ArmModel.GeometricModel import mgd
 
 
 print("Bienvenue dans ce programme !")
@@ -19,72 +20,72 @@ q = arm.q0
 dotq = arm.dotq0
 
 save = SavingData()
-coordEL, coordHA = save.calculCoord(q, robot)
+coordEL, coordHA = mgd(q, robot.l1, robot.l2)
 save.SaveTrajectory(coordEL, coordHA)
 
 
 #Boucle de fonctionnement
 while(arm.t<=2):
     if 0<=arm.t and arm.t<= 0.15:
-        arm.ub1 = 1
-        arm.ut1 = 0
+        arm.ub1 = 0.
+        arm.ut1 = 0.
     
-        arm.ub2 = 0.9
-        arm.ut2 = 0.1
+        arm.ub2 = 0.
+        arm.ut2 = 0.
     
-        arm.ub3 = 0.9
-        arm.ut3 = 0.15
+        arm.ub3 = 0.
+        arm.ut3 = 0.
     
     
     elif 0.15<arm.t and arm.t<= 0.3:
-        arm.ut1 = 0.5
-        arm.ub1 = 0.15
+        arm.ut1 = 0.
+        arm.ub1 = 0.
     
-        arm.ut2 = 0.4
+        arm.ut2 = 0.
         arm.ub2 = 0
     
-        arm.ub3 = 1
-        arm.ut3 = 0.15
+        arm.ub3 = 0
+        arm.ut3 = 0.
     
     elif (0.3<arm.t and arm.t<= 0.45):
-        arm.ut1 = 0.5
-        arm.ub1 = 0.5
+        arm.ut1 = 0.
+        arm.ub1 = 0.
     
-        arm.ut2 = 0.3
-        arm.ub2 = 0.3
+        arm.ut2 = 0.
+        arm.ub2 = 0.
     
-        arm.ub3 = 0.35
-        arm.ut3 = 0.35
+        arm.ub3 = 0.
+        arm.ut3 = 0.
     
     elif 0.45<arm.t and arm.t<= 0.6:
-        arm.ut1 = 0.5
-        arm.ub1 = 0.75
+        arm.ut1 = 0.
+        arm.ub1 = 0.
     
-        arm.ut2 = 0.5
-        arm.ub2 = 1
-    
-        arm.ub3 = 0.5
-        arm.ut3 = 0.55
-    
-    elif 0.6<arm.t and arm.t<=0.75:
-        arm.ut1 = 1
-        arm.ub1 = 0.1
-    
-        arm.ut2 = 1
+        arm.ut2 = 0.
         arm.ub2 = 0
     
-        arm.ub3 = 1
-        arm.ut3 = 0.5
+        arm.ub3 = 0.
+        arm.ut3 = 0.
+    
+    elif 0.6<arm.t and arm.t<=0.75:
+        arm.ut1 = 0
+        arm.ub1 = 0.
+    
+        arm.ut2 = 0
+        arm.ub2 = 0
+    
+        arm.ub3 = 0
+        arm.ut3 = 0.
     
     elif 0.75<arm.t and arm.t<=1:
         arm.ut1 = 0
         arm.ub1 = 0
     
-        arm.ut2 = 0.2
-        arm.ub2 = 0.5
+        arm.ut2 = 0.
+        arm.ub2 = 0.
     
-        arm.ub3 = 0.5
-        arm.ut3 = 0.2
+        arm.ub3 = 0.
+        arm.ut3 = 0.
     
     
     # Vecteur des activations musculaires
@@ -99,7 +100,7 @@ while(arm.t<=2):
     q += dotq*arm.dt
     
     #Sauvegarde position pour visualition trajectoire
-    coordEL, coordHA = save.calculCoord(q, robot)
+    coordEL, coordHA = mgd(q, robot.l1, robot.l2)
     save.SaveTrajectory(coordEL, coordHA)
     #Sauvegarde des differents parametres
     save.saveParameters(q, dotq, ddotq, Gamma_AM, arm)

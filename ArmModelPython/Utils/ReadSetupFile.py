@@ -46,5 +46,7 @@ class ReadSetupFile:
         self.sizeOfTarget = float((allsByLign[11].split(":"))[1])
         #lecture ligne 13, ordonnee de la cible
         self.targetOrdinate = float((allsByLign[12].split(":"))[1])
+        #lecture ligne 14, Pas de temps utilise pour l'experimentation
+        self.dt = float((allsByLign[13].split(":"))[1])
 
 

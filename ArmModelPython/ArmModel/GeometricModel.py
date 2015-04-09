@@ -52,5 +52,25 @@ def mgd(q, l1, l2):
     return coordElbow, coordHand
     
     
+def jointStop(q):
+    '''
+    Cette fonction permet d'appliquer les butees articulaires correspondants au bras humain
+    Epaule: -0.6 <= q1 <= 2.6
+    Coude: -0.2 <= q2 <= 3.0
+    
+    Entree:    -q: vecteur position contenant q1 et q2
+    
+    Sortie:    -q: vecteur position contenant q1 et q2, respectant les butees articulaires
+    '''
+    if q[0,0] < -0.6:
+        q[0,0] = -0.6
+    elif q[0,0] > 2.6:
+        q[0,0] = 2.6
+    if q[1,0] < -0.2:
+        q[1,0] = -0.2
+    elif q[1,0] > 3.0:
+        q[1,0] = 3.0
+    return q
+    
     
     
