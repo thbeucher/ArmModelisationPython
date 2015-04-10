@@ -8,7 +8,6 @@ Description:    -We find here all dynamics of the arm
 '''
 import numpy as np
 import math
-from xml.sax.handler import DTDHandler
 
 class ArmDynamics:
     
@@ -42,6 +41,15 @@ def mdd(q, dotq, U, armP, musclesP):
     return ddotq
 
 def integration(ddotq, dt):
+    '''
+    This function compute dotq and q from ddotq
+    
+    Inputs:     -ddotq: (2,1) numpy array
+                -dt: scalar
+    
+    Outputs:    -dotq: (2,1) numpy array
+                -q: (2,1) numpy array
+    '''
     dotq = ddotq*dt
     q = dotq*dt
     return dotq, q

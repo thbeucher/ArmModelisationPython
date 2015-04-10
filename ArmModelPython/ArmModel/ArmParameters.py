@@ -18,7 +18,7 @@ class ArmParameters:
         
     def readSetupFile(self):
         '''
-        This function allow to read the setup file
+        This function read the setup file
         '''
         with open(os.path.realpath("Setup/setupArmParameters"), "r") as file:
             alls = file.read()
@@ -51,7 +51,7 @@ class ArmParameters:
     
     def BMatrix(self):
         '''
-        This function allow to define the damping matrix B
+        This function define the damping matrix B
         '''
         with open(os.path.realpath("Setup/setupArmParameters"), "r") as file:
             alls = file.read()
@@ -69,7 +69,7 @@ class ArmParameters:
     
     def AMatrix(self):
         '''
-        This function allow to define the moment arm matrix A
+        This function define the moment arm matrix A
         '''
         with open(os.path.realpath("Setup/setupArmParameters"), "r") as file:
             alls = file.read()

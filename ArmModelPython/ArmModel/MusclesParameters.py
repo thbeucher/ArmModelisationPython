@@ -13,11 +13,17 @@ import math
 class MusclesParameters:
     
     def __init__(self):
+        '''
+        class parameters initialization
+        '''
         self.activationVectorInit()
         self.fmaxMatrix()
         
         ###############################Annexe parameters########################
+        #Hogan parameters
         self.GammaMax = 2
+        self.K = (2*self.__GammaMax)/math.pi#stiffness
+        self.Gamma_H = np.array([[0],[0]])#hogan torque initialization
         #stiffness matrix (null)
         self.Knulle = np.mat([(0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0)])
         #stiffness matrix (low)
@@ -39,7 +45,7 @@ class MusclesParameters:
         
     def fmaxMatrix(self):
         '''
-        This function allow to define the matrix of the maximum force exerted by each muscle
+        This function define the matrix of the maximum force exerted by each muscle
         '''
         with open(os.path.realpath("Setup/setupMusclesParameters"), "r") as file:
             alls = file.read()
@@ -60,6 +66,9 @@ class MusclesParameters:
         self.fmax = np.diag([fmax1, fmax2, fmax3, fmax4, fmax5, fmax6])
         
     def activationVectorInit(self):
+        '''
+        This function initialize the muscular activation vector
+        '''
         u1 = 0
         u2 = 0
         u3 = 0
