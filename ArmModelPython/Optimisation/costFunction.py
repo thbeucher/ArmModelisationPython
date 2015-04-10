@@ -320,7 +320,7 @@ class costFunction:
         pass
     
     
-    def costFunctionRBFN2Test(self, theta, cma = 0):
+    def costFunctionRBFN2Test(self, theta):
         sti = SuperToolsInit()
         JuCf = []
         for el in sti.posIni:

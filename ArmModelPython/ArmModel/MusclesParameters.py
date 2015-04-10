@@ -25,7 +25,7 @@ class MusclesParameters:
         ###############################Annexe parameters########################
         #Hogan parameters
         self.GammaMax = 2
-        self.K = (2*self.__GammaMax)/math.pi#stiffness
+        self.K = (2*self.GammaMax)/math.pi#stiffness
         self.Gamma_H = np.array([[0],[0]])#hogan torque initialization
         #stiffness matrix (null)
         self.Knulle = np.mat([(0, 0, 0, 0, 0, 0),(0, 0, 0, 0, 0, 0)])

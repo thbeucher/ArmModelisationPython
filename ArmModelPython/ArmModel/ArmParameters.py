@@ -18,6 +18,7 @@ class ArmParameters:
         self.readSetupFile()
         self.massMatrix()
         self.AMatrix()
+        self.BMatrix()
         
     def readSetupFile(self):
         '''

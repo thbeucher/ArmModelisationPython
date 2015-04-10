@@ -78,7 +78,7 @@ class SuperToolsInit:
                 UnoiseTmp[i] = 0
             elif UnoiseTmp[i] > 1:
                 UnoiseTmp[i] = 1
-        Unoise = UnoiseTmp
+        Unoise = np.array([UnoiseTmp]).T
         return Unoise
         
     def trajGenerator(self, xI, yI, theta):

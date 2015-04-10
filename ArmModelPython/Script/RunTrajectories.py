@@ -9,7 +9,7 @@ from Utils.FileReading import FileReading
 from Optimisation.costFunction import costFunction
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
-
+    
 
 def runGenTraj():
     ##code permettant de lancer la fonction de generation de trajectoire
@@ -34,13 +34,15 @@ def runGenTraj():
         if noise == "Y":
             names = "RBFN2/" + str(nbfeat) + "feats/coutNoiseX"
             names2 = "RBFN2/" + str(nbfeat) + "feats/coutNoiseXBIN"
-            cf = costFunction(nbfeat, 0, 1, sauv)
+            cf = costFunction(nbfeat, 0, 1, sauv)    
         elif noise == "N":
             names = "RBFN2/" + str(nbfeat) + "feats/coutX"
             names2 = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
             cf = costFunction(nbfeat, 0, 0, sauv)
     theta = fra.getobjread(name)
     res = cf.costFunctionRBFN2(theta)
+    testju = cf.costFunctionRBFN2Test(theta)#TEST
+    print(testju)#TEST
     print(res)
     fileSavingStr(names, res)
     fileSavingBin(names2, res)
