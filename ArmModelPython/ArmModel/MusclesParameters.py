@@ -9,6 +9,7 @@ Description:    -We find here all muscles parameters
 import os
 import numpy as np
 import math
+from Utils.ReadSetupFile import ReadSetupFile
 
 class MusclesParameters:
     
@@ -16,6 +17,8 @@ class MusclesParameters:
         '''
         class parameters initialization
         '''
+        rsp = ReadSetupFile()
+        self.pathSetupFile = rsp.pathFolderProject + "ArmModelPython/ArmModel/Setup/setupMusclesParameters"
         self.activationVectorInit()
         self.fmaxMatrix()
         
@@ -47,7 +50,7 @@ class MusclesParameters:
         '''
         This function define the matrix of the maximum force exerted by each muscle
         '''
-        with open(os.path.realpath("Setup/setupMusclesParameters"), "r") as file:
+        with open(self.pathSetupFile, "r") as file:
             alls = file.read()
         allsByLign = alls.split("\n")
         #line 1, fmax1

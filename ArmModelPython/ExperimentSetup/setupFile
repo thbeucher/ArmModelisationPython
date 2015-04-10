@@ -7,6 +7,7 @@ Parametre upsilon cost function(int):1
 Pour CMAES, sigma(float):4
 Pour CMAES, maxIteration(int):10
 POUR CMAES, popsize(int):30
+Chemin du dossier du projet:/home/beucher/workspace/
 Chemin du dossier data:/home/beucher/workspace/Data/
 Chemin du dossier contenant les trajectoires:/home/beucher/workspace/Data/trajectoires/
 Taille de la cible pour l'experimentation(mm)(int):0.1

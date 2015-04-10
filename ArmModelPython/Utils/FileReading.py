@@ -7,9 +7,9 @@ import pickle
 import numpy as np
 import os.path as op
 import os
-from ArmModel.ParametresRobot import ParametresRobot
 from Utils.ReadSetupFile import ReadSetupFile
 from ArmModel.GeometricModel import mgd
+from ArmModel.ArmParameters import ArmParameters
 
 class FileReading():
     
@@ -97,14 +97,14 @@ class FileReading():
         Sorties: un dictionnaire avec les coordonnees initiales de chaque trajectoire
         '''
         print("Debut de recuperation des positions initiales!")
-        robot = ParametresRobot()
+        armP = ArmParameters()
         angleIni = {}
         for el in os.listdir(location):
             if "trajectoire" in el:
                 #Chargement du fichier
                 mati = np.loadtxt(location + el)
                 #recuperation de q1 et q2 initiales et conversion en coordonnees
-                coordElbow, coordHand = mgd(np.mat([[mati[0,10]], [mati[0,11]]]), robot.l1, robot.l2)
+                coordElbow, coordHand = mgd(np.mat([[mati[0,10]], [mati[0,11]]]), armP.l1, armP.l2)
                 angleIni[el] = (coordHand[0], coordHand[1])
         print("Fin de recuperation des positions initiales!")
         return angleIni

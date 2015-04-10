@@ -9,16 +9,17 @@ from math import sqrt
 import numpy as np
 import time
 from Utils.FileReading import FileReading
-from ArmModel.ParametresArmModel import ParametresArmModel
+'''from ArmModel.ParametresArmModel import ParametresArmModel
 from ArmModel.ParametresHogan import ParametresHogan
 from ArmModel.ParametresRobot import ParametresRobot
+from ArmModel.SavingData import SavingData'''
 from Regression.OutputSolver import OutputSolver
-from ArmModel.SavingData import SavingData
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 from Regression.functionApproximator_RBFN import fa_rbfn
 import os
 from Utils.ReadSetupFile import ReadSetupFile
 from ArmModel.GeometricModel import mgi, mgd, jointStop
+from Main.SuperToolsInit import SuperToolsInit
 
 class costFunction:
     
@@ -62,7 +63,7 @@ class costFunction:
         
     
     def costFunctionRBFN2(self, theta, cma = 0):
-        t0 = time.time()
+        '''t0 = time.time()
         #Déclaration des différentes classes utiles 
         robot = ParametresRobot()
         hogan = ParametresHogan()
@@ -218,13 +219,14 @@ class costFunction:
         self.suivi += 1
         t1 = time.time()
         print("Fin d'appel! (", self.suivi, ") (Temps de traitement:", (t1-t0), "s)")
-        return JuCf
+        return JuCf'''
+        pass
     
     
     
     
     def costFunctionCMAES(self, theta):
-        t0 = time.time()
+        '''t0 = time.time()
         #Déclaration des différentes classes utiles 
         robot = ParametresRobot()
         hogan = ParametresHogan()
@@ -314,7 +316,17 @@ class costFunction:
         for el in JuCf:
             JuCfSumScalar += el
         #return JuCfSumScalar
-        return JuCfMean
+        return JuCfMean'''
+        pass
+    
+    
+    def costFunctionRBFN2Test(self, theta, cma = 0):
+        sti = SuperToolsInit()
+        JuCf = []
+        for el in sti.posIni:
+            sti.trajGenerator(el[0], el[1], theta)
+            JuCf.append(self.Ju)
+        return JuCf
         
 
 

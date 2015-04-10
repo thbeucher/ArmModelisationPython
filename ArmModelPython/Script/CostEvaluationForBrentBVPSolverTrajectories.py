@@ -3,16 +3,16 @@ from Utils.FileReading import FileReading
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import os
 import numpy as np
-from ArmModel.ParametresRobot import ParametresRobot
 from ArmModel.GeometricModel import mgd
 from Utils.ReadSetupFile import ReadSetupFile
+from ArmModel.ArmParameters import ArmParameters
 
 def costEvalBrent():
     print("Debut de traitement!")
     cf = costFunction(3)
     rs = ReadSetupFile()
     rs.readingSetupFile()
-    robot = ParametresRobot()
+    armP = ArmParameters()
     #Chargement des donnees de trajectoire
     fileR = FileReading()
     stateAll, commandAll = fileR.recup_data(1)
@@ -30,7 +30,7 @@ def costEvalBrent():
         for j in range(len(fileR.data_store[str("trajectoire" + str(i+1+a) + "_command")])):
             el = fileR.data_store[str("trajectoire" + str(i+1+a) + "_state")][j]
             q = np.array([[el[2]], [el[3]]])
-            coordEL, coordHA = mgd(q, robot.l1, robot.l2)
+            coordEL, coordHA = mgd(q, armP.l1, armP.l2)
             if((coordHA[0] >= (0-rs.sizeOfTarget/2) and coordHA[0] <= (0+rs.sizeOfTarget/2)) and coordHA[1] >= rs.targetOrdinate):
                 if stopite == 0:
                     stopite += 1

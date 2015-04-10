@@ -6,12 +6,15 @@ Module: ArmParameters
 Description:    -We find here all arm parameters
                 -we use a model of arm with two joints and six muscles
 '''
-import os
+import os, sys
 import numpy as np
+from Utils.ReadSetupFile import ReadSetupFile
 
 class ArmParameters:
     
     def __init__(self):
+        rsp = ReadSetupFile()
+        self.pathSetupFile = rsp.pathFolderProject + "ArmModelPython/ArmModel/Setup/setupArmParameters"
         self.readSetupFile()
         self.massMatrix()
         self.AMatrix()
@@ -20,7 +23,7 @@ class ArmParameters:
         '''
         This function read the setup file
         '''
-        with open(os.path.realpath("Setup/setupArmParameters"), "r") as file:
+        with open(self.pathSetupFile, "r") as file:
             alls = file.read()
         #Split to read line by line
         allsByLign = alls.split("\n")
@@ -53,7 +56,7 @@ class ArmParameters:
         '''
         This function define the damping matrix B
         '''
-        with open(os.path.realpath("Setup/setupArmParameters"), "r") as file:
+        with open(self.pathSetupFile, "r") as file:
             alls = file.read()
         allsByLign = alls.split("\n")
         #line 9, Damping term k6
@@ -71,7 +74,7 @@ class ArmParameters:
         '''
         This function define the moment arm matrix A
         '''
-        with open(os.path.realpath("Setup/setupArmParameters"), "r") as file:
+        with open(self.pathSetupFile, "r") as file:
             alls = file.read()
         allsByLign = alls.split("\n")
         #line 13, Moment arm matrix, a1

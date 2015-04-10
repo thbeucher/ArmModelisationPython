@@ -9,7 +9,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from Utils.FileReading import FileReading
-from ArmModel.SavingData import SavingData
 from matplotlib import animation
 from matplotlib.mlab import griddata
 import mpl_toolkits

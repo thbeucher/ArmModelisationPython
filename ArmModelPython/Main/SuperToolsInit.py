@@ -13,7 +13,6 @@ from ArmModel.ArmParameters import ArmParameters
 from ArmModel.MusclesParameters import MusclesParameters
 from ArmModel.ArmDynamics import ArmDynamics, mdd, integration
 from ArmModel.GeometricModel import mgi, mgd, jointStop
-from Script.Launcher import theta
 
 
 
@@ -89,6 +88,8 @@ class SuperToolsInit:
         Inputs:     -xI: scalar, absciss of the trajectory starting point
                     -yI: scalar, ordinate of the trajectory starting point
                     -Theta: Numpy array
+                    
+        Output:    -Ju: scalar, cost of the trajectory
         '''
         q1, q2 = mgi(xI, yI, self.armP.l1, self.armP.l2)
         q = np.array([[q1], [q2]])
@@ -109,8 +110,10 @@ class SuperToolsInit:
                 break
             i += 1
             t += self.rs.dt
+        print(i)
         if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= self.rs.targetOrdinate):
             Ju += self.rs.rhoCF
+        return Ju
         
         
         

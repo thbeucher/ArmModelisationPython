@@ -10,6 +10,7 @@ class ReadSetupFile:
     
     def __init__(self):
         self.name = "setup"
+        self.readingSetupFile()
     
     def readingSetupFile(self):
         '''
@@ -38,15 +39,17 @@ class ReadSetupFile:
         self.maxIterCmaes = int((allsByLign[7].split(":"))[1])
         #lecture ligne 9, POUR CMAES, popsize
         self.popsizeCmaes = int((allsByLign[8].split(":"))[1])
-        #lecture ligne 10, chemin du dossier data
-        self.pathFolderData = (allsByLign[9].split(":"))[1]
-        #lecture ligne 11, Chemin du dossier contenant les trajectoires
-        self.pathFolderTrajectories = (allsByLign[10].split(":"))[1]
-        #lecture ligne 12, Taille de la cible pour l'experimentation
-        self.sizeOfTarget = float((allsByLign[11].split(":"))[1])
-        #lecture ligne 13, ordonnee de la cible
-        self.targetOrdinate = float((allsByLign[12].split(":"))[1])
-        #lecture ligne 14, Pas de temps utilise pour l'experimentation
-        self.dt = float((allsByLign[13].split(":"))[1])
+        #lecture ligne 10, chemin du dossier du projet
+        self.pathFolderProject = (allsByLign[9].split(":"))[1]
+        #lecture ligne 11, chemin du dossier data
+        self.pathFolderData = (allsByLign[10].split(":"))[1]
+        #lecture ligne 12, Chemin du dossier contenant les trajectoires
+        self.pathFolderTrajectories = (allsByLign[11].split(":"))[1]
+        #lecture ligne 13, Taille de la cible pour l'experimentation
+        self.sizeOfTarget = float((allsByLign[12].split(":"))[1])
+        #lecture ligne 14, ordonnee de la cible
+        self.targetOrdinate = float((allsByLign[13].split(":"))[1])
+        #lecture ligne 15, Pas de temps utilise pour l'experimentation
+        self.dt = float((allsByLign[14].split(":"))[1])
 
 
