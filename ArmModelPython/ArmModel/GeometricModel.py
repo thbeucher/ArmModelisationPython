@@ -3,8 +3,7 @@ Author: Thomas Beucher
 
 Module: InverseGeometricModel
 
-Description: On retrouve dans ce fichier la fonction resolvant la geometrie inverse d'un bras a deux articulations
-                ainsi que la fonction resolvant la geometrie directe du bras
+Description: we find here the inverse and direct geometric model for a two joints arm
 '''
 
 import math
@@ -12,16 +11,16 @@ import numpy as np
 
 def mgi(xi, yi, l1, l2):
     '''
-    Modele geometrique inverse d'un robot a deux articulations
+    Inverse geometric model
         
-    Entrees:    -xi: abscisse du point effecteur
-                -yi: ordonnee du point effecteur
-                -l1: longeur du bras
-                -l2: longueur de l'avant bras
+    Inputs:    -xi: absciss of the effective point
+                -yi: ordinate of the effective point
+                -l1: arm length
+                -l2: foreArm length
         
-    Sorties:
-                -q1: Angle du bras par rapport a l'axe des abscisse
-                -q2: Angle de l'avant bras par rapport au bras
+    Outputs:
+                -q1: arm angle
+                -q2: foreArm angle
     '''
     a = ((xi**2)+(yi**2)-(l1**2)-(l2**2))/(2*l1*l2)
     try:
@@ -31,21 +30,21 @@ def mgi(xi, yi, l1, l2):
         q1 = math.atan2(yi,xi) - math.atan2(d,c)
         return q1, q2
     except ValueError:
-        print("Valeur interdite")
+        print("forbidden value")
         return "None"
     
     
 def mgd(q, l1, l2):
     '''
-    Modele geometrique directe d'un robot a deux articulations
+    Direct geometric model of the arm
         
-    Entrees:    -q: vecteur contenant q1 et q2
-                -l1: longeur du bras
-                -l2: longueur de l'avant bras
+    Inputs:     -q: (2,1) numpy array
+                -l1: arm length
+                -l2: foreArm length
         
-    Sorties:
-                -q1: Angle du bras par rapport a l'axe des abscisse
-                -q2: Angle de l'avant bras par rapport au bras
+    Outputs:
+                -q1: arm angle
+                -q2: foreArm angle
     '''
     coordElbow = (l1*np.cos(q[0,0]), l1*np.sin(q[0,0]))
     coordHand = (l2*np.cos(q[1,0] + q[0,0]) + l1*np.cos(q[0,0]), l2*np.sin(q[1,0] + q[0,0]) + l1*np.sin(q[0,0]))
@@ -54,13 +53,13 @@ def mgd(q, l1, l2):
     
 def jointStop(q):
     '''
-    Cette fonction permet d'appliquer les butees articulaires correspondants au bras humain
-    Epaule: -0.6 <= q1 <= 2.6
-    Coude: -0.2 <= q2 <= 3.0
+    Articular stop for the human arm
+    Shoulder: -0.6 <= q1 <= 2.6
+    Elbow: -0.2 <= q2 <= 3.0
     
-    Entree:    -q: vecteur position contenant q1 et q2
+    Inputs:    -q: (2,1) numpy array
     
-    Sortie:    -q: vecteur position contenant q1 et q2, respectant les butees articulaires
+    Outputs:    -q: (2,1) numpy array
     '''
     if q[0,0] < -0.6:
         q[0,0] = -0.6

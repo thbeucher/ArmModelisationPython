@@ -1,0 +1,61 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module GeometricModel</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>GeometricModel</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/beucher/workspace/ArmModelPython/ArmModel/GeometricModel.py">/home/beucher/workspace/ArmModelPython/ArmModel/GeometricModel.py</a></font></td></tr></table>
+    <p><tt>Author:&nbsp;Thomas&nbsp;Beucher<br>
+&nbsp;<br>
+Module:&nbsp;InverseGeometricModel<br>
+&nbsp;<br>
+Description:&nbsp;we&nbsp;find&nbsp;here&nbsp;the&nbsp;inverse&nbsp;and&nbsp;direct&nbsp;geometric&nbsp;model&nbsp;for&nbsp;a&nbsp;two&nbsp;joints&nbsp;arm</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="math.html">math</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-jointStop"><strong>jointStop</strong></a>(q)</dt><dd><tt>Articular&nbsp;stop&nbsp;for&nbsp;the&nbsp;human&nbsp;arm<br>
+Shoulder:&nbsp;-0.6&nbsp;&lt;=&nbsp;q1&nbsp;&lt;=&nbsp;2.6<br>
+Elbow:&nbsp;-0.2&nbsp;&lt;=&nbsp;q2&nbsp;&lt;=&nbsp;3.0<br>
+&nbsp;<br>
+Inputs:&nbsp;&nbsp;&nbsp;&nbsp;-q:&nbsp;(2,1)&nbsp;numpy&nbsp;array<br>
+&nbsp;<br>
+Outputs:&nbsp;&nbsp;&nbsp;&nbsp;-q:&nbsp;(2,1)&nbsp;numpy&nbsp;array</tt></dd></dl>
+ <dl><dt><a name="-mgd"><strong>mgd</strong></a>(q, l1, l2)</dt><dd><tt>Direct&nbsp;geometric&nbsp;model&nbsp;of&nbsp;the&nbsp;arm<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Inputs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-q:&nbsp;(2,1)&nbsp;numpy&nbsp;array<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-l1:&nbsp;arm&nbsp;length<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-l2:&nbsp;foreArm&nbsp;length<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Outputs:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-q1:&nbsp;arm&nbsp;angle<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-q2:&nbsp;foreArm&nbsp;angle</tt></dd></dl>
+ <dl><dt><a name="-mgi"><strong>mgi</strong></a>(xi, yi, l1, l2)</dt><dd><tt>Inverse&nbsp;geometric&nbsp;model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Inputs:&nbsp;&nbsp;&nbsp;&nbsp;-xi:&nbsp;absciss&nbsp;of&nbsp;the&nbsp;effective&nbsp;point<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-yi:&nbsp;ordinate&nbsp;of&nbsp;the&nbsp;effective&nbsp;point<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-l1:&nbsp;arm&nbsp;length<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-l2:&nbsp;foreArm&nbsp;length<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Outputs:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-q1:&nbsp;arm&nbsp;angle<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-q2:&nbsp;foreArm&nbsp;angle</tt></dd></dl>
+</td></tr></table>
+</body></html>
