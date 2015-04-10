@@ -15,10 +15,15 @@ def runGenTrajTest():
     fr = FileReading()
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
-    nameT = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
-    theta = fr.getobjread(nameT)
-    testju = costFunctionRBFN2Test(theta)#TEST
-    print(testju)#TEST    
+    sauv = input("voulez vous sauvegarder les trajectoires (1 = oui): ")
+    sauv = int(sauv)
+    nameT = "RBFN2/" + str(nbfeat) + "feats/"
+    theta = fr.getobjread(nameT + "ThetaXBIN")
+    testju, sti = costFunctionRBFN2Test(theta)
+    if sauv == 1:
+        fileSavingBin(nameT + "/CoordTraj/CoordTrajectoireELAll", sti.save.coordElSave)
+        fileSavingBin(nameT + "/CoordTraj/CoordTrajectoireHAAll", sti.save.coordHaSave)
+    print(testju)  
 
 def runGenTraj():
     ##code permettant de lancer la fonction de generation de trajectoire

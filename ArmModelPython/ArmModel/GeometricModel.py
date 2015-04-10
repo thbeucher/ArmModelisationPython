@@ -14,7 +14,7 @@ def mgi(xi, yi, l1, l2):
     '''
     Inverse geometric model
         
-    Inputs:    -xi: absciss of the effective point
+    Inputs:     -xi: absciss of the effective point
                 -yi: ordinate of the effective point
                 -l1: arm length
                 -l2: foreArm length
@@ -71,6 +71,18 @@ def jointStop(q):
     elif q[1,0] > 3.0:
         q[1,0] = 3.0
     return q
+
+
+
+
+
+
+x0 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0,0.1,0.2,0.3]
+y0 = [0.39,0.39,0.39,0.39,0.39,0.26,0.26,0.26,0.26,0.26,0.26,0.26]
+Q = []
+for i in range(len(x0)):
+    Q.append(mgi(x0[i], y0[i], 0.3, 0.35))
+
     
     
     

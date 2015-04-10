@@ -30,14 +30,16 @@ def mdd(q, dotq, U, armP, musclesP):
     #Inertia matrix
     M = np.array([[armP.k1+2*armP.k2*math.cos(q[1,0]),armP.k3+armP.k2*math.cos(q[1,0])],[armP.k3+armP.k2*math.cos(q[1,0]),armP.k3]])
     #coriolis force vector
-    C = np.array([[-(2*dotq[0,0]+dotq[1,0])*armP.k2*math.sin(q[1,0])],[(dotq[0,0]**2)*armP.k2*math.sin(q[1,0])]])
+    C = np.array([[-dotq[1,0]*(2*dotq[0,0]+dotq[1,0])*armP.k2*math.sin(q[1,0])],[(dotq[0,0]**2)*armP.k2*math.sin(q[1,0])]])
     #inversion of M
-    Minv = np.linalg.pinv(M)
+    Minv = np.linalg.inv(M)
     #torque term
     Q = np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])
-    Gamma = (np.dot(armP.At, musclesP.fmax)-np.dot(musclesP.Kraid, Q))*U
+    #Gamma = np.dot((np.dot(armP.At, musclesP.fmax)-np.dot(musclesP.Kraid, Q)), U)
+    Gamma = np.dot((np.dot(armP.At, musclesP.fmax)-np.dot(musclesP.Knulle, Q)), U)
+    #Gamma = np.dot(armP.At, np.dot(musclesP.fmax,U))
     #computation of ddotq
-    ddotq = Minv*(Gamma - C*dotq - np.dot(armP.B, dotq))
+    ddotq = np.dot(Minv,(Gamma - C - np.dot(armP.B, dotq)))
     return ddotq
 
 def integration(dotq, q, ddotq, dt):

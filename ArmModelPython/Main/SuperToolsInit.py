@@ -25,6 +25,7 @@ class SuperToolsInit:
         class parameters initialization
         '''
         self.super = "SuperInit"
+        self.save = SavingData()
         self.armP = ArmParameters()
         self.musclesP = MusclesParameters()
         self.armD = ArmDynamics()
@@ -97,6 +98,7 @@ class SuperToolsInit:
         q = np.array([[q1], [q2]])
         dotq = self.armD.dotq0
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
+        self.save.SaveTrajectory(coordEL, coordHA)
         t, i, Ju = 0, 0, 0#Ju = cost
         
         while coordHA[1] < self.rs.targetOrdinate:
@@ -107,6 +109,7 @@ class SuperToolsInit:
                 dotq, q = integration(dotq, q, ddotq, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
+                self.save.SaveTrajectory(coordEL, coordHA)
                 Ju = self.costFunction(Ju, U, t)
             else:
                 break
@@ -118,23 +121,23 @@ class SuperToolsInit:
         return Ju
     
     def trajGenWithU(self, U, save):
-        q = np.array([[np.pi/4], [np.pi/4]])
+        q = np.array([[np.pi/2], [0]])
         dotq = self.armD.dotq0
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
         save.SaveTrajectory(coordEL, coordHA)
         t = 0
-        for i in range(200):
+        while t <= 1:
             ddotq = mdd(q, dotq, U, self.armP, self.musclesP)
             dotq, q = integration(dotq, q, ddotq, self.rs.dt)
             coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
             save.SaveTrajectory(coordEL, coordHA)
-            #q = jointStop(q)
+            q = jointStop(q)
             t += self.rs.dt
 
 '''save = SavingData()
 
 sti = SuperToolsInit()
-U = sti.musclesP.activationVectorUse(0.5, 0, 0, 0, 0, 0)
+U = sti.musclesP.activationVectorUse(0., 0., 0., 0., 0., 0.)
 sti.trajGenWithU(U, save)
         
 save.createCoord()
