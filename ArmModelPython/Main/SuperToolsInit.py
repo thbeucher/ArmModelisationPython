@@ -102,7 +102,7 @@ class SuperToolsInit:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
                 ddotq = mdd(q, dotq, U, self.armP, self.musclesP)
-                dotq, q = integration(ddotq, self.rs.dt)
+                dotq, q = integration(dotq, q, ddotq, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
                 Ju = self.costFunction(Ju, U, t)

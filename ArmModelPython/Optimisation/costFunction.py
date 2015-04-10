@@ -324,8 +324,8 @@ class costFunction:
         sti = SuperToolsInit()
         JuCf = []
         for el in sti.posIni:
-            sti.trajGenerator(el[0], el[1], theta)
-            JuCf.append(self.Ju)
+            Ju = sti.trajGenerator(el[0], el[1], theta)
+            JuCf.append(Ju)
         return JuCf
         
 

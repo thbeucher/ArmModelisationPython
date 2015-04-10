@@ -30,7 +30,7 @@ def mdd(q, dotq, U, armP, musclesP):
     #Inertia matrix
     M = np.array([[armP.k1+2*armP.k2*math.cos(q[1,0]),armP.k3+armP.k2*math.cos(q[1,0])],[armP.k3+armP.k2*math.cos(q[1,0]),armP.k3]])
     #coriolis force vector
-    C = np.array([[-(2*dotq[0,0]+dotq[1,0])*armP.k2*math.sin(q[1,0])],[(dotq[0,0]**2)*armP.k2*math.sin(q[1,0])]]).T
+    C = np.array([[-(2*dotq[0,0]+dotq[1,0])*armP.k2*math.sin(q[1,0])],[(dotq[0,0]**2)*armP.k2*math.sin(q[1,0])]])
     #inversion of M
     Minv = np.linalg.pinv(M)
     #torque term
@@ -40,7 +40,7 @@ def mdd(q, dotq, U, armP, musclesP):
     ddotq = Minv*(Gamma - C - np.dot(armP.B, dotq))
     return ddotq
 
-def integration(ddotq, dt):
+def integration(dotq, q, ddotq, dt):
     '''
     This function compute dotq and q from ddotq
     
@@ -50,8 +50,8 @@ def integration(ddotq, dt):
     Outputs:    -dotq: (2,1) numpy array
                 -q: (2,1) numpy array
     '''
-    dotq = ddotq*dt
-    q = dotq*dt
+    dotq += ddotq*dt
+    q += dotq*dt
     return dotq, q
     
     
