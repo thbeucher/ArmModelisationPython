@@ -5,14 +5,15 @@ Module: SuperToolsInit
 
 Description: On retrouve dans ce fichier une classe initialisant toutes les classes utiles au projet
 '''
-from ArmModel.ParametresArmModel import ParametresArmModel
-from ArmModel.ParametresHogan import ParametresHogan
-from ArmModel.ParametresRobot import ParametresRobot
-from ArmModel.SavingData import SavingData
 from Utils.FileReading import FileReading
 from Utils.ReadSetupFile import ReadSetupFile
 from Regression.functionApproximator_RBFN import fa_rbfn
 import numpy as np
+from ArmModel.ArmParameters import ArmParameters
+from ArmModel.MusclesParameters import MusclesParameters
+from ArmModel.ArmDynamics import ArmDynamics, mdd, integration
+from ArmModel.GeometricModel import mgi, mgd, jointStop
+from Script.Launcher import theta
 
 
 
@@ -20,13 +21,12 @@ class SuperToolsInit:
     
     def __init__(self):
         '''
-        Initialisation des parametres de classe
+        class parameters initialization
         '''
         self.super = "SuperInit"
-        self.robot = ParametresRobot()
-        self.hogan = ParametresHogan()
-        self.arm = ParametresArmModel(self.hogan.GammaMax)
-        self.save = SavingData()
+        self.armP = ArmParameters()
+        self.musclesP = MusclesParameters()
+        self.armD = ArmDynamics()
         self.fr = FileReading()
         self.rs = ReadSetupFile()
         self.rs.readingSetupFile()
@@ -43,11 +43,13 @@ class SuperToolsInit:
     
     def costFunction(self, Ju, U, t):
         '''
-        Cette fonction permet de calculer le cout d'une trajectoire en terme d'activation musculaire
+        This function compute the cost of the trajectory
             
-        Entrees:    -Ju: scalar, cout de la trajectoire a l'instant t
-                    -U: 1D numpy array, Activations musculaires
-                    -t: scalar
+        Inputs:     -Ju: scalar, trajectory cost at the time t
+                    -U: (6,1) numpy array, muscular activation vector
+                    -t: scalar, the time
+        
+        Outputs:    -Ju: scalar, cost
         '''
         mvtCost = (np.linalg.norm(U))**2
         Ju += np.exp(-t/self.rs.gammaCF)*(self.rs.upsCF*mvtCost)
@@ -56,12 +58,12 @@ class SuperToolsInit:
         
     def getCommand(self, inputgc, theta):
         '''
-        Fonction permettant de recuperer la sortie des activations musculaires
+        Function which return the muscular activation vector U from the position vector Q
             
-        Entrees:    -inputgc: tableau des entrees dont on cherche la sortie approximee
-                    -theta: 2D numpy array, tableau donnant les poids des gaussiennes servant a approximer la fonction utilisee
+        Inputs:     -inputgc: (4,1) numpy array
+                    -theta: 2D numpy array
         
-        Sortie:    -Unoise: 1D numpy array, vecteur des activations musculaires bruitees
+        Outputs:    -Unoise: (6,1) numpy array, noisy muscular activation vector
         '''
         U = self.fa.functionApproximatorOutput(inputgc, theta)
         #Pas d'activations musculaires négatives possibles
@@ -79,6 +81,36 @@ class SuperToolsInit:
                 UnoiseTmp[i] = 1
         Unoise = UnoiseTmp
         return Unoise
+        
+    def trajGenerator(self, xI, yI, theta):
+        '''
+        This function generate the trajectory depend of the starting point given
+        
+        Inputs:     -xI: scalar, absciss of the trajectory starting point
+                    -yI: scalar, ordinate of the trajectory starting point
+                    -Theta: Numpy array
+        '''
+        q1, q2 = mgi(xI, yI, self.armP.l1, self.armP.l2)
+        q = np.array([[q1], [q2]])
+        dotq = self.armD.dotq0
+        coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
+        t, i, Ju = 0, 0, 0#Ju = cost
+        
+        while coordHA[1] < self.rs.targetOrdinate:
+            if i < 400:
+                inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
+                U = self.getCommand(inputQ, theta)
+                ddotq = mdd(q, dotq, U, self.armP, self.musclesP)
+                dotq, q = integration(ddotq, self.rs.dt)
+                q = jointStop(q)
+                coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
+                Ju = self.costFunction(Ju, U, t)
+            else:
+                break
+            i += 1
+            t += self.rs.dt
+        if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= self.rs.targetOrdinate):
+            Ju += self.rs.rhoCF
         
         
         

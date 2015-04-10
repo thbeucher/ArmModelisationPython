@@ -3,7 +3,8 @@ Author: Thomas Beucher
 
 Module: InverseGeometricModel
 
-Description: we find here the inverse and direct geometric model for a two joints arm
+Description: we find here the inverse and direct geometric model for a two joints arm and also the joint stop function 
+                for the human arm
 '''
 
 import math

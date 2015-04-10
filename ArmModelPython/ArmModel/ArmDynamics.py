@@ -1,7 +1,7 @@
 '''
 Author: Thomas Beucher
 
-Module: MusclesParameters
+Module: ArmDynamics
 
 Description:    -We find here all dynamics of the arm
                 -we use a model of arm with two joints and six muscles
