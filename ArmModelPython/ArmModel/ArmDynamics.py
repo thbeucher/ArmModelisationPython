@@ -29,13 +29,13 @@ def mdd(q, dotq, U, armP, musclesP):
     Output:    -ddotq: (2,1) numpy array
     '''
     #Inertia matrix
-    M = np.array([[armP.k1+2*armP.k2*math.cos(q[1]),armP.k3+armP.k2*math.cos(q[1])],[armP.k3+armP.k2*math.cos(q[1]),armP.k3]])
+    M = np.array([[armP.k1+2*armP.k2*math.cos(q[1,0]),armP.k3+armP.k2*math.cos(q[1,0])],[armP.k3+armP.k2*math.cos(q[1,0]),armP.k3]])
     #coriolis force vector
-    C = np.array([[-(2*dotq[0,0]+dotq[1,0])*armP.k2*math.sin(q[1])],[(dotq[0,0]**2)*armP.k2*math.sin(q[1])]]).T
+    C = np.array([[-(2*dotq[0,0]+dotq[1,0])*armP.k2*math.sin(q[1,0])],[(dotq[0,0]**2)*armP.k2*math.sin(q[1,0])]]).T
     #inversion of M
     Minv = np.linalg.pinv(M)
     #torque term
-    Q = np.diag([q[0], q[0], q[1], q[1], q[0], q[0]])
+    Q = np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])
     Gamma = (np.dot(armP.At, musclesP.fmax)-np.dot(musclesP.Kraid, Q))*U
     #computation of ddotq
     ddotq = Minv*(Gamma - C - np.dot(armP.B, dotq))
