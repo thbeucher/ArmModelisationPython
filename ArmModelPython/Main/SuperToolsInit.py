@@ -13,7 +13,9 @@ from ArmModel.ArmParameters import ArmParameters
 from ArmModel.MusclesParameters import MusclesParameters
 from ArmModel.ArmDynamics import ArmDynamics, mdd, integration
 from ArmModel.GeometricModel import mgi, mgd, jointStop
-
+from ArmModel.SavingData import SavingData
+import matplotlib.pyplot as plt
+from matplotlib import animation
 
 
 class SuperToolsInit:
@@ -51,7 +53,7 @@ class SuperToolsInit:
         Outputs:    -Ju: scalar, cost
         '''
         mvtCost = (np.linalg.norm(U))**2
-        Ju += np.exp(-t/self.rs.gammaCF)*(self.rs.upsCF*mvtCost)
+        Ju += np.exp(-t/self.rs.gammaCF)*(-self.rs.upsCF*mvtCost)
         return Ju
         
         
@@ -114,7 +116,50 @@ class SuperToolsInit:
         if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= self.rs.targetOrdinate):
             Ju += self.rs.rhoCF
         return Ju
+    
+    def trajGenWithU(self, U, save):
+        q = np.array([[np.pi/4], [np.pi/4]])
+        dotq = self.armD.dotq0
+        coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
+        save.SaveTrajectory(coordEL, coordHA)
+        t = 0
+        for i in range(200):
+            ddotq = mdd(q, dotq, U, self.armP, self.musclesP)
+            dotq, q = integration(dotq, q, ddotq, self.rs.dt)
+            coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
+            save.SaveTrajectory(coordEL, coordHA)
+            #q = jointStop(q)
+            t += self.rs.dt
+
+'''save = SavingData()
+
+sti = SuperToolsInit()
+U = sti.musclesP.activationVectorUse(0.5, 0, 0, 0, 0, 0)
+sti.trajGenWithU(U, save)
         
-        
-        
+save.createCoord()
+
+fig = plt.figure()
+upperArm, = plt.plot([],[]) 
+foreArm, = plt.plot([],[])
+plt.xlim(-0.7, 0.7)
+plt.ylim(-0.7,0.7)
+
+def init():
+    upperArm.set_data([0],[0])
+    foreArm.set_data([save.xEl[0]],[save.yEl[0]])
+    return upperArm,foreArm,
+
+def animate(i): 
+    xe = (0, save.xEl[i])
+    ye = (0, save.yEl[i])
+    xh = (save.xEl[i], save.xHa[i])
+    yh = (save.yEl[i], save.yHa[i])
+    upperArm.set_data(xe, ye)
+    foreArm.set_data(xh, yh)
+    return upperArm,foreArm
+ 
+ani = animation.FuncAnimation(fig, animate, init_func=init, frames=200, blit=True, interval=20, repeat=True)
+
+plt.show(block=True)'''
         

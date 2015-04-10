@@ -80,8 +80,9 @@ class MusclesParameters:
         u6 = 0
         self.U0 = np.array([[u1],[u2],[u3],[u4],[u5],[u6]])
         
-        
-        
+    def activationVectorUse(self, u1, u2, u3, u4, u5, u6):
+        U = np.array([[u1],[u2],[u3],[u4],[u5],[u6]])
+        return U
 
         
         

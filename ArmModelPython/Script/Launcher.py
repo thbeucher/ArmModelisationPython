@@ -12,7 +12,7 @@ from Optimisation.costFunction import costFunction
 from Utils.plotFunctions import costColorPlot, plotActivationMuscular,\
     plot_pos_ini
 from Optimisation.Cmaes import runCmaes
-from Script.RunTrajectories import runGenTraj, runGenTrajCma
+from Script.RunTrajectories import runGenTraj, runGenTrajCma, runGenTrajTest
 from Script.CostEvaluationForBrentBVPSolverTrajectories import costEvalBrent
 from Utils.TrajectoriesAnimation import trajectoriesAnimation
 
@@ -38,7 +38,8 @@ elif choix =="rbfn_test2D":
     test2DRBFN(nbfeat)
     
 elif choix == "genTraj":
-    runGenTraj()
+    #runGenTraj()
+    runGenTrajTest()
     
 elif choix == "costColor":
     nbfeat = input("Nombre de features choisies: ")

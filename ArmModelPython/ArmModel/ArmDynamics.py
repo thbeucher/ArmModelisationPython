@@ -37,7 +37,7 @@ def mdd(q, dotq, U, armP, musclesP):
     Q = np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])
     Gamma = (np.dot(armP.At, musclesP.fmax)-np.dot(musclesP.Kraid, Q))*U
     #computation of ddotq
-    ddotq = Minv*(Gamma - C - np.dot(armP.B, dotq))
+    ddotq = Minv*(Gamma - C*dotq - np.dot(armP.B, dotq))
     return ddotq
 
 def integration(dotq, q, ddotq, dt):

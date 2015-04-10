@@ -6,10 +6,19 @@ Module: RunTrajectories
 Description: Ce fichier contient les fonctions permettant de lancer la generation des trajectoires
 '''
 from Utils.FileReading import FileReading
-from Optimisation.costFunction import costFunction
+from Optimisation.costFunction import costFunction, costFunctionRBFN2Test
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
     
+    
+def runGenTrajTest():
+    fr = FileReading()
+    nbfeat = input("Nombre de features choisies: ")
+    nbfeat = int(nbfeat)
+    nameT = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
+    theta = fr.getobjread(nameT)
+    testju = costFunctionRBFN2Test(theta)#TEST
+    print(testju)#TEST    
 
 def runGenTraj():
     ##code permettant de lancer la fonction de generation de trajectoire
@@ -41,8 +50,6 @@ def runGenTraj():
             cf = costFunction(nbfeat, 0, 0, sauv)
     theta = fra.getobjread(name)
     res = cf.costFunctionRBFN2(theta)
-    testju = cf.costFunctionRBFN2Test(theta)#TEST
-    print(testju)#TEST
     print(res)
     fileSavingStr(names, res)
     fileSavingBin(names2, res)

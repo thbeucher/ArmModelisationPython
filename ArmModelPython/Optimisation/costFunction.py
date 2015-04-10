@@ -320,13 +320,13 @@ class costFunction:
         pass
     
     
-    def costFunctionRBFN2Test(self, theta):
-        sti = SuperToolsInit()
-        JuCf = []
-        for el in sti.posIni:
-            Ju = sti.trajGenerator(el[0], el[1], theta)
-            JuCf.append(Ju)
-        return JuCf
+def costFunctionRBFN2Test(theta):
+    sti = SuperToolsInit()
+    JuCf = []
+    for el in sti.posIni:
+        Ju = sti.trajGenerator(el[0], el[1], theta)
+        JuCf.append(Ju)
+    return JuCf
         
 
 

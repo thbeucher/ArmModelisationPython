@@ -11,7 +11,6 @@ from Utils.ReadSetupFile import ReadSetupFile
 
 def fileSaving(nameFile, data, nbfeat):
     rs = ReadSetupFile()
-    rs.readingSetupFile()
     folder = rs.pathFolderData + "RegressionResults/"
     folderNbFeat = folder + str(nbfeat) + "_feats"
     if not op.path.exists(folderNbFeat): 
@@ -31,7 +30,6 @@ def fileSavingStr(nameFile, data):
                 
     '''
     rs = ReadSetupFile()
-    rs.readingSetupFile()
     nameToSave = rs.pathFolderData + nameFile
     with open(nameToSave, "w") as file:
         file.write(str(data))
@@ -45,7 +43,6 @@ def fileSavingBin(nameFile, data):
                 
     '''
     rs = ReadSetupFile()
-    rs.readingSetupFile()
     nameToSave = rs.pathFolderData + nameFile
     with open(nameToSave, "wb") as file:
         monPickler = pickle.Pickler(file)
