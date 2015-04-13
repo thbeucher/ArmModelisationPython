@@ -115,10 +115,7 @@ class FileReading():
         return Q#angleIni
  
 
-fr = FileReading()
-Q = fr.recup_pos_ini("/home/beucher/workspace/Data/trajectoires/")
-with open("fsdfsfdf", "w") as file:
-    file.write(str(Q))
+
 
 
         

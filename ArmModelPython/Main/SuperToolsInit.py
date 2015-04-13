@@ -134,6 +134,8 @@ class SuperToolsInit:
             q = jointStop(q)
             t += self.rs.dt
 
+
+#Le ccode qui suit permet de faire des test unitaires sur chaque muscles du bras
 '''save = SavingData()
 
 sti = SuperToolsInit()
