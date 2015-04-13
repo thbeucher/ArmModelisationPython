@@ -14,10 +14,10 @@ import numpy as np
 from Utils.ThetaNormalization import normalization
 from Utils.ReadSetupFile import ReadSetupFile
 
-def runCmaes(nbfeat):
+def runCmaes():
     cf = costFunction(nbfeat)
     rs = ReadSetupFile()
-    rs.readingSetupFile()
+    nbfeat = rs.numfeats
     print("Debut du traitement d'optimisation!")
     t0 = time.time()
     fr = FileReading()

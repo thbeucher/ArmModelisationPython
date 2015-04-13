@@ -105,7 +105,7 @@ class SuperToolsInit:
         t, i, Ju = 0, 0, 0#Ju = cost
         self.Usave[str(str(xI) + str(yI))] = []
         
-        while coordHA[1] < self.rs.targetOrdinate:
+        while coordHA[1] < (self.rs.targetOrdinate - 0.0005):
             if i < 400:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
@@ -141,36 +141,4 @@ class SuperToolsInit:
             t += self.rs.dt
 
 
-#Le ccode qui suit permet de faire des test unitaires sur chaque muscles du bras
-'''save = SavingData()
 
-sti = SuperToolsInit()
-U = sti.musclesP.activationVectorUse(0., 0., 0., 0., 0., 0.)
-sti.trajGenWithU(U, save)
-        
-save.createCoord()
-
-fig = plt.figure()
-upperArm, = plt.plot([],[]) 
-foreArm, = plt.plot([],[])
-plt.xlim(-0.7, 0.7)
-plt.ylim(-0.7,0.7)
-
-def init():
-    upperArm.set_data([0],[0])
-    foreArm.set_data([save.xEl[0]],[save.yEl[0]])
-    return upperArm,foreArm,
-
-def animate(i): 
-    xe = (0, save.xEl[i])
-    ye = (0, save.yEl[i])
-    xh = (save.xEl[i], save.xHa[i])
-    yh = (save.yEl[i], save.yHa[i])
-    upperArm.set_data(xe, ye)
-    foreArm.set_data(xh, yh)
-    return upperArm,foreArm
- 
-ani = animation.FuncAnimation(fig, animate, init_func=init, frames=200, blit=True, interval=20, repeat=True)
-
-plt.show(block=True)'''
-        

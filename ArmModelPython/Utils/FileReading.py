@@ -8,8 +8,11 @@ import numpy as np
 import os.path as op
 import os
 from Utils.ReadSetupFile import ReadSetupFile
-from ArmModel.GeometricModel import mgd
+from ArmModel.GeometricModel import mgd, mgi
 from ArmModel.ArmParameters import ArmParameters
+from Utils.NiemRoot import tronquerNB
+from shutil import copyfile
+import matplotlib.pyplot as plt
 
 class FileReading():
     
@@ -40,53 +43,7 @@ class FileReading():
                 data = mondepickler.load()
         return data
     
-    #target(4) estimated_state(4) actual_state(4) noised_command(6) command(6) estimated_next_state(4) 
-    #actual_next_state(4) next_acceleration(2)
-    def recup_data(self, choix = 1):
-        '''
-        Fonction permettant de recuperer les donnees des fichiers de trajectoires pour les ranger dans des matrices
-        
-        Sorties: une matrice contenant tous les etats des trajectoires et une matrice contenant toutes les activations musculaires
-        '''
-        rs = ReadSetupFile()
-        patht = rs.pathFolderTrajectories
-        if choix == 1:
-            print("Nombre de fichier disponible: ", len(os.listdir(patht)))
-            nameFichier = input("Veuillez entrer le nom courant des fichiers a traiter: ")
-            nbFichier = input("Veuillez entrer le nombre de fichier a traiter: ")
-            nbFichier = int(nbFichier)
-        else:
-            #nom du fichier courant
-            nameFichier = "trajectoire"
-            #nombre de fichier a traiter
-            nbFichier = len(os.listdir(patht))
-        j = 0
-        l = 0
-        nbf = 0
-        while j < nbFichier:
-            if op.isfile(patht + nameFichier + str(j+1+nbf) + ".log") == False:
-                nbf += 1
-            mat = np.loadtxt(patht + nameFichier + str(j+1+nbf) + ".log")
-            i = 0
-            k = 0
-            state = []
-            command = []
-            while i < mat.size/34:
-                state.append((mat[i][k+8], mat[i][k+9], mat[i][k+10], mat[i][k+11]))
-                command.append((mat[i][k+18], mat[i][k+19], mat[i][k+20], mat[i][k+21], mat[i][k+22], mat[i][k+23]))
-                i += 1
-            self.data_store[str(nameFichier + str(j+1+nbf) + "_state")] = state
-            self.data_store[str(nameFichier + str(j+1+nbf) + "_command")] = command
-            self.name_store.append(str(nameFichier + str(j+1+nbf)))
-            if l == 0:
-                stateAll = np.array(state)
-                commandAll = np.array(command)
-                l += 1
-            else:
-                stateAll = np.vstack((stateAll, state))
-                commandAll = np.vstack((commandAll, command))
-            j += 1
-        return stateAll, commandAll
+    
     
     def recup_pos_ini(self, location):
         '''
@@ -103,12 +60,12 @@ class FileReading():
             if "trajectoire" in el:
                 #Chargement du fichier
                 mati = np.loadtxt(location + el)
-                Q.append((mati[0,10], mati[0,11]))
+                Q.append((el, mati[0,10], mati[0,11]))
                 #recuperation de q1 et q2 initiales et conversion en coordonnees
                 coordElbow, coordHand = mgd(np.mat([[mati[0,10]], [mati[0,11]]]), armP.l1, armP.l2)
                 angleIni[el] = (coordHand[0], coordHand[1])
         print("Fin de recuperation des positions initiales!")
-        return angleIni#Q
+        return angleIni, Q
  
  
     def getData(self):
@@ -146,12 +103,24 @@ class FileReading():
             i += 1
         return dataA
             
+
+'''rs = ReadSetupFile()     
+fr = FileReading()
+s, c = fr.getData()
+junk, k = fr.recup_pos_ini(rs.pathFolderTrajectories)
+a1, a2 = [], []
+for key, el in junk.items():
+    if el[0] >= -0.4 and el[0] <= 0.4 and el[1] >= 0.1 and el[1] <= 0.5:
+        print(key)
+        a1.append(el[0])
+        a2.append(el[1])
+        copyfile(rs.pathFolderTrajectories + key, rs.pathFolderData + "ThetaAllTraj/" + key)
+        
+           
+plt.figure()
+plt.scatter(a1, a2)
+plt.show()'''
             
-            
-
-
-
-
 
         
 

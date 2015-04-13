@@ -13,12 +13,12 @@ from Utils.FileReading import FileReading
 from Utils.ReadSetupFile import ReadSetupFile
 
 
-def trajectoriesAnimation(nbfeat):
+def trajectoriesAnimation():
     choix = input("Veuillez choisir la trajectoire a visualiser(All or AllNoise or AllNoiseCma): ")
     fr = FileReading()
     save = SavingData()
     rs = ReadSetupFile()
-    rs.readingSetupFile()
+    nbfeat = rs.numfeats
     #Recuperation des positions initiales
     posIni = fr.getobjread("PosIniExperiment1")
     xIni, yIni = [], []

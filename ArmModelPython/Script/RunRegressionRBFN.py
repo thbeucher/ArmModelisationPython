@@ -13,14 +13,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
+from Utils.ReadSetupFile import ReadSetupFile
 
 ####################################################################################################
 ## runRBFN permet de lancer l'algorithme de regression sur les données de trajectoires du brent ####
 ####################################################################################################
-def runRBFN(nbfeat):
+def runRBFN():
     print("Début de traitement!")
     t0 = time.time()
     fr = FileReading()
+    rs = ReadSetupFile()
+    nbfeat = rs.numfeats
     #getting all data
     state, command = fr.getData()
     #change the data (dictionary) into numpy array

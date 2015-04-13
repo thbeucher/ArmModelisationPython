@@ -21,15 +21,11 @@ choix = input("Veuillez entrer le choix du script à lancer: ")
 
 if choix == "animation":
     ##Ce script permet de lancer l'animation de trajectoire de votre choix##
-    nbfeat = input("Veuillez choisir le nombre de features: ")
-    nbfeat = int(nbfeat)
-    trajectoriesAnimation(nbfeat)
+    trajectoriesAnimation()
     
 elif choix == "rbfn":
     #Ce script permet de lancer la regression sur l'ensemble des donnees de trajectoires Brent en memoire
-    nbfeat = input("Veuillez choisir le nombre de features: ")
-    nbfeat = int(nbfeat)
-    runRBFN(nbfeat)
+    runRBFN()
 
 elif choix =="rbfn_test2D":
     #Ce script lance le test de l'algorithme rbfn en dimension 2 pour visualiser les resultats
@@ -42,22 +38,16 @@ elif choix == "genTraj":
     runGenTrajTest()
     
 elif choix == "costColor":
-    nbfeat = input("Nombre de features choisies: ")
-    nbfeat = int(nbfeat)
     wha = input("Choisir les resultats a afficher(brent ou rbfn ou cma): ")
-    costColorPlot(nbfeat, wha)
+    costColorPlot(wha)
     
 elif choix == "actiMuscu":
-    nbfeat = input("Nombre de features choisies: ")
-    nbfeat = int(nbfeat)
     wha = input("Choisir les activations musculaires a afficher (brent ou rbfn ou cma): ")
-    plotActivationMuscular(wha, nbfeat)
+    plotActivationMuscular(wha)
     
 elif choix == "cmaes":
     #Lance l'algorithme cmaes
-    nbfeat = input("Nombre de features choisies: ")
-    nbfeat = int(nbfeat)
-    runCmaes(nbfeat)
+    runCmaes()
     
 elif choix == "posIni":
     plot_pos_ini()

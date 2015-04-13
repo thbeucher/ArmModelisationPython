@@ -1,0 +1,45 @@
+#target(4) estimated_state(4) actual_state(4) noised_command(6) command(6) estimated_next_state(4) 
+#actual_next_state(4) next_acceleration(2)
+'''def recup_data(self, choix = 1):
+        #Fonction permettant de recuperer les donnees des fichiers de trajectoires pour les ranger dans des matrices
+        
+        #Sorties: une matrice contenant tous les etats des trajectoires et une matrice contenant toutes les activations musculaires
+        rs = ReadSetupFile()
+        patht = rs.pathFolderTrajectories
+        if choix == 1:
+            print("Nombre de fichier disponible: ", len(os.listdir(patht)))
+            nameFichier = input("Veuillez entrer le nom courant des fichiers a traiter: ")
+            nbFichier = input("Veuillez entrer le nombre de fichier a traiter: ")
+            nbFichier = int(nbFichier)
+        else:
+            #nom du fichier courant
+            nameFichier = "trajectoire"
+            #nombre de fichier a traiter
+            nbFichier = len(os.listdir(patht))
+        j = 0
+        l = 0
+        nbf = 0
+        while j < nbFichier:
+            if op.isfile(patht + nameFichier + str(j+1+nbf) + ".log") == False:
+                nbf += 1
+            mat = np.loadtxt(patht + nameFichier + str(j+1+nbf) + ".log")
+            i = 0
+            k = 0
+            state = []
+            command = []
+            while i < mat.size/34:
+                state.append((mat[i][k+8], mat[i][k+9], mat[i][k+10], mat[i][k+11]))
+                command.append((mat[i][k+18], mat[i][k+19], mat[i][k+20], mat[i][k+21], mat[i][k+22], mat[i][k+23]))
+                i += 1
+            self.data_store[str(nameFichier + str(j+1+nbf) + "_state")] = state
+            self.data_store[str(nameFichier + str(j+1+nbf) + "_command")] = command
+            self.name_store.append(str(nameFichier + str(j+1+nbf)))
+            if l == 0:
+                stateAll = np.array(state)
+                commandAll = np.array(command)
+                l += 1
+            else:
+                stateAll = np.vstack((stateAll, state))
+                commandAll = np.vstack((commandAll, command))
+            j += 1
+        return stateAll, commandAll'''

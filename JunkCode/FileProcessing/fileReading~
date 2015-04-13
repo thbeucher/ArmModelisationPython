@@ -323,5 +323,30 @@ with open("q1q2_12traj", "w+") as file:
 
 
 
+#Permet de visionner l'espace décrit par le bras humain
+#et de generer les q1, q2 pour nourrir brent
+'''save = SavingData()
+robot = ParametresRobot()
+q1 = np.arange(-0.6,2.6,0.3)
+q2 = np.arange(-0.2,3.0,0.3)
+Q1,Q2 = np.meshgrid(q1,q2)
+print(Q1.shape)
+cor = []
+for i in range(Q1.shape[0]):
+    for j in range(Q1.shape[1]):
+        corE, corH = save.calculCoord(np.mat([[Q1[i,j]],[Q2[i,j]]]), robot)
+        cor.append(corH)
+corx, cory = [], []
+for el in cor:
+    corx.append(el[0])
+    cory.append(el[1])
+plt.figure()
+plt.scatter(corx,cory)
+plt.show()
+with open("q1q2ALL", "w+") as file:
+    for i in range(Q1.shape[0]):
+        for j in range(Q1.shape[1]):
+            file.write(str("{"+str(Q1[i,j])+","+str(Q2[i,j])+"},"))'''
+
 
 

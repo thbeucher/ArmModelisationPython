@@ -19,7 +19,7 @@ from shutil import copyfile
 from posix import remove
 
 
-def costColorPlot(nbfeat, wha):
+def costColorPlot(wha):
     '''
     Cette fonction permet d'afficher le profil de cout des trajectoires
     
@@ -32,6 +32,8 @@ def costColorPlot(nbfeat, wha):
     y0 = [0.39,0.39,0.39,0.39,0.39,0.26,0.26,0.26,0.26,0.26,0.26,0.26]
     
     fr = FileReading()
+    rs = ReadSetupFile()
+    nbfeat = rs.numfeats
     if wha == "rbfn":
         noiseOrNot = input("Avec bruit?(Y or N): ")
         if noiseOrNot == "N":
@@ -75,7 +77,7 @@ def costColorPlot(nbfeat, wha):
     plt.show(block = True)
 
 
-def plotActivationMuscular(what, nbfeat):
+def plotActivationMuscular(what):
     '''
     Cette fonction permet d'afficher les activations musculaires des trajectoires
     
@@ -84,6 +86,8 @@ def plotActivationMuscular(what, nbfeat):
                 
     '''
     fr = FileReading()
+    rs = ReadSetupFile()
+    nbfeat = rs.numfeats
     if what == "brent":
         #BrentBVPSolver activations muscular
         fr.recup_data(1)
@@ -136,7 +140,7 @@ def plotActivationMuscular(what, nbfeat):
             plt.show(block = True)
         
     elif what == "cma":
-        ch = input("Voulez vous afficher les activations musculaires avec bruit?(Y or N): ")
+        '''ch = input("Voulez vous afficher les activations musculaires avec bruit?(Y or N): ")
         trajIteU = {}
         trajVal = {}
         for i in range(6*12):
@@ -160,7 +164,7 @@ def plotActivationMuscular(what, nbfeat):
             for j in range(6):
                 plt.plot(trajIteU[i], trajVal[j+u])
             u += 6
-            plt.show(block = True)
+            plt.show(block = True)'''
     
 
 def plot_pos_ini():
@@ -176,7 +180,7 @@ def plot_pos_ini():
     rs = ReadSetupFile()
     rs.readingSetupFile()
     patht = rs.pathFolderTrajectories
-    xy = fr.recup_pos_ini(patht)
+    xy, junk = fr.recup_pos_ini(patht)
     x, y = [], []
     for el in xy.values():
         x.append(el[0])

@@ -350,3 +350,22 @@ with open("q1q2ALL", "w+") as file:
 
 
 
+
+
+
+
+rs = ReadSetupFile()     
+fr = FileReading()
+s, c = fr.getData()
+junk, k = fr.recup_pos_ini(rs.pathFolderTrajectories)
+a = []
+d = fr.getobjread("PosIniExperiment1")
+for el in d:
+    a.append(mgi(el[0], el[1], 0.3, 0.35))
+for el in k:
+    for i in range(len(a)):
+        if tronquerNB(el[1], 4) == tronquerNB(a[i][0], 4) and tronquerNB(el[2],4) == tronquerNB(a[i][1],4):
+            #copyfile(rs.pathFolderTrajectories + el[0], rs.pathFolderData + "ThetaAllTraj/" + el[0])
+
+
+
