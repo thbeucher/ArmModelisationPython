@@ -15,7 +15,7 @@ def runGenTrajTest():
     fr = FileReading()
     nbfeat = input("Nombre de features choisies: ")
     nbfeat = int(nbfeat)
-    print("(0: Rien / 1: CoordTraj / 2: U / 3: nbIte")
+    print("(0: Rien / 1: CoordTraj / 2: U / 3: nbIte)")
     sauv = input("voulez vous sauvegarder les trajectoires: ")
     sauv = int(sauv)
     nameT = "RBFN2/" + str(nbfeat) + "feats/"
@@ -24,8 +24,10 @@ def runGenTrajTest():
     if sauv == 1:
         fileSavingBin(nameT + "/CoordTraj/CoordTrajectoireELAll", sti.save.coordElSave)
         fileSavingBin(nameT + "/CoordTraj/CoordTrajectoireHAAll", sti.save.coordHaSave)
-    #elif sauv == 2:
-        #fileSavingBin(nameT + "", data)
+    elif sauv == 2:
+        fileSavingBin(nameT + "Uall", sti.Usave)
+    elif sauv == 3:
+        fileSavingStr(nameT + "nbIte", sti.IteSave)
     print(testju)  
 
 def runGenTraj():

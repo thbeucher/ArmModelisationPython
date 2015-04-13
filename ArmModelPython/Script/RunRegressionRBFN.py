@@ -3,7 +3,7 @@ Author: Thomas Beucher
 
 Module: RunRegressionRBFN
 
-Description: Dans ce fichier on retrouve la fonction permettant de lancer l'algorithme rbfn
+Description: We find here the function to run rbfn algorithm to create the controller
 '''
 from Utils.FileReading import FileReading
 from Utils.FileSaving import fileSavingBin, fileSavingStr
@@ -21,16 +21,16 @@ def runRBFN(nbfeat):
     print("Début de traitement!")
     t0 = time.time()
     fr = FileReading()
-    stateAll, commandAll = fr.recup_data(0)
-    print("nombre d'echantillons: ", len(stateAll))
+    #getting all data
+    state, command = fr.getData()
+    #change the data (dictionary) into numpy array
+    stateAll, commandAll = fr.dicToArray(state), fr.dicToArray(command)
+    print("nombre d'echantillons: ", stateAll.shape[0])
     
     fa = fa_rbfn(nbfeat)
     fa.setTrainingData(stateAll.T, commandAll.T)
     fa.setCentersAndWidths()
     fa.train_rbfn()
-    #nameSaveStr = "RBFN2/" + str(nbfeat) + "feats/Theta"##Noms pour les 12 traj
-    #nameSaveBin = "RBFN2/" + str(nbfeat) + "feats/ThetaBIN"##Noms pour les 12 traj
-    #Folder RBFN2 and nfeats have to exist
     nameSaveStr = "RBFN2/" + str(nbfeat) + "feats/ThetaX"##Nom pour les x traj
     nameSaveBin = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"##Nom pour les x traj
     fileSavingStr(nameSaveStr, fa.theta)

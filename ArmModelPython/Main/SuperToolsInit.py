@@ -33,13 +33,14 @@ class SuperToolsInit:
         self.rs = ReadSetupFile()
         #Initialisation des outils permettant d'utiliser le controleur rbfn
         self.fa = fa_rbfn(self.rs.numfeats)
-        stateAll, commandAll = self.fr.recup_data(0)
+        state, command = self.fr.getData()
+        stateAll, commandAll = self.fr.dicToArray(state), self.fr.dicToArray(command)
         self.fa.setTrainingData(stateAll.T, commandAll.T)
         self.fa.setCentersAndWidths()
         #Recuperation des positions initiales de l'experimentation
         self.posIni = self.fr.getobjread("PosIniExperiment1")
         #Object used to save data
-        self.Usave = []
+        self.Usave = {}
         self.IteSave = []
     
     def initParamTraj(self):
@@ -102,12 +103,13 @@ class SuperToolsInit:
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
         self.save.SaveTrajectory(coordEL, coordHA)
         t, i, Ju = 0, 0, 0#Ju = cost
+        self.Usave[str(str(xI) + str(yI))] = []
         
         while coordHA[1] < self.rs.targetOrdinate:
             if i < 400:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
-                self.Usave.append(U)
+                self.Usave[str(str(xI) + str(yI))].append(U)
                 ddotq = mdd(q, dotq, U, self.armP, self.musclesP)
                 dotq, q = integration(dotq, q, ddotq, self.rs.dt)
                 q = jointStop(q)

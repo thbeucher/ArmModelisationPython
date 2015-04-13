@@ -62,6 +62,19 @@ class costFunction:
         self.Ju += np.exp(-t/self.gamma)*(self.rho*imReward - self.ups*mvtCost)
         
     
+    
+def costFunctionRBFN2Test(theta):
+    sti = SuperToolsInit()
+    JuCf = []
+    for el in sti.posIni:
+        Ju = sti.trajGenerator(el[0], el[1], theta)
+        JuCf.append(Ju)
+    return JuCf, sti
+
+
+
+
+
     def costFunctionRBFN2(self, theta, cma = 0):
         '''t0 = time.time()
         #Déclaration des différentes classes utiles 
@@ -318,15 +331,6 @@ class costFunction:
         #return JuCfSumScalar
         return JuCfMean'''
         pass
-    
-    
-def costFunctionRBFN2Test(theta):
-    sti = SuperToolsInit()
-    JuCf = []
-    for el in sti.posIni:
-        Ju = sti.trajGenerator(el[0], el[1], theta)
-        JuCf.append(Ju)
-    return JuCf, sti
         
 
 

@@ -122,31 +122,19 @@ def plotActivationMuscular(what, nbfeat):
             u += 6
             plt.show(block = True)
     elif what == "rbfn":
-        ch = input("Voulez vous afficher les activations musculaires avec bruit?(Y or N): ")
-        trajIteU = {}
-        trajVal = {}
-        for i in range(6*12):
-            trajVal[i] = []
-        u = 0
-        for i in range(12):
-            trajIteU[i] = []
-            if ch == "N":
-                nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuTrajectoireX" + str(i+1)
-            elif ch == "Y":
-                nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireX" + str(i+1)
-            ut1 = fr.getobjread(nameU)
-            for j in range(len(ut1)):
-                trajIteU[i].append(j)
-                for t in range(6):
-                    trajVal[t+u].append(ut1[j][t])
-            u += 6
-        u = 0
-        for i in range(12):
-            rbfn = plt.Figure()
-            for j in range(6):
-                plt.plot(trajIteU[i], trajVal[j+u])
-            u += 6
+        nameR = "RBFN2/" + str(nbfeat) + "feats/Uall"
+        coutTraj = fr.getobjread(nameR)
+        dicoVal = {}
+        for key, val in coutTraj.items():
+            valu = np.array(val).T
+            x = []
+            for i in range(valu[0].shape[1]):
+                x.append(i)
+            rbfn = plt.figure()
+            for i in range(valu[0].shape[0]):
+                plt.plot(x, valu[0][i])
             plt.show(block = True)
+        
     elif what == "cma":
         ch = input("Voulez vous afficher les activations musculaires avec bruit?(Y or N): ")
         trajIteU = {}

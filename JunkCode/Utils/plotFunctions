@@ -52,3 +52,33 @@ for el in xyt:
     print(len(toRemove))
     #for el in toRemove:
         #remove("/home/beucher/workspace/recupTraj/"+el)
+
+
+
+
+
+#ch = input("Voulez vous afficher les activations musculaires avec bruit?(Y or N): ")
+'''trajIteU = {}
+        trajVal = {}
+        for i in range(6*12):
+            trajVal[i] = []
+        u = 0
+        for i in range(12):
+            trajIteU[i] = []
+            if ch == "N":
+                nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuTrajectoireX" + str(i+1)
+            elif ch == "Y":
+                nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireX" + str(i+1)
+            ut1 = fr.getobjread(nameU)
+            for j in range(len(ut1)):
+                trajIteU[i].append(j)
+                for t in range(6):
+                    trajVal[t+u].append(ut1[j][t])
+            u += 6
+        u = 0
+        for i in range(12):
+            rbfn = plt.Figure()
+            for j in range(6):
+                plt.plot(trajIteU[i], trajVal[j+u])
+            u += 6
+            plt.show(block = True)'''

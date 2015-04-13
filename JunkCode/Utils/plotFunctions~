@@ -35,3 +35,20 @@ for el in xyt:
             b = abs(xyt[el][1] - xyt[el1][1])
             if a < 0.02 and a != 0 and b < 0.02 and b != 0:
                 remove("/home/beucher/workspace/recupTraj/"+el)
+
+
+
+    toRemove = []
+    for el in xyt:
+        tt = 0
+        for el1 in xy:
+            a = abs(xyt[el][0] - xy[el1][0])
+            b = abs(xyt[el][1] - xy[el1][1])
+            if a < 0.015 and a != 0 and b < 0.015 and b != 0:
+                print(el, el1)
+                if tt == 0:
+                    toRemove.append(el)
+                    tt += 1
+    print(len(toRemove))
+    #for el in toRemove:
+        #remove("/home/beucher/workspace/recupTraj/"+el)
