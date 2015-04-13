@@ -6,63 +6,32 @@ Module: RunTrajectories
 Description: Ce fichier contient les fonctions permettant de lancer la generation des trajectoires
 '''
 from Utils.FileReading import FileReading
-from Optimisation.costFunction import costFunction, costFunctionRBFN2Test
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
+from Utils.ReadSetupFile import ReadSetupFile
+from Optimisation.costFunction import costFunctionRBFN
     
     
-def runGenTrajTest():
+def runGenTraj():
     fr = FileReading()
-    nbfeat = input("Nombre de features choisies: ")
-    nbfeat = int(nbfeat)
-    print("(0: Rien / 1: CoordTraj / 2: U / 3: nbIte)")
+    rs = ReadSetupFile()
+    print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte, 4: cost)")
     sauv = input("voulez vous sauvegarder les trajectoires: ")
     sauv = int(sauv)
-    nameT = "RBFN2/" + str(nbfeat) + "feats/"
+    nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread(nameT + "ThetaXBIN")
-    testju, sti = costFunctionRBFN2Test(theta)
+    testju, sti = costFunctionRBFN(theta)
     if sauv == 1:
-        fileSavingBin(nameT + "/CoordTraj/CoordTrajectoireELAll", sti.save.coordElSave)
-        fileSavingBin(nameT + "/CoordTraj/CoordTrajectoireHAAll", sti.save.coordHaSave)
+        fileSavingBin(nameT + "CoordTraj/CoordTrajectoireELAll", sti.save.coordElSave)
+        fileSavingBin(nameT + "CoordTraj/CoordTrajectoireHAAll", sti.save.coordHaSave)
     elif sauv == 2:
         fileSavingBin(nameT + "Uall", sti.Usave)
     elif sauv == 3:
         fileSavingStr(nameT + "nbIte", sti.IteSave)
+    elif sauv == 4:
+        fileSavingStr(nameT + "cost", testju)
+        fileSavingBin(nameT + "costBIN", testju)
     print(testju)  
-
-def runGenTraj():
-    ##code permettant de lancer la fonction de generation de trajectoire
-    nbfeat = input("Nombre de features choisies: ")
-    nbfeat = int(nbfeat)
-    noise = input("Avec bruit moteur? (Y or N): ")
-    print("(0: Rien / 1: U / 2: Unoise / 3: CoordTrajU / 4: CoordTrajUnoise / 5: nbIte")
-    sauv = input("Que voulez vous sauvegarder?: ")
-    sauv = int(sauv)
-    fra = FileReading()
-    nbtra = input("Sur combien de trajectoire voulez vous le theta(12 ou X): ")
-    if nbtra == "12":
-        name = "RBFN2/" + str(nbfeat) + "feats/ThetaBIN"
-        names = "RBFN2/" + str(nbfeat) + "feats/cout"
-        namesb = "RBFN2/" + str(nbfeat) + "feats/coutBIN"
-        if noise == "Y":
-            cf = costFunction(nbfeat, 1, 1, sauv)
-        elif noise == "N":
-            cf = costFunction(nbfeat, 1, 0, sauv)
-    elif nbtra == "X":
-        name = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
-        if noise == "Y":
-            names = "RBFN2/" + str(nbfeat) + "feats/coutNoiseX"
-            names2 = "RBFN2/" + str(nbfeat) + "feats/coutNoiseXBIN"
-            cf = costFunction(nbfeat, 0, 1, sauv)    
-        elif noise == "N":
-            names = "RBFN2/" + str(nbfeat) + "feats/coutX"
-            names2 = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
-            cf = costFunction(nbfeat, 0, 0, sauv)
-    theta = fra.getobjread(name)
-    res = cf.costFunctionRBFN2(theta)
-    print(res)
-    fileSavingStr(names, res)
-    fileSavingBin(names2, res)
     
     
 def runGenTrajCma():
@@ -78,11 +47,11 @@ def runGenTrajCma():
     if noise == "Y":
         names = "RBFN2/" + str(nbfeat) + "feats/coutNoiseCmaX"
         names2 = "RBFN2/" + str(nbfeat) + "feats/coutNoiseXCmaBIN"
-        cf = costFunction(nbfeat, 0, 1, sauv)
+        #cf = costFunction(nbfeat, 0, 1, sauv)
     elif noise == "N":
         names = "RBFN2/" + str(nbfeat) + "feats/coutXCma"
         names2 = "RBFN2/" + str(nbfeat) + "feats/coutXCmaBIN"
-        cf = costFunction(nbfeat, 0, 0, sauv)
+        #cf = costFunction(nbfeat, 0, 0, sauv)
     theta = fra.getobjread(name)
     maxT = fra.getobjread("OptimisationResults/maxTBIN")
     theta = theta*maxT
@@ -97,7 +66,7 @@ def runGenTrajCma():
             thetaf = np.vstack((thetaf, np.array([thetaTmp])))
         nb += 6
     theta = thetaf
-    res = cf.costFunctionRBFN2(theta, 1)
-    print(res)
-    fileSavingStr(names, res)
-    fileSavingBin(names2, res)
+    #res = cf.costFunctionRBFN2(theta, 1)
+    #print(res)
+    #fileSavingStr(names, res)
+    #fileSavingBin(names2, res)

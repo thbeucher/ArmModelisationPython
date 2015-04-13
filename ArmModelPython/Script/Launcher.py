@@ -8,11 +8,10 @@ Description: On retrouve dans ce fichier l'executable permetttant de lancer les 
 
 from Script.RunRegressionRBFN import runRBFN, test2DRBFN
 from Utils.FileReading import FileReading
-from Optimisation.costFunction import costFunction
 from Utils.plotFunctions import costColorPlot, plotActivationMuscular,\
     plot_pos_ini
 from Optimisation.Cmaes import runCmaes
-from Script.RunTrajectories import runGenTraj, runGenTrajCma, runGenTrajTest
+from Script.RunTrajectories import runGenTraj, runGenTrajCma
 from Script.CostEvaluationForBrentBVPSolverTrajectories import costEvalBrent
 from Utils.TrajectoriesAnimation import trajectoriesAnimation
 
@@ -34,8 +33,7 @@ elif choix =="rbfn_test2D":
     test2DRBFN(nbfeat)
     
 elif choix == "genTraj":
-    #runGenTraj()
-    runGenTrajTest()
+    runGenTraj()
     
 elif choix == "costColor":
     wha = input("Choisir les resultats a afficher(brent ou rbfn ou cma): ")

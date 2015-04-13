@@ -1,4 +1,3 @@
-from Optimisation.costFunction import costFunction
 from Utils.FileReading import FileReading
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import os

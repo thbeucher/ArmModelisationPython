@@ -35,11 +35,7 @@ def costColorPlot(wha):
     rs = ReadSetupFile()
     nbfeat = rs.numfeats
     if wha == "rbfn":
-        noiseOrNot = input("Avec bruit?(Y or N): ")
-        if noiseOrNot == "N":
-            name = "RBFN2/" + str(nbfeat) + "feats/coutXBIN"
-        elif noiseOrNot == "Y":
-            name = "RBFN2/" + str(nbfeat) + "feats/coutNoiseXBIN"
+        name = "RBFN2/" + str(nbfeat) + "feats/costBIN"
         z = fr.getobjread(name)
         z = np.array(z)
         maxz = np.max(z)
