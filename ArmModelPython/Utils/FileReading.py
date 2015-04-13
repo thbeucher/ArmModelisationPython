@@ -104,15 +104,12 @@ class FileReading():
             if "trajectoire" in el:
                 #Chargement du fichier
                 mati = np.loadtxt(location + el)
-                print(mati[0])
-                i = input("fsdf")
                 Q.append((mati[0,10], mati[0,11]))
-                print(Q)
                 #recuperation de q1 et q2 initiales et conversion en coordonnees
                 coordElbow, coordHand = mgd(np.mat([[mati[0,10]], [mati[0,11]]]), armP.l1, armP.l2)
                 angleIni[el] = (coordHand[0], coordHand[1])
         print("Fin de recuperation des positions initiales!")
-        return Q#angleIni
+        return angleIni#Q
  
 
 
