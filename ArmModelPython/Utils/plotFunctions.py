@@ -86,41 +86,7 @@ def plotActivationMuscular(what):
     nbfeat = rs.numfeats
     if what == "brent":
         #BrentBVPSolver activations muscular
-        fr.recup_data(1)
-        j = 0
-        traj = {}
-        trajIte = {}
-        trajVal = {}
-        #Recuperation des activations musculaires de chaque trajectoire
-        for i in range(len(fr.data_store)):
-            if str("trajectoire" + str(i) + "_command") in fr.data_store.keys():
-                traj[str("trajectoire" + str(i) + "_command")] = fr.data_store[str("trajectoire" + str(i) + "_command")]
-                j += 1
-        j = 0
-        trajValTmp = {}
-        for i in range(6*len(traj)):
-            trajValTmp[i] = []
-        u = 0
-        l = 0
-        for i in range(len(traj)):
-            trajiteTmp = []
-            if not str("trajectoire" + str(i+1+l) + "_command") in traj.keys():  
-                l += 1
-            for k in range(len(traj[str("trajectoire" + str(i+1+l) + "_command")])):
-                trajiteTmp.append(k)
-                for t in range(6):
-                    trajValTmp[t+u].append((traj[str("trajectoire" + str(i+1+l) + "_command")])[k][t])
-            u += 6
-            trajIte[j] = trajiteTmp
-            #trajVal[j] = trajValTmp
-            j += 1
-        u = 0
-        for i in range(len(traj)):
-            brent = plt.Figure()
-            for j in range(6):
-                plt.plot(trajIte[i], trajValTmp[j+u])
-            u += 6
-            plt.show(block = True)
+        pass
     elif what == "rbfn":
         nameR = "RBFN2/" + str(nbfeat) + "feats/Uall"
         coutTraj = fr.getobjread(nameR)

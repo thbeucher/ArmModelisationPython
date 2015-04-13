@@ -103,23 +103,7 @@ class FileReading():
             i += 1
         return dataA
             
-
-'''rs = ReadSetupFile()     
-fr = FileReading()
-s, c = fr.getData()
-junk, k = fr.recup_pos_ini(rs.pathFolderTrajectories)
-a1, a2 = [], []
-for key, el in junk.items():
-    if el[0] >= -0.4 and el[0] <= 0.4 and el[1] >= 0.1 and el[1] <= 0.5:
-        print(key)
-        a1.append(el[0])
-        a2.append(el[1])
-        copyfile(rs.pathFolderTrajectories + key, rs.pathFolderData + "ThetaAllTraj/" + key)
-        
-           
-plt.figure()
-plt.scatter(a1, a2)
-plt.show()'''
+            
             
 
         
