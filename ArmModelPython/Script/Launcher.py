@@ -60,9 +60,9 @@ elif choix == "testResCma":
     fr = FileReading()
     theta = fr.getobjread("OptimisationResults/thetaSolBIN")
     maxT = fr.getobjread("OptimisationResults/maxTBIN")
-    cf = costFunction(nbfeat)
-    cf.recupMaxThetaN(maxT)
-    cf.costFunctionCMAES(theta)
+    #cf = costFunction(nbfeat)
+    #cf.recupMaxThetaN(maxT)
+    #cf.costFunctionCMAES(theta)
     runGenTrajCma()
     
     
