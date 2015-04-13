@@ -49,7 +49,6 @@ class FileReading():
         Sorties: une matrice contenant tous les etats des trajectoires et une matrice contenant toutes les activations musculaires
         '''
         rs = ReadSetupFile()
-        rs.readingSetupFile()
         patht = rs.pathFolderTrajectories
         if choix == 1:
             print("Nombre de fichier disponible: ", len(os.listdir(patht)))
@@ -111,6 +110,26 @@ class FileReading():
         print("Fin de recuperation des positions initiales!")
         return angleIni#Q
  
+ 
+    def getData(self):
+        '''
+        This function get all the states and commands of trajectories available
+        
+        Outputs:    -state: dictionary
+                    -command: dictionary
+        '''
+        rs = ReadSetupFile()
+        state, command = {}, {}
+        for el in os.listdir(rs.pathFolderTrajectories):
+            state[el], command[el] = [], []
+        for el in os.listdir(rs.pathFolderTrajectories):
+            mati = np.loadtxt(rs.pathFolderTrajectories + el)
+            for i in range(mati.shape[0]):
+                state[el].append((mati[i][8], mati[i][9], mati[i][10], mati[i][11]))
+                command[el].append((mati[i][18], mati[i][19], mati[i][20], mati[i][21], mati[i][22], mati[i][23]))
+        return state, command
+            
+
 
 
 

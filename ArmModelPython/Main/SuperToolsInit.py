@@ -38,6 +38,9 @@ class SuperToolsInit:
         self.fa.setCentersAndWidths()
         #Recuperation des positions initiales de l'experimentation
         self.posIni = self.fr.getobjread("PosIniExperiment1")
+        #Object used to save data
+        self.Usave = []
+        self.IteSave = []
     
     def initParamTraj(self):
         pass
@@ -104,6 +107,7 @@ class SuperToolsInit:
             if i < 400:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
+                self.Usave.append(U)
                 ddotq = mdd(q, dotq, U, self.armP, self.musclesP)
                 dotq, q = integration(dotq, q, ddotq, self.rs.dt)
                 q = jointStop(q)
@@ -115,6 +119,7 @@ class SuperToolsInit:
             i += 1
             t += self.rs.dt
         print(i)
+        self.IteSave.append(i)
         if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= self.rs.targetOrdinate):
             Ju += self.rs.rhoCF
         return Ju
