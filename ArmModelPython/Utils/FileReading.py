@@ -128,6 +128,25 @@ class FileReading():
                 state[el].append((mati[i][8], mati[i][9], mati[i][10], mati[i][11]))
                 command[el].append((mati[i][18], mati[i][19], mati[i][20], mati[i][21], mati[i][22], mati[i][23]))
         return state, command
+    
+    def dicToArray(self, data):
+        '''
+        This function transform a dictionary in an array
+        
+        Input:     -data: dictionary
+        
+        Output:    -dataA: numpy array
+        '''
+        i = 0
+        for el in data.values():
+            if i == 0:
+                dataA = np.array(el)
+            else:
+                dataA = np.vstack((dataA, np.array(el)))
+            i += 1
+        return dataA
+            
+            
             
 
 
