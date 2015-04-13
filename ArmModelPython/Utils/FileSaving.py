@@ -50,4 +50,3 @@ def fileSavingBin(nameFile, data):
         
         
         
-        

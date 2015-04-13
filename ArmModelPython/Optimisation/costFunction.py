@@ -331,6 +331,5 @@ def costFunctionRBFN2Test(theta):
 
 
 
-
     
 

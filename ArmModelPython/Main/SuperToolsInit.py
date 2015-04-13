@@ -31,7 +31,6 @@ class SuperToolsInit:
         self.armD = ArmDynamics()
         self.fr = FileReading()
         self.rs = ReadSetupFile()
-        self.rs.readingSetupFile()
         #Initialisation des outils permettant d'utiliser le controleur rbfn
         self.fa = fa_rbfn(self.rs.numfeats)
         stateAll, commandAll = self.fr.recup_data(0)

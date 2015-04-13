@@ -98,7 +98,7 @@ def plotActivationMuscular(what, nbfeat):
                 j += 1
         j = 0
         trajValTmp = {}
-        for i in range(6*12):
+        for i in range(6*len(traj)):
             trajValTmp[i] = []
         u = 0
         l = 0

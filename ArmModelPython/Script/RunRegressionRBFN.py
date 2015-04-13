@@ -30,6 +30,7 @@ def runRBFN(nbfeat):
     fa.train_rbfn()
     #nameSaveStr = "RBFN2/" + str(nbfeat) + "feats/Theta"##Noms pour les 12 traj
     #nameSaveBin = "RBFN2/" + str(nbfeat) + "feats/ThetaBIN"##Noms pour les 12 traj
+    #Folder RBFN2 and nfeats have to exist
     nameSaveStr = "RBFN2/" + str(nbfeat) + "feats/ThetaX"##Nom pour les x traj
     nameSaveBin = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"##Nom pour les x traj
     fileSavingStr(nameSaveStr, fa.theta)
