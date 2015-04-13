@@ -51,19 +51,27 @@ def costEvalBrent2():
     sti = SuperToolsInit()
     stateAll, commandAll = sti.fr.getData()
     JuT = {}
+    Ite = []
+    valJuT = []
     for el in commandAll:
         t, Ju = 0, 0
         u = np.array(commandAll[el])
+        Ite.append(u.shape[0])
         for i in range(u.shape[0]):
             Ju = sti.costFunction(Ju, u[i], t)
             t += sti.rs.dt
         coordEl, coordHa = mgd(np.array([[stateAll[el][u.shape[0]-1][2]], [stateAll[el][u.shape[0]-1][3]]]), sti.armP.l1, sti.armP.l2)
-        if((coordHa[0] >= (0-sti.rs.sizeOfTarget/2) and coordHa[0] <= (0+sti.rs.sizeOfTarget/2)) and coordHa[1] >= sti.rs.targetOrdinate):
+        if coordHa[0] >= (0-sti.rs.sizeOfTarget/2) and coordHa[0] <= (0+sti.rs.sizeOfTarget/2) and coordHa[1] >= (sti.rs.targetOrdinate - 0.0001):
             Ju += sti.rs.rhoCF
         JuT[el] = Ju
+        valJuT.append(Ju)
     print(JuT)
-costEvalBrent2()
+    fileSavingStr("trajectoires_cout/trajectoire_coutX", JuT.items())
+    fileSavingBin("trajectoires_cout/trajectoire_coutXBINtest", valJuT)
+    fileSavingStr("trajectoires_cout/nbiteX", Ite)
     
+        
+
     
     
     

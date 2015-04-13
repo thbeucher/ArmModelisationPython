@@ -120,7 +120,7 @@ class SuperToolsInit:
             t += self.rs.dt
         print(i)
         self.IteSave.append(i)
-        if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= self.rs.targetOrdinate):
+        if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - 0.0001)):
             Ju += self.rs.rhoCF
         return Ju
     
