@@ -170,8 +170,7 @@ def plot_pos_ini():
     plt.show(block = True)
     
 
-
-plot_pos_ini()       
+ 
 
 
 
