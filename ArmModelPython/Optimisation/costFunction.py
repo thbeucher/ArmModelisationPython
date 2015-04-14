@@ -25,6 +25,12 @@ from Main.SuperToolsInit import SuperToolsInit
 def costFunctionRBFN(theta):
     sti = SuperToolsInit()
     JuCf = []
+    
+    '''data, junk = sti.fr.recup_pos_ini(sti.rs.pathFolderTrajectories)
+    for key, el in data.items():
+        Ju = sti.trajGenerator(el[0], el[1], theta)
+        JuCf.append((key, Ju))'''
+    
     for el in sti.posIni:
         Ju = sti.trajGenerator(el[0], el[1], theta)
         JuCf.append(Ju)

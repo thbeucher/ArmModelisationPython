@@ -34,34 +34,45 @@ def costColorPlot(wha):
     fr = FileReading()
     rs = ReadSetupFile()
     nbfeat = rs.numfeats
+    
+    xy0tmp, Q = fr.recup_pos_ini(rs.pathFolderTrajectories)
+    x0 = []
+    y0 = []
+        
     if wha == "rbfn":
         name = "RBFN2/" + str(nbfeat) + "feats/costBIN"
         z = fr.getobjread(name)
-        z = np.array(z)
-        maxz = np.max(z)
-        minz = np.min(z)
+        ztmp = []
+        zkey = []
+        for el in z:
+            if el[1] > 2500:
+                ztmp.append(el[1])
+                zkey.append(el[0])
+        xyTmp = []
+        for el in zkey:
+            if el in xy0tmp.keys():
+                xyTmp.append(xy0tmp[el])
+        for el in xyTmp:
+            x0.append(el[0])
+            y0.append(el[1])
+        z = np.array(ztmp)
+        z = z - 3000
+        maxt = np.max(abs(z))
+        
     elif wha == "cma":
-        name = "RBFN2/" + str(nbfeat) + "feats/coutNoiseXCmaBIN"
-        z = fr.getobjread(name)
-        z = np.array(z)
-        maxz = np.max(z)
-        minz = np.min(z)
+        pass
     elif wha == "brent":
         z = fr.getobjread("trajectoires_cout/trajectoire_coutXBIN")
         z = np.array(z)
-        rs = ReadSetupFile()
-        rs.readingSetupFile()
-        xy0tmp = fr.recup_pos_ini(rs.pathFolderTrajectories)
-        x0 = []
-        y0 = []
+        z = z-3000
+        maxt = np.max(abs(z))
         for el in xy0tmp.values():
             x0.append(el[0])
             y0.append(el[1])
-        maxz = np.max(z)
-        minz = np.min(z)
-    zb = (z-minz)/(maxz - minz)
-    xi = np.linspace(-0.6,0.6,100)
-    yi = np.linspace(-0.2,0.65,100)
+        
+    zb = z/maxt
+    xi = np.linspace(-0.4,0.4,100)
+    yi = np.linspace(0.1,0.5,100)
     zi = griddata(x0, y0, zb, xi, yi)
     
     fig = plt.figure()

@@ -105,7 +105,7 @@ class SuperToolsInit:
         t, i, Ju = 0, 0, 0#Ju = cost
         self.Usave[str(str(xI) + str(yI))] = []
         
-        while coordHA[1] < (self.rs.targetOrdinate - 0.0005):
+        while coordHA[1] < (self.rs.targetOrdinate - 0.001):
             if i < 400:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
@@ -122,7 +122,7 @@ class SuperToolsInit:
             t += self.rs.dt
         print(i)
         self.IteSave.append(i)
-        if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - 0.0005)):
+        if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - 0.001)):
             Ju += self.rs.rhoCF
         return Ju
     
