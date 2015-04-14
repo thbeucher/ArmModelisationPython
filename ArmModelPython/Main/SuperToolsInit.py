@@ -38,7 +38,7 @@ class SuperToolsInit:
         self.fa.setTrainingData(stateAll.T, commandAll.T)
         self.fa.setCentersAndWidths()
         #Recuperation des positions initiales de l'experimentation
-        self.posIni = self.fr.getobjread("PosIniExperiment1")
+        self.posIni = self.fr.getobjread(self.rs.experimentFilePosIni)
         #Object used to save data
         self.Usave = {}
         self.IteSave = []

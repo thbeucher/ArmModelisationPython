@@ -20,7 +20,7 @@ def trajectoriesAnimation():
     rs = ReadSetupFile()
     nbfeat = rs.numfeats
     #Recuperation des positions initiales
-    posIni = fr.getobjread("PosIniExperiment1")
+    posIni = fr.getobjread(rs.experimentFilePosIni)
     xIni, yIni = [], []
     for el in posIni:
         xIni.append(el[0])

@@ -51,5 +51,7 @@ class ReadSetupFile:
         self.targetOrdinate = float((allsByLign[13].split(":"))[1])
         #lecture ligne 15, Pas de temps utilise pour l'experimentation
         self.dt = float((allsByLign[14].split(":"))[1])
+        #reading line 16, initiales positions
+        self.experimentFilePosIni = (allsByLign[15].split(":"))[1]
 
 

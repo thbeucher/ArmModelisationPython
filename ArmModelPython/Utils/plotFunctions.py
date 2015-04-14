@@ -145,13 +145,16 @@ def plot_pos_ini():
     Cette fonction permet d'afficher les positions initiales des trajectoires
     (trajectoire disponible dans le dossier trajectoire)           
     '''
-    xt = 0
-    yt = 0.6175
-    x0 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0,0.1,0.2,0.3]
-    y0 = [0.39,0.39,0.39,0.39,0.39,0.26,0.26,0.26,0.26,0.26,0.26,0.26]
+    x0 = []
+    y0 = []
     fr = FileReading()
     rs = ReadSetupFile()
-    rs.readingSetupFile()
+    xt = 0
+    yt = rs.targetOrdinate
+    posIni = fr.getobjread(rs.experimentFilePosIni)
+    for el in posIni:
+        x0.append(el[0])
+        y0.append(el[1])
     patht = rs.pathFolderTrajectories
     xy, junk = fr.recup_pos_ini(patht)
     x, y = [], []
@@ -159,36 +162,50 @@ def plot_pos_ini():
         x.append(el[0])
         y.append(el[1])
         
-    '''traj, junk = fr.recup_pos_ini(rs.pathFolderData + "trajTMP/")
-    trajx, trajy, trajkey = [], [], []
-    for key, el in traj.items():
-        if el[1] < 0.36: 
-            trajx.append(el[0])
-            trajy.append(el[1])
-            trajkey.append(key)
-        #elif el[1] > 0.31 and el[0] > 0.2:
-            #trajx.append(el[0])
-            #trajy.append(el[1])
-            #trajkey.append(key)
-    #for el in trajkey:
-        #copyfile(rs.pathFolderData + "trajTMP/" + el, rs.pathFolderData + "ThetaAllTraj/" + el)'''
-        
     plt.figure()
     plt.scatter(x, y, c = "b", marker=u'o', s=25, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
     
-    #plt.scatter(trajx, trajy, c = 'y')
-    
     plt.show(block = True)
     
 
-#plot_pos_ini()
-                
+
+plot_pos_ini()       
 
 
 
 
+'''fr = FileReading()
+rs = ReadSetupFile()
+traj, junk = fr.recup_pos_ini(rs.pathFolderData + "ThetaAllTraj/")
+trajx, trajy, tx, ty, k, ksupr = [], [], [], [], [], []
+for key1, el1 in traj.items():
+    trajx.append(el1[0])
+    trajy.append(el1[1])
+    for key2, el2 in traj.items():
+        a = abs(el1[0] - el2[0])
+        b = abs(el1[1] - el2[1])
+        if el1[0] == el2[0] and el1[1] == el2[1] and key2 != key1:
+            print("la", key1, key2)
+        if a < 0.008 and b < 0.008 and key2 != key1:
+            if key1 not in k:
+                print("ic", key1, key2)
+                k.append(key1)
+                k.append(key2)
+                tx.append(el2[0])
+                ty.append(el2[1])
+                ksupr.append(key1)
+#for el in ksupr:
+    #remove(rs.pathFolderData + "ThetaAllTraj/" + el)
+
+plt.figure()
+plt.scatter(trajx, trajy, c = 'b')
+plt.scatter(tx, ty, c = 'r')
+plt.show()'''
+    
+    
+    
 
 
 
