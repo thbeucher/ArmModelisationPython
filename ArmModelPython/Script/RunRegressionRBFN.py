@@ -25,7 +25,7 @@ def runRBFN():
     rs = ReadSetupFile()
     nbfeat = rs.numfeats
     #getting all data
-    state, command = fr.getData()
+    state, command = fr.getData(rs.pathFolderTrajectories)
     #change the data (dictionary) into numpy array
     stateAll, commandAll = fr.dicToArray(state), fr.dicToArray(command)
     print("nombre d'echantillons: ", stateAll.shape[0])

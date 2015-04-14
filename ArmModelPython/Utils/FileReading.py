@@ -68,19 +68,18 @@ class FileReading():
         return angleIni, Q
  
  
-    def getData(self):
+    def getData(self, location):
         '''
         This function get all the states and commands of trajectories available
         
         Outputs:    -state: dictionary
                     -command: dictionary
         '''
-        rs = ReadSetupFile()
         state, command = {}, {}
-        for el in os.listdir(rs.pathFolderTrajectories):
+        for el in os.listdir(location):
             state[el], command[el] = [], []
-        for el in os.listdir(rs.pathFolderTrajectories):
-            mati = np.loadtxt(rs.pathFolderTrajectories + el)
+        for el in os.listdir(location):
+            mati = np.loadtxt(location + el)
             for i in range(mati.shape[0]):
                 state[el].append((mati[i][8], mati[i][9], mati[i][10], mati[i][11]))
                 command[el].append((mati[i][18], mati[i][19], mati[i][20], mati[i][21], mati[i][22], mati[i][23]))

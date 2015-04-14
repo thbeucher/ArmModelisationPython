@@ -11,7 +11,7 @@ from Main.SuperToolsInit import SuperToolsInit
 def costEvalBrent():
     print("Debut de traitement!")
     sti = SuperToolsInit()
-    stateAll, commandAll = sti.fr.getData()
+    stateAll, commandAll = sti.fr.getData(sti.rs.pathFolderTrajectories)
     JuT = {}
     Ite = []
     valJuT = []
