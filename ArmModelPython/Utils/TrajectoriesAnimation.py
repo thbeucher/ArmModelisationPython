@@ -14,7 +14,7 @@ from Utils.ReadSetupFile import ReadSetupFile
 
 
 def trajectoriesAnimation():
-    choix = input("Veuillez choisir la trajectoire a visualiser(All or AllNoise or AllNoiseCma): ")
+    choix = input("Veuillez choisir la trajectoire a visualiser(All or AllCma): ")
     fr = FileReading()
     save = SavingData()
     rs = ReadSetupFile()
@@ -60,7 +60,7 @@ def trajectoriesAnimation():
         save.createCoord(2, coordHA, coordEL)
         ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(coordEL), blit=True, interval=20, repeat=True)
         plt.show(block = True)
-    elif choix == "AllNoise":
+    elif choix == "AllCma":
         nameCoordEL = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireEL" + choix
         nameCoordHA = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireHA" + choix
         coordEL = fr.getobjread(nameCoordEL)
@@ -68,22 +68,7 @@ def trajectoriesAnimation():
         save.createCoord(2, coordHA, coordEL)
         ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(coordEL), blit=True, interval=20, repeat=True)
         plt.show(block = True)
-    elif choix == "AllNoiseCma":
-        nameCoordEL = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireEL" + choix
-        nameCoordHA = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireHA" + choix
-        coordEL = fr.getobjread(nameCoordEL)
-        coordHA = fr.getobjread(nameCoordHA)
-        save.createCoord(2, coordHA, coordEL)
-        ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(coordEL), blit=True, interval=20, repeat=True)
-        plt.show(block = True)
-    else: 
-        nameCoordEL = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireEL" + choix
-        nameCoordHA = "RBFN2/" + str(nbfeat) + "feats/CoordTraj/CoordTrajectoireHA" + choix
-        coordEL = fr.getobjread(nameCoordEL)
-        coordHA = fr.getobjread(nameCoordHA)
-        save.createCoord(2, coordHA, coordEL)
-        ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(coordEL), blit=True, interval=20, repeat=True)
-        plt.show()
+
         
         
         
