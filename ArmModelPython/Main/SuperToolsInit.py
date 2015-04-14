@@ -77,7 +77,7 @@ class SuperToolsInit:
                 U[i] = 0
             elif U[i] > 1:
                 U[i] = 1
-        #Bruit d'activation musculaire 
+        #Noise for muscular activation
         UnoiseTmp = U*(1+np.random.normal(0,self.rs.knoiseU))
         for i in range(UnoiseTmp.shape[0]):
             if UnoiseTmp[i] < 0:

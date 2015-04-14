@@ -72,5 +72,7 @@ def jointStop(q):
         q[1,0] = 3.0
     return q
 
+
+
     
     

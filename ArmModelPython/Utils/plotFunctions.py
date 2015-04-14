@@ -155,8 +155,7 @@ def plot_pos_ini():
     for el in posIni:
         x0.append(el[0])
         y0.append(el[1])
-    patht = rs.pathFolderTrajectories
-    xy, junk = fr.recup_pos_ini(patht)
+    xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
     x, y = [], []
     for el in xy.values():
         x.append(el[0])
@@ -169,8 +168,6 @@ def plot_pos_ini():
     
     plt.show(block = True)
     
-
- 
 
 
 

@@ -14,6 +14,7 @@ from Optimisation.Cmaes import runCmaes
 from Script.RunTrajectories import runGenTraj, runGenTrajCma
 from Script.CostEvaluationForBrentBVPSolverTrajectories import costEvalBrent
 from Utils.TrajectoriesAnimation import trajectoriesAnimation
+from Optimisation.costFunction import costFunctionCMAES
 
 print("Scripts existants:\n -animation        -posIni\n -rbfn             -costBrent\n -rbfn_test2D      -testResCma\n -genTraj\n -costColor\n -actiMuscu\n -cmaes\n")
 choix = input("Veuillez entrer le choix du script à lancer: ")
@@ -55,14 +56,6 @@ elif choix == "costBrent":
     
     
 elif choix == "testResCma":
-    nbfeat = input("Nombre de features choisies: ")
-    nbfeat = int(nbfeat)
-    fr = FileReading()
-    theta = fr.getobjread("OptimisationResults/thetaSolBIN")
-    maxT = fr.getobjread("OptimisationResults/maxTBIN")
-    #cf = costFunction(nbfeat)
-    #cf.recupMaxThetaN(maxT)
-    #cf.costFunctionCMAES(theta)
     runGenTrajCma()
     
     
