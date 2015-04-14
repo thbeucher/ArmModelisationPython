@@ -10,8 +10,9 @@ from Utils.FileReading import FileReading
 import time
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
-from Utils.ThetaNormalization import normalization
+from Utils.ThetaNormalization import normalization, matrixToVector
 from Utils.ReadSetupFile import ReadSetupFile
+from Optimisation.costFunction import costFunctionCMAES
 
 def runCmaes():
     rs = ReadSetupFile()
@@ -27,21 +28,15 @@ def runCmaes():
     fileSavingBin("OptimisationResults/maxTBIN", maxT)
     #cf.recupMaxThetaN(maxT)
     #Mise sous forme de vecteur simple
-    thetaTmp = theta[0]
-    thetaTmpN = thetaN[0]#theta normalise
-    for i in range(theta.shape[0]-1):
-        thetaTmp = np.hstack((thetaTmp, theta[i+1]))
-        thetaTmpN = np.hstack((thetaTmpN, thetaN[i+1]))#theta normalise
-    #resSO = cma.fmin(cf.costFunctionCMAES, thetaTmp, 1)
-    #resSO = cma.fmin(cf.costFunctionCMAES, thetaTmp, 1, options={'maxiter':5, 'popsize':10})#Avec theta
-    #resSO = cma.fmin(cf.costFunctionCMAES, thetaTmpN, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})#Avec theta normalise
+    theta = matrixToVector(theta)
+    resSO = cma.fmin(costFunctionCMAES, theta, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     t1 = time.time()
     print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
     #Sauvegarde des solutions de cmaes
-    #fileSavingStr("OptimisationResults/thetaSol", resSO[0])
-    #fileSavingBin("OptimisationResults/thetaSolBIN", resSO[0])
-    #fileSavingStr("OptimisationResults/CmaesRes", resSO)
-    #fileSavingBin("OptimisationResults/CmaesResBIN", resSO)
+    fileSavingStr("OptimisationResults/thetaSol", resSO[0])
+    fileSavingBin("OptimisationResults/thetaSolBIN", resSO[0])
+    fileSavingStr("OptimisationResults/CmaesRes", resSO)
+    fileSavingBin("OptimisationResults/CmaesResBIN", resSO)
     
 
 

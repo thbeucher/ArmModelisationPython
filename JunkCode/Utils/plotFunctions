@@ -82,3 +82,27 @@ for el in xyt:
                 plt.plot(trajIteU[i], trajVal[j+u])
             u += 6
             plt.show(block = True)'''
+
+
+
+
+
+'''
+    #verifie si les trajectoires d'entrainement comprenne les trajectoires d'experimentation
+    a = 0
+    for el in xy:
+        for i in range(len(x0)):
+            if el[0] == x0[i] and el[1] == y0[i]:
+                a += 1
+    print(a)'''
+    '''xyt = fr.recup_pos_ini("/home/beucher/workspace/recupTraj/")
+    xtt, ytt = [], []
+    for el in xyt.values():
+        xtt.append(el[0])
+        ytt.append(el[1])'''
+
+
+
+
+
+

@@ -159,31 +159,31 @@ def plot_pos_ini():
         x.append(el[0])
         y.append(el[1])
         
-    '''
-    #verifie si les trajectoires d'entrainement comprenne les trajectoires d'experimentation
-    a = 0
-    for el in xy:
-        for i in range(len(x0)):
-            if el[0] == x0[i] and el[1] == y0[i]:
-                a += 1
-    print(a)'''
-    '''xyt = fr.recup_pos_ini("/home/beucher/workspace/recupTraj/")
-    xtt, ytt = [], []
-    for el in xyt.values():
-        xtt.append(el[0])
-        ytt.append(el[1])'''
+    '''traj, junk = fr.recup_pos_ini(rs.pathFolderData + "trajTMP/")
+    trajx, trajy, trajkey = [], [], []
+    for key, el in traj.items():
+        if el[1] < 0.36: 
+            trajx.append(el[0])
+            trajy.append(el[1])
+            trajkey.append(key)
+        #elif el[1] > 0.31 and el[0] > 0.2:
+            #trajx.append(el[0])
+            #trajy.append(el[1])
+            #trajkey.append(key)
+    #for el in trajkey:
+        #copyfile(rs.pathFolderData + "trajTMP/" + el, rs.pathFolderData + "ThetaAllTraj/" + el)'''
         
     plt.figure()
     plt.scatter(x, y, c = "b", marker=u'o', s=25, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
     
-    #plt.scatter(xtt, ytt, c = 'y')
+    #plt.scatter(trajx, trajy, c = 'y')
     
     plt.show(block = True)
     
 
-    
+#plot_pos_ini()
                 
 
 
