@@ -52,30 +52,36 @@ def costFunctionRBFN(theta):
     meanJu = np.mean(juju, axis = 0)
     return JuCf, sti
 
-        
-def costFunctionCMAES(theta):
-    sti = SuperToolsInit()
-    Jutmp = {}
-    maxT = sti.fr.getobjread("OptimisationResults/maxTBIN")
-    theta = theta*maxT
-    theta = vectorToMatrix(theta)
+class costFunctionClass:
     
-    for i in range(5):
-        JuCf = []
-        for el in sti.posIni:
-            Ju = sti.trajGenerator(el[0], el[1], theta)
-            JuCf.append(Ju*-1)
-        Jutmp[i] = JuCf
-    s = 0
-    for el in Jutmp.values():
-        if s == 0:
-            juju = np.array(el)
-            s += 1
-        else:
-            juju = np.vstack((juju, el))
-    meanJu = np.mean(juju, axis = 0)
-    JuSca = np.mean(meanJu)
-    return JuSca
+    def __init__(self):
+        self.call = 0
+              
+    def costFunctionCMAES(self, theta):
+        sti = SuperToolsInit()
+        Jutmp = {}
+        maxT = sti.fr.getobjread("OptimisationResults/maxTBIN")
+        theta = theta*maxT
+        theta = vectorToMatrix(theta)
+        
+        for i in range(5):
+            JuCf = []
+            for el in sti.posIni:
+                Ju = sti.trajGenerator(el[0], el[1], theta)
+                JuCf.append(Ju*-1)
+            Jutmp[i] = JuCf
+        s = 0
+        for el in Jutmp.values():
+            if s == 0:
+                juju = np.array(el)
+                s += 1
+            else:
+                juju = np.vstack((juju, el))
+        meanJu = np.mean(juju, axis = 0)
+        JuSca = np.mean(meanJu)
+        print(self.call)
+        self.call += 1
+        return JuSca
 
 
 
