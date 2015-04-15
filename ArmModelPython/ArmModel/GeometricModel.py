@@ -44,8 +44,8 @@ def mgd(q, l1, l2):
                 -l2: foreArm length
         
     Outputs:
-                -q1: arm angle
-                -q2: foreArm angle
+                -coordElbow: elbow coordinate
+                -coordHand: hand coordinate
     '''
     coordElbow = (l1*np.cos(q[0,0]), l1*np.sin(q[0,0]))
     coordHand = (l2*np.cos(q[1,0] + q[0,0]) + l1*np.cos(q[0,0]), l2*np.sin(q[1,0] + q[0,0]) + l1*np.sin(q[0,0]))

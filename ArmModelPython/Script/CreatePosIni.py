@@ -8,7 +8,7 @@ Description: Script for creating the initials positions
 
 import numpy as np
 import math
-from ArmModel.GeometricModel import mgi
+from ArmModel.GeometricModel import mgi, mgd
 import matplotlib.pyplot as plt
 from Utils.FileReading import FileReading
 from Utils.ReadSetupFile import ReadSetupFile
@@ -42,10 +42,9 @@ def createPos():
     Q = []
     for el in xy:
         Q.append(mgi(el[0], el[1], 0.3, 0.35))
-    fileSavingStr("fsdfsdfsdf", Q)
+    fileSavingStr("InitialPositionForBrent", Q)
     print(len(Q))
     
-
 
 
 
