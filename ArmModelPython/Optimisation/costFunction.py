@@ -32,10 +32,10 @@ def costFunctionRBFN(theta):
     for key, el in data.items():
         Ju = sti.trajGenerator(el[0], el[1], theta)
         JuCf.append((key, Ju))'''
-    posi = []
+    '''posi = []
     for i in range(10):
-        posi.append(sti.posIni[0])
-    
+        posi.append(sti.posIni[0])'''
+    #Le nombre d'iteration pour i donne le nombre de trajectoire realises
     for i in range(5):
         JuCf = []
         for el in sti.posIni:
@@ -55,7 +55,6 @@ def costFunctionRBFN(theta):
         
 def costFunctionCMAES(theta):
     sti = SuperToolsInit()
-    JuCf = []
     Jutmp = {}
     maxT = sti.fr.getobjread("OptimisationResults/maxTBIN")
     theta = theta*maxT
@@ -76,11 +75,6 @@ def costFunctionCMAES(theta):
             juju = np.vstack((juju, el))
     meanJu = np.mean(juju, axis = 0)
     JuSca = np.mean(meanJu)
-    
-    '''for el in sti.posIni:
-        Ju = sti.trajGenerator(el[0], el[1], theta)
-        JuCf.append(Ju*(-1))
-    JuSca = np.mean(JuCf)'''
     return JuSca
 
 
