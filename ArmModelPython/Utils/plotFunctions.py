@@ -14,9 +14,6 @@ from matplotlib.mlab import griddata
 import mpl_toolkits
 from Utils.ReadSetupFile import ReadSetupFile
 import os
-from os.path import isfile
-from shutil import copyfile
-from posix import remove
 
 
 def costColorPlot(wha):

@@ -7,7 +7,6 @@ Description: On retrouve dans ce fichier l'executable permetttant de lancer les 
 '''
 
 from Script.RunRegressionRBFN import runRBFN, test2DRBFN
-from Utils.FileReading import FileReading
 from Utils.plotFunctions import costColorPlot, plotActivationMuscular,\
     plot_pos_ini
 from Optimisation.Cmaes import runCmaes

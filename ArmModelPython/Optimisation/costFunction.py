@@ -13,6 +13,7 @@ from Main.SuperToolsInit import SuperToolsInit
     
 def costFunctionRBFN(theta):
     '''
+    This function compute the cost of each trajectories selected
     
     Input:      -theta: numpy array
     
