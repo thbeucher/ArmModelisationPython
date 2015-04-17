@@ -36,10 +36,11 @@ def costFunctionRBFN(theta):
     for i in range(10):
         posi.append(sti.posIni[0])'''
     #Le nombre d'iteration pour i donne le nombre de trajectoire realises
-    for i in range(5):
+    for i in range(1):
         JuCf = []
         for el in sti.posIni:
             Ju = sti.trajGenerator(el[0], el[1], theta)
+            print(sti.save.coordHaSave[len(sti.save.coordHaSave)-1])
             JuCf.append(Ju)
         Jutmp[i] = JuCf
     s = 0
@@ -50,7 +51,7 @@ def costFunctionRBFN(theta):
         else:
             juju = np.vstack((juju, el))
     meanJu = np.mean(juju, axis = 0)
-    return JuCf, sti
+    return JuCf, sti, meanJu
 
 class costFunctionClass:
     

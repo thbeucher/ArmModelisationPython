@@ -27,9 +27,6 @@ def costColorPlot(wha):
                 -wha: choix des donnees a afficher
     '''
     xt = 0
-    yt = 0.6175
-    x0 = [-0.2,-0.1,0,0.1,0.2,-0.3,-0.2,-0.1,0,0.1,0.2,0.3]
-    y0 = [0.39,0.39,0.39,0.39,0.39,0.26,0.26,0.26,0.26,0.26,0.26,0.26]
     
     fr = FileReading()
     rs = ReadSetupFile()
@@ -41,23 +38,15 @@ def costColorPlot(wha):
         
     if wha == "rbfn":
         name = "RBFN2/" + str(nbfeat) + "feats/costBIN"
-        z = fr.getobjread(name)
-        ztmp = []
-        zkey = []
-        for el in z:
-            if el[1] > 2500:
-                ztmp.append(el[1])
-                zkey.append(el[0])
-        xyTmp = []
-        for el in zkey:
-            if el in xy0tmp.keys():
-                xyTmp.append(xy0tmp[el])
-        for el in xyTmp:
+        z = np.array(fr.getobjread(name))
+        for i in range(len(z)):
+            if z[i] > 2500:
+                z[i] -= 3000
+        maxt = np.max(abs(z))
+        posi = fr.getobjread(rs.experimentFilePosIni)
+        for el in posi:
             x0.append(el[0])
             y0.append(el[1])
-        z = np.array(ztmp)
-        z = z - 3000
-        maxt = np.max(abs(z))
         
     elif wha == "cma":
         pass
@@ -71,13 +60,13 @@ def costColorPlot(wha):
             y0.append(el[1])
         
     zb = z/maxt
-    xi = np.linspace(-0.4,0.4,100)
-    yi = np.linspace(0.1,0.5,100)
+    xi = np.linspace(-0.4,0.4,280)
+    yi = np.linspace(0.1,0.6,280)
     zi = griddata(x0, y0, zb, xi, yi)
     
     fig = plt.figure()
     t1 = plt.scatter(x0, y0, c=zb, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))
-    plt.scatter(xt, yt, c ='g', marker='v', s=200)
+    plt.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
     CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
     fig.colorbar(t1, shrink=0.5, aspect=5)
     

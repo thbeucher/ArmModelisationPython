@@ -41,7 +41,7 @@ class SuperToolsInit:
         self.posIni = self.fr.getobjread(self.rs.experimentFilePosIni)
         #Object used to save data
         self.Usave = {}
-        self.IteSave = []
+        self.IteSave = {}
     
     def initParamTraj(self):
         pass
@@ -71,12 +71,6 @@ class SuperToolsInit:
         Outputs:    -Unoise: (6,1) numpy array, noisy muscular activation vector
         '''
         U = self.fa.functionApproximatorOutput(inputgc, theta)
-        #Pas d'activations musculaires négatives possibles
-        for i in range(U.shape[0]):
-            if U[i] < 0:
-                U[i] = 0
-            elif U[i] > 1:
-                U[i] = 1
         #Noise for muscular activation
         UnoiseTmp = U*(1+np.random.normal(0,self.rs.knoiseU))
         for i in range(UnoiseTmp.shape[0]):
@@ -99,14 +93,14 @@ class SuperToolsInit:
         '''
         q1, q2 = mgi(xI, yI, self.armP.l1, self.armP.l2)
         q = np.array([[q1], [q2]])
-        dotq = self.armD.dotq0
+        dotq = self.armD.get_dotq_0()
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
         self.save.SaveTrajectory(coordEL, coordHA)
         t, i, Ju = 0, 0, 0#Ju = cost
         self.Usave[str(str(xI) + str(yI))] = []
         
         while coordHA[1] < (self.rs.targetOrdinate - 0.001):
-            if i < 400:
+            if i < self.rs.numMaxIter:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
                 self.Usave[str(str(xI) + str(yI))].append(U)
@@ -121,7 +115,9 @@ class SuperToolsInit:
             i += 1
             t += self.rs.dt
         print(i)
-        self.IteSave.append(i)
+        if not str(str(xI) + "//" + str(yI)) in self.IteSave:
+            self.IteSave[str(str(xI) + "//" + str(yI))] = []
+        self.IteSave[str(str(xI) + "//" + str(yI))].append(i)
         if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - 0.001)):
             Ju += self.rs.rhoCF
         return Ju

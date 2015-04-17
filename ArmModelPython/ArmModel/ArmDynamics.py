@@ -12,7 +12,20 @@ import math
 class ArmDynamics:
     
     def __init__(self):
-        self.dotq0 = np.array([[0.],[0.]])
+        self.__dotq0 = np.array([[0.],[0.]])
+
+    def get_dotq_0(self):
+        return np.array(self.__dotq0)
+
+
+    def set_dotq_0(self, value):
+        self.__dotq0 = value
+
+
+    def del_dotq_0(self):
+        del self.__dotq0
+
+    dotq0 = property(get_dotq_0, set_dotq_0, del_dotq_0, "dotq0's docstring")
     
 
 
