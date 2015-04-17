@@ -37,9 +37,35 @@ def createPos():
             y.append(yt)
             xy.append((xt, yt))
     
+    d1 = np.arange(-0.10, 0.07, 0.01)
+    d2 = np.arange(0.12, 0.25, 0.01)    
+    d11 = np.arange(0.08, 0.14, 0.01)
+    d22 = np.arange(0.15, 0.23, 0.01)  
+    d111 = np.arange(0.16, 0.25, 0.01)
+    d222 = np.arange(0.16, 0.20, 0.01)
+    xx, yy, xyt = [], [], []
+    for i in range(len(d1)):
+        for j in range(len(d2)):
+            xx.append(d1[i])
+            yy.append(d2[j])
+            xyt.append((tronquerNB(d1[i],5), tronquerNB(d2[j],5)))
+    for i in range(len(d11)):
+        for j in range(len(d22)):
+            xx.append(d11[i])
+            yy.append(d22[j])
+            xyt.append((tronquerNB(d11[i], 5), tronquerNB(d22[j], 5)))
+    for i in range(len(d111)):
+        for j in range(len(d222)):
+            xx.append(d111[i])
+            yy.append(d222[j])
+            xyt.append((tronquerNB(d111[i], 5), tronquerNB(d222[j], 5)))
+    fileSavingStr("coucou", xyt)
+    
     plt.figure()
     plt.scatter(x, y, c = 'b')
     plt.scatter(posx, posy, c = 'r')
+    
+    plt.scatter(xx, yy, c = 'y')
     
     plt.show()
     Q = []
@@ -48,8 +74,6 @@ def createPos():
     fileSavingStr("InitialPositionForBrent", Q)
     print(len(Q))
     
-
-createPos()
 
 
 

@@ -11,7 +11,7 @@ from Regression.functionApproximator_RBFN import fa_rbfn
 import numpy as np
 from ArmModel.ArmParameters import ArmParameters
 from ArmModel.MusclesParameters import MusclesParameters
-from ArmModel.ArmDynamics import ArmDynamics, mdd, integration
+from ArmModel.ArmDynamics import ArmDynamics, mdd
 from ArmModel.GeometricModel import mgi, mgd, jointStop
 from ArmModel.SavingData import SavingData
 import matplotlib.pyplot as plt
