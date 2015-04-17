@@ -3,27 +3,23 @@ Author: Thomas Beucher
 
 Module: costFunction
 
-Description: On retrouve dans ce fichier 
+Description: We find here the function which allow to evaluate the cost of each trajectories
 '''
-from math import sqrt
 import numpy as np
 import time
-from Utils.FileReading import FileReading
 from Utils.ThetaNormalization import vectorToMatrix
-'''from ArmModel.ParametresArmModel import ParametresArmModel
-from ArmModel.ParametresHogan import ParametresHogan
-from ArmModel.ParametresRobot import ParametresRobot
-from ArmModel.SavingData import SavingData'''
-from Regression.OutputSolver import OutputSolver
-from Utils.FileSaving import fileSavingStr, fileSavingBin
-from Regression.functionApproximator_RBFN import fa_rbfn
-import os
-from Utils.ReadSetupFile import ReadSetupFile
-from ArmModel.GeometricModel import mgi, mgd, jointStop
 from Main.SuperToolsInit import SuperToolsInit
     
     
 def costFunctionRBFN(theta):
+    '''
+    
+    Input:      -theta: numpy array
+    
+    OutPuts:    -JuCf: list
+                -sti: objet link
+                -meanJu: numpy array, mean of the cost of each trajectories
+    '''
     sti = SuperToolsInit()
     Jutmp = {}
     
