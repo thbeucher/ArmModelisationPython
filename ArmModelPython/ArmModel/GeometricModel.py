@@ -9,6 +9,7 @@ Description: we find here the inverse and direct geometric model for a two joint
 
 import math
 import numpy as np
+from Utils.FileSaving import fileSavingStr
 
 def mgi(xi, yi, l1, l2):
     '''
@@ -71,7 +72,6 @@ def jointStop(q):
     elif q[1,0] > 3.0:
         q[1,0] = 3.0
     return q
-
 
 
     

@@ -31,17 +31,15 @@ def runGenTraj():
     elif sauv == 3:
         fileSavingStr(nameT + "nbIte", sti.IteSave)
     elif sauv == 4:
-        fileSavingStr(nameT + "cost", testju)
-        fileSavingBin(nameT + "costBIN", testju)
-    print(sti.IteSave)
-    print("mean", meanJu)
-    print(testju)  
+        fileSavingStr(nameT + "cost", meanJu)
+        fileSavingBin(nameT + "costBIN", meanJu)
+    print("Fin de generation de trajectoire!")
     
     
 def runGenTrajCma():
     fr = FileReading()
     rs = ReadSetupFile()
-    print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte, 4: cost)")
+    print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte / 4: cost / 5: lastCoord)")
     sauv = input("voulez vous sauvegarder les trajectoires: ")
     sauv = int(sauv)
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
@@ -58,6 +56,9 @@ def runGenTrajCma():
     elif sauv == 4:
         fileSavingStr(nameT + "costCma", testju)
         fileSavingBin(nameT + "costBINCma", testju)
+    elif sauv == 5:
+        fileSavingStr(nameT + "CoordHitTarget", sti.lastCoord)
+        fileSavingBin(nameT + "CoordHitTargetBIN", sti.lastCoord)
     print(testju)  
     
     

@@ -35,34 +35,39 @@ def costColorPlot(wha):
     xy0tmp, Q = fr.recup_pos_ini(rs.pathFolderTrajectories)
     x0 = []
     y0 = []
+    posi = fr.getobjread(rs.experimentFilePosIni)
+    for el in posi:
+        x0.append(el[0])
+        y0.append(el[1])
         
     if wha == "rbfn":
         name = "RBFN2/" + str(nbfeat) + "feats/costBIN"
-        z = np.array(fr.getobjread(name))
+        z = fr.getobjread(name)
         for i in range(len(z)):
-            if z[i] > 2500:
+            if z[i] > 50:
                 z[i] -= 3000
         maxt = np.max(abs(z))
-        posi = fr.getobjread(rs.experimentFilePosIni)
-        for el in posi:
-            x0.append(el[0])
-            y0.append(el[1])
         
     elif wha == "cma":
-        pass
+        name = "RBFN2/" + str(nbfeat) + "feats/costBINCma"
+        z = fr.getobjread(name)
+        maxt = np.max(abs(z))
+        
     elif wha == "brent":
         z = fr.getobjread("trajectoires_cout/trajectoire_coutXBIN")
         z = np.array(z)
         z = z-3000
         maxt = np.max(abs(z))
+        x0 = []
+        y0 = []
         for el in xy0tmp.values():
             x0.append(el[0])
             y0.append(el[1])
-        
+    
     zb = z/maxt
     xi = np.linspace(-0.4,0.4,280)
     yi = np.linspace(0.1,0.6,280)
-    zi = griddata(x0, y0, zb, xi, yi)
+    zi = griddata(x0, y0, zb.T[0], xi, yi)
     
     fig = plt.figure()
     t1 = plt.scatter(x0, y0, c=zb, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))
@@ -102,31 +107,7 @@ def plotActivationMuscular(what):
             plt.show(block = True)
         
     elif what == "cma":
-        '''ch = input("Voulez vous afficher les activations musculaires avec bruit?(Y or N): ")
-        trajIteU = {}
-        trajVal = {}
-        for i in range(6*12):
-            trajVal[i] = []
-        u = 0
-        for i in range(12):
-            trajIteU[i] = []
-            if ch == "N":
-                nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuTrajectoireXCma" + str(i+1)
-            elif ch == "Y":
-                nameU = "RBFN2/" + str(nbfeat) + "feats/MuscularActivation/ActiMuscuNoiseTrajectoireXCma" + str(i+1)
-            ut1 = fr.getobjread(nameU)
-            for j in range(len(ut1)):
-                trajIteU[i].append(j)
-                for t in range(6):
-                    trajVal[t+u].append(ut1[j][t])
-            u += 6
-        u = 0
-        for i in range(12):
-            rbfn = plt.Figure()
-            for j in range(6):
-                plt.plot(trajIteU[i], trajVal[j+u])
-            u += 6
-            plt.show(block = True)'''
+        pass
     
 
 def plot_pos_ini():
@@ -161,33 +142,7 @@ def plot_pos_ini():
 
 
 
-'''fr = FileReading()
-rs = ReadSetupFile()
-traj, junk = fr.recup_pos_ini(rs.pathFolderData + "ThetaAllTraj/")
-trajx, trajy, tx, ty, k, ksupr = [], [], [], [], [], []
-for key1, el1 in traj.items():
-    trajx.append(el1[0])
-    trajy.append(el1[1])
-    for key2, el2 in traj.items():
-        a = abs(el1[0] - el2[0])
-        b = abs(el1[1] - el2[1])
-        if el1[0] == el2[0] and el1[1] == el2[1] and key2 != key1:
-            print("la", key1, key2)
-        if a < 0.008 and b < 0.008 and key2 != key1:
-            if key1 not in k:
-                print("ic", key1, key2)
-                k.append(key1)
-                k.append(key2)
-                tx.append(el2[0])
-                ty.append(el2[1])
-                ksupr.append(key1)
-#for el in ksupr:
-    #remove(rs.pathFolderData + "ThetaAllTraj/" + el)
 
-plt.figure()
-plt.scatter(trajx, trajy, c = 'b')
-plt.scatter(tx, ty, c = 'r')
-plt.show()'''
     
     
     

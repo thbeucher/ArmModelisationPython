@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from Utils.FileReading import FileReading
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.FileSaving import fileSavingStr
+from Utils.NiemRoot import tronquerNB
 
 
 def createPos():
@@ -35,9 +36,11 @@ def createPos():
             x.append(xt)
             y.append(yt)
             xy.append((xt, yt))
+    
     plt.figure()
     plt.scatter(x, y, c = 'b')
     plt.scatter(posx, posy, c = 'r')
+    
     plt.show()
     Q = []
     for el in xy:
@@ -46,7 +49,7 @@ def createPos():
     print(len(Q))
     
 
-
+createPos()
 
 
 

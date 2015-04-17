@@ -1,0 +1,16 @@
+d1 = np.arange(-0.05, 0.05, 0.01)
+    d2 = np.arange(0.17, 0.22, 0.01)    
+    d11 = np.arange(0.08, 0.14, 0.01)
+    d22 = np.arange(0.15, 0.205, 0.01)  
+    xx, yy, xyt = [], [], []
+    for i in range(len(d1)):
+        for j in range(len(d2)):
+            xx.append(d1[i])
+            yy.append(d2[j])
+            xyt.append((tronquerNB(d1[i],5), tronquerNB(d2[j],5)))
+    for i in range(len(d11)):
+        for j in range(len(d22)):
+            xx.append(d11[i])
+            yy.append(d22[j])
+            xyt.append((tronquerNB(d11[i], 5), tronquerNB(d22[j], 5)))
+    fileSavingStr("coucou", xyt)

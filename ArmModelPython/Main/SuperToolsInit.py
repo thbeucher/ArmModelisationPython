@@ -42,6 +42,7 @@ class SuperToolsInit:
         #Object used to save data
         self.Usave = {}
         self.IteSave = {}
+        self.lastCoord = {}
     
     def initParamTraj(self):
         pass
@@ -99,7 +100,7 @@ class SuperToolsInit:
         t, i, Ju = 0, 0, 0#Ju = cost
         self.Usave[str(str(xI) + str(yI))] = []
         
-        while coordHA[1] < (self.rs.targetOrdinate - 0.001):
+        while coordHA[1] < (self.rs.targetOrdinate - self.rs.errorPosEnd):
             if i < self.rs.numMaxIter:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
@@ -115,10 +116,11 @@ class SuperToolsInit:
             i += 1
             t += self.rs.dt
         print(i)
+        
         if not str(str(xI) + "//" + str(yI)) in self.IteSave:
             self.IteSave[str(str(xI) + "//" + str(yI))] = []
         self.IteSave[str(str(xI) + "//" + str(yI))].append(i)
-        if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - 0.001)):
+        if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
             Ju += self.rs.rhoCF
         return Ju
     

@@ -55,5 +55,7 @@ class ReadSetupFile:
         self.experimentFilePosIni = (allsByLign[15].split(":"))[1]
         #reading line 17, number of iteration to stop unresolved trajectory
         self.numMaxIter = int((allsByLign[16].split(":"))[1])
+        #reading line 18, final position error
+        self.errorPosEnd = float((allsByLign[17].split(":"))[1])
 
 
