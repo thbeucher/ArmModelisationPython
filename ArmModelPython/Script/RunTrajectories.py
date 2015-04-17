@@ -45,7 +45,7 @@ def runGenTrajCma():
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread("OptimisationResults/thetaSolBIN")
     theta = vectorToMatrix(theta)
-    testju, sti = costFunctionRBFN(theta)
+    testju, sti, meanJu = costFunctionRBFN(theta)
     if sauv == 1:
         fileSavingBin(nameT + "CoordTraj/CoordTrajectoireELAllCma", sti.save.coordElSave)
         fileSavingBin(nameT + "CoordTraj/CoordTrajectoireHAAllCma", sti.save.coordHaSave)
@@ -54,12 +54,11 @@ def runGenTrajCma():
     elif sauv == 3:
         fileSavingStr(nameT + "nbIteCma", sti.IteSave)
     elif sauv == 4:
-        fileSavingStr(nameT + "costCma", testju)
-        fileSavingBin(nameT + "costBINCma", testju)
+        fileSavingStr(nameT + "costCma", meanJu)
+        fileSavingBin(nameT + "costBINCma", meanJu)
     elif sauv == 5:
         fileSavingStr(nameT + "CoordHitTarget", sti.lastCoord)
         fileSavingBin(nameT + "CoordHitTargetBIN", sti.lastCoord)
-    print(testju)  
     
     
 def plotTargetUnreach(sti):

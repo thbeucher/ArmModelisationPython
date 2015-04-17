@@ -116,7 +116,9 @@ class SuperToolsInit:
             i += 1
             t += self.rs.dt
         print(i)
-        
+        if not str(str(xI) + "//" + str(yI)) in self.lastCoord:
+            self.lastCoord[str(str(xI) + "//" + str(yI))] = []
+        self.lastCoord[str(str(xI) + "//" + str(yI))].append(coordHA)
         if not str(str(xI) + "//" + str(yI)) in self.IteSave:
             self.IteSave[str(str(xI) + "//" + str(yI))] = []
         self.IteSave[str(str(xI) + "//" + str(yI))].append(i)
