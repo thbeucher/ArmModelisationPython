@@ -105,8 +105,7 @@ class SuperToolsInit:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
                 self.Usave[str(str(xI) + str(yI))].append(U)
-                ddotq = mdd(q, dotq, U, self.armP, self.musclesP)
-                dotq, q = integration(dotq, q, ddotq, self.rs.dt)
+                ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
                 self.save.SaveTrajectory(coordEL, coordHA)
@@ -133,8 +132,7 @@ class SuperToolsInit:
         save.SaveTrajectory(coordEL, coordHA)
         t = 0
         while t <= 1:
-            ddotq = mdd(q, dotq, U, self.armP, self.musclesP)
-            dotq, q = integration(dotq, q, ddotq, self.rs.dt)
+            ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
             coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
             save.SaveTrajectory(coordEL, coordHA)
             q = jointStop(q)

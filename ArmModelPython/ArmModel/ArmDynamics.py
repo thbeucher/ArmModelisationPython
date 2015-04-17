@@ -29,7 +29,7 @@ class ArmDynamics:
     
 
 
-def mdd(q, dotq, U, armP, musclesP):
+def mdd(q, dotq, U, armP, musclesP, dt):
     '''
     This function correspond to the direct dynamic model of the arm
     
@@ -53,21 +53,10 @@ def mdd(q, dotq, U, armP, musclesP):
     #Gamma = np.dot(armP.At, np.dot(musclesP.fmax,U))
     #computation of ddotq
     ddotq = np.dot(Minv,(Gamma - C - np.dot(armP.B, dotq)))
-    return ddotq
-
-def integration(dotq, q, ddotq, dt):
-    '''
-    This function compute dotq and q from ddotq
-    
-    Inputs:     -ddotq: (2,1) numpy array
-                -dt: scalar
-    
-    Outputs:    -dotq: (2,1) numpy array
-                -q: (2,1) numpy array
-    '''
     dotq += ddotq*dt
     q += dotq*dt
-    return dotq, q
+    return ddotq, dotq, q
+
     
     
     
