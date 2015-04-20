@@ -22,3 +22,23 @@ y = []
 for el in x:
     y.append(mgi(el[0], el[1], 0.3, 0.35))
 fileSavingStr("coucou2", y)
+
+#Ce bout de code permet de generer des positions initiales proche de la cible
+x = np.arange(-0.15, 0.16, 0.04)
+y = np.arange(0.58, 0.617, 0.01)
+c, cx, cy = [], [], []
+for i in range(len(x)):
+    for j in range(len(y)):
+        c.append((x[i], y[j]))
+for el in c:
+    cx.append(el[0])
+    cy.append(el[1])
+plt.figure()
+plt.scatter(0, 0.6175, c = "r", marker=u'*', s = 100)
+plt.scatter(cx, cy, c = 'b')
+plt.show()
+
+q = []
+for el in c:
+    q.append(mgi(el[0], el[1], 0.3, 0.35))
+print(q)

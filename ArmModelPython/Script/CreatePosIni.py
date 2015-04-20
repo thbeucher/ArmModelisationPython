@@ -74,9 +74,7 @@ def createPos():
     fileSavingStr("InitialPositionForBrent", Q)
     print(len(Q))
     
-
-
-
+    
 
 
 
