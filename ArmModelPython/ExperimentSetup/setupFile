@@ -1,6 +1,6 @@
 Number of features(int):3
 Bruit moteur (Y or N):Y
-Valeur de k pour le bruit sur U(float):0.1
+Valeur de k pour le bruit sur U(float):0.0
 Parametre gamma cost function(float):0.998
 Parametre rho cost function(int):3000
 Parametre upsilon cost function(int):1

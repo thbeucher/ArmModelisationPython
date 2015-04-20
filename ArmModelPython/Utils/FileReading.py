@@ -5,14 +5,13 @@ Description: On retrouve dans ce fichier les fonctions permettant de lire les do
 '''
 import pickle
 import numpy as np
-import os.path as op
 import os
 from Utils.ReadSetupFile import ReadSetupFile
-from ArmModel.GeometricModel import mgd, mgi
 from ArmModel.ArmParameters import ArmParameters
 from Utils.NiemRoot import tronquerNB
 from shutil import copyfile
 import matplotlib.pyplot as plt
+from ArmModel.GeometricModel import mgd, mgi
 
 class FileReading():
     
@@ -104,13 +103,7 @@ class FileReading():
             
             
 
-            
-            
-
-        
-
-
-
+    
 
 
 
