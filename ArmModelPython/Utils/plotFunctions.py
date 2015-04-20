@@ -133,7 +133,7 @@ def plot_pos_ini():
     plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
     
-    plotPosTAT(fr, rs)
+    #plotPosTAT(fr, rs)
     
     plt.show(block = True)
     
@@ -141,7 +141,7 @@ def plot_pos_ini():
 def plotPosTAT(fr, rs):
     xtr, junk = fr.recup_pos_ini(rs.pathFolderData + "ThetaAllTraj/")
     xt1, yt1 = [], []
-    for el in xtr.values():
+    for key, el in xtr.items():
         xt1.append(el[0])
         yt1.append(el[1])
     plt.scatter(xt1, yt1, c = 'y')

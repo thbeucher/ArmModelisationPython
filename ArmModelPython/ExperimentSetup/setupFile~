@@ -5,8 +5,8 @@ Parametre gamma cost function(float):0.998
 Parametre rho cost function(int):3000
 Parametre upsilon cost function(int):1
 Pour CMAES, sigma(float):4
-Pour CMAES, maxIteration(int):20
-POUR CMAES, popsize(int):50
+Pour CMAES, maxIteration(int):10
+POUR CMAES, popsize(int):30
 Chemin du dossier du projet:/home/beucher/workspace/
 Chemin du dossier data:/home/beucher/workspace/Data/
 Chemin du dossier contenant les trajectoires:/home/beucher/workspace/Data/trajectoires/
@@ -15,4 +15,4 @@ Ordonnee de la cible(float):0.6175
 Pas de temps utilise pour l'experimentation(float):0.002
 fichier d'experimentation contenant les positions initiales:PosIniExperimentCircular
 Nombre d'itération avant d'arreter une trajectoire non résolue:400
-Erreur de position finale acceptable:0.005
+Erreur de position finale acceptable:0.01
