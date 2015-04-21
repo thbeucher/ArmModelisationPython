@@ -14,6 +14,7 @@ from matplotlib.mlab import griddata
 import mpl_toolkits
 from Utils.ReadSetupFile import ReadSetupFile
 import os
+from ArmModel.GeometricModel import mgi
 
 
 def costColorPlot(wha):
@@ -147,7 +148,14 @@ def plotPosTAT(fr, rs):
     plt.scatter(xt1, yt1, c = 'y')
 
 
-    
+#plot_pos_ini()
+'''fr = FileReading()
+rs = ReadSetupFile()
+data = fr.getobjread(rs.experimentFilePosIni)
+q = []
+for el in data:
+    q.append(mgi(el[0], el[1], 0.3, 0.35))
+print(q)'''
     
 
 

@@ -59,24 +59,25 @@ def createPos():
             xx.append(d111[i])
             yy.append(d222[j])
             xyt.append((tronquerNB(d111[i], 5), tronquerNB(d222[j], 5)))
-    fileSavingStr("coucou", xyt)
+    #fileSavingStr("coucou", xyt)
     
     plt.figure()
     plt.scatter(x, y, c = 'b')
     plt.scatter(posx, posy, c = 'r')
     
-    plt.scatter(xx, yy, c = 'y')
+    #plt.scatter(xx, yy, c = 'y')
     
     plt.show()
     Q = []
     for el in xy:
         Q.append(mgi(el[0], el[1], 0.3, 0.35))
-    fileSavingStr("InitialPositionForBrent", Q)
+    #fileSavingStr("InitialPositionForBrent", Q)
     print(len(Q))
     
     
-    
-'''x = np.arange(-0.10, 0.11, 0.04)
+#createPos()
+#Le code qui suit permet de generer les positions initiales pour les trajectoires proches de la cible
+'''x = np.arange(-0.08, 0.09, 0.02)
 y = np.arange(0.59, 0.617, 0.01)
 c, cx, cy = [], [], []
 for i in range(len(x)):

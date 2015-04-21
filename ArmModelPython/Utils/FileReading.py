@@ -93,7 +93,7 @@ class FileReading():
         Output:    -dataA: numpy array
         '''
         i = 0
-        for el in data.values():
+        for key, el in data.items():
             if i == 0:
                 dataA = np.array(el)
             else:
