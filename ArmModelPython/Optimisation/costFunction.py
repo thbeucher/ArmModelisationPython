@@ -29,11 +29,11 @@ def costFunctionRBFN(theta):
     for key, el in data.items():
         Ju = sti.trajGenerator(el[0], el[1], theta)
         JuCf.append((key, Ju))'''
-    posi = []
+    '''posi = []
     for i in range(10):
-        posi.append(sti.posIni[7])
+        posi.append(sti.posIni[7])'''
     #Le nombre d'iteration pour i donne le nombre de trajectoire realises
-    for i in range(1):
+    for i in range(10):
         JuCf = []
         for el in sti.posIni:
         #for el in posi:

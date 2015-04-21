@@ -65,7 +65,10 @@ def costColorPlot(wha):
     zb = z/maxt
     xi = np.linspace(-0.4,0.4,280)
     yi = np.linspace(0.1,0.6,280)
-    zi = griddata(x0, y0, zb.T[0], xi, yi)
+    if type(zb) == type([]):
+        zi = griddata(x0, y0, zb, xi, yi)
+    else:
+        zi = griddata(x0, y0, (np.array([zb]).T).T[0], xi, yi)
     
     fig = plt.figure()
     t1 = plt.scatter(x0, y0, c=zb, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))
