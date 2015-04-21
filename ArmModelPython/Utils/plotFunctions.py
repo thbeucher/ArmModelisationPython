@@ -142,12 +142,9 @@ def plotPosTAT(fr, rs):
     xtr, junk = fr.recup_pos_ini(rs.pathFolderData + "ThetaAllTraj/")
     xt1, yt1 = [], []
     for key, el in xtr.items():
-        if el[0] >= 0.08 and el[0] <= 0.09 and el[1] >= 0.19 and el[1] <= 0.21:
-            print(key)
-            xt1.append(el[0])
-            yt1.append(el[1])
+        xt1.append(el[0])
+        yt1.append(el[1])
     plt.scatter(xt1, yt1, c = 'y')
-
 
 
     

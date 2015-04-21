@@ -75,6 +75,25 @@ def createPos():
     print(len(Q))
     
     
+    
+'''x = np.arange(-0.10, 0.11, 0.04)
+y = np.arange(0.59, 0.617, 0.01)
+c, cx, cy = [], [], []
+for i in range(len(x)):
+    for j in range(len(y)):
+        c.append((x[i], y[j]))
+for el in c:
+    cx.append(el[0])
+    cy.append(el[1])
+plt.figure()
+plt.scatter(0, 0.6175, c = "r", marker=u'*', s = 100)
+plt.scatter(cx, cy, c = 'b')
+plt.show()
+
+q = []
+for el in c:
+    q.append(mgi(el[0], el[1], 0.3, 0.35))
+print(q)'''
 
 
 

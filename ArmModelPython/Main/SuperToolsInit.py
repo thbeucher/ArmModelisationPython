@@ -43,6 +43,7 @@ class SuperToolsInit:
         self.Usave = {}
         self.IteSave = {}
         self.lastCoord = {}
+        self.saveOneTraj = {}
     
     def initParamTraj(self):
         pass
@@ -98,13 +99,14 @@ class SuperToolsInit:
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
         self.save.SaveTrajectory(coordEL, coordHA)
         t, i, Ju = 0, 0, 0#Ju = cost
-        self.Usave[str(str(xI) + str(yI))] = []
+        nameSave = str(str(xI) + str(yI))
+        self.Usave[nameSave] = []
         
         while coordHA[1] < (self.rs.targetOrdinate - self.rs.errorPosEnd):
             if i < self.rs.numMaxIter:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
-                self.Usave[str(str(xI) + str(yI))].append(U)
+                self.Usave[nameSave].append(U)
                 ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
@@ -115,12 +117,13 @@ class SuperToolsInit:
             i += 1
             t += self.rs.dt
         print(i)
-        if not str(str(xI) + "//" + str(yI)) in self.lastCoord:
-            self.lastCoord[str(str(xI) + "//" + str(yI))] = []
-        self.lastCoord[str(str(xI) + "//" + str(yI))].append(coordHA)
-        if not str(str(xI) + "//" + str(yI)) in self.IteSave:
-            self.IteSave[str(str(xI) + "//" + str(yI))] = []
-        self.IteSave[str(str(xI) + "//" + str(yI))].append(i)
+        nameSave2 = str(str(xI) + "//" + str(yI))
+        if not nameSave2 in self.lastCoord:
+            self.lastCoord[nameSave2] = []
+        self.lastCoord[nameSave2].append(coordHA)
+        if not nameSave2 in self.IteSave:
+            self.IteSave[nameSave2] = []
+        self.IteSave[nameSave2].append(i)
         if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
             Ju += self.rs.rhoCF
         return Ju

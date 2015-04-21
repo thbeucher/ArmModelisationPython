@@ -33,6 +33,7 @@ def runGenTraj():
     elif sauv == 4:
         fileSavingStr(nameT + "cost", meanJu)
         fileSavingBin(nameT + "costBIN", meanJu)
+    print(meanJu)
     print("Fin de generation de trajectoire!")
     
     

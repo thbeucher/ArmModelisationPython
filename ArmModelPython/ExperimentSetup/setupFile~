@@ -1,12 +1,12 @@
 Number of features(int):3
 Bruit moteur (Y or N):Y
-Valeur de k pour le bruit sur U(float):0.01
+Valeur de k pour le bruit sur U(float):0.1
 Parametre gamma cost function(float):0.998
 Parametre rho cost function(int):3000
 Parametre upsilon cost function(int):1
 Pour CMAES, sigma(float):4
-Pour CMAES, maxIteration(int):10
-POUR CMAES, popsize(int):30
+Pour CMAES, maxIteration(int):50
+POUR CMAES, popsize(int):100
 Chemin du dossier du projet:/home/beucher/workspace/
 Chemin du dossier data:/home/beucher/workspace/Data/
 Chemin du dossier contenant les trajectoires:/home/beucher/workspace/Data/trajectoires/
