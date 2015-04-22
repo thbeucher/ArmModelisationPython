@@ -5,19 +5,17 @@ Module: RunTrajectories
 
 Description: Ce fichier contient les fonctions permettant de lancer la generation des trajectoires
 '''
-from Utils.FileReading import FileReading
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
-from Utils.ReadSetupFile import ReadSetupFile
 from Optimisation.costFunction import costFunctionRBFN
 from Utils.ThetaNormalization import vectorToMatrix
 import matplotlib.pyplot as plt
+from Utils.InitUtil import initFRRS
     
     
 def runGenTraj():
-    fr = FileReading()
-    rs = ReadSetupFile()
-    print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte / 4: cost / 5: lastCoord)")
+    fr, rs = initFRRS()
+    print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte / 4: cost / 5: lastCoord / 6: speed)")
     sauv = input("voulez vous sauvegarder les trajectoires: ")
     sauv = int(sauv)
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
@@ -37,18 +35,22 @@ def runGenTraj():
     elif sauv == 5:
         fileSavingStr(nameT + "CoordHitTarget", sti.lastCoord)
         fileSavingBin(nameT + "CoordHitTargetBIN", sti.lastCoord)
+    elif sauv == 6:
+        fileSavingStr(nameT + "SpeedSave", sti.speedSave)
+        fileSavingBin(nameT + "SpeedSaveBIN", sti.speedSave)
     print(meanJu)
     print("Fin de generation de trajectoire!")
     
     
 def runGenTrajCma():
-    fr = FileReading()
-    rs = ReadSetupFile()
-    print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte / 4: cost / 5: lastCoord)")
+    fr, rs = initFRRS()
+    print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte / 4: cost / 5: lastCoord / 6: speed)")
     sauv = input("voulez vous sauvegarder les trajectoires: ")
     sauv = int(sauv)
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread("OptimisationResults/thetaSolBIN")
+    maxT = fr.getobjread("OptimisationResults/maxTBIN")
+    theta = theta*maxT
     theta = vectorToMatrix(theta)
     testju, sti, meanJu = costFunctionRBFN(theta)
     if sauv == 1:
@@ -65,6 +67,9 @@ def runGenTrajCma():
     elif sauv == 5:
         fileSavingStr(nameT + "CoordHitTargetCma", sti.lastCoord)
         fileSavingBin(nameT + "CoordHitTargetCmaBIN", sti.lastCoord)
+    elif sauv == 6:
+        fileSavingStr(nameT + "SpeedSaveCma", sti.speedSave)
+        fileSavingBin(nameT + "SpeedSaveCmaBIN", sti.speedSave)
     
     
 def plotTargetUnreach(sti):

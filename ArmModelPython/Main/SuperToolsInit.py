@@ -44,6 +44,7 @@ class SuperToolsInit:
         self.IteSave = {}
         self.lastCoord = {}
         self.saveOneTraj = {}
+        self.speedSave = {}
     
     def initParamTraj(self):
         pass
@@ -100,13 +101,17 @@ class SuperToolsInit:
         self.save.SaveTrajectory(coordEL, coordHA)
         t, i, Ju = 0, 0, 0#Ju = cost
         nameSave = str(str(xI) + str(yI))
+        nameSave2 = str(str(xI) + "//" + str(yI))
         self.Usave[nameSave] = []
+        if not nameSave2 in self.speedSave:
+            self.speedSave[nameSave2] = []
         
         while coordHA[1] < (self.rs.targetOrdinate - self.rs.errorPosEnd):
             if i < self.rs.numMaxIter:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
                 self.Usave[nameSave].append(U)
+                self.speedSave[nameSave2].append((dotq[0,0], dotq[1,0]))
                 ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
@@ -117,7 +122,6 @@ class SuperToolsInit:
             i += 1
             t += self.rs.dt
         print(i)
-        nameSave2 = str(str(xI) + "//" + str(yI))
         if not nameSave2 in self.lastCoord:
             self.lastCoord[nameSave2] = []
         self.lastCoord[nameSave2].append(coordHA)

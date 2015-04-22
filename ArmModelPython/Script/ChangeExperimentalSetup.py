@@ -35,7 +35,7 @@ def changeExperiment():
     
     fileSavingBin("PosIniExperimentCircular", exper)
 
-changeExperiment()
+#changeExperiment()
 
 
 

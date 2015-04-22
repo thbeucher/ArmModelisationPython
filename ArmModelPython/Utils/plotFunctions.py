@@ -8,16 +8,14 @@ Description: On retrouve dans ce fichier differentes fonctions permettant d'affi
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-from Utils.FileReading import FileReading
 from matplotlib import animation
 from matplotlib.mlab import griddata
 import mpl_toolkits
-from Utils.ReadSetupFile import ReadSetupFile
 import os
 from ArmModel.GeometricModel import mgi, mgd
 import math
 from Utils.NiemRoot import tronquerNB
-
+from Utils.InitUtil import initFRRS
 
 def costColorPlot(wha):
     '''
@@ -28,8 +26,7 @@ def costColorPlot(wha):
     '''
     xt = 0
     
-    fr = FileReading()
-    rs = ReadSetupFile()
+    fr, rs = initFRRS()
     nbfeat = rs.numfeats
     
     xy0tmp, Q = fr.recup_pos_ini(rs.pathFolderTrajectories)
@@ -99,8 +96,7 @@ def plotActivationMuscular(what):
                 -nbfeat: nombre de features utilises pour generer le controleur actuel
                 
     '''
-    fr = FileReading()
-    rs = ReadSetupFile()
+    fr, rs = initFRRS()
     nbfeat = rs.numfeats
     if what == "brent":
         #BrentBVPSolver activations muscular
@@ -123,8 +119,7 @@ def plotActivationMuscular(what):
         pass
     
 def timeDistance():
-    fr = FileReading()
-    rs = ReadSetupFile()
+    fr, rs = initFRRS()
     name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteBIN" 
     data = fr.getobjread(name)
     key = []
@@ -140,8 +135,7 @@ def timeDistance():
     
 
 def hitDispersion():
-    fr = FileReading()
-    rs = ReadSetupFile()
+    fr, rs = initFRRS()
     name = "RBFN2/" + str(rs.numfeats) + "feats/CoordHitTargetBIN" 
     data = fr.getobjread(name)
     tab = []
@@ -158,6 +152,12 @@ def hitDispersion():
     plt.scatter(tabx, taby, c = 'b')
     plt.show(block = True)
     
+def velocityProfile():
+    fr, rs = initFRRS()
+    name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
+    data = fr.getobjread(name)
+    
+    
 
 def plot_pos_ini():
     '''
@@ -166,8 +166,7 @@ def plot_pos_ini():
     '''
     x0 = []
     y0 = []
-    fr = FileReading()
-    rs = ReadSetupFile()
+    fr, rs = initFRRS()
     xt = 0
     yt = rs.targetOrdinate
     posIni = fr.getobjread(rs.experimentFilePosIni)
