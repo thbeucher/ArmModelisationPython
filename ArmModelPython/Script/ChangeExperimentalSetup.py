@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from Utils.FileSaving import fileSavingBin
 
 def changeExperiment():
-    x0, y0, r1, r2 = 0, 0.6175, 0.2275, 0.27
+    x0, y0, r1, r2 = 0, 0.6175, 0.2, 0.25
     x, y, exper = [], [], []
     #nppi = np.arange(5*math.pi/4, 7*math.pi/4, math.pi/10)
     nppi = np.linspace(5*math.pi/4, 7*math.pi/4, 6)
@@ -35,7 +35,7 @@ def changeExperiment():
     
     fileSavingBin("PosIniExperimentCircular", exper)
 
-#changeExperiment()
+changeExperiment()
 
 
 

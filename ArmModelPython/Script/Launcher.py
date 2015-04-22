@@ -8,14 +8,14 @@ Description: On retrouve dans ce fichier l'executable permetttant de lancer les 
 
 from Script.RunRegressionRBFN import runRBFN, test2DRBFN
 from Utils.plotFunctions import costColorPlot, plotActivationMuscular,\
-    plot_pos_ini
+    plot_pos_ini, hitDispersion
 from Optimisation.Cmaes import runCmaes
 from Script.RunTrajectories import runGenTraj, runGenTrajCma
 from Script.CostEvaluationForBrentBVPSolverTrajectories import costEvalBrent
 from Utils.TrajectoriesAnimation import trajectoriesAnimation
 
 
-print("Scripts existants:\n -animation        -posIni\n -rbfn             -costBrent\n -rbfn_test2D      -testResCma\n -genTraj\n -costColor\n -actiMuscu\n -cmaes\n")
+print("Scripts existants:\n -animation        -posIni\n -rbfn             -costBrent\n -rbfn_test2D      -testResCma\n -genTraj          -hitDisp\n -costColor\n -actiMuscu\n -cmaes\n")
 choix = input("Veuillez entrer le choix du script à lancer: ")
 
 if choix == "animation":
@@ -57,7 +57,8 @@ elif choix == "costBrent":
 elif choix == "testResCma":
     runGenTrajCma()
     
-
+elif choix == "hitDisp":
+    hitDispersion()
     
     
     
