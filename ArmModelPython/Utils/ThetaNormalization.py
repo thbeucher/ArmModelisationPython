@@ -45,6 +45,12 @@ def normalization(theta):
     datan = theta/maxT
     return maxT, datan
 
+def unNorm(theta):
+    fr = FileReading()
+    maxT = fr.getobjread("OptimisationResults/maxTBIN")
+    theta = theta*maxT
+    return theta
+
 def matrixToVector(theta):
     thetaTmpN = theta[0]
     for i in range(theta.shape[0]-1):

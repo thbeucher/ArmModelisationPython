@@ -7,7 +7,7 @@ Description: We find here the function which allow to evaluate the cost of each 
 '''
 import numpy as np
 import time
-from Utils.ThetaNormalization import vectorToMatrix
+from Utils.ThetaNormalization import vectorToMatrix, unNorm
 from Main.SuperToolsInit import SuperToolsInit
     
     
@@ -61,8 +61,7 @@ class costFunctionClass:
     def costFunctionCMAES(self, theta):
         sti = SuperToolsInit()
         Jutmp = {}
-        maxT = sti.fr.getobjread("OptimisationResults/maxTBIN")
-        theta = theta*maxT
+        theta = unNorm(theta)
         theta = vectorToMatrix(theta)
         
         for i in range(5):

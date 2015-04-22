@@ -8,7 +8,7 @@ Description: Ce fichier contient les fonctions permettant de lancer la generatio
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
 from Optimisation.costFunction import costFunctionRBFN
-from Utils.ThetaNormalization import vectorToMatrix
+from Utils.ThetaNormalization import vectorToMatrix, unNorm
 import matplotlib.pyplot as plt
 from Utils.InitUtil import initFRRS
     
@@ -49,8 +49,7 @@ def runGenTrajCma():
     sauv = int(sauv)
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread("OptimisationResults/thetaSolBIN")
-    maxT = fr.getobjread("OptimisationResults/maxTBIN")
-    theta = theta*maxT
+    theta = unNorm(theta)
     theta = vectorToMatrix(theta)
     testju, sti, meanJu = costFunctionRBFN(theta)
     if sauv == 1:
