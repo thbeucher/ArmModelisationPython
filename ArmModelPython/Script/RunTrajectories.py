@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 def runGenTraj():
     fr = FileReading()
     rs = ReadSetupFile()
-    print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte, 4: cost)")
+    print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte / 4: cost / 5: lastCoord)")
     sauv = input("voulez vous sauvegarder les trajectoires: ")
     sauv = int(sauv)
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
@@ -30,9 +30,13 @@ def runGenTraj():
         fileSavingBin(nameT + "Uall", sti.Usave)
     elif sauv == 3:
         fileSavingStr(nameT + "nbIte", sti.IteSave)
+        fileSavingBin(nameT + "nbIteBIN", sti.IteSave)
     elif sauv == 4:
         fileSavingStr(nameT + "cost", meanJu)
         fileSavingBin(nameT + "costBIN", meanJu)
+    elif sauv == 5:
+        fileSavingStr(nameT + "CoordHitTarget", sti.lastCoord)
+        fileSavingBin(nameT + "CoordHitTargetBIN", sti.lastCoord)
     print(meanJu)
     print("Fin de generation de trajectoire!")
     
@@ -54,12 +58,13 @@ def runGenTrajCma():
         fileSavingBin(nameT + "UallCma", sti.Usave)
     elif sauv == 3:
         fileSavingStr(nameT + "nbIteCma", sti.IteSave)
+        fileSavingBin(nameT + "nbIteCmaBIN", sti.IteSave)
     elif sauv == 4:
         fileSavingStr(nameT + "costCma", meanJu)
         fileSavingBin(nameT + "costBINCma", meanJu)
     elif sauv == 5:
-        fileSavingStr(nameT + "CoordHitTarget", sti.lastCoord)
-        fileSavingBin(nameT + "CoordHitTargetBIN", sti.lastCoord)
+        fileSavingStr(nameT + "CoordHitTargetCma", sti.lastCoord)
+        fileSavingBin(nameT + "CoordHitTargetCmaBIN", sti.lastCoord)
     
     
 def plotTargetUnreach(sti):

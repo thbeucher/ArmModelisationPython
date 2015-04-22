@@ -57,7 +57,7 @@ elif choix == "costBrent":
 elif choix == "testResCma":
     runGenTrajCma()
     
-    
+
     
     
     

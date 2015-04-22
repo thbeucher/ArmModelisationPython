@@ -14,7 +14,9 @@ from matplotlib.mlab import griddata
 import mpl_toolkits
 from Utils.ReadSetupFile import ReadSetupFile
 import os
-from ArmModel.GeometricModel import mgi
+from ArmModel.GeometricModel import mgi, mgd
+import math
+from Utils.NiemRoot import tronquerNB
 
 
 def costColorPlot(wha):
@@ -68,10 +70,17 @@ def costColorPlot(wha):
     zb = z/maxt
     xi = np.linspace(-0.4,0.4,280)
     yi = np.linspace(0.1,0.6,280)
+    er = 0
+    try:
+        zb.shape[1]
+    except IndexError:
+        er = 1
     if type(zb) == type([]):
         zi = griddata(x0, y0, zb, xi, yi)
+    elif er == 1:
+        zi = griddata(x0, y0, zb, xi, yi)
     else:
-        zi = griddata(x0, y0, np.array(zb).T[0], xi, yi)
+        zi = griddata(x0, y0, zb.T[0], xi, yi)
     
     fig = plt.figure()
     t1 = plt.scatter(x0, y0, c=zb, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))
@@ -113,6 +122,42 @@ def plotActivationMuscular(what):
     elif what == "cma":
         pass
     
+def timeDistance():
+    fr = FileReading()
+    rs = ReadSetupFile()
+    name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteBIN" 
+    data = fr.getobjread(name)
+    key = []
+    for el in data.keys():
+        key.append(el.split("//"))
+    for i in range(len(key)):
+        key[i][0] = float(key[i][0])
+        key[i][1] = float(key[i][1])
+    r = []
+    for el in key:
+        r1 = math.sqrt(((tronquerNB(el[0], 5)**2) + ((tronquerNB(el[1], 5) - 0.6175)**2)))/2
+        r.append(tronquerNB(r1, 2))
+    
+
+def hitDispersion():
+    fr = FileReading()
+    rs = ReadSetupFile()
+    name = "RBFN2/" + str(rs.numfeats) + "feats/CoordHitTargetBIN" 
+    data = fr.getobjread(name)
+    tab = []
+    for el in data.values():
+        for el1 in el:
+            tab.append(el1)
+    tabx, taby = [], []
+    for el in tab:
+        tabx.append(el[0])
+        taby.append(rs.targetOrdinate)
+    plt.figure()
+    plt.plot([-0.2, 0.2], [rs.targetOrdinate, rs.targetOrdinate], c = 'r')
+    plt.scatter([-rs.sizeOfTarget/2, rs.sizeOfTarget/2], [rs.targetOrdinate, rs.targetOrdinate], marker=u'|', s = 100)
+    plt.scatter(tabx, taby, c = 'b')
+    plt.show()
+    
 
 def plot_pos_ini():
     '''
@@ -139,7 +184,10 @@ def plot_pos_ini():
     plt.scatter(x, y, c = "b", marker=u'o', s=25, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
-    
+     
+    #a, b = mgd(np.array([[1.1690796041657903], [1.5724346307752133]]), 0.3, 0.35)
+    #a1, b1 = mgd(np.array([[1.21], [1.52]]), 0.3, 0.35)
+    #plt.scatter([b[0], b1[0]], [b[1], b1[1]], c = 'y')
     #plotPosTAT(fr, rs)
     
     plt.show(block = True)
@@ -152,6 +200,7 @@ def plotPosTAT(fr, rs):
         xt1.append(el[0])
         yt1.append(el[1])
     plt.scatter(xt1, yt1, c = 'y')
+
 
 
 #plot_pos_ini()
