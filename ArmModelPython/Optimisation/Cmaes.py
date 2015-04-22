@@ -26,9 +26,9 @@ def runCmaes():
     maxT, thetaN = normalization(theta)#Recuperation des theta normalises
     fileSavingBin("OptimisationResults/maxTBIN", maxT)
     #Mise sous forme de vecteur simple
-    theta = matrixToVector(theta)
+    thetaN = matrixToVector(thetaN)
     cf = costFunctionClass()
-    resSO = cma.fmin(cf.costFunctionCMAES, theta, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    resSO = cma.fmin(cf.costFunctionCMAES, thetaN, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     t1 = time.time()
     print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
     #Sauvegarde des solutions de cmaes

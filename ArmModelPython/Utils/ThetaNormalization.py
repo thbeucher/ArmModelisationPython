@@ -41,14 +41,8 @@ def normalizeThetaFunction():
     
     
 def normalization(theta):
-    #fr = FileReading()
-    #data = fr.getobjread("RBFN2/3feats/ThetaXBIN")
     maxT = (np.max(abs(theta)))
-    #print(np.max(data), np.min(data), np.mean(data))
     datan = theta/maxT
-    #print(np.max(datan), np.min(datan), np.mean(datan))
-    #datar = datan*maxT
-    #print(np.max(datar), np.min(datar), np.mean(datar))
     return maxT, datan
 
 def matrixToVector(theta):
