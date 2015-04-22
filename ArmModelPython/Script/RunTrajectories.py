@@ -20,7 +20,7 @@ def runGenTraj():
     sauv = int(sauv)
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread(nameT + "ThetaXBIN")
-    testju, sti, meanJu = costFunctionRBFN(theta)
+    sti, meanJu = costFunctionRBFN(theta)
     if sauv == 1:
         fileSavingBin(nameT + "CoordTraj/CoordTrajectoireELAll", sti.save.coordElSave)
         fileSavingBin(nameT + "CoordTraj/CoordTrajectoireHAAll", sti.save.coordHaSave)
@@ -51,7 +51,7 @@ def runGenTrajCma():
     theta = fr.getobjread("OptimisationResults/thetaSolBIN")
     theta = unNorm(theta)
     theta = vectorToMatrix(theta)
-    testju, sti, meanJu = costFunctionRBFN(theta)
+    sti, meanJu = costFunctionRBFN(theta)
     if sauv == 1:
         fileSavingBin(nameT + "CoordTraj/CoordTrajectoireELAllCma", sti.save.coordElSave)
         fileSavingBin(nameT + "CoordTraj/CoordTrajectoireHAAllCma", sti.save.coordHaSave)

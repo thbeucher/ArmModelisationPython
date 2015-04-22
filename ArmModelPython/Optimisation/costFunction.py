@@ -51,7 +51,7 @@ def costFunctionRBFN(theta):
         else:
             juju = np.vstack((juju, el))
     meanJu = np.mean(np.array([juju]).T, axis = 1)
-    return JuCf, sti, meanJu
+    return sti, meanJu
 
 class costFunctionClass:
     
