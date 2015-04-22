@@ -49,6 +49,9 @@ def costColorPlot(wha):
     elif wha == "cma":
         name = "RBFN2/" + str(nbfeat) + "feats/costBINCma"
         z = fr.getobjread(name)
+        for i in range(len(z)):
+            if z[i] > 50:
+                z[i] -= 3000
         maxt = np.max(abs(z))
         
     elif wha == "brent":
@@ -68,7 +71,7 @@ def costColorPlot(wha):
     if type(zb) == type([]):
         zi = griddata(x0, y0, zb, xi, yi)
     else:
-        zi = griddata(x0, y0, (np.array([zb]).T).T[0], xi, yi)
+        zi = griddata(x0, y0, np.array(zb).T[0], xi, yi)
     
     fig = plt.figure()
     t1 = plt.scatter(x0, y0, c=zb, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))

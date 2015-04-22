@@ -33,9 +33,21 @@ def createPos():
         for j in range(r.shape[0]):
             xt = x0 + r[j] * math.cos(t[i+1])
             yt = y0 + r[j] * math.sin(t[i+1])
-            x.append(xt)
-            y.append(yt)
+            x.append(tronquerNB(xt, 6))
+            y.append(tronquerNB(yt, 6))
             xy.append((xt, yt))
+    
+    rt1 = np.arange(0.37, 0.5, 0.03)
+    tt1 = np.arange(7*math.pi/6 + 0.1, 11*math.pi/6 - 0.05, 0.05)     
+    xt1, yt1, xyt1 = [], [], []
+    for i in range(tt1.shape[0]):
+        for j in range(rt1.shape[0]):
+            xr = x0 + rt1[j] * math.cos(tt1[i])
+            yr = y0 + rt1[j] * math.sin(tt1[i])
+            if tronquerNB(xr, 6) not in x and tronquerNB(yr, 6) not in y:
+                xt1.append(tronquerNB(xr, 6))
+                yt1.append(tronquerNB(yr, 6))
+                xyt1.append((tronquerNB(xr, 6), tronquerNB(yr, 6)))
     
     d1 = np.arange(-0.10, 0.07, 0.01)
     d2 = np.arange(0.12, 0.25, 0.01)    
@@ -65,6 +77,7 @@ def createPos():
     plt.scatter(x, y, c = 'b')
     plt.scatter(posx, posy, c = 'r')
     
+    plt.scatter(xt1, yt1, c = 'y')
     #plt.scatter(xx, yy, c = 'y')
     
     plt.show()
@@ -72,6 +85,10 @@ def createPos():
     for el in xy:
         Q.append(mgi(el[0], el[1], 0.3, 0.35))
     #fileSavingStr("InitialPositionForBrent", Q)
+    Qt = []
+    for el in xyt1:
+        Qt.append(mgi(el[0], el[1], 0.3, 0.35))
+    print(Qt)
     print(len(Q))
     
     
