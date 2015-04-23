@@ -58,6 +58,8 @@ class fa_rbfn():
         #Recupere les minimums et maximum dans les donnees d'entrees
         minInputData = np.min(self.inputData, axis = 1)
         maxInputData = np.max(self.inputData, axis = 1)
+        #Normalization of data
+        
         rangeForEachDim = maxInputData - minInputData
         #Fixe les sigmas
         widthConstant = rangeForEachDim / self.nbFeat
