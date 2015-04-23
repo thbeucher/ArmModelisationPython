@@ -38,5 +38,9 @@ def renameFromTrajectoires():
         if not ".log" in el:
             os.rename(rs.pathFolderTrajectories + el, str(rs.pathFolderTrajectories + el + ".log"))
         
-renameFromOutputSOlver()
-renameFromTrajectoires()
+#renameFromOutputSOlver()
+#renameFromTrajectoires()
+
+
+
+

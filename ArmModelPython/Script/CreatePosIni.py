@@ -60,6 +60,18 @@ def createPos():
                 xt11.append(tronquerNB(xr1, 6))
                 yt11.append(tronquerNB(yr1, 6))
                 xyt11.append((tronquerNB(xr1, 6), tronquerNB(yr1, 6)))
+                
+    rt12 = np.arange(0.25, 0.26, 0.03)
+    tt12 = np.arange(7*math.pi/6 + 0.1, 11*math.pi/6 - 0.05, 0.05)
+    xt12, yt12, xyt12 = [], [], []
+    for i in range(tt12.shape[0]):
+        for j in range(rt12.shape[0]):
+            xr2 = x0 + rt12[j] * math.cos(tt12[i])
+            yr2 = y0 + rt12[j] * math.sin(tt12[i])
+            if tronquerNB(xr2, 6) not in x and tronquerNB(yr2, 6) not in y and yr2 > 0.4:
+                xt12.append(tronquerNB(xr2, 6))
+                yt12.append(tronquerNB(yr2, 6))
+                xyt12.append((tronquerNB(xr2, 6), tronquerNB(yr2, 6)))
     
     d1 = np.arange(-0.10, 0.07, 0.01)
     d2 = np.arange(0.12, 0.25, 0.01)    
@@ -91,6 +103,7 @@ def createPos():
     
     plt.scatter(xt1, yt1, c = 'y')
     plt.scatter(xt11, yt11, c = "m")
+    plt.scatter(xt12, yt12, c = 'y')
     #plt.scatter(xx, yy, c = 'y')
     
     plt.show()
@@ -107,6 +120,10 @@ def createPos():
     for el in xyt11:
         Qt1.append(mgi(el[0], el[1], 0.3, 0.35))
     print(Qt1)
+    Qt2 = []
+    for el in xyt12:
+        Qt2.append(mgi(el[0], el[1], 0.3, 0.35))
+    print(Qt2)
     
     
 #createPos()

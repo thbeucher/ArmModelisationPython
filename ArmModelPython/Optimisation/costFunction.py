@@ -9,6 +9,8 @@ import numpy as np
 import time
 from Utils.ThetaNormalization import vectorToMatrix, unNorm
 from Main.SuperToolsInit import SuperToolsInit
+from multiprocessing.context import Process
+from multiprocessing.sharedctypes import Array
     
     
 def costFunctionRBFN(theta):
@@ -53,34 +55,66 @@ def costFunctionRBFN(theta):
     meanJu = np.mean(np.array([juju]).T, axis = 1)
     return sti, meanJu
 
+
 class costFunctionClass:
     
     def __init__(self):
         self.call = 0
+        self.sti = SuperToolsInit()
+    
+    def initTheta(self, theta):
+        theta = unNorm(theta)
+        self.theta = vectorToMatrix(theta)
+        
+    def serie1(self, JuS1):
+        i = 0
+        for el in self.sti.posIni:
+            Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
+            JuS1[i] = Ju*(-1)
+            i += 1
+            
+    def serie2(self, JuS2):
+        i = 0
+        for el in self.sti.posIni:
+            Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
+            JuS2[i] = Ju*(-1)
+            i += 1
+            
+    def serie3(self, JuS3):
+        i = 0
+        for el in self.sti.posIni:
+            Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
+            JuS3[i] = Ju*(-1)
+            i += 1
+            
+    def serie4(self, JuS4):
+        i = 0
+        for el in self.sti.posIni:
+            Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
+            JuS4[i] = Ju*(-1)
+            i += 1
               
     def costFunctionCMAES(self, theta):
-        sti = SuperToolsInit()
-        Jutmp = {}
-        theta = unNorm(theta)
-        theta = vectorToMatrix(theta)
+        self.initTheta(theta)
         
-        for i in range(5):
-            JuCf = []
-            for el in sti.posIni:
-                Ju = sti.trajGenerator(el[0], el[1], theta)
-                JuCf.append(Ju*-1)
-            Jutmp[i] = JuCf
-        s = 0
-        for el in Jutmp.values():
-            if s == 0:
-                juju = np.array(el)
-                s += 1
-            else:
-                juju = np.vstack((juju, el))
-        meanJu = np.mean(np.array([juju]).T, axis = 1)
-        JuSca = np.mean(meanJu)
+        JuS1, JuS2, JuS3, JuS4 = Array('d', range(12)), Array('d', range(12)), Array('d', range(12)), Array('d', range(12))
+        p1, p2, p3, p4 = Process(target=self.serie1, args=(JuS1,)), Process(target=self.serie2, args=(JuS2,)), Process(target=self.serie3, args=(JuS3,)), Process(target=self.serie4, args=(JuS4,))
+        p1.start()
+        p2.start()
+        p3.start()
+        p4.start()
+        p1.join()
+        p2.join()
+        p3.join()
+        p4.join()
+        
+        juf = np.vstack((JuS1, JuS2, JuS3, JuS4))
+        meanJuf = np.mean(juf, axis = 0)
+        print("meanjuf", meanJuf)
+        JuSca = np.mean(meanJuf)
         print("Appel n°", self.call)
         self.call += 1
+        print("Cout: ", JuSca)
         return JuSca
 
 

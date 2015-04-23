@@ -69,6 +69,7 @@ def runGenTrajCma():
     elif sauv == 6:
         fileSavingStr(nameT + "SpeedSaveCma", sti.speedSave)
         fileSavingBin(nameT + "SpeedSaveCmaBIN", sti.speedSave)
+    print(meanJu)
     
     
 def plotTargetUnreach(sti):

@@ -7,6 +7,8 @@ Description: We find here functions which allow to compute a RBFN regression
 '''
 import numpy as np
 from Utils.CartesianProduct import cartesian
+from multiprocessing.context import Process
+
 
 class fa_rbfn():
     
@@ -38,6 +40,7 @@ class fa_rbfn():
         self.numberOfSamples = numberOfInputSamples
         self.theta = np.zeros((self.nbFeat, self.outputDimension))
 
+    
     def train_rbfn(self):
         '''
         The training function to find solution of the approximation
