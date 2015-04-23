@@ -3,7 +3,7 @@ Author: Thomas Beucher
 
 Module: functionApproximator_RBFN
 
-Description: Dans ce fichier on retrouve les fonctions permettant d'effectuer une regression de type RBFN
+Description: We find here functions which allow to compute a RBFN regression
 '''
 import numpy as np
 from Utils.CartesianProduct import cartesian
@@ -12,13 +12,21 @@ class fa_rbfn():
     
     def __init__(self, nbFeature):
         '''
-        Initialisation des parametres de la classe
+        Initialization of class parameters
+        
+        Input:     -nbFeature: int, number of feature in order to perform the regression
         
         '''
         self.nbFeat = nbFeature
         self.title = "rbfn"
         
     def setTrainingData(self, inputData, outputData):
+        '''
+        This function verify the validity of input and output data given
+        
+        Input:      -inputdata, numpy N-D array
+                    -outputData, numpy N-D array
+        '''
         ##Data should be organize by columns##
         self.inputData = inputData
         self.outputData = outputData
@@ -32,7 +40,7 @@ class fa_rbfn():
 
     def train_rbfn(self):
         '''
-        Fonction permettant de calculer les thetas suivant l'algorithme de regression RBFN
+        The training function to find solution of the approximation
         
         '''
         A = np.dot(self.featureOutput(self.inputData.T), self.featureOutput(self.inputData.T).T)
@@ -41,7 +49,7 @@ class fa_rbfn():
        
     def setCentersAndWidths(self):
         '''
-        Fonction permettant de fixer les centres des gaussiennes utilisees et leurs sigma 
+        Function which set the centers and widths of Gaussian used
         
         '''
         #Recupere les minimums et maximum dans les donnees d'entrees
@@ -63,11 +71,11 @@ class fa_rbfn():
     
     def featureOutput(self, inputData):
         '''
-        Fonction calculant les sorties, selon chaques gaussienne, pour l'entree choisie
+        Computation of gaussian
         
-        Entrees:    -inputData: tableau numpy contenant les entrees a traiter
+        Input:     -inputData: numpy N-D array
         
-        Sortie:    -phi: tableau numpy contenant les sorties pour chaque feature
+        Output:    -phi: numpy N-D array
         '''
         #Si il n'y a qu'un seul echantillon
         if inputData.shape[1] == 1:
@@ -93,10 +101,12 @@ class fa_rbfn():
 
     def functionApproximatorOutput(self, inputData, theta):
         '''
-        Fonction retournant la sortie approximee pour l'entree donnee et le theta fourni
+        Function which return the output depend of the input and theta given
         
-        Entrees:    -inputData: l'entree dont on veut la sortie
-                    -theta: le theta calcule precedemment en utilisant rbfn
+        Input:      -inputData: numpy N-D array
+                    -theta: numpy N-D array
+        
+        Output:     -fa_out: numpy N-D array, output approximated
         '''
         if inputData.shape[1] == 1:
             phi = self.featureOutput(inputData)

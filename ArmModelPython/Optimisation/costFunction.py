@@ -77,7 +77,7 @@ class costFunctionClass:
                 s += 1
             else:
                 juju = np.vstack((juju, el))
-        meanJu = np.mean(juju, axis = 0)
+        meanJu = np.mean(np.array([juju]).T, axis = 1)
         JuSca = np.mean(meanJu)
         print("Appel n°", self.call)
         self.call += 1
