@@ -68,7 +68,7 @@ def createPos():
         for j in range(rt12.shape[0]):
             xr2 = x0 + rt12[j] * math.cos(tt12[i])
             yr2 = y0 + rt12[j] * math.sin(tt12[i])
-            if tronquerNB(xr2, 6) not in x and tronquerNB(yr2, 6) not in y and yr2 > 0.4:
+            if tronquerNB(xr2, 6) not in x and tronquerNB(yr2, 6) not in y and yr2 < 0.4:
                 xt12.append(tronquerNB(xr2, 6))
                 yt12.append(tronquerNB(yr2, 6))
                 xyt12.append((tronquerNB(xr2, 6), tronquerNB(yr2, 6)))

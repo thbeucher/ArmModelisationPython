@@ -11,7 +11,7 @@ from Utils.FileReading import FileReading
     
     
 def normalization(theta):
-    maxT = (np.max(abs(theta)))
+    maxT = (np.max(np.abs(theta)))
     datan = theta/maxT
     return maxT, datan
 
