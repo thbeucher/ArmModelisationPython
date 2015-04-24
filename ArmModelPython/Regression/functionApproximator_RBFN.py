@@ -9,7 +9,6 @@ import numpy as np
 from Utils.CartesianProduct import cartesian
 from multiprocessing.context import Process
 from multiprocessing.sharedctypes import Array
-
 import ctypes as ct
 from Utils.DataNormalization import normData, normDataForEachIndividualColumns
 

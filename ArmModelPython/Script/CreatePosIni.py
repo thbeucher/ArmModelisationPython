@@ -10,15 +10,13 @@ import numpy as np
 import math
 from ArmModel.GeometricModel import mgi, mgd
 import matplotlib.pyplot as plt
-from Utils.FileReading import FileReading
-from Utils.ReadSetupFile import ReadSetupFile
 from Utils.FileSaving import fileSavingStr
 from Utils.NiemRoot import tronquerNB
+from Utils.InitUtil import initFRRS
 
 
 def createPos():
-    fr = FileReading()
-    rs = ReadSetupFile()
+    fr, rs = initFRRS()
     posi = fr.getobjread(rs.experimentFilePosIni)
     posx, posy = [], []
     for el in posi:
@@ -125,7 +123,45 @@ def createPos():
         Qt2.append(mgi(el[0], el[1], 0.3, 0.35))
     print(Qt2)
     
+def create2():
+    fr, rs = initFRRS()
+    posi = fr.getobjread(rs.experimentFilePosIni)
+    posx, posy = [], []
+    for el in posi:
+        posx.append(el[0])
+        posy.append(el[1])
+        
+    x = np.arange(-0.3, 0.31, 0.01)
+    y = np.arange(0.2, 0.61, 0.01)
+    xx, yy, xyt = [], [], []
+    for i in range(len(x)):
+        for j in range(len(y)):
+            xx.append(x[i])
+            yy.append(y[j])
+            xyt.append((tronquerNB(x[i], 5), tronquerNB(y[j], 5)))
     
+    plt.figure()
+    plt.scatter(posx, posy, c = 'b')
+    plt.scatter(0, rs.targetOrdinate, marker=u'*', s = 100)
+    plt.scatter(xx, yy, c = 'r')
+    plt.show()
+    
+    q1, q2, q3, q4 = [], [], [], []
+    for el in xyt:
+        a = mgi(el[0], el[1], 0.3, 0.35)
+        if not a == "None":
+            if len(q1) < 620:
+                q1.append(mgi(el[0], el[1], 0.3, 0.35))
+            elif len(q2) < 620:
+                q2.append(mgi(el[0], el[1], 0.3, 0.35))
+            elif len(q3) < 620:
+                q3.append(mgi(el[0], el[1], 0.3, 0.35))
+            else:
+                q4.append(mgi(el[0], el[1], 0.3, 0.35))
+    print(q1, "\n\n", q2, "\n\n", q3, "\n\n", q4)
+    print(len(q1), len(q2), len(q3), len(q4))
+
+create2()
 #createPos()
 #Le code qui suit permet de generer les positions initiales pour les trajectoires proches de la cible
 '''x = np.arange(-0.08, 0.09, 0.02)
