@@ -41,14 +41,26 @@ def costColorPlot(wha):
         y0.append(el[1])
         
     if wha == "rbfn":
-        name = "RBFN2/" + str(nbfeat) + "feats/costBIN"
-        z = fr.getobjread(name)
+        name = "RBFN2/" + str(nbfeat) + "feats/"
+        z = fr.getobjread(name + "costBIN")
+        zdico = fr.getobjread(name + "costTrajBIN")
+        xAbn, yAbn, zWithoutAbn, xyAbn = [], [], [], []
+        for key,el in zdico.items():
+            if el > 0 and el < 290 or el < -10:
+                xAbn.append(tronquerNB(float(key.split("//")[0]), 3))
+                yAbn.append(tronquerNB(float(key.split("//")[1]), 3))
+                xyAbn.append((xAbn, yAbn))
+            else:
+                zWithoutAbn.append(el)
         if len(z) > len(x0):
             startPts, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
             x0, y0 = [], []
             for el in startPts.values():
-                x0.append(el[0])
-                y0.append(el[1])
+                if not (tronquerNB(el[0], 3), tronquerNB(el[1], 3))in xyAbn:
+                    x0.append(el[0])
+                    y0.append(el[1])
+        print(len(x0))
+        c = input("dfs")
         for i in range(len(z)):
             if z[i] > 0:
                 z[i] -= rs.rhoCF
@@ -256,7 +268,7 @@ def plotPosIniOutputSolver():
     plt.scatter(x2, y2, c = 'r')
     plt.show(block = True)
     
-plotPosIniOutputSolver()
+#plotPosIniOutputSolver()
 
     
 

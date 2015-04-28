@@ -32,6 +32,7 @@ def runGenTraj():
     elif sauv == 4:
         fileSavingStr(nameT + "cost", meanJu)
         fileSavingBin(nameT + "costBIN", meanJu)
+        fileSavingBin(nameT + "costTrajBIN", sti.costSave)
     elif sauv == 5:
         fileSavingStr(nameT + "CoordHitTarget", sti.lastCoord)
         fileSavingBin(nameT + "CoordHitTargetBIN", sti.lastCoord)

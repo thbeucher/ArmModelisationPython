@@ -49,7 +49,7 @@ def unitaryTestCmaes(noise):
     return t
 
 '''noise = [10,15]
-resT = cma.fmin(unitaryTestCmaes, noise, 20, options={'maxiter':30, 'popsize':50})
+resT = cma.fmin(unitaryTestCmaes, noise, 10, options={'maxiter':30, 'popsize':50})
 print("resultat", resT[0])'''
     
     

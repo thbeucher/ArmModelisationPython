@@ -45,6 +45,7 @@ class SuperToolsInit:
         self.lastCoord = {}
         self.saveOneTraj = {}
         self.speedSave = {}
+        self.costSave = {}
     
     def initParamTraj(self):
         pass
@@ -126,7 +127,7 @@ class SuperToolsInit:
                 break
             i += 1
             t += self.rs.dt
-        #print(i)
+        print(i)
         if not nameSave2 in self.lastCoord:
             self.lastCoord[nameSave2] = []
         self.lastCoord[nameSave2].append(coordHA)
@@ -135,6 +136,7 @@ class SuperToolsInit:
         self.IteSave[nameSave2].append(i)
         if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
             Ju += self.rs.rhoCF
+        self.costSave[nameSave2] = Ju
         return Ju
     
     def trajGenWithU(self, U, save):
