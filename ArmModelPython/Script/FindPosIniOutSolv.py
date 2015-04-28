@@ -51,4 +51,4 @@ def runfpios():
     plt.scatter(corxA, coryA, c = 'b')
     plt.show()
     
-runfpios()
+#runfpios()

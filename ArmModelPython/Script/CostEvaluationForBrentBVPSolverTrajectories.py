@@ -34,7 +34,7 @@ def costEvalBrent():
     print("Fin de traitement!")
     
         
-
+#costEvalBrent()
     
     
     

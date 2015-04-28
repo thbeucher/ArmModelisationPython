@@ -52,7 +52,7 @@ def vectorField():
     plt.show()
     
     
-#vectorField()
+vectorField()
 
 
 

@@ -51,7 +51,7 @@ class SuperToolsInit:
     
     def costFunction(self, Ju, U, t):
         '''
-        This function compute the cost of the trajectory
+        This function computes the cost of the trajectory
             
         Inputs:     -Ju: scalar, trajectory cost at the time t
                     -U: (6,1) numpy array, muscular activation vector
@@ -66,7 +66,7 @@ class SuperToolsInit:
         
     def getCommand(self, inputgc, theta):
         '''
-        Function which return the muscular activation vector U from the position vector Q
+        Return the muscular activation vector U from the position vector Q
             
         Inputs:     -inputgc: (4,1) numpy array
                     -theta: 2D numpy array
@@ -84,9 +84,9 @@ class SuperToolsInit:
         Unoise = np.array([UnoiseTmp]).T
         return Unoise
         
-    def trajGenerator(self, xI, yI, theta):
+    def trajGenerator(self, xI, yI, theta, optQ = 0):
         '''
-        This function generate the trajectory depend of the starting point given
+        This function generates the trajectory depend of the starting point given
         
         Inputs:     -xI: scalar, absciss of the trajectory starting point
                     -yI: scalar, ordinate of the trajectory starting point
@@ -94,7 +94,12 @@ class SuperToolsInit:
                     
         Output:    -Ju: scalar, cost of the trajectory
         '''
-        q1, q2 = mgi(xI, yI, self.armP.l1, self.armP.l2)
+        #Trick to use q1 q2 as input parameters for trajGenerator if optQ = 1
+        if optQ == 1:
+            q1 = xI
+            q2 = yI
+        elif optQ == 0:
+            q1, q2 = mgi(xI, yI, self.armP.l1, self.armP.l2)
         q = np.array([[q1], [q2]])
         dotq = self.armD.get_dotq_0()
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)

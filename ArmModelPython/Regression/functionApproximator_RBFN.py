@@ -62,8 +62,8 @@ class fa_rbfn():
         '''
         #A = np.dot(self.featureOutput(self.inputData.T), self.featureOutput(self.inputData.T).T)
         #b = np.dot(self.featureOutput(self.inputData.T), self.outputData.T)
-        n = self.nbFeat**self.inputDimension
         fop = self.featureOutput(self.inputData.T)
+        '''n = self.nbFeat**self.inputDimension
         AshareObj = Array(ct.c_double, n*n)
         bshareObj = Array(ct.c_double, n*self.outputDimension)
         AnumpyShare = np.frombuffer(AshareObj.get_obj())
@@ -77,7 +77,9 @@ class fa_rbfn():
         p1.join()
         p2.join()
         print("la", A[0], "\n", b[0])
-        c = input("la2")
+        c = input("la2")'''
+        A = np.dot(fop, fop.T)
+        b = np.dot(fop, self.outputData.T)
         self.theta = np.dot(np.linalg.pinv(A), b)
        
     def setCentersAndWidths(self):
@@ -91,7 +93,7 @@ class fa_rbfn():
         rangeForEachDim = maxInputData - minInputData
         #Fixe les sigmas
         widthConstant = rangeForEachDim / self.nbFeat
-        print("widths: ", widthConstant, "\nMeanWidth: ", np.mean(widthConstant))
+        #print("widths: ", widthConstant, "\nMeanWidth: ", np.mean(widthConstant))
         #cree la matrice diagonales des sigmas pour le calcul de la gaussienne
         self.widths = np.diag(widthConstant)
         self.norma = 1/np.sqrt(((2*np.pi)**self.inputDimension)*np.linalg.det(self.widths)) #coef for gaussian

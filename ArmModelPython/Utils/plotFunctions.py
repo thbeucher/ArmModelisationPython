@@ -16,6 +16,9 @@ from ArmModel.GeometricModel import mgi, mgd
 import math
 from Utils.NiemRoot import tronquerNB
 from Utils.InitUtil import initFRRS
+from Utils.FileReading import FileReading
+from shutil import copyfile
+from posix import remove
 
 def costColorPlot(wha):
     '''
@@ -40,33 +43,38 @@ def costColorPlot(wha):
     if wha == "rbfn":
         name = "RBFN2/" + str(nbfeat) + "feats/costBIN"
         z = fr.getobjread(name)
+        if len(z) > len(x0):
+            startPts, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
+            x0, y0 = [], []
+            for el in startPts.values():
+                x0.append(el[0])
+                y0.append(el[1])
         for i in range(len(z)):
-            if z[i] > 50:
-                z[i] -= 3000
+            if z[i] > 0:
+                z[i] -= rs.rhoCF
         maxt = np.max(abs(z))
         
     elif wha == "cma":
         name = "RBFN2/" + str(nbfeat) + "feats/costBINCma"
         z = fr.getobjread(name)
         for i in range(len(z)):
-            if z[i] > 50:
-                z[i] -= 3000
+            if z[i] > 0:
+                z[i] -= rs.rhoCF
         maxt = np.max(abs(z))
         
     elif wha == "brent":
         z = fr.getobjread("trajectoires_cout/trajectoire_coutXBIN")
         z = np.array(z)
-        z = z-3000
+        z = z-rs.rhoCF
         maxt = np.max(abs(z))
-        x0 = []
-        y0 = []
+        x0, y0 = [], []
         for el in xy0tmp.values():
             x0.append(el[0])
             y0.append(el[1])
     
     zb = z/maxt
-    xi = np.linspace(-0.4,0.4,280)
-    yi = np.linspace(0.1,0.6,280)
+    xi = np.linspace(-0.4,0.4,200)
+    yi = np.linspace(0.1,0.6,200)
     er = 0
     try:
         zb.shape[1]
@@ -80,7 +88,7 @@ def costColorPlot(wha):
         zi = griddata(x0, y0, zb.T[0], xi, yi)
     
     fig = plt.figure()
-    t1 = plt.scatter(x0, y0, c=zb, marker=u'o', s=200, cmap=cm.get_cmap('RdYlBu'))
+    t1 = plt.scatter(x0, y0, c=zb, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
     CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
     fig.colorbar(t1, shrink=0.5, aspect=5)
@@ -175,19 +183,24 @@ def plot_pos_ini():
         y0.append(el[1])
     xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
     x, y = [], []
-    for el in xy.values():
+    aa, keyy = [], []
+    for key, el in xy.items():
         x.append(el[0])
         y.append(el[1])
+        a = math.sqrt((el[0]**2) + (el[1] - 0.6175)**2)
+        if tronquerNB(a, 3) not in aa:
+            aa.append(tronquerNB(a, 3))
+        if a < 0.11:
+            keyy.append(key)
+            #copyfile(rs.pathFolderTrajectories + key, rs.pathFolderData + "ThetaAllTraj/" + key)
+            #remove(rs.pathFolderTrajectories + key)
+    print(len(aa), aa)
+    print(len(keyy), sorted(keyy))
         
     plt.figure()
     plt.scatter(x, y, c = "b", marker=u'o', s=25, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
-     
-    #a, b = mgd(np.array([[1.1690796041657903], [1.5724346307752133]]), 0.3, 0.35)
-    #a1, b1 = mgd(np.array([[1.21], [1.52]]), 0.3, 0.35)
-    #plt.scatter([b[0], b1[0]], [b[1], b1[1]], c = 'y')
-    #plotPosTAT(fr, rs)
     
     plt.show(block = True)
     
@@ -203,13 +216,47 @@ def plotPosTAT(fr, rs):
 
 
 #plot_pos_ini()
-'''fr = FileReading()
-rs = ReadSetupFile()
-data = fr.getobjread(rs.experimentFilePosIni)
-q = []
-for el in data:
-    q.append(mgi(el[0], el[1], 0.3, 0.35))
-print(q)'''
+#Ce bout de code permet d'afficher les positions initiales des trajectoires dans output_solver(bin)
+def plotPosIniOutputSolver():
+    fr = FileReading()
+    angleIni = {}
+    Q = []
+    for el in os.listdir("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/"):
+        if "brentbvp" in el and not "fail" in el:
+            #Chargement du fichier
+            mati = np.loadtxt("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/" + el)
+            Q.append((el, mati[0,10], mati[0,11]))
+            #recuperation de q1 et q2 initiales et conversion en coordonnees
+            coordElbow, coordHand = mgd(np.mat([[mati[0,10]], [mati[0,11]]]), 0.3, 0.35)
+            angleIni[el] = (coordHand[0], coordHand[1])
+    
+    angleIni2 = {}  
+    for el in os.listdir("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster1/"):
+        if "brentbvp" in el and not "fail" in el:
+            #Chargement du fichier
+            mati2 = np.loadtxt("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster1/" + el)
+            #Q.append((el, mati[0,10], mati[0,11]))
+            #recuperation de q1 et q2 initiales et conversion en coordonnees
+            coordElbow2, coordHand2 = mgd(np.mat([[mati2[0,10]], [mati2[0,11]]]), 0.3, 0.35)
+            angleIni2[el] = (coordHand2[0], coordHand2[1])
+    
+    x, y = [], []
+    for el in angleIni.values():
+        x.append(el[0])
+        y.append(el[1])
+        
+    x2, y2 = [], []
+    for el in angleIni2.values():
+        x2.append(el[0])
+        y2.append(el[1])
+    
+    plt.figure()
+    plt.scatter(x, y, c = 'b')
+    #plt.scatter(x2, y2, c = 'r')
+    plt.show(block = True)
+    
+#plotPosIniOutputSolver()
+
     
 
 

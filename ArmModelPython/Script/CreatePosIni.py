@@ -161,7 +161,7 @@ def create2():
     print(q1, "\n\n", q2, "\n\n", q3, "\n\n", q4)
     print(len(q1), len(q2), len(q3), len(q4))
 
-create2()
+#create2()
 #createPos()
 #Le code qui suit permet de generer les positions initiales pour les trajectoires proches de la cible
 '''x = np.arange(-0.08, 0.09, 0.02)

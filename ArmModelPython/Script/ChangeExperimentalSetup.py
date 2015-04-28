@@ -12,22 +12,18 @@ import matplotlib.pyplot as plt
 from Utils.FileSaving import fileSavingBin
 
 def changeExperiment():
-    x0, y0, r1, r2 = 0, 0.6175, 0.20, 0.26
+    x0, y0 = 0, 0.6175
+    r = [0.20, 0.23, 0.26, 0.28]
     x, y, exper = [], [], []
     #nppi = np.arange(5*math.pi/4, 7*math.pi/4, math.pi/10)
     nppi = np.linspace(5*math.pi/4, 7*math.pi/4, 6)
     for i in range(nppi.shape[0]):
-        xt1 = x0 + r1 * math.cos(nppi[i])
-        yt1 = y0 + r1 * math.sin(nppi[i])
-        x.append(xt1)
-        y.append(yt1)
-        exper.append((xt1, yt1))
-        
-        xt2 = x0 + r2 * math.cos(nppi[i])
-        yt2 = y0 + r2 * math.sin(nppi[i])
-        x.append(xt2)
-        y.append(yt2)
-        exper.append((xt2, yt2))
+        for j in range(len(r)): 
+            xt = x0 + r[j] * math.cos(nppi[i])
+            yt = y0 + r[j] * math.sin(nppi[i])
+            x.append(xt)
+            y.append(yt)
+            exper.append((xt, yt))
             
     plt.figure()
     plt.scatter(x, y, c = 'b')
@@ -35,7 +31,7 @@ def changeExperiment():
     
     fileSavingBin("PosIniExperimentCircular", exper)
 
-#changeExperiment()
+changeExperiment()
 
 
 

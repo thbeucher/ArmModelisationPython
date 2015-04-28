@@ -11,11 +11,12 @@ from Utils.ThetaNormalization import vectorToMatrix, unNorm
 from Main.SuperToolsInit import SuperToolsInit
 from multiprocessing.context import Process
 from multiprocessing.sharedctypes import Array
+from Script.MultiCoreComputeTraj import computeTraj
     
     
 def costFunctionRBFN(theta):
     '''
-    This function compute the cost of each trajectories selected
+    Compute the cost of each trajectories selected
     
     Input:      -theta: numpy array
     
@@ -24,36 +25,30 @@ def costFunctionRBFN(theta):
                 -meanJu: numpy array, mean of the cost of each trajectories
     '''
     sti = SuperToolsInit()
-    Jutmp = {}
     
-    #Ce bout de code permet de generer avec le controleur toutes les trajectoires sur lesquelles il a appris
-    '''data, junk = sti.fr.recup_pos_ini(sti.rs.pathFolderTrajectories)
-    for key, el in data.items():
-        Ju = sti.trajGenerator(el[0], el[1], theta)
-        JuCf.append((key, Ju))'''
-    '''posi = []
-    for i in range(10):
-        posi.append(sti.posIni[7])'''
     #Le nombre d'iteration pour i donne le nombre de trajectoire realises
     nbi = input("Nombre d'iteration a effectuer: ")
     nbi = int(nbi)
-    for i in range(nbi):
-        JuCf = []
-        for el in sti.posIni:
-        #for el in posi:
-            Ju = sti.trajGenerator(el[0], el[1], theta)
-            #print(sti.save.coordHaSave[len(sti.save.coordHaSave)-1])
-            JuCf.append(Ju)
-        Jutmp[i] = JuCf
-    s = 0
-    for el in Jutmp.values():
-        if s == 0:
-            juju = np.array(el)
-            s += 1
-        else:
-            juju = np.vstack((juju, el))
-    meanJu = np.mean(np.array([juju]).T, axis = 1)
-    return sti, meanJu
+    
+    data = sti.fr.getobjread(sti.rs.experimentFilePosIni)
+    n = len(data)
+    costf = []
+    for i in range(int(nbi/4)):
+        cost = []
+        processUsed = []
+        for j in range(4):
+            cost.append(Array('d', range(n)))
+            p = Process(target=computeTraj, args=(cost[j], sti, theta))
+            processUsed.append(p)
+        for j in range(4):
+            processUsed[j].start()
+        for j in range(4):
+            processUsed[j].join()
+        costTmp = np.vstack((cost[0], cost[1], cost[2], cost[3]))
+        meanCostTmp = np.mean(costTmp, axis = 0)
+        costf.append(meanCostTmp)
+    meanf = np.mean(costf, axis = 0)
+    return sti, meanf
 
 
 class costFunctionClass:
@@ -96,8 +91,10 @@ class costFunctionClass:
               
     def costFunctionCMAES(self, theta):
         self.initTheta(theta)
+        data = self.sti.fr.getobjread(self.sti.rs.experimentFilePosIni)
+        n = len(data)
         
-        JuS1, JuS2, JuS3, JuS4 = Array('d', range(12)), Array('d', range(12)), Array('d', range(12)), Array('d', range(12))
+        JuS1, JuS2, JuS3, JuS4 = Array('d', range(n)), Array('d', range(n)), Array('d', range(n)), Array('d', range(n))
         p1, p2, p3, p4 = Process(target=self.serie1, args=(JuS1,)), Process(target=self.serie2, args=(JuS2,)), Process(target=self.serie3, args=(JuS3,)), Process(target=self.serie4, args=(JuS4,))
         p1.start()
         p2.start()

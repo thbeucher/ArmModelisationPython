@@ -6,7 +6,7 @@ Module: MultiCoreComputeTraj
 Description: We find here functions which allow to compute trajectory more efficiency using multicore architecture
 '''
 
-def serie1(JuS, sti, theta, nbLoop):
+def computeTraj(JuS, sti, theta):
     '''
     
     Inputs:     -JuS
@@ -16,11 +16,10 @@ def serie1(JuS, sti, theta, nbLoop):
     Output:     -JuS
     '''
     i = 0
-    for i in range(nbLoop):
-        for el in sti.posIni:
-            Ju = sti.trajGenerator(el[0], el[1], theta)
-            JuS[i] = Ju*(-1)
-            i += 1
+    for el in sti.posIni:
+        Ju = sti.trajGenerator(el[0], el[1], theta)
+        JuS[i] = Ju
+        i += 1
     return JuS
             
 '''for i in range(nbi):
