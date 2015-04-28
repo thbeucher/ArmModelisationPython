@@ -247,15 +247,16 @@ def plotPosIniOutputSolver():
         
     x2, y2 = [], []
     for el in angleIni2.values():
-        x2.append(el[0])
-        y2.append(el[1])
+        if not el[0] in x and not el[1] in y:
+            x2.append(el[0])
+            y2.append(el[1])
     
     plt.figure()
     plt.scatter(x, y, c = 'b')
-    #plt.scatter(x2, y2, c = 'r')
+    plt.scatter(x2, y2, c = 'r')
     plt.show(block = True)
     
-#plotPosIniOutputSolver()
+plotPosIniOutputSolver()
 
     
 

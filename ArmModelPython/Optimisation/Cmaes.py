@@ -13,6 +13,7 @@ import numpy as np
 from Utils.ThetaNormalization import normalization, matrixToVector
 from Utils.ReadSetupFile import ReadSetupFile
 from Optimisation.costFunction import costFunctionClass
+from Utils.NiemRoot import tronquerNB
 
 def runCmaes():
     rs = ReadSetupFile()
@@ -38,6 +39,21 @@ def runCmaes():
     fileSavingBin("OptimisationResults/CmaesResBIN", resSO)
     
 
+def unitaryTestCmaes(noise):
+    x = np.linspace(0, 100, 10)
+    for i in range(x.shape[0]):
+        x[i] = tronquerNB(x[i], 3)
+    y = x*noise[0] - noise[1]
+    z = np.abs(x - y)
+    t = np.mean(z)
+    return t
+
+'''noise = [10,15]
+resT = cma.fmin(unitaryTestCmaes, noise, 20, options={'maxiter':30, 'popsize':50})
+print("resultat", resT[0])'''
+    
+    
+    
 
 
 

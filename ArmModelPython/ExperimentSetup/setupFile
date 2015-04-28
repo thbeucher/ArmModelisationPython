@@ -4,9 +4,9 @@ Valeur de k pour le bruit sur U(float):0.2
 Parametre gamma cost function(float):0.998
 Parametre rho cost function(int):300
 Parametre upsilon cost function(int):1
-Pour CMAES, sigma(float):2
-Pour CMAES, maxIteration(int):50
-POUR CMAES, popsize(int):100
+Pour CMAES, sigma(float):5
+Pour CMAES, maxIteration(int):30
+POUR CMAES, popsize(int):50
 Chemin du dossier du projet:/home/beucher/workspace/
 Chemin du dossier data:/home/beucher/workspace/Data/
 Chemin du dossier contenant les trajectoires:/home/beucher/workspace/Data/trajectoires/

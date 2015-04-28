@@ -93,7 +93,7 @@ class fa_rbfn():
         rangeForEachDim = maxInputData - minInputData
         #Fixe les sigmas
         widthConstant = rangeForEachDim / self.nbFeat
-        #print("widths: ", widthConstant, "\nMeanWidth: ", np.mean(widthConstant))
+        print("widths: ", widthConstant, "\nMeanWidth: ", np.mean(widthConstant))
         #cree la matrice diagonales des sigmas pour le calcul de la gaussienne
         self.widths = np.diag(widthConstant)
         self.norma = 1/np.sqrt(((2*np.pi)**self.inputDimension)*np.linalg.det(self.widths)) #coef for gaussian

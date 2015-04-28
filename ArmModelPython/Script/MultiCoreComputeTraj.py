@@ -22,22 +22,7 @@ def computeTraj(JuS, sti, theta):
         i += 1
     return JuS
             
-'''for i in range(nbi):
-        JuCf = []
-        for el in sti.posIni:
-        #for el in posi:
-            Ju = sti.trajGenerator(el[0], el[1], theta)
-            #print(sti.save.coordHaSave[len(sti.save.coordHaSave)-1])
-            JuCf.append(Ju)
-        Jutmp[i] = JuCf
-    s = 0
-    for el in Jutmp.values():
-        if s == 0:
-            juju = np.array(el)
-            s += 1
-        else:
-            juju = np.vstack((juju, el))
-    meanJu = np.mean(np.array([juju]).T, axis = 1)'''
+
         
         
         
