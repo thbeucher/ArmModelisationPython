@@ -1,3 +1,1 @@
-% # columns="iteration, evaluation, sigma, axis ratio, bestever, best, median, worst objective function value, further objective values of best", seed=323595, Tue Apr 28 17:46:28 2015
-1 100 0.96668632137 1.00004989836 26.4561220349 2.6456122034909168e+01 224.058494981 681.395304847   
-2 200 0.940231875636 1.0166061618 -13.8141350603 -1.3814135060343681e+01 180.251328637 626.301195689   
+% # columns="iteration, evaluation, sigma, axis ratio, bestever, best, median, worst objective function value, further objective values of best", seed=437961, Wed Apr 29 18:50:20 2015

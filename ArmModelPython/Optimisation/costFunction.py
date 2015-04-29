@@ -90,6 +90,8 @@ class costFunctionClass:
     def __init__(self):
         self.call = 0
         self.sti = SuperToolsInit()
+        self.startPTs, junk = self.sti.fr.recup_pos_ini(self.sti.rs.pathFolderTrajectories)
+        self.n = len(self.startPTs)
     
     def initTheta(self, theta):
         theta = unNorm(theta)
@@ -97,38 +99,39 @@ class costFunctionClass:
         
     def serie1(self, JuS1):
         i = 0
-        for el in self.sti.posIni:
+        for el in self.startPTs.values():
             Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
-            JuS1[i] = Ju
+            with JuS1.get_lock():
+                JuS1[i] = Ju
             i += 1
             
     def serie2(self, JuS2):
         i = 0
-        for el in self.sti.posIni:
+        for el in self.startPTs.values():
             Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
-            JuS2[i] = Ju
+            with JuS2.get_lock():
+                JuS2[i] = Ju
             i += 1
             
     def serie3(self, JuS3):
         i = 0
-        for el in self.sti.posIni:
+        for el in self.startPTs.values():
             Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
-            JuS3[i] = Ju
+            with JuS3.get_lock():
+                JuS3[i] = Ju
             i += 1
             
     def serie4(self, JuS4):
         i = 0
-        for el in self.sti.posIni:
+        for el in self.startPTs.values():
             Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
-            JuS4[i] = Ju
+            with JuS4.get_lock():
+                JuS4[i] = Ju
             i += 1
               
     def costFunctionCMAES(self, theta):
         self.initTheta(theta)
-        data = self.sti.fr.getobjread(self.sti.rs.experimentFilePosIni)
-        n = len(data)
-        
-        JuS1, JuS2, JuS3, JuS4 = Array('d', range(n)), Array('d', range(n)), Array('d', range(n)), Array('d', range(n))
+        '''JuS1, JuS2, JuS3, JuS4 = Array('d', range(self.n)), Array('d', range(self.n)), Array('d', range(self.n)), Array('d', range(self.n))
         p1, p2, p3, p4 = Process(target=self.serie1, args=(JuS1,)), Process(target=self.serie2, args=(JuS2,)), Process(target=self.serie3, args=(JuS3,)), Process(target=self.serie4, args=(JuS4,))
         p1.start()
         p2.start()
@@ -139,8 +142,24 @@ class costFunctionClass:
         p3.join()
         p4.join()
         juf = np.vstack((JuS1, JuS2, JuS3, JuS4))
-        meanJuf = np.mean(juf, axis = 0)
-        #print("meanjuf", meanJuf)
+        meanJuf = np.mean(juf, axis = 0)'''
+        
+        costT = {}
+        for i in range(5):
+            JuS = []
+            for el in self.startPTs.values():
+                Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
+                JuS.append(Ju)
+            costT[i] = JuS
+        s = 0
+        for el in costT.values():
+            if s == 0:
+                costArray = el
+                s += 1
+            else:
+                costArray = np.vstack((costArray, el))
+        meanJuf = np.mean(costArray, axis = 0)
+        print("meanjuf", meanJuf)
         JuSca = np.mean(meanJuf)
         print("Appel n°", self.call)
         self.call += 1

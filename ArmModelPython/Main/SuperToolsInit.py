@@ -127,7 +127,7 @@ class SuperToolsInit:
                 break
             i += 1
             t += self.rs.dt
-        print(i)
+        #print(i)
         if not nameSave2 in self.lastCoord:
             self.lastCoord[nameSave2] = []
         self.lastCoord[nameSave2].append(coordHA)
