@@ -273,7 +273,7 @@ def plotPosIniOutputSolver():
     
     plt.figure()
     plt.scatter(x, y, c = 'b')
-    #plt.scatter(x2, y2, c = 'r')
+    plt.scatter(x2, y2, c = 'r')
     plt.show(block = True)
     
 #plotPosIniOutputSolver()

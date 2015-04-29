@@ -159,7 +159,7 @@ class costFunctionClass:
             else:
                 costArray = np.vstack((costArray, el))
         meanJuf = np.mean(costArray, axis = 0)
-        print("meanjuf", meanJuf)
+        #print("meanjuf", meanJuf)
         JuSca = np.mean(meanJuf)
         print("Appel n°", self.call)
         self.call += 1
