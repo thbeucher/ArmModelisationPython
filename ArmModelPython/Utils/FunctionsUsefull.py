@@ -38,17 +38,14 @@ def returnDifCostBrentRBFN():
     for key, el in RBFN.items():
         dataRBFN.append((tronquerNB(float(key.split("//")[0]), 3), tronquerNB(float(key.split("//")[1]), 3), el))
         xyRBFN.append((tronquerNB(float(key.split("//")[0]), 3), tronquerNB(float(key.split("//")[1]), 3)))
-    print(dataBrent, "\n", dataRBFN)
     difAllPts = []
     for el in xyBrent:
         if el in xyRBFN:
             a = np.abs(dataBrent[xyBrent.index(el)][2] - dataRBFN[xyRBFN.index(el)][2])
-            difAllPts.append(a)
-    print(len(difAllPts), difAllPts)
+            difAllPts.append((el[0], el[1], a))
     fileSavingStr(name + "difCostBrentRBFN", difAllPts)
     fileSavingBin(name + "difCostBrentRBFNBIN", difAllPts)
     return difAllPts
-    
     
 
 

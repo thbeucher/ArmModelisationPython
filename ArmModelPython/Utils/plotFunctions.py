@@ -67,6 +67,13 @@ def costColorPlot(wha):
     
     elif wha == "difBR":
         dif = returnDifCostBrentRBFN()
+        z, zobj, x0, y0 = [], [], [], []
+        for el in dif:
+            if el[2] < 10:
+                z.append(el[2])
+                zobj.append(el)
+                x0.append(el[0])
+                y0.append(el[1])
         
     
     #zb = z/maxt
