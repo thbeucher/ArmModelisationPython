@@ -10,9 +10,9 @@ import numpy as np
 import math
 from ArmModel.GeometricModel import mgi, mgd
 import matplotlib.pyplot as plt
-from Utils.FileSaving import fileSavingStr
 from Utils.NiemRoot import tronquerNB
 from Utils.InitUtil import initFRRS
+import os
 
 
 def createPos():
@@ -125,6 +125,18 @@ def createPos():
     
 def create2():
     fr, rs = initFRRS()
+    ###
+    Q = []
+    name1 = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/"
+    for el in os.listdir(name1):
+        if "brentbvp" in el and not "fail" in el:
+            Q.append(el)
+    x1, y1, xy1 = [], [], []
+    for el in Q:
+        x1.append(float((el.split("_")[2])))
+        y1.append(float((el.split("_")[3])))
+        xy1.append((float((el.split("_")[2])), float(el.split("_")[3])))
+    ###
     posi = fr.getobjread(rs.experimentFilePosIni)
     posx, posy = [], []
     for el in posi:
@@ -140,16 +152,11 @@ def create2():
             yy.append(y[j])
             xyt.append((tronquerNB(x[i], 5), tronquerNB(y[j], 5)))
     
-    plt.figure()
-    plt.scatter(posx, posy, c = 'b')
-    plt.scatter(0, rs.targetOrdinate, marker=u'*', s = 100)
-    plt.scatter(xx, yy, c = 'r')
-    plt.show()
-    
-    q1, q2, q3, q4 = [], [], [], []
+    q1, q2, q3, q4, qt = [], [], [], [], []
     for el in xyt:
         a = mgi(el[0], el[1], 0.3, 0.35)
         if not a == "None":
+            qt.append(mgi(el[0], el[1], 0.3, 0.35))
             if len(q1) < 620:
                 q1.append(mgi(el[0], el[1], 0.3, 0.35))
             elif len(q2) < 620:
@@ -158,8 +165,27 @@ def create2():
                 q3.append(mgi(el[0], el[1], 0.3, 0.35))
             else:
                 q4.append(mgi(el[0], el[1], 0.3, 0.35))
-    print(q1, "\n\n", q2, "\n\n", q3, "\n\n", q4)
-    print(len(q1), len(q2), len(q3), len(q4))
+    
+    qx, qy = [], []
+    for el in qt:
+        qx.append(el[0])
+        qy.append(el[1])
+    
+    xf, yf, xyf = [], [], []
+    qxt = qx
+    for el in qt:
+        if not el in xy1:
+            xf.append(el[0])
+            yf.append(el[1])
+            xyf.append(el)
+    print(len(xyf), xyf)
+    
+    '''plt.figure()
+    plt.scatter(posx, posy, c = 'b')
+    plt.scatter(0, rs.targetOrdinate, marker=u'*', s = 100)
+    plt.scatter(xx, yy, c = 'r')
+    plt.show()'''
+    
 
 #create2()
 #createPos()

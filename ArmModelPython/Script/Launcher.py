@@ -36,7 +36,7 @@ elif choix == "genTraj":
     runGenTraj()
     
 elif choix == "costColor":
-    wha = input("Choisir les resultats a afficher(brent ou rbfn ou cma): ")
+    wha = input("Choisir les resultats a afficher(brent ou rbfn ou cma ou difBR): ")
     costColorPlot(wha)
     
 elif choix == "actiMuscu":

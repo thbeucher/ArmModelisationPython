@@ -6,6 +6,7 @@ from ArmModel.GeometricModel import mgd
 from Utils.ReadSetupFile import ReadSetupFile
 from ArmModel.ArmParameters import ArmParameters
 from Main.SuperToolsInit import SuperToolsInit
+from Utils.NiemRoot import tronquerNB
     
     
 def costEvalBrent():
@@ -15,6 +16,7 @@ def costEvalBrent():
     JuT = {}
     Ite = []
     valJuT = []
+    JuT2 = []
     for el in commandAll:
         t, Ju = 0, 0
         u = np.array(commandAll[el])
@@ -27,9 +29,13 @@ def costEvalBrent():
             Ju += sti.rs.rhoCF
         JuT[el] = Ju
         valJuT.append(Ju)
+        junk, coordInitHA = mgd(np.array([[stateAll[el][0][2]], [stateAll[el][0][3]]]), sti.armP.l1, sti.armP.l2)
+        JuT2.append((el, Ju, tronquerNB(coordInitHA[0], 3), tronquerNB(coordInitHA[1], 3)))
     print(JuT)
+    print(JuT2)
+    fileSavingBin("trajectoires_cout/trajectoire_coutCoordXBIN", JuT2)
     fileSavingStr("trajectoires_cout/trajectoire_coutX", JuT.items())
-    fileSavingBin("trajectoires_cout/trajectoire_coutXBIN", valJuT)
+    fileSavingBin("trajectoires_cout/trajectoire_coutXBIN", JuT)
     fileSavingStr("trajectoires_cout/nbiteX", Ite)
     print("Fin de traitement!")
     

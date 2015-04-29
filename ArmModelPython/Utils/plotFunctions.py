@@ -19,6 +19,7 @@ from Utils.InitUtil import initFRRS
 from Utils.FileReading import FileReading
 from shutil import copyfile
 from posix import remove
+from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN
 
 def costColorPlot(wha):
     '''
@@ -43,28 +44,9 @@ def costColorPlot(wha):
     if wha == "rbfn":
         name = "RBFN2/" + str(nbfeat) + "feats/"
         z = fr.getobjread(name + "costBIN")
-        zdico = fr.getobjread(name + "costTrajBIN")
-        xAbn, yAbn, zWithoutAbn, xyAbn = [], [], [], []
-        for key,el in zdico.items():
-            if el > 0 and el < 290 or el < -10:
-                xAbn.append(tronquerNB(float(key.split("//")[0]), 3))
-                yAbn.append(tronquerNB(float(key.split("//")[1]), 3))
-                xyAbn.append((xAbn, yAbn))
-            else:
-                zWithoutAbn.append(el)
         if len(z) > len(x0):
-            startPts, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
-            x0, y0 = [], []
-            for el in startPts.values():
-                if not (tronquerNB(el[0], 3), tronquerNB(el[1], 3))in xyAbn:
-                    x0.append(el[0])
-                    y0.append(el[1])
-        print(len(x0))
-        c = input("dfs")
-        for i in range(len(z)):
-            if z[i] > 0:
-                z[i] -= rs.rhoCF
-        maxt = np.max(abs(z))
+            x0, y0, z = returnX0Y0Z()
+        maxt = np.max(np.abs(z))
         
     elif wha == "cma":
         name = "RBFN2/" + str(nbfeat) + "feats/costBINCma"
@@ -75,16 +57,20 @@ def costColorPlot(wha):
         maxt = np.max(abs(z))
         
     elif wha == "brent":
-        z = fr.getobjread("trajectoires_cout/trajectoire_coutXBIN")
-        z = np.array(z)
-        z = z-rs.rhoCF
-        maxt = np.max(abs(z))
-        x0, y0 = [], []
-        for el in xy0tmp.values():
-            x0.append(el[0])
-            y0.append(el[1])
+        data = fr.getobjread("trajectoires_cout/trajectoire_coutCoordXBIN")
+        z, x0, y0 = [], [], []
+        for el in data:
+            z.append(el[1]-rs.rhoCF)
+            x0.append(el[2])
+            y0.append(el[3])
+        maxt = np.max(np.abs(z))
     
-    zb = z/maxt
+    elif wha == "difBR":
+        dif = returnDifCostBrentRBFN()
+        
+    
+    #zb = z/maxt
+    zb = z
     xi = np.linspace(-0.4,0.4,200)
     yi = np.linspace(0.1,0.6,200)
     er = 0
@@ -92,7 +78,11 @@ def costColorPlot(wha):
         zb.shape[1]
     except IndexError:
         er = 1
+    except AttributeError:
+        er = 1
     if type(zb) == type([]):
+        print(x0, "\n", y0, "\n", zb)
+        print(len(x0), len(y0), len(zb))
         zi = griddata(x0, y0, zb, xi, yi)
     elif er == 1:
         zi = griddata(x0, y0, zb, xi, yi)
@@ -233,6 +223,7 @@ def plotPosIniOutputSolver():
     fr = FileReading()
     angleIni = {}
     Q = []
+    name1 = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/"
     for el in os.listdir("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/"):
         if "brentbvp" in el and not "fail" in el:
             #Chargement du fichier
@@ -243,34 +234,44 @@ def plotPosIniOutputSolver():
             angleIni[el] = (coordHand[0], coordHand[1])
     
     angleIni2 = {}  
-    for el in os.listdir("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster1/"):
+    name2 = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster2/"
+    for el in os.listdir("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster2/"):
         if "brentbvp" in el and not "fail" in el:
             #Chargement du fichier
-            mati2 = np.loadtxt("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster1/" + el)
+            mati2 = np.loadtxt("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster2/" + el)
             #Q.append((el, mati[0,10], mati[0,11]))
             #recuperation de q1 et q2 initiales et conversion en coordonnees
             coordElbow2, coordHand2 = mgd(np.mat([[mati2[0,10]], [mati2[0,11]]]), 0.3, 0.35)
             angleIni2[el] = (coordHand2[0], coordHand2[1])
     
-    x, y = [], []
-    for el in angleIni.values():
+    x, y, xy = [], [], []
+    for key, el in angleIni.items():
         x.append(el[0])
         y.append(el[1])
+        xy.append((key, el[0], el[1]))
         
-    x2, y2 = [], []
-    for el in angleIni2.values():
-        if not el[0] in x and not el[1] in y:
-            x2.append(el[0])
-            y2.append(el[1])
+    x2, y2, xy2 = [], [], []
+    for key, el in angleIni2.items():
+        x2.append(el[0])
+        y2.append(el[1])
+        xy2.append((key, el[0], el[1]))
+    
+    gt = []
+    for el in xy2:
+        if not el in xy:
+            gt.append(el[0])
+            #copyfile(name2 + el[0], name1 + el[0])
+            
+    print(len(gt), gt)
     
     plt.figure()
     plt.scatter(x, y, c = 'b')
-    plt.scatter(x2, y2, c = 'r')
+    #plt.scatter(x2, y2, c = 'r')
     plt.show(block = True)
     
 #plotPosIniOutputSolver()
 
-    
+
 
 
 
