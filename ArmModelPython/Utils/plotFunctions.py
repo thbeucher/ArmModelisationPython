@@ -33,7 +33,6 @@ def costColorPlot(wha):
     fr, rs = initFRRS()
     nbfeat = rs.numfeats
     
-    xy0tmp, Q = fr.recup_pos_ini(rs.pathFolderTrajectories)
     x0 = []
     y0 = []
     posi = fr.getobjread(rs.experimentFilePosIni)
@@ -43,7 +42,6 @@ def costColorPlot(wha):
         
     if wha == "rbfn":
         name = "RBFN2/" + str(nbfeat) + "feats/"
-        z = fr.getobjread(name + "costBIN")
         x0, y0, z = returnX0Y0Z()
         maxt = np.max(np.abs(z))
         

@@ -29,6 +29,14 @@ def returnX0Y0Z():
         x0.append(el[0])
         y0.append(el[1])
     z = np.array(valcost)
+    if not z:
+        x0 = []
+        y0 = []
+        posi = fr.getobjread(rs.experimentFilePosIni)
+        for el in posi:
+            x0.append(el[0])
+            y0.append(el[1])
+        z = fr.getobjread(name + "costBIN")
     return x0, y0, z
 
 

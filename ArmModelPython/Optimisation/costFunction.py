@@ -30,9 +30,9 @@ def costFunctionRBFN(theta):
     nbi = input("Nombre d'iteration a effectuer: ")
     nbi = int(nbi)
     
-    startPTs, junk = sti.fr.recup_pos_ini(sti.rs.pathFolderTrajectories)
+    #startPTs, junk = sti.fr.recup_pos_ini(sti.rs.pathFolderTrajectories)
     
-    for i in range(nbi):
+    '''for i in range(nbi):
         JuS = []
         for el in sti.posIni:
         #for el in startPTs.values():
@@ -50,11 +50,13 @@ def costFunctionRBFN(theta):
         meanJu = np.mean(costArray, axis = 0)
     else:
         meanJu = costArray
-    return sti, meanJu
+    return sti, meanJu'''
     
-    '''if nbi < 4:
+    if nbi < 4:
         nbi = 4
         a = 1
+    else:
+        a = 0
     
     data = sti.fr.getobjread(sti.rs.experimentFilePosIni)
     n = len(data)
@@ -82,7 +84,7 @@ def costFunctionRBFN(theta):
         costf.append(meanCostTmp)
     meanf = np.mean(costf, axis = 0)
     print(np.mean(meanf))
-    return sti, meanf'''
+    return sti, meanf
 
 
 class costFunctionClass:
