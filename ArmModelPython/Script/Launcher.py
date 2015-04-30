@@ -5,7 +5,6 @@ Module: Launcher
 
 Description: On retrouve dans ce fichier l'executable permetttant de lancer les differents scripts disponibles
 '''
-
 from Script.RunRegressionRBFN import runRBFN, test2DRBFN
 from Utils.plotFunctions import costColorPlot, plotActivationMuscular,\
     plot_pos_ini, hitDispersion

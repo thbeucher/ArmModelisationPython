@@ -13,7 +13,7 @@ from Utils.FileSaving import fileSavingBin
 
 def changeExperiment():
     x0, y0 = 0, 0.6175
-    r = [0.20, 0.26]
+    r = [0.18, 0.20, 0.22, 0.24]
     x, y, exper = [], [], []
     #nppi = np.arange(5*math.pi/4, 7*math.pi/4, math.pi/10)
     nppi = np.linspace(5*math.pi/4, 7*math.pi/4, 6)

@@ -44,8 +44,7 @@ def costColorPlot(wha):
     if wha == "rbfn":
         name = "RBFN2/" + str(nbfeat) + "feats/"
         z = fr.getobjread(name + "costBIN")
-        if len(z) > len(x0):
-            x0, y0, z = returnX0Y0Z()
+        x0, y0, z = returnX0Y0Z()
         maxt = np.max(np.abs(z))
         
     elif wha == "cma":

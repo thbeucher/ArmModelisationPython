@@ -48,11 +48,17 @@ class fa_rbfn():
         self.theta = np.zeros((self.nbFeat, self.outputDimension))
 
     def computeA(self, A, fop):
-        A = np.dot(fop, fop.T)
+        At = np.dot(fop, fop.T)
+        for i in range(At.shape[0]):
+            for j in range(At.shape[1]):
+                A[i,j] = At[i,j]
         print("ici2", A[0])
         
     def computeb(self, b, fop):
-        b = np.dot(fop, self.outputData.T)
+        bt = np.dot(fop, self.outputData.T)
+        for i in range(bt.shape[0]):
+            for j in range(bt.shape[1]):
+                b[i,j] = bt[i,j]
         print("iciaussi", b[0])
     
     def train_rbfn(self):
@@ -63,7 +69,7 @@ class fa_rbfn():
         #A = np.dot(self.featureOutput(self.inputData.T), self.featureOutput(self.inputData.T).T)
         #b = np.dot(self.featureOutput(self.inputData.T), self.outputData.T)
         fop = self.featureOutput(self.inputData.T)
-        '''n = self.nbFeat**self.inputDimension
+        n = self.nbFeat**self.inputDimension
         AshareObj = Array(ct.c_double, n*n)
         bshareObj = Array(ct.c_double, n*self.outputDimension)
         AnumpyShare = np.frombuffer(AshareObj.get_obj())
@@ -76,10 +82,8 @@ class fa_rbfn():
         p2.start()
         p1.join()
         p2.join()
-        print("la", A[0], "\n", b[0])
-        c = input("la2")'''
-        A = np.dot(fop, fop.T)
-        b = np.dot(fop, self.outputData.T)
+        #A = np.dot(fop, fop.T)
+        #b = np.dot(fop, self.outputData.T)
         self.theta = np.dot(np.linalg.pinv(A), b)
        
     def setCentersAndWidths(self):

@@ -17,7 +17,7 @@ def returnX0Y0Z():
     zdico = fr.getobjread(name + "costTrajBIN")
     xAbn, yAbn, zWithoutAbn, xyAbn, valcost = [], [], [], [], []
     for key,el in zdico.items():
-        if not el < 290:
+        if not el < 280:
             xAbn.append(tronquerNB(float(key.split("//")[0]), 3))
             yAbn.append(tronquerNB(float(key.split("//")[1]), 3))
             xyAbn.append((tronquerNB(float(key.split("//")[0]), 3), tronquerNB(float(key.split("//")[1]), 3)))
