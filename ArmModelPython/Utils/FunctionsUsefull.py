@@ -2,6 +2,12 @@ from Utils.InitUtil import initFRRS
 from Utils.NiemRoot import tronquerNB
 import numpy as np
 from Utils.FileSaving import fileSavingBin, fileSavingStr
+from Utils.FileReading import FileReading
+import os
+from shutil import copyfile
+from posix import remove
+import matplotlib.pyplot as plt
+from ArmModel.GeometricModel import mgi
 
 
 
@@ -46,7 +52,55 @@ def returnDifCostBrentRBFN():
     fileSavingStr(name + "difCostBrentRBFN", difAllPts)
     fileSavingBin(name + "difCostBrentRBFNBIN", difAllPts)
     return difAllPts
+
+def checkForDoublonInTraj(localisation):
+    '''
     
+    Input:    -localisation: String, path given the folder where the trajectories are
+    '''
+    fr = FileReading()
+    data, junk = fr.recup_pos_ini(localisation)
+    tabEl, doublon = [], []
+    for key, el in data.items():
+        if el in tabEl:
+            doublon.append(key)
+            #copyfile(localisation + key, localisation + "doublon/" + key)
+            #remove(localisation + key)
+        else:
+            tabEl.append(el)
+    print("ici", len(doublon), doublon)
+    c = input("cc")
+    print("la", len(tabEl), tabEl)
+
+
+#checkForDoublonInTraj("/home/beucher/workspace/Data/ThetaAllTraj/")
+
+def playWithTraj():
+    fr, rs = initFRRS()
+    data, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
+    x, y, x1, y1 = [], [], [], []
+    todel = []
+    for key, el in data.items():
+        if el[0] > -0.25 and el[0] < 0.2499 and el[1] > 0.271: 
+            x.append(el[0])
+            y.append(el[1])
+        else:
+            x1.append(el[0])
+            y1.append(el[1])
+            todel.append(key)
+            #remove(rs.pathFolderTrajectories + key)
+    print(len(todel), todel)
+    print(np.max(x), np.min(x), np.min(y))
+    #print(np.max(x1), np.min(x1), np.min(y1))
+    plt.figure()
+    plt.scatter(x, y, c = 'b')
+    plt.scatter(x1, y1, c = 'r')
+    plt.show(block = True)
+
+
+#playWithTraj()    
+
+        
 
 
 

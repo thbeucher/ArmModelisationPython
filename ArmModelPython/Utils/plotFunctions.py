@@ -3,7 +3,7 @@ Author: Thomas Beucher
 
 Module: plotFunctions
 
-Description: On retrouve dans ce fichier differentes fonctions permettant d'afficher les resultats du projet
+Description: some plotting functions
 '''
 import numpy as np
 import matplotlib.pyplot as plt
@@ -212,7 +212,8 @@ def plot_pos_ini():
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
     
     plt.show(block = True)
-    
+   
+#plot_pos_ini() 
 
 def plotPosTAT(fr, rs):
     xtr, junk = fr.recup_pos_ini(rs.pathFolderData + "ThetaAllTraj/")
@@ -227,14 +228,13 @@ def plotPosTAT(fr, rs):
 #plot_pos_ini()
 #Ce bout de code permet d'afficher les positions initiales des trajectoires dans output_solver(bin)
 def plotPosIniOutputSolver():
-    fr = FileReading()
     angleIni = {}
     Q = []
     name1 = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/"
-    for el in os.listdir("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/"):
+    for el in os.listdir(name1):
         if "brentbvp" in el and not "fail" in el:
             #Chargement du fichier
-            mati = np.loadtxt("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/" + el)
+            mati = np.loadtxt(name1 + el)
             Q.append((el, mati[0,10], mati[0,11]))
             #recuperation de q1 et q2 initiales et conversion en coordonnees
             coordElbow, coordHand = mgd(np.mat([[mati[0,10]], [mati[0,11]]]), 0.3, 0.35)
@@ -242,10 +242,10 @@ def plotPosIniOutputSolver():
     
     angleIni2 = {}  
     name2 = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster2/"
-    for el in os.listdir("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster2/"):
+    for el in os.listdir(name2):
         if "brentbvp" in el and not "fail" in el:
             #Chargement du fichier
-            mati2 = np.loadtxt("/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster2/" + el)
+            mati2 = np.loadtxt(name2 + el)
             #Q.append((el, mati[0,10], mati[0,11]))
             #recuperation de q1 et q2 initiales et conversion en coordonnees
             coordElbow2, coordHand2 = mgd(np.mat([[mati2[0,10]], [mati2[0,11]]]), 0.3, 0.35)
@@ -273,12 +273,24 @@ def plotPosIniOutputSolver():
     
     plt.figure()
     plt.scatter(x, y, c = 'b')
-    plt.scatter(x2, y2, c = 'r')
+    #plt.scatter(x2, y2, c = 'r')
     plt.show(block = True)
     
 #plotPosIniOutputSolver()
 
-
+def plotTrajThetaAllTraj():
+    name = "/home/beucher/workspace/Data/ThetaAllTraj/"
+    fr = FileReading()
+    traj, junk = fr.recup_pos_ini(name)
+    x, y, x1, y1 = [], [], [], []
+    for el in traj.values():
+        x.append(el[0])
+        y.append(el[1])
+    plt.figure()
+    plt.scatter(x, y, c = 'b')
+    plt.show(block = True)
+    
+#plotTrajThetaAllTraj()
 
 
 

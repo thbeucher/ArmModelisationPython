@@ -179,12 +179,14 @@ def create2():
             yf.append(el[1])
             xyf.append(el)
     print(len(xyf), xyf)
+    print(len(qt))
+    print(len(xx))
     
-    '''plt.figure()
+    plt.figure()
     plt.scatter(posx, posy, c = 'b')
     plt.scatter(0, rs.targetOrdinate, marker=u'*', s = 100)
     plt.scatter(xx, yy, c = 'r')
-    plt.show()'''
+    plt.show()
     
 
 #create2()

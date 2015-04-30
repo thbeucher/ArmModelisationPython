@@ -56,7 +56,7 @@ class FileReading():
         angleIni = {}
         Q = []
         for el in os.listdir(location):
-            if "trajectoire" in el:
+            if "trajectoire" in el or "brentbvp" in el:
                 #Chargement du fichier
                 mati = np.loadtxt(location + el)
                 Q.append((el, mati[0,10], mati[0,11]))
