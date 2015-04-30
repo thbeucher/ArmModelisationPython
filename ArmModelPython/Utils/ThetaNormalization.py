@@ -8,17 +8,21 @@ Description: On retrouve dans ce fichier les fonctions pour normaliser theta
 
 import numpy as np
 from Utils.FileReading import FileReading
+from Utils.FileSaving import fileSavingBin
     
     
 def normalization(theta):
-    maxT = (np.max(np.abs(theta)))
-    datan = theta/maxT
-    return maxT, datan
+    maxT = np.max(np.abs(theta), axis = 0)
+    for i in range(theta.shape[1]):
+        theta[:,i] = theta[:,i] / maxT[i]
+    fileSavingBin("OptimisationResults/maxTBIN", maxT)
+    return maxT, theta
 
 def unNorm(theta):
     fr = FileReading()
     maxT = fr.getobjread("OptimisationResults/maxTBIN")
-    theta = theta*maxT
+    for i in range(theta.shape[1]):
+        theta[:,i] = theta[:,i] * maxT[i]
     return theta
 
 def matrixToVector(theta):

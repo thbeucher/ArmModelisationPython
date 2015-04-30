@@ -50,8 +50,8 @@ def runGenTrajCma():
     sauv = int(sauv)
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread("OptimisationResults/thetaSolBIN")
-    theta = unNorm(theta)
     theta = vectorToMatrix(theta)
+    theta = unNorm(theta)
     sti, meanJu = costFunctionRBFN(theta)
     if sauv == 1:
         fileSavingBin(nameT + "CoordTraj/CoordTrajectoireELAllCma", sti.save.coordElSave)

@@ -20,11 +20,12 @@ from matplotlib import animation
 
 class SuperToolsInit:
     
-    def __init__(self):
+    def __init__(self, nbtarget = 0):
         '''
         class parameters initialization
         '''
         self.super = "SuperInit"
+        self.nbTarget = nbtarget
         self.save = SavingData()
         self.armP = ArmParameters()
         self.musclesP = MusclesParameters()
@@ -134,7 +135,11 @@ class SuperToolsInit:
         if not nameSave2 in self.IteSave:
             self.IteSave[nameSave2] = []
         self.IteSave[nameSave2].append(i)
-        if((coordHA[0] >= (0-self.rs.sizeOfTarget/2) and coordHA[0] <= (0+self.rs.sizeOfTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
+        if self.nbTarget == 0:
+            sizeTarget = self.rs.sizeOfTarget[0]
+        elif self.nbTarget == 4:
+            sizeTarget = self.fr.getobjread("targetSizeTmp")
+        if((coordHA[0] >= (0-sizeTarget/2) and coordHA[0] <= (0+sizeTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
             Ju += self.rs.rhoCF
         self.costSave[nameSave2] = Ju
         return Ju

@@ -11,7 +11,7 @@ import math
 import matplotlib.pyplot as plt
 from Utils.FileSaving import fileSavingBin
 
-def changeExperiment():
+def changeExperimentCircular():
     x0, y0 = 0, 0.6175
     r = [0.18, 0.20, 0.22, 0.24]
     x, y, exper = [], [], []
@@ -31,7 +31,20 @@ def changeExperiment():
     
     fileSavingBin("PosIniExperimentCircular", exper)
 
-changeExperiment()
+#changeExperimentCircular()
+
+def changeExperimentSquare():
+    x = np.linspace(-0.15,0.15,20)
+    y = np.linspace(0.35, 0.5, 3)
+    posx, posy, posxy = [], [], []
+    for i in range(len(x)):
+        for j in range(len(y)):
+            posx.append(x[i])
+            posy.append(y[j])
+            posxy.append((x[i], y[j]))
+    fileSavingBin("PosIniExperimentSquare", posxy)
+    
+#changeExperimentSquare()
 
 
 

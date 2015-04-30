@@ -28,7 +28,7 @@ def returnX0Y0Z():
     for el in xyAbn:
         x0.append(el[0])
         y0.append(el[1])
-    z = np.array(valcost)
+    z = valcost
     if not z:
         x0 = []
         y0 = []

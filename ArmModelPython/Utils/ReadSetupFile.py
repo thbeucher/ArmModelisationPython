@@ -32,7 +32,7 @@ class ReadSetupFile:
         #lecture ligne 5, choix du Parametre rho cost function
         self.rhoCF = int((allsByLign[4].split(":"))[1])
         #lecture ligne 6, choix du Parametre upsilon cost function
-        self.upsCF = int((allsByLign[5].split(":"))[1])
+        self.upsCF = float((allsByLign[5].split(":"))[1])
         #lecture ligne 7, Pour CMAES, sigma
         self.sigmaCmaes = float((allsByLign[6].split(":"))[1])
         #lecture ligne 8, Pour CMAES, maxIteration
@@ -46,7 +46,7 @@ class ReadSetupFile:
         #lecture ligne 12, Chemin du dossier contenant les trajectoires
         self.pathFolderTrajectories = (allsByLign[11].split(":"))[1]
         #lecture ligne 13, Taille de la cible pour l'experimentation
-        self.sizeOfTarget = float((allsByLign[12].split(":"))[1])
+        self.sizeOfTarget = [float(allsByLign[12].split(":")[1].split("/")[0]), float(allsByLign[12].split(":")[1].split("/")[1]), float(allsByLign[12].split(":")[1].split("/")[2]), float(allsByLign[12].split(":")[1].split("/")[3])]
         #lecture ligne 14, ordonnee de la cible
         self.targetOrdinate = float((allsByLign[13].split(":"))[1])
         #lecture ligne 15, Pas de temps utilise pour l'experimentation
@@ -57,5 +57,4 @@ class ReadSetupFile:
         self.numMaxIter = int((allsByLign[16].split(":"))[1])
         #reading line 18, final position error
         self.errorPosEnd = float((allsByLign[17].split(":"))[1])
-
 

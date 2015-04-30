@@ -32,7 +32,7 @@ def costFunctionRBFN(theta):
     
     #startPTs, junk = sti.fr.recup_pos_ini(sti.rs.pathFolderTrajectories)
     
-    '''for i in range(nbi):
+    for i in range(nbi):
         JuS = []
         for el in sti.posIni:
         #for el in startPTs.values():
@@ -50,9 +50,9 @@ def costFunctionRBFN(theta):
         meanJu = np.mean(costArray, axis = 0)
     else:
         meanJu = costArray
-    return sti, meanJu'''
+    return sti, meanJu
     
-    if nbi < 4:
+    '''if nbi < 4:
         nbi = 4
         a = 1
     else:
@@ -84,21 +84,21 @@ def costFunctionRBFN(theta):
         costf.append(meanCostTmp)
     meanf = np.mean(costf, axis = 0)
     print(np.mean(meanf))
-    return sti, meanf
+    return sti, meanf'''
 
 
 class costFunctionClass:
     
-    def __init__(self):
+    def __init__(self, nbtarget = 0):
         self.call = 0
-        self.sti = SuperToolsInit()
+        self.sti = SuperToolsInit(nbtarget)
         #self.startPTs, junk = self.sti.fr.recup_pos_ini(self.sti.rs.pathFolderTrajectories)
         #self.n = len(self.startPTs)
         self.n = len(self.sti.posIni)
     
     def initTheta(self, theta):
-        theta = unNorm(theta)
-        self.theta = vectorToMatrix(theta)
+        theta = vectorToMatrix(theta)
+        self.theta = unNorm(theta)
         
     def serie1(self, JuS1):
         i = 0
@@ -146,7 +146,7 @@ class costFunctionClass:
         print("Appel n°", self.call)
         self.call += 1
         print("cost: ", meanSca)
-        return meanSca
+        return meanSca*(-1)
         
         '''costT = {}
         for i in range(5):
