@@ -184,6 +184,12 @@ def learningFieldRBFN():
 
 def remakeTrajFolder():
     fr, rs = initFRRS()
+    for el in os.listdir(rs.pathFolderData + "trajUseForRBFNTmp/"):
+        remove(rs.pathFolderData + "trajUseForRBFNTmp/" + el)
+    
+    for el in os.listdir(rs.pathFolderTrajectories):
+        copyfile(rs.pathFolderTrajectories + el, rs.pathFolderData + "trajUseForRBFNTmp/" + el)
+    
     for el in os.listdir(rs.pathFolderData + "/trajNotUsedTmp/"):
         copyfile(rs.pathFolderData + "/trajNotUsedTmp/" + el, rs.pathFolderTrajectories + el)
         remove(rs.pathFolderData + "/trajNotUsedTmp/" + el)
@@ -195,7 +201,7 @@ def testOnWeight():
     theta = fr.getobjread(name)
     #print(theta[0])
     thetaN = normalization(theta)
-    
+    thetaN[0,0] = thetaN[0,0] - 0.1
     
     thetaN = matrixToVector(thetaN)
     theta2 = vectorToMatrix(thetaN)

@@ -187,13 +187,14 @@ def plot_pos_ini():
     for el in posIni:
         x0.append(el[0])
         y0.append(el[1])
-    xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
+    #xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
+    xy, junk = fr.recup_pos_ini(rs.pathFolderData + "trajUseForRBFNTmp/")
     x, y = [], []
     aa, keyy = [], []
     for key, el in xy.items():
         x.append(el[0])
         y.append(el[1])
-        a = math.sqrt((el[0]**2) + (el[1] - 0.6175)**2)
+        a = math.sqrt((el[0]**2) + (el[1] - rs.targetOrdinate)**2)
         if tronquerNB(a, 3) not in aa:
             aa.append(tronquerNB(a, 3))
         if a < 0.11:
