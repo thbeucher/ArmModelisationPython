@@ -211,9 +211,9 @@ def testOnWeight():
     
     costR = fr.getobjread("costBIN")
     difCost = []
-    for el in costR:
-        difCost.append(el)
-    
+    for i in range(len(costR)):
+        difCost.append(abs(costR[i] - meanJu[i]))
+    print(difCost)
     print(meanJu)
     #print(theta2[0])
     
