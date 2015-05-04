@@ -113,8 +113,17 @@ def plotActivationMuscular(what):
     fr, rs = initFRRS()
     nbfeat = rs.numfeats
     if what == "brent":
-        #BrentBVPSolver activations muscular
-        pass
+        state, command = fr.getData(rs.pathFolderTrajectories)
+        y = {}
+        for key, val in command.items():
+            y[key] = []
+            for i in range(len(command[key])):
+                y[key].append(i)
+            plt.figure()
+            for i in range(6):
+                plt.plot(y[key], np.array(command[key]).T[i])
+            plt.show(block = True)
+        
     elif what == "rbfn":
         nameR = "RBFN2/" + str(nbfeat) + "feats/Uall"
         coutTraj = fr.getobjread(nameR)
