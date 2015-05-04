@@ -104,7 +104,7 @@ class fa_rbfn():
         linspaceForEachDim = []
         #Fixe le nombre de gaussienne utilisees et les reparties selon chaques dimensions
         for i in range(self.inputDimension):
-            linspaceForEachDim.append(np.linspace(minInputData[i], maxInputData[i], self.nbFeat))
+            linspaceForEachDim.append(np.linspace(minInputData[i] + widthConstant[i], maxInputData[i] - widthConstant[i], self.nbFeat))
         #Permet de recuperer une matrice contenant toutes les combinaisons possibles pour trouver chaque centre
         self.centersInEachDimensions = cartesian(linspaceForEachDim)
     

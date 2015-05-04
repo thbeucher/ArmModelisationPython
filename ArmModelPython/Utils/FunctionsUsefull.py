@@ -109,6 +109,18 @@ def playWithTraj():
 #playWithTraj()    
 
         
+def learningFieldRBFN():
+    fr, rs = initFRRS()
+    posIni = fr.getobjread("PosIniExperimentCircular")
+    
+    
+    
+def testOnWeight():
+    fr, rs = initFRRS()
+    name = "RBFN2/" + str(rs.numfeats) + "feats/ThetaXBIN"
+    theta = fr.getobjread(name)
+    
+
 
 
 
