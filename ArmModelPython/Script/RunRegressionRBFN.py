@@ -27,7 +27,7 @@ def runRBFN():
     nbfeat = rs.numfeats
     #getting all data
     
-    learningFieldRBFN()
+    #learningFieldRBFN()
     
     state, command = fr.getData(rs.pathFolderTrajectories)
     #change the data (dictionary) into numpy array
@@ -39,7 +39,7 @@ def runRBFN():
     fa.setCentersAndWidths()
     fa.train_rbfn()
     
-    remakeTrajFolder()
+    #remakeTrajFolder()
     
     nameSaveStr = "RBFN2/" + str(nbfeat) + "feats/ThetaX"##Nom pour les x traj
     nameSaveBin = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"##Nom pour les x traj

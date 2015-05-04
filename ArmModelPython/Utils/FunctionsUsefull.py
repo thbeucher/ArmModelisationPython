@@ -201,13 +201,19 @@ def testOnWeight():
     theta = fr.getobjread(name)
     #print(theta[0])
     thetaN = normalization(theta)
-    thetaN[0,0] = thetaN[0,0] - 0.1
+    thetaN[0,0] = thetaN[0,0] - 0.01
     
     thetaN = matrixToVector(thetaN)
     theta2 = vectorToMatrix(thetaN)
     
     theta2 = unNorm(theta2)
     sti, meanJu = costFunctionRBFN(theta2)
+    
+    costR = fr.getobjread("costBIN")
+    difCost = []
+    for el in costR:
+        difCost.append(el)
+    
     print(meanJu)
     #print(theta2[0])
     

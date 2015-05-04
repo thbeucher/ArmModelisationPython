@@ -11,6 +11,7 @@ from multiprocessing.context import Process
 from multiprocessing.sharedctypes import Array
 import ctypes as ct
 from Utils.DataNormalization import normData, normDataForEachIndividualColumns
+import matplotlib.pyplot as plt
 
 
 class fa_rbfn():
@@ -108,6 +109,19 @@ class fa_rbfn():
             #linspaceForEachDim.append(np.linspace(minInputData[i] + widthConstant[i], maxInputData[i] - widthConstant[i], self.nbFeat))
         #Permet de recuperer une matrice contenant toutes les combinaisons possibles pour trouver chaque centre
         self.centersInEachDimensions = cartesian(linspaceForEachDim)
+        
+        '''print(maxInputData, "\n", minInputData)
+        cx, cy = [], []
+        for i in range(self.centersInEachDimensions.shape[0]):
+            cx.append(self.centersInEachDimensions[i,2])
+            cy.append(self.centersInEachDimensions[i,3])
+        print(cx, "\n", cy)
+        plt.figure()
+        plt.scatter(self.centersInEachDimensions.T[2], self.centersInEachDimensions.T[3], c = 'b')
+        for i in range(len(cx)):
+            plt.Circle((cx[i], cy[i]), widthConstant[2], color = 'r')
+            plt.Circle((cx[i], cy[i]), widthConstant[3], color = 'b')
+        plt.show(block = True)'''
     
     def featureOutput(self, inputData):
         '''
