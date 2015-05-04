@@ -43,7 +43,7 @@ def costColorPlot(wha):
     if wha == "rbfn":
         name = "RBFN2/" + str(nbfeat) + "feats/"
         x0, y0, z = returnX0Y0Z()
-        maxt = np.max(np.abs(z))
+        #maxt = np.max(np.abs(z))
         
     elif wha == "cma":
         name = "RBFN2/" + str(nbfeat) + "feats/costBINCma"
@@ -51,7 +51,7 @@ def costColorPlot(wha):
         for i in range(len(z)):
             if z[i] > 0:
                 z[i] -= rs.rhoCF
-        maxt = np.max(abs(z))
+        #maxt = np.max(abs(z))
         
     elif wha == "brent":
         data = fr.getobjread("trajectoires_cout/trajectoire_coutCoordXBIN")
@@ -60,7 +60,7 @@ def costColorPlot(wha):
             z.append(el[1]-rs.rhoCF)
             x0.append(el[2])
             y0.append(el[3])
-        maxt = np.max(np.abs(z))
+        #maxt = np.max(np.abs(z))
     
     elif wha == "difBR":
         dif = returnDifCostBrentRBFN()
@@ -200,8 +200,8 @@ def plot_pos_ini():
             keyy.append(key)
             #copyfile(rs.pathFolderTrajectories + key, rs.pathFolderData + "ThetaAllTraj/" + key)
             #remove(rs.pathFolderTrajectories + key)
-    print(len(aa), aa)
-    print(len(keyy), sorted(keyy))
+    #print(len(aa), aa)
+    #print(len(keyy), sorted(keyy))
         
     plt.figure()
     plt.scatter(x, y, c = "b", marker=u'o', s=25, cmap=cm.get_cmap('RdYlBu'))

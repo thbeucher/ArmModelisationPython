@@ -16,7 +16,7 @@ def normalization(theta):
     for i in range(theta.shape[1]):
         theta[:,i] = theta[:,i] / maxT[i]
     fileSavingBin("OptimisationResults/maxTBIN", maxT)
-    return maxT, theta
+    return theta
 
 def unNorm(theta):
     fr = FileReading()

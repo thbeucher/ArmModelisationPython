@@ -60,8 +60,7 @@ def procUse(sizeT):
     #Récupération des theta
     namec = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
     theta = fr.getobjread(namec)
-    maxT, thetaN = normalization(theta)#Recuperation des theta normalises
-    fileSavingBin("OptimisationResults/maxTBIN", maxT)
+    thetaN = normalization(theta)#Recuperation des theta normalises
     #Mise sous forme de vecteur simple
     thetaN = matrixToVector(thetaN)
     fileSavingBin("targetSizeTmp", sizeT)
@@ -93,6 +92,6 @@ def runMultiTargetCmaes():
     
 
 
-runMultiTargetCmaes()
+#runMultiTargetCmaes()
 
 

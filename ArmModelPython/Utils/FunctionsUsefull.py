@@ -8,6 +8,11 @@ from shutil import copyfile
 from posix import remove
 import matplotlib.pyplot as plt
 from ArmModel.GeometricModel import mgi
+from scipy.spatial import ConvexHull
+import math
+from Utils.ThetaNormalization import normalization, matrixToVector,\
+    vectorToMatrix, unNorm
+from Optimisation.costFunction import costFunctionRBFN
 
 
 
@@ -108,17 +113,99 @@ def playWithTraj():
 
 #playWithTraj()    
 
+def posCircle(r, t):
+    '''
+    give coordinate (x,y) from couple (radius, angle)
+    
+    Input:      -r: scalar, radius of the circle
+                -t: scalar, angle
+    
+    Output:    -x: scalar, ordinate
+                -y: scalar, absciss
+    '''
+    fr, rs = initFRRS()
+    x0 = 0
+    y0 = rs.targetOrdinate
+    x = x0 + r * math.cos(t)
+    y = y0 + r * math.sin(t)
+    return x, y
+
+def invPosCircle(x, y):
+    '''
+    give couple (radius, angle) from coordinate (x, y)
+    
+    Input:      -x: scalar, ordinate
+                -y: scalar, absciss
+    
+    Output:     -r: scalar, radius of the circle
+                -t: scalar, angle
+    '''
+    fr, rs = initFRRS()
+    r = math.sqrt((x**2) + (y - rs.targetOrdinate)**2)
+    t = math.atan2(y - rs.targetOrdinate, x)
+    return r, t
+
         
 def learningFieldRBFN():
     fr, rs = initFRRS()
     posIni = fr.getobjread("PosIniExperimentCircular")
+    x, y = [], []
+    for el in posIni:
+        x.append(el[0])
+        y.append(el[1])
+        
+    r, ang = [], []
+    for el in posIni:
+        a, b = invPosCircle(el[0], el[1])
+        if not tronquerNB(a, 3) in r and not (tronquerNB(a, 3) + 0.001) in r and not (tronquerNB(a, 3) - 0.001) in r:
+            r.append(tronquerNB(a, 3))
+        if not tronquerNB(b, 3) in ang:
+            ang.append(tronquerNB(b, 3))
     
+    #print(r)
+    #print(ang)
+    xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
+    sx, sy = [], []
+    for key, val in xy.items():
+        rr, tt = invPosCircle(val[0], val[1])
+        if rr <= (np.max(r) + (abs(r[1] - r[0]))) and rr >= (np.min(r) - (r[1] - r[0])) and tt >= (np.min(ang) - abs(ang[1] - ang[0])) and tt <= (np.max(ang) + abs(ang[1] - ang[0])):
+            sx.append(val[0])
+            sy.append(val[1])
+        else:
+            copyfile(rs.pathFolderTrajectories + key, rs.pathFolderData + "/trajNotUsedTmp/" + key)
+            remove(rs.pathFolderTrajectories + key)
+    
+    #plt.figure()
+    #plt.scatter(x, y, c = 'b')
+    #plt.scatter(sx, sy, c = 'r')
+    #plt.show(block = True)
+    
+#learningFieldRBFN()    
+
+def remakeTrajFolder():
+    fr, rs = initFRRS()
+    for el in os.listdir(rs.pathFolderData + "/trajNotUsedTmp/"):
+        copyfile(rs.pathFolderData + "/trajNotUsedTmp/" + el, rs.pathFolderTrajectories + el)
+        remove(rs.pathFolderData + "/trajNotUsedTmp/" + el)
     
     
 def testOnWeight():
     fr, rs = initFRRS()
     name = "RBFN2/" + str(rs.numfeats) + "feats/ThetaXBIN"
     theta = fr.getobjread(name)
+    #print(theta[0])
+    thetaN = normalization(theta)
+    
+    
+    thetaN = matrixToVector(thetaN)
+    theta2 = vectorToMatrix(thetaN)
+    
+    theta2 = unNorm(theta2)
+    sti, meanJu = costFunctionRBFN(theta2)
+    print(meanJu)
+    #print(theta2[0])
+    
+#testOnWeight()
     
 
 

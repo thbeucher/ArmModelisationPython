@@ -52,14 +52,14 @@ class fa_rbfn():
         for i in range(At.shape[0]):
             for j in range(At.shape[1]):
                 A[i,j] = At[i,j]
-        print("ici2", A[0])
+        #print("ici2", A[0])
         
     def computeb(self, b, fop):
         bt = np.dot(fop, self.outputData.T)
         for i in range(bt.shape[0]):
             for j in range(bt.shape[1]):
                 b[i,j] = bt[i,j]
-        print("iciaussi", b[0])
+        #print("iciaussi", b[0])
     
     def train_rbfn(self):
         '''
@@ -104,7 +104,8 @@ class fa_rbfn():
         linspaceForEachDim = []
         #Fixe le nombre de gaussienne utilisees et les reparties selon chaques dimensions
         for i in range(self.inputDimension):
-            linspaceForEachDim.append(np.linspace(minInputData[i] + widthConstant[i], maxInputData[i] - widthConstant[i], self.nbFeat))
+            linspaceForEachDim.append(np.linspace(minInputData[i], maxInputData[i], self.nbFeat))
+            #linspaceForEachDim.append(np.linspace(minInputData[i] + widthConstant[i], maxInputData[i] - widthConstant[i], self.nbFeat))
         #Permet de recuperer une matrice contenant toutes les combinaisons possibles pour trouver chaque centre
         self.centersInEachDimensions = cartesian(linspaceForEachDim)
     

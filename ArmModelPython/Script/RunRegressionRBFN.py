@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 from Utils.ReadSetupFile import ReadSetupFile
+from Utils.FunctionsUsefull import learningFieldRBFN, remakeTrajFolder
 
 ####################################################################################################
 ## runRBFN permet de lancer l'algorithme de regression sur les données de trajectoires du brent ####
@@ -25,6 +26,9 @@ def runRBFN():
     rs = ReadSetupFile()
     nbfeat = rs.numfeats
     #getting all data
+    
+    learningFieldRBFN()
+    
     state, command = fr.getData(rs.pathFolderTrajectories)
     #change the data (dictionary) into numpy array
     stateAll, commandAll = fr.dicToArray(state), fr.dicToArray(command)
@@ -34,6 +38,9 @@ def runRBFN():
     fa.setTrainingData(stateAll.T, commandAll.T)
     fa.setCentersAndWidths()
     fa.train_rbfn()
+    
+    remakeTrajFolder()
+    
     nameSaveStr = "RBFN2/" + str(nbfeat) + "feats/ThetaX"##Nom pour les x traj
     nameSaveBin = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"##Nom pour les x traj
     fileSavingStr(nameSaveStr, fa.theta)
