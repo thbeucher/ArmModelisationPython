@@ -85,8 +85,6 @@ def costColorPlot(wha):
     except AttributeError:
         er = 1
     if type(zb) == type([]):
-        print(x0, "\n", y0, "\n", zb)
-        print(len(x0), len(y0), len(zb))
         zi = griddata(x0, y0, zb, xi, yi)
     elif er == 1:
         zi = griddata(x0, y0, zb, xi, yi)

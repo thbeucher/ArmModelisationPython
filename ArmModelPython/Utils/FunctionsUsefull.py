@@ -13,6 +13,8 @@ import math
 from Utils.ThetaNormalization import normalization, matrixToVector,\
     vectorToMatrix, unNorm
 from Optimisation.costFunction import costFunctionRBFN
+from matplotlib.mlab import griddata
+from matplotlib import cm
 
 
 
@@ -197,9 +199,8 @@ def remakeTrajFolder():
     
 def testOnWeight():
     fr, rs = initFRRS()
-    name = "RBFN2/" + str(rs.numfeats) + "feats/ThetaXBIN"
-    theta = fr.getobjread(name)
-    #print(theta[0])
+    name = "RBFN2/" + str(rs.numfeats) + "feats/"
+    theta = fr.getobjread(name + "ThetaXBIN")
     thetaN = normalization(theta)
     thetaN[0,0] = thetaN[0,0] - 0.01
     
@@ -208,17 +209,41 @@ def testOnWeight():
     
     theta2 = unNorm(theta2)
     sti, meanJu = costFunctionRBFN(theta2)
+    fileSavingBin(name + "costTrajChangedBIN", sti.costSave)
     
-    costR = fr.getobjread("costBIN")
-    difCost = []
-    for i in range(len(costR)):
-        difCost.append(abs(costR[i] - meanJu[i]))
-    print(difCost)
-    print(meanJu)
-    #print(theta2[0])
+    costBefore = fr.getobjread(name + "costTrajBIN")
+    costAfter = fr.getobjread(name + "costTrajChangedBIN")
+    
+    xb, yb, zb, xa, ya, za, xy = [],[], [], [], [], [], []
+    for key, val in costBefore.items():
+        xb.append(float(key.split("//")[0]))
+        yb.append(float(key.split("//")[1]))
+        zb.append(val)
+    for key, val in costAfter.items():
+        xa.append(float(key.split("//")[0]))
+        ya.append(float(key.split("//")[1]))
+        za.append(val)
+        xy.append((float(key.split("//")[0]), float(key.split("//")[1])))
+    difBA = []
+    for i in range(len(zb)):
+        difBA.append(tronquerNB(abs(zb[i] - za[i]), 4))
+    print(difBA)
+    
+    xi = np.linspace(-0.18, 0.18, 100)
+    yi = np.linspace(0.38, 0.5, 100)
+    arrXY = np.array(xy)
+    hull = ConvexHull(arrXY)
+    zh = griddata(xb, yb, difBA, xi, yi)
+    
+    fig = plt.figure()
+    plt.scatter(xa, ya, c = 'b')
+    plt.plot(arrXY[hull.vertices, 0], arrXY[hull.vertices, 1], color = 'r')
+    cs = plt.contourf(xi, yi, zh, 15, cmap=cm.get_cmap('RdYlBu'))
+    fig.colorbar(cs, shrink=0.5, aspect=5)
+    plt.show(block = True)
     
 #testOnWeight()
-    
+
 
 
 
