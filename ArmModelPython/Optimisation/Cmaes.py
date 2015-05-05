@@ -92,6 +92,6 @@ def runMultiTargetCmaes():
     
 
 
-#runMultiTargetCmaes()
+runMultiTargetCmaes()
 
 

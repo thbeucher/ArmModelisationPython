@@ -32,7 +32,7 @@ def trajectoriesAnimation():
     plt.xlim(-0.7, 0.7)
     plt.ylim(-0.7,0.7)
     plt.plot([-0.7,0.7], [0.6175, 0.6175])
-    plt.scatter([0-rs.sizeOfTarget/2, 0+rs.sizeOfTarget/2], [rs.targetOrdinate, rs.targetOrdinate], c ='g', marker='o', s=50)
+    plt.scatter([0-rs.sizeOfTarget[1]/2, 0+rs.sizeOfTarget[1]/2], [rs.targetOrdinate, rs.targetOrdinate], c ='g', marker='o', s=50)
     plt.scatter(xIni,yIni, c='b')
     
     
