@@ -13,9 +13,9 @@ from Utils.ThetaNormalization import normalization, matrixToVector
 from Optimisation.costFunction import costFunctionClass
 from Utils.NiemRoot import tronquerNB
 from Utils.InitUtil import initFRRS
-from multiprocessing.pool import Pool
 from Utils.ReadSetupFile import ReadSetupFile
-from multiprocessing.context import Process
+import os
+from shutil import copyfile
 
 def runCmaes():
     fr, rs = initFRRS()
@@ -65,7 +65,17 @@ def procUse(sizeT):
     thetaN = matrixToVector(thetaN)
     fileSavingBin("targetSizeTmp", sizeT)
     cf = costFunctionClass(4)
+    
     resSO = cma.fmin(cf.costFunctionCMAES, thetaN, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    
+    nameTmp = rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeT)
+    if os.path.isdir(nameTmp) == False:
+        os.mkdir(rs.pathFolderData)
+    nameTmp2 = rs.pathFolderProject + "ArmModelPython/Optimisation/"
+    for el in os.listdir(nameTmp2):
+        if "outcmaes" in el:
+            copyfile(nameTmp2 + el, nameTmp + "/" + el)
+    
     #Sauvegarde des solutions de cmaes
     fileSavingStr("OptimisationResults/thetaSol" + str(sizeT), resSO[0])
     fileSavingBin("OptimisationResults/thetaSolBIN" + str(sizeT), resSO[0])
@@ -92,6 +102,6 @@ def runMultiTargetCmaes():
     
 
 
-runMultiTargetCmaes()
+#runMultiTargetCmaes()
 
 
