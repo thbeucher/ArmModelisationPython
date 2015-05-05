@@ -202,7 +202,9 @@ def testOnWeight():
     name = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread(name + "ThetaXBIN")
     thetaN = normalization(theta)
-    thetaN[0,0] = thetaN[0,0] - 0.01
+    for i in range(thetaN.shape[0]):
+        for j in range(thetaN.shape[1]):
+            thetaN[i,j] = thetaN[i,j] - np.random.normal(0,0.001)
     
     thetaN = matrixToVector(thetaN)
     theta2 = vectorToMatrix(thetaN)
@@ -242,7 +244,7 @@ def testOnWeight():
     fig.colorbar(cs, shrink=0.5, aspect=5)
     plt.show(block = True)
     
-#testOnWeight()
+testOnWeight()
 
 
 
