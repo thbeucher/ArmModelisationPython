@@ -25,7 +25,7 @@ def runCmaes():
     #Récupération des theta
     namec = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
     theta = fr.getobjread(namec)
-    maxT, thetaN = normalization(theta)#Recuperation des theta normalises
+    thetaN = normalization(theta)#Recuperation des theta normalises
     #Mise sous forme de vecteur simple
     thetaN = matrixToVector(thetaN)
     cf = costFunctionClass()

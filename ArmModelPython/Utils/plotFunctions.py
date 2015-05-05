@@ -196,8 +196,7 @@ def plot_pos_ini():
     for el in posIni:
         x0.append(el[0])
         y0.append(el[1])
-    #xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
-    xy, junk = fr.recup_pos_ini(rs.pathFolderData + "trajUseForRBFNTmp/")
+    xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
     x, y = [], []
     aa, keyy = [], []
     for key, el in xy.items():

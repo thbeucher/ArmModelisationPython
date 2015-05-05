@@ -34,7 +34,7 @@ class SuperToolsInit:
         self.rs = ReadSetupFile()
         #Initialisation des outils permettant d'utiliser le controleur rbfn
         self.fa = fa_rbfn(self.rs.numfeats)
-        state, command = self.fr.getData(self.rs.pathFolderData + "trajUseForRBFNTmp/")
+        state, command = self.fr.getData(self.rs.pathFolderTrajectories)
         stateAll, commandAll = self.fr.dicToArray(state), self.fr.dicToArray(command)
         self.fa.setTrainingData(stateAll.T, commandAll.T)
         self.fa.setCentersAndWidths()
