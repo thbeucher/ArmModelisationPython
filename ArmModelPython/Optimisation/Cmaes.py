@@ -70,7 +70,7 @@ def procUse(sizeT):
     
     nameTmp = rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeT)
     if os.path.isdir(nameTmp) == False:
-        os.mkdir(rs.pathFolderData)
+        os.mkdir(nameTmp)
     nameTmp2 = rs.pathFolderProject + "ArmModelPython/Optimisation/"
     for el in os.listdir(nameTmp2):
         if "outcmaes" in el:

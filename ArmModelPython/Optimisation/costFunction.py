@@ -12,6 +12,7 @@ from Main.SuperToolsInit import SuperToolsInit
 from multiprocessing.context import Process
 from multiprocessing.sharedctypes import Array, Value
 from Script.MultiCoreComputeTraj import computeTraj
+from Utils.FileSaving import fileSavingBin
     
     
 def costFunctionRBFN(theta):
@@ -95,6 +96,7 @@ class costFunctionClass:
         #self.startPTs, junk = self.sti.fr.recup_pos_ini(self.sti.rs.pathFolderTrajectories)
         #self.n = len(self.startPTs)
         self.n = len(self.sti.posIni)
+        self.saveCost = []
     
     def initTheta(self, theta):
         theta = vectorToMatrix(theta)
@@ -146,6 +148,12 @@ class costFunctionClass:
         print("Appel n°", self.call)
         self.call += 1
         print("cost: ", meanSca)
+        self.saveCost.append(meanSca)
+        if self.call == (self.sti.rs.maxIterCmaes * self.sti.rs.popsizeCmaes):
+            print("la")
+            sizeTargetTmp = self.sti.fr.getobjread("targetSizeTmp")
+            namet = "OptimisationResults/costEval" + str(sizeTargetTmp)
+            fileSavingBin(namet, self.saveCost)
         return meanSca*(-1)
         
         '''costT = {}
