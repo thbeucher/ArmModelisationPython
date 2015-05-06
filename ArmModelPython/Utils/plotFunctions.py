@@ -350,13 +350,7 @@ def plotAllCmaes():
     ax4.contourf(xi, yi, zi[3], 15, cmap=cm.get_cmap('RdYlBu'))
     ax4.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[3])))
     
-    
-    '''t1 = plt.scatter(x0, y0, c = 'b')
-    plt.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
-    plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
-    fig.colorbar(t1, shrink=0.5, aspect=5)'''
-    
     plt.show(block = True)
     
-plotAllCmaes()
+#plotAllCmaes()
 
