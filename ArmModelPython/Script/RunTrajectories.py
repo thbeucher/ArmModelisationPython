@@ -12,7 +12,19 @@ from Utils.ThetaNormalization import vectorToMatrix, unNorm
 import matplotlib.pyplot as plt
 from Utils.InitUtil import initFRRS
     
+def saveDataTrajectories(nameFile, data):
+    fileSavingStr(nameFile, data)
+    nameFile = nameFile + "BIN"
+    fileSavingBin(nameFile, data)
     
+def saveAllDataTrajectories(nameSave, sti, meanJu):
+    saveDataTrajectories(nameSave + "/CoordTrajectoireELAllCma", sti.save.coordElSave)
+    saveDataTrajectories(nameSave + "/UallCma", sti.Usave)
+    saveDataTrajectories(nameSave + "/nbIteCma", sti.IteSave)
+    saveDataTrajectories(nameSave + "/costCma", meanJu)
+    saveDataTrajectories(nameSave + "/CoordHitTargetCma", sti.lastCoord)
+    saveDataTrajectories(nameSave + "/SpeedSaveCma", sti.speedSave)
+ 
 def runGenTraj():
     fr, rs = initFRRS()
     print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte / 4: cost / 5: lastCoord / 6: speed)")
@@ -42,35 +54,22 @@ def runGenTraj():
     print(meanJu)
     print("Fin de generation de trajectoire!")
     
+def getThetaCma(fr, name):
+    theta = fr.getobjread(name)
+    theta = vectorToMatrix(theta)
+    theta = unNorm(theta)
+    return theta
     
 def runGenTrajCma():
     fr, rs = initFRRS()
-    print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte / 4: cost / 5: lastCoord / 6: speed)")
-    sauv = input("voulez vous sauvegarder les trajectoires: ")
-    sauv = int(sauv)
-    nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
-    theta = fr.getobjread("OptimisationResults/thetaSolBIN")
-    theta = vectorToMatrix(theta)
-    theta = unNorm(theta)
-    sti, meanJu = costFunctionRBFN(theta)
-    if sauv == 1:
-        fileSavingBin(nameT + "CoordTraj/CoordTrajectoireELAllCma", sti.save.coordElSave)
-        fileSavingBin(nameT + "CoordTraj/CoordTrajectoireHAAllCma", sti.save.coordHaSave)
-    elif sauv == 2:
-        fileSavingBin(nameT + "UallCma", sti.Usave)
-    elif sauv == 3:
-        fileSavingStr(nameT + "nbIteCma", sti.IteSave)
-        fileSavingBin(nameT + "nbIteCmaBIN", sti.IteSave)
-    elif sauv == 4:
-        fileSavingStr(nameT + "costCma", meanJu)
-        fileSavingBin(nameT + "costBINCma", meanJu)
-    elif sauv == 5:
-        fileSavingStr(nameT + "CoordHitTargetCma", sti.lastCoord)
-        fileSavingBin(nameT + "CoordHitTargetCmaBIN", sti.lastCoord)
-    elif sauv == 6:
-        fileSavingStr(nameT + "SpeedSaveCma", sti.speedSave)
-        fileSavingBin(nameT + "SpeedSaveCmaBIN", sti.speedSave)
-    print(meanJu)
+    for i in range(len(rs.sizeOfTarget)):
+        print("Trajectories generation for target ", rs.sizeOfTarget[i])
+        name = "OptimisationResults/thetaSolBIN" + str(rs.sizeOfTarget[i])
+        theta = getThetaCma(fr, name)
+        sti, meanJu = costFunctionRBFN(theta)
+        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i])
+        saveAllDataTrajectories(nameSave, sti, meanJu)
+        print(meanJu)
     
     
 def plotTargetUnreach(sti):

@@ -33,8 +33,9 @@ class SavingData:
         cls.coordHaSave.append(coordHA)
     
     def createCoord(cls, a = 1, coordHA = 1, coordEL = 1):
- #Thomas: commenter cette fonction
-       if a == 1:  
+        
+        #Thomas: commenter cette fonction
+        if a == 1:  
             for el in cls.coordElSave:
                 cls.xEl.append(el[0])
                 cls.yEl.append(el[1])
@@ -50,10 +51,10 @@ class SavingData:
                 cls.yHa.append(el[1])
             
     def saveParameters(cls, q, dotq, ddotq, Gamma_AM, arm):
-         '''
+        '''
         Saves dynamical parameters of the arm
         '''
-#Thomas: renommer la fonction, plus explicite que "Parameters"
+        #Thomas: renommer la fonction, plus explicite que "Parameters"
         cls.qsave.append((q[0,0],q[1,0]))  
         cls.dotqsave.append((dotq[0,0],dotq[1,0]))
         cls.ddotqsave.append((ddotq[0,0],ddotq[1,0]))

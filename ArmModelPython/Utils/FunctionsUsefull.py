@@ -246,7 +246,16 @@ def testOnWeight():
     
 #testOnWeight()
 
-
+def cmaesCostProgression():
+    fr, rs = initFRRS()
+    costCma = {}
+    for i in range(len(rs.sizeOfTarget)):
+        name = "OptimisationResults/costEval" + str(rs.sizeOfTarget[i])
+        costCma[str(rs.sizeOfTarget[i])] = fr.getobjread(name)
+    print(len(costCma))
+    
+cmaesCostProgression()
+        
 
 
 
