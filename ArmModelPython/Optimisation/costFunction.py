@@ -14,79 +14,6 @@ from multiprocessing.sharedctypes import Array, Value
 from Script.MultiCoreComputeTraj import computeTraj
 from Utils.FileSaving import fileSavingBin
     
-    
-def costFunctionRBFN(theta):
-    '''
-    Computes the cost of each selected trajectory
-    
-    Input:      -theta: numpy array
-    
-    OutPuts:    -JuCf: list
-                -sti: objet link
-                -meanJu: numpy array, mean of the cost of each trajectories
-    '''
-    sti = SuperToolsInit()
-    costT = {}
-    #Le nombre d'iteration pour i donne le nombre de trajectoire realises
-    nbi = input("Nombre d'iteration a effectuer: ")
-    nbi = int(nbi)
-    
-    #startPTs, junk = sti.fr.recup_pos_ini(sti.rs.pathFolderTrajectories)
-    
-    for i in range(nbi):
-        JuS = []
-        for el in sti.posIni:
-        #for el in startPTs.values():
-            Ju = sti.trajGenerator(el[0], el[1], theta)
-            JuS.append(Ju)
-        costT[i] = JuS
-    s = 0
-    for el in costT.values():
-        if s == 0:
-            costArray = el
-            s += 1
-        else:
-            costArray = np.vstack((costArray, el))
-    if nbi > 1:
-        meanJu = np.mean(costArray, axis = 0)
-    else:
-        meanJu = costArray
-    return sti, meanJu
-    
-    '''if nbi < 4:
-        nbi = 4
-        a = 1
-    else:
-        a = 0
-    
-    data = sti.fr.getobjread(sti.rs.experimentFilePosIni)
-    n = len(data)
-    costf = []
-    for i in range(int(nbi/4)):
-        cost = []
-        processUsed = []
-        if a == 1:
-            rg = 1
-        else:
-            rg = 4
-        for j in range(rg):
-            cost.append(Array('d', range(n)))
-            p = Process(target=computeTraj, args=(cost[j], sti, theta))
-            processUsed.append(p)
-        for j in range(rg):
-            processUsed[j].start()
-        for j in range(rg):
-            processUsed[j].join()
-        if a == 1:
-            costTmp = cost
-        else:
-            costTmp = np.vstack((cost[0], cost[1], cost[2], cost[3]))
-        meanCostTmp = np.mean(costTmp, axis = 0)
-        costf.append(meanCostTmp)
-    meanf = np.mean(costf, axis = 0)
-    print(np.mean(meanf))
-    return sti, meanf'''
-
 
 class costFunctionClass:
     #Thomas: c'est quoi, serie1 à serie4 ? Moche... => renommer et revoir
@@ -178,6 +105,78 @@ class costFunctionClass:
         self.call += 1
         print("Cout: ", JuSca)
         return JuSca*(-1)'''
+    
+    def costFunctionRBFN(self, theta):
+        '''
+        Computes the cost of each selected trajectory
+        
+        Input:      -theta: numpy array
+        
+        OutPuts:    -JuCf: list
+                    -sti: objet link
+                    -meanJu: numpy array, mean of the cost of each trajectories
+        '''
+        costT = {}
+        #Le nombre d'iteration pour i donne le nombre de trajectoire realises
+        nbi = input("Nombre d'iteration a effectuer: ")
+        nbi = int(nbi)
+        
+        #startPTs, junk = sti.fr.recup_pos_ini(sti.rs.pathFolderTrajectories)
+        
+        for i in range(nbi):
+            JuS = []
+            for el in self.sti.posIni:
+            #for el in startPTs.values():
+                Ju = self.sti.trajGenerator(el[0], el[1], theta)
+                JuS.append(Ju)
+            costT[i] = JuS
+        s = 0
+        for el in costT.values():
+            if s == 0:
+                costArray = el
+                s += 1
+            else:
+                costArray = np.vstack((costArray, el))
+        if nbi > 1:
+            meanJu = np.mean(costArray, axis = 0)
+        else:
+            meanJu = costArray
+        return self.sti, meanJu
+    
+        '''if nbi < 4:
+            nbi = 4
+            a = 1
+        else:
+            a = 0
+        
+        data = sti.fr.getobjread(sti.rs.experimentFilePosIni)
+        n = len(data)
+        costf = []
+        for i in range(int(nbi/4)):
+            cost = []
+            processUsed = []
+            if a == 1:
+                rg = 1
+            else:
+                rg = 4
+            for j in range(rg):
+                cost.append(Array('d', range(n)))
+                p = Process(target=computeTraj, args=(cost[j], sti, theta))
+                processUsed.append(p)
+            for j in range(rg):
+                processUsed[j].start()
+            for j in range(rg):
+                processUsed[j].join()
+            if a == 1:
+                costTmp = cost
+            else:
+                costTmp = np.vstack((cost[0], cost[1], cost[2], cost[3]))
+            meanCostTmp = np.mean(costTmp, axis = 0)
+            costf.append(meanCostTmp)
+        meanf = np.mean(costf, axis = 0)
+        print(np.mean(meanf))
+        return sti, meanf'''
+
 
 
 

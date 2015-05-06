@@ -12,7 +12,7 @@ from scipy.spatial import ConvexHull
 import math
 from Utils.ThetaNormalization import normalization, matrixToVector,\
     vectorToMatrix, unNorm
-from Optimisation.costFunction import costFunctionRBFN
+from Optimisation.costFunction import costFunctionClass
 from matplotlib.mlab import griddata
 from matplotlib import cm
 
@@ -199,6 +199,7 @@ def remakeTrajFolder():
     
 def testOnWeight():
     fr, rs = initFRRS()
+    cf = costFunctionClass()
     name = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread(name + "ThetaXBIN")
     thetaN = normalization(theta)
@@ -210,7 +211,7 @@ def testOnWeight():
     theta2 = vectorToMatrix(thetaN)
     
     theta2 = unNorm(theta2)
-    sti, meanJu = costFunctionRBFN(theta2)
+    sti, meanJu = cf.costFunctionRBFN(theta2)
     fileSavingBin(name + "costTrajChangedBIN", sti.costSave)
     
     costBefore = fr.getobjread(name + "costTrajBIN")
@@ -251,10 +252,22 @@ def cmaesCostProgression():
     costCma = {}
     for i in range(len(rs.sizeOfTarget)):
         name = "OptimisationResults/costEval" + str(rs.sizeOfTarget[i])
-        costCma[str(rs.sizeOfTarget[i])] = fr.getobjread(name)
-    print(len(costCma))
-    
-cmaesCostProgression()
+        costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = fr.getobjread(name)
+    costEvo = {}
+    for key, val in costCma.items():
+        val.reverse()
+        costArray = np.asarray(val).reshape(rs.maxIterCmaes, rs.popsizeCmaes)
+        costEvo[key] = np.mean(costArray, axis = 1)
+    y = []
+    for i in range(rs.maxIterCmaes):
+        y.append(i)
+    f, ax = plt.subplots(len(rs.sizeOfTarget), sharex = True)
+    for key, x in costEvo.items():
+        ax[int(key.split("_")[0])].plot(y, x)
+        ax[int(key.split("_")[0])].set_title(str("Target " + key.split("_")[1]))
+    plt.show(block = True)
+        
+#cmaesCostProgression()
         
 
 

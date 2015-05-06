@@ -7,7 +7,7 @@ Description: Ce fichier contient les fonctions permettant de lancer la generatio
 '''
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
-from Optimisation.costFunction import costFunctionRBFN
+from Optimisation.costFunction import costFunctionClass
 from Utils.ThetaNormalization import vectorToMatrix, unNorm
 import matplotlib.pyplot as plt
 from Utils.InitUtil import initFRRS
@@ -27,12 +27,13 @@ def saveAllDataTrajectories(nameSave, sti, meanJu):
  
 def runGenTraj():
     fr, rs = initFRRS()
+    cf = costFunctionClass()
     print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte / 4: cost / 5: lastCoord / 6: speed)")
     sauv = input("voulez vous sauvegarder les trajectoires: ")
     sauv = int(sauv)
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread(nameT + "ThetaXBIN")
-    sti, meanJu = costFunctionRBFN(theta)
+    sti, meanJu = cf.costFunctionRBFN(theta)
     if sauv == 1:
         fileSavingBin(nameT + "CoordTraj/CoordTrajectoireELAll", sti.save.coordElSave)
         fileSavingBin(nameT + "CoordTraj/CoordTrajectoireHAAll", sti.save.coordHaSave)
@@ -62,11 +63,13 @@ def getThetaCma(fr, name):
     
 def runGenTrajCma():
     fr, rs = initFRRS()
+    cf = costFunctionClass(4)
     for i in range(len(rs.sizeOfTarget)):
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
+        fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
         name = "OptimisationResults/thetaSolBIN" + str(rs.sizeOfTarget[i])
         theta = getThetaCma(fr, name)
-        sti, meanJu = costFunctionRBFN(theta)
+        sti, meanJu = cf.costFunctionRBFN(theta)
         nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i])
         saveAllDataTrajectories(nameSave, sti, meanJu)
         print(meanJu)
