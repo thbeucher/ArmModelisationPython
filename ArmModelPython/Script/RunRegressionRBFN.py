@@ -56,6 +56,8 @@ def runXRBFN():
     for i in range(x):
         runRBFN(i)
     
+#runXRBFN()
+
 def test2DRBFN(nbFeat2):
 ################################################################################################
 ## TEST 2D                                                                                    ##

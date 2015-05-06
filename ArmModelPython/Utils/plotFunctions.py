@@ -356,5 +356,14 @@ def plotAllCmaes():
 
 def plotTimeDistanceTarget():
     fr, rs = initFRRS()
-    
-
+    iteTargetList = []
+    for i in range(len(rs.sizeOfTarget)):
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/nbIteCmaBIN"
+        iteTargetList.append(fr.getobjread(name))
+    nbIteList = []
+    for el in iteTargetList:
+        iteTmp = []
+        
+        
+        
+        

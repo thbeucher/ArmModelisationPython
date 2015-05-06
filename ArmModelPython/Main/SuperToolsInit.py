@@ -80,7 +80,7 @@ class SuperToolsInit:
         '''
         U = self.fa.functionApproximatorOutput(inputgc, theta)
         #Noise for muscular activation
-        UnoiseTmp = U*(1+np.random.normal(0,self.rs.knoiseU))
+        UnoiseTmp = U*(1+ np.random.normal(0,self.rs.knoiseU))
         for i in range(UnoiseTmp.shape[0]):
             if UnoiseTmp[i] < 0:
                 UnoiseTmp[i] = 0

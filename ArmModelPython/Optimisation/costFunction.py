@@ -58,36 +58,12 @@ class costFunctionClass:
             i += 1
               
     def costFunctionCMAES(self, theta):
-#Thomas: commenter cette méthode
+        #Thomas: commenter cette méthode
         self.initTheta(theta)
-        JuS1, JuS2, JuS3, JuS4 = Array('d', range(self.n)), Array('d', range(self.n)), Array('d', range(self.n)), Array('d', range(self.n))
-        p1, p2, p3, p4 = Process(target=self.serie1, args=(JuS1,)), Process(target=self.serie2, args=(JuS2,)), Process(target=self.serie3, args=(JuS3,)), Process(target=self.serie4, args=(JuS4,))
-        p1.start()
-        p2.start()
-        p3.start()
-        p4.start()
-        p1.join()
-        p2.join()
-        p3.join()
-        p4.join()
-        juf = np.vstack((JuS1, JuS2, JuS3, JuS4))
-        meanJuf = np.mean(juf, axis = 0)
-        meanSca = np.mean(meanJuf)
-        print("Appel n°", self.call)
-        self.call += 1
-        print("cost: ", meanSca)
-        self.saveCost.append(meanSca)
-        if self.call == (self.sti.rs.maxIterCmaes * self.sti.rs.popsizeCmaes):
-            print("la")
-            sizeTargetTmp = self.sti.fr.getobjread("targetSizeTmp")
-            namet = "OptimisationResults/costEval" + str(sizeTargetTmp)
-            fileSavingBin(namet, self.saveCost)
-        return meanSca*(-1)
-        
-        '''costT = {}
-        for i in range(5):
+        costT = {}
+        for i in range(10):
             JuS = []
-            for el in self.startPTs.values():
+            for el in self.sti.posIni:
                 Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
                 JuS.append(Ju)
             costT[i] = JuS
@@ -104,7 +80,7 @@ class costFunctionClass:
         print("Appel n°", self.call)
         self.call += 1
         print("Cout: ", JuSca)
-        return JuSca*(-1)'''
+        return JuSca*(-1)
     
     def costFunctionRBFN(self, theta):
         '''
