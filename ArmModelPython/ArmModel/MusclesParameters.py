@@ -48,7 +48,7 @@ class MusclesParameters:
         
     def fmaxMatrix(self):
         '''
-        This function define the matrix of the maximum force exerted by each muscle
+        Defines the matrix of the maximum force exerted by each muscle
         '''
         with open(self.pathSetupFile, "r") as file:
             alls = file.read()
@@ -70,7 +70,7 @@ class MusclesParameters:
         
     def activationVectorInit(self):
         '''
-        This function initialize the muscular activation vector
+        Initializes the muscular activation vector
         '''
         u1 = 0
         u2 = 0
@@ -81,7 +81,10 @@ class MusclesParameters:
         self.U0 = np.array([[u1],[u2],[u3],[u4],[u5],[u6]])
         
     def activationVectorUse(self, u1, u2, u3, u4, u5, u6):
-        U = np.array([[u1],[u2],[u3],[u4],[u5],[u6]])
+         '''
+        Builds the muscular activation vector from its 6 components
+        '''
+       U = np.array([[u1],[u2],[u3],[u4],[u5],[u6]])
         return U
 
         

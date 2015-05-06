@@ -18,7 +18,7 @@ class fa_rbfn():
     
     def __init__(self, nbFeature):
         '''
-        Initialization of class parameters
+        Initializes class parameters
         
         Input:     -nbFeature: int, number of feature in order to perform the regression
         
@@ -28,7 +28,7 @@ class fa_rbfn():
         
     def setTrainingData(self, inputData, outputData):
         '''
-        This function verify the validity of input and output data given
+        Verifies the validity of the given input and output data
         Data should be organize by columns
         
         Input:      -inputdata, numpy N-D array
@@ -63,8 +63,9 @@ class fa_rbfn():
         #print("iciaussi", b[0])
     
     def train_rbfn(self):
+#Thomas: renommer (defineRBFNS? ou bien ça fait l'apprentissage?)
         '''
-        The training function to find solution of the approximation
+        Defines the training function to find solution of the approximation
         
         '''
         #A = np.dot(self.featureOutput(self.inputData.T), self.featureOutput(self.inputData.T).T)
@@ -89,7 +90,8 @@ class fa_rbfn():
        
     def setCentersAndWidths(self):
         '''
-        Function which set the centers and widths of Gaussian used
+        Sets the centers and widths of Gaussian features.
+        Uses linspace to evenly distribute the features.
         
         '''
         #Recupere les minimums et maximum dans les donnees d'entrees
@@ -124,8 +126,9 @@ class fa_rbfn():
         plt.show(block = True)'''
     
     def featureOutput(self, inputData):
+#Thomas: renommer (verbe + complement)
         '''
-        Computation of gaussian
+        Computates Gaussian parameters
         
         Input:     -inputData: numpy N-D array
         
@@ -154,8 +157,9 @@ class fa_rbfn():
 
 
     def functionApproximatorOutput(self, inputData, theta):
+#Thomas: renommer (computesOutput?)
         '''
-        Function which return the output depend of the input and theta given
+        Returns the output depending on the given input and theta
         
         Input:      -inputData: numpy N-D array
                     -theta: numpy N-D array

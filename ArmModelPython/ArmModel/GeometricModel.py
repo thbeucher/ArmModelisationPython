@@ -14,8 +14,8 @@ def mgi(xi, yi, l1, l2):
     '''
     Inverse geometric model
         
-    Inputs:     -xi: absciss of the effective point
-                -yi: ordinate of the effective point
+    Inputs:     -xi: abscissa of the end-effector point
+                -yi: ordinate of the end-effectior point
                 -l1: arm length
                 -l2: foreArm length
         

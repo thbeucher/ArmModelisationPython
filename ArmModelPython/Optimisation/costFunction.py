@@ -17,7 +17,7 @@ from Utils.FileSaving import fileSavingBin
     
 def costFunctionRBFN(theta):
     '''
-    Compute the cost of each trajectories selected
+    Computes the cost of each selected trajectory
     
     Input:      -theta: numpy array
     
@@ -89,7 +89,7 @@ def costFunctionRBFN(theta):
 
 
 class costFunctionClass:
-    
+    #Thomas: c'est quoi, serie1 à serie4 ? Moche... => renommer et revoir
     def __init__(self, nbtarget = 0):
         self.call = 0
         self.sti = SuperToolsInit(nbtarget)
@@ -131,6 +131,7 @@ class costFunctionClass:
             i += 1
               
     def costFunctionCMAES(self, theta):
+#Thomas: commenter cette méthode
         self.initTheta(theta)
         JuS1, JuS2, JuS3, JuS4 = Array('d', range(self.n)), Array('d', range(self.n)), Array('d', range(self.n)), Array('d', range(self.n))
         p1, p2, p3, p4 = Process(target=self.serie1, args=(JuS1,)), Process(target=self.serie2, args=(JuS2,)), Process(target=self.serie3, args=(JuS3,)), Process(target=self.serie4, args=(JuS4,))

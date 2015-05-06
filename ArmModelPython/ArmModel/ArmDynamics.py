@@ -3,8 +3,9 @@ Author: Thomas Beucher
 
 Module: ArmDynamics
 
-Description:    -We find here all dynamics of the arm
-                -we use a model of arm with two joints and six muscles
+Description:    
+-Models an arm with two joints and six muscles
+-Computes its dynamics
 '''
 import numpy as np
 import math
@@ -31,7 +32,7 @@ class ArmDynamics:
 
 def mdd(q, dotq, U, armP, musclesP, dt):
     '''
-    This function correspond to the direct dynamic model of the arm
+    Computes the direct dynamic model of the arm given the arm state (q,dotq), the muscles parameters (armP,musclesP), the muscles activation vector U and the time step dt.
     
     Inputs:     -q: (2,1) numpy array
                 -dotq: (2,1) numpy array
@@ -42,16 +43,17 @@ def mdd(q, dotq, U, armP, musclesP, dt):
     '''
     #Inertia matrix
     M = np.array([[armP.k1+2*armP.k2*math.cos(q[1,0]),armP.k3+armP.k2*math.cos(q[1,0])],[armP.k3+armP.k2*math.cos(q[1,0]),armP.k3]])
-    #coriolis force vector
+    #Coriolis force vector
     C = np.array([[-dotq[1,0]*(2*dotq[0,0]+dotq[1,0])*armP.k2*math.sin(q[1,0])],[(dotq[0,0]**2)*armP.k2*math.sin(q[1,0])]])
     #inversion of M
     Minv = np.linalg.inv(M)
     #torque term
     Q = np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])
+    #the commented version uses a non null stiffness for the muscles
     #Gamma = np.dot((np.dot(armP.At, musclesP.fmax)-np.dot(musclesP.Kraid, Q)), U)
     Gamma = np.dot((np.dot(armP.At, musclesP.fmax)-np.dot(musclesP.Knulle, Q)), U)
     #Gamma = np.dot(armP.At, np.dot(musclesP.fmax,U))
-    #computation of ddotq
+    #computes the acceleration ddotq and integrates
     ddotq = np.dot(Minv,(Gamma - C - np.dot(armP.B, dotq)))
     dotq += ddotq*dt
     q += dotq*dt

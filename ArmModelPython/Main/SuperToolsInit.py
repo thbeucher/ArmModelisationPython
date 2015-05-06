@@ -19,6 +19,7 @@ from matplotlib import animation
 
 
 class SuperToolsInit:
+#Thomas: renommer cette classe (Main?)
     
     def __init__(self, nbtarget = 0):
         '''
@@ -52,8 +53,10 @@ class SuperToolsInit:
         pass
     
     def costFunction(self, Ju, U, t):
+#Thomas: renommer : getCostFunction
+#Thomas: pourquoi ça n'est pas dans Optimisation/costFunction.py?
         '''
-        This function computes the cost of the trajectory
+        Computes the cost of the trajectory
             
         Inputs:     -Ju: scalar, trajectory cost at the time t
                     -U: (6,1) numpy array, muscular activation vector
@@ -67,9 +70,9 @@ class SuperToolsInit:
         
         
     def getCommand(self, inputgc, theta):
+            #Thomas: dire ce que contiennent inputgc et theta: c'est quoi ?
         '''
-        Return the muscular activation vector U from the position vector Q
-            
+        Returns the muscular activation vector U from the position vector Q
         Inputs:     -inputgc: (4,1) numpy array
                     -theta: 2D numpy array
         
@@ -87,8 +90,11 @@ class SuperToolsInit:
         return Unoise
         
     def trajGenerator(self, xI, yI, theta, optQ = 0):
+#Thomas: renommer (generateTrajectories?)
+#Thomas: cette méthode est trop longue, la décomposer/simplifier
+#Thomas: cette méthode devrait être ailleurs, dans une classe qui définit le setUp
         '''
-        This function generates the trajectory depend of the starting point given
+        Generates the trajectory depend of the starting point given
         
         Inputs:     -xI: scalar, absciss of the trajectory starting point
                     -yI: scalar, ordinate of the trajectory starting point
@@ -144,7 +150,10 @@ class SuperToolsInit:
         self.costSave[nameSave2] = Ju
         return Ju
     
+
+
     def trajGenWithU(self, U, save):
+#Thomas: commenter cette méthode
         q = np.array([[np.pi/2], [0]])
         dotq = self.armD.dotq0
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)

@@ -18,6 +18,7 @@ import os
 from shutil import copyfile
 
 def runCmaes():
+#Thomas: commenter toutes les méthodes
     fr, rs = initFRRS()
     nbfeat = rs.numfeats
     print("Debut du traitement d'optimisation!")

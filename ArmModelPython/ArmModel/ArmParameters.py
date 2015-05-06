@@ -22,7 +22,7 @@ class ArmParameters:
         
     def readSetupFile(self):
         '''
-        This function read the setup file
+        Reads the setup file
         '''
         with open(self.pathSetupFile, "r") as file:
             alls = file.read()
@@ -47,7 +47,7 @@ class ArmParameters:
         
     def massMatrix(self):
         '''
-        Initialization of parameters uses for the inertia matrix
+        Initialization of parameters used for the inertia matrix
         '''
         self.k1 = self.d1 + self.d2 + self.m2*(self.l1**2)
         self.k2 = self.m2*self.l1*self.s2
@@ -55,7 +55,7 @@ class ArmParameters:
     
     def BMatrix(self):
         '''
-        This function define the damping matrix B
+        Defines the damping matrix B
         '''
         with open(self.pathSetupFile, "r") as file:
             alls = file.read()
@@ -73,7 +73,7 @@ class ArmParameters:
     
     def AMatrix(self):
         '''
-        This function define the moment arm matrix A
+        Defines the moment arm matrix A
         '''
         with open(self.pathSetupFile, "r") as file:
             alls = file.read()
