@@ -24,6 +24,7 @@ def saveAllDataTrajectories(nameSave, sti, meanJu):
     saveDataTrajectories(nameSave + "/costCma", meanJu)
     saveDataTrajectories(nameSave + "/CoordHitTargetCma", sti.lastCoord)
     saveDataTrajectories(nameSave + "/SpeedSaveCma", sti.speedSave)
+    saveDataTrajectories(nameSave + "/costTraj", sti.costSave)
  
 def runGenTraj():
     fr, rs = initFRRS()

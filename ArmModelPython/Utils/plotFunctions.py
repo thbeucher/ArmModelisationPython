@@ -71,12 +71,11 @@ def costColorPlot(wha):
                 zobj.append(el)
                 x0.append(el[0])
                 y0.append(el[1])
-        
     
     #zb = z/maxt
     zb = z
-    xi = np.linspace(-0.4,0.4,200)
-    yi = np.linspace(0.1,0.6,200)
+    xi = np.linspace(-0.25,0.25,100)
+    yi = np.linspace(0.35,0.5,100)
     er = 0
     try:
         zb.shape[1]
@@ -296,5 +295,68 @@ def plotTrajThetaAllTraj():
     
 #plotTrajThetaAllTraj()
 
-
+def plotAllCmaes():
+    fr, rs = initFRRS()
+    x0, y0, z = {}, {}, {}
+    xt = 0
+    zDico = []
+    for i in range(len(rs.sizeOfTarget)):
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/costTrajBIN"
+        zDico.append(fr.getobjread(name))
+    for i in range(len(zDico)):
+        x0[i], y0[i], z[i] = [], [], []
+        for keyu, valu in zDico[i].items():
+            x0[i].append(float(keyu.split("//")[0]))    
+            y0[i].append(float(keyu.split("//")[1]))   
+            z[i].append(valu)
+        x0[i] = np.asarray(x0[i])
+        y0[i] = np.asarray(y0[i])
+        z[i] = np.asarray(z[i])
+        z[i] -= rs.rhoCF
+    
+    xi = np.linspace(-0.25,0.25,100)
+    yi = np.linspace(0.35,0.5,100)
+    zi = {}
+    for i in range(len(z)):
+        zi[i] = griddata(x0[i], y0[i], z[i], xi, yi)
+    
+    fig = plt.figure(1, figsize=(16,9))
+    #fig, (ax1, ax2, ax3, ax4) = plt.subplots(len(rs.sizeOfTarget), sharex = True, sharey = True)
+    ax1 = plt.subplot2grid((2,2), (0,0))
+    t1 = ax1.scatter(x0[0], y0[0], c=z[0], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+    ax1.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
+    ax1.contourf(xi, yi, zi[0], 15, cmap=cm.get_cmap('RdYlBu'))
+    fig.colorbar(t1, shrink=0.5, aspect=5)
+    ax1.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[0])))
+    
+    ax2 = plt.subplot2grid((2,2), (0,1))
+    t2 = ax2.scatter(x0[1], y0[1], c=z[1], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+    ax2.contourf(xi, yi, zi[1], 15, cmap=cm.get_cmap('RdYlBu'))
+    fig.colorbar(t2, shrink=0.5, aspect=5)
+    ax2.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
+    ax2.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[1])))
+    
+    ax3 = plt.subplot2grid((2,2), (1,0))
+    t3 = ax3.scatter(x0[2], y0[2], c=z[2], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+    fig.colorbar(t3, shrink=0.5, aspect=5)
+    ax3.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
+    ax3.contourf(xi, yi, zi[2], 15, cmap=cm.get_cmap('RdYlBu'))
+    ax3.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[2])))
+    
+    ax4 = plt.subplot2grid((2,2), (1,1))
+    t4 = ax4.scatter(x0[3], y0[3], c=z[3], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+    fig.colorbar(t4, shrink=0.5, aspect=5)
+    ax4.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
+    ax4.contourf(xi, yi, zi[3], 15, cmap=cm.get_cmap('RdYlBu'))
+    ax4.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[3])))
+    
+    
+    '''t1 = plt.scatter(x0, y0, c = 'b')
+    plt.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
+    plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+    fig.colorbar(t1, shrink=0.5, aspect=5)'''
+    
+    plt.show(block = True)
+    
+plotAllCmaes()
 
