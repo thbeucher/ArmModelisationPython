@@ -150,7 +150,7 @@ def timeDistance():
         key[i][1] = float(key[i][1])
     r = []
     for el in key:
-        r1 = math.sqrt(((tronquerNB(el[0], 5)**2) + ((tronquerNB(el[1], 5) - 0.6175)**2)))/2
+        r1 = math.sqrt(((tronquerNB(el[0], 5)**2) + ((tronquerNB(el[1], 5) - rs.targetOrdinate)**2)))/2
         r.append(tronquerNB(r1, 2))
     
 
@@ -353,4 +353,8 @@ def plotAllCmaes():
     plt.show(block = True)
     
 #plotAllCmaes()
+
+def plotTimeDistanceTarget():
+    fr, rs = initFRRS()
+    
 

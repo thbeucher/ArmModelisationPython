@@ -16,10 +16,15 @@ from matplotlib import cm
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.FunctionsUsefull import learningFieldRBFN, remakeTrajFolder
 
+def saveDataRBFN(nameFile, data):
+    fileSavingStr(nameFile, data)
+    nameFile += "BIN"
+    fileSavingBin(nameFile, data)
+
 ####################################################################################################
 ## runRBFN permet de lancer l'algorithme de regression sur les données de trajectoires du brent ####
 ####################################################################################################
-def runRBFN():
+def runRBFN(calli = 0):
     print("Début de traitement!")
     t0 = time.time()
     fr = FileReading()
@@ -41,13 +46,15 @@ def runRBFN():
     
     #remakeTrajFolder()
     
-    nameSaveStr = "RBFN2/" + str(nbfeat) + "feats/ThetaX"##Nom pour les x traj
-    nameSaveBin = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"##Nom pour les x traj
-    fileSavingStr(nameSaveStr, fa.theta)
-    fileSavingBin(nameSaveBin, fa.theta)
+    name = "RBFN2/" + str(nbfeat) + "feats/ThetaX" + str(calli)
+    saveDataRBFN(name, fa.theta)
     t1 = time.time()
     print("Fin du traitement! (temps d'execution:", (t1-t0), "s)")
     
+def runXRBFN():
+    x = 5
+    for i in range(x):
+        runRBFN(i)
     
 def test2DRBFN(nbFeat2):
 ################################################################################################
