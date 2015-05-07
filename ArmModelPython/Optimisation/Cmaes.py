@@ -16,6 +16,7 @@ from Utils.InitUtil import initFRRS
 from Utils.ReadSetupFile import ReadSetupFile
 import os
 from shutil import copyfile
+from multiprocessing.pool import ThreadPool
 
 def runCmaes():
 #Thomas: commenter toutes les méthodes
@@ -94,15 +95,16 @@ def runMultiTargetCmaes():
     
     '''p = Pool(processes=4) 
     p.map(procUse, rs.sizeOfTarget)'''
-    for i in range(4):
-        procUse(rs.sizeOfTarget[i])
-    
+    '''for i in range(4):
+        procUse(rs.sizeOfTarget[i])'''
+    pool = ThreadPool(4)
+    pool.map(procUse, [rs.sizeOfTarget[0], rs.sizeOfTarget[1], rs.sizeOfTarget[2], rs.sizeOfTarget[3]])
         
     t1 = time.time()
     print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
     
 
 
-#runMultiTargetCmaes()
+runMultiTargetCmaes()
 
 

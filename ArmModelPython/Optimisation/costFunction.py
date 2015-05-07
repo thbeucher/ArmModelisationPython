@@ -13,6 +13,7 @@ from multiprocessing.context import Process
 from multiprocessing.sharedctypes import Array, Value
 from Script.MultiCoreComputeTraj import computeTraj
 from Utils.FileSaving import fileSavingBin
+from multiprocessing.pool import ThreadPool
     
 
 class costFunctionClass:
@@ -56,11 +57,28 @@ class costFunctionClass:
             Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
             JuS4[i] = Ju
             i += 1
+            
+    def threadingCmaes(self, cost):
+        for el in self.sti.posIni:
+            costTmp = self.sti.trajGenerator(el[0], el[1], self.theta)
+            cost.append(costTmp)
+        return cost
               
     def costFunctionCMAES(self, theta):
         #Thomas: commenter cette méthode
         self.initTheta(theta)
-        costT = {}
+        c1, c2, c3, c4, c5, c6, c7, c8, c9, c10 = [], [], [], [], [], [], [], [], [], []
+        pool = ThreadPool(10)
+        c1, c2, c3, c4, c5, c6, c7, c8, c9, c10= pool.map(self.threadingCmaes, [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10])
+        resC = np.vstack((c1, c2, c3, c4, c5, c6, c7, c8, c9, c10))
+        meanResC = np.mean(resC, axis = 0)
+        meanT = np.mean(meanResC)
+        print("Appel n°", self.call)
+        self.call += 1
+        print("Cout: ", meanT)
+        return meanT*(-1)
+        
+        '''costT = {}
         for i in range(10):
             JuS = []
             for el in self.sti.posIni:
@@ -80,7 +98,7 @@ class costFunctionClass:
         print("Appel n°", self.call)
         self.call += 1
         print("Cout: ", JuSca)
-        return JuSca*(-1)
+        return JuSca*(-1)'''
     
     def costFunctionRBFN(self, theta):
         '''
