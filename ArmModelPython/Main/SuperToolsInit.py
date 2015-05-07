@@ -42,15 +42,15 @@ class SuperToolsInit:
         #Recuperation des positions initiales de l'experimentation
         self.posIni = self.fr.getobjread(self.rs.experimentFilePosIni)
         #Object used to save data
+        self.initParamTraj()
+    
+    def initParamTraj(self):
         self.Usave = {}
         self.IteSave = {}
         self.lastCoord = {}
         self.saveOneTraj = {}
         self.speedSave = {}
         self.costSave = {}
-    
-    def initParamTraj(self):
-        pass
     
     def costFunction(self, Ju, U, t):
 #Thomas: renommer : getCostFunction

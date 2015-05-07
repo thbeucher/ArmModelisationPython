@@ -74,6 +74,7 @@ def runGenTrajCma():
         nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i])
         saveAllDataTrajectories(nameSave, sti, meanJu)
         print(meanJu)
+        sti.initParamTraj()
     
     
 def plotTargetUnreach(sti):

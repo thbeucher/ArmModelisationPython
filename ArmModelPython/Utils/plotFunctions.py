@@ -393,20 +393,33 @@ def plotTimeDistanceTarget():
         for key, val in itedist[i].items():
             itedistmTmp[key] = tronquerNB(np.mean(val), 5)
         iteDistMean.append(itedistmTmp)
-    #print(iteDistMean)
-    timeDistSize = []
+    print(iteDistMean)
+    dd = []
+    for i in range(len(iteDistMean)):
+        for key, val in iteDistMean[i].items():
+            dd.append((key, val))
+    ddarr =  np.asarray(dd).reshape(4,8)
+    print(ddarr)
+    print(ddarr[:,1])
+    
+        
+    '''timeDistSize = []
     for i in range(len(iteDistMean)):
         time, dist = [], []
         for key, val in iteDistMean[i].items():
             time.append(val)
             dist.append(key)
         timeDistSize.append((time, dist, rs.sizeOfTarget[i]))
-    print(timeDistSize)
+    print(timeDistSize)'''
     pl = []
+    a = 1
     plt.figure()
-    for el in timeDistSize:
-        pl.append(plt.plot(rs.sizeOfTarget, el[0]))
-    plt.legend([pl[0], pl[1], pl[2], pl[3]], [str("dist = " + str()), "", "", ""])
+    for i in range(ddarr.shape[0]):
+        pl.append(plt.plot(rs.sizeOfTarget, ddarr[:,a]))
+        print(ddarr[:,a])
+        a += 2
+    #plt.legend(handles=[pl[0], pl[1], pl[2], pl[3]])
+    #plt.legend([pl[0], pl[1], pl[2], pl[3]], [str("dist = " + str(rs.sizeOfTarget[0])), "", "", "", ""])
     plt.show(block = True)
             
 #plotTimeDistanceTarget()
