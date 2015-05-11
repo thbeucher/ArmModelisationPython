@@ -66,7 +66,7 @@ def procUse(sizeT):
     #Mise sous forme de vecteur simple
     thetaN = matrixToVector(thetaN)
     fileSavingBin("targetSizeTmp", sizeT)
-    cf = costFunctionClass(4)
+    cf = costFunctionClass(4, sizeT)
     
     resSO = cma.fmin(cf.costFunctionCMAES, thetaN, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     
@@ -79,8 +79,17 @@ def procUse(sizeT):
             copyfile(nameTmp2 + el, nameTmp + "/" + el)
     
     #Sauvegarde des solutions de cmaes
-    fileSavingStr("OptimisationResults/thetaSol" + str(sizeT), resSO[0])
-    fileSavingBin("OptimisationResults/thetaSolBIN" + str(sizeT), resSO[0])
+    nameS = "OptimisationResults/thetaSol" + str(sizeT)
+    nameSB = "OptimisationResults/thetaSol" + str(sizeT) + "BIN"
+    if os.path.isfile(rs.pathFolderData + nameS) == True:
+        a = 1
+        for el in os.listdir(rs.pathFolderData + "OptimisationResults/"):
+            if "thetaSol" in el:
+                a += 1
+        nameS += "cp" + str(a)
+        nameSB += "cp" + str(a)
+    fileSavingStr(nameS, resSO[0])
+    fileSavingBin(nameSB, resSO[0])
     fileSavingStr("OptimisationResults/CmaesRes" + str(sizeT), resSO)
     fileSavingBin("OptimisationResults/CmaesResBIN" + str(sizeT), resSO)
     t1 = time.time()

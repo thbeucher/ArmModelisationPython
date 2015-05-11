@@ -101,7 +101,8 @@ class FileReading():
             i += 1
         return dataA
             
-            
+    
+
 
     
 

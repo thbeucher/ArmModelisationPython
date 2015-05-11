@@ -18,9 +18,9 @@ from multiprocessing.pool import ThreadPool
 
 class costFunctionClass:
     #Thomas: c'est quoi, serie1 à serie4 ? Moche... => renommer et revoir
-    def __init__(self, nbtarget = 0):
+    def __init__(self, nbtarget = 0, targetSize = 0):
         self.call = 0
-        self.sti = SuperToolsInit(nbtarget)
+        self.sti = SuperToolsInit(nbtarget, targetSize)
         #self.startPTs, junk = self.sti.fr.recup_pos_ini(self.sti.rs.pathFolderTrajectories)
         #self.n = len(self.startPTs)
         self.n = len(self.sti.posIni)
