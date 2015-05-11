@@ -7,6 +7,10 @@
 \usepackage{amssymb}
 \usepackage{subfigure}
 \usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+
+\lstset{language=python,numbers=left,breaklines=true}
 
 \hypersetup{
 	pdftoolbar=true,                    % show Acrobat’s toolbar ?
@@ -28,9 +32,24 @@
 
 \begin{document}
 
-\title{Arm Model}
+\title{A motor control model}
 \author{Thomas Beucher}
 \maketitle
+
+\section*{Abstract}
+Two basic phenomena interact in the way the speed of our reaching movements is determined.
+First, we tend to reach faster a target that looks more rewarding, despite the additional muscular cost
+of a faster movement.
+Second, when we need to be more precise, our movement takes more time.
+So far, these two phenomena have been studied in isolation despite their obvious interdependency.
+In particular, two recent computational models of motor control address the first phenomenon. They explain the emergence of the time of movement as resulting from a cost-benefit trade-off arising from the summation of a temporally discounted reward and a cost that increases for faster movements.
+However, these models do not account for the second phenomenon, i.e. the dependency between movement time and precision requirements, resulting in a speed-accuracy trade-off and formally expressed by Fitts' law. Another model addresses the role of this speed-accuracy trade-off in determining movement time, but does not take the cost of movement into account.
+
+In this paper, we propose a framework that unifies the cost-benefit trade-off and the speed-accuracy trade-off to explain movement properties related to time.
+With respect to the cost-benefit trade-off models, precision constraints are incorporated through the derivation of a new optimization criterion that considers probabilistic reaching of a rewarding target that may be missed if the motion is too fast.
+
+Using this computational model, we investigate the more global trade-off arising from the interactions between movement time, cost and accuracy. We show that this model accounts for Fitts' law and for other well-established results in the motor control literature.
+
 
 \section{Arm model}
 
@@ -51,8 +70,119 @@ Table~\ref{arm_model_params} in Appendix~\ref{sec:params} reminds the nomenclatu
 
 \subsection{Arm parameters}
 \label{sec:arm_parameters}
-We can find all parameters of the arm in the file \textit{setupArmParameters}.
+All parameters of the arm are defined in the file \textit{setupArmParameters} and it is implemented in the class \textit{ArmParameters}.
+We find in this class different functions:
+\begin{itemize}
+\item[\textit{readSetupFile}]: Reads the setup file.
+\item[\textit{massMatrix}]: Initializes parameters used for the inertia matrix.
+\item[\textit{BMatrix}]: Defines the damping matrix B.
+$\textbf{B} = \begin{bmatrix}
+           .05 & .025 \\
+          .025 & .05
+     \end{bmatrix} \dot{q}.$\\
+\item[\textit{AMatrix}]: Defines the moment arm matrix A.
+\begin{align*}
+  \textbf{A}^\top        & = \begin{bmatrix}
+    a_{1} & a_{2} & a_{3} & a_{4} & a_{5} & a_{6} \\
+    a_{7} & a_{8} & a_{9} & a_{10} & a_{11} & a_{12} \\
+  \end{bmatrix} \\
+  & = \begin{bmatrix}
+    .04 & -.04 &    0 &     0 & .028 & -.035 \\
+    0 &    0 & .025 & -.025 & .028 & -0.35 \\
+  \end{bmatrix}\\
+\end{align*}
+\end{itemize}
+You can find all the arm parameters values in the \hyperref[ArmParamTable]{Table~\ref{ArmParamTable}} in Appendix~\ref{sec:params}.
 
+\subsection{Muscles parameters}
+\label{sec:muscle_parameters}
+All the muscles parameters are defined in the file \textit{setupMusclesParameters} and it is implemented in the class \textit{MusclesParameters}.
+We find in this class different functions:
+\begin{itemize}
+\item[\textit{fmaxMatrix}]: Defines the matrix of the maximum force exerted by each muscle.
+\begin{align*}
+\textbf{f}_\textbf{max}   & = \begin{pmatrix}
+f_{\max1} &0&0&0&0&0\\
+0& f_{\max2}&0&0&0&0\\
+0&0& f_{\max3} &0&0\\
+0&0&0& f_{\max4} &0&0\\
+0&0&0&0& f_{\max5} &0\\
+0&0&0&0&0& f_{\max6}\\
+\end{pmatrix} \\& = \begin{pmatrix}
+700 &0&0&0&0&0\\
+ 0&382&0&0&0&0\\
+0&0 & 572 & 0&0&0\\
+0&0&0&445 &0&0\\
+0&0&0&0&159 &0\\
+0&0&0&0&0&318
+\end{pmatrix}\\
+\end{align*}
+\item[\textit{activationVectorInit}]: Initializes the muscular activation vector.
+\item[\textit{activationVectorUse}]: Builds the muscular activation vector from its 6 components.
+\end{itemize}
+You can find all the muscles parameters values in \hyperref[MuscleParamTable]{Table 3} in Appendix~\ref{sec:params}.
+
+\subsection{Rigid-body dynamics}
+\label{sec:arm_dynamics}
+The rigid-body dynamics equation of a mechanical system is:
+
+ \begin{equation}
+\label{eq:rbd}
+    \ddot{q} = \textbf{M}(q)^{-1} (\tau - \textbf{C}(q, \dot{q}) - \textbf{g}(q)  - \textbf{B} \dot{q}) 
+\end{equation}
+
+where $\textbf{q}$ is the current articular position, $\dot{q}$ the current articular speed, $\ddot{q}$ the current articular acceleration, $\textbf{M}$ the inertia matrix, $\textbf{C}$ the Coriolis force vector, $\boldsymbol{\tau}$ the segments torque, $\textbf{g}$ the gravity force vector and $\textbf{B}$ a damping term that contains all unmodelled effects.
+Here, $\textbf{g}$ is ignored since the arm is working in the sagittal plane.
+All angles are expressed in radians.
+We can compute the inertia matrix as:
+$
+\textbf{M} = \begin{bmatrix}
+           k_1 + 2 k_2 \cos(q_2)   &  k_3 + k_2 \cos(q_2) \\%[0.3em]
+           k_3 + k_2 \cos(q_2)     &  k_3
+          \end{bmatrix}
+$, with $k_1 = d_1 + d_2 + m_2 l_1^2, ~ k_2 = m_2 l_1 s_2, ~ k_3 = d_2$ where $d_i$, $m_i$, $l_i$ and $s_i$ are parameters of the arm previously defined in section~\ref{sec:arm_parameters}.
+
+The Coriolis force vector is given by
+$$
+\textbf{C} = \begin{bmatrix}
+           - \dot{q_2} (2 \dot{q_1} + \dot{q_2}) k_2 \sin(q_2)\\
+            \dot{q_1}^2 k_2 \sin(q_2)
+          \end{bmatrix}.
+$$
+
+The computation of the torque $\tau$ exerted on the system given an input muscular actuation $\textbf{u}$ is explained in the section~\ref{sec:muscular_actuation}.
+
+The equation~\ref{eq:rbd} is implemented in the class \textit{ArmDynamics} line 57:
+\begin{lstlisting}
+ddotq = np.dot(Minv,(Gamma - C - np.dot(armP.B, dotq)))
+\end{lstlisting}
+where \textit{np} refere to the numpy library in python.
+We also find in this class all elements of the equation~\ref{eq:rbd}:
+\begin{lstlisting}
+#Inertia matrix
+M = np.array([[armP.k1+2*armP.k2*math.cos(q[1,0]),armP.k3+armP.k2*math.cos(q[1,0])],[armP.k3+armP.k2*math.cos(q[1,0]),armP.k3]])
+#Coriolis force vector
+C = np.array([[-dotq[1,0]*(2*dotq[0,0]+dotq[1,0])*armP.k2*math.sin(q[1,0])],[(dotq[0,0]**2)*armP.k2*math.sin(q[1,0])]])
+#inversion of M
+Minv = np.linalg.inv(M)
+#torque term
+Q = np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])
+#the segment torque
+Gamma = np.dot((np.dot(armP.At, musclesP.fmax)-np.dot(musclesP.Knulle, Q)), U)
+\end{lstlisting}
+
+\subsection{Muscular actuation}
+\label{sec:muscular_actuation}
+Our muscular actuation model is taken from \cite{katayama93} (pp.~356-357) through \cite{mitrovic08_SAB}.
+It is a simplified version of the one described in \cite{li2006} in the sense that it uses
+a constant moment arm matrix $\textbf{A}$ whereas \cite{li2006} is computing this matrix as
+a function of the state of the arm.
+
+Finally, given an action $\textbf{u}$ corresponding to a raw muscular activation as output of the
+controller, the muscular activation
+is augmented with Gaussian noise using $\textbf{\~{u}} = \log(\exp(\kappa \times \textbf{u}_t \times (1+\mathcal{N}(0,\textbf{I}\sigma_u^2))) + 1) / \kappa$, where $\times$ refers to the element-wise multiplication, $\textbf{I}$ is a $6 \times 6$ identity matrix.
+and $\kappa = 25$ is the Heaviside filter parameter, and the input torque 
+is computed as $\boldsymbol{\tau} = \textbf{A}^\top ( \textbf{f}_\textbf{max} \times \textbf{\~{u}} )$.
 
 \appendix
 \section{Nomenclature of arm parameters}
@@ -122,7 +252,7 @@ $\textbf{a}_{\textbf{12}}$ & moment arm matrix & -0.035\\
 \hline
 \end{tabular}
 \end{center}
-\label{arm_model_params}
+\label{ArmParamTable}
 \end{table}
 
 \begin{table}[hbt]
@@ -139,10 +269,8 @@ $\textbf{f}_{\textbf{max6}}$ & Maximum force exerted by the double-joints extens
 \hline
 \end{tabular}
 \end{center}
-\label{arm_model_params}
+\label{MuscleParamTable}
 \end{table}
 
-\bibliographystyle{abbrv}
-\bibliography{twoDarm}
 
 \end{document}

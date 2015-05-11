@@ -76,6 +76,8 @@ class costFunctionClass:
         print("Appel n°", self.call)
         self.call += 1
         print("Cout: ", meanT)
+        pool.terminate()
+        self.sti.initParamTraj()
         return meanT*(-1)
         
         '''costT = {}
