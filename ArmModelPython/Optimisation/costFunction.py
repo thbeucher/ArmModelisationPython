@@ -78,6 +78,11 @@ class costFunctionClass:
         print("Cout: ", meanT)
         pool.terminate()
         self.sti.initParamTraj()
+        self.saveCost.append(meanT)
+        if self.call == (self.sti.rs.maxIterCmaes * self.sti.rs.popsizeCmaes):
+            sizeTargetTmp = self.sti.fr.getobjread("targetSizeTmp")
+            namet = "OptimisationResults/costEval" + str(sizeTargetTmp)
+            fileSavingBin(namet, self.saveCost)
         return meanT*(-1)
         
         '''costT = {}
