@@ -1,7 +1,7 @@
 \documentclass[pdftex,a4paper,11pt]{article} 
 %\documentclass[pdftex,a4paper,11pt]{report} 
-\usepackage[utf8]{inputenc}
-\usepackage[frenchb]{babel}
+%\usepackage[utf8]{inputenc}
+%\usepackage[frenchb]{babel}
 \usepackage[pdftex]{graphicx}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -70,12 +70,12 @@ Table~\ref{arm_model_params} in Appendix~\ref{sec:params} reminds the nomenclatu
 
 \subsection{Arm parameters}
 \label{sec:arm_parameters}
-All parameters of the arm are defined in the file \textit{setupArmParameters} and it is implemented in the class \textit{ArmParameters}.
-We find in this class different functions:
+All parameters of the arm are defined in the file \textit{setupArmParameters} and implemented in the class \textit{ArmParameters}.
+This class defines the following functions:
 \begin{itemize}
 \item[\textit{readSetupFile}]: Reads the setup file.
-\item[\textit{massMatrix}]: Initializes parameters used for the inertia matrix.
-\item[\textit{BMatrix}]: Defines the damping matrix B.
+\item[\textit{massMatrix}]: Defines the inertia matrix parameters.
+\item[\textit{BMatrix}]: Defines the damping matrix \textbf{B}, with
 $\textbf{B} = \begin{bmatrix}
            .05 & .025 \\
           .025 & .05
@@ -92,12 +92,12 @@ $\textbf{B} = \begin{bmatrix}
   \end{bmatrix}\\
 \end{align*}
 \end{itemize}
-You can find all the arm parameters values in the \hyperref[ArmParamTable]{Table~\ref{ArmParamTable}} in Appendix~\ref{sec:params}.
+All the arm parameters values are summarized in \hyperref[ArmParamTable]{Table~\ref{ArmParamTable}} in Appendix~\ref{sec:params}.
 
 \subsection{Muscles parameters}
 \label{sec:muscle_parameters}
-All the muscles parameters are defined in the file \textit{setupMusclesParameters} and it is implemented in the class \textit{MusclesParameters}.
-We find in this class different functions:
+All muscles parameters are defined in the file \textit{setupMusclesParameters} and implemented in the class \textit{MusclesParameters}.
+This class defines the following functions:
 \begin{itemize}
 \item[\textit{fmaxMatrix}]: Defines the matrix of the maximum force exerted by each muscle.
 \begin{align*}
@@ -117,10 +117,10 @@ f_{\max1} &0&0&0&0&0\\
 0&0&0&0&0&318
 \end{pmatrix}\\
 \end{align*}
-\item[\textit{activationVectorInit}]: Initializes the muscular activation vector.
-\item[\textit{activationVectorUse}]: Builds the muscular activation vector from its 6 components.
+\item[\textit{activationVectorInit}]: Initializes the muscular activation vector. {\bf How???}
+\item[\textit{activationVectorUse}]: Builds the muscular activation vector given its 6 components.
 \end{itemize}
-You can find all the muscles parameters values in \hyperref[MuscleParamTable]{Table 3} in Appendix~\ref{sec:params}.
+All the muscles parameters values are summarized in \hyperref[MuscleParamTable]{Table 3} in Appendix~\ref{sec:params}.
 
 \subsection{Rigid-body dynamics}
 \label{sec:arm_dynamics}
@@ -140,7 +140,7 @@ $
            k_1 + 2 k_2 \cos(q_2)   &  k_3 + k_2 \cos(q_2) \\%[0.3em]
            k_3 + k_2 \cos(q_2)     &  k_3
           \end{bmatrix}
-$, with $k_1 = d_1 + d_2 + m_2 l_1^2, ~ k_2 = m_2 l_1 s_2, ~ k_3 = d_2$ where $d_i$, $m_i$, $l_i$ and $s_i$ are parameters of the arm previously defined in section~\ref{sec:arm_parameters}.
+$, with $k_1 = d_1 + d_2 + m_2 l_1^2, ~ k_2 = m_2 l_1 s_2, ~ k_3 = d_2$ where $d_i$, $m_i$, $l_i$ and $s_i$ are parameters of the arm previously defined in Section~\ref{sec:arm_parameters}.
 
 The Coriolis force vector is given by
 $$
@@ -152,12 +152,13 @@ $$
 
 The computation of the torque $\tau$ exerted on the system given an input muscular actuation $\textbf{u}$ is explained in the section~\ref{sec:muscular_actuation}.
 
-The equation~\ref{eq:rbd} is implemented in the class \textit{ArmDynamics} line 57:
+Equation~\ref{eq:rbd} is implemented in the class \textit{ArmDynamics} line 57:
+{\bf renumber the lines}
 \begin{lstlisting}
 ddotq = np.dot(Minv,(Gamma - C - np.dot(armP.B, dotq)))
 \end{lstlisting}
 where \textit{np} refere to the numpy library in python.
-We also find in this class all elements of the equation~\ref{eq:rbd}:
+We also find in this class all elements of Equation~\ref{eq:rbd}:
 \begin{lstlisting}
 #Inertia matrix
 M = np.array([[armP.k1+2*armP.k2*math.cos(q[1,0]),armP.k3+armP.k2*math.cos(q[1,0])],[armP.k3+armP.k2*math.cos(q[1,0]),armP.k3]])
@@ -272,5 +273,7 @@ $\textbf{f}_{\textbf{max6}}$ & Maximum force exerted by the double-joints extens
 \label{MuscleParamTable}
 \end{table}
 
+\bibliographystyle{abbrv}
+\bibliography{twoDarm}
 
 \end{document}
