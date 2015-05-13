@@ -150,7 +150,7 @@ def invPosCircle(x, y):
         
 def learningFieldRBFN():
     fr, rs = initFRRS()
-    posIni = fr.getobjread("PosIniExperimentCircular")
+    posIni = fr.getobjread(rs.experimentFilePosIni)
     x, y = [], []
     for el in posIni:
         x.append(el[0])
@@ -177,12 +177,36 @@ def learningFieldRBFN():
             copyfile(rs.pathFolderTrajectories + key, rs.pathFolderData + "/trajNotUsedTmp/" + key)
             remove(rs.pathFolderTrajectories + key)
     
-    #plt.figure()
-    #plt.scatter(x, y, c = 'b')
-    #plt.scatter(sx, sy, c = 'r')
-    #plt.show(block = True)
+    plt.figure()
+    plt.scatter(x, y, c = 'b')
+    plt.scatter(sx, sy, c = 'r')
+    plt.show(block = True)
     
 #learningFieldRBFN()    
+
+def learningFieldRBFNSquare():
+    fr, rs = initFRRS()
+    posIni = fr.getobjread(rs.experimentFilePosIni)
+    x, y = [], []
+    for el in posIni:
+        x.append(el[0])
+        y.append(el[1])
+    xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
+    sx, sy = [], []
+    for key, val in xy.items():
+        if val[0] <= (np.max(x) + 0.05) and val[0] >= (np.min(x) - 0.05) and val[1] >= (np.min(y) - 0.02) and val[1] <= (np.max(y) + 0.02):
+            sx.append(val[0])
+            sy.append(val[1])
+        else:
+            copyfile(rs.pathFolderTrajectories + key, rs.pathFolderData + "/trajNotUsedTmp/" + key)
+            remove(rs.pathFolderTrajectories + key)
+    
+    plt.figure()
+    plt.scatter(x, y, c = 'b')
+    plt.scatter(sx, sy, c = 'r')
+    plt.show(block = True)
+    
+#learningFieldRBFNSquare()
 
 def remakeTrajFolder():
     fr, rs = initFRRS()

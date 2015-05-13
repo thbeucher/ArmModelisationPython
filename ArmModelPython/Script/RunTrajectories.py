@@ -17,42 +17,22 @@ def saveDataTrajectories(nameFile, data):
     nameFile = nameFile + "BIN"
     fileSavingBin(nameFile, data)
     
-def saveAllDataTrajectories(nameSave, sti, meanJu):
-    saveDataTrajectories(nameSave + "CoordTrajectoireELAllCma", sti.save.coordElSave)
-    saveDataTrajectories(nameSave + "UallCma", sti.Usave)
-    saveDataTrajectories(nameSave + "nbIteCma", sti.IteSave)
-    saveDataTrajectories(nameSave + "costCma", meanJu)
-    saveDataTrajectories(nameSave + "CoordHitTargetCma", sti.lastCoord)
-    saveDataTrajectories(nameSave + "SpeedSaveCma", sti.speedSave)
-    saveDataTrajectories(nameSave + "costTraj", sti.costSave)
+def saveAllDataTrajectories(nameSave, sti, meanJu, CorR):
+    saveDataTrajectories(nameSave + "CoordTrajectoireELAll" + CorR, sti.save.coordElSave)
+    saveDataTrajectories(nameSave + "Uall" + CorR, sti.Usave)
+    saveDataTrajectories(nameSave + "nbIte" + CorR, sti.IteSave)
+    saveDataTrajectories(nameSave + "cost" + CorR, meanJu)
+    saveDataTrajectories(nameSave + "CoordHitTarget" + CorR, sti.lastCoord)
+    saveDataTrajectories(nameSave + "SpeedSave" + CorR, sti.speedSave)
+    saveDataTrajectories(nameSave + "costTraj" + CorR, sti.costSave)
  
 def runGenTraj():
     fr, rs = initFRRS()
     cf = costFunctionClass()
-    print("(0: nothing / 1: CoordTraj / 2: U / 3: nbIte / 4: cost / 5: lastCoord / 6: speed)")
-    sauv = input("voulez vous sauvegarder les trajectoires: ")
-    sauv = int(sauv)
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
-    theta = fr.getobjread(nameT + "ThetaXBIN")
+    theta = fr.getobjread(nameT + "ThetaX0BIN")
     sti, meanJu = cf.costFunctionRBFN(theta)
-    if sauv == 1:
-        fileSavingBin(nameT + "CoordTraj/CoordTrajectoireELAll", sti.save.coordElSave)
-        fileSavingBin(nameT + "CoordTraj/CoordTrajectoireHAAll", sti.save.coordHaSave)
-    elif sauv == 2:
-        fileSavingBin(nameT + "Uall", sti.Usave)
-    elif sauv == 3:
-        fileSavingStr(nameT + "nbIte", sti.IteSave)
-        fileSavingBin(nameT + "nbIteBIN", sti.IteSave)
-    elif sauv == 4:
-        fileSavingStr(nameT + "cost", meanJu)
-        fileSavingBin(nameT + "costBIN", meanJu)
-        fileSavingBin(nameT + "costTrajBIN", sti.costSave)
-    elif sauv == 5:
-        fileSavingStr(nameT + "CoordHitTarget", sti.lastCoord)
-        fileSavingBin(nameT + "CoordHitTargetBIN", sti.lastCoord)
-    elif sauv == 6:
-        fileSavingStr(nameT + "SpeedSave", sti.speedSave)
-        fileSavingBin(nameT + "SpeedSaveBIN", sti.speedSave)
+    saveAllDataTrajectories(nameT, sti, meanJu, "RBFN")
     print(meanJu)
     print("Fin de generation de trajectoire!")
     
@@ -72,7 +52,7 @@ def runGenTrajCma():
         theta = getThetaCma(fr, name)
         sti, meanJu = cf.costFunctionRBFN(theta)
         nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + str("/")
-        saveAllDataTrajectories(nameSave, sti, meanJu)
+        saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
         print(meanJu)
         sti.initParamTraj()
     

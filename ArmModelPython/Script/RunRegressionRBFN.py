@@ -5,7 +5,6 @@ Module: RunRegressionRBFN
 
 Description: We find here the function to run rbfn algorithm to create the controller
 '''
-from Utils.FileReading import FileReading
 from Utils.FileSaving import fileSavingBin, fileSavingStr
 from Regression.functionApproximator_RBFN import fa_rbfn
 import time
@@ -13,8 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
-from Utils.ReadSetupFile import ReadSetupFile
-from Utils.FunctionsUsefull import learningFieldRBFN, remakeTrajFolder
+from Utils.InitUtil import initFRRS
 
 def saveDataRBFN(nameFile, data):
     fileSavingStr(nameFile, data)
@@ -27,25 +25,16 @@ def saveDataRBFN(nameFile, data):
 def runRBFN(calli = 0):
     print("Début de traitement!")
     t0 = time.time()
-    fr = FileReading()
-    rs = ReadSetupFile()
+    fr, rs = initFRRS()
     nbfeat = rs.numfeats
-    #getting all data
-    
-    #learningFieldRBFN()
-    
     state, command = fr.getData(rs.pathFolderTrajectories)
     #change the data (dictionary) into numpy array
     stateAll, commandAll = fr.dicToArray(state), fr.dicToArray(command)
     print("nombre d'echantillons: ", stateAll.shape[0])
-    
     fa = fa_rbfn(nbfeat)
     fa.setTrainingData(stateAll.T, commandAll.T)
     fa.setCentersAndWidths()
     fa.train_rbfn()
-    
-    #remakeTrajFolder()
-    
     name = "RBFN2/" + str(nbfeat) + "feats/ThetaX" + str(calli)
     saveDataRBFN(name, fa.theta)
     t1 = time.time()

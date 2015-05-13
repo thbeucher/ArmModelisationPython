@@ -53,14 +53,12 @@ class fa_rbfn():
         for i in range(At.shape[0]):
             for j in range(At.shape[1]):
                 A[i,j] = At[i,j]
-        #print("ici2", A[0])
         
     def computeb(self, b, fop):
         bt = np.dot(fop, self.outputData.T)
         for i in range(bt.shape[0]):
             for j in range(bt.shape[1]):
                 b[i,j] = bt[i,j]
-        #print("iciaussi", b[0])
     
     def train_rbfn(self):
 #Thomas: renommer (defineRBFNS? ou bien ça fait l'apprentissage?)
