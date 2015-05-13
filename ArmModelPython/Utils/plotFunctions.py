@@ -302,7 +302,7 @@ def plotAllCmaes():
     xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/costTrajBIN"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/costTrajCmaBIN"
         zDico.append(fr.getobjread(name))
     for i in range(len(zDico)):
         x0[i], y0[i], z[i] = [], [], []

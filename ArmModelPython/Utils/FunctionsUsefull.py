@@ -210,16 +210,11 @@ def learningFieldRBFNSquare():
 
 def remakeTrajFolder():
     fr, rs = initFRRS()
-    for el in os.listdir(rs.pathFolderData + "trajUseForRBFNTmp/"):
-        remove(rs.pathFolderData + "trajUseForRBFNTmp/" + el)
-    
-    for el in os.listdir(rs.pathFolderTrajectories):
-        copyfile(rs.pathFolderTrajectories + el, rs.pathFolderData + "trajUseForRBFNTmp/" + el)
-    
     for el in os.listdir(rs.pathFolderData + "/trajNotUsedTmp/"):
         copyfile(rs.pathFolderData + "/trajNotUsedTmp/" + el, rs.pathFolderTrajectories + el)
         remove(rs.pathFolderData + "/trajNotUsedTmp/" + el)
     
+#remakeTrajFolder()
     
 def testOnWeight():
     fr, rs = initFRRS()
@@ -333,7 +328,24 @@ def plotCostColorMapForAllTheta():
         
 #plotCostColorMapForAllTheta()
 
-
+def plotTrajWhenTargetNotReach():
+    fr, rs = initFRRS()
+    name = "RBFN2/" + str(rs.numfeats) + "feats/costTrajRBFNBIN"
+    data = fr.getobjread(name)
+    xr, xnr, yr, ynr = [], [], [], []
+    for key, val in data.items():
+        if val <= 280:
+            xnr.append(float(key.split("//")[0]))
+            ynr.append(float(key.split("//")[1]))
+        else:
+            xr.append(float(key.split("//")[0]))
+            yr.append(float(key.split("//")[1]))
+    plt.figure()
+    plt.scatter(xr, yr, c = 'b')
+    plt.scatter(xnr, ynr, c = 'r')
+    plt.show(block = True)
+    
+#plotTrajWhenTargetNotReach()
 
 
         
