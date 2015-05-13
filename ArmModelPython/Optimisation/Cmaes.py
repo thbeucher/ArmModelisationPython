@@ -25,7 +25,7 @@ def runCmaes():
     print("Debut du traitement d'optimisation!")
     t0 = time.time()
     #Récupération des theta
-    namec = "RBFN2/" + str(nbfeat) + "feats/ThetaXBIN"
+    namec = "RBFN2/" + str(nbfeat) + "feats/ThetaX0BIN"
     theta = fr.getobjread(namec)
     thetaN = normalization(theta)#Recuperation des theta normalises
     #Mise sous forme de vecteur simple

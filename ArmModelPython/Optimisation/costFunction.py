@@ -30,34 +30,6 @@ class costFunctionClass:
     def initTheta(self, theta):
         theta = vectorToMatrix(theta)
         self.theta = unNorm(theta)
-        
-    def serie1(self, JuS1):
-        i = 0
-        for el in self.sti.posIni:
-            Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
-            JuS1[i] = Ju
-            i += 1
-            
-    def serie2(self, JuS2):
-        i = 0
-        for el in self.sti.posIni:
-            Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
-            JuS2[i] = Ju
-            i += 1
-            
-    def serie3(self, JuS3):
-        i = 0
-        for el in self.sti.posIni:
-            Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
-            JuS3[i] = Ju
-            i += 1
-            
-    def serie4(self, JuS4):
-        i = 0
-        for el in self.sti.posIni:
-            Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
-            JuS4[i] = Ju
-            i += 1
             
     def threadingCmaes(self, cost):
         for el in self.sti.posIni:
@@ -68,7 +40,7 @@ class costFunctionClass:
     def costFunctionCMAES(self, theta):
         #Thomas: commenter cette méthode
         self.initTheta(theta)
-        c1, c2, c3, c4, c5, c6, c7, c8, c9, c10 = [], [], [], [], [], [], [], [], [], []
+        '''c1, c2, c3, c4, c5, c6, c7, c8, c9, c10 = [], [], [], [], [], [], [], [], [], []
         pool = ThreadPool(10)
         c1, c2, c3, c4, c5, c6, c7, c8, c9, c10= pool.map(self.threadingCmaes, [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10])
         resC = np.vstack((c1, c2, c3, c4, c5, c6, c7, c8, c9, c10))
@@ -83,11 +55,12 @@ class costFunctionClass:
         if self.call == (self.sti.rs.maxIterCmaes * self.sti.rs.popsizeCmaes):
             sizeTargetTmp = self.targetS
             namet = "OptimisationResults/costEval" + str(sizeTargetTmp)
+            print("saveCost: ", len(self.saveCost))
             fileSavingBin(namet, self.saveCost)
-        return meanT*(-1)
+        return meanT*(-1)'''
         
-        '''costT = {}
-        for i in range(10):
+        costT = {}
+        for i in range(5):
             JuS = []
             for el in self.sti.posIni:
                 Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
@@ -106,7 +79,14 @@ class costFunctionClass:
         print("Appel n°", self.call)
         self.call += 1
         print("Cout: ", JuSca)
-        return JuSca*(-1)'''
+        self.sti.initParamTraj()
+        self.saveCost.append(JuSca)
+        if self.call == (self.sti.rs.maxIterCmaes * self.sti.rs.popsizeCmaes):
+            sizeTargetTmp = self.targetS
+            namet = "OptimisationResults/costEval" + str(sizeTargetTmp)
+            print("saveCost: ", len(self.saveCost))
+            fileSavingBin(namet, self.saveCost)
+        return JuSca*(-1)
     
     def costFunctionRBFN(self, theta):
         '''
@@ -144,40 +124,6 @@ class costFunctionClass:
         else:
             meanJu = costArray
         return self.sti, meanJu
-    
-        '''if nbi < 4:
-            nbi = 4
-            a = 1
-        else:
-            a = 0
-        
-        data = sti.fr.getobjread(sti.rs.experimentFilePosIni)
-        n = len(data)
-        costf = []
-        for i in range(int(nbi/4)):
-            cost = []
-            processUsed = []
-            if a == 1:
-                rg = 1
-            else:
-                rg = 4
-            for j in range(rg):
-                cost.append(Array('d', range(n)))
-                p = Process(target=computeTraj, args=(cost[j], sti, theta))
-                processUsed.append(p)
-            for j in range(rg):
-                processUsed[j].start()
-            for j in range(rg):
-                processUsed[j].join()
-            if a == 1:
-                costTmp = cost
-            else:
-                costTmp = np.vstack((cost[0], cost[1], cost[2], cost[3]))
-            meanCostTmp = np.mean(costTmp, axis = 0)
-            costf.append(meanCostTmp)
-        meanf = np.mean(costf, axis = 0)
-        print(np.mean(meanf))
-        return sti, meanf'''
 
 
 
