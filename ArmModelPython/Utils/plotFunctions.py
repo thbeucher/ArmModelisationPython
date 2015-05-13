@@ -304,7 +304,7 @@ def plotAllCmaes():
     xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/costTrajBIN"
+        name = "OptimisationResults/solHome/ResCma" + str(rs.sizeOfTarget[i]) + "/costTrajCmaBIN"
         zDico.append(fr.getobjread(name))
     for i in range(len(zDico)):
         x0[i], y0[i], z[i] = [], [], []
@@ -317,8 +317,8 @@ def plotAllCmaes():
         z[i] = np.asarray(z[i])
         z[i] -= rs.rhoCF
     
-    xi = np.linspace(-0.25,0.25,100)
-    yi = np.linspace(0.35,0.5,100)
+    xi = np.linspace(-0.25,0.25,200)
+    yi = np.linspace(0.35,0.5,200)
     zi = {}
     for i in range(len(z)):
         zi[i] = griddata(x0[i], y0[i], z[i], xi, yi)
