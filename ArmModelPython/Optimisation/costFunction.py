@@ -83,7 +83,7 @@ class costFunctionClass:
         self.saveCost.append(JuSca)
         if self.call == (self.sti.rs.maxIterCmaes * self.sti.rs.popsizeCmaes):
             sizeTargetTmp = self.targetS
-            namet = "OptimisationResults/costEval" + str(sizeTargetTmp)
+            namet = "OptimisationResults/costEvalAll/costEval" + str(sizeTargetTmp)
             print("saveCost: ", len(self.saveCost))
             fileSavingBin(namet, self.saveCost)
         return JuSca*(-1)

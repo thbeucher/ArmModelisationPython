@@ -135,18 +135,18 @@ class SuperToolsInit:
         nameSave = str(str(xI) + str(yI))
         nameSave2 = str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
-        #self.initSaveData(nameSave, nameSave2)
+        self.initSaveData(nameSave, nameSave2)
         
-        while coordHA[1] < (self.rs.targetOrdinate - self.rs.errorPosEnd):
+        while coordHA[1] < (self.rs.targetOrdinate):
             if i < self.rs.numMaxIter:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
-                #self.speedSave[nameSave2].append((dotq[0,0], dotq[1,0]))
+                self.speedSave[nameSave2].append((dotq[0,0], dotq[1,0]))
                 ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
                 #Saving data B
-                #self.saveDataB(nameSave, nameSave2, U, coordEL, coordHA)
+                self.saveDataB(nameSave, nameSave2, U, coordEL, coordHA)
                 Ju = self.costFunction(Ju, U, t)
             else:
                 break
@@ -154,7 +154,7 @@ class SuperToolsInit:
             t += self.rs.dt
         #print(i)
         #Saving data f
-        #self.saveDataf(nameSave2, coordHA, i)
+        self.saveDataf(nameSave2, coordHA, i)
         if self.nbTarget == 0:
             sizeTarget = self.rs.sizeOfTarget[0]
         elif self.nbTarget == 4:

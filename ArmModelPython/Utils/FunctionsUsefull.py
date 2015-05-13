@@ -194,10 +194,7 @@ def learningFieldRBFNSquare():
     xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
     sx, sy = [], []
     for key, val in xy.items():
-        if val[0] <= (np.max(x) + 0.05) and val[0] >= (np.min(x) - 0.05) and val[1] >= (np.min(y) - 0.02) and val[1] <= (np.max(y) + 0.02):
-            sx.append(val[0])
-            sy.append(val[1])
-        elif val[0] > (np.max(x) + 0.05) and val[0] <= (np.max(x) + 0.07) and val[1] > 0.42 and val[1] <= (np.max(y) + 0.02):
+        if val[0] <= (np.max(x) + 0.05) and val[0] >= (np.min(x) - 0.05) and val[1] >= (np.min(y) - 0.02):
             sx.append(val[0])
             sy.append(val[1])
         else:

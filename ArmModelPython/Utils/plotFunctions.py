@@ -137,7 +137,9 @@ def plotActivationMuscular(what):
             plt.show(block = True)
         
     elif what == "cma":
-        pass
+        name = "OptimisationResults/ResCma"
+        
+        
     
 def timeDistance():
     fr, rs = initFRRS()
@@ -302,7 +304,7 @@ def plotAllCmaes():
     xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/costTrajCmaBIN"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/costTrajBIN"
         zDico.append(fr.getobjread(name))
     for i in range(len(zDico)):
         x0[i], y0[i], z[i] = [], [], []

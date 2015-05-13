@@ -19,6 +19,7 @@ def saveDataTrajectories(nameFile, data):
     
 def saveAllDataTrajectories(nameSave, sti, meanJu, CorR):
     saveDataTrajectories(nameSave + "CoordTrajectoireELAll" + CorR, sti.save.coordElSave)
+    saveDataTrajectories(nameSave + "CoordTrajectoireHAAll" + CorR, sti.save.coordHaSave)
     saveDataTrajectories(nameSave + "Uall" + CorR, sti.Usave)
     saveDataTrajectories(nameSave + "nbIte" + CorR, sti.IteSave)
     saveDataTrajectories(nameSave + "cost" + CorR, meanJu)
@@ -47,8 +48,8 @@ def runGenTrajCma():
     for i in range(len(rs.sizeOfTarget)):
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
         cf = costFunctionClass(4, rs.sizeOfTarget[i])
-        fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
-        name = "OptimisationResults/thetaSolBIN" + str(rs.sizeOfTarget[i])
+        #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BIN"
         theta = getThetaCma(fr, name)
         sti, meanJu = cf.costFunctionRBFN(theta)
         nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + str("/")
