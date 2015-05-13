@@ -89,6 +89,23 @@ class SuperToolsInit:
                 UnoiseTmp[i] = 1
         Unoise = np.array([UnoiseTmp]).T
         return Unoise
+    
+    def initSaveData(self, name1, name2):
+        self.Usave[name1] = []
+        if not name2 in self.speedSave:
+            self.speedSave[name2] = []
+        if not name2 in self.lastCoord:
+            self.lastCoord[name2] = []
+        if not name2 in self.IteSave:
+            self.IteSave[name2] = []
+    
+    def saveDataB(self, name1, name2, U, coordEL, coordHA):
+        self.Usave[name1].append(U)
+        self.save.SaveTrajectory(coordEL, coordHA)
+    
+    def saveDataf(self, name2, coordHA, i):
+        self.lastCoord[name2].append(coordHA)
+        self.IteSave[name2].append(i)
         
     def trajGenerator(self, xI, yI, theta, optQ = 0):
 #Thomas: renommer (generateTrajectories?)
@@ -112,36 +129,32 @@ class SuperToolsInit:
         q = np.array([[q1], [q2]])
         dotq = self.armD.get_dotq_0()
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
-        #self.save.SaveTrajectory(coordEL, coordHA)
+        self.save.SaveTrajectory(coordEL, coordHA)
         t, i, Ju = 0, 0, 0#Ju = cost
-        #nameSave = str(str(xI) + str(yI))
+        #Name used to save Data
+        nameSave = str(str(xI) + str(yI))
         nameSave2 = str(str(xI) + "//" + str(yI))
-        #self.Usave[nameSave] = []
-        #if not nameSave2 in self.speedSave:
-            #self.speedSave[nameSave2] = []
+        #Initialization containers for saving data
+        self.initSaveData(nameSave, nameSave2)
         
         while coordHA[1] < (self.rs.targetOrdinate - self.rs.errorPosEnd):
             if i < self.rs.numMaxIter:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 U = self.getCommand(inputQ, theta)
-                #self.Usave[nameSave].append(U)
-                #self.speedSave[nameSave2].append((dotq[0,0], dotq[1,0]))
+                self.speedSave[nameSave2].append((dotq[0,0], dotq[1,0]))
                 ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
-                #self.save.SaveTrajectory(coordEL, coordHA)
+                #Saving data B
+                self.saveDataB(nameSave, nameSave2, U, coordEL, coordHA)
                 Ju = self.costFunction(Ju, U, t)
             else:
                 break
             i += 1
             t += self.rs.dt
         #print(i)
-        #if not nameSave2 in self.lastCoord:
-            #self.lastCoord[nameSave2] = []
-        #self.lastCoord[nameSave2].append(coordHA)
-        #if not nameSave2 in self.IteSave:
-            #self.IteSave[nameSave2] = []
-        #self.IteSave[nameSave2].append(i)
+        #Saving data f
+        self.saveDataf(nameSave2, coordHA, i)
         if self.nbTarget == 0:
             sizeTarget = self.rs.sizeOfTarget[0]
         elif self.nbTarget == 4:

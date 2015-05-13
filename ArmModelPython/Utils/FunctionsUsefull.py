@@ -15,12 +15,12 @@ from Utils.ThetaNormalization import normalization, matrixToVector,\
 from Optimisation.costFunction import costFunctionClass
 from matplotlib.mlab import griddata
 from matplotlib import cm
+from Script.RunTrajectories import saveAllDataTrajectories
 
 
 
-def returnX0Y0Z():
+def returnX0Y0Z(name):
     fr, rs = initFRRS()
-    name = "RBFN2/" + str(rs.numfeats) + "feats/"
     zdico = fr.getobjread(name + "costTrajBIN")
     xAbn, yAbn, zWithoutAbn, xyAbn, valcost = [], [], [], [], []
     for key,el in zdico.items():
@@ -256,6 +256,7 @@ def cmaesCostProgression():
     costEvo = {}
     for key, val in costCma.items():
         val.reverse()
+        print(np.asarray(val).shape)
         costArray = np.asarray(val).reshape(rs.maxIterCmaes, rs.popsizeCmaes)
         costEvo[key] = np.mean(costArray, axis = 1)
     y = []
@@ -268,7 +269,45 @@ def cmaesCostProgression():
     plt.show(block = True)
         
 #cmaesCostProgression()
+
+def evaluateTheta():
+    fr, rs = initFRRS()
+    name = "RBFN2/" + str(rs.numfeats) + "feats/"
+    a = 0
+    for el in os.listdir(rs.pathFolderData + name):
+        if "ThetaX" in el:
+            a += 1
+    a = int(a / 2) - 1
+    for i in range(a):
+        nameTmp = name + "ThetaX" + str(i) + "BIN"
+        theta = fr.getobjread(nameTmp)
+        nameT = name + "EvaluationOFTheta/Sol" + str(i) + str("/")
+        if os.path.isdir(rs.pathFolderData + nameT) == False:
+            os.mkdir(rs.pathFolderData + nameT)
+        cf = costFunctionClass()
+        sti, meanJu = cf.costFunctionRBFN(theta)
+        saveAllDataTrajectories(nameT, sti, meanJu)
         
+#evaluateTheta()
+
+def plotCostColorMapForAllTheta():
+    fr, rs = initFRRS()
+    name = "RBFN2/" + str(rs.numfeats) + "feats/EvaluationOFTheta/"
+    xi = np.linspace(-0.25,0.25,100)
+    yi = np.linspace(0.35,0.5,100)
+    for el in os.listdir(rs.pathFolderData + name):
+        nameTmp = name + el + "/"
+        x0, y0, z = returnX0Y0Z(nameTmp)
+        zi = griddata(x0, y0, z, xi, yi)
+        fig = plt.figure()
+        t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+        plt.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
+        plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+        fig.colorbar(t1, shrink=0.5, aspect=5)
+        plt.show(block = True)
+        
+        
+#plotCostColorMapForAllTheta()
 
 
 

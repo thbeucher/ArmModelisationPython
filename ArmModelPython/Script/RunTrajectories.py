@@ -18,13 +18,13 @@ def saveDataTrajectories(nameFile, data):
     fileSavingBin(nameFile, data)
     
 def saveAllDataTrajectories(nameSave, sti, meanJu):
-    saveDataTrajectories(nameSave + "/CoordTrajectoireELAllCma", sti.save.coordElSave)
-    saveDataTrajectories(nameSave + "/UallCma", sti.Usave)
-    saveDataTrajectories(nameSave + "/nbIteCma", sti.IteSave)
-    saveDataTrajectories(nameSave + "/costCma", meanJu)
-    saveDataTrajectories(nameSave + "/CoordHitTargetCma", sti.lastCoord)
-    saveDataTrajectories(nameSave + "/SpeedSaveCma", sti.speedSave)
-    saveDataTrajectories(nameSave + "/costTraj", sti.costSave)
+    saveDataTrajectories(nameSave + "CoordTrajectoireELAllCma", sti.save.coordElSave)
+    saveDataTrajectories(nameSave + "UallCma", sti.Usave)
+    saveDataTrajectories(nameSave + "nbIteCma", sti.IteSave)
+    saveDataTrajectories(nameSave + "costCma", meanJu)
+    saveDataTrajectories(nameSave + "CoordHitTargetCma", sti.lastCoord)
+    saveDataTrajectories(nameSave + "SpeedSaveCma", sti.speedSave)
+    saveDataTrajectories(nameSave + "costTraj", sti.costSave)
  
 def runGenTraj():
     fr, rs = initFRRS()
@@ -64,14 +64,14 @@ def getThetaCma(fr, name):
     
 def runGenTrajCma():
     fr, rs = initFRRS()
-    cf = costFunctionClass(4)
     for i in range(len(rs.sizeOfTarget)):
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
+        cf = costFunctionClass(4, rs.sizeOfTarget[i])
         fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
         name = "OptimisationResults/thetaSolBIN" + str(rs.sizeOfTarget[i])
         theta = getThetaCma(fr, name)
         sti, meanJu = cf.costFunctionRBFN(theta)
-        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i])
+        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + str("/")
         saveAllDataTrajectories(nameSave, sti, meanJu)
         print(meanJu)
         sti.initParamTraj()

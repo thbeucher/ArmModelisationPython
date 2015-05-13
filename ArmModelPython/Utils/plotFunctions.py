@@ -43,7 +43,7 @@ def costColorPlot(wha):
         
     if wha == "rbfn":
         name = "RBFN2/" + str(nbfeat) + "feats/"
-        x0, y0, z = returnX0Y0Z()
+        x0, y0, z = returnX0Y0Z(name)
         #maxt = np.max(np.abs(z))
         
     elif wha == "cma":

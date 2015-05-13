@@ -20,6 +20,7 @@ class costFunctionClass:
     #Thomas: c'est quoi, serie1 à serie4 ? Moche... => renommer et revoir
     def __init__(self, nbtarget = 0, targetSize = 0):
         self.call = 0
+        self.targetS = targetSize
         self.sti = SuperToolsInit(nbtarget, targetSize)
         #self.startPTs, junk = self.sti.fr.recup_pos_ini(self.sti.rs.pathFolderTrajectories)
         #self.n = len(self.startPTs)
@@ -80,7 +81,7 @@ class costFunctionClass:
         self.sti.initParamTraj()
         self.saveCost.append(meanT)
         if self.call == (self.sti.rs.maxIterCmaes * self.sti.rs.popsizeCmaes):
-            sizeTargetTmp = self.sti.fr.getobjread("targetSizeTmp")
+            sizeTargetTmp = self.targetS
             namet = "OptimisationResults/costEval" + str(sizeTargetTmp)
             fileSavingBin(namet, self.saveCost)
         return meanT*(-1)
