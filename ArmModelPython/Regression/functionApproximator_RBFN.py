@@ -10,8 +10,6 @@ from Utils.CartesianProduct import cartesian
 from multiprocessing.context import Process
 from multiprocessing.sharedctypes import Array
 import ctypes as ct
-from Utils.DataNormalization import normData, normDataForEachIndividualColumns
-import matplotlib.pyplot as plt
 
 
 class fa_rbfn():
@@ -53,12 +51,14 @@ class fa_rbfn():
         for i in range(At.shape[0]):
             for j in range(At.shape[1]):
                 A[i,j] = At[i,j]
+        print("end A")
         
     def computeb(self, b, fop):
         bt = np.dot(fop, self.outputData.T)
         for i in range(bt.shape[0]):
             for j in range(bt.shape[1]):
                 b[i,j] = bt[i,j]
+        print("end B")
     
     def train_rbfn(self):
 #Thomas: renommer (defineRBFNS? ou bien ça fait l'apprentissage?)

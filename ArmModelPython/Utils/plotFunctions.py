@@ -376,13 +376,13 @@ def plotTimeDistanceTarget():
         posTmp[0.18], posTmp[0.2], posTmp[0.22], posTmp[0.24] = [],[],[],[]
         for key, val in el.items():
             r, t = invPosCircle(tronquerNB(float(key.split("//")[0]), 4), tronquerNB(float(key.split("//")[1]), 4))
-            if tronquerNB(r,3) >=0.178 and tronquerNB(r,3) <= 0.182:
+            if tronquerNB(r,3) >= 0.178 and tronquerNB(r,3) <= 0.182:
                 posTmp[0.18].append(val)
-            if tronquerNB(r,3) >=0.198 and tronquerNB(r,3) <= 0.202:
+            if tronquerNB(r,3) >= 0.198 and tronquerNB(r,3) <= 0.202:
                 posTmp[0.2].append(val)
-            if tronquerNB(r,3) >=0.218 and tronquerNB(r,3) <= 0.222:
+            if tronquerNB(r,3) >= 0.218 and tronquerNB(r,3) <= 0.222:
                 posTmp[0.22].append(val)
-            if tronquerNB(r,3) >=0.238 and tronquerNB(r,3) <= 0.242:
+            if tronquerNB(r,3) >= 0.238 and tronquerNB(r,3) <= 0.242:
                 posTmp[0.24].append(val)
         itedist[i] = posTmp
         i += 1
@@ -423,6 +423,9 @@ def plotTimeDistanceTarget():
     plt.show(block = True)
             
 #plotTimeDistanceTarget()
+
+def getTimeDist():
+    pass
         
         
         
