@@ -9,13 +9,13 @@ Description: We find here script which print the moving vector for some point of
 import numpy as np
 import matplotlib.pyplot as plt
 from ArmModel.GeometricModel import mgi, mgd
-from Main.SuperToolsInit import SuperToolsInit
+from Main.GenerateTrajectory import GenerateTrajectory
 from ArmModel.ArmDynamics import mdd
 
 
 def vectorField():
     #theta recovery
-    sti = SuperToolsInit()
+    sti = GenerateTrajectory()
     nameT = "RBFN2/" + str(sti.rs.numfeats) + "feats/"
     theta = sti.fr.getobjread(nameT + "ThetaXBIN")
     #Creation of some points of SPACE

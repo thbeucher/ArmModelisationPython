@@ -8,7 +8,7 @@ Description: We find here the function which allow to evaluate the cost of each 
 import numpy as np
 #import time
 from Utils.ThetaNormalization import vectorToMatrix, unNorm
-from Main.SuperToolsInit import SuperToolsInit
+from Main.GenerateTrajectory import GenerateTrajectory
 from multiprocessing.context import Process
 #from multiprocessing.sharedctypes import Array, Value
 from Utils.FileSaving import fileSavingBin
@@ -19,7 +19,7 @@ class costFunctionClass:
     def __init__(self, nbtarget = 0, targetSize = 0):
         self.call = 0
         self.targetS = targetSize
-        self.sti = SuperToolsInit(nbtarget, targetSize)
+        self.sti = GenerateTrajectory(nbtarget, targetSize)
         self.n = len(self.sti.posIni)
         self.saveCost = []
     

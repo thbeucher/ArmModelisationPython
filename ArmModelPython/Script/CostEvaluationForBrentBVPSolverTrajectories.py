@@ -5,13 +5,13 @@ import numpy as np
 from ArmModel.GeometricModel import mgd
 from Utils.ReadSetupFile import ReadSetupFile
 from ArmModel.ArmParameters import ArmParameters
-from Main.SuperToolsInit import SuperToolsInit
+from Main.GenerateTrajectory import GenerateTrajectory
 from Utils.NiemRoot import tronquerNB
     
     
 def costEvalBrent():
     print("Debut de traitement!")
-    sti = SuperToolsInit()
+    sti = GenerateTrajectory()
     stateAll, commandAll = sti.fr.getData(sti.rs.pathFolderTrajectories)
     JuT = {}
     Ite = []
