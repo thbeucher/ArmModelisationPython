@@ -270,7 +270,7 @@ def cmaesCostProgression():
     fr, rs = initFRRS()
     costCma = {}
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/costEval" + str(rs.sizeOfTarget[i])
+        name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i])
         costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = fr.getobjread(name)
     costEvo = {}
     for key, val in costCma.items():

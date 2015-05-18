@@ -49,11 +49,11 @@ def runGenTrajCma():
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
         cf = costFunctionClass(4, rs.sizeOfTarget[i])
         #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BIN"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcp11"
         theta = getThetaCma(fr, name)
         sti, meanJu = cf.costFunctionRBFN(theta)
         nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + str("/")
-        saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
+        saveAllDataTrajectories(nameSave, sti, meanJu, "cpCma")
         print(meanJu)
         sti.initParamTraj()
     

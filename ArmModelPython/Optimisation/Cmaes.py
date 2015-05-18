@@ -83,7 +83,7 @@ def procUse(sizeT):
     nameSB = nameS + "BIN"
     if os.path.isfile(rs.pathFolderData + nameS) == True:
         a = 1
-        for el in os.listdir(rs.pathFolderData + "OptimisationResults/"):
+        for el in os.listdir(rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeT) + "/"):
             if "thetaSol" in el:
                 a += 1
         nameS += "cp" + str(a)
@@ -112,7 +112,7 @@ def runMultiTargetCmaes():
     t1 = time.time()
     print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
     
-
+ 
 
 #runMultiTargetCmaes()
 
