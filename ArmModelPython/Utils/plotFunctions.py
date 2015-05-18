@@ -171,9 +171,11 @@ def hitDispersion():
         taby.append(rs.targetOrdinate)
     plt.figure()
     plt.plot([-0.2, 0.2], [rs.targetOrdinate, rs.targetOrdinate], c = 'r')
-    plt.scatter([-rs.sizeOfTarget/2, rs.sizeOfTarget/2], [rs.targetOrdinate, rs.targetOrdinate], marker=u'|', s = 100)
+    plt.scatter([-rs.sizeOfTarget[0]/2, rs.sizeOfTarget[0]/2], [rs.targetOrdinate, rs.targetOrdinate], marker=u'|', s = 100)
     plt.scatter(tabx, taby, c = 'b')
     plt.show(block = True)
+    
+#hitDispersion()
     
 def velocityProfile():
     fr, rs = initFRRS()

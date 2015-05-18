@@ -158,7 +158,6 @@ class SuperToolsInit:
         if self.nbTarget == 0:
             sizeTarget = self.rs.sizeOfTarget[0]
         elif self.nbTarget == 4:
-            #sizeTarget = self.fr.getobjread("targetSizeTmp")
             sizeTarget = self.targetSizeS
         if((coordHA[0] >= (0-sizeTarget/2) and coordHA[0] <= (0+sizeTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
             Ju += self.rs.rhoCF

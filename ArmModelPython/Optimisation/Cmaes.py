@@ -65,7 +65,6 @@ def procUse(sizeT):
     thetaN = normalization(theta)#Recuperation des theta normalises
     #Mise sous forme de vecteur simple
     thetaN = matrixToVector(thetaN)
-    fileSavingBin("targetSizeTmp", sizeT)
     cf = costFunctionClass(4, sizeT)
     
     resSO = cma.fmin(cf.costFunctionCMAES, thetaN, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
@@ -86,8 +85,8 @@ def procUse(sizeT):
         for el in os.listdir(rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeT) + "/"):
             if "thetaSol" in el:
                 a += 1
-        nameS += "cp" + str(a)
-        nameSB += "cp" + str(a)
+        nameS += "cp2" + str(a)
+        nameSB += "cp2" + str(a)
     fileSavingStr(nameS, resSO[0])
     fileSavingBin(nameSB, resSO[0])
     fileSavingStr("OptimisationResults/CmaesRes" + str(sizeT), resSO)
