@@ -385,7 +385,7 @@ def plotTimeDistanceTarget():
     plt.show(block = True)
             
 
-plotTimeDistanceTarget()
+#plotTimeDistanceTarget()
 
         
         

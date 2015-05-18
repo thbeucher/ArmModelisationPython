@@ -29,12 +29,13 @@ def saveAllDataTrajectories(nameSave, sti, meanJu, CorR):
  
 def runGenTraj():
     fr, rs = initFRRS()
-    cf = costFunctionClass()
-    nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
-    theta = fr.getobjread(nameT + "ThetaX4BIN")
-    sti, meanJu = cf.costFunctionRBFN(theta)
-    saveAllDataTrajectories(nameT, sti, meanJu, "RBFN")
-    print(meanJu)
+    for i in range(len(rs.sizeOfTarget)):
+        cf = costFunctionClass(4, rs.sizeOfTarget[i])
+        nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
+        theta = fr.getobjread(nameT + "ThetaX4BIN")
+        sti, meanJu = cf.costFunctionRBFN(theta)
+        saveAllDataTrajectories(nameT, sti, meanJu, "RBFN" + str(rs.sizeOfTarget[i]))
+        print(meanJu)
     print("Fin de generation de trajectoire!")
     
 def getThetaCma(fr, name):

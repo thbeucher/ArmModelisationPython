@@ -348,7 +348,8 @@ def plotTrajWhenTargetNotReach():
 
 def getTimeDistance(sizeTarget):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/nbItecp5CmaBIN"
+    #name = "OptimisationResults/ResCma" + str(sizeTarget) + "/nbItecp5CmaBIN"
+    name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteRBFN" + str(sizeTarget) + "BIN"
     nbIteTraj = fr.getobjread(name)
     distTimeDico = {}
     for key, val in nbIteTraj.items():
