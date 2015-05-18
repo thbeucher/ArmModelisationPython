@@ -21,7 +21,7 @@ from Script.RunTrajectories import saveAllDataTrajectories
 
 def returnX0Y0Z(name):
     fr, rs = initFRRS()
-    zdico = fr.getobjread(name + "costTrajBIN")
+    zdico = fr.getobjread(name + "costTrajRBFNBIN")
     xAbn, yAbn, zWithoutAbn, xyAbn, valcost = [], [], [], [], []
     for key,el in zdico.items():
         if not el < 280:
@@ -270,7 +270,7 @@ def cmaesCostProgression():
     fr, rs = initFRRS()
     costCma = {}
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i])
+        name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(1000)
         costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = fr.getobjread(name)
     costEvo = {}
     for key, val in costCma.items():
@@ -348,15 +348,23 @@ def plotTrajWhenTargetNotReach():
 
 def getTimeDistance(sizeTarget):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/nbItecpCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/nbItecp5CmaBIN"
     nbIteTraj = fr.getobjread(name)
-    r = []
+    distTimeDico = {}
     for key, val in nbIteTraj.items():
         nbIteTraj[key] = int(np.mean(nbIteTraj[key]))
-        r.append(invPosCircle(float(key.split("//")[0]), float(key.split("//")[1])))
-    print(r)
+        r, t = invPosCircle(float(key.split("//")[0]), float(key.split("//")[1]))
+        r = round(r, 2)
+        if not r in distTimeDico.keys():
+            distTimeDico[r] = []
+        distTimeDico[r].append(nbIteTraj[key])
+    distTime = []
+    for key, val in distTimeDico.items():
+        distTimeDico[key] = int(np.mean(distTimeDico[key]))
+        distTime.append((key, distTimeDico[key]))
+    return distTime
 
-getTimeDistance(0.1)
+#getTimeDistance(0.1)
 
 
 

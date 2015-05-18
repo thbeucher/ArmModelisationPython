@@ -20,7 +20,7 @@ from Utils.FileReading import FileReading
 from shutil import copyfile
 from posix import remove
 from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
-    invPosCircle
+    invPosCircle, getTimeDistance
 
 def costColorPlot(wha):
     '''
@@ -304,7 +304,7 @@ def plotAllCmaes():
     xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/costTrajcpCmaBIN"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/costTrajcp5CmaBIN"
         zDico.append(fr.getobjread(name))
     for i in range(len(zDico)):
         x0[i], y0[i], z[i] = [], [], []
@@ -359,75 +359,34 @@ def plotAllCmaes():
 
 def plotTimeDistanceTarget():
     fr, rs = initFRRS()
-    iteTargetList = []
+    targetDic = {}
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/nbIteCmaBIN"
-        iteTargetList.append(fr.getobjread(name))
-    nbIteList = []
-    i = 0
-    for el in iteTargetList:
-        iteTmp = {}
-        for key, val in el.items():
-            iteTmp[key] = tronquerNB(np.mean(val), 4)
-        nbIteList.append(iteTmp)
-        i += 1
-    itedist = {}
-    i = 0
-    for el in nbIteList:
-        posTmp = {}
-        posTmp[0.18], posTmp[0.2], posTmp[0.22], posTmp[0.24] = [],[],[],[]
-        for key, val in el.items():
-            r, t = invPosCircle(tronquerNB(float(key.split("//")[0]), 4), tronquerNB(float(key.split("//")[1]), 4))
-            if tronquerNB(r,3) >= 0.178 and tronquerNB(r,3) <= 0.182:
-                posTmp[0.18].append(val)
-            if tronquerNB(r,3) >= 0.198 and tronquerNB(r,3) <= 0.202:
-                posTmp[0.2].append(val)
-            if tronquerNB(r,3) >= 0.218 and tronquerNB(r,3) <= 0.222:
-                posTmp[0.22].append(val)
-            if tronquerNB(r,3) >= 0.238 and tronquerNB(r,3) <= 0.242:
-                posTmp[0.24].append(val)
-        itedist[i] = posTmp
-        i += 1
-    #print(itedist)
-    iteDistMean = []
-    for i in range(len(itedist)):
-        itedistmTmp = {}
-        for key, val in itedist[i].items():
-            itedistmTmp[key] = tronquerNB(np.mean(val), 5)
-        iteDistMean.append(itedistmTmp)
-    print(iteDistMean)
-    dd = []
-    for i in range(len(iteDistMean)):
-        for key, val in iteDistMean[i].items():
-            dd.append((key, val))
-    ddarr =  np.asarray(dd).reshape(4,8)
-    print(ddarr)
-    print(ddarr[:,1])
-    
-        
-    '''timeDistSize = []
-    for i in range(len(iteDistMean)):
-        time, dist = [], []
-        for key, val in iteDistMean[i].items():
-            time.append(val)
-            dist.append(key)
-        timeDistSize.append((time, dist, rs.sizeOfTarget[i]))
-    print(timeDistSize)'''
-    pl = []
-    a = 1
+        targetDic[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i])
+    print(targetDic)
+    targetDistTime = []
+    for key, val in targetDic.items():
+        for el in val:
+            targetDistTime.append((key, el[0], el[1]))
+    print(targetDistTime)
+    dicoTest, dicoTest2 = {}, {}
+    for el in targetDistTime:
+        if not el[1] in dicoTest.keys():
+            dicoTest[el[1]] = []
+        if not el[1] in dicoTest2.keys():
+            dicoTest2[el[1]] = []
+        dicoTest[el[1]].append(el[0])
+        dicoTest2[el[1]].append(el[2])
+    print(dicoTest, "\n", dicoTest2)
+    plotTab = []
     plt.figure()
-    for i in range(ddarr.shape[0]):
-        pl.append(plt.plot(rs.sizeOfTarget, ddarr[:,a]))
-        print(ddarr[:,a])
-        a += 2
-    #plt.legend(handles=[pl[0], pl[1], pl[2], pl[3]])
-    #plt.legend([pl[0], pl[1], pl[2], pl[3]], [str("dist = " + str(rs.sizeOfTarget[0])), "", "", "", ""])
+    for key, val in dicoTest.items():
+        plotTab.append(plt.plot(val, dicoTest2[key], label = str("Distance: " + str(key))))
+    plt.legend(loc = 0)
     plt.show(block = True)
             
-#plotTimeDistanceTarget()
 
-def getTimeDist():
-    pass
+plotTimeDistanceTarget()
+
         
         
         

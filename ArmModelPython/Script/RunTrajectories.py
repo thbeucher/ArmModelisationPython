@@ -31,7 +31,7 @@ def runGenTraj():
     fr, rs = initFRRS()
     cf = costFunctionClass()
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
-    theta = fr.getobjread(nameT + "ThetaX0BIN")
+    theta = fr.getobjread(nameT + "ThetaX4BIN")
     sti, meanJu = cf.costFunctionRBFN(theta)
     saveAllDataTrajectories(nameT, sti, meanJu, "RBFN")
     print(meanJu)
@@ -49,11 +49,11 @@ def runGenTrajCma():
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
         cf = costFunctionClass(4, rs.sizeOfTarget[i])
         #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcp11"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcp5"
         theta = getThetaCma(fr, name)
         sti, meanJu = cf.costFunctionRBFN(theta)
         nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + str("/")
-        saveAllDataTrajectories(nameSave, sti, meanJu, "cpCma")
+        saveAllDataTrajectories(nameSave, sti, meanJu, "cp5Cma")
         print(meanJu)
         sti.initParamTraj()
     
