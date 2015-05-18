@@ -8,7 +8,10 @@ from ArmModel.ArmParameters import ArmParameters
 from Main.GenerateTrajectory import GenerateTrajectory
 from Utils.NiemRoot import tronquerNB
     
-    
+
+#####################################
+#             OutDated              #
+#####################################
 def costEvalBrent():
     print("Debut de traitement!")
     sti = GenerateTrajectory()

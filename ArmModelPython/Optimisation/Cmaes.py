@@ -10,7 +10,7 @@ import time
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import numpy as np
 from Utils.ThetaNormalization import normalization, matrixToVector
-from Optimisation.costFunction import costFunctionClass
+from Optimisation.LaunchTrajectories import LaunchTrajectories
 from Utils.NiemRoot import tronquerNB
 from Utils.InitUtil import initFRRS
 from Utils.ReadSetupFile import ReadSetupFile
@@ -30,8 +30,8 @@ def runCmaes():
     thetaN = normalization(theta)#Recuperation des theta normalises
     #Mise sous forme de vecteur simple
     thetaN = matrixToVector(thetaN)
-    cf = costFunctionClass()
-    resSO = cma.fmin(cf.costFunctionCMAES, thetaN, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    cf = LaunchTrajectories()
+    resSO = cma.fmin(cf.LaunchTrajectoriesCMAES, thetaN, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     t1 = time.time()
     print("Fin de l'optimisation! (Temps de traitement: ", (t1-t0), "s)")
     #Sauvegarde des solutions de cmaes
@@ -65,9 +65,9 @@ def procUse(sizeT):
     thetaN = normalization(theta)#Recuperation des theta normalises
     #Mise sous forme de vecteur simple
     thetaN = matrixToVector(thetaN)
-    cf = costFunctionClass(4, sizeT)
+    cf = LaunchTrajectories(4, sizeT)
     
-    resSO = cma.fmin(cf.costFunctionCMAES, thetaN, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    resSO = cma.fmin(cf.LaunchTrajectoriesCMAES, thetaN, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     
     nameTmp = rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeT)
     if os.path.isdir(nameTmp) == False:

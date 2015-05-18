@@ -12,7 +12,7 @@ from scipy.spatial import ConvexHull
 import math
 from Utils.ThetaNormalization import normalization, matrixToVector,\
     vectorToMatrix, unNorm
-from Optimisation.costFunction import costFunctionClass
+from Optimisation.LaunchTrajectories import LaunchTrajectories
 from matplotlib.mlab import griddata
 from matplotlib import cm
 from Script.RunTrajectories import saveAllDataTrajectories
@@ -218,7 +218,7 @@ def remakeTrajFolder():
     
 def testOnWeight():
     fr, rs = initFRRS()
-    cf = costFunctionClass()
+    cf = LaunchTrajectories()
     name = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread(name + "ThetaXBIN")
     thetaN = normalization(theta)
@@ -230,7 +230,7 @@ def testOnWeight():
     theta2 = vectorToMatrix(thetaN)
     
     theta2 = unNorm(theta2)
-    sti, meanJu = cf.costFunctionRBFN(theta2)
+    sti, meanJu = cf.LaunchTrajectoriesRBFN(theta2)
     fileSavingBin(name + "costTrajChangedBIN", sti.costSave)
     
     costBefore = fr.getobjread(name + "costTrajBIN")
@@ -302,8 +302,8 @@ def evaluateTheta():
         nameT = name + "EvaluationOFTheta/Sol" + str(i) + str("/")
         if os.path.isdir(rs.pathFolderData + nameT) == False:
             os.mkdir(rs.pathFolderData + nameT)
-        cf = costFunctionClass()
-        sti, meanJu = cf.costFunctionRBFN(theta)
+        cf = LaunchTrajectories()
+        sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
         saveAllDataTrajectories(nameT, sti, meanJu)
         
 #evaluateTheta()
