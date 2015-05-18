@@ -3,7 +3,8 @@ Author: Thomas Beucher
 
 Module: SuperToolsInit
 
-Description: On retrouve dans ce fichier une classe initialisant toutes les classes utiles au projet
+Description: This class is used to generate trajectory.
+                During the generation, the cost is compute
 '''
 from Utils.FileReading import FileReading
 from Utils.ReadSetupFile import ReadSetupFile
@@ -14,8 +15,6 @@ from ArmModel.MusclesParameters import MusclesParameters
 from ArmModel.ArmDynamics import ArmDynamics, mdd
 from ArmModel.GeometricModel import mgi, mgd, jointStop
 from ArmModel.SavingData import SavingData
-import matplotlib.pyplot as plt
-from matplotlib import animation
 
 
 class SuperToolsInit:
