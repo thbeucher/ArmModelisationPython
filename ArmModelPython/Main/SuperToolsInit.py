@@ -57,7 +57,7 @@ class SuperToolsInit:
 #Thomas: renommer : getCostFunction
 #Thomas: pourquoi ça n'est pas dans Optimisation/costFunction.py?
         '''
-        Computes the cost of the trajectory
+        Computes the cost for the muscular activation vector given
             
         Inputs:     -Ju: scalar, trajectory cost at the time t
                     -U: (6,1) numpy array, muscular activation vector
@@ -126,6 +126,7 @@ class SuperToolsInit:
             q2 = yI
         elif optQ == 0:
             q1, q2 = mgi(xI, yI, self.armP.l1, self.armP.l2)
+        #Initialize q and dotq
         q = np.array([[q1], [q2]])
         dotq = self.armD.get_dotq_0()
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
@@ -136,12 +137,16 @@ class SuperToolsInit:
         nameSave2 = str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
         self.initSaveData(nameSave, nameSave2)
-        
+        #compute the trajectory ie find the next point
+        #as long as the target is not reach
         while coordHA[1] < (self.rs.targetOrdinate):
+            #stop condition to avoid memory saturation
             if i < self.rs.numMaxIter:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
+                #get the muscular activation
                 U = self.getCommand(inputQ, theta)
                 self.speedSave[nameSave2].append((dotq[0,0], dotq[1,0]))
+                #
                 ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
