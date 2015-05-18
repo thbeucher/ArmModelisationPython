@@ -41,7 +41,7 @@ class costFunctionClass:
         Used for the multithreading
         '''
         for el in self.sti.posIni:
-            costTmp = self.sti.trajGenerator(el[0], el[1], self.theta)
+            costTmp = self.sti.generateTrajectories(el[0], el[1], self.theta)
             cost.append(costTmp)
         return cost
               
@@ -82,8 +82,8 @@ class costFunctionClass:
             JuS = []
             #posIni is an array with all initials points used for the experiment
             for el in self.sti.posIni:
-                #trajGenerator is the function which compute the trajectory from the initial point given
-                Ju = self.sti.trajGenerator(el[0], el[1], self.theta)
+                #generateTrajectories is the function which compute the trajectory from the initial point given
+                Ju = self.sti.generateTrajectories(el[0], el[1], self.theta)
                 #store the cost of trajectories
                 JuS.append(Ju)
             costT[i] = JuS
@@ -133,7 +133,7 @@ class costFunctionClass:
             JuS = []
             for el in self.sti.posIni:
             #for el in startPTs.values():
-                Ju = self.sti.trajGenerator(el[0], el[1], theta)
+                Ju = self.sti.generateTrajectories(el[0], el[1], theta)
                 JuS.append(Ju)
             costT[i] = JuS
         s = 0

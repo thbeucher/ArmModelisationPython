@@ -26,8 +26,10 @@ class SuperToolsInit:
         class parameters initialization
         '''
         self.super = "SuperInit"
-        self.nbTarget = nbtarget
-        self.targetSizeS = targetSize
+        if nbtarget == 0:
+            self.targetSizeS = 0.1
+        elif nbtarget == 4:
+            self.targetSizeS = targetSize
         self.save = SavingData()
         self.armP = ArmParameters()
         self.musclesP = MusclesParameters()
@@ -53,9 +55,7 @@ class SuperToolsInit:
         self.speedSave = {}
         self.costSave = {}
     
-    def costFunction(self, Ju, U, t):
-#Thomas: renommer : getCostFunction
-#Thomas: pourquoi ça n'est pas dans Optimisation/costFunction.py?
+    def costComputation(self, Ju, U, t):
         '''
         Computes the cost for the muscular activation vector given
             
@@ -91,6 +91,9 @@ class SuperToolsInit:
         return Unoise
     
     def initSaveData(self, name1, name2):
+        '''
+        Initializes object used to save data
+        '''
         self.Usave[name1] = []
         if not name2 in self.speedSave:
             self.speedSave[name2] = []
@@ -100,15 +103,20 @@ class SuperToolsInit:
             self.IteSave[name2] = []
     
     def saveDataB(self, name1, name2, U, coordEL, coordHA):
+        '''
+        Saves data which changes during the loop in generateTrajectories
+        '''
         self.Usave[name1].append(U)
         self.save.SaveTrajectory(coordEL, coordHA)
     
     def saveDataf(self, name2, coordHA, i):
+        '''
+        Saves data generate at the end of the trajectory generation
+        '''
         self.lastCoord[name2].append(coordHA)
         self.IteSave[name2].append(i)
         
-    def trajGenerator(self, xI, yI, theta, optQ = 0):
-#Thomas: renommer (generateTrajectories?)
+    def generateTrajectories(self, xI, yI, theta, optQ = 0):
 #Thomas: cette méthode est trop longue, la décomposer/simplifier
 #Thomas: cette méthode devrait être ailleurs, dans une classe qui définit le setUp
         '''
@@ -130,13 +138,12 @@ class SuperToolsInit:
         q = np.array([[q1], [q2]])
         dotq = self.armD.get_dotq_0()
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
-        self.save.SaveTrajectory(coordEL, coordHA)
+        #self.save.SaveTrajectory(coordEL, coordHA)
         t, i, Ju = 0, 0, 0#Ju = cost
         #Name used to save Data
-        nameSave = str(str(xI) + str(yI))
-        nameSave2 = str(str(xI) + "//" + str(yI))
+        nameSave, nameSave2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
-        self.initSaveData(nameSave, nameSave2)
+        #self.initSaveData(nameSave, nameSave2)
         #compute the trajectory ie find the next point
         #as long as the target is not reach
         while coordHA[1] < (self.rs.targetOrdinate):
@@ -145,34 +152,33 @@ class SuperToolsInit:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 #get the muscular activation
                 U = self.getCommand(inputQ, theta)
-                self.speedSave[nameSave2].append((dotq[0,0], dotq[1,0]))
+                #self.speedSave[nameSave2].append((dotq[0,0], dotq[1,0]))
                 #
                 ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
                 #Saving data B
-                self.saveDataB(nameSave, nameSave2, U, coordEL, coordHA)
-                Ju = self.costFunction(Ju, U, t)
+                #self.saveDataB(nameSave, nameSave2, U, coordEL, coordHA)
+                Ju = self.costComputation(Ju, U, t)
             else:
                 break
             i += 1
             t += self.rs.dt
         #print(i)
         #Saving data f
-        self.saveDataf(nameSave2, coordHA, i)
-        if self.nbTarget == 0:
-            sizeTarget = self.rs.sizeOfTarget[0]
-        elif self.nbTarget == 4:
-            sizeTarget = self.targetSizeS
-        if((coordHA[0] >= (0-sizeTarget/2) and coordHA[0] <= (0+sizeTarget/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
+        #self.saveDataf(nameSave2, coordHA, i)
+        if((coordHA[0] >= (0-self.targetSizeS/2) and coordHA[0] <= (0+self.targetSizeS/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
             Ju += self.rs.rhoCF
         self.costSave[nameSave2] = Ju
         return Ju
     
 
 
-    def trajGenWithU(self, U, save):
-#Thomas: commenter cette méthode
+    def generateTrajectoriesWithU(self, U, save):
+        '''
+        compute the trajectory using U as input.
+        Actually not used
+        '''
         q = np.array([[np.pi/2], [0]])
         dotq = self.armD.dotq0
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
