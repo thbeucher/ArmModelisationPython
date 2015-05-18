@@ -346,5 +346,18 @@ def plotTrajWhenTargetNotReach():
     
 #plotTrajWhenTargetNotReach()
 
+def getTimeDistance(sizeTarget):
+    fr, rs = initFRRS()
+    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/nbItecpCmaBIN"
+    nbIteTraj = fr.getobjread(name)
+    r = []
+    for key, val in nbIteTraj.items():
+        nbIteTraj[key] = int(np.mean(nbIteTraj[key]))
+        r.append(invPosCircle(float(key.split("//")[0]), float(key.split("//")[1])))
+    print(r)
+
+getTimeDistance(0.1)
+
+
 
         
