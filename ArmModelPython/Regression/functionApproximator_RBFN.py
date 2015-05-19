@@ -61,14 +61,13 @@ class fa_rbfn():
         print("end B")
     
     def train_rbfn(self):
-#Thomas: renommer (defineRBFNS? ou bien ça fait l'apprentissage?)
         '''
         Defines the training function to find solution of the approximation
         
         '''
-        #A = np.dot(self.featureOutput(self.inputData.T), self.featureOutput(self.inputData.T).T)
-        #b = np.dot(self.featureOutput(self.inputData.T), self.outputData.T)
-        fop = self.featureOutput(self.inputData.T)
+        #A = np.dot(self.computeFeatureWeight(self.inputData.T), self.computeFeatureWeight(self.inputData.T).T)
+        #b = np.dot(self.computeFeatureWeight(self.inputData.T), self.outputData.T)
+        fop = self.computeFeatureWeight(self.inputData.T)
         n = self.nbFeat**self.inputDimension
         AshareObj = Array(ct.c_double, n*n)
         bshareObj = Array(ct.c_double, n*self.outputDimension)
@@ -123,8 +122,7 @@ class fa_rbfn():
             plt.Circle((cx[i], cy[i]), widthConstant[3], color = 'b')
         plt.show(block = True)'''
     
-    def featureOutput(self, inputData):
-#Thomas: renommer (verbe + complement)
+    def computeFeatureWeight(self, inputData):
         '''
         Computates Gaussian parameters
         
@@ -154,8 +152,7 @@ class fa_rbfn():
         return phi
 
 
-    def functionApproximatorOutput(self, inputData, theta):
-#Thomas: renommer (computesOutput?)
+    def computesOutput(self, inputData, theta):
         '''
         Returns the output depending on the given input and theta
         
@@ -165,10 +162,10 @@ class fa_rbfn():
         Output:     -fa_out: numpy N-D array, output approximated
         '''
         if inputData.shape[1] == 1:
-            phi = self.featureOutput(inputData)
+            phi = self.computeFeatureWeight(inputData)
             fa_out = np.dot(phi.T, theta) 
         else:
-            phi = self.featureOutput(inputData)
+            phi = self.computeFeatureWeight(inputData)
             fa_out = np.dot(phi.T, theta) 
         return fa_out
        

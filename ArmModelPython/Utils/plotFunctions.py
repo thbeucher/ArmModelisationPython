@@ -364,12 +364,10 @@ def plotTimeDistanceTarget():
     targetDic = {}
     for i in range(len(rs.sizeOfTarget)):
         targetDic[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i])
-    print(targetDic)
     targetDistTime = []
     for key, val in targetDic.items():
         for el in val:
             targetDistTime.append((key, el[0], el[1]))
-    print(targetDistTime)
     dicoTest, dicoTest2 = {}, {}
     for el in targetDistTime:
         if not el[1] in dicoTest.keys():
@@ -378,7 +376,6 @@ def plotTimeDistanceTarget():
             dicoTest2[el[1]] = []
         dicoTest[el[1]].append(el[0])
         dicoTest2[el[1]].append(el[2])
-    print(dicoTest, "\n", dicoTest2)
     plotTab = []
     plt.figure()
     for key, val in dicoTest.items():

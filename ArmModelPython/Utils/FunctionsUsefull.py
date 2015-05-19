@@ -134,7 +134,7 @@ def posCircle(r, t):
 
 def invPosCircle(x, y):
     '''
-    give couple (radius, angle) from coordinate (x, y)
+    give couple (radius, angle) from coordinate (x, y), here the center of the circle is (0, yt) (yt = 0.6175)
     
     Input:      -x: scalar, ordinate
                 -y: scalar, absciss
@@ -348,8 +348,8 @@ def plotTrajWhenTargetNotReach():
 
 def getTimeDistance(sizeTarget):
     fr, rs = initFRRS()
-    #name = "OptimisationResults/ResCma" + str(sizeTarget) + "/nbItecp5CmaBIN"
-    name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteRBFN" + str(sizeTarget) + "BIN"
+    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/nbItecp5CmaBIN"
+    #name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteRBFN" + str(sizeTarget) + "BIN"
     nbIteTraj = fr.getobjread(name)
     distTimeDico = {}
     for key, val in nbIteTraj.items():
@@ -366,6 +366,37 @@ def getTimeDistance(sizeTarget):
     return distTime
 
 #getTimeDistance(0.1)
+
+def getTimeVariationForEachDistance(sizeTarget):
+    fr, rs = initFRRS()
+    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/nbItecp5CmaBIN"
+    nbIteTraj = fr.getobjread(name)
+    distTimeDico = {}
+    for key, val in nbIteTraj.items():
+        nbIteTraj[key] = int(np.mean(nbIteTraj[key]))
+        r, t = invPosCircle(float(key.split("//")[0]), float(key.split("//")[1]))
+        r, t = round(r, 2), round(t, 3)
+        if not r in distTimeDico.keys():
+            distTimeDico[r] = []
+        distTimeDico[r].append((nbIteTraj[key], t))
+    print(distTimeDico)
+    
+    plt.figure()
+    for key, val in distTimeDico.items():
+        for el in val:
+            plt.scatter(el[1], el[0])
+        break
+    plt.show(block = True)
+    
+#getTimeVariationForEachDistance(0.1)
+
+def evalCostVariation(sizeT):
+    fr, rs = initFRRS()
+    name = "RBFN2/" + str(rs.numfeats) + "feats/costArrayAll/costArrayBIN" + str(sizeT)
+    costArr = fr.getobjread(name)
+    print(costArr.shape)
+    
+#evalCostVariation(0.02)
 
 
 
