@@ -10,7 +10,6 @@
 \usepackage{listings}
 \usepackage{color}
 
-\lstset{language=python,numbers=left,breaklines=true}
 
 \hypersetup{
 	pdftoolbar=true,                    % show Acrobat’s toolbar ?
@@ -117,7 +116,7 @@ f_{\max1} &0&0&0&0&0\\
 0&0&0&0&0&318
 \end{pmatrix}\\
 \end{align*}
-\item[\textit{activationVectorInit}]: Initializes the muscular activation vector. (Create the vector initializes to zero)
+\item[\textit{activationVectorInit}]: Initializes the muscular activation vector. (Create the vector and initializes to zero)
 \item[\textit{activationVectorUse}]: Builds the muscular activation vector given its 6 components.
 \end{itemize}
 All the muscles parameters values are summarized in \hyperref[MuscleParamTable]{Table 3} in Appendix~\ref{sec:params}.
@@ -153,24 +152,10 @@ $$
 The computation of the torque $\tau$ exerted on the system given an input muscular actuation $\textbf{u}$ is explained in the section~\ref{sec:muscular_actuation}.
 
 Equation~\ref{eq:rbd} is implemented in the class \textit{ArmDynamics} line 57:
-{\bf renumber the lines}
-\begin{lstlisting}
-ddotq = np.dot(Minv,(Gamma - C - np.dot(armP.B, dotq)))
-\end{lstlisting}
+\lstinputlisting[language=Python, firstline=57, lastline=57, breaklines=true, numbers=left, firstnumber=57]{codePython/ArmDynamics.py}
 where \textit{np} refere to the numpy library in python.
 We also find in this class all elements of Equation~\ref{eq:rbd}:
-\begin{lstlisting}
-#Inertia matrix
-M = np.array([[armP.k1+2*armP.k2*math.cos(q[1,0]),armP.k3+armP.k2*math.cos(q[1,0])],[armP.k3+armP.k2*math.cos(q[1,0]),armP.k3]])
-#Coriolis force vector
-C = np.array([[-dotq[1,0]*(2*dotq[0,0]+dotq[1,0])*armP.k2*math.sin(q[1,0])],[(dotq[0,0]**2)*armP.k2*math.sin(q[1,0])]])
-#inversion of M
-Minv = np.linalg.inv(M)
-#torque term
-Q = np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])
-#the segment torque
-Gamma = np.dot((np.dot(armP.At, musclesP.fmax)-np.dot(musclesP.Knulle, Q)), U)
-\end{lstlisting}
+\lstinputlisting[language=Python, firstline = 44, lastline = 54, breaklines=true,numbers=left, firstnumber=44]{codePython/ArmDynamics.py}
 
 \subsection{Muscular actuation}
 \label{sec:muscular_actuation}
