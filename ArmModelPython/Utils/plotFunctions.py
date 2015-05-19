@@ -6,6 +6,7 @@ Module: plotFunctions
 Description: some plotting functions
 '''
 import numpy as np
+from scipy import stats
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib import animation
@@ -21,6 +22,7 @@ from shutil import copyfile
 from posix import remove
 from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
     invPosCircle, getTimeDistance
+
 
 def costColorPlot(wha):
     '''
@@ -406,7 +408,32 @@ def plotTimeDistanceTarget():
 
 #plotTimeDistanceTarget()
 
-        
+
+def plotFittsLaw():
+    fr, rs = initFRRS()
+    data = {}
+    for i in range(len(rs.sizeOfTarget)):
+        data[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i])
+    print(data)
+    timeDistWidth = []
+    for key, val in data.items():
+        for el in val:
+            timeDistWidth.append((el[1], el[0], key))
+    print(timeDistWidth)
+    MT, DI = [], []
+    for el in timeDistWidth:
+        MT.append(el[0])
+        DI.append(np.log2(el[1]/el[2]))
+    slope, intercept, r_value, p_value, std_err = stats.linregress(DI,MT)
+    yLR = slope * np.asarray(DI) + intercept
+    print(slope, intercept)
+    plt.figure()
+    for el in timeDistWidth:
+        plt.scatter(np.log2(el[1]/el[2]), el[0])
+    plt.plot(DI, yLR)
+    plt.show(block = True)
+    
+#plotFittsLaw()
         
         
         
