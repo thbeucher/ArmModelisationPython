@@ -146,8 +146,8 @@ class LaunchTrajectories:
             meanJu = np.mean(costArray, axis = 0)
         else:
             meanJu = costArray
-        fileSavingStr("RBFN2/" + str(self.sti.rs.numfeats) + "feats/costArrayAll/costArray" + str(self.targetS), costArray)
-        fileSavingBin("RBFN2/" + str(self.sti.rs.numfeats) + "feats/costArrayAll/costArrayBIN" + str(self.targetS), costArray)
+        #fileSavingStr("RBFN2/" + str(self.sti.rs.numfeats) + "feats/costArrayAll/costArray" + str(self.targetS), costArray)
+        #fileSavingBin("RBFN2/" + str(self.sti.rs.numfeats) + "feats/costArrayAll/costArrayBIN" + str(self.targetS), costArray)
         return self.sti, meanJu
 
 

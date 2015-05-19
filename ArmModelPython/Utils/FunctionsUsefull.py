@@ -270,11 +270,11 @@ def cmaesCostProgression():
     fr, rs = initFRRS()
     costCma = {}
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(1000)
+        name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(1500)
         costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = fr.getobjread(name)
     costEvo = {}
     for key, val in costCma.items():
-        val.reverse()
+        #val.reverse()
         costArray = np.asarray(val).reshape(rs.maxIterCmaes, rs.popsizeCmaes)
         costEvo[key] = np.mean(costArray, axis = 1)
     y = []
@@ -395,6 +395,16 @@ def evalCostVariation(sizeT):
     name = "RBFN2/" + str(rs.numfeats) + "feats/costArrayAll/costArrayBIN" + str(sizeT)
     costArr = fr.getobjread(name)
     print(costArr.shape)
+    lineCost = {}
+    for i in range(costArr.shape[0]):
+        lineCost[i] = costArr.T[i]
+    t = []
+    for i in range(costArr.shape[0]):
+        t.append(i)
+    plt.figure()
+    for i in range(costArr.shape[0]):
+        plt.plot(t, lineCost[i])
+        plt.show(block = True)
     
 #evalCostVariation(0.02)
 
