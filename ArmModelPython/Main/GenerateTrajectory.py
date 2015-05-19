@@ -148,7 +148,6 @@ class GenerateTrajectory:
                 #get the muscular activation
                 U = self.getCommand(inputQ, theta)
                 #self.speedSave[nameSave2].append((dotq[0,0], dotq[1,0]))
-                #
                 ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)

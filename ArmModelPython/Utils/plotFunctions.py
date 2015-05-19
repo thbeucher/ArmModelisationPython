@@ -157,9 +157,10 @@ def timeDistance():
         r.append(tronquerNB(r1, 2))
     
 
-def hitDispersion():
+def hitDispersion(sizeT):
     fr, rs = initFRRS()
-    name = "RBFN2/" + str(rs.numfeats) + "feats/CoordHitTargetBIN" 
+    #name = "RBFN2/" + str(rs.numfeats) + "feats/CoordHitTargetBIN" 
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/CoordHitTargetCmaBIN"
     data = fr.getobjread(name)
     tab = []
     for el in data.values():
@@ -170,19 +171,38 @@ def hitDispersion():
         tabx.append(el[0])
         taby.append(rs.targetOrdinate)
     plt.figure()
-    plt.plot([-0.2, 0.2], [rs.targetOrdinate, rs.targetOrdinate], c = 'r')
+    plt.plot([-0.12, 0.12], [rs.targetOrdinate, rs.targetOrdinate], c = 'r')
     plt.scatter([-rs.sizeOfTarget[0]/2, rs.sizeOfTarget[0]/2], [rs.targetOrdinate, rs.targetOrdinate], marker=u'|', s = 100)
     plt.scatter(tabx, taby, c = 'b')
     plt.show(block = True)
     
-#hitDispersion()
+#hitDispersion(0.02)
     
-def velocityProfile():
+def velocityProfile(sizeT):
     fr, rs = initFRRS()
-    name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
+    #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/SpeedSaveCmaBIN"
+    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/nbIteCmaBIN"
     data = fr.getobjread(name)
+    nbIte = fr.getobjread(nameNbIte)
+    for key, val in data.items():
+        a = []
+        for i in range(nbIte[key][0]):
+            a.append(data[key][i])
+        print(key, len(a), a)
+        break
+    v = []
+    for el in a:
+        v.append(np.linalg.norm(el))
+    print(v)
+    t = []
+    for i in range(len(v)):
+        t.append(i)
+    plt.figure()
+    plt.plot(t, v)
+    plt.show(block = True)
     
-    
+#velocityProfile(0.02)
 
 def plot_pos_ini():
     '''
