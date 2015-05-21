@@ -1,5 +1,5 @@
-\documentclass[pdftex,a4paper,11pt]{article} 
-%\documentclass[pdftex,a4paper,11pt]{report} 
+%\documentclass[pdftex,a4paper,11pt]{article} 
+\documentclass[pdftex,a4paper,11pt]{report} 
 %\usepackage[utf8]{inputenc}
 %\usepackage[frenchb]{babel}
 \usepackage[pdftex]{graphicx}
@@ -49,8 +49,73 @@ With respect to the cost-benefit trade-off models, precision constraints are inc
 
 Using this computational model, we investigate the more global trade-off arising from the interactions between movement time, cost and accuracy. We show that this model accounts for Fitts' law and for other well-established results in the motor control literature.
 
+\chapter{Introduction}
+
+This report is about my internship at ISIR (Institut des Systèmes Intelligents et de Robotique) covering a period of five months from February to July 2015.
+\linebreak 
+\linebreak
+\linebreak
+\begin{minipage}{0.49\textwidth}
+	\includegraphics[]{images/logo_isir.jpg}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+	The Institute for Intelligent Systems and Robotics (ISIR) is a multidisciplinary research laboratory that brings together researchers and academics from different disciplines of Engineering Sciences and Information and the Life Sciences. It is based in Paris France.
+\end{minipage}
+
+\pagebreak
+
+\section{State of the art}
+
+There has been a recent progress in motor control research on understanding how the time of a reaching movement is chosen. In particular, two recent models from Shadmehr et al. \cite{shadmehr10} and Rigoux\&Guigon \cite{rigoux12} proposed an optimization criterion that involves a trade-off between the muscular effort and the subjective value of getting the reward, hence a cost-benefit trade-off (CBT).
+On one hand, reaching a target faster requires a larger muscular effort (refs?). On the other hand, the subjective value of reaching a target decreases as the time needed to reach the target is increased (refs?). As a result, the net expected return consisting of the subjective value minus the muscular effort is optimal for a certain time, as illustrated in Fig.~\ref{fig:mvt_acc}(A).
+
+\begin{figure}[hbt]
+\centering
+	\includegraphics[width=1.0\columnwidth]{images/canu_fig3.pdf}
+\caption{Influence of movement time on cost related quantities.
+Green: subjective utility of hitting the target; red: muscular energy cost; black: global cost versus reward trade-off. The red area denotes infeasible short times; blue: probability to hit the target; orange:reward expectation (subjective reward times probability).
+ A: Sketch of the models in \cite{shadmehr10} and \cite{rigoux12}.
+The subjective utility of hitting the reward decreases over time as one is less interested in gains that will occur in a distant future than at the present time. Hitting is less and less costly in terms of efforts as the movement is performed more slowly.
+The expected gain, resulting from the sum of the subjective reward and the (negative) cost reaches a maximum for a certain time. When the gain is negative (outside the useful interval), one should not move.
+B: Sketch of the presented model.
+In the case of a larger target, the hitting probability is higher for faster movements (solid lines) than for a smaller target (dashed lines). As a result, the maximum of the reward expectation is shifted towards longer time for smaller targets, and the optimum movement time is also longer for smaller targets.\label{fig:mvt_acc}}
+\end{figure}
+
+However, these models do not account directly for basic facts about the relation between movement difficulty and movement duration as captured more than fifty years ago by Fitts' law \cite{fitts54_JEP}.
+According to this law, the smaller a target, the slower the reaching movement. 
+This is well explained by the so-called {\em speed-accuracy trade-off} (SAT) stating that, the faster a movement, the less accurate it is, hence the higher the probability to miss the target. So a subject reaching too fast may not get the subjective value associated to reaching and should slow down.
+
+In contrast with the models of \cite{shadmehr10} and \cite{rigoux12}, the model of Dean \cite{Dean2007} takes the SAT into account. The key difference with respect to \cite{shadmehr10} and \cite{rigoux12} is that, instead of maximizing a reward, this model maximizes a {\em reward expectation}, i.e. the reward times the probability to get it.
+
+However, the model proposed in \cite{Dean2007} is an abstract model of movement time selection that looks for an optimal trade-off between an externally decayed reward and a SAT that relates the probability of missing to movement time. As such, it does not account for movement execution, neither for the choice of a motor trajectory and its impact on the cost of movement.
+The model does not explain Fitts' law, it rather incorporates its consequences into an abstract model of the SAT that is fitted to experimental data.
+The mathematical design of the model is based on several simplifying assumptions and it predicts optimal movement times that are systematically shorter than those observed with subjects. The authors of \cite{Dean2007} discuss that this may result from the fact that the model does not take the cost of movement into account.
+
+In the paper of Olivier Sigaud and Kevin Monfray, they show that the models of Shadmehr \cite{shadmehr10} and Rigoux \cite{rigoux12} as well as the model of Dean \cite{Dean2007} can be unified into a model that solves the difficulties faced by these previous models. 
+
+This unification is simply implemented by including sensory and motor noise into the optimal control model proposed in \cite{rigoux12}, shifting from a deterministic account of the movement to a stochastic one, in line with the models of \cite{harris98_N,todorov02_NN,todorov04_NN,todorov05_NC,li2006}.
+
+As a matter of fact, in the models of \cite{shadmehr10} and \cite{rigoux12}, the target is given as a single point and the movement is considered as always reaching it, irrespective of the size of the target. In order to fully account for Fitts' law, one must consider the intrinsic dispersion of reaching movements towards a target and the effect of sensory and muscular noise on this dispersion (e.g. \cite{harris98_N}, see \cite{faisal08} for a review), which is not the case of the models of \cite{shadmehr10} and \cite{rigoux12}. 
+
+As a result, the reward and muscular activation terms in the optimization criterion proposed in \cite{rigoux12} are replaced by reward and cost expectation terms. Considering expectation is a way to account for the fact that, in case of a miss, one would not get the reward, so the global outcome of the movement would only consist of its incurred cost. 
+
+\section{Previous work}
+I used a code, written by Didier Marin (a PhD student at ISIR), which implement a model based on optimal control called NOPS but it is very time consuming.
+To reduce the computation time, Olivier Sigaud decided to try to learn the NOPS controller using a regression algorithm.
+So I generated trajectories using the NOPS controller then I used the regression algorithm called RBFN(Radial Basis Function Networks) to learn the new controller from these trajectories.
+The new controller could then be optimized with a stochastic optimization method called CMAES(Covariance Matrix Adaptation Evolution Strategy).
+
+\section{My job}
+First, I have to implement the model of arm and the regression algorithm to learn the new controller from the trajectories generated with the NOPS controller (implemented by Didier Marin in C++ and in Java by Kevin Monfray).
+Secondly, I must use the CMAES algorithm to optimize RBFN controller for different sizes of target.
+Finally, generate various relevant curves and compare them with the curves obtained by a Slovenian colleague who experiment on humans around the same issue.
+
+\chapter{Material and methods}
+
+
 
 \section{Arm model}
+\label{sec_ArmModel}
 
 The plant is a two degrees-of-freedom (dofs) planar arm controlled by 6 muscles, illustrated in Fig.~\ref{fig:arm_model}.
 There are several such models in the literature. The model described in \cite{Kambara2009} lies in the vertical
@@ -170,7 +235,9 @@ is augmented with Gaussian noise using $\textbf{\~{u}} = \log(\exp(\kappa \times
 and $\kappa = 25$ is the Heaviside filter parameter, and the input torque 
 is computed as $\boldsymbol{\tau} = \textbf{A}^\top ( \textbf{f}_\textbf{max} \times \textbf{\~{u}} )$.
 
-\appendix
+\chapter{Study}
+
+\chapter{Appendix}
 \section{Nomenclature of arm parameters}
 \label{sec:params}
 

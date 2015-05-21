@@ -336,7 +336,7 @@ def plotAllCmaes():
         for keyu, valu in zDico[i].items():
             x0[i].append(float(keyu.split("//")[0]))    
             y0[i].append(float(keyu.split("//")[1]))   
-            z[i].append(valu)
+            z[i].append(np.mean(valu))
         x0[i] = np.asarray(x0[i])
         y0[i] = np.asarray(y0[i])
         z[i] = np.asarray(z[i])
