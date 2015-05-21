@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: ArmModelTB.aux
+The style file: abbrv.bst
+Illegal, another \bibdata command---line 102 of file ArmModelTB.aux
+ : \bibdata
+ :         {twoDarm,robotica12,accuracy}
+I'm skipping whatever remains of this command
+Database file #1: motor_learning.bib
+Warning--I didn't find a database entry for "rigoux12"
+You've used 12 entries,
+            2118 wiz_defined-function locations,
+            590 strings with 5674 characters,
+and the built_in function-call counts, 4097 in all, are:
+= -- 412
+> -- 172
+< -- 1
++ -- 69
+- -- 56
+* -- 317
+:= -- 689
+add.period$ -- 36
+call.type$ -- 12
+change.case$ -- 63
+chr.to.int$ -- 0
+cite$ -- 12
+duplicate$ -- 140
+empty$ -- 326
+format.name$ -- 56
+if$ -- 841
+int.to.chr$ -- 0
+int.to.str$ -- 12
+missing$ -- 11
+newline$ -- 63
+num.names$ -- 24
+pop$ -- 46
+preamble$ -- 1
+purify$ -- 52
+quote$ -- 0
+skip$ -- 95
+stack$ -- 0
+substring$ -- 331
+swap$ -- 20
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 48
+warning$ -- 0
+while$ -- 43
+width$ -- 14
+write$ -- 134
+(There was 1 error message)

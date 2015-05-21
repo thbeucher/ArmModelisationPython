@@ -1,0 +1,67 @@
+\begin{thebibliography}{10}
+
+\bibitem{Dean2007}
+M.~Dean, S.-W. Wu, and L.~T. Maloney.
+\newblock Trading off speed and accuracy in rapid, goal-directed movements.
+\newblock {\em Journal of Vision}, 7(5):1--12, 2007.
+
+\bibitem{faisal08}
+A.~A. Faisal, L.~P.~J. Selen, and D.~M. Wolpert.
+\newblock Noise in the nervous system.
+\newblock {\em Nature Reviews Neuroscience}, 9(4):292--303, 2008.
+
+\bibitem{fitts54_JEP}
+P.~M. Fitts.
+\newblock The information capacity of the human motor system in controlling the
+  amplitude of movement.
+\newblock {\em Journal of Experimental Psychology}, 47(6):381--91, June 1954.
+
+\bibitem{harris98_N}
+C.~M. Harris and D.~M. Wolpert.
+\newblock Signal-dependent noise determines motor planning.
+\newblock {\em Nature}, 394:780--784, 1998.
+
+\bibitem{Kambara2009}
+H.~Kambara, K.~Kim, D.~Shin, M.~Sato, and Y.~Koike.
+\newblock {Learning and generation of goal-directed arm reaching from scratch.}
+\newblock {\em Neural networks}, 22(4):348--61, 2009.
+
+\bibitem{katayama93}
+M.~Katayama and M.~Kawato.
+\newblock {Virtual trajectory and stiffness ellipse during multijoint arm
+  movement predicted by neural inverse models}.
+\newblock {\em Biological Cybernetics}, 69(5):353--362, 1993.
+
+\bibitem{li2006}
+W.~Li.
+\newblock {\em Optimal control for biological movement systems}.
+\newblock PhD thesis, University of California, San Diego, 2006.
+
+\bibitem{mitrovic08_SAB}
+D.~Mitrovic, S.~Klanke, and S.~Vijayakumar.
+\newblock Adaptive optimal control for redundantly actuated arms.
+\newblock In {\em Proceedings of the Tenth International Conference on
+  Simulation of Adaptive Behavior}, pages 93--102, 2008.
+
+\bibitem{shadmehr10}
+R.~Shadmehr, J.-J. Orban~de Xivry, M.~Xu-Wilson, and T.-Y. Shih.
+\newblock Temporal discounting of reward and the cost of time in motor control.
+\newblock {\em Journal of Neuroscience}, 30(31):10507--10516, 2010.
+
+\bibitem{todorov04_NN}
+E.~Todorov.
+\newblock Optimality principles in sensorimotor control.
+\newblock {\em Nature Neurosciences}, 7(9):907--915, 2004.
+
+\bibitem{todorov05_NC}
+E.~Todorov.
+\newblock {Stochastic Optimal Control and Estimation Methods Adapted to the
+  Noise Characteristics of the Sensorimotor System}.
+\newblock {\em Neural Computation}, 17(5):1084--1108, 2005.
+
+\bibitem{todorov02_NN}
+E.~Todorov and M.~I. Jordan.
+\newblock Optimal feedback control as a theory of motor coordination.
+\newblock {\em Nature Neurosciences}, 5(11):1226--1235, 2002.
+
+\end{thebibliography}
