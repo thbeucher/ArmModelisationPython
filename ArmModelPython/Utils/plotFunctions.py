@@ -201,7 +201,12 @@ def velocityProfile(sizeT):
     for i in range(len(v)):
         t.append(i)
     plt.figure()
-    plt.plot(t, v)
+    t = plt.plot(t, v, label=str("Bruit = " + str(rs.knoiseU)))
+    plt.xlabel("time")
+    plt.ylabel("Instantaneous speed")
+    plt.legend(loc=0)
+    plt.title("Velocity profile")
+    
     plt.show(block = True)
     
 #velocityProfile(0.02)
@@ -401,13 +406,15 @@ def plotTimeDistanceTarget():
     plotTab = []
     print(dicoTest)
     plt.figure()
+    plt.ylabel("time")
+    plt.xlabel("size (mm)")
     for key in sorted([x for x in dicoTest.keys()]):
         plotTab.append(plt.plot(dicoTest[key], dicoTest2[key], label = str("Distance: " + str(key))))
     plt.legend(loc = 0)
     plt.show(block = True)
             
 
-plotTimeDistanceTarget()
+#plotTimeDistanceTarget()
 
 
 def plotFittsLaw():
@@ -433,6 +440,8 @@ def plotFittsLaw():
         plt.scatter(np.log2(el[1]/el[2]), el[0])
     plt.plot(DI, yLR)
     plt.title(str("a = " + str(slope) + " b = " + str(intercept)))
+    plt.xlabel("log(D/W)/log(2)")
+    plt.ylabel("Time")
     plt.show(block = True)
     
 #plotFittsLaw()
