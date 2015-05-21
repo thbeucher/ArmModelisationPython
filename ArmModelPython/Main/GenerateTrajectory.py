@@ -52,6 +52,7 @@ class GenerateTrajectory:
         self.saveOneTraj = {}
         self.speedSave = {}
         self.costSave = {}
+        self.actiMuscuSaveTmp = 0
         self.actiMuscuSave = {}
     
     def costComputation(self, Ju, U, t):
@@ -65,7 +66,7 @@ class GenerateTrajectory:
         Outputs:    -Ju: scalar, cost
         '''
         mvtCost = (np.linalg.norm(U))**2
-        self.actiMuscuSave[self.name2].append(mvtCost)
+        self.actiMuscuSaveTmp += mvtCost
         Ju += np.exp(-t/self.rs.gammaCF)*(-self.rs.upsCF*mvtCost)
         return Ju
         
@@ -94,6 +95,7 @@ class GenerateTrajectory:
         Initializes object used to save data
         '''
         self.Usave[self.name1] = []
+        self.actiMuscuSaveTmp = 0
         if not self.name2 in self.speedSave:
             self.speedSave[self.name2] = []
         if not self.name2 in self.lastCoord:
@@ -116,6 +118,7 @@ class GenerateTrajectory:
         '''
         self.lastCoord[self.name2].append(coordHA)
         self.IteSave[self.name2].append(i)
+        self.actiMuscuSave[self.name2].append(self.actiMuscuSaveTmp)
         
     def generateTrajectories(self, xI, yI, theta, optQ = 0):
         '''
