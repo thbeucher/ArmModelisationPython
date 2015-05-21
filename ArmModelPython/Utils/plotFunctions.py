@@ -162,7 +162,7 @@ def timeDistance():
 def hitDispersion(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/CoordHitTargetBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/CoordHitTargetCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfh/CoordHitTargetCmaBIN"
     data = fr.getobjread(name)
     tab = []
     for el in data.values():
@@ -183,8 +183,8 @@ def hitDispersion(sizeT):
 def velocityProfile(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/SpeedSaveCmaBIN"
-    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfh/SpeedSaveCmaBIN"
+    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfh/nbIteCmaBIN"
     data = fr.getobjread(name)
     nbIte = fr.getobjread(nameNbIte)
     for key, val in data.items():
@@ -328,8 +328,8 @@ def plotAllCmaes():
     xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
-        #name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/costTrajCmaBIN"
-        name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfh/actiMuscuCmaBIN"
+        #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
         zDico.append(fr.getobjread(name))
     for i in range(len(zDico)):
         x0[i], y0[i], z[i] = [], [], []
@@ -399,14 +399,15 @@ def plotTimeDistanceTarget():
         dicoTest[el[1]].append(el[0])
         dicoTest2[el[1]].append(el[2])
     plotTab = []
+    print(dicoTest)
     plt.figure()
-    for key, val in dicoTest.items():
-        plotTab.append(plt.plot(val, dicoTest2[key], label = str("Distance: " + str(key))))
+    for key in sorted([x for x in dicoTest.keys()]):
+        plotTab.append(plt.plot(dicoTest[key], dicoTest2[key], label = str("Distance: " + str(key))))
     plt.legend(loc = 0)
     plt.show(block = True)
             
 
-#plotTimeDistanceTarget()
+plotTimeDistanceTarget()
 
 
 def plotFittsLaw():
@@ -431,6 +432,7 @@ def plotFittsLaw():
     for el in timeDistWidth:
         plt.scatter(np.log2(el[1]/el[2]), el[0])
     plt.plot(DI, yLR)
+    plt.title(str("a = " + str(slope) + " b = " + str(intercept)))
     plt.show(block = True)
     
 #plotFittsLaw()

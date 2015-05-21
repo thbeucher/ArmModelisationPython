@@ -112,8 +112,6 @@ Finally, generate various relevant curves and compare them with the curves obtai
 
 \chapter{Material and methods}
 
-
-
 \section{Arm model}
 \label{sec_ArmModel}
 
@@ -234,6 +232,10 @@ controller, the muscular activation
 is augmented with Gaussian noise using $\textbf{\~{u}} = \log(\exp(\kappa \times \textbf{u}_t \times (1+\mathcal{N}(0,\textbf{I}\sigma_u^2))) + 1) / \kappa$, where $\times$ refers to the element-wise multiplication, $\textbf{I}$ is a $6 \times 6$ identity matrix.
 and $\kappa = 25$ is the Heaviside filter parameter, and the input torque 
 is computed as $\boldsymbol{\tau} = \textbf{A}^\top ( \textbf{f}_\textbf{max} \times \textbf{\~{u}} )$.
+
+\section{Experimental set-up}
+\label{sec_ExpSetup}
+
 
 \chapter{Study}
 
