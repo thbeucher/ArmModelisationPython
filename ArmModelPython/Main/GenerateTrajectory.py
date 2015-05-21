@@ -52,6 +52,7 @@ class GenerateTrajectory:
         self.saveOneTraj = {}
         self.speedSave = {}
         self.costSave = {}
+        self.actiMuscuSave = {}
     
     def costComputation(self, Ju, U, t):
         '''
@@ -64,6 +65,7 @@ class GenerateTrajectory:
         Outputs:    -Ju: scalar, cost
         '''
         mvtCost = (np.linalg.norm(U))**2
+        self.actiMuscuSave[self.name2].append(mvtCost)
         Ju += np.exp(-t/self.rs.gammaCF)*(-self.rs.upsCF*mvtCost)
         return Ju
         
@@ -87,31 +89,33 @@ class GenerateTrajectory:
         Unoise = np.array([UnoiseTmp]).T
         return Unoise
     
-    def initSaveData(self, name1, name2):
+    def initSaveData(self):
         '''
         Initializes object used to save data
         '''
-        self.Usave[name1] = []
-        if not name2 in self.speedSave:
-            self.speedSave[name2] = []
-        if not name2 in self.lastCoord:
-            self.lastCoord[name2] = []
-        if not name2 in self.IteSave:
-            self.IteSave[name2] = []
+        self.Usave[self.name1] = []
+        if not self.name2 in self.speedSave:
+            self.speedSave[self.name2] = []
+        if not self.name2 in self.lastCoord:
+            self.lastCoord[self.name2] = []
+        if not self.name2 in self.IteSave:
+            self.IteSave[self.name2] = []
+        if not self.name2 in self.actiMuscuSave:
+            self.actiMuscuSave[self.name2] = []
     
-    def saveDataB(self, name1, name2, U, coordEL, coordHA):
+    def saveDataB(self, U, coordEL, coordHA, Ju):
         '''
         Saves data which changes during the loop in generateTrajectories
         '''
-        self.Usave[name1].append(U)
+        self.Usave[self.name1].append(U)
         self.save.SaveTrajectory(coordEL, coordHA)
     
-    def saveDataf(self, name2, coordHA, i):
+    def saveDataf(self, coordHA, i):
         '''
         Saves data generate at the end of the trajectory generation
         '''
-        self.lastCoord[name2].append(coordHA)
-        self.IteSave[name2].append(i)
+        self.lastCoord[self.name2].append(coordHA)
+        self.IteSave[self.name2].append(i)
         
     def generateTrajectories(self, xI, yI, theta, optQ = 0):
         '''
@@ -133,12 +137,12 @@ class GenerateTrajectory:
         q = np.array([[q1], [q2]])
         dotq = self.armD.get_dotq_0()
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
-        #self.save.SaveTrajectory(coordEL, coordHA)
+        self.save.SaveTrajectory(coordEL, coordHA)
         t, i, Ju = 0, 0, 0#Ju = cost
         #Name used to save Data
-        nameSave, nameSave2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
+        self.name1, self.name2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
-        #self.initSaveData(nameSave, nameSave2)
+        self.initSaveData()
         #compute the trajectory ie find the next point
         #as long as the target is not reach
         while coordHA[1] < (self.rs.targetOrdinate):
@@ -147,12 +151,12 @@ class GenerateTrajectory:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 #get the muscular activation
                 U = self.getCommand(inputQ, theta)
-                #self.speedSave[nameSave2].append((dotq[0,0], dotq[1,0]))
+                self.speedSave[self.name2].append((dotq[0,0], dotq[1,0]))
                 ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
                 #Saving data B
-                #self.saveDataB(nameSave, nameSave2, U, coordEL, coordHA)
+                self.saveDataB(U, coordEL, coordHA, Ju)
                 Ju = self.costComputation(Ju, U, t)
             else:
                 break
@@ -160,10 +164,10 @@ class GenerateTrajectory:
             t += self.rs.dt
         #print(i)
         #Saving data f
-        #self.saveDataf(nameSave2, coordHA, i)
+        self.saveDataf(coordHA, i)
         if((coordHA[0] >= (0-self.targetSizeS/2) and coordHA[0] <= (0+self.targetSizeS/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
-            Ju += self.rs.rhoCF
-        self.costSave[nameSave2] = Ju
+            Ju += np.exp(-t/self.rs.gammaCF)*self.rs.rhoCF
+        self.costSave[self.name2] = Ju
         return Ju
     
 

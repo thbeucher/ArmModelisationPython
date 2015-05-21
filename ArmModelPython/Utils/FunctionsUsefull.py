@@ -24,7 +24,7 @@ def returnX0Y0Z(name):
     zdico = fr.getobjread(name + "costTrajRBFNBIN")
     xAbn, yAbn, zWithoutAbn, xyAbn, valcost = [], [], [], [], []
     for key,el in zdico.items():
-        if not el < 280:
+        if not el < 200:
             xAbn.append(tronquerNB(float(key.split("//")[0]), 3))
             yAbn.append(tronquerNB(float(key.split("//")[1]), 3))
             xyAbn.append((tronquerNB(float(key.split("//")[0]), 3), tronquerNB(float(key.split("//")[1]), 3)))
@@ -270,7 +270,7 @@ def cmaesCostProgression():
     fr, rs = initFRRS()
     costCma = {}
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(1500)
+        name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(5000)
         costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = fr.getobjread(name)
     costEvo = {}
     for key, val in costCma.items():
@@ -348,7 +348,7 @@ def plotTrajWhenTargetNotReach():
 
 def getTimeDistance(sizeTarget):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/ResCpf/nbIteCmaBIN"
     #name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteRBFN" + str(sizeTarget) + "BIN"
     nbIteTraj = fr.getobjread(name)
     distTimeDico = {}
@@ -365,7 +365,7 @@ def getTimeDistance(sizeTarget):
         distTime.append((key, distTimeDico[key]))
     return distTime
 
-#getTimeDistance(0.1)
+#getTimeDistance(0.02)
 
 def getTimeVariationForEachDistance(sizeTarget):
     fr, rs = initFRRS()

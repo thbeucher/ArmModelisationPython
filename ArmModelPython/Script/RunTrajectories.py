@@ -26,6 +26,7 @@ def saveAllDataTrajectories(nameSave, sti, meanJu, CorR):
     saveDataTrajectories(nameSave + "CoordHitTarget" + CorR, sti.lastCoord)
     saveDataTrajectories(nameSave + "SpeedSave" + CorR, sti.speedSave)
     saveDataTrajectories(nameSave + "costTraj" + CorR, sti.costSave)
+    saveDataTrajectories(nameSave + "actiMuscu" + CorR, sti.actiMuscuSave)
  
 def runGenTraj():
     fr, rs = initFRRS()
@@ -50,10 +51,10 @@ def runGenTrajCma():
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
         cf = LaunchTrajectories(4, rs.sizeOfTarget[i])
         #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BIN"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcpf"
         theta = getThetaCma(fr, name)
         sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + str("/")
+        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCpf/"
         saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
         print(meanJu)
         sti.initParamTraj()

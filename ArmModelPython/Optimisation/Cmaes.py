@@ -95,8 +95,8 @@ def procUse(sizeT):
         for el in os.listdir(rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeT) + "/"):
             if "thetaSol" in el:
                 a += 1
-        nameS += "cpf" + str(a)
-        nameSB += "cpf" + str(a)
+        nameS += "cfh" + str(a)
+        nameSB += "cfh" + str(a)
     fileSavingStr(nameS, resSO[0])
     fileSavingBin(nameSB, resSO[0])
     fileSavingStr("OptimisationResults/CmaesRes" + str(sizeT), resSO)
