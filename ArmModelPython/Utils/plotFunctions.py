@@ -183,8 +183,8 @@ def hitDispersion(sizeT):
 def velocityProfile(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfh/SpeedSaveCmaBIN"
-    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfh/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/SpeedSaveCmaBIN"
+    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/nbIteCmaBIN"
     data = fr.getobjread(name)
     nbIte = fr.getobjread(nameNbIte)
     for key, val in data.items():
@@ -333,7 +333,7 @@ def plotAllCmaes():
     xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfh/actiMuscuCmaBIN"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb/actiMuscuCmaBIN"
         #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
         zDico.append(fr.getobjread(name))
     for i in range(len(zDico)):

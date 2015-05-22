@@ -51,14 +51,15 @@ def runGenTrajCma():
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
         cf = LaunchTrajectories(4, rs.sizeOfTarget[i])
         #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfh"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfb"
         theta = getThetaCma(fr, name)
         sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfh/"
+        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb/"
         saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
         print(meanJu)
         sti.initParamTraj()
-    
+
+#runGenTrajCma()    
     
 def plotTargetUnreach(sti):
     x0, y0 = [], []
