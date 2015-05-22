@@ -2,51 +2,57 @@ This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: ArmModelTB.aux
 The style file: abbrv.bst
-Illegal, another \bibdata command---line 102 of file ArmModelTB.aux
- : \bibdata
- :         {twoDarm,robotica12,accuracy}
-I'm skipping whatever remains of this command
-Database file #1: motor_learning.bib
+Database file #1: twoDarm.bib
+Database file #2: robotica12.bib
+Database file #3: accuracy.bib
+Warning--I didn't find a database entry for "shadmehr10"
 Warning--I didn't find a database entry for "rigoux12"
-You've used 12 entries,
+Warning--I didn't find a database entry for "fitts54_JEP"
+Warning--I didn't find a database entry for "Dean2007"
+Warning--I didn't find a database entry for "harris98_N"
+Warning--I didn't find a database entry for "todorov02_NN"
+Warning--I didn't find a database entry for "todorov04_NN"
+Warning--I didn't find a database entry for "todorov05_NC"
+Warning--I didn't find a database entry for "faisal08"
+You've used 4 entries,
             2118 wiz_defined-function locations,
-            590 strings with 5674 characters,
-and the built_in function-call counts, 4097 in all, are:
-= -- 412
-> -- 172
-< -- 1
-+ -- 69
-- -- 56
-* -- 317
-:= -- 689
-add.period$ -- 36
-call.type$ -- 12
-change.case$ -- 63
+            543 strings with 4619 characters,
+and the built_in function-call counts, 1270 in all, are:
+= -- 121
+> -- 66
+< -- 0
++ -- 26
+- -- 22
+* -- 93
+:= -- 227
+add.period$ -- 12
+call.type$ -- 4
+change.case$ -- 22
 chr.to.int$ -- 0
-cite$ -- 12
-duplicate$ -- 140
-empty$ -- 326
-format.name$ -- 56
-if$ -- 841
+cite$ -- 4
+duplicate$ -- 45
+empty$ -- 96
+format.name$ -- 22
+if$ -- 252
 int.to.chr$ -- 0
-int.to.str$ -- 12
-missing$ -- 11
-newline$ -- 63
-num.names$ -- 24
-pop$ -- 46
+int.to.str$ -- 4
+missing$ -- 3
+newline$ -- 23
+num.names$ -- 8
+pop$ -- 22
 preamble$ -- 1
-purify$ -- 52
+purify$ -- 19
 quote$ -- 0
-skip$ -- 95
+skip$ -- 28
 stack$ -- 0
-substring$ -- 331
-swap$ -- 20
-text.length$ -- 1
+substring$ -- 67
+swap$ -- 5
+text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 48
+type$ -- 16
 warning$ -- 0
-while$ -- 43
-width$ -- 14
-write$ -- 134
-(There was 1 error message)
+while$ -- 12
+width$ -- 5
+write$ -- 45
+(There were 9 warnings)

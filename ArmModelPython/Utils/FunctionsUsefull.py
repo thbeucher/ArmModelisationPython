@@ -7,7 +7,7 @@ import os
 from shutil import copyfile
 from posix import remove
 import matplotlib.pyplot as plt
-from ArmModel.GeometricModel import mgi
+from ArmModel.GeometricModel import mgi, mgd
 from scipy.spatial import ConvexHull
 import math
 from Utils.ThetaNormalization import normalization, matrixToVector,\
@@ -407,6 +407,45 @@ def evalCostVariation(sizeT):
         plt.show(block = True)
     
 #evalCostVariation(0.02)
+
+def plotExperimentSetup():
+    fr, rs = initFRRS()
+    q1 = np.linspace(-0.6, 2.6, 100, True)
+    q2 = np.linspace(-0.2, 3, 100, True)
+    posIni = fr.getobjread(rs.experimentFilePosIni)
+    xi, yi = [], []
+    xb, yb = [0], [0]
+    t = 0
+    for el in posIni:
+        if el[1] == np.min(posIni, axis = 0)[1] and t == 0:
+            t += 1
+            a, b = mgi(el[0], el[1], 0.3, 0.35)
+            a1, b1 = mgd(np.array([[a], [b]]), 0.3, 0.35)
+            xb.append(a1[0])
+            xb.append(b1[0])
+            yb.append(a1[1])
+            yb.append(b1[1])
+        xi.append(el[0])
+        yi.append(el[1])
+    pos = []
+    for i in range(len(q1)):
+        for j in range(len(q2)):
+            coordEl, coordHa = mgd(np.array([[q1[i]], [q2[j]]]), 0.3, 0.35)
+            pos.append(coordHa)
+    x, y = [], []
+    for el in pos:
+        x.append(el[0])
+        y.append(el[1])
+    plt.figure()
+    plt.scatter(x, y)
+    plt.scatter(xi, yi, c = 'r')
+    plt.scatter(0, 0.6175, c = "r", marker=u'*', s = 200)
+    plt.plot(xb, yb, c = 'r')
+    plt.plot([-0.3,0.3], [0.6175, 0.6175], c = 'g')
+    plt.show(block = True)
+    
+plotExperimentSetup()
+
 
 
 
