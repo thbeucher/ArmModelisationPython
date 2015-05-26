@@ -32,11 +32,13 @@ def runGenTraj():
     fr, rs = initFRRS()
     cf = LaunchTrajectories(4, rs.sizeOfTarget[3])
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
-    theta = fr.getobjread(nameT + "ThetaX4BIN")
+    theta = fr.getobjread(nameT + "ThetaX0BIN")
     sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-    saveAllDataTrajectories(nameT, sti, meanJu, "RBFN" + str(rs.sizeOfTarget[3]))
+    saveAllDataTrajectories(nameT + "ResShuffleAll/", sti, meanJu, "RBFN" + str(rs.sizeOfTarget[3]))
     print(meanJu)
     print("Fin de generation de trajectoire!")
+    
+#runGenTraj()
     
 def getThetaCma(fr, name):
     theta = fr.getobjread(name)

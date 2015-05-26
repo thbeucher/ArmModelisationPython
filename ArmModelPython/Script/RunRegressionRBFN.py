@@ -30,6 +30,10 @@ def runRBFN(calli = 0):
     state, command = fr.getData(rs.pathFolderTrajectories)
     #change the data (dictionary) into numpy array
     stateAll, commandAll = fr.dicToArray(state), fr.dicToArray(command)
+    np.random.seed(0)
+    np.random.shuffle(stateAll)
+    np.random.seed(0)
+    np.random.shuffle(commandAll)
     print("nombre d'echantillons: ", stateAll.shape[0])
     fa = fa_rbfn(nbfeat)
     fa.setTrainingData(stateAll.T, commandAll.T)
@@ -39,6 +43,8 @@ def runRBFN(calli = 0):
     saveDataRBFN(name, fa.theta)
     t1 = time.time()
     print("Fin du traitement! (temps d'execution:", (t1-t0), "s)")
+    
+#runRBFN()
     
 def runXRBFN():
     x = 5

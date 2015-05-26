@@ -327,6 +327,29 @@ def plotTrajThetaAllTraj():
     
 #plotTrajThetaAllTraj()
 
+def plotRBFNCostMap():
+    fr, rs = initFRRS()
+    x0, y0, z = [], [], []
+    xt = 0
+    name = "RBFN2/" + str(rs.numfeats) + "feats/ResShuffleAll/actiMuscuRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
+    data = fr.getobjread(name)
+    for key, val in data.items():
+        x0.append(float(key.split("//")[0]))
+        y0.append(float(key.split("//")[1]))
+        z.append(np.mean(val))
+    xi = np.linspace(-0.25,0.25,200)
+    yi = np.linspace(0.35,0.5,200)
+    zi = griddata(x0, y0, z, xi, yi)
+    fig = plt.figure()
+    t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+    plt.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
+    plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+    plt.colorbar(t1, shrink=0.5, aspect=5)
+    plt.show(block = True)
+    
+#plotRBFNCostMap()
+    
+
 def plotAllCmaes():
     fr, rs = initFRRS()
     x0, y0, z = {}, {}, {}

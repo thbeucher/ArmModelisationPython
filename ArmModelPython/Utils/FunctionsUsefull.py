@@ -16,6 +16,7 @@ from Optimisation.LaunchTrajectories import LaunchTrajectories
 from matplotlib.mlab import griddata
 from matplotlib import cm
 from Script.RunTrajectories import saveAllDataTrajectories
+import timeit
 
 
 
@@ -444,9 +445,27 @@ def plotExperimentSetup():
     plt.plot([-0.3,0.3], [0.6175, 0.6175], c = 'g')
     plt.show(block = True)
     
-plotExperimentSetup()
+#plotExperimentSetup()
 
 
+def testNPDOT():
+    try:
+        import numpy.core._dotblas
+        print ('FAST BLAS')
+    except ImportError:
+        print ('slow blas')
+     
+    print ("version:", numpy.__version__)
+    #print ("maxint:", sys.maxint)
+    #print
+     
+    x = numpy.random.random((1000,1000))
+     
+    setup = "import numpy; x = numpy.random.random((1000,1000))"
+    count = 5
+     
+    t = timeit.Timer("numpy.dot(x, x.T)", setup=setup)
+    print ("dot:", t.timeit(count)/count, "sec")
 
-
+#testNPDOT()
         

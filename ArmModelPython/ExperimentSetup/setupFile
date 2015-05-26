@@ -1,4 +1,4 @@
-Number of features(int):4
+Number of features(int):3
 Bruit moteur (Y or N):Y
 Valeur de k pour le bruit sur U(float):0.2
 Parametre gamma cost function(float):0.998
