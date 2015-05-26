@@ -108,7 +108,7 @@ The new controller could then be optimized with a stochastic optimization method
 \section{My job}
 First, I have to implement the model of arm and the regression algorithm to learn the new controller from the trajectories generated with the NOPS controller (implemented by Didier Marin in C++ and in Java by Kevin Monfray).
 Secondly, I must use the CMAES algorithm to optimize RBFN controller for different sizes of target.
-Finally, generate various relevant curves and compare them with the curves obtained by a Slovenian colleague who experiment on humans around the same issue.
+Finally, generate various relevant curves and compare them with the curves obtained by Slovenian colleagues, Jan babic and Luka Peternel, who experiment on humans around the same issue.
 
 \chapter{Material and methods}
 
@@ -190,10 +190,10 @@ The rigid-body dynamics equation of a mechanical system is:
 
  \begin{equation}
 \label{eq:rbd}
-    \ddot{q} = \textbf{M}(q)^{-1} (\tau - \textbf{C}(q, \dot{q}) - \textbf{g}(q)  - \textbf{B} \dot{q}) 
+    \boldsymbol{\ddot{q} = M(q)^{-1} (\tau - C(q, \dot{q}) - g(q)  - B \dot{q})} 
 \end{equation}
 
-where $\textbf{q}$ is the current articular position, $\dot{q}$ the current articular speed, $\ddot{q}$ the current articular acceleration, $\textbf{M}$ the inertia matrix, $\textbf{C}$ the Coriolis force vector, $\boldsymbol{\tau}$ the segments torque, $\textbf{g}$ the gravity force vector and $\textbf{B}$ a damping term that contains all unmodelled effects.
+where $\textbf{q}$ is the current articular position, $\boldsymbol{\dot{q}}$ the current articular speed, $\boldsymbol{\ddot{q}}$ the current articular acceleration, $\textbf{M}$ the inertia matrix, $\textbf{C}$ the Coriolis force vector, $\boldsymbol{\tau}$ the segments torque, $\textbf{g}$ the gravity force vector and $\textbf{B}$ a damping term that contains all unmodelled effects.
 Here, $\textbf{g}$ is ignored since the arm is working in the sagittal plane.
 All angles are expressed in radians.
 We can compute the inertia matrix as:
@@ -239,9 +239,59 @@ is computed as $\boldsymbol{\tau} = \textbf{A}^\top ( \textbf{f}_\textbf{max} \t
 \begin{figure*}[hbt]
 \centering
 	\includegraphics[width=0.9\columnwidth]{figures/armWorkspace.png}
-	\caption{The arm workspace. The reachable space is delimited by a spiral-shaped envelope. The two segments of the arm are represented by two green lines. Initial movement positions are represented with red dots organized into four sets of different distances to the target. The screen is represented as a green line positioned at y = 0.6175. The origin of the arm is at x = 0.0, y = 0.0.}
+	\caption{The arm workspace. The reachable space is delimited by a spiral-shaped envelope. The two segments of the arm are represented by two red lines. Initial movement positions are represented with red dots organized into four sets of different distances to the target. The screen is represented as a green line positioned at y = 0.6175. The origin of the arm is at x = 0.0, y = 0.0.}
 	\label{fig:arm_workspace}
 \end{figure*}
+
+The state-space consists of the current articular position $\textbf{q}$ of the arm and its current articular speed $\boldsymbol{\dot{q}}$. The state $\boldsymbol{s = (\dot{q}, q)}$ has a total of 4 dimensions. The initial state is defined by null speed and a variable initial position.
+The positions are bounded to represent the reachable space of a standard human arm, with $q_1 \in$ [-0.6, 2.6] and $q_2 \in$ [-0.2, 3.0], as shown in Figure~\ref{fig:arm_workspace}.
+The action-space consists of an activation signal for each muscle, which also makes a total of 6 dimensions.
+
+When using CMAES, reaching the goal point is replaced by hitting the target on the screen. The target is defined as an interval of varying length around (x = 0, y = 0.6175). The movement is stopped once the line y = 0.6175 has been crossed, and the intersect between the trajectory and this line is computed to determine whether the target was hit. The reward for immediately hitting the target without taking incurred costs into account is set to 300.
+
+In order to train RBFN, we generate trajectories with the NOPS from the initial positions shown in Figure~\ref{fig:arm_workspace} to the goal point.
+The starting points have been organized into four groups of different distances with respect to the goal point (d = 18cm, 20cm, 22cm and 24cm respectively). There are 12 initial positions per distance, thus a total of 48 initial positions.
+
+We measure the dispersion over 100 movements towards this target, as well as the average movement time and average movement cost.
+
+We run 60 iterations of CMAES with a population of 100 and a sigma equal to $1.10^{-6}$ on the RBFN controller for each target.
+
+For all the obtained controllers, we measure again the dispersion over 100 movements, the average movement time and average movement cost.
+
+Finally, for all these targets, we record the velocity profile.
+
+\section{Mathematical formulation of the model}
+\label{sec_modelformulation}
+
+The cost function $J(\vec{u})$ proposed for a control $\vec{u}$ in the model of \cite{rigoux12} is
+
+\begin{equation}
+\label{eq:criterion}
+ J(\vec{u}) = \int_0^{\infty} e^{-t/\gamma} [ \rho R(\vec{s}_t) - \nu L(\vec{u}_t) ] dt
+\end{equation}
+
+where $R(\vec{s}_t)$ is the immediate reward function that equals $1$ at the goal point (also called rewarded state) and is null everywhere else. The function $L(\vec{u}_t)$ is the movement cost. The authors of \cite{rigoux12} take $L(\vec{u}_t) = \|\vec{u}_t\|^2$, as in many motor control models. 
+The continuous-time discount factor $\gamma$ accounts for the ``greediness'' of the controller, i.e. the smaller $\gamma$, the more the agent is focused on short term rewards.
+Finally, $\rho$ is the weight of the reward term and $\nu$ the weight of the effort term.
+In all experiments presented here, based, on the previous work from \cite{rigoux12}, we took $\gamma=0.998$, $\rho=1$ and $\nu=3000$.
+
+A near optimal deterministic policy to solve this problem is obtained through a computationally expensive variation calculus method (see \cite{rigoux_these} for details).
+Given that the policy does not take the presence of noise in the model of the plant into account, 
+the actions must be computed again at each time step depending on the new state reached by the plant
+which further contributes to the cost of the method.
+The controller resulting from this model is called the NOPS (for Near-Optimal Planning System) in the rest of this paper.
+
+Now let us consider the integration of accuracy constraints. Instead of a deterministic controller, the new model is based on a stochastic controller where the rewarded state is reached or not. As a result, the outcome of a large set of movements performed with noise is computed as the value of the reward mutiplied by the probability to obtain it over the different movements. 
+Mathematically, the value multiplied by the probability is called the expectation.
+
+Taking the probability to reach the target into account as described above, the new optimization criterion is written
+
+\begin{equation}
+\label{eq:expectation}
+ J(\vec{u}) = \int_0^{\infty} e^{-t/\gamma} \mathbb{E}[ \rho R(\vec{s}_t) - \nu L(\vec{u}_t) ] dt
+\end{equation}
+
+where $\mathbb{E}[]$ stands for the expectation of the cumulated reward, and $R(\vec{s}_t)$  equals $1$ if the end effector hits the target.
 
 \chapter{Study}
 

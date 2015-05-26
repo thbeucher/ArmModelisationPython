@@ -14,9 +14,10 @@ Warning--I didn't find a database entry for "todorov02_NN"
 Warning--I didn't find a database entry for "todorov04_NN"
 Warning--I didn't find a database entry for "todorov05_NC"
 Warning--I didn't find a database entry for "faisal08"
+Warning--I didn't find a database entry for "rigoux_these"
 You've used 4 entries,
             2118 wiz_defined-function locations,
-            543 strings with 4619 characters,
+            544 strings with 4631 characters,
 and the built_in function-call counts, 1270 in all, are:
 = -- 121
 > -- 66
@@ -55,4 +56,4 @@ warning$ -- 0
 while$ -- 12
 width$ -- 5
 write$ -- 45
-(There were 9 warnings)
+(There were 10 warnings)

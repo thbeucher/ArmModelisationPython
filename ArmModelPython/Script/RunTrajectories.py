@@ -34,7 +34,7 @@ def runGenTraj():
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread(nameT + "ThetaX0BIN")
     sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-    saveAllDataTrajectories(nameT + "ResShuffleAll/", sti, meanJu, "RBFN" + str(rs.sizeOfTarget[3]))
+    saveAllDataTrajectories(nameT + "ResultShuffle/", sti, meanJu, "RBFN" + str(rs.sizeOfTarget[3]))
     print(meanJu)
     print("Fin de generation de trajectoire!")
     
