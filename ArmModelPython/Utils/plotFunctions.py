@@ -21,7 +21,7 @@ from Utils.FileReading import FileReading
 from shutil import copyfile
 from posix import remove
 from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
-    invPosCircle, getTimeDistance
+    invPosCircle, getTimeDistance, getDistPerfSize
 
 
 def costColorPlot(wha):
@@ -469,5 +469,28 @@ def plotFittsLaw():
     
 #plotFittsLaw()
         
+def plotPerfSizeDist():
+    fr, rs = initFRRS()
+    sizeDistPerfTmp = {}
+    for i in range(len(rs.sizeOfTarget)):
+        sizeDistPerfTmp[i] = getDistPerfSize(rs.sizeOfTarget[i])
+    print(sizeDistPerfTmp)
+    distDico = {}
+    for key, val in sizeDistPerfTmp.items():
+        for el in val:
+            if not el[1] in distDico.keys():
+                distDico[el[1]] = []
+            distDico[el[1]].append((el[0], el[2]))
+    print(distDico)
+    plotTab = []
+    plt.figure()
+    plt.ylabel("performance")
+    plt.xlabel("size (mm)")
+    for key in sorted([x for x in distDico.keys()]):
+        plotTab.append(plt.plot([x[0] for x in distDico[key]], [x[1] for x in distDico[key]], label = str("Distance: " + str(key))))
+    plt.legend(loc = 0)
+    plt.show(block = True)
+        
+#plotPerfSizeDist()
         
         

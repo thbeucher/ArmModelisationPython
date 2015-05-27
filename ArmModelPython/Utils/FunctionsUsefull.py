@@ -475,7 +475,7 @@ def testNPDOT():
         
 def getDataScattergram(sizeT):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/hitDispersionBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/hitDispersion-0.05_0.4175BIN"
     coordHit = fr.getobjread(name)
     for key, val in coordHit.items():
         xByPosIni = [x[0] for x in val]
@@ -511,5 +511,63 @@ def plotScattergram():
 
 #plotScattergram()
 
+def getDistPerfSize(sizeT):
+    fr, rs = initFRRS()
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/actiMuscuCmaBIN"
+    data = fr.getobjread(name)
+    DistPerf = {}
+    for key, val in data.items():
+        r, t = invPosCircle(float(key.split("//")[0]), float(key.split("//")[1]))
+        r = round(r, 2)
+        if not r in DistPerf.keys():
+            DistPerf[r] = []
+        DistPerf[r].append(np.mean(val))
+    for key, val in DistPerf.items():
+        DistPerf[key] = np.mean(val)
+    sizeDistPerf = []
+    for key, val in DistPerf.items():
+        sizeDistPerf.append((sizeT, key, val))
+    return sizeDistPerf
+    
+#getDistPerfSize(0.02)
+
+
+def plotScattergram2():
+    fr, rs = initFRRS()
+    data = {}
+    for i in range(len(rs.sizeOfTarget)):
+        data[rs.sizeOfTarget[i]] = getDataScattergram(rs.sizeOfTarget[i])
+    print(data)
+            
+    plt.figure(1, figsize=(16,9))
+    #fig, (ax1, ax2, ax3, ax4) = plt.subplots(len(rs.sizeOfTarget), sharex = True, sharey = True)
+    ax1 = plt.subplot2grid((2,2), (0,0))
+    ax1.hist(data[rs.sizeOfTarget[0]], 20)
+    ax1.plot([-rs.sizeOfTarget[0], -rs.sizeOfTarget[0]], [0, 20], c = 'r', linewidth = 3)
+    ax1.plot([rs.sizeOfTarget[0], rs.sizeOfTarget[0]], [0, 20], c = 'r', linewidth = 3)
+    ax1.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[0])))
+    
+    ax2 = plt.subplot2grid((2,2), (0,1))
+    ax2.hist(data[rs.sizeOfTarget[1]], 20)
+    ax2.plot([-rs.sizeOfTarget[1], -rs.sizeOfTarget[1]], [0, 20], c = 'r', linewidth = 3)
+    ax2.plot([rs.sizeOfTarget[1], rs.sizeOfTarget[1]], [0, 20], c = 'r', linewidth = 3)
+    ax2.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[1])))
+    
+    ax3 = plt.subplot2grid((2,2), (1,0))
+    ax3.hist(data[rs.sizeOfTarget[2]], 20)
+    ax3.plot([-rs.sizeOfTarget[2], -rs.sizeOfTarget[2]], [0, 20], c = 'r', linewidth = 3)
+    ax3.plot([rs.sizeOfTarget[2], rs.sizeOfTarget[2]], [0, 20], c = 'r', linewidth = 3)
+    ax3.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[2])))
+    
+    ax4 = plt.subplot2grid((2,2), (1,1))
+    ax4.hist(data[rs.sizeOfTarget[3]], 20)
+    ax4.plot([-rs.sizeOfTarget[3], -rs.sizeOfTarget[3]], [0, 20], c = 'r', linewidth = 3)
+    ax4.plot([rs.sizeOfTarget[3], rs.sizeOfTarget[3]], [0, 20], c = 'r', linewidth = 3)
+    ax4.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[3])))
+    
+    plt.show(block = True)
+    
+plotScattergram2()
+        
         
 

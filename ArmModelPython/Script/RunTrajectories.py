@@ -90,7 +90,7 @@ def runTrajForScattergram():
         name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfb"
         theta = getThetaCma(fr, name)
         xi, yi = -0.05, 0.4175
-        pt = str(xi) + "//" + str(yi)
+        pt = str(xi) + "_" + str(yi)
         '''posIni = fr.getobjread(rs.experimentFilePosIni)
         plt.figure()
         plt.scatter(xi, yi, c = 'r')
