@@ -17,6 +17,8 @@ from matplotlib.mlab import griddata
 from matplotlib import cm
 from Script.RunTrajectories import saveAllDataTrajectories
 import timeit
+import matplotlib.patches as patches
+from Utils.ReadSetupFile import ReadSetupFile
 
 
 
@@ -160,10 +162,9 @@ def learningFieldRBFN():
     r, ang = [], []
     for el in posIni:
         a, b = invPosCircle(el[0], el[1])
-        if not tronquerNB(a, 3) in r and not (tronquerNB(a, 3) + 0.001) in r and not (tronquerNB(a, 3) - 0.001) in r:
-            r.append(tronquerNB(a, 3))
-        if not tronquerNB(b, 3) in ang:
-            ang.append(tronquerNB(b, 3))
+        a, b = round(a, 2), round(b, 3)
+        r.append(a)
+        ang.append(b)
     
     #print(r)
     #print(ang)
@@ -171,12 +172,14 @@ def learningFieldRBFN():
     sx, sy = [], []
     for key, val in xy.items():
         rr, tt = invPosCircle(val[0], val[1])
+        rr, tt = round(rr, 2), round(tt, 3)
         if rr <= (np.max(r) + (abs(r[1] - r[0]))) and rr >= (np.min(r) - (r[1] - r[0])) and tt >= (np.min(ang) - abs(ang[1] - ang[0])) and tt <= (np.max(ang) + abs(ang[1] - ang[0])):
             sx.append(val[0])
             sy.append(val[1])
         else:
-            copyfile(rs.pathFolderTrajectories + key, rs.pathFolderData + "/trajNotUsedTmp/" + key)
-            remove(rs.pathFolderTrajectories + key)
+            pass
+            #copyfile(rs.pathFolderTrajectories + key, rs.pathFolderData + "/trajNotUsedTmp/" + key)
+            #remove(rs.pathFolderTrajectories + key)
     
     plt.figure()
     plt.scatter(x, y, c = 'b')
@@ -195,12 +198,13 @@ def learningFieldRBFNSquare():
     xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
     sx, sy = [], []
     for key, val in xy.items():
-        if val[0] <= (np.max(x) + 0.05) and val[0] >= (np.min(x) - 0.05) and val[1] >= (np.min(y) - 0.02):
+        if val[0] <= (np.max(x) + 0.02) and val[0] >= (np.min(x) - 0.02) and val[1] >= (np.min(y) - 0.01) and val[1] <= (np.max(y) + 0.02):
             sx.append(val[0])
             sy.append(val[1])
         else:
-            copyfile(rs.pathFolderTrajectories + key, rs.pathFolderData + "/trajNotUsedTmp/" + key)
-            remove(rs.pathFolderTrajectories + key)
+            pass
+            #copyfile(rs.pathFolderTrajectories + key, rs.pathFolderData + "/trajNotUsedTmp/" + key)
+            #remove(rs.pathFolderTrajectories + key)
     
     plt.figure()
     plt.scatter(x, y, c = 'b')
@@ -469,3 +473,43 @@ def testNPDOT():
 
 #testNPDOT()
         
+def getDataScattergram(sizeT):
+    fr, rs = initFRRS()
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/hitDispersionBIN"
+    coordHit = fr.getobjread(name)
+    for key, val in coordHit.items():
+        xByPosIni = [x[0] for x in val]
+    print(xByPosIni)
+    '''cutInter = np.linspace(np.min(xByPosIni), np.max(xByPosIni), 5)
+    hitZone = [0, 0, 0, 0, 0]
+    for el in xByPosIni:
+        if el >= cutInter[0] and el < cutInter[1]:
+            hitZone[0] += 1
+        elif el >= cutInter[1] and el < cutInter[2]:
+            hitZone[1] += 1
+        elif el >= cutInter[2] and el < cutInter[3]:
+            hitZone[2] += 1
+        elif el >= cutInter[3] and el <= cutInter[4]:
+            hitZone[3] += 1
+    print(hitZone)'''
+    return xByPosIni
+    
+    
+def plotScattergram():
+    rs = ReadSetupFile()
+    s = 0
+    for i in range(len(rs.sizeOfTarget)):
+        dataTmp = getDataScattergram(rs.sizeOfTarget[i])
+        if s == 0:
+            s += 1
+            data = np.asarray(dataTmp)
+        else:
+            data = np.hstack((data, np.asarray(dataTmp)))
+    plt.figure()
+    plt.hist(data, 20)
+    plt.show(block = True)
+
+#plotScattergram()
+
+        
+

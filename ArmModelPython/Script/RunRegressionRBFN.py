@@ -44,7 +44,7 @@ def runRBFN(calli = 0):
     t1 = time.time()
     print("Fin du traitement! (temps d'execution:", (t1-t0), "s)")
     
-#runRBFN(7)
+#runRBFN(0)
     
 def runXRBFN():
     x = 5

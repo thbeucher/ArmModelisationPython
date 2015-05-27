@@ -331,7 +331,7 @@ def plotRBFNCostMap():
     fr, rs = initFRRS()
     x0, y0, z = [], [], []
     xt = 0
-    name = "RBFN2/" + str(rs.numfeats) + "feats/ResultShuffle/actiMuscuRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
+    name = "RBFN2/" + str(rs.numfeats) + "feats/ResShuffleAll/actiMuscuRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
     data = fr.getobjread(name)
     for key, val in data.items():
         x0.append(float(key.split("//")[0]))

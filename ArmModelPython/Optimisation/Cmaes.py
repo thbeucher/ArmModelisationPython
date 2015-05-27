@@ -69,7 +69,7 @@ def procUse(sizeT):
     print("Debut du traitement d'optimisation! (" + str(sizeT) + ")")
     t0 = time.time()
     #Récupération des theta
-    namec = "RBFN2/" + str(nbfeat) + "feats/ThetaX4BIN"
+    namec = "RBFN2/" + str(nbfeat) + "feats/ThetaX7BIN"
     theta = fr.getobjread(namec)
     thetaN = normalization(theta)#Recuperation des theta normalises
     #Mise sous forme de vecteur simple
@@ -95,8 +95,8 @@ def procUse(sizeT):
         for el in os.listdir(rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeT) + "/"):
             if "thetaSol" in el:
                 a += 1
-        nameS += "cfb" + str(a)
-        nameSB += "cfb" + str(a)
+        nameS += "cfbm" + str(a)
+        nameSB += "cfbm" + str(a)
     fileSavingStr(nameS, resSO[0])
     fileSavingBin(nameSB, resSO[0])
     fileSavingStr("OptimisationResults/CmaesRes" + str(sizeT), resSO)

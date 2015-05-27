@@ -273,13 +273,13 @@ The cost function $J(\vec{u})$ proposed for a control $\vec{u}$ in the model of 
 where $R(\vec{s}_t)$ is the immediate reward function that equals $1$ at the goal point (also called rewarded state) and is null everywhere else. The function $L(\vec{u}_t)$ is the movement cost. The authors of \cite{rigoux12} take $L(\vec{u}_t) = \|\vec{u}_t\|^2$, as in many motor control models. 
 The continuous-time discount factor $\gamma$ accounts for the ``greediness'' of the controller, i.e. the smaller $\gamma$, the more the agent is focused on short term rewards.
 Finally, $\rho$ is the weight of the reward term and $\nu$ the weight of the effort term.
-In all experiments presented here, based, on the previous work from \cite{rigoux12}, we took $\gamma=0.998$, $\rho=1$ and $\nu=3000$.
+In all experiments presented here, based, on the previous work from \cite{rigoux12}, we took $\gamma=0.998$, $\rho=300$ and $\nu=1$.
 
 A near optimal deterministic policy to solve this problem is obtained through a computationally expensive variation calculus method (see \cite{rigoux_these} for details).
 Given that the policy does not take the presence of noise in the model of the plant into account, 
 the actions must be computed again at each time step depending on the new state reached by the plant
 which further contributes to the cost of the method.
-The controller resulting from this model is called the NOPS (for Near-Optimal Planning System) in the rest of this paper.
+The controller resulting from this model is called the NOPS (for Near-Optimal Planning System).
 
 Now let us consider the integration of accuracy constraints. Instead of a deterministic controller, the new model is based on a stochastic controller where the rewarded state is reached or not. As a result, the outcome of a large set of movements performed with noise is computed as the value of the reward mutiplied by the probability to obtain it over the different movements. 
 Mathematically, the value multiplied by the probability is called the expectation.
@@ -292,6 +292,12 @@ Taking the probability to reach the target into account as described above, the 
 \end{equation}
 
 where $\mathbb{E}[]$ stands for the expectation of the cumulated reward, and $R(\vec{s}_t)$  equals $1$ if the end effector hits the target.
+
+\section{Learning method, RBFN controller}
+\label{sec_rbfn}
+Regression is the process of learning relationships between inputs and continuous outputs from example data, which enables predictions for novel inputs.
+The history of regression is closely related to the history of artificial neural networks since the seminal work of Rosenblatt (1958).
+There are many regression algorithms, in our case we use the \textit{Regression with Radial Basis Function Networks} (RBFNs).
 
 \chapter{Study}
 

@@ -11,6 +11,8 @@ from Optimisation.LaunchTrajectories import LaunchTrajectories
 from Utils.ThetaNormalization import vectorToMatrix, unNorm
 import matplotlib.pyplot as plt
 from Utils.InitUtil import initFRRS
+import math
+from Main.GenerateTrajectory import GenerateTrajectory
     
 def saveDataTrajectories(nameFile, data):
     fileSavingStr(nameFile, data)
@@ -32,9 +34,9 @@ def runGenTraj():
     fr, rs = initFRRS()
     cf = LaunchTrajectories(4, rs.sizeOfTarget[3])
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
-    theta = fr.getobjread(nameT + "ThetaX0BIN")
+    theta = fr.getobjread(nameT + "ThetaX7BIN")
     sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-    saveAllDataTrajectories(nameT + "ResultShuffle/", sti, meanJu, "RBFN" + str(rs.sizeOfTarget[3]))
+    saveAllDataTrajectories(nameT + "ResShuffleAll/", sti, meanJu, "RBFN" + str(rs.sizeOfTarget[3]))
     print(meanJu)
     print("Fin de generation de trajectoire!")
     
@@ -77,5 +79,33 @@ def plotTargetUnreach(sti):
     plt.scatter(x0, y0, c = 'b')
     plt.scatter(x, y, c = 'r')
     plt.show(block = True)
+    
+def saveHitDisp(nameSave, sti, pt):
+    saveDataTrajectories(nameSave + "hitDispersion" + pt, sti.lastCoord)
+
+def runTrajForScattergram():
+    fr, rs = initFRRS()
+    for i in range(len(rs.sizeOfTarget)):
+        print("Trajectories generation for target ", rs.sizeOfTarget[i])
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfb"
+        theta = getThetaCma(fr, name)
+        xi, yi = -0.05, 0.4175
+        pt = str(xi) + "//" + str(yi)
+        '''posIni = fr.getobjread(rs.experimentFilePosIni)
+        plt.figure()
+        plt.scatter(xi, yi, c = 'r')
+        plt.scatter([x[0] for x in posIni], [x[1] for x in posIni], c = 'b')
+        plt.show()'''
+        for i in range(4):
+            sti = GenerateTrajectory(4, rs.sizeOfTarget[i])
+            for j in range(1000):
+                sti.generateTrajectories(xi, yi, theta)
+            nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb/"
+            saveHitDisp(nameSave, sti, pt)
+            sti.initSaveData()
+        print("End of generation !")
+        
+#runTrajForScattergram()
+
     
     
