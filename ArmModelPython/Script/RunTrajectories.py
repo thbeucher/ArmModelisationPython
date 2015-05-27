@@ -89,21 +89,20 @@ def runTrajForScattergram():
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
         name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfb"
         theta = getThetaCma(fr, name)
-        xi, yi = -0.05, 0.4175
+        xi, yi = 0.1, 0.4175
         pt = str(xi) + "_" + str(yi)
         '''posIni = fr.getobjread(rs.experimentFilePosIni)
         plt.figure()
         plt.scatter(xi, yi, c = 'r')
         plt.scatter([x[0] for x in posIni], [x[1] for x in posIni], c = 'b')
         plt.show()'''
-        for i in range(4):
-            sti = GenerateTrajectory(4, rs.sizeOfTarget[i])
-            for j in range(1000):
-                sti.generateTrajectories(xi, yi, theta)
-            nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb/"
-            saveHitDisp(nameSave, sti, pt)
-            sti.initSaveData()
-        print("End of generation !")
+        sti = GenerateTrajectory(4, rs.sizeOfTarget[i])
+        for j in range(1000):
+            sti.generateTrajectories(xi, yi, theta)
+        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb/"
+        saveHitDisp(nameSave, sti, pt)
+        sti.initSaveData()
+    print("End of generation !")
         
 #runTrajForScattergram()
 
