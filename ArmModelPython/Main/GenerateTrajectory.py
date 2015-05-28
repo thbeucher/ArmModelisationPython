@@ -137,7 +137,7 @@ class GenerateTrajectory:
         q = np.array([[q1], [q2]])
         dotq = self.armD.get_dotq_0()
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
-        #self.save.SaveTrajectory(coordEL, coordHA)
+        self.save.SaveTrajectory(coordEL, coordHA)
         t, i, Ju = 0, 0, 0#Ju = cost
         #Name used to save Data
         self.name1, self.name2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
@@ -151,12 +151,12 @@ class GenerateTrajectory:
                 inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
                 #get the muscular activation
                 U = self.getCommand(inputQ, theta)
-                #self.speedSave[self.name2].append((dotq[0,0], dotq[1,0]))
+                self.speedSave[self.name2].append((dotq[0,0], dotq[1,0]))
                 ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
                 q = jointStop(q)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
                 #Saving data B
-                #self.saveDataB(U, coordEL, coordHA)
+                self.saveDataB(U, coordEL, coordHA)
                 Ju = self.costComputation(Ju, U, t)
             else:
                 break

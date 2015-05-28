@@ -41,6 +41,18 @@ def runGenTraj():
     print("Fin de generation de trajectoire!")
     
 #runGenTraj()
+
+def runTrajTest():
+    print("Start trajectories generation !")
+    fr, rs = initFRRS()
+    cf = LaunchTrajectories(4, rs.sizeOfTarget[3])
+    name = "/home/beucher/Desktop/runRBFN/RBFN/RBFN2/4feats/"
+    theta = np.loadtxt(name + "ThetaX42")
+    sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
+    saveAllDataTrajectories(name + "Res42/", sti, meanJu, "RBFN" + str(rs.sizeOfTarget[3]))
+    print("End of generation !")
+    
+#runTrajTest()
     
 def getThetaCma(fr, name):
     theta = fr.getobjread(name)

@@ -21,7 +21,7 @@ def fileSaving(nameFile, data, nbfeat):
         monPickler = pickle.Pickler(file)
         monPickler.dump(data)
         
-def fileSavingStr(nameFile, data):
+def fileSavingStr(nameFile, data, loc = 0):
     '''
     Cette fonction permet d'enregistrer les donnees sous format str
     
@@ -30,11 +30,14 @@ def fileSavingStr(nameFile, data):
                 
     '''
     rs = ReadSetupFile()
-    nameToSave = rs.pathFolderData + nameFile
+    if loc == 0:
+        nameToSave = rs.pathFolderData + nameFile
+    else:
+        nameToSave = nameFile
     with open(nameToSave, "w") as file:
         file.write(str(data))
 
-def fileSavingBin(nameFile, data):
+def fileSavingBin(nameFile, data, loc = 0):
     '''
     Cette fonction permet d'enregistrer les donnees sous format binaire
     
@@ -43,7 +46,10 @@ def fileSavingBin(nameFile, data):
                 
     '''
     rs = ReadSetupFile()
-    nameToSave = rs.pathFolderData + nameFile
+    if loc == 0:
+        nameToSave = rs.pathFolderData + nameFile
+    else:
+        nameToSave = nameFile
     with open(nameToSave, "wb") as file:
         monPickler = pickle.Pickler(file)
         monPickler.dump(data)

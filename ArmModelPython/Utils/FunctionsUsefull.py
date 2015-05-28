@@ -475,23 +475,10 @@ def testNPDOT():
         
 def getDataScattergram(sizeT):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/hitDispersion-0.05_0.4175BIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/hitDispersion0.1_0.4175BIN"
     coordHit = fr.getobjread(name)
     for key, val in coordHit.items():
         xByPosIni = [x[0] for x in val]
-    print(xByPosIni)
-    '''cutInter = np.linspace(np.min(xByPosIni), np.max(xByPosIni), 5)
-    hitZone = [0, 0, 0, 0, 0]
-    for el in xByPosIni:
-        if el >= cutInter[0] and el < cutInter[1]:
-            hitZone[0] += 1
-        elif el >= cutInter[1] and el < cutInter[2]:
-            hitZone[1] += 1
-        elif el >= cutInter[2] and el < cutInter[3]:
-            hitZone[2] += 1
-        elif el >= cutInter[3] and el <= cutInter[4]:
-            hitZone[3] += 1
-    print(hitZone)'''
     return xByPosIni
     
     
@@ -567,7 +554,7 @@ def plotScattergram2():
     
     plt.show(block = True)
     
-plotScattergram2()
+#plotScattergram2()
         
         
 
