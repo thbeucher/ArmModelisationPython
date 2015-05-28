@@ -322,10 +322,15 @@ In contrast, (\ref{eq_rbfnw}) is non-linear in the input \textbf{x}, but it is s
 To conclude the theoretical part, non-linear regression can be achieved by using a set of basis functions to project the input space into a feature space, and to perform LLS in the feature space. The result is a weighted sum of linear models, where the models are the basis functions, and where the weights \textbf{w} are determined by a single linear regression. An example of such a model is a radial basis function network. 
 
 \subsection{Implementation}
-The RBFN algorithm is implemented in the fa\_rbfn class, see the code in~\ref{sec_rbfnCode}.
+The RBFN algorithm is implemented in the class fa\_rbfn, see the code in~\ref{sec_rbfnCode}.
 
 
 \section{Optimisation, CMAES controller}
+After obtaining the RBFN controller, the purpose is to create optimized controllers for different sizes of target.
+
+We use in this part the CMA-ES(Covariance Matrix Adaptation Evolution Strategy) algorithm implemented in the python module cma.
+
+CMA-ES searches for a minimizer (a solution x in $R^n$) of an objective function f (cost function), such that f(x) is minimal. Regarding f, only a passably reliable ranking of the candidate solutions in each iteration is necessary. Neither the function values itself, nor the gradient of f need to be available or do matter (like in the downhill simplex Nelder-Mead algorithm). Some termination criteria however depend on actual f-values.
 
 \chapter{Study}
 
