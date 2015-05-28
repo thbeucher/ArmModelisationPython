@@ -332,6 +332,8 @@ def plotRBFNCostMap():
     x0, y0, z = [], [], []
     xt = 0
     name = "RBFN2/" + str(rs.numfeats) + "feats/ResShuffleAll/actiMuscuRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
+    #name = "/home/beucher/Desktop/runRBFN/RBFN/RBFN2/4feats/Res42/actiMuscuRBFN0.1BIN"
+    #data = fr.getobjread(name, 1)
     data = fr.getobjread(name)
     for key, val in data.items():
         x0.append(float(key.split("//")[0]))

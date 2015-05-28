@@ -26,7 +26,7 @@ class FileReading():
         self.theta_store = {}
     
     
-    def getobjread(self, name):
+    def getobjread(self, name, loc = 0):
         '''
         Fonction permettant de recuperer les donnees d'un fichier
         
@@ -35,8 +35,10 @@ class FileReading():
         Sorties: les donnees du fichier
         '''
         rs = ReadSetupFile()
-        rs.readingSetupFile()
-        namet = rs.pathFolderData + name
+        if loc == 0:
+            namet = rs.pathFolderData + name
+        else:
+            namet = name
         with open(namet, "rb") as file:
                 mondepickler = pickle.Unpickler(file)
                 data = mondepickler.load()
