@@ -17,9 +17,9 @@ class fa_rbfn():
     def __init__(self, nbFeature):
         '''
         Initializes class parameters
-        
+
         Input:     -nbFeature: int, number of feature in order to perform the regression
-        
+
         '''
         self.nbFeat = nbFeature
         self.title = "rbfn"
@@ -32,16 +32,12 @@ class fa_rbfn():
         Input:      -inputdata, numpy N-D array
                     -outputData, numpy N-D array
         '''
-        #inputData = normData(inputData)
-        #inputData = normDataForEachIndividualColumns(inputData)
-        #outputData = normDataForEachIndividualColumns(outputData)
-        
         self.inputData = inputData
         self.outputData = outputData
-        #Recuperation des dimensions d'entrees et de sorties ainsi que le nombre de samples
+	#Getting input and output dimensions and number of samples
         self.inputDimension, numberOfInputSamples = np.shape(inputData)
         self.outputDimension, numberOfOutputSamples = np.shape(outputData)
-        #Verification du nombre de samples pour l'entree et la sortie
+	#check if there are the same number of samples for input and output data
         assert(numberOfInputSamples == numberOfOutputSamples), "Number of samples not equal for output and input"
         self.numberOfSamples = numberOfInputSamples
         self.theta = np.zeros((self.nbFeat, self.outputDimension))
@@ -51,38 +47,36 @@ class fa_rbfn():
         for i in range(At.shape[0]):
             for j in range(At.shape[1]):
                 A[i,j] = At[i,j]
-        print("end A")
         
     def computeb(self, b, fop):
         bt = np.dot(fop, self.outputData.T)
         for i in range(bt.shape[0]):
             for j in range(bt.shape[1]):
                 b[i,j] = bt[i,j]
-        print("end B")
     
     def train_rbfn(self):
         '''
         Defines the training function to find solution of the approximation
         
         '''
-        #A = np.dot(self.computeFeatureWeight(self.inputData.T), self.computeFeatureWeight(self.inputData.T).T)
-        #b = np.dot(self.computeFeatureWeight(self.inputData.T), self.outputData.T)
         fop = self.computeFeatureWeight(self.inputData.T)
         n = self.nbFeat**self.inputDimension
+	#creation of the shared objects between process
         AshareObj = Array(ct.c_double, n*n)
         bshareObj = Array(ct.c_double, n*self.outputDimension)
+	#link shared object to a numpy object
         AnumpyShare = np.frombuffer(AshareObj.get_obj())
         bnumpyShare = np.frombuffer(bshareObj.get_obj())
+	#Reshaping of the numpy object to obtain an array with the dimension desired
         A = AnumpyShare.reshape((n, n))
         b = bnumpyShare.reshape((n, self.outputDimension))
+	#creation of the different processes
         p1 = Process(target=self.computeA, args=(A, fop))
         p2 = Process(target=self.computeb, args=(b, fop))
         p1.start()
         p2.start()
         p1.join()
         p2.join()
-        #A = np.dot(fop, fop.T)
-        #b = np.dot(fop, self.outputData.T)
         self.theta = np.dot(np.linalg.pinv(A), b)
        
     def setCentersAndWidths(self):
@@ -91,39 +85,24 @@ class fa_rbfn():
         Uses linspace to evenly distribute the features.
         
         '''
-        #Recupere les minimums et maximum dans les donnees d'entrees
+	#get max and min of the input data
         minInputData = np.min(self.inputData, axis = 1)
         maxInputData = np.max(self.inputData, axis = 1)
         rangeForEachDim = maxInputData - minInputData
-        #Fixe les sigmas
+	#set the sigmas
         widthConstant = rangeForEachDim / self.nbFeat
-        #print("widths: ", widthConstant, "\nMeanWidth: ", np.mean(widthConstant))
-        #cree la matrice diagonales des sigmas pour le calcul de la gaussienne
+	#create the diagonal matrix of sigmas to compute the gaussian
         self.widths = np.diag(widthConstant)
-        self.norma = 1/np.sqrt(((2*np.pi)**self.inputDimension)*np.linalg.det(self.widths)) #coef for gaussian
+	#coef for gaussian
+        self.norma = 1/np.sqrt(((2*np.pi)**self.inputDimension)*np.linalg.det(self.widths)) 
         linspaceForEachDim = []
-        #Fixe le nombre de gaussienne utilisees et les reparties selon chaques dimensions
+	#set the number of gaussian used and allocate them in each dimensions
         for i in range(self.inputDimension):
             linspaceForEachDim.append(np.linspace(minInputData[i], maxInputData[i], self.nbFeat))
-            #linspaceForEachDim.append(np.linspace(minInputData[i] + widthConstant[i], maxInputData[i] - widthConstant[i], self.nbFeat))
-        #Permet de recuperer une matrice contenant toutes les combinaisons possibles pour trouver chaque centre
+	#get matrix with all the possible combinations to find each centers
         self.centersInEachDimensions = cartesian(linspaceForEachDim)
-        
-        '''print(maxInputData, "\n", minInputData)
-        cx, cy = [], []
-        for i in range(self.centersInEachDimensions.shape[0]):
-            cx.append(self.centersInEachDimensions[i,2])
-            cy.append(self.centersInEachDimensions[i,3])
-        print(cx, "\n", cy)
-        plt.figure()
-        plt.scatter(self.centersInEachDimensions.T[2], self.centersInEachDimensions.T[3], c = 'b')
-        for i in range(len(cx)):
-            plt.Circle((cx[i], cy[i]), widthConstant[2], color = 'r')
-            plt.Circle((cx[i], cy[i]), widthConstant[3], color = 'b')
-        plt.show(block = True)'''
     
     def computeFeatureWeight(self, inputData):
-#Thomas: renommer (verbe + complement)
         '''
         Computates Gaussian parameters
         
@@ -131,14 +110,14 @@ class fa_rbfn():
         
         Output:    -phi: numpy N-D array
         '''
-        #Si il n'y a qu'un seul echantillon
+	#if only one sample
         if inputData.shape[1] == 1:
             x_u = inputData - self.centersInEachDimensions.T
             x_u_s = np.dot(x_u.T, np.linalg.pinv(self.widths))
             x = x_u_s * (x_u.T)
             xf = np.sum(x, axis = 1)
             phi = self.norma*np.exp(-0.5*xf)
-        #Si il y en a plusieurs (echantillons)
+	#if more than one sample
         else:
             for i in range(inputData.shape[0]):
                 x_u = np.array([inputData[i]]).T - self.centersInEachDimensions.T

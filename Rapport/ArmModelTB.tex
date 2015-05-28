@@ -322,6 +322,9 @@ In contrast, (\ref{eq_rbfnw}) is non-linear in the input \textbf{x}, but it is s
 To conclude the theoretical part, non-linear regression can be achieved by using a set of basis functions to project the input space into a feature space, and to perform LLS in the feature space. The result is a weighted sum of linear models, where the models are the basis functions, and where the weights \textbf{w} are determined by a single linear regression. An example of such a model is a radial basis function network. 
 
 \subsection{Implementation}
+The RBFN algorithm is implemented in the following class:
+
+\lstinputlisting[language=Python, firstline=15, lastline=150, breaklines=true, numbers=left, firstnumber=15, showstringspaces=false]{codePython/functionApproximator_RBFN.py}
 
 \chapter{Study}
 
