@@ -322,9 +322,10 @@ In contrast, (\ref{eq_rbfnw}) is non-linear in the input \textbf{x}, but it is s
 To conclude the theoretical part, non-linear regression can be achieved by using a set of basis functions to project the input space into a feature space, and to perform LLS in the feature space. The result is a weighted sum of linear models, where the models are the basis functions, and where the weights \textbf{w} are determined by a single linear regression. An example of such a model is a radial basis function network. 
 
 \subsection{Implementation}
-The RBFN algorithm is implemented in the following class:
+The RBFN algorithm is implemented in the fa\_rbfn class, see the code in~\ref{sec_rbfnCode}.
 
-\lstinputlisting[language=Python, firstline=15, lastline=150, breaklines=true, numbers=left, firstnumber=15, showstringspaces=false]{codePython/functionApproximator_RBFN.py}
+
+\section{Optimisation, CMAES controller}
 
 \chapter{Study}
 
@@ -364,6 +365,8 @@ $\ddot{q}$ & current articular acceleration ($rad.s^{-2}$)\\
 \label{arm_model_params}
 \end{table}
 
+\pagebreak
+
 \begin{table}[hbt]
 \caption{Parameters of the arm.}
 \begin{center}
@@ -399,6 +402,7 @@ $\textbf{a}_{\textbf{12}}$ & moment arm matrix & -0.035\\
 \label{ArmParamTable}
 \end{table}
 
+
 \begin{table}[hbt]
 \caption{Parameters of the muscles.}
 \begin{center}
@@ -415,6 +419,12 @@ $\textbf{f}_{\textbf{max6}}$ & Maximum force exerted by the double-joints extens
 \end{center}
 \label{MuscleParamTable}
 \end{table}
+
+\pagebreak
+
+\section{RBFN implementation}
+\label{sec_rbfnCode}
+\lstinputlisting[language=Python, firstline=15, lastline=150, breaklines=true, numbers=left, firstnumber=15, showstringspaces=false]{codePython/functionApproximator_RBFN.py}
 
 \bibliographystyle{abbrv}
 \bibliography{twoDarm,robotica12,accuracy}
