@@ -295,9 +295,33 @@ where $\mathbb{E}[]$ stands for the expectation of the cumulated reward, and $R(
 
 \section{Learning method, RBFN controller}
 \label{sec_rbfn}
+
+\subsection{History and theory}
 Regression is the process of learning relationships between inputs and continuous outputs from example data, which enables predictions for novel inputs.
 The history of regression is closely related to the history of artificial neural networks since the seminal work of Rosenblatt (1958).
 There are many regression algorithms, in our case we use the \textit{Regression with Radial Basis Function Networks} (RBFNs).
+
+Instead of differently weighting each input sample, as in weighted linear least squares and LWR, an alternative extension to LLS is to project each input sample into a higher-dimensional feature space using a set of basis functions.
+Thus, instead of a linear function model $f(x) = a^Tx = \sum_{d=1}^{D}a_d.x_d$ we now have
+\begin{equation}
+	f(x) = \sum_{e=1}^{E}a_e.\Phi(x, \theta_e)
+\end{equation}
+Here, a is no longer of size D x 1 (with D the dimensionality of the input examples) but rather E x 1 (with E the number of basis functions).
+In the literature, it is more customary to use \textbf{w} ('weights') instead of a:
+\begin{equation}
+\label{eq_rbfnw}
+	f(x) = \sum_{e=1}^{E}w_e.\Phi(x, \theta_e)
+\end{equation}
+This model is a weighted sum of basis functions. The term \textit{basis function} is used because the subfunctions $\Phi(x, \theta_e)$ are the 'building blocks', or 'basis', from which $f(x)$ is constructed.
+
+When the basis functions are radial, it is called a Radial Basis Function Network (RBFN). This means that the output of the basis function depends only on the distance to a center, i.e. $\Phi(\left\Vert x - c\right\Vert)$. A frequently used radial basis function is a Gaussian function.
+
+In a linear model $f(x) = a^Tx$, the model is linear in the parameters \textbf{a} and linear in the input \textbf{x}.
+In contrast, (\ref{eq_rbfnw}) is non-linear in the input \textbf{x}, but it is still linear in the parameters \textbf{w}. Thus, we can readily apply LLS to acquire the parameters \textbf{w}, even if the resulting function $f(x)$ is not linear.
+
+To conclude the theoretical part, non-linear regression can be achieved by using a set of basis functions to project the input space into a feature space, and to perform LLS in the feature space. The result is a weighted sum of linear models, where the models are the basis functions, and where the weights \textbf{w} are determined by a single linear regression. An example of such a model is a radial basis function network. 
+
+\subsection{Implementation}
 
 \chapter{Study}
 
