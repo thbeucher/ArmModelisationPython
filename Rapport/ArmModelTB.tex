@@ -51,7 +51,7 @@ Using this computational model, we investigate the more global trade-off arising
 
 \chapter{Introduction}
 
-This report is about my internship at ISIR (Institut des Systèmes Intelligents et de Robotique) covering a period of five months from February to July 2015.
+This report is about my internship at ISIR covering a period of five months from February to July 2015.
 \linebreak 
 \linebreak
 \linebreak
@@ -100,7 +100,7 @@ As a matter of fact, in the models of \cite{shadmehr10} and \cite{rigoux12}, the
 As a result, the reward and muscular activation terms in the optimization criterion proposed in \cite{rigoux12} are replaced by reward and cost expectation terms. Considering expectation is a way to account for the fact that, in case of a miss, one would not get the reward, so the global outcome of the movement would only consist of its incurred cost. 
 
 \section{Previous work}
-I used a code, written by Didier Marin (a PhD student at ISIR), which implement a model based on optimal control called NOPS but it is very time consuming.
+I used a code, written by Kevin Monfray (a trainee at ISIR), which implement a model based on optimal control called NOPS but it is very time consuming.
 To reduce the computation time, Olivier Sigaud decided to try to learn the NOPS controller using a regression algorithm.
 So I generated trajectories using the NOPS controller then I used the regression algorithm called RBFN(Radial Basis Function Networks) to learn the new controller from these trajectories.
 The new controller could then be optimized with a stochastic optimization method called CMAES(Covariance Matrix Adaptation Evolution Strategy).
@@ -216,7 +216,7 @@ The computation of the torque $\tau$ exerted on the system given an input muscul
 
 Equation~\ref{eq:rbd} is implemented in the class \textit{ArmDynamics} line 57:
 \lstinputlisting[language=Python, firstline=57, lastline=57, breaklines=true, numbers=left, firstnumber=57]{codePython/ArmDynamics.py}
-where \textit{np} refere to the numpy library in python.
+where \textit{np} refers to the numpy library in python.
 We also find in this class all elements of Equation~\ref{eq:rbd}:
 \lstinputlisting[language=Python, firstline = 44, lastline = 54, breaklines=true,numbers=left, firstnumber=44]{codePython/ArmDynamics.py}
 
@@ -330,7 +330,6 @@ After obtaining the RBFN controller, the purpose is to create optimized controll
 
 We use in this part the CMA-ES(Covariance Matrix Adaptation Evolution Strategy) algorithm implemented in the python module cma.
 
-CMA-ES searches for a minimizer (a solution x in $R^n$) of an objective function f (cost function), such that f(x) is minimal. Regarding f, only a passably reliable ranking of the candidate solutions in each iteration is necessary. Neither the function values itself, nor the gradient of f need to be available or do matter (like in the downhill simplex Nelder-Mead algorithm). Some termination criteria however depend on actual f-values.
 
 \chapter{Study}
 
