@@ -108,7 +108,7 @@ class GenerateTrajectory:
         if not self.name2 in self.coordEndEffector:
             self.coordEndEffector[self.name2] = []
     
-    def saveDataB(self, U, coordEL, coordHA, inputQ):
+    def saveDataB(self, U, coordEL, coordHA, inputQ, dotq):
         '''
         Saves data which changes during the loop in generateTrajectories
         '''
@@ -116,6 +116,7 @@ class GenerateTrajectory:
         self.save.SaveTrajectory(coordEL, coordHA)
         self.stateAndCommand[self.name2].append((inputQ, U))
         self.coordEndEffector[self.name2].append(coordHA)
+        self.speedSave[self.name2].append((dotq[0,0], dotq[1,0]))
     
     def saveDataf(self, coordHA, i, Ju):
         '''
@@ -124,6 +125,59 @@ class GenerateTrajectory:
         self.lastCoord[self.name2].append(coordHA)
         self.IteSave[self.name2].append(i)
         self.actiMuscuSave[self.name2].append(Ju)
+        
+    def transition_function(self, inputQ):
+        '''
+        transition_functions[t] is a function of the state and the transition noise at time t 
+        and produces the state at time t+1
+        
+        Input:     -inputQ: numpy array (state_dimension, ), the state vector s at time t (dotq1, dotq2, q1, q2)
+        
+        Output:    -outputQ: numpy array (state_dimension, ), the state vector at time t+1
+        '''
+        dotq, q = self.getDotQAndQFromStateVectorS(inputQ)
+        U = self.getCommand(inputQ, self.theta)
+        ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
+        q = jointStop(q)
+        outputQ = self.createStateVector(dotq, q)
+        #saving data
+        coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
+        self.saveDataB(U, coordEL, coordHA, outputQ, dotq)
+        #compute cost
+        self.Ju = self.costComputation(self.Ju, U, self.t)
+        return outputQ
+    
+    def observation_function(self):
+        '''
+        observation_functions[t] is a function of the state and the observation noise at time t 
+        and produces the observation at time t
+        '''
+        pass
+    
+    def createStateVector(self, dotq, q):
+        '''
+        Create the state vector s [dotq1, dotq2, q1, q2]
+        
+        Inputs:     -dotq: numpy array
+                    -q: numpy array
+        
+        Outputs:    -inputQ: numpy array, the state vector
+        '''
+        inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
+        return inputQ
+    
+    def getDotQAndQFromStateVectorS(self, inputQ):
+        '''
+        Return dotq and q from the state vector inputQ
+        
+        Input:      -inputQ: numpy array, state vector
+        
+        Outputs:    -dotq: numpy array
+                    -q: numpy array
+        '''
+        dotq = np.array([[inputQ[0,0]], [inputQ[1,0]]])
+        q = np.array([[inputQ[2,0]], [inputQ[3,0]]])
+        return dotq, q
         
     def generateTrajectories(self, xI, yI, theta, optQ = 0):
         '''
@@ -135,6 +189,7 @@ class GenerateTrajectory:
                     
         Output:    -Ju: scalar, cost of the trajectory
         '''
+        self.theta = theta
         #Trick to use q1 q2 as input parameters for trajGenerator if optQ = 1
         if optQ == 1:
             q1 = xI
@@ -144,9 +199,10 @@ class GenerateTrajectory:
         #Initialize q and dotq
         q = np.array([[q1], [q2]])
         dotq = self.armD.get_dotq_0()
+        inputQ = self.createStateVector(dotq, q)
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
         self.save.SaveTrajectory(coordEL, coordHA)
-        t, i, Ju = 0, 0, 0#Ju = cost
+        self.t, i, self.Ju = 0, 0, 0#Ju = cost
         #Name used to save Data
         self.name1, self.name2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
@@ -156,27 +212,20 @@ class GenerateTrajectory:
         while coordHA[1] < (self.rs.targetOrdinate):
             #stop condition to avoid memory saturation
             if i < self.rs.numMaxIter:
-                inputQ = np.array([[dotq[0,0]], [dotq[1,0]], [q[0,0]], [q[1,0]]])
-                #get the muscular activation
-                U = self.getCommand(inputQ, theta)
-                self.speedSave[self.name2].append((dotq[0,0], dotq[1,0]))
-                ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
-                q = jointStop(q)
+                inputQ = self.transition_function(inputQ)
+                dotq, q = self.getDotQAndQFromStateVectorS(inputQ)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
-                #Saving data B
-                self.saveDataB(U, coordEL, coordHA, inputQ)
-                Ju = self.costComputation(Ju, U, t)
             else:
                 break
             i += 1
-            t += self.rs.dt
+            self.t += self.rs.dt
         #print(i)
         #Saving data f
-        self.saveDataf(coordHA, i, Ju)
+        self.saveDataf(coordHA, i, self.Ju)
         if((coordHA[0] >= (0-self.targetSizeS/2) and coordHA[0] <= (0+self.targetSizeS/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
-            Ju += np.exp(-t/self.rs.gammaCF)*self.rs.rhoCF
-        self.costSave[self.name2] = Ju
-        return Ju
+            self.Ju += np.exp(-self.t/self.rs.gammaCF)*self.rs.rhoCF
+        self.costSave[self.name2] = self.Ju
+        return self.Ju
     
 
 

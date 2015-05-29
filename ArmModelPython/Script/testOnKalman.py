@@ -5,7 +5,6 @@ Module: testOnKalman
 
 Description: 
 '''
-from pykalman import KalmanFilter
 from pykalman import UnscentedKalmanFilter
 
 
@@ -28,8 +27,10 @@ def computeTraj(JuS, sti, theta):
             
             
 def kalmanTest():
-    kf = KalmanFilter()
     ukf = UnscentedKalmanFilter()
+    #ukf.filter_update(filtered_state_mean, filtered_state_covariance, observation, transition_function, transition_covariance, 
+    #                  observation_function, observation_covariance)
+    
     
     
 
