@@ -126,10 +126,20 @@ class GenerateTrajectory:
         self.IteSave[self.name2].append(i)
         self.actiMuscuSave[self.name2].append(Ju)
         
-    def transition_function(self, inputQ):
+    def transition_function(self):
         '''
         transition_functions[t] is a function of the state and the transition noise at time t 
         and produces the state at time t+1
+        
+        Input:     -inputQ: numpy array (state_dimension, ), the state vector s at time t (dotq1, dotq2, q1, q2)
+        
+        Output:    -outputQ: numpy array (state_dimension, ), the state vector at time t+1
+        '''
+        pass
+    
+    def computeNextState(self, inputQ):
+        '''
+        Computes the next state
         
         Input:     -inputQ: numpy array (state_dimension, ), the state vector s at time t (dotq1, dotq2, q1, q2)
         
@@ -147,11 +157,12 @@ class GenerateTrajectory:
         self.Ju = self.costComputation(self.Ju, U, self.t)
         return outputQ
     
-    def observation_function(self):
+    def observation_function(self, inputQ):
         '''
         observation_functions[t] is a function of the state and the observation noise at time t 
         and produces the observation at time t
         '''
+        
         pass
     
     def createStateVector(self, dotq, q):
@@ -212,7 +223,7 @@ class GenerateTrajectory:
         while coordHA[1] < (self.rs.targetOrdinate):
             #stop condition to avoid memory saturation
             if i < self.rs.numMaxIter:
-                inputQ = self.transition_function(inputQ)
+                inputQ = self.computeNextState(inputQ)
                 dotq, q = self.getDotQAndQFromStateVectorS(inputQ)
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
             else:
