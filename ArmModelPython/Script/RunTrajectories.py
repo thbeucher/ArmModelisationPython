@@ -29,6 +29,8 @@ def saveAllDataTrajectories(nameSave, sti, meanJu, CorR):
     saveDataTrajectories(nameSave + "SpeedSave" + CorR, sti.speedSave)
     saveDataTrajectories(nameSave + "costTraj" + CorR, sti.costSave)
     saveDataTrajectories(nameSave + "actiMuscu" + CorR, sti.actiMuscuSave)
+    saveDataTrajectories(nameSave + "stateAndCommand" + CorR, sti.stateAndCommand)
+    saveDataTrajectories(nameSave + "coordEndEffector" + CorR, sti.coordEndEffector)
  
 def runGenTraj():
     fr, rs = initFRRS()
@@ -97,6 +99,7 @@ def saveHitDisp(nameSave, sti, pt):
 
 def runTrajForScattergram():
     fr, rs = initFRRS()
+    posIni = fr.getobjread(rs.experimentFilePosIni)
     for i in range(len(rs.sizeOfTarget)):
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
         name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfb"
@@ -110,9 +113,10 @@ def runTrajForScattergram():
         plt.show()'''
         sti = GenerateTrajectory(4, rs.sizeOfTarget[i])
         for j in range(1000):
-            sti.generateTrajectories(xi, yi, theta)
+            for el in posIni:
+                sti.generateTrajectories(el[0], el[1], theta)
         nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb/"
-        saveHitDisp(nameSave, sti, pt)
+        saveHitDisp(nameSave, sti, "All")
         sti.initSaveData()
     print("End of generation !")
         

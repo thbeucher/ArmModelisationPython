@@ -19,6 +19,7 @@ from Script.RunTrajectories import saveAllDataTrajectories
 import timeit
 import matplotlib.patches as patches
 from Utils.ReadSetupFile import ReadSetupFile
+from scipy.stats.stats import linregress
 
 
 
@@ -475,12 +476,22 @@ def testNPDOT():
         
 def getDataScattergram(sizeT):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/hitDispersion0.1_0.4175BIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/hitDispersionAllBIN"
     coordHit = fr.getobjread(name)
+    allX = []
     for key, val in coordHit.items():
         xByPosIni = [x[0] for x in val]
-    return xByPosIni
-    
+        allX.append(xByPosIni)
+    s = 0
+    for el in allX:
+        if s == 0:
+            allXArray = np.asarray(el)
+            s += 1
+        else:
+            allXArray = np.hstack((allXArray, el))
+    return allXArray
+
+#getDataScattergram(0.02)   
     
 def plotScattergram():
     rs = ReadSetupFile()
@@ -556,5 +567,18 @@ def plotScattergram2():
     
 #plotScattergram2()
         
+def plotTrackTraj():
+    fr, rs = initFRRS()
+    name = "RBFN2/" + str(rs.numfeats) + "feats/ResShuffleAll/coordEndEffectorRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
+    coordAll = fr.getobjread(name)
+    plt.figure()
+    for key, val in coordAll.items():
+        plt.plot([x[0] for x in val], [y[1] for y in val])
+    plt.show(block = True)
+    print(len(coordAll))
+    
+
+#plotTrackTraj()
         
+    
 
