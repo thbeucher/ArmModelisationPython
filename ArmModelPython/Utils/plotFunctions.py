@@ -9,19 +9,19 @@ import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
 from matplotlib import cm
-from matplotlib import animation
-from matplotlib.mlab import griddata
-import mpl_toolkits
+#from matplotlib import animation
+#import mpl_toolkits
 import os
-from ArmModel.GeometricModel import mgi, mgd
+from ArmModel.GeometricModel import mgd
 import math
 from Utils.NiemRoot import tronquerNB
 from Utils.InitUtil import initFRRS
 from Utils.FileReading import FileReading
-from shutil import copyfile
-from posix import remove
+#from shutil import copyfile
+#from posix import remove
 from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
-    invPosCircle, getTimeDistance, getDistPerfSize
+     getTimeDistance, getDistPerfSize
+from matplotlib.mlab import griddata
 
 
 def costColorPlot(wha):
@@ -358,7 +358,7 @@ def plotAllCmaes():
     xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb/actiMuscuCmaBIN"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb15/actiMuscuCmaBIN"
         #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
         zDico.append(fr.getobjread(name))
     for i in range(len(zDico)):

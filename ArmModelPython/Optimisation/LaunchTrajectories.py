@@ -34,6 +34,9 @@ class LaunchTrajectories:
         '''
         theta = vectorToMatrix(theta)
         self.theta = unNorm(theta)
+        
+    def setSTITheta(self):
+        self.sti.setTheta(self.theta)
             
     def threadingCmaes(self, cost):
         '''
@@ -55,6 +58,7 @@ class LaunchTrajectories:
         '''
         #reshape and unNorm the theta
         self.initTheta(theta)
+        self.setSTITheta()
         #the code commented is the multithreading version
         '''c1, c2, c3, c4, c5, c6, c7, c8, c9, c10 = [], [], [], [], [], [], [], [], [], []
         pool = ThreadPool(10)
@@ -82,7 +86,7 @@ class LaunchTrajectories:
             #posIni is an array with all initials points used for the experiment
             for el in self.sti.posIni:
                 #generateTrajectories is the function which compute the trajectory from the initial point given
-                Ju = self.sti.generateTrajectories(el[0], el[1], self.theta)
+                Ju = self.sti.generateTrajectories(el[0], el[1])
                 #store the cost of trajectories
                 JuS.append(Ju)
             costT[i] = JuS
@@ -126,13 +130,15 @@ class LaunchTrajectories:
         nbi = input("Nombre d'iteration a effectuer: ")
         nbi = int(nbi)
         
+        self.theta = theta
+        self.setSTITheta()
         #startPTs, junk = sti.fr.recup_pos_ini(sti.rs.pathFolderTrajectories)
         
         for i in range(nbi):
             JuS = []
             for el in self.sti.posIni:
             #for el in startPTs.values():
-                Ju = self.sti.generateTrajectories(el[0], el[1], theta)
+                Ju = self.sti.generateTrajectories(el[0], el[1])
                 JuS.append(Ju)
             costT[i] = JuS
         s = 0

@@ -38,7 +38,7 @@ def runGenTraj():
     nameT = "RBFN2/" + str(rs.numfeats) + "feats/"
     theta = fr.getobjread(nameT + "ThetaX7BIN")
     sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-    saveAllDataTrajectories(nameT + "ResShuffleAll/", sti, meanJu, "RBFN" + str(rs.sizeOfTarget[3]))
+    saveAllDataTrajectories(nameT + "ResultShuffle/", sti, meanJu, "RBFN" + str(rs.sizeOfTarget[3]))
     print(meanJu)
     print("Fin de generation de trajectoire!")
     
@@ -68,10 +68,10 @@ def runGenTrajCma():
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
         cf = LaunchTrajectories(4, rs.sizeOfTarget[i])
         #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfb"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfbm"
         theta = getThetaCma(fr, name)
         sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb/"
+        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb15/"
         saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
         print(meanJu)
         sti.initParamTraj()
@@ -102,20 +102,20 @@ def runTrajForScattergram():
     posIni = fr.getobjread(rs.experimentFilePosIni)
     for i in range(len(rs.sizeOfTarget)):
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfb"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfbm"
         theta = getThetaCma(fr, name)
         xi, yi = 0.1, 0.4175
         pt = str(xi) + "_" + str(yi)
-        '''posIni = fr.getobjread(rs.experimentFilePosIni)
-        plt.figure()
+        posIni = fr.getobjread(rs.experimentFilePosIni)
+        '''plt.figure()
         plt.scatter(xi, yi, c = 'r')
         plt.scatter([x[0] for x in posIni], [x[1] for x in posIni], c = 'b')
         plt.show()'''
         sti = GenerateTrajectory(4, rs.sizeOfTarget[i])
-        for j in range(1000):
+        for j in range(100):
             for el in posIni:
                 sti.generateTrajectories(el[0], el[1], theta)
-        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb/"
+        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb15/"
         saveHitDisp(nameSave, sti, "All")
         sti.initSaveData()
     print("End of generation !")

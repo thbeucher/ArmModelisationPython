@@ -276,7 +276,7 @@ def cmaesCostProgression():
     fr, rs = initFRRS()
     costCma = {}
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(6000)
+        name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(15000)
         costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = fr.getobjread(name)
     costEvo = {}
     for key, val in costCma.items():
@@ -476,7 +476,7 @@ def testNPDOT():
         
 def getDataScattergram(sizeT):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/hitDispersionAllBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb15/hitDispersionAllBIN"
     coordHit = fr.getobjread(name)
     allX = []
     for key, val in coordHit.items():

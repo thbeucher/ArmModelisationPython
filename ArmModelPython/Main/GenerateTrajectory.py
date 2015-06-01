@@ -15,8 +15,8 @@ from ArmModel.MusclesParameters import MusclesParameters
 from ArmModel.ArmDynamics import ArmDynamics, mdd
 from ArmModel.GeometricModel import mgi, mgd, jointStop
 from ArmModel.SavingData import SavingData
-from Utils.GenerateTrajectoryUtils import kalmanFilterInit,\
-    getDotQAndQFromStateVectorS, createStateVector
+from Utils.GenerateTrajectoryUtils import getDotQAndQFromStateVectorS, createStateVector,\
+    NextState, CommandU
 
 
 class GenerateTrajectory:
@@ -58,6 +58,10 @@ class GenerateTrajectory:
         self.actiMuscuSave = {}
         self.stateAndCommand = {}
         self.coordEndEffector = {}
+        
+    def setTheta(self, theta):
+        self.theta = theta
+        self.NS = NextState(self.armP, self.musclesP, self.rs.dt, self.theta, self.fa, self.rs.knoiseU)
     
     def costComputation(self, Ju, U, t):
         '''
@@ -72,26 +76,6 @@ class GenerateTrajectory:
         mvtCost = (np.linalg.norm(U))**2
         Ju += np.exp(-t/self.rs.gammaCF)*(-self.rs.upsCF*mvtCost)
         return Ju
-        
-        
-    def getCommand(self, inputgc, theta):
-        '''
-        Returns the muscular activation vector U from the position vector Q
-        Inputs:     -inputgc: (4,1) numpy array, vector [dotq1, dotq2, q1, q2]
-                    -theta: 2D numpy array, the controler generate by rbfn
-        
-        Outputs:    -Unoise: (6,1) numpy array, noisy muscular activation vector
-        '''
-        U = self.fa.computesOutput(inputgc, theta)
-        #Noise for muscular activation
-        UnoiseTmp = U*(1+ np.random.normal(0,self.rs.knoiseU))
-        for i in range(UnoiseTmp.shape[0]):
-            if UnoiseTmp[i] < 0:
-                UnoiseTmp[i] = 0
-            elif UnoiseTmp[i] > 1:
-                UnoiseTmp[i] = 1
-        Unoise = np.array([UnoiseTmp]).T
-        return Unoise
     
     def initSaveData(self):
         '''
@@ -138,40 +122,24 @@ class GenerateTrajectory:
         
         Output:    -outputQ: numpy array (state_dimension, ), the state vector at time t+1
         '''
-        nextState, Utransi = self.computeNextState(state)
+        nextState, Utransi = self.NS.computeNextState(state[0])
         nextStateNoise = nextState + noise
         return nextStateNoise
-    
-    def computeNextState(self, inputQ):
-        '''
-        Computes the next state
-        
-        Input:     -inputQ: numpy array (state_dimension, ), the state vector s at time t (dotq1, dotq2, q1, q2)
-        
-        Output:    -outputQ: numpy array (state_dimension, ), the state vector at time t+1
-        '''
-        dotq, q = getDotQAndQFromStateVectorS(inputQ)
-        U = self.getCommand(inputQ, self.theta)
-        ddotq, dotq, q = mdd(q, dotq, self.U, self.armP, self.musclesP, self.rs.dt)
-        q = jointStop(q)
-        outputQ = createStateVector(dotq, q)
-        return outputQ, U
     
     def observation_function(self, inputQ, noise = 0):
         '''
         observation_functions[t] is a function of the state and the observation noise at time t 
         and produces the observation at time t
         '''
-        state = inputQ[0]
-        nextState, Uobs = self.computeNextState(state)
+        nextState, Uobs = self.NS.computeNextState(inputQ[self.delay-1])
         nexStateNoise = nextState + noise
         return nexStateNoise    
     
     def storeState(self, state):
-        self.obs_store = np.roll(self.obs_store, 1, axis = 0)
-        self.obs_store[0] = state
+        self.state_store = np.roll(self.state_store, 1, axis = 0)
+        self.state_store[0] = state
         
-    def generateTrajectories(self, xI, yI, theta, optQ = 0):
+    def generateTrajectories(self, xI, yI, optQ = 0):
         '''
         Generates the trajectory depend of the starting point given
         
@@ -181,7 +149,6 @@ class GenerateTrajectory:
                     
         Output:    -Ju: scalar, cost of the trajectory
         '''
-        self.theta = theta
         #Trick to use q1 q2 as input parameters for trajGenerator if optQ = 1
         if optQ == 1:
             q1, q2 = xI, yI
@@ -199,19 +166,19 @@ class GenerateTrajectory:
         #Initialization containers for saving data
         self.initSaveData()
         #Kalman filter init
-        ukf, nextCovariance = kalmanFilterInit()
-        self.obs_store = np.tile(inputQ, (self.delay, 1))
+        '''ukf, nextCovariance = kalmanFilterInit(self.transition_function, self.observation_function, self.delay, inputQ.shape[0])
+        self.state_store = np.tile(inputQ, (self.delay, 1))'''
         #compute the trajectory ie find the next point
         #as long as the target is not reach
         while coordHA[1] < (self.rs.targetOrdinate):
             #stop condition to avoid memory saturation
             if i < self.rs.numMaxIter:
-                inputQ, U = self.computeNextState(inputQ)
+                inputQ, U = self.NS.computeNextState(inputQ)
                 dotq, q = getDotQAndQFromStateVectorS(inputQ)
                 #Kalman filter
-                self.storeState(inputQ)
-                observation = self.observation_function(self.obs_store[self.delay-1])
-                nextState, nextCovariance = ukf.filter_update(inputQ, nextCovariance, observation)
+                '''self.storeState(inputQ)
+                observation = self.observation_function(self.state_store)
+                nextState, nextCovariance = ukf.filter_update(inputQ, nextCovariance, observation)'''
                 #saving data
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
                 self.saveDataB(coordEL, coordHA, inputQ, dotq, U)
