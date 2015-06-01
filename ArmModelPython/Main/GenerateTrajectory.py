@@ -46,6 +46,7 @@ class GenerateTrajectory:
         self.posIni = self.fr.getobjread(self.rs.experimentFilePosIni)
         #Object used to save data
         self.initParamTraj()
+        self.delay = 3
     
     def initParamTraj(self):
         self.Usave = {}
@@ -161,9 +162,14 @@ class GenerateTrajectory:
         observation_functions[t] is a function of the state and the observation noise at time t 
         and produces the observation at time t
         '''
-        nextState, Uobs = self.computeNextState(inputQ)
+        state = inputQ[0]
+        nextState, Uobs = self.computeNextState(state)
         nexStateNoise = nextState + noise
         return nexStateNoise    
+    
+    def storeState(self, state):
+        self.obs_store = np.roll(self.obs_store, 1, axis = 0)
+        self.obs_store[0] = state
         
     def generateTrajectories(self, xI, yI, theta, optQ = 0):
         '''
@@ -194,8 +200,7 @@ class GenerateTrajectory:
         self.initSaveData()
         #Kalman filter init
         ukf, nextCovariance = kalmanFilterInit()
-        observation = inputQ
-        delay = 2
+        self.obs_store = np.tile(inputQ, (self.delay, 1))
         #compute the trajectory ie find the next point
         #as long as the target is not reach
         while coordHA[1] < (self.rs.targetOrdinate):
@@ -204,9 +209,8 @@ class GenerateTrajectory:
                 inputQ, U = self.computeNextState(inputQ)
                 dotq, q = getDotQAndQFromStateVectorS(inputQ)
                 #Kalman filter
-                if np.mod(i, delay) == 0:
-                    observation = inputQ
-                observation = self.observation_function(observation)
+                self.storeState(inputQ)
+                observation = self.observation_function(self.obs_store[self.delay-1])
                 nextState, nextCovariance = ukf.filter_update(inputQ, nextCovariance, observation)
                 #saving data
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
