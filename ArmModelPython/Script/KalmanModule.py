@@ -80,6 +80,8 @@ class KalmanModule:
         self.storeState(state)
         observation = self.observation_function(np.asarray([self.state_store.T[self.delay-1]]).T)
         self.nextState, self.nextCovariance = self.ukf.filter_update(state.T[0], self.nextCovariance, observation.T[0])
+        print("la", state.T[0], "\nici", self.nextState)
+        c = input("cc")
         self.saveState()
         
         

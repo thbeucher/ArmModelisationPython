@@ -83,7 +83,7 @@ def testTrajKalman():
     fileSavingBin("TEST/saveAllStateTestBIN", gt.KM.saveAllState)
     print("cout:", cost)
     
-#testTrajKalman()
+testTrajKalman()
 
 def plotResultTestKalman():
     fr, rs = initFRRS()
