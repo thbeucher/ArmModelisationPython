@@ -7,16 +7,19 @@ Description: Here the implementation of the Unscented Kalman filter module
 '''
 import numpy as np
 from pykalman import UnscentedKalmanFilter
+from ArmModel.GeometricModel import mgd
+from Utils.GenerateTrajectoryUtils import getDotQAndQFromStateVectorS
 
 class KalmanModule:
     
-    def __init__(self, NS, state, name):
+    def __init__(self, NS, state, name, armP):
         self.name = "KalmanModule"
         self.delay = 3
         self.dimState = 4
         self.NS = NS
         self.state_store = np.tile(state, (1, self.delay))
         self.nameToSave = name
+        self.armP = armP
         self.saveAllState = {}
         self.saveAllState[name] = []
         self.kalmanFilterInit()
@@ -69,7 +72,9 @@ class KalmanModule:
         self.state_store.T[0] = state.T
         
     def saveState(self):
-        self.saveAllState[self.nameToSave].append(self.nextState)
+        dotq, q = getDotQAndQFromStateVectorS(np.asarray([self.nextState]).T)
+        junk, coordPE = mgd(q, self.armP.l1, self.armP.l2)
+        self.saveAllState[self.nameToSave].append(coordPE)
         
     def runKalman(self, state):
         self.storeState(state)

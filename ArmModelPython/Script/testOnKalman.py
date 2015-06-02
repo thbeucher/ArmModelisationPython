@@ -20,10 +20,9 @@ import numpy as np
 import pylab as pl
 from pykalman import UnscentedKalmanFilter
 from Main.GenerateTrajectory import GenerateTrajectory
-from ArmModel.ArmDynamics import mdd
-from ArmModel.GeometricModel import jointStop
 from Utils.InitUtil import initFRRS
-from Utils.FileSaving import fileSavingStr
+from Utils.FileSaving import fileSavingStr, fileSavingBin
+import matplotlib.pyplot as plt
 
 # initialize parameters
 def transition_function(state, noise):
@@ -78,11 +77,26 @@ def testTrajKalman():
     theta = fr.getobjread(name)
     gt.setTheta(theta)
     cost = gt.generateTrajectories(xI, yI)
-    fileSavingStr("coordHATest", gt.save.coordHaSave)
-    fileSavingStr("saveAllStateTest", gt.KM.saveAllState)
+    fileSavingStr("TEST/coordHATest", gt.save.coordHaSave)
+    fileSavingStr("TEST/saveAllStateTest", gt.KM.saveAllState)
+    fileSavingBin("TEST/coordHATestBIN", gt.save.coordHaSave)
+    fileSavingBin("TEST/saveAllStateTestBIN", gt.KM.saveAllState)
     print("cout:", cost)
     
-testTrajKalman()
+#testTrajKalman()
+
+def plotResultTestKalman():
+    fr, rs = initFRRS()
+    coord = fr.getobjread("TEST/coordHATestBIN")
+    coordKalman = fr.getobjread("TEST/saveAllStateTestBIN")
+    plt.figure()
+    plt.plot([x[0] for x in coord], [y[1] for y in coord], c = 'b')
+    for key, val in coordKalman.items():
+        plt.plot([x[0] for x in val], [y[1] for y in val], c = 'r')
+    plt.show(block = True)
+    
+#plotResultTestKalman()
+
     
     
     
