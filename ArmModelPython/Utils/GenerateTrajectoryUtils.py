@@ -6,25 +6,8 @@ Module: GenerateTrajectoryUtils
 Description: We find here some functions usefull for the class GenerateTrajectory
 '''
 import numpy as np
-from pykalman.unscented import UnscentedKalmanFilter
 from ArmModel.ArmDynamics import mdd
 from ArmModel.GeometricModel import jointStop
-
-
-def kalmanFilterInit(transition_function, observation_function, delay, dimState):
-        '''
-        Initializes components for the Unscented Kalman filter
-        '''
-        transition_covariance = np.eye(dimState)
-        initial_state_mean = np.zeros(dimState)
-        random_state =np.random.RandomState(0)
-        observation_covariance = np.eye(dimState) + random_state.randn(dimState,dimState) * 0.1
-        initial_state_covariance = [[1, 0.1], [-0.1, 1]]#A revoir
-        ukf = UnscentedKalmanFilter(transition_function, observation_function,
-                                    transition_covariance, observation_covariance,
-                                    initial_state_mean, initial_state_covariance,
-                                    random_state = random_state)
-        return ukf, initial_state_covariance
     
     
 def createStateVector(dotq, q):

@@ -6,8 +6,6 @@ Module: GenerateTrajectory
 Description: This class is used to generate trajectory.
                 During the generation, the cost is compute
 '''
-from Utils.FileReading import FileReading
-from Utils.ReadSetupFile import ReadSetupFile
 from Regression.functionApproximator_RBFN import fa_rbfn
 import numpy as np
 from ArmModel.ArmParameters import ArmParameters
@@ -16,7 +14,9 @@ from ArmModel.ArmDynamics import ArmDynamics, mdd
 from ArmModel.GeometricModel import mgi, mgd, jointStop
 from ArmModel.SavingData import SavingData
 from Utils.GenerateTrajectoryUtils import getDotQAndQFromStateVectorS, createStateVector,\
-    NextState, CommandU
+    NextState
+from Utils.InitUtil import initFRRS
+from Script.KalmanModule import KalmanModule
 
 
 class GenerateTrajectory:
@@ -34,8 +34,7 @@ class GenerateTrajectory:
         self.armP = ArmParameters()
         self.musclesP = MusclesParameters()
         self.armD = ArmDynamics()
-        self.fr = FileReading()
-        self.rs = ReadSetupFile()
+        self.fr, self.rs = initFRRS()
         #Initialisation des outils permettant d'utiliser le controleur rbfn
         self.fa = fa_rbfn(self.rs.numfeats)
         state, command = self.fr.getData(self.rs.pathFolderTrajectories)
@@ -46,7 +45,7 @@ class GenerateTrajectory:
         self.posIni = self.fr.getobjread(self.rs.experimentFilePosIni)
         #Object used to save data
         self.initParamTraj()
-        self.delay = 3
+        
     
     def initParamTraj(self):
         self.Usave = {}
@@ -112,28 +111,6 @@ class GenerateTrajectory:
         self.lastCoord[self.name2].append(coordHA)
         self.IteSave[self.name2].append(i)
         self.actiMuscuSave[self.name2].append(Ju)
-        
-    def transition_function(self, state, noise = 0):
-        '''
-        transition_functions[t] is a function of the state and the transition noise at time t 
-        and produces the state at time t+1
-        
-        Input:     -inputQ: numpy array (state_dimension, ), the state vector s at time t (dotq1, dotq2, q1, q2)
-        
-        Output:    -outputQ: numpy array (state_dimension, ), the state vector at time t+1
-        '''
-        nextState, Utransi = self.NS.computeNextState(state[0])
-        nextStateNoise = nextState + noise
-        return nextStateNoise
-    
-    def observation_function(self, inputQ, noise = 0):
-        '''
-        observation_functions[t] is a function of the state and the observation noise at time t 
-        and produces the observation at time t
-        '''
-        nextState, Uobs = self.NS.computeNextState(inputQ[self.delay-1])
-        nexStateNoise = nextState + noise
-        return nexStateNoise    
     
     def storeState(self, state):
         self.state_store = np.roll(self.state_store, 1, axis = 0)
@@ -165,9 +142,8 @@ class GenerateTrajectory:
         self.name1, self.name2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
         self.initSaveData()
-        #Kalman filter init
-        '''ukf, nextCovariance = kalmanFilterInit(self.transition_function, self.observation_function, self.delay, inputQ.shape[0])
-        self.state_store = np.tile(inputQ, (self.delay, 1))'''
+        #KalmanModule
+        #KM = KalmanModule(self.NS)
         #compute the trajectory ie find the next point
         #as long as the target is not reach
         while coordHA[1] < (self.rs.targetOrdinate):
@@ -175,10 +151,6 @@ class GenerateTrajectory:
             if i < self.rs.numMaxIter:
                 inputQ, U = self.NS.computeNextState(inputQ)
                 dotq, q = getDotQAndQFromStateVectorS(inputQ)
-                #Kalman filter
-                '''self.storeState(inputQ)
-                observation = self.observation_function(self.state_store)
-                nextState, nextCovariance = ukf.filter_update(inputQ, nextCovariance, observation)'''
                 #saving data
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
                 self.saveDataB(coordEL, coordHA, inputQ, dotq, U)
