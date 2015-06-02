@@ -111,10 +111,6 @@ class GenerateTrajectory:
         self.lastCoord[self.name2].append(coordHA)
         self.IteSave[self.name2].append(i)
         self.actiMuscuSave[self.name2].append(Ju)
-    
-    def storeState(self, state):
-        self.state_store = np.roll(self.state_store, 1, axis = 0)
-        self.state_store[0] = state
         
     def generateTrajectories(self, xI, yI, optQ = 0):
         '''
@@ -143,7 +139,7 @@ class GenerateTrajectory:
         #Initialization containers for saving data
         self.initSaveData()
         #KalmanModule
-        #KM = KalmanModule(self.NS)
+        self.KM = KalmanModule(self.NS, inputQ, self.name2)
         #compute the trajectory ie find the next point
         #as long as the target is not reach
         while coordHA[1] < (self.rs.targetOrdinate):
@@ -151,6 +147,8 @@ class GenerateTrajectory:
             if i < self.rs.numMaxIter:
                 inputQ, U = self.NS.computeNextState(inputQ)
                 dotq, q = getDotQAndQFromStateVectorS(inputQ)
+                #run Kalman
+                self.KM.runKalman(inputQ)
                 #saving data
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
                 self.saveDataB(coordEL, coordHA, inputQ, dotq, U)

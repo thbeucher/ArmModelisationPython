@@ -10,25 +10,32 @@ from pykalman import UnscentedKalmanFilter
 
 class KalmanModule:
     
-    def __init__(self, NS):
+    def __init__(self, NS, state, name):
         self.name = "KalmanModule"
         self.delay = 3
+        self.dimState = 4
         self.NS = NS
+        self.state_store = np.tile(state, (1, self.delay))
+        self.nameToSave = name
+        self.saveAllState = {}
+        self.saveAllState[name] = []
+        self.kalmanFilterInit()
         
-    def kalmanFilterInit(self, dimState):
+        
+    def kalmanFilterInit(self):
         '''
         Initializes components for the Unscented Kalman filter
         '''
-        transition_covariance = np.eye(dimState)
-        initial_state_mean = np.zeros(dimState)
+        transition_covariance = np.eye(self.dimState)
+        initial_state_mean = np.zeros(self.dimState)
         random_state =np.random.RandomState(0)
-        observation_covariance = np.eye(dimState) + random_state.randn(dimState,dimState) * 0.1
-        initial_state_covariance = [[1, 0.1], [-0.1, 1]]#A revoir
-        ukf = UnscentedKalmanFilter(self.transition_function, self.observation_function,
+        observation_covariance = np.eye(self.dimState) + random_state.randn(self.dimState,self.dimState) * 0.1
+        initial_state_covariance = np.asarray([[1, 0.1, 0.1, 0.1], [-0.1, 1, 0.1, 0.1], [-0.1, -0.1, 1, 0.1], [-0.1, -0.1, -0.1, 1]])
+        self.nextCovariance = initial_state_covariance
+        self.ukf = UnscentedKalmanFilter(self.transition_function, self.observation_function,
                                     transition_covariance, observation_covariance,
                                     initial_state_mean, initial_state_covariance,
                                     random_state = random_state)
-        return ukf, initial_state_covariance
         
     def transition_function(self, state, noise = 0):
         '''
@@ -39,16 +46,36 @@ class KalmanModule:
         
         Output:    -outputQ: numpy array (state_dimension, ), the state vector at time t+1
         '''
-        nextState, Utransi = self.NS.computeNextState(state[0])
-        nextStateNoise = nextState + noise
-        return nextStateNoise
+        nextState, Utransi = self.NS.computeNextState(np.asarray([state]).T)
+        nextStateNoise = nextState + np.asarray([noise]).T
+        return nextStateNoise.T[0]
     
     def observation_function(self, inputQ, noise = 0):
         '''
         observation_functions[t] is a function of the state and the observation noise at time t 
         and produces the observation at time t
         '''
-        nextState, Uobs = self.NS.computeNextState(inputQ[self.delay-1])
-        nexStateNoise = nextState + noise
-        return nexStateNoise    
+        if len(inputQ.shape) == 1:
+            inputQ = np.asarray([inputQ]).T
+        nextState, Uobs = self.NS.computeNextState(inputQ)
+        nexStateNoise = nextState + np.asarray([noise]).T
+        return nexStateNoise.T[0]
     
+    def storeState(self, state):
+        '''
+        Store the state from t-delay to t
+        '''
+        self.state_store = np.roll(self.state_store, 1, axis = 1)
+        self.state_store.T[0] = state.T
+        
+    def saveState(self):
+        self.saveAllState[self.nameToSave].append(self.nextState)
+        
+    def runKalman(self, state):
+        self.storeState(state)
+        observation = self.observation_function(np.asarray([self.state_store.T[self.delay-1]]).T)
+        self.nextState, self.nextCovariance = self.ukf.filter_update(state.T[0], self.nextCovariance, observation.T[0])
+        self.saveState()
+        
+        
+        

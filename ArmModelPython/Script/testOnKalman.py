@@ -22,6 +22,8 @@ from pykalman import UnscentedKalmanFilter
 from Main.GenerateTrajectory import GenerateTrajectory
 from ArmModel.ArmDynamics import mdd
 from ArmModel.GeometricModel import jointStop
+from Utils.InitUtil import initFRRS
+from Utils.FileSaving import fileSavingStr
 
 # initialize parameters
 def transition_function(state, noise):
@@ -68,7 +70,19 @@ def showUK():
 #showUK()
 
             
+def testTrajKalman():
+    fr, rs = initFRRS()
+    xI, yI = 0.1, 0.5
+    gt = GenerateTrajectory()
+    name = "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7BIN"
+    theta = fr.getobjread(name)
+    gt.setTheta(theta)
+    cost = gt.generateTrajectories(xI, yI)
+    fileSavingStr("coordHATest", gt.save.coordHaSave)
+    fileSavingStr("saveAllStateTest", gt.KM.saveAllState)
+    print("cout:", cost)
     
+testTrajKalman()
     
     
     
