@@ -34,10 +34,10 @@ class fa_rbfn():
         '''
         self.inputData = inputData
         self.outputData = outputData
-	#Getting input and output dimensions and number of samples
+        #Getting input and output dimensions and number of samples
         self.inputDimension, numberOfInputSamples = np.shape(inputData)
         self.outputDimension, numberOfOutputSamples = np.shape(outputData)
-	#check if there are the same number of samples for input and output data
+        #check if there are the same number of samples for input and output data
         assert(numberOfInputSamples == numberOfOutputSamples), "Number of samples not equal for output and input"
         self.numberOfSamples = numberOfInputSamples
         self.theta = np.zeros((self.nbFeat, self.outputDimension))
@@ -61,16 +61,16 @@ class fa_rbfn():
         '''
         fop = self.computeFeatureWeight(self.inputData.T)
         n = self.nbFeat**self.inputDimension
-	#creation of the shared objects between process
+        #creation of the shared objects between process
         AshareObj = Array(ct.c_double, n*n)
         bshareObj = Array(ct.c_double, n*self.outputDimension)
-	#link shared object to a numpy object
+        #link shared object to a numpy object
         AnumpyShare = np.frombuffer(AshareObj.get_obj())
         bnumpyShare = np.frombuffer(bshareObj.get_obj())
-	#Reshaping of the numpy object to obtain an array with the dimension desired
+        #Reshaping of the numpy object to obtain an array with the dimension desired
         A = AnumpyShare.reshape((n, n))
         b = bnumpyShare.reshape((n, self.outputDimension))
-	#creation of the different processes
+        #creation of the different processes
         p1 = Process(target=self.computeA, args=(A, fop))
         p2 = Process(target=self.computeb, args=(b, fop))
         p1.start()
@@ -85,21 +85,21 @@ class fa_rbfn():
         Uses linspace to evenly distribute the features.
         
         '''
-	#get max and min of the input data
+        #get max and min of the input data
         minInputData = np.min(self.inputData, axis = 1)
         maxInputData = np.max(self.inputData, axis = 1)
         rangeForEachDim = maxInputData - minInputData
-	#set the sigmas
+        #set the sigmas
         widthConstant = rangeForEachDim / self.nbFeat
-	#create the diagonal matrix of sigmas to compute the gaussian
+        #create the diagonal matrix of sigmas to compute the gaussian
         self.widths = np.diag(widthConstant)
-	#coef for gaussian
+        #coef for gaussian
         self.norma = 1/np.sqrt(((2*np.pi)**self.inputDimension)*np.linalg.det(self.widths)) 
         linspaceForEachDim = []
-	#set the number of gaussian used and allocate them in each dimensions
+        #set the number of gaussian used and allocate them in each dimensions
         for i in range(self.inputDimension):
             linspaceForEachDim.append(np.linspace(minInputData[i], maxInputData[i], self.nbFeat))
-	#get matrix with all the possible combinations to find each centers
+            #get matrix with all the possible combinations to find each centers
         self.centersInEachDimensions = cartesian(linspaceForEachDim)
     
     def computeFeatureWeight(self, inputData):
@@ -110,14 +110,14 @@ class fa_rbfn():
         
         Output:    -phi: numpy N-D array
         '''
-	#if only one sample
+        #if only one sample
         if inputData.shape[1] == 1:
             x_u = inputData - self.centersInEachDimensions.T
             x_u_s = np.dot(x_u.T, np.linalg.pinv(self.widths))
             x = x_u_s * (x_u.T)
             xf = np.sum(x, axis = 1)
             phi = self.norma*np.exp(-0.5*xf)
-	#if more than one sample
+        #if more than one sample
         else:
             for i in range(inputData.shape[0]):
                 x_u = np.array([inputData[i]]).T - self.centersInEachDimensions.T
@@ -129,6 +129,8 @@ class fa_rbfn():
                     phi = np.array([xfe]).T
                 else:
                     phi = np.hstack((phi, np.array([xfe]).T))
+        print(phi.shape)
+        c = input("ds")
         return phi
 
 

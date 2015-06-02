@@ -11,10 +11,8 @@
 \BOOKMARK [1][-]{section.2.2}{Experimental set-up}{chapter.2}% 11
 \BOOKMARK [1][-]{section.2.3}{Mathematical formulation of the model}{chapter.2}% 12
 \BOOKMARK [1][-]{section.2.4}{Learning method, RBFN controller}{chapter.2}% 13
-\BOOKMARK [2][-]{subsection.2.4.1}{History and theory}{section.2.4}% 14
-\BOOKMARK [2][-]{subsection.2.4.2}{Implementation}{section.2.4}% 15
-\BOOKMARK [1][-]{section.2.5}{Optimisation, CMAES controller}{chapter.2}% 16
-\BOOKMARK [0][-]{chapter.3}{Study}{}% 17
-\BOOKMARK [0][-]{chapter.4}{Appendix}{}% 18
-\BOOKMARK [1][-]{section.4.1}{Nomenclature of arm parameters}{chapter.4}% 19
-\BOOKMARK [1][-]{section.4.2}{RBFN implementation}{chapter.4}% 20
+\BOOKMARK [1][-]{section.2.5}{Optimisation, CMAES controller}{chapter.2}% 14
+\BOOKMARK [0][-]{chapter.3}{Study}{}% 15
+\BOOKMARK [0][-]{chapter.4}{Appendix}{}% 16
+\BOOKMARK [1][-]{section.4.1}{Nomenclature of arm parameters}{chapter.4}% 17
+\BOOKMARK [1][-]{section.4.2}{RBFN implementation}{chapter.4}% 18

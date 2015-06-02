@@ -78,9 +78,12 @@ class KalmanModule:
         
     def runKalman(self, state):
         self.storeState(state)
+        print("state", state.T[0])
         observation = self.observation_function(np.asarray([self.state_store.T[self.delay-1]]).T)
+        print("obs", observation)
+        self.nextCovariance = np.eye(4)
         self.nextState, self.nextCovariance = self.ukf.filter_update(state.T[0], self.nextCovariance, observation.T[0])
-        print("la", state.T[0], "\nici", self.nextState)
+        print("ici", self.nextState)
         c = input("cc")
         self.saveState()
         
