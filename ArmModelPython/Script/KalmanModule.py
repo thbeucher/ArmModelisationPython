@@ -20,8 +20,8 @@ class KalmanModule:
         self.state_store = np.tile(state, (1, self.delay))
         self.nameToSave = name
         self.armP = armP
-        self.saveAllState = {}
-        self.saveAllState[name] = []
+        self.saveAllCoord = {}
+        self.saveAllCoord[name] = []
         self.kalmanFilterInit()
         
         
@@ -32,8 +32,10 @@ class KalmanModule:
         transition_covariance = np.eye(self.dimState)
         initial_state_mean = np.zeros(self.dimState)
         random_state =np.random.RandomState(0)
-        observation_covariance = np.eye(self.dimState) + random_state.randn(self.dimState,self.dimState) * 0.1
-        initial_state_covariance = np.asarray([[1, 0.1, 0.1, 0.1], [-0.1, 1, 0.1, 0.1], [-0.1, -0.1, 1, 0.1], [-0.1, -0.1, -0.1, 1]])
+        #observation_covariance = np.eye(self.dimState) + random_state.randn(self.dimState,self.dimState) * 0.001
+        #initial_state_covariance = np.asarray([[1, 0.001, 0.001, 0.001], [-0.001, 1, 0.001, 0.001], [-0.001, -0.001, 1, 0.001], [-0.001, -0.001, -0.001, 1]])
+        observation_covariance = np.eye(self.dimState) + np.random.normal(0, 0.2, (self.dimState, self.dimState))
+        initial_state_covariance = np.eye(self.dimState)
         self.nextCovariance = initial_state_covariance
         self.ukf = UnscentedKalmanFilter(self.transition_function, self.observation_function,
                                     transition_covariance, observation_covariance,
@@ -64,6 +66,9 @@ class KalmanModule:
         nexStateNoise = nextState + np.asarray([noise]).T
         return nexStateNoise.T[0]
     
+    def obs_fun_test(self, state, noise):
+        pass
+    
     def storeState(self, state):
         '''
         Store the state from t-delay to t
@@ -74,17 +79,17 @@ class KalmanModule:
     def saveState(self):
         dotq, q = getDotQAndQFromStateVectorS(np.asarray([self.nextState]).T)
         junk, coordPE = mgd(q, self.armP.l1, self.armP.l2)
-        self.saveAllState[self.nameToSave].append(coordPE)
+        self.saveAllCoord[self.nameToSave].append(coordPE)
         
     def runKalman(self, state):
         self.storeState(state)
-        print("state", state.T[0])
-        observation = self.observation_function(np.asarray([self.state_store.T[self.delay-1]]).T)
-        print("obs", observation)
-        self.nextCovariance = np.eye(4)
-        self.nextState, self.nextCovariance = self.ukf.filter_update(state.T[0], self.nextCovariance, observation.T[0])
-        print("ici", self.nextState)
-        c = input("cc")
+        #print("state", state.T[0])
+        #observation = self.observation_function(np.asarray([self.state_store.T[self.delay-1]]).T)
+        #obs = self.transition_function(state.T[0],)
+        #print("obs", obs)
+        self.nextState, self.nextCovariance = self.ukf.filter_update(self.state_store.T[1], self.nextCovariance, state.T[0])
+        #print("ici", self.nextState)
+        #c = input("cc")
         self.saveState()
         
         

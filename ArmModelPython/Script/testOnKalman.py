@@ -78,17 +78,17 @@ def testTrajKalman():
     gt.setTheta(theta)
     cost = gt.generateTrajectories(xI, yI)
     fileSavingStr("TEST/coordHATest", gt.save.coordHaSave)
-    fileSavingStr("TEST/saveAllStateTest", gt.KM.saveAllState)
+    fileSavingStr("TEST/saveAllCoordTest", gt.KM.saveAllCoord)
     fileSavingBin("TEST/coordHATestBIN", gt.save.coordHaSave)
-    fileSavingBin("TEST/saveAllStateTestBIN", gt.KM.saveAllState)
+    fileSavingBin("TEST/saveAllCoordTestBIN", gt.KM.saveAllCoord)
     print("cout:", cost)
     
-testTrajKalman()
+#testTrajKalman()
 
 def plotResultTestKalman():
     fr, rs = initFRRS()
     coord = fr.getobjread("TEST/coordHATestBIN")
-    coordKalman = fr.getobjread("TEST/saveAllStateTestBIN")
+    coordKalman = fr.getobjread("TEST/saveAllCoordTestBIN")
     plt.figure()
     plt.plot([x[0] for x in coord], [y[1] for y in coord], c = 'b')
     for key, val in coordKalman.items():

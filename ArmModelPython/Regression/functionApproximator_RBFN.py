@@ -129,8 +129,6 @@ class fa_rbfn():
                     phi = np.array([xfe]).T
                 else:
                     phi = np.hstack((phi, np.array([xfe]).T))
-        print(phi.shape)
-        c = input("ds")
         return phi
 
 
