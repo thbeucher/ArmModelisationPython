@@ -83,7 +83,7 @@ def testTrajKalman():
     fileSavingBin("TEST/saveAllCoordTestBIN", gt.KM.saveAllCoord)
     print("cout:", cost)
     
-#testTrajKalman()
+testTrajKalman()
 
 def plotResultTestKalman():
     fr, rs = initFRRS()
@@ -95,7 +95,7 @@ def plotResultTestKalman():
         plt.plot([x[0] for x in val], [y[1] for y in val], c = 'r')
     plt.show(block = True)
     
-#plotResultTestKalman()
+plotResultTestKalman()
 
     
     

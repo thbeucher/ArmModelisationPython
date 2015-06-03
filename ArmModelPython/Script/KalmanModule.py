@@ -9,12 +9,13 @@ import numpy as np
 from pykalman import UnscentedKalmanFilter
 from ArmModel.GeometricModel import mgd
 from Utils.GenerateTrajectoryUtils import getDotQAndQFromStateVectorS
+#from pykalman import AdditiveUnscentedKalmanFilter
 
 class KalmanModule:
     
     def __init__(self, NS, state, name, armP):
         self.name = "KalmanModule"
-        self.delay = 3
+        self.delay = 2
         self.dimState = 4
         self.NS = NS
         self.state_store = np.tile(state, (1, self.delay))
@@ -29,13 +30,13 @@ class KalmanModule:
         '''
         Initializes components for the Unscented Kalman filter
         '''
-        transition_covariance = np.eye(self.dimState)
+        transition_covariance = np.eye(self.dimState)*0.01 #+ np.random.normal(0, 0.002, (self.dimState, self.dimState))
         initial_state_mean = np.zeros(self.dimState)
         random_state =np.random.RandomState(0)
-        #observation_covariance = np.eye(self.dimState) + random_state.randn(self.dimState,self.dimState) * 0.001
-        #initial_state_covariance = np.asarray([[1, 0.001, 0.001, 0.001], [-0.001, 1, 0.001, 0.001], [-0.001, -0.001, 1, 0.001], [-0.001, -0.001, -0.001, 1]])
-        observation_covariance = np.eye(self.dimState) + np.random.normal(0, 0.2, (self.dimState, self.dimState))
-        initial_state_covariance = np.eye(self.dimState)
+        #observation_covariance = np.eye(self.dimState) + random_state.randn(self.dimState,self.dimState) * 0.1
+        initial_state_covariance = np.asarray([[1, 0.1, 0.1, 0.1], [-0.1, 1, 0.1, 0.1], [-0.1, -0.1, 1, 0.1], [-0.1, -0.1, -0.1, 1]])
+        observation_covariance = 1000*np.eye(self.dimState) #+ np.random.normal(0, 0.2, (self.dimState, self.dimState))
+        initial_state_covariance = initial_state_covariance*0.1
         self.nextCovariance = initial_state_covariance
         self.ukf = UnscentedKalmanFilter(self.transition_function, self.observation_function,
                                     transition_covariance, observation_covariance,
@@ -77,19 +78,19 @@ class KalmanModule:
         self.state_store.T[0] = state.T
         
     def saveState(self):
+        '''
+        Saves the data
+        '''
         dotq, q = getDotQAndQFromStateVectorS(np.asarray([self.nextState]).T)
         junk, coordPE = mgd(q, self.armP.l1, self.armP.l2)
         self.saveAllCoord[self.nameToSave].append(coordPE)
         
     def runKalman(self, state):
+        '''
+        Routine for Kalman update approximation
+        '''
         self.storeState(state)
-        #print("state", state.T[0])
-        #observation = self.observation_function(np.asarray([self.state_store.T[self.delay-1]]).T)
-        #obs = self.transition_function(state.T[0],)
-        #print("obs", obs)
-        self.nextState, self.nextCovariance = self.ukf.filter_update(self.state_store.T[1], self.nextCovariance, state.T[0])
-        #print("ici", self.nextState)
-        #c = input("cc")
+        self.nextState, self.nextCovariance = self.ukf.filter_update(self.state_store.T[self.delay-1], self.nextCovariance, state.T[0])
         self.saveState()
         
         
