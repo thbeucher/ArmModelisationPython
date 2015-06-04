@@ -68,7 +68,18 @@ def showUK():
     
 #showUK()
 
-            
+def plotResultTestKalman(coord, coordKalman):
+    #fr, rs = initFRRS()
+    #coord = fr.getobjread("TEST/coordHATestBIN")
+    #coordKalman = fr.getobjread("TEST/saveAllCoordTestBIN")
+    plt.figure()
+    plt.plot([x[0] for x in coord], [y[1] for y in coord], c = 'b')
+    for key, val in coordKalman.items():
+        plt.plot([x[0] for x in val], [y[1] for y in val], c = 'r')
+    plt.show(block = True)
+    
+#plotResultTestKalman()
+       
 def testTrajKalman():
     fr, rs = initFRRS()
     xI, yI = 0.1, 0.5
@@ -76,26 +87,25 @@ def testTrajKalman():
     name = "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7BIN"
     theta = fr.getobjread(name)
     gt.setTheta(theta)
-    cost = gt.generateTrajectories(xI, yI)
-    fileSavingStr("TEST/coordHATest", gt.save.coordHaSave)
-    fileSavingStr("TEST/saveAllCoordTest", gt.KM.saveAllCoord)
-    fileSavingBin("TEST/coordHATestBIN", gt.save.coordHaSave)
-    fileSavingBin("TEST/saveAllCoordTestBIN", gt.KM.saveAllCoord)
+    #posIni = fr.getobjread(rs.experimentFilePosIni)
+    #for el in posIni:
+    x = np.linspace(0.1, 0.5, 10)
+    y = np.linspace(0.2, 0.5, 10)
+    for i in range(len(x)):
+        for j in range(len(y)):
+            try:
+                cost = gt.generateTrajectories(x[i], y[j])
+                #fileSavingStr("TEST/coordHATest", gt.save.coordHaSave)
+                #fileSavingStr("TEST/saveAllCoordTest", gt.KM.saveAllCoord)
+                #fileSavingBin("TEST/coordHATestBIN", gt.save.coordHaSave)
+                #fileSavingBin("TEST/saveAllCoordTestBIN", gt.KM.saveAllCoord)
+                plotResultTestKalman(gt.save.coordHaSave, gt.KM.saveAllCoord)
+            except:
+                pass
     print("cout:", cost)
     
 testTrajKalman()
 
-def plotResultTestKalman():
-    fr, rs = initFRRS()
-    coord = fr.getobjread("TEST/coordHATestBIN")
-    coordKalman = fr.getobjread("TEST/saveAllCoordTestBIN")
-    plt.figure()
-    plt.plot([x[0] for x in coord], [y[1] for y in coord], c = 'b')
-    for key, val in coordKalman.items():
-        plt.plot([x[0] for x in val], [y[1] for y in val], c = 'r')
-    plt.show(block = True)
-    
-plotResultTestKalman()
 
     
     

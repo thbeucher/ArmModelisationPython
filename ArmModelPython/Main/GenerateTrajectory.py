@@ -139,7 +139,7 @@ class GenerateTrajectory:
         #Initialization containers for saving data
         self.initSaveData()
         #KalmanModule
-        self.KM = KalmanModule(self.NS, inputQ, self.name2, self.armP)
+        self.KM = KalmanModule(self.NS, inputQ, self.name2, self.armP, self.rs)
         #compute the trajectory ie find the next point
         #as long as the target is not reach
         while coordHA[1] < (self.rs.targetOrdinate):
