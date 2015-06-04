@@ -15,7 +15,7 @@ class KalmanModule:
     
     def __init__(self, NS, state, name, armP, rs):
         self.name = "KalmanModule"
-        self.delay = 20
+        self.delay = 3
         self.dimState = 4
         self.NS = NS
         self.state_store = np.tile(state, (1, self.delay))
@@ -35,8 +35,9 @@ class KalmanModule:
         initial_state_mean = np.zeros(self.dimState)
         random_state =np.random.RandomState(0)
         #observation_covariance = np.eye(self.dimState) + random_state.randn(self.dimState,self.dimState) * 0.1
-        initial_state_covariance = np.asarray([[1, 0.1, 0.1, 0.1], [-0.1, 1, 0.1, 0.1], [-0.1, -0.1, 1, 0.1], [-0.1, -0.1, -0.1, 1]])
+        #initial_state_covariance = np.asarray([[1, 0.1, 0.1, 0.1], [-0.1, 1, 0.1, 0.1], [-0.1, -0.1, 1, 0.1], [-0.1, -0.1, -0.1, 1]])
         observation_covariance = 1000*np.eye(self.dimState) #+ np.random.normal(0, 0.2, (self.dimState, self.dimState))
+        initial_state_covariance = np.eye(self.dimState)
         initial_state_covariance = initial_state_covariance*0.1
         self.nextCovariance = initial_state_covariance
         self.ukf = UnscentedKalmanFilter(self.transition_function, self.observation_function,
@@ -101,13 +102,26 @@ class KalmanModule:
                 self.nextCovariance = np.eye(self.dimState)*0.01
                 self.nextState, self.nextCovariance = self.ukf.filter_update(self.state_store.T[self.delay-i-1], self.nextCovariance, self.state_store.T[self.delay-i-2])
                 self.saveState()
+                
+    def plotSome(self, state1, state2, state3):
+        dotq, q = getDotQAndQFromStateVectorS(np.asarray([state1]).T)
+        coordEl, coordHa = mgd(q, self.armP.l1, self.armP.l2)
+        print("state", coordHa)
+        dotq, q = getDotQAndQFromStateVectorS(np.asarray([state2]).T)
+        coordEl, coordHa = mgd(q, self.armP.l1, self.armP.l2)
+        print("obs", coordHa)
+        dotq, q = getDotQAndQFromStateVectorS(np.asarray([state3]).T)
+        coordEl, coordHa = mgd(q, self.armP.l1, self.armP.l2)
+        print("next", coordHa)
         
     def runKalman(self, state):
         '''
         Routine for Kalman update approximation
         '''
         self.storeState(state)
+        #print("state", self.state_store.T[self.delay-1], "\nObs", state.T[0], "\nCov", self.nextCovariance)
         self.nextState, self.nextCovariance = self.ukf.filter_update(self.state_store.T[self.delay-1], self.nextCovariance, state.T[0])
+        #self.plotSome(self.state_store.T[self.delay-1], state.T[0], self.nextState)
         self.endRoutine(state)
         self.saveState()
         

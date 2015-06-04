@@ -79,6 +79,7 @@ class CommandU:
         U = self.fa.computesOutput(inputgc, theta)
         #Noise for muscular activation
         UnoiseTmp = U*(1+ np.random.normal(0,self.knoiseU))
+        #UnoiseTmp = U
         for i in range(UnoiseTmp.shape[0]):
             if UnoiseTmp[i] < 0:
                 UnoiseTmp[i] = 0
