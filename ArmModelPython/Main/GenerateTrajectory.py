@@ -133,7 +133,7 @@ class GenerateTrajectory:
         inputQ = createStateVector(dotq, q)
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
         self.save.SaveTrajectory(coordEL, coordHA)
-        self.t, i, self.Ju = 0, 0, 0#Ju = cost
+        self.t, i, self.Ju, self.JuK = 0, 0, 0, 0#Ju = cost
         #Name used to save Data
         self.name1, self.name2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
@@ -148,7 +148,8 @@ class GenerateTrajectory:
                 inputQ, U = self.NS.computeNextState(inputQ)
                 dotq, q = getDotQAndQFromStateVectorS(inputQ)
                 #run Kalman
-                self.KM.runKalman(inputQ)
+                Uk = self.KM.runKalman(inputQ)
+                self.JuK = self.costComputation(self.JuK, Uk, self.t)
                 #saving data
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
                 self.saveDataB(coordEL, coordHA, inputQ, dotq, U)
@@ -164,7 +165,12 @@ class GenerateTrajectory:
         if((coordHA[0] >= (0-self.targetSizeS/2) and coordHA[0] <= (0+self.targetSizeS/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
             self.Ju += np.exp(-self.t/self.rs.gammaCF)*self.rs.rhoCF
         self.costSave[self.name2] = self.Ju
-        return self.Ju
+        #Kalman
+        for key, val in self.KM.saveAllCoord.items():
+            if((val[len(val)-1][0] >= (0-self.targetSizeS/2) and val[len(val)-1][0] <= (0+self.targetSizeS/2)) and val[len(val)-1][1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
+                self.JuK += np.exp(-self.t/self.rs.gammaCF)*self.rs.rhoCF
+        return self.JuK
+        #return self.Ju
     
 
 

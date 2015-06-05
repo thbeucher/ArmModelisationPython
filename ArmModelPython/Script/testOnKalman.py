@@ -72,14 +72,41 @@ def plotResultTestKalman(coord, coordKalman):
     #fr, rs = initFRRS()
     #coord = fr.getobjread("TEST/coordHATestBIN")
     #coordKalman = fr.getobjread("TEST/saveAllCoordTestBIN")
+    difDist = []
+    for key, val in coord.items():
+        cR = val
+        cK = coordKalman[key]
+    for el1, el2 in zip(cR, cK):
+        a = np.sqrt((el1[0] - el2[0])**2 + (el1[1] - el2[1])**2)
+        difDist.append(a)
+    t = []
+    for i in range(len(difDist)):
+        t.append(i)
+    
     plt.figure()
     for key, val in coord.items():
         plt.plot([x[0] for x in val], [y[1] for y in val], c = 'b')
     for key, val in coordKalman.items():
         plt.plot([x[0] for x in val], [y[1] for y in val], c = 'r')
+        
+    plt.figure()
+    plt.plot(t, difDist)
     plt.show(block = True)
     
 #plotResultTestKalman()
+
+def plotCov(gt):
+    plt.figure()
+    tt = []
+    for key in gt.KM.saveCovariance.keys():
+        keyy = key
+        break
+    plotCov = [x[0,0] for x in gt.KM.saveCovariance[keyy]]
+    for i in range(len(plotCov)):
+        tt.append(i)
+    plt.figure()
+    plt.plot(tt, plotCov)
+    plt.show(block = True)
        
 def testTrajKalman():
     fr, rs = initFRRS()
