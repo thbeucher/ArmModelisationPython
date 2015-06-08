@@ -5,55 +5,47 @@ The style file: abbrv.bst
 Database file #1: twoDarm.bib
 Database file #2: robotica12.bib
 Database file #3: accuracy.bib
-Warning--I didn't find a database entry for "shadmehr10"
+Database file #4: motor_learning.bib
 Warning--I didn't find a database entry for "rigoux12"
-Warning--I didn't find a database entry for "fitts54_JEP"
-Warning--I didn't find a database entry for "Dean2007"
-Warning--I didn't find a database entry for "harris98_N"
-Warning--I didn't find a database entry for "todorov02_NN"
-Warning--I didn't find a database entry for "todorov04_NN"
-Warning--I didn't find a database entry for "todorov05_NC"
-Warning--I didn't find a database entry for "faisal08"
-Warning--I didn't find a database entry for "rigoux_these"
-You've used 4 entries,
+You've used 22 entries,
             2118 wiz_defined-function locations,
-            544 strings with 4631 characters,
-and the built_in function-call counts, 1270 in all, are:
-= -- 121
-> -- 66
+            662 strings with 7506 characters,
+and the built_in function-call counts, 7261 in all, are:
+= -- 738
+> -- 303
 < -- 0
-+ -- 26
-- -- 22
-* -- 93
-:= -- 227
-add.period$ -- 12
-call.type$ -- 4
-change.case$ -- 22
++ -- 123
+- -- 98
+* -- 569
+:= -- 1230
+add.period$ -- 66
+call.type$ -- 22
+change.case$ -- 114
 chr.to.int$ -- 0
-cite$ -- 4
-duplicate$ -- 45
-empty$ -- 96
-format.name$ -- 22
-if$ -- 252
+cite$ -- 22
+duplicate$ -- 240
+empty$ -- 576
+format.name$ -- 98
+if$ -- 1469
 int.to.chr$ -- 0
-int.to.str$ -- 4
-missing$ -- 3
-newline$ -- 23
-num.names$ -- 8
-pop$ -- 22
+int.to.str$ -- 22
+missing$ -- 20
+newline$ -- 113
+num.names$ -- 44
+pop$ -- 81
 preamble$ -- 1
-purify$ -- 19
+purify$ -- 93
 quote$ -- 0
-skip$ -- 28
+skip$ -- 156
 stack$ -- 0
-substring$ -- 67
-swap$ -- 5
+substring$ -- 608
+swap$ -- 23
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 16
+type$ -- 88
 warning$ -- 0
-while$ -- 12
-width$ -- 5
-write$ -- 45
-(There were 10 warnings)
+while$ -- 77
+width$ -- 24
+write$ -- 243
+(There was 1 warning)

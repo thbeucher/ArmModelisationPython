@@ -16,7 +16,7 @@ def costEvalBrent():
     print("Debut de traitement!")
     sti = GenerateTrajectory()
     stateAll, commandAll = sti.fr.getData(sti.rs.pathFolderTrajectories)
-    JuT = {}
+    JuT, JuWR = {}, {}
     Ite = []
     valJuT = []
     JuT2 = []
@@ -28,11 +28,15 @@ def costEvalBrent():
             Ju = sti.costComputation(Ju, u[i], t)
             t += sti.rs.dt
         coordEl, coordHa = mgd(np.array([[stateAll[el][u.shape[0]-1][2]], [stateAll[el][u.shape[0]-1][3]]]), sti.armP.l1, sti.armP.l2)
+        JuWR[el] = Ju
         if((coordHa[0] >= (0-sti.targetSizeS/2) and coordHa[0] <= (0+sti.targetSizeS/2)) and coordHa[1] >= (sti.rs.targetOrdinate - sti.rs.errorPosEnd)):
             Ju += np.exp(-t/sti.rs.gammaCF)*sti.rs.rhoCF
         JuT[el] = Ju
         valJuT.append(Ju)
         junk, coordInitHA = mgd(np.array([[stateAll[el][0][2]], [stateAll[el][0][3]]]), sti.armP.l1, sti.armP.l2)
+        elname = str(str(round(coordInitHA[0])) + "//" + round(coordInitHA[1]))
+        JuWR[elname] = JuWR[el]
+        del JuWR[el]
         JuT2.append((el, Ju, tronquerNB(coordInitHA[0], 3), tronquerNB(coordInitHA[1], 3)))
     print(JuT)
     print(JuT2)
@@ -40,10 +44,12 @@ def costEvalBrent():
     fileSavingStr("trajectoires_cout/trajectoire_coutX", JuT.items())
     fileSavingBin("trajectoires_cout/trajectoire_coutXBIN", JuT)
     fileSavingStr("trajectoires_cout/nbiteX", Ite)
+    fileSavingBin("trajectoires_cout/actiMuscuBIN", JuWR)
+    fileSavingStr("trajectoires_cout/actiMuscu", JuWR)
     print("Fin de traitement!")
     
         
-#costEvalBrent()
+costEvalBrent()
     
     
     

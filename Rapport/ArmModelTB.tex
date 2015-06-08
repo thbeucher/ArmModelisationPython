@@ -35,6 +35,10 @@
 \author{Thomas Beucher}
 \maketitle
 
+\begin{center}
+\includegraphics[scale=0.7]{images/eval_Beucher.pdf}
+\end{center}
+
 %\section*{Abstract}
 %Two basic phenomena interact in the way the speed of our reaching movements is determined.
 %First, we tend to reach faster a target that looks more rewarding, despite the additional muscular cost of a faster movement.
@@ -66,15 +70,15 @@ This report is about my internship at ISIR covering a period of five months from
 
 \section{State of the art}
 
-There has been a recent progress in motor control research on understanding how the time of a reaching movement is chosen. In particular, two recent models from Shadmehr et al. \cite{shadmehr10} and Rigoux\&Guigon \cite{rigoux12} proposed an optimization criterion that involves a trade-off between the muscular effort and the subjective value of getting the reward, hence a cost-benefit trade-off (CBT).
-On one hand, reaching a target faster requires a larger muscular effort (refs?). On the other hand, the subjective value of reaching a target decreases as the time needed to reach the target is increased (refs?). As a result, the net expected return consisting of the subjective value minus the muscular effort is optimal for a certain time, as illustrated in Fig.~\ref{fig:mvt_acc}(A).
+There has been a recent progress in motor control research on understanding how the time of a reaching movement is chosen. In particular, two recent models from Shadmehr et al. \cite{shadmehr10} and Rigoux\&Guigon \cite{rigoux12_plos} proposed an optimization criterion that involves a trade-off between the muscular effort and the subjective value of getting the reward, hence a cost-benefit trade-off (CBT).
+On one hand, reaching a target faster requires a larger muscular effort. On the other hand, the subjective value of reaching a target decreases as the time needed to reach the target is increased. As a result, the net expected return consisting of the subjective value minus the muscular effort is optimal for a certain time, as illustrated in Fig.~\ref{fig:mvt_acc}(A).
 
 \begin{figure}[hbt]
 \centering
-	\includegraphics[width=1.0\columnwidth]{images/canu_fig3.pdf}
+	\includegraphics[width=1.0\columnwidth]{images/canu_fig3T.png}
 \caption{Influence of movement time on cost related quantities.
 Green: subjective utility of hitting the target; red: muscular energy cost; black: global cost versus reward trade-off. The red area denotes infeasible short times; blue: probability to hit the target; orange:reward expectation (subjective reward times probability).
- A: Sketch of the models in \cite{shadmehr10} and \cite{rigoux12}.
+ A: Sketch of the models in \cite{shadmehr10} and \cite{rigoux12_plos}.
 The subjective utility of hitting the reward decreases over time as one is less interested in gains that will occur in a distant future than at the present time. Hitting is less and less costly in terms of efforts as the movement is performed more slowly.
 The expected gain, resulting from the sum of the subjective reward and the (negative) cost reaches a maximum for a certain time. When the gain is negative (outside the useful interval), one should not move.
 B: Sketch of the presented model.
@@ -85,30 +89,30 @@ However, these models do not account directly for basic facts about the relation
 According to this law, the smaller a target, the slower the reaching movement. 
 This is well explained by the so-called {\em speed-accuracy trade-off} (SAT) stating that, the faster a movement, the less accurate it is, hence the higher the probability to miss the target. So a subject reaching too fast may not get the subjective value associated to reaching and should slow down.
 
-In contrast with the models of \cite{shadmehr10} and \cite{rigoux12}, the model of Dean \cite{Dean2007} takes the SAT into account. The key difference with respect to \cite{shadmehr10} and \cite{rigoux12} is that, instead of maximizing a reward, this model maximizes a {\em reward expectation}, i.e. the reward times the probability to get it.
+In contrast with the models of \cite{shadmehr10} and \cite{rigoux12_plos}, the model of Dean \cite{Dean2007} takes the SAT into account. The key difference with respect to \cite{shadmehr10} and \cite{rigoux12_plos} is that, instead of maximizing a reward, this model maximizes a {\em reward expectation}, i.e. the reward times the probability to get it.
 
 However, the model proposed in \cite{Dean2007} is an abstract model of movement time selection that looks for an optimal trade-off between an externally decayed reward and a SAT that relates the probability of missing to movement time. As such, it does not account for movement execution, neither for the choice of a motor trajectory and its impact on the cost of movement.
 The model does not explain Fitts' law, it rather incorporates its consequences into an abstract model of the SAT that is fitted to experimental data.
 The mathematical design of the model is based on several simplifying assumptions and it predicts optimal movement times that are systematically shorter than those observed with subjects. The authors of \cite{Dean2007} discuss that this may result from the fact that the model does not take the cost of movement into account.
 
-In the paper of Olivier Sigaud and Kevin Monfray, they show that the models of Shadmehr \cite{shadmehr10} and Rigoux \cite{rigoux12} as well as the model of Dean \cite{Dean2007} can be unified into a model that solves the difficulties faced by these previous models. 
+The goal of my work is to show that the models of Shadmehr \cite{shadmehr10} and Rigoux \cite{rigoux12_plos} as well as the model of Dean \cite{Dean2007} can be unified into a model that solves the difficulties faced by these previous models. 
 
-This unification is simply implemented by including sensory and motor noise into the optimal control model proposed in \cite{rigoux12}, shifting from a deterministic account of the movement to a stochastic one, in line with the models of \cite{harris98_N,todorov02_NN,todorov04_NN,todorov05_NC,li2006}.
+This unification is simply implemented by including sensory and motor noise into the optimal control model proposed in \cite{rigoux12_plos}, shifting from a deterministic account of the movement to a stochastic one, in line with the models of \cite{harris98_N,todorov02_NN,todorov04_NN,todorov05_NC,li2006}.
 
-As a matter of fact, in the models of \cite{shadmehr10} and \cite{rigoux12}, the target is given as a single point and the movement is considered as always reaching it, irrespective of the size of the target. In order to fully account for Fitts' law, one must consider the intrinsic dispersion of reaching movements towards a target and the effect of sensory and muscular noise on this dispersion (e.g. \cite{harris98_N}, see \cite{faisal08} for a review), which is not the case of the models of \cite{shadmehr10} and \cite{rigoux12}. 
+As a matter of fact, in the models of \cite{shadmehr10} and \cite{rigoux12_plos}, the target is given as a single point and the movement is considered as always reaching it, irrespective of the size of the target. In order to fully account for Fitts' law, one must consider the intrinsic dispersion of reaching movements towards a target and the effect of sensory and muscular noise on this dispersion (e.g. \cite{harris98_N}, see \cite{faisal08} for a review), which is not the case of the models of \cite{shadmehr10} and \cite{rigoux12_plos}. 
 
-As a result, the reward and muscular activation terms in the optimization criterion proposed in \cite{rigoux12} are replaced by reward and cost expectation terms. Considering expectation is a way to account for the fact that, in case of a miss, one would not get the reward, so the global outcome of the movement would only consist of its incurred cost. 
+As a result, the reward and muscular activation terms in the optimization criterion proposed in \cite{rigoux12_plos} are replaced by reward and cost expectation terms. Considering expectation is a way to account for the fact that, in case of a miss, one would not get the reward, so the global outcome of the movement would only consist of its incurred cost. 
 
 \section{Previous work}
-I used a code, written by Kevin Monfray (a trainee at ISIR), which implement a model based on optimal control called NOPS but it is very time consuming.
+I used a code, written by Kevin Monfray (a trainee at ISIR), which implements a model based on optimal control called NOPS but it is very time consuming.
 To reduce the computation time, Olivier Sigaud decided to try to learn the NOPS controller using a regression algorithm.
-So I generated trajectories using the NOPS controller then I used the regression algorithm called RBFN(Radial Basis Function Networks) to learn the new controller from these trajectories.
-The new controller could then be optimized with a stochastic optimization method called CMAES(Covariance Matrix Adaptation Evolution Strategy).
+So I generated trajectories using the NOPS controller then I used the regression algorithm called RBFN (Radial Basis Function Networks) to learn the new controller from these trajectories.
+The new controller could then be optimized with a stochastic optimization method called CMA-ES (Covariance Matrix Adaptation Evolution Strategy).
 
 \section{My job}
-First, I have to implement the model of arm and the regression algorithm to learn the new controller from the trajectories generated with the NOPS controller (implemented by Didier Marin in C++ and in Java by Kevin Monfray).
-Secondly, I must use the CMAES algorithm to optimize RBFN controller for different sizes of target.
-Finally, generate various relevant curves and compare them with the curves obtained by Slovenian colleagues, Jan babic and Luka Peternel, who experiment on humans around the same issue.
+First, I have to implement in python the model of arm and the regression algorithm to learn the new controller from the trajectories generated with the NOPS controller (implemented by Didier Marin in C++ and in Java by Kevin Monfray).
+Secondly, I must use the CMAES algorithm to optimize RBFN controller for different targets size.
+Finally, I must generate various relevant curves and compare them with the curves obtained by Slovenian colleagues, Jan babic and Luka Peternel, who experiment on humans around the same issue.
 
 \chapter{Material and methods}
 
@@ -132,7 +136,7 @@ Table~\ref{arm_model_params} in Appendix~\ref{sec:params} reminds the nomenclatu
 
 \subsection{Arm parameters}
 \label{sec:arm_parameters}
-All parameters of the arm are defined in the file \textit{setupArmParameters} and implemented in the class \textit{ArmParameters}.
+All parameters of the arm are defined in the file \textit{setupArmParameters.py} and implemented in the class \textit{ArmParameters}.
 This class defines the following functions:
 \begin{itemize}
 \item[\textit{readSetupFile}]: Reads the setup file.
@@ -179,7 +183,7 @@ f_{\max1} &0&0&0&0&0\\
 0&0&0&0&0&318
 \end{pmatrix}\\
 \end{align*}
-\item[\textit{activationVectorInit}]: Initializes the muscular activation vector. (Create the vector and initializes to zero)
+\item[\textit{activationVectorInit}]: Initializes the muscular activation vector. (Creates the vector and initializes to zero)
 \item[\textit{activationVectorUse}]: Builds the muscular activation vector given its 6 components.
 \end{itemize}
 All the muscles parameters values are summarized in \hyperref[MuscleParamTable]{Table 3} in Appendix~\ref{sec:params}.
@@ -232,33 +236,6 @@ controller, the muscular activation
 is augmented with Gaussian noise using $\textbf{\~{u}} = \log(\exp(\kappa \times \textbf{u}_t \times (1+\mathcal{N}(0,\textbf{I}\sigma_u^2))) + 1) / \kappa$, where $\times$ refers to the element-wise multiplication, $\textbf{I}$ is a $6 \times 6$ identity matrix.
 and $\kappa = 25$ is the Heaviside filter parameter, and the input torque 
 is computed as $\boldsymbol{\tau} = \textbf{A}^\top ( \textbf{f}_\textbf{max} \times \textbf{\~{u}} )$.
-
-\section{Experimental set-up}
-\label{sec_ExpSetup}
-
-\begin{figure*}[hbt]
-\centering
-	\includegraphics[width=0.9\columnwidth]{figures/armWorkspace.png}
-	\caption{The arm workspace. The reachable space is delimited by a spiral-shaped envelope. The two segments of the arm are represented by two red lines. Initial movement positions are represented with red dots organized into four sets of different distances to the target. The screen is represented as a green line positioned at y = 0.6175. The origin of the arm is at x = 0.0, y = 0.0.}
-	\label{fig:arm_workspace}
-\end{figure*}
-
-The state-space consists of the current articular position $\textbf{q}$ of the arm and its current articular speed $\boldsymbol{\dot{q}}$. The state $\boldsymbol{s = (\dot{q}, q)}$ has a total of 4 dimensions. The initial state is defined by null speed and a variable initial position.
-The positions are bounded to represent the reachable space of a standard human arm, with $q_1 \in$ [-0.6, 2.6] and $q_2 \in$ [-0.2, 3.0], as shown in Figure~\ref{fig:arm_workspace}.
-The action-space consists of an activation signal for each muscle, which also makes a total of 6 dimensions.
-
-When using CMAES, reaching the goal point is replaced by hitting the target on the screen. The target is defined as an interval of varying length around (x = 0, y = 0.6175). The movement is stopped once the line y = 0.6175 has been crossed, and the intersect between the trajectory and this line is computed to determine whether the target was hit. The reward for immediately hitting the target without taking incurred costs into account is set to 300.
-
-In order to train RBFN, we generate trajectories with the NOPS from the initial positions shown in Figure~\ref{fig:arm_workspace} to the goal point.
-The starting points have been organized into four groups of different distances with respect to the goal point (d = 18cm, 20cm, 22cm and 24cm respectively). There are 12 initial positions per distance, thus a total of 48 initial positions.
-
-We measure the dispersion over 100 movements towards this target, as well as the average movement time and average movement cost.
-
-We run 60 iterations of CMAES with a population of 100 and a sigma equal to $1.10^{-6}$ on the RBFN controller for each target.
-
-For all the obtained controllers, we measure again the dispersion over 100 movements, the average movement time and average movement cost.
-
-Finally, for all these targets, we record the velocity profile.
 
 \section{Mathematical formulation of the model}
 \label{sec_modelformulation}
@@ -318,12 +295,12 @@ $\phi(s) = [\phi_1(s), \phi_2(s), \cdots, \phi_k(s)]^T$
   %\end{array} \right]$
 is a vector function commonly referred as features.
 
-We use Multivariate Gaussian basis functions throughout the input space. We are in the non-degenerate case i.e. when the symmetric covariance matrix $\Sigma$ is positive definite. The multivariate normal distribution in our case could be write as:
+We use Multivariate Gaussian basis functions throughout the input space. We are in the non-degenerate case i.e. when the symmetric covariance matrix $\Sigma$ is positive definite. The multivariate normal distribution in our case could be written as:
 \begin{equation}
 	f_x(s_1, \cdots, s_k) = \frac{1}{\sqrt{(2\pi)^k|\Sigma|}}exp\left(-\frac{1}{2}(x - \mu)^T\Sigma^{-1}(x - \mu)\right)
 \end{equation}
 where $x$ is a real k-dimensional column vector and $|\Sigma|$ is the determinant of the covariance matrix $\Sigma$.
-The descriptive statistic $(x - \mu)^T\Sigma^{-1}(x - \mu)$ in the non-degenerate multivariate normal distribution equation is known as the square of the Mahalanobis distance, which represents the distance of the test point $x$ from the mean $\mu$.
+The descriptive statistics $(x - \mu)^T\Sigma^{-1}(x - \mu)$ in the non-degenerate multivariate normal distribution equation is known as the square of the Mahalanobis distance, which represents the distance of the test point $x$ from the mean $\mu$.
 \begin{center}
 	\includegraphics[scale=1]{images/Multivariate_Gaussian.png}
 \end{center}
@@ -332,11 +309,11 @@ Let $\nabla_\theta$ denote the gradient according to $\theta$, the gradient of t
 \begin{eqnarray}
 \nabla_\theta\hat{\epsilon}(\theta) = \nabla_\theta\mathbb{E}\left[\frac{1}{2}(y - \hat{f}(s))^2\right] & \approx & \nabla_\theta\frac{1}{Ns}\sum\limits_{i=1}^{Ns}\left[\frac{1}{2}(y - \hat{f}(s))^2\right] \nonumber \\
  & = & \frac{1}{Ns}\sum\limits_{i=1}^{Ns}\left[(\nabla_\theta(y - \hat{f}(s)))(y - \hat{f}(s))\right] \nonumber \\
- & = & \frac{1}{Ns}\sum\limits_{i=1}^{Ns}\left[(\nabla_\theta\hat{f}(s))(\hat{f}(s) - y)\right]
+ & = & \frac{1}{Ns}\sum\limits_{i=1}^{Ns}\left[(\nabla_\theta\hat{f}(s))(\hat{f}(s) - y)\right].
 \end{eqnarray}
 For our linear function approximator with Gaussian basis functions, we have
 \begin{equation}
-\nabla_\theta\hat{f}(s) = \phi(s)
+\nabla_\theta\hat{f}(s) = \phi(s).
 \end{equation}
 
 This gradient cancels out for any local optimum of the error function, therefore we can find one of these by formulating $\theta$ as follows:
@@ -355,7 +332,7 @@ b & = & \sum\limits_{i=1}^{Ns}(\phi(s_i)y_i)
 where $A^\#$ is the pseudo-inverse of matrix A.
 
 \subsection{Implementation}
-We have a set of Ns samples (the data of trajectories generated by the Monfray's controller given the state and the muscles activations at each time for each trajectories). We feed the algorithm with this data through the function \textit{setTrainingData} which check the input dimension, the output dimension and if there is the same number of samples for input and output.
+We have a set of Ns samples (the data of trajectories generated by Monfray's controller given the state and the muscles activations at each time for each trajectories). We feed the algorithm with this data through the function \textit{setTrainingData} which check the input dimension, the output dimension and if there is the same number of samples for input and output.
 
 Then we set the centers and widths for the gaussian used by calling the function \textit{setCentersAndWidths}.
 
@@ -372,32 +349,67 @@ where np.linalg.pinv(A) = $A^\#$.
 \end{itemize}
  
 
-
-You can find the code of the all class fa\_rbfn in appendix~\ref{sec_rbfnCode}.
+The code of the fa\_rbfn class is in appendix~\ref{sec_rbfnCode}.
 
 \section{Optimisation, CMAES controller}
-After obtaining the RBFN controller, the purpose is to create optimized controllers for different sizes of target.
+After obtaining the RBFN controller, we want to optimize controllers for different sizes of target.
 
-We use in this part the CMA-ES(Covariance Matrix Adaptation Evolution Strategy) algorithm implemented in the python module cma.
+We use in this part the CMA-ES (Covariance Matrix Adaptation Evolution Strategy) algorithm implemented in the python module cma.
 
 We can roughly explain how this algorithm work by the following scheme:
 \begin{center}
 \includegraphics[scale=1.5]{figures/cross-entropy.pdf}
 \end{center}
-To launch the CMA-ES algorithm, we use the function \textit{LaunchTrajectoriesCMAES} in \textit{LaunchTrajectories.py}. This function run x times (here x = 5) each trajectories, evaluate them and return the average cost (here the cost equal to the cost in term of muscle activations plus the reward if the target is reach). The algorithm feed the function with the matrix $\boldsymbol{\theta}$ and plays on each weight in order to maximize the cost obtained (i.e. to find the best compromize between the speed to reach the target and the accuracy).
+To launch the CMA-ES algorithm, we use the function \textit{LaunchTrajectoriesCMAES} in \textit{LaunchTrajectories.py}. This function run x times (here x = 5) each trajectories, evaluate them and return the average cost (here the cost is equal to the cost in term of muscle activations plus the reward if the target is reached). The algorithm feeds the function with the matrix $\boldsymbol{\theta}$ and plays on each weight in order to maximize the obtained cost (i.e. to find the best compromize between the speed to reach the target and the accuracy).
 
 
 
 \chapter{Study}
+
+\section{Experimental set-up}
+\label{sec_ExpSetup}
+
+\begin{figure*}[hbt]
+\centering
+	\includegraphics[width=0.9\columnwidth]{figures/armWorkspace.png}
+	\caption{The arm workspace. The reachable space is delimited by a spiral-shaped envelope. The two segments of the arm are represented by two red lines. Initial movement positions are represented with red dots organized into four sets of different distances to the target. The screen is represented as a green line positioned at y = 0.6175. The origin of the arm is at x = 0.0, y = 0.0.}
+	\label{fig:arm_workspace}
+\end{figure*}
+\pagebreak
+The state-space consists of the current articular position $\textbf{q}$ of the arm and its current articular speed $\boldsymbol{\dot{q}}$. The state $\boldsymbol{s = (\dot{q}, q)}$ has a total of 4 dimensions. The initial state is defined by null speed and a variable initial position.
+The positions are bounded to represent the reachable space of a standard human arm, with $q_1 \in$ [-0.6, 2.6] and $q_2 \in$ [-0.2, 3.0], as shown in Figure~\ref{fig:arm_workspace}.
+The action-space consists of an activation signal for each muscle, which also makes a total of 6 dimensions.
+
+When using CMAES, reaching the goal point is replaced by hitting the target on the screen. The target is defined as an interval of varying length around (x = 0, y = 0.6175). The movement is stopped once the line y = 0.6175 has been crossed, and the intersect between the trajectory and this line is computed to determine whether the target was hit. The reward for immediately hitting the target without taking incurred costs into account is set to 300.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figures/NOPStrainingPoint.png}
+\caption{The blue dots represents the initial points of trajectories generated with NOPS. The red dot represents the initial positions used for our experiment. The red star represent the target.}
+\label{fig:trainingPointForRBFN}
+\end{figure}
+
+In order to train RBFN, we generate trajectories with the NOPS from the initial positions shown by the blue dots in Figure~\ref{fig:trainingPointForRBFN} to the goal point.
+
+For our experiment, the starting points have been organized into four groups of different distances with respect to the goal point (d = 18cm, 20cm, 22cm and 24cm respectively). There are 12 initial positions per distance, thus a total of 48 initial positions.
+
+We measure the dispersion over 100 movements towards this target, as well as the average movement time and average movement cost.
+
+We run 60 iterations of CMAES with a population of 100 individuals and $\sigma = 1.10^{-6}$ on the RBFN controller for each target.
+
+For all the obtained controllers, we measure again the dispersion over 100 movements, the average movement time and average movement cost.
+
+Finally, for all these targets, we record the velocity profile.
+
 \section{Experiments}
-All algorithms are implemented in Python. The parameters used for the experiments are given in Bidule.
+All algorithms are implemented in Python. The parameters used for the experiments are given in the table~\ref{ExperimentParam} in Appendix.
 
 \subsection{Model tests}
 We now verify that our model behaves as expected. So we perform two experiments.
 \begin{enumerate}
 \item First, we create a set $\Gamma$ of initial positions. $\Gamma$ contains 48 initial positions organized into four sets of different distances to the target.
-Using the trajectories generated by the NOPS controller, we create the RBFN controller and evaluate his performance on each trajectories of $\Gamma$.
-\item Second, for each target sizes, we perform x times the reaching task for each initial positions of $\Gamma$. We measure different parameters during the generation of the trajectories:
+Using the trajectories generated by the NOPS controller, we create the RBFN controller and evaluate its performance on each trajectories of $\Gamma$.
+\item Second, for each target sizes, we perform x (here x = 50) times the reaching task for each initial positions of $\Gamma$. We measure different parameters during the generation of the trajectories:
 \begin{itemize}
 \item coordinate of the elbow and the end-effector
 \item articular speed of the shoulder and the elbow
@@ -407,11 +419,9 @@ Using the trajectories generated by the NOPS controller, we create the RBFN cont
 \end{itemize}
 \end{enumerate}
 
-\subsection{Create a RBFN controller}
-In this section we study the performance and trajectories obtained with the RBFN controller.
-
-First of all, we generate 1650 trajectories with the NOPS controller in order to train our new controller.(Ici la figure montrant tous les points initiaux des trajectoires generees par NOPS, utilisées pour entrainer RBFN)
-Then, we evaluate the new controller obtained by looking at the cost map.
+\subsection{RBFN controller}
+First of all, we generate 1650 trajectories with the NOPS controller in order to train our new controller.(See the figure~\ref{fig:trainingPointForRBFN})
+Then, we evaluate the new controller obtained by looking at the cost map compared to the cost map of the NOPS controller.
 
 
 \subsection{Optimize the RBFN controller}
@@ -432,29 +442,29 @@ We now have four new controller optimized for each target's size and we can eval
 As expected, we can observe that starting from the left side of the goal point results in a lower cost than starting from the right side. This is explained by the fact that the optimal muscular strategy for performing these movements differs depending on the direction and the initial position.
 
 \subsection{Performance of the CMA-ES controllers}
-First, we can evaluate the results of the optimization by looking the cost map and if the strategy is still the same. Id est, see that starting point from the left side of the goal point results in a lower cost than starting from the right side.
-So we plot the cost map obtained after evaluate the different controllers create by the optimization:
+First, we can evaluate the results of the optimization by looking at the cost map and if the strategy is still the same. We see that starting point from the left side of the goal point results in a lower cost than starting from the right side.
+So we plot the cost map obtained after evaluating the different controllers created by the optimization for four different targets:
 \begin{center}
 \includegraphics[scale=0.3]{figures/costMapAll.png}
 \end{center}
 We barely see the previous strategy but the area where the trajectories are the most costly is not as we expected in the righ side.
-Maybe this is due to the strategy for muscle activation in this area because all the muscles have to be activate to ensure a good trajectory.
+Maybe this is due to the strategy for muscle activation in this area because all the muscles have to be activated to ensure a good trajectory.
 
-Concerning the strategy about the trade-off between the speed to reach the target and the precision. We expect that to ensure to reach the target, when the size is reduced the speed must decrease at the end in order to be more accurate.
-In order to check this point, we plot the time to reach the target over the size of the target for different distance between the initial points and the target:
+According to the theory there must be a trade-off between the speed to reach the target and the accuracy. We expect that to ensure to reach the target, when the size is reduced the speed must decrease at the end in order to be more accurate.
+In order to check this point, we plot the time to reach the target over the size of the target for different distances between the initial points and the target:
 \begin{center}
 \includegraphics[scale=0.5]{figures/timeDistance.png}
 \end{center}
-We can logically see that the time to reach the target increases as more as the distance to the target increases.
-One can also observe that the more the target is small, the time taken to reach the target increases.
+We can see that the time to reach the target increases with the distance to the target.
+We can also observe that the smaller the target, the more time taken to reach the target.
 
-We also expect that when the size of the target increases, the precision decreases over the speed to reach it.
+We also expect that when the size of the target increases, the accuracy decreases over the speed to reach it.
 To analyse this part we can plot the hit dispersion:
 \begin{center}
 \includegraphics[scale=0.3]{figures/hitDispAll0p1_0p4175.png}
 \end{center}
-This figure show the dispertion of the hit points. We see that the dispersion increase as much as the size of the target increases but not as much as we can expect.
-This can be explain by the fact that the accuracy is "bad" enough for the maximum speed that can be reach without increase too much the trajectories cost.
+This figure show the dispersion of the hit points. We see that the dispersion increases as much as the size of the target increases but not as much as we can expect.
+This can be explained by the fact that the accuracy is good enough at maximum speed so the arm does not miss the target.
 
 \subsubsection{Reproduction of Fitt's law}
 Fitts' law states that movement time (MT) is linear in its difficulty index (DI), this index being bigger for longer movements and smaller targets. Fitts' law is written:
@@ -480,7 +490,7 @@ The obtained values of $a$ and $b$ cannot be compared to empirical data from the
 \begin{center}
 \includegraphics[scale=0.5]{figures/velocityProfileTreachSize0p02.png}
 \end{center}
-This velocity profile is obtained with the smallest target, we can see that at the end the speed decrease a lot. It can be explained by the fact that to reach a small target, the controller must decrease the speed in order to increase the precision.
+This velocity profile is obtained with the smallest target, we can see that at the end the speed decreases a lot. It can be explained by the fact that to reach a small target, the controller must decrease the speed in order to increase the accuracy.
 
 The final dispersion in reaching trajectories is generated by motor noise.
 Following the minimum intervention principle from \cite{todorov02_NN}, motor noise being proportional to muscular activation, the only way to decrease motor noise is to decrease muscular activation.
@@ -591,6 +601,27 @@ $\textbf{f}_{\textbf{max6}}$ & Maximum force exerted by the double-joints extens
 \label{MuscleParamTable}
 \end{table}
 
+\begin{table}[hbt]
+\caption{Parameters of the experiment.}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline  
+Number of features & 3\\
+Value of the motor noise & 0.2\\
+$\gamma$ parameter for the cost function & 0.998\\
+$\rho$ parameter for the cost function & 300\\
+$\upsilon$ parameter for the cost function & 1\\
+$\sigma$ parameter for CMA-ES & $1.10^{-6}$\\
+Number of iteration for CMA-ES & 60 \\
+Size of the population for CMA-ES & 150 \\
+Targets size for the experiment (mm) & 0.02/0.05/0.08/0.1 \\
+Time step (s) & 0.002 \\
+\hline
+\end{tabular}
+\end{center}
+\label{ExperimentParam}
+\end{table}
+
 \pagebreak
 
 \section{RBFN implementation}
@@ -598,6 +629,6 @@ $\textbf{f}_{\textbf{max6}}$ & Maximum force exerted by the double-joints extens
 \lstinputlisting[language=Python, firstline=15, lastline=150, breaklines=true, numbers=left, firstnumber=15, showstringspaces=false]{codePython/functionApproximator_RBFN.py}
 
 \bibliographystyle{abbrv}
-\bibliography{twoDarm,robotica12,accuracy}
+\bibliography{twoDarm,robotica12,accuracy,motor_learning}
 
 \end{document}

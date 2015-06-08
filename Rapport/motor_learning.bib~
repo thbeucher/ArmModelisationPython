@@ -1972,6 +1972,14 @@ pages = {1265-1279},
   year = {2007}
 }
 
+@inproceedings{mitrovic08_SAB,
+title        = {Adaptive Optimal Control for Redundantly Actuated Arms},
+author       = {Mitrovic, D. and Klanke, S. and Vijayakumar, S.},
+booktitle    = {Proceedings of the Tenth International Conference on Simulation of Adaptive Behavior},
+pages        = {93--102},
+year         = {2008},
+}
+
 @incollection{miyamoto03_TOPS,
  author = {Hiroyuki Miyamoto and Daniel M. Wolpert and Mitsuo Kawato},
  title = {Computing the optimal trajectory of arm movement: the TOPS (Task

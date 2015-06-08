@@ -17,7 +17,8 @@ def vectorField():
     #theta recovery
     sti = GenerateTrajectory()
     nameT = "RBFN2/" + str(sti.rs.numfeats) + "feats/"
-    theta = sti.fr.getobjread(nameT + "ThetaXBIN")
+    theta = sti.fr.getobjread(nameT + "ThetaX7BIN")
+    sti.setTheta(theta)
     #Creation of some points of SPACE
     x = np.arange(-0.15, 0.16, 0.02)
     y = np.arange(0.5, 0.61, 0.02)
@@ -30,7 +31,7 @@ def vectorField():
     coord = []
     for el in pq:
         inputQ = np.array([[0], [0], [el[0]], [el[1]]])
-        U = sti.getCommand(inputQ, theta)
+        U = sti.NS.GC.getCommand(inputQ, theta)
         ddotq, dotq, q = mdd(np.array([[el[0]], [el[1]]]), np.array([[0], [0]]), U, sti.armP, sti.musclesP, 0.02)
         coordEL, coordHA = mgd(q, sti.armP.l1, sti.armP.l2)
         coord.append(coordHA)

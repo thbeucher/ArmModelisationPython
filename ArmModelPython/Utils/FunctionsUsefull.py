@@ -579,6 +579,37 @@ def plotTrackTraj():
     
 
 #plotTrackTraj()
+
+def getVelocityProfileData(sizeT):
+    fr, rs = initFRRS()
+    #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTarget063/SpeedSaveCmaBIN"
+    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTarget063/nbIteCmaBIN"
+    data = fr.getobjread(name)
+    nbIte = fr.getobjread(nameNbIte)
+    aAll, vAll, tAll = {}, {}, {}
+    for key, val in data.items():
+        a = []
+        for i in range(nbIte[key][0]):
+            a.append(data[key][i])
+        #print(key, len(a), a)
+        aAll[key] = a
+    for key, val in aAll.items():
+        vtmp = []
+        for el in val:
+            vtmp.append(np.linalg.norm(el))
+        vAll[key] = vtmp
+    for key, val in vAll.items():
+        ttmp = []
+        for i in range(len(val)):
+            ttmp.append(i)
+        tAll[key] = ttmp
+    return tAll, vAll
+
+def getVelocityProfileBrent():
+    fr, rs = initFRRS()
+    state, command = fr.getData(rs.pathFolderTrajectories)
+    
         
     
 

@@ -132,14 +132,14 @@ class GenerateTrajectory:
         dotq = self.armD.get_dotq_0()
         inputQ = createStateVector(dotq, q)
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
-        self.save.SaveTrajectory(coordEL, coordHA)
+        #self.save.SaveTrajectory(coordEL, coordHA)
         self.t, i, self.Ju, self.JuK = 0, 0, 0, 0#Ju = cost
         #Name used to save Data
         self.name1, self.name2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
-        self.initSaveData()
+        #self.initSaveData()
         #KalmanModule
-        self.KM = KalmanModule(self.NS, inputQ, self.name2, self.armP, self.rs)
+        #self.KM = KalmanModule(self.NS, inputQ, self.name2, self.armP, self.rs)
         #compute the trajectory ie find the next point
         #as long as the target is not reach
         while coordHA[1] < (self.rs.targetOrdinate):
@@ -148,11 +148,11 @@ class GenerateTrajectory:
                 inputQ, U = self.NS.computeNextState(inputQ)
                 dotq, q = getDotQAndQFromStateVectorS(inputQ)
                 #run Kalman
-                Uk = self.KM.runKalman(inputQ)
-                self.JuK = self.costComputation(self.JuK, Uk, self.t)
+                #Uk = self.KM.runKalman(inputQ)
+                #self.JuK = self.costComputation(self.JuK, Uk, self.t)
                 #saving data
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
-                self.saveDataB(coordEL, coordHA, inputQ, dotq, U)
+                #self.saveDataB(coordEL, coordHA, inputQ, dotq, U)
                 #compute cost
                 self.Ju = self.costComputation(self.Ju, U, self.t)
             else:
@@ -161,16 +161,16 @@ class GenerateTrajectory:
             self.t += self.rs.dt
         #print(i)
         #Saving data f
-        self.saveDataf(coordHA, i, self.Ju)
+        #self.saveDataf(coordHA, i, self.Ju)
         if((coordHA[0] >= (0-self.targetSizeS/2) and coordHA[0] <= (0+self.targetSizeS/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
             self.Ju += np.exp(-self.t/self.rs.gammaCF)*self.rs.rhoCF
         self.costSave[self.name2] = self.Ju
         #Kalman
-        for key, val in self.KM.saveAllCoord.items():
+        '''for key, val in self.KM.saveAllCoord.items():
             if((val[len(val)-1][0] >= (0-self.targetSizeS/2) and val[len(val)-1][0] <= (0+self.targetSizeS/2)) and val[len(val)-1][1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
                 self.JuK += np.exp(-self.t/self.rs.gammaCF)*self.rs.rhoCF
-        return self.JuK
-        #return self.Ju
+        return self.JuK'''
+        return self.Ju
     
 
 

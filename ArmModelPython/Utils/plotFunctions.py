@@ -20,8 +20,9 @@ from Utils.FileReading import FileReading
 #from shutil import copyfile
 #from posix import remove
 from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
-     getTimeDistance, getDistPerfSize
+     getTimeDistance, getDistPerfSize, getVelocityProfileData
 from matplotlib.mlab import griddata
+from scipy.spatial import ConvexHull
 
 
 def costColorPlot(wha):
@@ -183,33 +184,70 @@ def hitDispersion(sizeT):
 def velocityProfile(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/SpeedSaveCmaBIN"
-    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTarget063/SpeedSaveCmaBIN"
+    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTarget063/nbIteCmaBIN"
     data = fr.getobjread(name)
     nbIte = fr.getobjread(nameNbIte)
+    aAll, vAll, tAll = {}, {}, {}
     for key, val in data.items():
         a = []
         for i in range(nbIte[key][0]):
             a.append(data[key][i])
-        print(key, len(a), a)
-        break
-    v = []
-    for el in a:
-        v.append(np.linalg.norm(el))
-    print(v)
-    t = []
-    for i in range(len(v)):
-        t.append(i)
+        #print(key, len(a), a)
+        aAll[key] = a
+    for key, val in aAll.items():
+        vtmp = []
+        for el in val:
+            vtmp.append(np.linalg.norm(el))
+        vAll[key] = vtmp
+    for key, val in vAll.items():
+        ttmp = []
+        for i in range(len(val)):
+            ttmp.append(i)
+        tAll[key] = ttmp
     plt.figure()
-    t = plt.plot(t, v, label=str("Bruit = " + str(rs.knoiseU)))
+    for key, val in vAll.items():
+        t = plt.plot(tAll[key], val, label=str("Bruit = " + str(rs.knoiseU)))
+    #t = plt.plot(t, v, label=str("Bruit = " + str(rs.knoiseU)))
     plt.xlabel("time")
     plt.ylabel("Instantaneous speed")
-    plt.legend(loc=0)
+    #plt.legend(loc=0)
     plt.title("Velocity profile")
+    plt.show(block = True)
+
+#velocityProfile(0.02)
+
+def plotForAllTargetVelocityProfile():
+    fr, rs = initFRRS()
+    fig = plt.figure(1, figsize=(16,9))
+    ax1 = plt.subplot2grid((2,2), (0,0))
+    t, v = getVelocityProfileData(rs.sizeOfTarget[0])
+    for key, val in v.items():
+        ax1.plot(t[key], val, c ='b')
+    ax1.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[0])))
+    
+    ax2 = plt.subplot2grid((2,2), (0,1))
+    t, v = getVelocityProfileData(rs.sizeOfTarget[1])
+    for key, val in v.items():
+        ax2.plot(t[key], val, c ='b')
+    ax2.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[1])))
+    
+    ax3 = plt.subplot2grid((2,2), (1,0))
+    t, v = getVelocityProfileData(rs.sizeOfTarget[2])
+    for key, val in v.items():
+        ax3.plot(t[key], val, c ='b')
+    ax3.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[2])))
+    
+    ax4 = plt.subplot2grid((2,2), (1,1))
+    t, v = getVelocityProfileData(rs.sizeOfTarget[3])
+    for key, val in v.items():
+        ax4.plot(t[key], val, c ='b')
+    ax4.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[3])))
     
     plt.show(block = True)
+
+#plotForAllTargetVelocityProfile()
     
-#velocityProfile(0.02)
 
 def plot_pos_ini():
     '''
@@ -240,11 +278,26 @@ def plot_pos_ini():
             #remove(rs.pathFolderTrajectories + key)
     #print(len(aa), aa)
     #print(len(keyy), sorted(keyy))
+    '''q1aw = np.linspace(-0.6, 2.6, 100)
+    q2aw = np.linspace(-0.2, 3, 100)
+    xawt, yawt, xyawt = [], [], []
+    for i in range(len(q1aw)):
+        for j in range(len(q2aw)):
+            el, ha = mgd(np.array([[q1aw[i]], [q2aw[j]]]), 0.3, 0.35)
+            xawt.append(ha[0])
+            yawt.append(ha[1])
+            xyawt.append((ha[0], ha[1]))
+    xyawt = np.asarray(xyawt)
+    hull = ConvexHull(xyawt)'''
         
     plt.figure()
-    plt.scatter(x, y, c = "b", marker=u'o', s=25, cmap=cm.get_cmap('RdYlBu'))
+    #plt.scatter(xawt, yawt, c = 'g')
+    plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
+    
+    #plt.figure()
+    #plt.plot(xyawt[hull.vertices,0], xyawt[hull.vertices,1])
     
     plt.show(block = True)
    
@@ -331,7 +384,7 @@ def plotRBFNCostMap():
     fr, rs = initFRRS()
     x0, y0, z = [], [], []
     xt = 0
-    name = "RBFN2/" + str(rs.numfeats) + "feats/ResShuffleAll/actiMuscuRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
+    name = "RBFN2/" + str(rs.numfeats) + "feats/ResultShuffle/actiMuscuRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
     #name = "/home/beucher/Desktop/runRBFN/RBFN/RBFN2/4feats/Res42/actiMuscuRBFN0.1BIN"
     #data = fr.getobjread(name, 1)
     data = fr.getobjread(name)
@@ -358,7 +411,7 @@ def plotAllCmaes():
     xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb15/actiMuscuCmaBIN"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTarget063/actiMuscuCmaBIN"
         #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
         zDico.append(fr.getobjread(name))
     for i in range(len(zDico)):
@@ -494,5 +547,7 @@ def plotPerfSizeDist():
     plt.show(block = True)
         
 #plotPerfSizeDist()
+
+
         
         

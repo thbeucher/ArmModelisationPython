@@ -148,7 +148,7 @@ def testTrajKalman():
             gt.initParamTraj()'''
     print("cout:", cost)
     
-testTrajKalman()
+#testTrajKalman()
 
 
     
