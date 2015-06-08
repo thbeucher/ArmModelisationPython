@@ -35,19 +35,18 @@
 \author{Thomas Beucher}
 \maketitle
 
-\section*{Abstract}
-Two basic phenomena interact in the way the speed of our reaching movements is determined.
-First, we tend to reach faster a target that looks more rewarding, despite the additional muscular cost
-of a faster movement.
-Second, when we need to be more precise, our movement takes more time.
-So far, these two phenomena have been studied in isolation despite their obvious interdependency.
-In particular, two recent computational models of motor control address the first phenomenon. They explain the emergence of the time of movement as resulting from a cost-benefit trade-off arising from the summation of a temporally discounted reward and a cost that increases for faster movements.
-However, these models do not account for the second phenomenon, i.e. the dependency between movement time and precision requirements, resulting in a speed-accuracy trade-off and formally expressed by Fitts' law. Another model addresses the role of this speed-accuracy trade-off in determining movement time, but does not take the cost of movement into account.
+%\section*{Abstract}
+%Two basic phenomena interact in the way the speed of our reaching movements is determined.
+%First, we tend to reach faster a target that looks more rewarding, despite the additional muscular cost of a faster movement.
+%Second, when we need to be more precise, our movement takes more time.
+%So far, these two phenomena have been studied in isolation despite their obvious interdependency.
+%In particular, two recent computational models of motor control address the first phenomenon. They explain the emergence of the time of movement as resulting from a cost-benefit trade-off arising from the summation of a temporally discounted reward and a cost that increases for faster movements.
+%However, these models do not account for the second phenomenon, i.e. the dependency between movement time and precision requirements, resulting in a speed-accuracy trade-off and formally expressed by Fitts' law. Another model addresses the role of this speed-accuracy trade-off in determining movement time, but does not take the cost of movement into account.
 
-In this paper, we propose a framework that unifies the cost-benefit trade-off and the speed-accuracy trade-off to explain movement properties related to time.
-With respect to the cost-benefit trade-off models, precision constraints are incorporated through the derivation of a new optimization criterion that considers probabilistic reaching of a rewarding target that may be missed if the motion is too fast.
+%In this paper, we propose a framework that unifies the cost-benefit trade-off and the speed-accuracy trade-off to explain movement properties related to time.
+%With respect to the cost-benefit trade-off models, precision constraints are incorporated through the derivation of a new optimization criterion that considers probabilistic reaching of a rewarding target that may be missed if the motion is too fast.
 
-Using this computational model, we investigate the more global trade-off arising from the interactions between movement time, cost and accuracy. We show that this model accounts for Fitts' law and for other well-established results in the motor control literature.
+%Using this computational model, we investigate the more global trade-off arising from the interactions between movement time, cost and accuracy. We show that this model accounts for Fitts' law and for other well-established results in the motor control literature.
 
 \chapter{Introduction}
 
@@ -60,6 +59,7 @@ This report is about my internship at ISIR covering a period of five months from
 \end{minipage}
 \begin{minipage}{0.49\textwidth}
 	The Institute for Intelligent Systems and Robotics (ISIR) is a multidisciplinary research laboratory that brings together researchers and academics from different disciplines of Engineering Sciences and Information and the Life Sciences. It is based in Paris France.
+	%The ISIR a joint research laboratory (UMR7222) which belongs to the Universit Pierre et Marie Curie (UPMC) and the Centre National de la Recherche Scientifique (CNRS). The ISIR is linked to the Faculty of Engineering of UPMC (UFR 919) and also to the Institute for Science and Systems Engineering (INSIS) of the CNRS.
 \end{minipage}
 
 \pagebreak
@@ -363,7 +363,12 @@ Finally, we run the function \textit{train\_rbfn} to create the controller. We f
 \begin{itemize}
 \item the computation of A line 46:
 \lstinputlisting[language=Python, firstline=46, lastline=46, breaklines=true, numbers=left, firstnumber=46]{codePython/functionApproximator_RBFN.py}
-where 
+where $fop = \phi(s)$.
+\item the computation of b line 52:
+\lstinputlisting[language=Python, firstline=52, lastline=52, breaklines=true, numbers=left, firstnumber=52]{codePython/functionApproximator_RBFN.py}
+\item the computation of $\theta$ line 80:
+\lstinputlisting[language=Python, firstline=80, lastline=80, breaklines=true, numbers=left, firstnumber=80]{codePython/functionApproximator_RBFN.py}
+where np.linalg.pinv(A) = $A^\#$.
 \end{itemize}
  
 
@@ -375,8 +380,125 @@ After obtaining the RBFN controller, the purpose is to create optimized controll
 
 We use in this part the CMA-ES(Covariance Matrix Adaptation Evolution Strategy) algorithm implemented in the python module cma.
 
+We can roughly explain how this algorithm work by the following scheme:
+\begin{center}
+\includegraphics[scale=1.5]{figures/cross-entropy.pdf}
+\end{center}
+To launch the CMA-ES algorithm, we use the function \textit{LaunchTrajectoriesCMAES} in \textit{LaunchTrajectories.py}. This function run x times (here x = 5) each trajectories, evaluate them and return the average cost (here the cost equal to the cost in term of muscle activations plus the reward if the target is reach). The algorithm feed the function with the matrix $\boldsymbol{\theta}$ and plays on each weight in order to maximize the cost obtained (i.e. to find the best compromize between the speed to reach the target and the accuracy).
+
+
 
 \chapter{Study}
+\section{Experiments}
+All algorithms are implemented in Python. The parameters used for the experiments are given in Bidule.
+
+\subsection{Model tests}
+We now verify that our model behaves as expected. So we perform two experiments.
+\begin{enumerate}
+\item First, we create a set $\Gamma$ of initial positions. $\Gamma$ contains 48 initial positions organized into four sets of different distances to the target.
+Using the trajectories generated by the NOPS controller, we create the RBFN controller and evaluate his performance on each trajectories of $\Gamma$.
+\item Second, for each target sizes, we perform x times the reaching task for each initial positions of $\Gamma$. We measure different parameters during the generation of the trajectories:
+\begin{itemize}
+\item coordinate of the elbow and the end-effector
+\item articular speed of the shoulder and the elbow
+\item the muscle activations
+\item the cost of the trajectories (with and without the reward term)
+\item the time taken to reach the goal
+\end{itemize}
+\end{enumerate}
+
+\subsection{Create a RBFN controller}
+In this section we study the performance and trajectories obtained with the RBFN controller.
+
+First of all, we generate 1650 trajectories with the NOPS controller in order to train our new controller.(Ici la figure montrant tous les points initiaux des trajectoires generees par NOPS, utilisées pour entrainer RBFN)
+Then, we evaluate the new controller obtained by looking at the cost map.
+
+
+\subsection{Optimize the RBFN controller}
+Starting back from the best RBFN controller (best set of $\theta$), we optimize, using the CMA-ES algorithm, for four differents target's size.
+We specify the number of iterations required and the population size for CMA-ES. We follow the evolution of the performance during the optimization.
+We now have four new controller optimized for each target's size and we can evaluate them to see if the results are consistent with the model.
+\begin{center}
+\includegraphics[scale=0.5]{figures/cmaesProgression6000.png}
+\end{center}
+
+\section{Results}
+\subsection{Performance of the RBFN controller}
+(Here the costMap of NOPS)
+
+\begin{center}
+\includegraphics[scale=0.5]{figures/costMapRBFNShuffle1.png}
+\end{center}
+As expected, we can observe that starting from the left side of the goal point results in a lower cost than starting from the right side. This is explained by the fact that the optimal muscular strategy for performing these movements differs depending on the direction and the initial position.
+
+\subsection{Performance of the CMA-ES controllers}
+First, we can evaluate the results of the optimization by looking the cost map and if the strategy is still the same. Id est, see that starting point from the left side of the goal point results in a lower cost than starting from the right side.
+So we plot the cost map obtained after evaluate the different controllers create by the optimization:
+\begin{center}
+\includegraphics[scale=0.3]{figures/costMapAll.png}
+\end{center}
+We barely see the previous strategy but the area where the trajectories are the most costly is not as we expected in the righ side.
+Maybe this is due to the strategy for muscle activation in this area because all the muscles have to be activate to ensure a good trajectory.
+
+Concerning the strategy about the trade-off between the speed to reach the target and the precision. We expect that to ensure to reach the target, when the size is reduced the speed must decrease at the end in order to be more accurate.
+In order to check this point, we plot the time to reach the target over the size of the target for different distance between the initial points and the target:
+\begin{center}
+\includegraphics[scale=0.5]{figures/timeDistance.png}
+\end{center}
+We can logically see that the time to reach the target increases as more as the distance to the target increases.
+One can also observe that the more the target is small, the time taken to reach the target increases.
+
+We also expect that when the size of the target increases, the precision decreases over the speed to reach it.
+To analyse this part we can plot the hit dispersion:
+\begin{center}
+\includegraphics[scale=0.3]{figures/hitDispAll0p1_0p4175.png}
+\end{center}
+This figure show the dispertion of the hit points. We see that the dispersion increase as much as the size of the target increases but not as much as we can expect.
+This can be explain by the fact that the accuracy is "bad" enough for the maximum speed that can be reach without increase too much the trajectories cost.
+
+\subsubsection{Reproduction of Fitt's law}
+Fitts' law states that movement time (MT) is linear in its difficulty index (DI), this index being bigger for longer movements and smaller targets. Fitts' law is written:
+
+\begin{equation}
+\text{MT} = a + b . \underbrace{\log_2\left(\frac{D}{W}\right)}_\text{DI}
+\label{eq:fitts}
+\end{equation}
+
+where $D$ is the distance of the movement, $W$ is the width of the target and $a$ and $b$ are linear coefficients. This law was initially studied for one dimensional movements,
+and then extended for many other contexts \cite{Soechting1984,Bootsma1994,Laurent1994,Plamondon1997,Smyrnis2000,Bootsma2004}.
+
+We compute $DI$ values for different distances $D$ and target widths $W$. the figure below shows the resulting movement time $MT$ over $DI$.
+\begin{center}
+\includegraphics[scale=0.5]{figures/fittsLaw.png}
+\end{center}
+One can see that we get a clear linear relationships, thus the data is consistent with Fitt's law.
+
+The obtained values of $a$ and $b$ cannot be compared to empirical data from the human motor control literature given the wide variability of these values accross subjects \cite{crossman1983,mackenzie1989}.
+
+
+\subsubsection{Velocity profile}
+\begin{center}
+\includegraphics[scale=0.5]{figures/velocityProfileTreachSize0p02.png}
+\end{center}
+This velocity profile is obtained with the smallest target, we can see that at the end the speed decrease a lot. It can be explained by the fact that to reach a small target, the controller must decrease the speed in order to increase the precision.
+
+The final dispersion in reaching trajectories is generated by motor noise.
+Following the minimum intervention principle from \cite{todorov02_NN}, motor noise being proportional to muscular activation, the only way to decrease motor noise is to decrease muscular activation.
+
+Thus, in order to hit a small trajectory, muscular activations should be small
+by the end of the movement, which can result in first instance in less co-contraction and then in less velocity. Furthermore, a slower movement provides a better opportunity for state estimation to compensate for delayed feedback about the position of the end effector. Taken together, those two phenomena contribute to the fact that an optimal controller should generate less velocity by the end of the movement for a smaller target.
+So one way to make sure to hit a small target would be to perform a slow reaching movement.
+
+However, as explained above, a slower movement results in a discounted reward,
+thus the movement should nevertheless be as fast as possible.
+
+As a consequence, the best option for optimizing reaching accuracy under
+temporal constraints consists in being very fast in the beginning of the movement
+and much slower in the end. Thus the velocity profile should be asymmetric. The main drive
+for this asymmetry being motor noise, the more motor noise, the more asymmetric the movement should be.
+Incidentally, one can observe on the ascending parts of the profiles that we do not get strictly the shape of a bell curve.
+
+At this point of my internship, I have not yet implemented the delayed feedback about the position of the end effector so I can not show this part of the experimentation.
 
 \chapter{Appendix}
 \section{Nomenclature of arm parameters}
