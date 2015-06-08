@@ -34,10 +34,10 @@ def costEvalBrent():
         JuT[el] = Ju
         valJuT.append(Ju)
         junk, coordInitHA = mgd(np.array([[stateAll[el][0][2]], [stateAll[el][0][3]]]), sti.armP.l1, sti.armP.l2)
-        elname = str(str(round(coordInitHA[0])) + "//" + round(coordInitHA[1]))
+        elname = str(str(round(coordInitHA[0], 4)) + "//" + str(round(coordInitHA[1], 4)))
         JuWR[elname] = JuWR[el]
         del JuWR[el]
-        JuT2.append((el, Ju, tronquerNB(coordInitHA[0], 3), tronquerNB(coordInitHA[1], 3)))
+        JuT2.append((el, Ju, tronquerNB(coordInitHA[0], 5), tronquerNB(coordInitHA[1], 5)))
     print(JuT)
     print(JuT2)
     fileSavingBin("trajectoires_cout/trajectoire_coutCoordXBIN", JuT2)
@@ -49,7 +49,7 @@ def costEvalBrent():
     print("Fin de traitement!")
     
         
-costEvalBrent()
+#costEvalBrent()
     
     
     

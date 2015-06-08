@@ -606,6 +606,25 @@ def getVelocityProfileData(sizeT):
         tAll[key] = ttmp
     return tAll, vAll
 
+def getActiMuscuBrent():
+    fr, rs = initFRRS()
+    data = fr.getobjread("trajectoires_cout/actiMuscuBIN")
+    xi, yi = np.linspace(-0.25,0.25,200), np.linspace(0.26,0.6,200)
+    x0, y0, z = [], [], []
+    for key, val in data.items():
+        x0.append(float(key.split("//")[0]))
+        y0.append(float(key.split("//")[1]))
+        z.append(val)
+    zi = griddata(x0, y0, z, xi, yi)
+    fig = plt.figure()
+    t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+    plt.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
+    plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+    plt.colorbar(t1, shrink=0.5, aspect=5)
+    plt.show(block = True)
+    
+#getActiMuscuBrent()
+
 def getVelocityProfileBrent():
     fr, rs = initFRRS()
     state, command = fr.getData(rs.pathFolderTrajectories)

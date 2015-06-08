@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.5.4)  8 JUN 2015 15:28
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.5.4)  8 JUN 2015 17:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -529,57 +529,64 @@ Package pdftex.def Info: figures/cmaesProgression6000.png used on input line 43
 2.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
 
-<figures/costMapRBFNShuffle1.png, id=360, 586.8324pt x 442.2924pt>
+<figures/costMapBrent.png, id=360, 586.8324pt x 442.2924pt>
+File: figures/costMapBrent.png Graphic file (type png)
+
+<use figures/costMapBrent.png>
+Package pdftex.def Info: figures/costMapBrent.png used on input line 438.
+(pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
+
+<figures/costMapRBFNShuffle1.png, id=361, 586.8324pt x 442.2924pt>
 File: figures/costMapRBFNShuffle1.png Graphic file (type png)
 
 <use figures/costMapRBFNShuffle1.png>
-Package pdftex.def Info: figures/costMapRBFNShuffle1.png used on input line 440
+Package pdftex.def Info: figures/costMapRBFNShuffle1.png used on input line 442
 .
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
- [18 <./figures/cmaesProgression6000.png> <./figures/costMapRBFNShuffle1.png>]
-<figures/costMapAll.png, id=368, 1164.9924pt x 659.1024pt>
+ [18 <./figures/cmaesProgression6000.png> <./figures/costMapBrent.png>]
+<figures/costMapAll.png, id=369, 1164.9924pt x 659.1024pt>
 File: figures/costMapAll.png Graphic file (type png)
 
 <use figures/costMapAll.png>
-Package pdftex.def Info: figures/costMapAll.png used on input line 448.
+Package pdftex.def Info: figures/costMapAll.png used on input line 450.
 (pdftex.def)             Requested size: 349.50041pt x 197.73224pt.
-
-<figures/timeDistance.png, id=369, 586.8324pt x 442.2924pt>
+ [19 <./figures/costMapRBFNShuffle1.png> <./figures/costMapAll.png>] <figures/t
+imeDistance.png, id=376, 586.8324pt x 442.2924pt>
 File: figures/timeDistance.png Graphic file (type png)
 
 <use figures/timeDistance.png>
-Package pdftex.def Info: figures/timeDistance.png used on input line 456.
+Package pdftex.def Info: figures/timeDistance.png used on input line 458.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
- [19 <./figures/costMapAll.png>]
-<figures/hitDispAll0p1_0p4175.png, id=375, 1164.9924pt x 659.1024pt>
+
+<figures/hitDispAll0p1_0p4175.png, id=377, 1164.9924pt x 659.1024pt>
 File: figures/hitDispAll0p1_0p4175.png Graphic file (type png)
 
 <use figures/hitDispAll0p1_0p4175.png>
 Package pdftex.def Info: figures/hitDispAll0p1_0p4175.png used on input line 46
-4.
+6.
 (pdftex.def)             Requested size: 349.50041pt x 197.73224pt.
- [20 <./figures/timeDistance.png> <./figures/hitDispAll0p1_0p4175.png>]
-<figures/fittsLaw.png, id=388, 586.8324pt x 442.2924pt>
+ [20 <./figures/timeDistance.png>]
+<figures/fittsLaw.png, id=389, 586.8324pt x 442.2924pt>
 File: figures/fittsLaw.png Graphic file (type png)
 
 <use figures/fittsLaw.png>
-Package pdftex.def Info: figures/fittsLaw.png used on input line 482.
+Package pdftex.def Info: figures/fittsLaw.png used on input line 484.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
-
-<figures/velocityProfileTreachSize0p02.png, id=391, 586.8324pt x 442.2924pt>
+ [21 <./figures/hitDispAll0p1_0p4175.png>]
+<figures/velocityProfileTreachSize0p02.png, id=405, 586.8324pt x 442.2924pt>
 File: figures/velocityProfileTreachSize0p02.png Graphic file (type png)
 
 <use figures/velocityProfileTreachSize0p02.png>
 Package pdftex.def Info: figures/velocityProfileTreachSize0p02.png used on inpu
-t line 491.
+t line 493.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
- [21 <./figures/fittsLaw.png>]
-[22 <./figures/velocityProfileTreachSize0p02.png>] [23]
+ [22 <./figures/fittsLaw.png> <./figures/velocityProfileTreachSize0p02.png>] [2
+3]
 Chapter 4.
 [24
 
 ]
-Overfull \hbox (23.6313pt too wide) in paragraph at lines 554--582
+Overfull \hbox (23.6313pt too wide) in paragraph at lines 556--584
  [] 
  []
 
@@ -595,25 +602,25 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 634.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 636.
  [32]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 634.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 636.
  (./ArmModelTB.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 634.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 634.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 636.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 636.
 Package rerunfilecheck Info: File `ArmModelTB.out' has not changed.
 (rerunfilecheck)             Checksum: 7FFBDA179DF9C62D822DB58B10574DC5;1781.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 634.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 636.
  ) 
 Here is how much of TeX's memory you used:
- 8067 strings out of 493304
- 116608 string characters out of 6139872
+ 8072 strings out of 493304
+ 116739 string characters out of 6139872
  322526 words of memory out of 5000000
- 11141 multiletter control sequences out of 15000+600000
+ 11145 multiletter control sequences out of 15000+600000
  15372 words of font info for 56 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  29i,15n,43p,1334b,1785s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -633,10 +640,10 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ArmModelTB.pdf (33 pages, 1762605 bytes).
+Output written on ArmModelTB.pdf (33 pages, 1806413 bytes).
 PDF statistics:
- 709 PDF objects out of 1000 (max. 8388607)
+ 711 PDF objects out of 1000 (max. 8388607)
  603 compressed objects within 7 object streams
  261 named destinations out of 1000 (max. 500000)
- 292 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 297 words of extra memory for PDF output out of 10000 (max. 10000000)
 
