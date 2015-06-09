@@ -65,6 +65,9 @@ This report is about my internship at ISIR covering a period of five months from
 	The Institute for Intelligent Systems and Robotics (ISIR) is a multidisciplinary research laboratory that brings together researchers and academics from different disciplines of Engineering Sciences and Information and the Life Sciences. It is based in Paris France.
 	%The ISIR a joint research laboratory (UMR7222) which belongs to the Universit Pierre et Marie Curie (UPMC) and the Centre National de la Recherche Scientifique (CNRS). The ISIR is linked to the Faculty of Engineering of UPMC (UFR 919) and also to the Institute for Science and Systems Engineering (INSIS) of the CNRS.
 \end{minipage}
+\vspace{8mm}
+
+I choose this internship because I wanted to experience the world of research in view of prepare for the Phd that I hope to achieve. So I join the team of Olivier Sigaud to discover the field of computational neuroscience, especially the motor learning (what is the brain strategy to lead our movements).
 
 \pagebreak
 
@@ -434,10 +437,14 @@ We now have four new controller optimized for each target's size and we can eval
 
 \section{Results}
 \subsection{Performance of the RBFN controller}
+First, we evaluate the performance of the NOPS controller.
 \begin{center}
 \includegraphics[scale=0.5]{figures/costMapBrent.png}
 \end{center}
+This figure show the cost (norm of muscle activations vector) of trajectories from different initial points.
+An area where the cost is low is observed. Moving away from this area, the cost trajectories gradually increase.
 
+We evaluate the same things for the RBFN controller.
 \begin{center}
 \includegraphics[scale=0.5]{figures/costMapRBFNShuffle1.png}
 \end{center}
