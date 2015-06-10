@@ -90,9 +90,9 @@ class GenerateTrajectory:
         if not self.name2 in self.actiMuscuSave:
             self.actiMuscuSave[self.name2] = []
         if not self.name2 in self.stateAndCommand:
-            self.stateAndCommand[self.name2] = []
+            self.stateAndCommand[self.name2] = []'''
         if not self.name2 in self.coordEndEffector:
-            self.coordEndEffector[self.name2] = []'''
+            self.coordEndEffector[self.name2] = []
     
     def saveDataB(self, coordEL, coordHA, inputQ, dotq, U):
         '''
@@ -100,8 +100,8 @@ class GenerateTrajectory:
         '''
         '''self.Usave[self.name1].append(U)
         self.save.SaveTrajectory(coordEL, coordHA)
-        self.stateAndCommand[self.name2].append((inputQ, U))
-        self.coordEndEffector[self.name2].append(coordHA)'''
+        self.stateAndCommand[self.name2].append((inputQ, U))'''
+        self.coordEndEffector[self.name2].append(coordHA)
         self.speedSave[self.name2].append((dotq[0,0], dotq[1,0], np.linalg.norm(dotq)))
     
     def saveDataf(self, coordHA, i, Ju):
@@ -132,14 +132,14 @@ class GenerateTrajectory:
         dotq = self.armD.get_dotq_0()
         inputQ = createStateVector(dotq, q)
         coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
-        #self.save.SaveTrajectory(coordEL, coordHA)
+        self.save.SaveTrajectory(coordEL, coordHA)
         self.t, i, self.Ju, self.JuK = 0, 0, 0, 0#Ju = cost
         #Name used to save Data
         self.name1, self.name2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
         self.initSaveData()
         #KalmanModule
-        #self.KM = KalmanModule(self.NS, inputQ, self.name2, self.armP, self.rs)
+        self.KM = KalmanModule(self.NS, inputQ, self.name2, self.armP, self.rs)
         #compute the trajectory ie find the next point
         #as long as the target is not reach
         while coordHA[1] < (self.rs.targetOrdinate):
@@ -148,7 +148,7 @@ class GenerateTrajectory:
                 inputQ, U = self.NS.computeNextState(inputQ)
                 dotq, q = getDotQAndQFromStateVectorS(inputQ)
                 #run Kalman
-                #Uk = self.KM.runKalman(inputQ)
+                Uk = self.KM.runKalman(inputQ, i)
                 #self.JuK = self.costComputation(self.JuK, Uk, self.t)
                 #saving data
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)

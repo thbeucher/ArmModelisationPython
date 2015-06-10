@@ -243,17 +243,17 @@ is computed as $\boldsymbol{\tau} = \textbf{A}^\top ( \textbf{f}_\textbf{max} \t
 \section{Mathematical formulation of the model}
 \label{sec_modelformulation}
 
-The cost function $J(\vec{u})$ proposed for a control $\vec{u}$ in the model of \cite{rigoux12} is
+The cost function $J(\vec{u})$ proposed for a control $\vec{u}$ in the model of \cite{rigoux12_plos} is
 
 \begin{equation}
 \label{eq:criterion}
  J(\vec{u}) = \int_0^{\infty} e^{-t/\gamma} [ \rho R(\vec{s}_t) - \nu L(\vec{u}_t) ] dt
 \end{equation}
 
-where $R(\vec{s}_t)$ is the immediate reward function that equals $1$ at the goal point (also called rewarded state) and is null everywhere else. The function $L(\vec{u}_t)$ is the movement cost. The authors of \cite{rigoux12} take $L(\vec{u}_t) = \|\vec{u}_t\|^2$, as in many motor control models. 
+where $R(\vec{s}_t)$ is the immediate reward function that equals $1$ at the goal point (also called rewarded state) and is null everywhere else. The function $L(\vec{u}_t)$ is the movement cost. The authors of \cite{rigoux12_plos} take $L(\vec{u}_t) = \|\vec{u}_t\|^2$, as in many motor control models. 
 The continuous-time discount factor $\gamma$ accounts for the ``greediness'' of the controller, i.e. the smaller $\gamma$, the more the agent is focused on short term rewards.
 Finally, $\rho$ is the weight of the reward term and $\nu$ the weight of the effort term.
-In all experiments presented here, based, on the previous work from \cite{rigoux12}, we took $\gamma=0.998$, $\rho=300$ and $\nu=1$.
+In all experiments presented here, based, on the previous work from \cite{rigoux12_plos}, we took $\gamma=0.998$, $\rho=300$ and $\nu=1$.
 
 A near optimal deterministic policy to solve this problem is obtained through a computationally expensive variation calculus method (see \cite{rigoux_these} for details).
 Given that the policy does not take the presence of noise in the model of the plant into account, 

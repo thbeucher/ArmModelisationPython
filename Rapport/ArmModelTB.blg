@@ -6,10 +6,9 @@ Database file #1: twoDarm.bib
 Database file #2: robotica12.bib
 Database file #3: accuracy.bib
 Database file #4: motor_learning.bib
-Warning--I didn't find a database entry for "rigoux12"
 You've used 22 entries,
             2118 wiz_defined-function locations,
-            662 strings with 7506 characters,
+            661 strings with 7498 characters,
 and the built_in function-call counts, 7261 in all, are:
 = -- 738
 > -- 303
@@ -48,4 +47,3 @@ warning$ -- 0
 while$ -- 77
 width$ -- 24
 write$ -- 243
-(There was 1 warning)

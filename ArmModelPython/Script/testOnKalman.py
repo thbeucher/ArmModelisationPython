@@ -83,7 +83,7 @@ def plotResultTestKalman(coord, coordKalman):
     for i in range(len(difDist)):
         t.append(i)
     
-    plt.figure()
+    '''plt.figure()
     for key, val in coord.items():
         plt.plot([x[0] for x in val], [y[1] for y in val], c = 'b')
     for key, val in coordKalman.items():
@@ -91,7 +91,8 @@ def plotResultTestKalman(coord, coordKalman):
         
     plt.figure()
     plt.plot(t, difDist)
-    plt.show(block = True)
+    plt.show(block = True)'''
+    return (t, difDist)
     
 #plotResultTestKalman()
 
@@ -114,16 +115,26 @@ def testTrajKalman():
     name = "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7BIN"
     theta = fr.getobjread(name)
     gt.setTheta(theta)
+    xI, yI = 0.15, 0.4
+    ii = 1
+    difD = {}
+    for i in range(6):
+        np.savetxt("/home/beucher/workspace/Data/TEST/delay", [ii])
+        ii += 5
+        cost = gt.generateTrajectories(xI, yI)
+        difD[i] = plotResultTestKalman(gt.coordEndEffector, gt.KM.saveAllCoord)
     
-    xI, yI = 0.1, 0.5
-    cost = gt.generateTrajectories(xI, yI)
-    plotResultTestKalman(gt.coordEndEffector, gt.KM.saveAllCoord)
+    plt.figure()
+    for key, val in difD.items():
+        plt.plot(val[0], val[1], label = key)
+    plt.legend(loc = 0)
+    plt.show(block = True)
     
     '''posIni = fr.getobjread(rs.experimentFilePosIni)
     for el in posIni:
         try:
             cost = gt.generateTrajectories(el[0], el[0])
-            #plotResultTestKalman(gt.coordEndEffector, gt.KM.saveAllCoord)
+            plotResultTestKalman(gt.coordEndEffector, gt.KM.saveAllCoord)
             print("Success", el[0], el[1])
         except:
             print("fail", el[0], el[1])
@@ -148,7 +159,7 @@ def testTrajKalman():
             gt.initParamTraj()'''
     print("cout:", cost)
     
-#testTrajKalman()
+testTrajKalman()
 
 
     

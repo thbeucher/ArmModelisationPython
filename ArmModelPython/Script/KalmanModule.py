@@ -15,19 +15,22 @@ class KalmanModule:
     
     def __init__(self, NS, state, name, armP, rs):
         self.name = "KalmanModule"
-        self.delay = 5
         self.dimState = 4
         self.NS = NS
+        self.rs = rs
+        self.setDelay()
         self.state_store = np.tile(state, (1, self.delay))
         self.nameToSave = name
         self.armP = armP
-        self.rs = rs
         self.saveAllCoord = {}
         self.saveAllCoord[name] = []
         self.saveCovariance = {}
         self.saveCovariance[name] = []
         self.kalmanFilterInit()
         
+    def setDelay(self):
+        delaytmp = np.loadtxt(self.rs.pathFolderData + "TEST/delay")
+        self.delay = int(delaytmp)  
         
     def kalmanFilterInit(self):
         '''
@@ -40,7 +43,7 @@ class KalmanModule:
         #initial_state_covariance = np.asarray([[1, 0.1, 0.1, 0.1], [-0.1, 1, 0.1, 0.1], [-0.1, -0.1, 1, 0.1], [-0.1, -0.1, -0.1, 1]])
         observation_covariance = 1000*np.eye(self.dimState) #+ np.random.normal(0, 0.2, (self.dimState, self.dimState))
         initial_state_covariance = np.eye(self.dimState)
-        initial_state_covariance = initial_state_covariance*0.1
+        #initial_state_covariance = initial_state_covariance*0.1
         self.nextCovariance = initial_state_covariance
         self.ukf = UnscentedKalmanFilter(self.transition_function, self.observation_function,
                                     transition_covariance, observation_covariance,
@@ -110,16 +113,18 @@ class KalmanModule:
         coordEl, coordHa = mgd(q, self.armP.l1, self.armP.l2)
         print("next", coordHa)
         
-    def runKalman(self, state):
+    def runKalman(self, state, i):
         '''
         Routine for Kalman update approximation
         '''
         self.storeState(state)
+        if i == 0:
+            self.nextState = self.state_store.T[self.delay-1]
         #print("state", self.state_store.T[self.delay-1], "\nObs", state.T[0], "\nCov")
         self.nextCovariance = np.eye(self.dimState)*0.01
         self.nextState, self.nextCovariance = self.ukf.filter_update(self.state_store.T[self.delay-1], self.nextCovariance, state.T[0])
         #self.plotSome(self.state_store.T[self.delay-1], state.T[0], self.nextState)
-        self.endRoutine(state)
+        #self.endRoutine(state)
         self.saveState()
         U = self.NS.GC.getCommand(np.asarray([self.nextState]).T, self.NS.theta)
         return U
