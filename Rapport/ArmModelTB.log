@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.5.4)  9 JUN 2015 13:52
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.5.4)  10 JUN 2015 16:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -541,72 +541,88 @@ File: figures/costMapAll.png Graphic file (type png)
 Package pdftex.def Info: figures/costMapAll.png used on input line 457.
 (pdftex.def)             Requested size: 349.50041pt x 197.73224pt.
  [19 <./figures/costMapRBFNShuffle1.png>]
-<figures/timeDistance.png, id=378, 586.8324pt x 442.2924pt>
+<figures/cost_dyn_no_ext_force.png, id=378, 473.51906pt x 411.03563pt>
+File: figures/cost_dyn_no_ext_force.png Graphic file (type png)
+
+<use figures/cost_dyn_no_ext_force.png>
+Package pdftex.def Info: figures/cost_dyn_no_ext_force.png used on input line 4
+64.
+(pdftex.def)             Requested size: 331.46106pt x 287.72298pt.
+ [20 <./figures/costMapAll.png> <./figures/cost_dyn_no_ext_force.png (PNG copy)
+>]
+<figures/timeDistance.png, id=384, 586.8324pt x 442.2924pt>
 File: figures/timeDistance.png Graphic file (type png)
 
 <use figures/timeDistance.png>
-Package pdftex.def Info: figures/timeDistance.png used on input line 465.
+Package pdftex.def Info: figures/timeDistance.png used on input line 473.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
- [20 <./figures/costMapAll.png> <./figures/timeDistance.png>]
-<figures/hitDispAll0p1_0p4175.png, id=385, 1164.9924pt x 659.1024pt>
+
+<figures/timeLuka.png, id=385, 421.575pt x 316.18124pt>
+File: figures/timeLuka.png Graphic file (type png)
+
+<use figures/timeLuka.png>
+Package pdftex.def Info: figures/timeLuka.png used on input line 480.
+(pdftex.def)             Requested size: 295.10048pt x 221.32535pt.
+ [21 <./figures/timeDistance.png>]
+<figures/hitDispAll0p1_0p4175.png, id=391, 1164.9924pt x 659.1024pt>
 File: figures/hitDispAll0p1_0p4175.png Graphic file (type png)
 
 <use figures/hitDispAll0p1_0p4175.png>
-Package pdftex.def Info: figures/hitDispAll0p1_0p4175.png used on input line 47
-3.
+Package pdftex.def Info: figures/hitDispAll0p1_0p4175.png used on input line 48
+8.
 (pdftex.def)             Requested size: 349.50041pt x 197.73224pt.
-
-<figures/fittsLaw.png, id=392, 586.8324pt x 442.2924pt>
+ [22 <./figures/timeLuka.png (PNG copy)> <./figures/hitDispAll0p1_0p4175.png>]
+<figures/fittsLaw.png, id=403, 586.8324pt x 442.2924pt>
 File: figures/fittsLaw.png Graphic file (type png)
 
 <use figures/fittsLaw.png>
-Package pdftex.def Info: figures/fittsLaw.png used on input line 491.
+Package pdftex.def Info: figures/fittsLaw.png used on input line 506.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
- [21 <./figures/hitDispAll0p1_0p4175.png>]
-<figures/velocityProfileTreachSize0p02.png, id=408, 586.8324pt x 442.2924pt>
+
+<figures/velocityProfileTreachSize0p02.png, id=406, 586.8324pt x 442.2924pt>
 File: figures/velocityProfileTreachSize0p02.png Graphic file (type png)
 
 <use figures/velocityProfileTreachSize0p02.png>
 Package pdftex.def Info: figures/velocityProfileTreachSize0p02.png used on inpu
-t line 500.
+t line 515.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
- [22 <./figures/fittsLaw.png> <./figures/velocityProfileTreachSize0p02.png>] [2
-3]
+ [23 <./figures/fittsLaw.png>]
+[24 <./figures/velocityProfileTreachSize0p02.png>] [25]
 Chapter 4.
-[24
+[26
 
 ]
-Overfull \hbox (23.6313pt too wide) in paragraph at lines 563--591
+Overfull \hbox (23.6313pt too wide) in paragraph at lines 578--606
  [] 
  []
 
-[25] (./codePython/functionApproximator_RBFN.py [26] [27] [28] [29])
-(./ArmModelTB.bbl [30]
+[27] (./codePython/functionApproximator_RBFN.py [28] [29] [30] [31])
+(./ArmModelTB.bbl [32]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [31
+ [33
 
 ]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 643.
- [32]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 643.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 658.
+ [34]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 658.
  (./ArmModelTB.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 643.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 643.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 658.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 658.
 Package rerunfilecheck Info: File `ArmModelTB.out' has not changed.
 (rerunfilecheck)             Checksum: 7FFBDA179DF9C62D822DB58B10574DC5;1781.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 643.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 658.
  ) 
 Here is how much of TeX's memory you used:
- 8071 strings out of 493304
- 116729 string characters out of 6139872
+ 8083 strings out of 493304
+ 117030 string characters out of 6139872
  322526 words of memory out of 5000000
- 11144 multiletter control sequences out of 15000+600000
+ 11152 multiletter control sequences out of 15000+600000
  15372 words of font info for 56 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  29i,15n,43p,1334b,1785s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -626,10 +642,10 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ArmModelTB.pdf (33 pages, 1806921 bytes).
+Output written on ArmModelTB.pdf (35 pages, 1835014 bytes).
 PDF statistics:
- 714 PDF objects out of 1000 (max. 8388607)
- 606 compressed objects within 7 object streams
- 261 named destinations out of 1000 (max. 500000)
- 297 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 724 PDF objects out of 1000 (max. 8388607)
+ 612 compressed objects within 7 object streams
+ 263 named destinations out of 1000 (max. 500000)
+ 307 words of extra memory for PDF output out of 10000 (max. 10000000)
 

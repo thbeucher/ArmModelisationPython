@@ -121,7 +121,7 @@ class KalmanModule:
         if i == 0:
             self.nextState = self.state_store.T[self.delay-1]
         #print("state", self.state_store.T[self.delay-1], "\nObs", state.T[0], "\nCov")
-        self.nextCovariance = np.eye(self.dimState)*0.01
+        self.nextCovariance = np.eye(self.dimState)*0.1
         self.nextState, self.nextCovariance = self.ukf.filter_update(self.state_store.T[self.delay-1], self.nextCovariance, state.T[0])
         #self.plotSome(self.state_store.T[self.delay-1], state.T[0], self.nextState)
         #self.endRoutine(state)

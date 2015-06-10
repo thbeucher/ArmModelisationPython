@@ -459,6 +459,14 @@ So we plot the cost map obtained after evaluating the different controllers crea
 We barely see the previous strategy but the area where the trajectories are the most costly is not as we expected in the righ side.
 Maybe this is due to the strategy for muscle activation in this area because all the muscles have to be activated to ensure a good trajectory.
 
+If we look at the cost map obtained by our Slovenian colleagues:
+\begin{center}
+\includegraphics[scale=0.7]{figures/cost_dyn_no_ext_force.png}
+\end{center}
+This map represent the cost calculated only from kinetic energy of the limb (no external force). This shows only energy related to the limb movement.
+
+We find approximately the same pattern with a high cost area. The targets size are not the same in human experiment because we don't have the same accuracy than a computer and our model need smaller target sizes because otherwise the model always hits the target without any constraint on accuracy, so the laws do not emerge.
+
 According to the theory there must be a trade-off between the speed to reach the target and the accuracy. We expect that to ensure to reach the target, when the size is reduced the speed must decrease at the end in order to be more accurate.
 In order to check this point, we plot the time to reach the target over the size of the target for different distances between the initial points and the target:
 \begin{center}
@@ -466,6 +474,13 @@ In order to check this point, we plot the time to reach the target over the size
 \end{center}
 We can see that the time to reach the target increases with the distance to the target.
 We can also observe that the smaller the target, the more time taken to reach the target.
+
+Our Slovenian colleagues obtained this figure:
+\begin{center}
+\includegraphics[scale=0.7]{figures/timeLuka.png}
+\end{center}
+We find the same pattern, the greater the distance to the target, the longer time to reach it. The time taken to reach the target decreases with the targets size.
+
 
 We also expect that when the size of the target increases, the accuracy decreases over the speed to reach it.
 To analyse this part we can plot the hit dispersion:
