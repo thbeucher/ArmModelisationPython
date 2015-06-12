@@ -276,15 +276,20 @@ def cmaesCostProgression():
     fr, rs = initFRRS()
     costCma = {}
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(15000)
-        costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = fr.getobjread(name)
+        try:
+            name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(15000)
+            costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = fr.getobjread(name)
+        except:
+            pass
     costEvo = {}
     for key, val in costCma.items():
         #val.reverse()
         costArray = np.asarray(val).reshape(rs.maxIterCmaes, rs.popsizeCmaes)
+        #costArray = np.asarray(val).reshape(100, 150)
         costEvo[key] = np.mean(costArray, axis = 1)
     y = []
     for i in range(rs.maxIterCmaes):
+    #for i in range(100):
         y.append(i)
     f, ax = plt.subplots(len(rs.sizeOfTarget), sharex = True)
     for key, x in costEvo.items():
@@ -628,6 +633,15 @@ def getActiMuscuBrent():
 def getVelocityProfileBrent():
     fr, rs = initFRRS()
     state, command = fr.getData(rs.pathFolderTrajectories)
+    
+
+def saveThetaToNumpyArray():
+    fr, rs = initFRRS()
+    data = fr.getobjread("RBFN2/3feats/ThetaX7BIN")
+    np.savetxt(rs.pathFolderData + "RBFN2/3feats/ThetaX7NP", data)
+    
+#saveThetaToNumpyArray()
+
     
         
     

@@ -80,17 +80,17 @@ class GenerateTrajectory:
         '''
         Initializes object used to save data
         '''
-        #self.Usave[self.name1] = []
+        self.Usave[self.name1] = []
         if not self.name2 in self.speedSave:
             self.speedSave[self.name2] = []
-        '''if not self.name2 in self.lastCoord:
+        if not self.name2 in self.lastCoord:
             self.lastCoord[self.name2] = []
         if not self.name2 in self.IteSave:
             self.IteSave[self.name2] = []
         if not self.name2 in self.actiMuscuSave:
             self.actiMuscuSave[self.name2] = []
         if not self.name2 in self.stateAndCommand:
-            self.stateAndCommand[self.name2] = []'''
+            self.stateAndCommand[self.name2] = []
         if not self.name2 in self.coordEndEffector:
             self.coordEndEffector[self.name2] = []
     
@@ -98,9 +98,9 @@ class GenerateTrajectory:
         '''
         Saves data which changes during the loop in generateTrajectories
         '''
-        '''self.Usave[self.name1].append(U)
+        self.Usave[self.name1].append(U)
         self.save.SaveTrajectory(coordEL, coordHA)
-        self.stateAndCommand[self.name2].append((inputQ, U))'''
+        self.stateAndCommand[self.name2].append((inputQ, U))
         self.coordEndEffector[self.name2].append(coordHA)
         self.speedSave[self.name2].append((dotq[0,0], dotq[1,0], np.linalg.norm(dotq)))
     
@@ -139,7 +139,7 @@ class GenerateTrajectory:
         #Initialization containers for saving data
         self.initSaveData()
         #KalmanModule
-        self.KM = KalmanModule(self.NS, inputQ, self.name2, self.armP, self.rs)
+        #self.KM = KalmanModule(self.NS, inputQ, self.name2, self.armP, self.rs)
         #compute the trajectory ie find the next point
         #as long as the target is not reach
         while coordHA[1] < (self.rs.targetOrdinate):
@@ -148,7 +148,7 @@ class GenerateTrajectory:
                 inputQ, U = self.NS.computeNextState(inputQ)
                 dotq, q = getDotQAndQFromStateVectorS(inputQ)
                 #run Kalman
-                Uk = self.KM.runKalman(inputQ, i)
+                #Uk = self.KM.runKalman(inputQ, i)
                 #self.JuK = self.costComputation(self.JuK, Uk, self.t)
                 #saving data
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
@@ -161,7 +161,7 @@ class GenerateTrajectory:
             self.t += self.rs.dt
         #print(i)
         #Saving data f
-        #self.saveDataf(coordHA, i, self.Ju)
+        self.saveDataf(coordHA, i, self.Ju)
         #if((coordHA[0] >= (0-self.targetSizeS/2) and coordHA[0] <= (0+self.targetSizeS/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
         #Condition to obtain the reward for cmaes optimization
         if((coordHA[0] >= (0-self.targetSizeS/2) and coordHA[0] <= (0+self.targetSizeS/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)) and self.speedSave[self.name2][i-1][2] < 1:
@@ -169,7 +169,7 @@ class GenerateTrajectory:
         self.costSave[self.name2] = self.Ju
         #Kalman
         '''for key, val in self.KM.saveAllCoord.items():
-            if((val[len(val)-1][0] >= (0-self.targetSizeS/2) and val[len(val)-1][0] <= (0+self.targetSizeS/2)) and val[len(val)-1][1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
+            if((val[len(val)-1][0] >= (0-self.targetSizeS/2) and val[len(val)-1][0] <= (0+self.targetSizeS/2)) and val[len(val)-1][1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)) and self.KM.saveSpeed[self.name2][i-1] < 0.5:
                 self.JuK += np.exp(-self.t/self.rs.gammaCF)*self.rs.rhoCF
         return self.JuK'''
         return self.Ju

@@ -26,6 +26,8 @@ class KalmanModule:
         self.saveAllCoord[name] = []
         self.saveCovariance = {}
         self.saveCovariance[name] = []
+        self.saveSpeed = {}
+        self.saveSpeed[name] = []
         self.kalmanFilterInit()
         
     def setDelay(self):
@@ -92,6 +94,7 @@ class KalmanModule:
         junk, coordPE = mgd(q, self.armP.l1, self.armP.l2)
         self.saveAllCoord[self.nameToSave].append(coordPE)
         self.saveCovariance[self.nameToSave].append(self.nextCovariance)
+        self.saveSpeed[self.nameToSave].append(np.linalg.norm(dotq))
         
     def endRoutine(self, state):
         dotq, q = getDotQAndQFromStateVectorS(state)

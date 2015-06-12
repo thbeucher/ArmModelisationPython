@@ -66,16 +66,19 @@ def getThetaCma(fr, name):
 def runGenTrajCma():
     fr, rs = initFRRS()
     for i in range(len(rs.sizeOfTarget)):
-        print("Trajectories generation for target ", rs.sizeOfTarget[i])
-        cf = LaunchTrajectories(4, rs.sizeOfTarget[i])
-        #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfbm"
-        theta = getThetaCma(fr, name)
-        sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTarget063/"
-        saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
-        print(meanJu)
-        sti.initParamTraj()
+        try:
+            print("Trajectories generation for target ", rs.sizeOfTarget[i])
+            cf = LaunchTrajectories(4, rs.sizeOfTarget[i])
+            #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
+            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfTT"
+            theta = getThetaCma(fr, name)
+            sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
+            nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTime/"
+            saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
+            print(meanJu)
+            sti.initParamTraj()
+        except:
+            pass
 
 #runGenTrajCma()    
     

@@ -411,9 +411,12 @@ def plotAllCmaes():
     xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTarget063/actiMuscuCmaBIN"
-        #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
-        zDico.append(fr.getobjread(name))
+        try:
+            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTime/actiMuscuCmaBIN"
+            #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
+            zDico.append(fr.getobjread(name))
+        except:
+            pass
     for i in range(len(zDico)):
         x0[i], y0[i], z[i] = [], [], []
         for keyu, valu in zDico[i].items():
@@ -453,16 +456,16 @@ def plotAllCmaes():
     ax3.contourf(xi, yi, zi[2], 15, cmap=cm.get_cmap('RdYlBu'))
     ax3.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[2])))
     
-    ax4 = plt.subplot2grid((2,2), (1,1))
+    '''ax4 = plt.subplot2grid((2,2), (1,1))
     t4 = ax4.scatter(x0[3], y0[3], c=z[3], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
     fig.colorbar(t4, shrink=0.5, aspect=5)
     ax4.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
     ax4.contourf(xi, yi, zi[3], 15, cmap=cm.get_cmap('RdYlBu'))
-    ax4.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[3])))
+    ax4.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[3])))'''
     
     plt.show(block = True)
     
-#plotAllCmaes()
+plotAllCmaes()
 
 def plotTimeDistanceTarget():
     fr, rs = initFRRS()
