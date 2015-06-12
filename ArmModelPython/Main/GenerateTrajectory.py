@@ -17,6 +17,7 @@ from Utils.GenerateTrajectoryUtils import getDotQAndQFromStateVectorS, createSta
     NextState
 from Utils.InitUtil import initFRRS
 from Script.KalmanModule import KalmanModule
+import time
 
 
 class GenerateTrajectory:
@@ -58,9 +59,12 @@ class GenerateTrajectory:
         self.stateAndCommand = {}
         self.coordEndEffector = {}
         
-    def setTheta(self, theta):
+    def setTheta(self, theta, dt = 0):
         self.theta = theta
-        self.NS = NextState(self.armP, self.musclesP, self.rs.dt, self.theta, self.fa, self.rs.knoiseU)
+        if dt == 0:
+            self.NS = NextState(self.armP, self.musclesP, self.rs.dt, self.theta, self.fa, self.rs.knoiseU)
+        else:
+            self.NS = NextState(self.armP, self.musclesP, dt, self.theta, self.fa, self.rs.knoiseU)
     
     def costComputation(self, Ju, U, t):
         '''

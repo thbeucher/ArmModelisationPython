@@ -20,6 +20,7 @@ import timeit
 import matplotlib.patches as patches
 from Utils.ReadSetupFile import ReadSetupFile
 from scipy.stats.stats import linregress
+from Main.GenerateTrajectory import GenerateTrajectory
 
 
 
@@ -642,7 +643,18 @@ def saveThetaToNumpyArray():
     
 #saveThetaToNumpyArray()
 
-    
+def testInfluenceOfTimeStepOnNumberOfIte():
+    fr, rs = initFRRS()
+    gt = GenerateTrajectory(4, rs.sizeOfTarget[3])
+    theta = fr.getobjread("RBFN2/3feats/ThetaX7BIN")
+    dt = [0.002, 0.004, 0.006, 0.008, 0.014]
+    for el in dt:
+        gt.setTheta(theta, el)
+        print("For a time step of ", el)
+        gt.generateTrajectories(0.1, 0.4)
+        break
         
+    
+#testInfluenceOfTimeStepOnNumberOfIte()
     
 

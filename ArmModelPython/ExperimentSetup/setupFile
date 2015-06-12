@@ -5,8 +5,8 @@ Parametre gamma cost function(float):0.998
 Parametre rho cost function(int):300
 Parametre upsilon cost function(int):1
 Pour CMAES, sigma(float):0.000001
-Pour CMAES, maxIteration(int):15
-POUR CMAES, popsize(int):50
+Pour CMAES, maxIteration(int):10
+POUR CMAES, popsize(int):30
 Chemin du dossier du projet:/home/beucher/workspace/
 Chemin du dossier data:/home/beucher/workspace/Data/
 Chemin du dossier contenant les trajectoires:/home/beucher/workspace/Data/trajectoires/
