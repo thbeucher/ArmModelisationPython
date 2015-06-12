@@ -184,8 +184,8 @@ def hitDispersion(sizeT):
 def velocityProfile(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTarget063/SpeedSaveCmaBIN"
-    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTarget063/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTime/SpeedSaveCmaBIN"
+    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTime/nbIteCmaBIN"
     data = fr.getobjread(name)
     nbIte = fr.getobjread(nameNbIte)
     aAll, vAll, tAll = {}, {}, {}
@@ -226,11 +226,11 @@ def plotForAllTargetVelocityProfile():
         ax1.plot(t[key], val, c ='b')
     ax1.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[0])))
     
-    ax2 = plt.subplot2grid((2,2), (0,1))
+    '''ax2 = plt.subplot2grid((2,2), (0,1))
     t, v = getVelocityProfileData(rs.sizeOfTarget[1])
     for key, val in v.items():
         ax2.plot(t[key], val, c ='b')
-    ax2.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[1])))
+    ax2.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[1])))'''
     
     ax3 = plt.subplot2grid((2,2), (1,0))
     t, v = getVelocityProfileData(rs.sizeOfTarget[2])
@@ -465,13 +465,16 @@ def plotAllCmaes():
     
     plt.show(block = True)
     
-plotAllCmaes()
+#plotAllCmaes()
 
 def plotTimeDistanceTarget():
     fr, rs = initFRRS()
     targetDic = {}
     for i in range(len(rs.sizeOfTarget)):
-        targetDic[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i])
+        try:
+            targetDic[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i])
+        except:
+            pass
     targetDistTime = []
     for key, val in targetDic.items():
         for el in val:
@@ -502,7 +505,10 @@ def plotFittsLaw():
     fr, rs = initFRRS()
     data = {}
     for i in range(len(rs.sizeOfTarget)):
-        data[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i])
+        try:
+            data[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i])
+        except:
+            pass
     print(data)
     timeDistWidth = []
     for key, val in data.items():
@@ -531,7 +537,10 @@ def plotPerfSizeDist():
     fr, rs = initFRRS()
     sizeDistPerfTmp = {}
     for i in range(len(rs.sizeOfTarget)):
-        sizeDistPerfTmp[i] = getDistPerfSize(rs.sizeOfTarget[i])
+        try:
+            sizeDistPerfTmp[i] = getDistPerfSize(rs.sizeOfTarget[i])
+        except:
+            pass
     print(sizeDistPerfTmp)
     distDico = {}
     for key, val in sizeDistPerfTmp.items():

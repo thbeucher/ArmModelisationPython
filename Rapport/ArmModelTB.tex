@@ -655,6 +655,80 @@ Time step (s) & 0.002 \\
 \label{sec_rbfnCode}
 \lstinputlisting[language=Python, firstline=15, lastline=150, breaklines=true, numbers=left, firstnumber=15, showstringspaces=false]{codePython/functionApproximator_RBFN.py}
 
+\section{Experimental methods on human}
+\label{sec_humanExp}
+METHODS
+
+*Subjects*
+Twenty healthy male volunteers participated in the study. Their average
+age was xx.x years (SD = xx.x years), height xxx cm (SD = x.x cm) and
+body mass xx kg (SD = x.x kg). All subjects were right-handed. Exclusion
+criteria were neurological, vestibular, locomotion, visual disorders and
+recent limb injuries (self-reported). Prior to their participation, the
+subjects were informed about the course of the study and were required
+to sign an informed consent approved by the National medical ethics
+committee (No. 112/06/13).
+
+*Measurement Protocol*
+Subject sat on a chair in front of a TV screen and a 3 axes haptic
+manipulator (HM) (Haptic master Mk2, MOOG, Nieuw-Vennep, The
+Netherlands). The TV screen was located 2 m in front of the chair
+backrest. The subject's right wrist was immobilised and connected to the
+HM by means of the gimbal mechanism (ADL gimbal mechanism, MOOG,
+Nieuw-Vennep, The Netherlands). HM constrained the motion of the
+subject’s right hand (hand from here on) to the horizontal plane at
+the height of the subject’s shoulders. The subject’s right elbow was
+suspended from the ceiling by a long string in order to compensate for
+the effect of gravity and to restrain the motion of the arm to the
+horizontal plane. In order to fix the position of the shoulders, the
+trunk of the subject was immobilised by tying it to the backrest of the
+chair.
+
+The subject was allowed to move the hand from 12 initial circular areas
+with 10 mm diameter spread in front of the subject to a single target
+that was located symmetrically to the subject’s right shoulder on a
+virtual wall at a distance equal to 95% of the subject's arm length
+(defined as the distance between shoulder and wrist). The initial areas
+were spread in two lines parallel to the virtual wall. One line was
+located at the distance equal to 35% of the arm length from the virtual
+wall and included 5 initial areas while the other line was located at
+the distance equal to 55% of the arm length from the virtual wall and
+included 7 initial areas. The initial areas on each line were placed
+symmetrically with respect to the target on the virtual wall and were
+spread with 10 cm distance in-between. The initial areas were spread in
+the area well within the area of arm motion where the passive joint
+torques are negligible. The size of the target on the virtual wall was
+either 5 mm, 10 mm, 20 mm or 40 mm wide. The position of the current
+initial area, the position of the target and the position of the
+subject’s hand were drawn in 2D perspective on the screen in real
+time. The size of the initial areas were shown on the screen while the
+size of the target was hidden and only a cross mark indicated it’s
+centre. The experimental setup is depicted in Fig. 1.
+
+The experiment was divided into four parts corresponding to the four
+randomly selected sizes of the target. In each part, the randomly
+selected initial position from where the subject had to perform the
+motion was indicated in red. When the subject reached and stayed within
+the initial position for more than 1 s, the colour of the patch changed
+from red to green. This indicated the subject that the motion can be
+started. The time of the motion from the moment when the hand left the
+initial circular patch to the moment when the hand touched the virtual
+wall was recorded and subtracted from the total time of 90 seconds. The
+remaining time was displayed on the screen at the bottom of the screen.
+Success in hitting the target on the virtual wall was clearly indicated
+by changing the color of the virtual wall from grey to green for 1 s.
+Besides, the subject obtained a money award of 10 euro cents. If the
+target was missed, the virtual wall turned red and no reward was given
+to the subject. The cumulative reward was displayed on top of the screen
+using large bold fonts.
+
+The task of the subject was to obtain as high reward as possible in the
+given time. In effect, the subjects had to find the optimal balance
+between precision, speed of motion and its cost in order to maximise the
+reward without knowing the actual size of the target. To amplify the
+effect of cost of motion, HM emulated a viscous media through which the
+subject had to move the hand.
+
 \bibliographystyle{abbrv}
 \bibliography{twoDarm,robotica12,accuracy,motor_learning}
 

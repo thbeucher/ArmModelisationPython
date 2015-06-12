@@ -359,7 +359,7 @@ def plotTrajWhenTargetNotReach():
 
 def getTimeDistance(sizeTarget):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/ResCfb/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/ResTime/nbIteCmaBIN"
     #name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteRBFN" + str(sizeTarget) + "BIN"
     nbIteTraj = fr.getobjread(name)
     distTimeDico = {}
@@ -516,7 +516,7 @@ def plotScattergram():
 
 def getDistPerfSize(sizeT):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfb/actiMuscuCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTime/actiMuscuCmaBIN"
     data = fr.getobjread(name)
     DistPerf = {}
     for key, val in data.items():
@@ -588,8 +588,8 @@ def plotTrackTraj():
 def getVelocityProfileData(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTarget063/SpeedSaveCmaBIN"
-    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTarget063/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTime/SpeedSaveCmaBIN"
+    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTime/nbIteCmaBIN"
     data = fr.getobjread(name)
     nbIte = fr.getobjread(nameNbIte)
     aAll, vAll, tAll = {}, {}, {}

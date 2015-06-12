@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.5.4)  10 JUN 2015 16:45
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.5.4)  12 JUN 2015 15:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -376,7 +376,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<images/eval_Beucher.pdf, id=123, 597.23125pt x 844.15375pt>
+<images/eval_Beucher.pdf, id=127, 597.23125pt x 844.15375pt>
 File: images/eval_Beucher.pdf Graphic file (type pdf)
 
 <use images/eval_Beucher.pdf>
@@ -401,7 +401,7 @@ l.40 \end{center}
 
 ]
 Chapter 1.
-<images/logo_isir.jpg, id=169, 160.6pt x 121.45375pt>
+<images/logo_isir.jpg, id=175, 160.6pt x 121.45375pt>
 File: images/logo_isir.jpg Graphic file (type jpg)
 
 <use images/logo_isir.jpg>
@@ -430,7 +430,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 58--70
 [4
 
  <./images/logo_isir.jpg>]
-<images/canu_fig3T.png, id=178, 568.0422pt x 254.3904pt>
+<images/canu_fig3T.png, id=183, 568.0422pt x 254.3904pt>
 File: images/canu_fig3T.png Graphic file (type png)
 
 <use images/canu_fig3T.png>
@@ -438,7 +438,7 @@ Package pdftex.def Info: images/canu_fig3T.png used on input line 82.
 (pdftex.def)             Requested size: 360.0pt x 161.22168pt.
  [5 <./images/canu_fig3T.png>] [6] [7]
 Chapter 2.
-<figures/arm_model_horiz.pdf, id=236, 1664.2175pt x 459.7175pt>
+<figures/arm_model_horiz.pdf, id=241, 1664.2175pt x 459.7175pt>
 File: figures/arm_model_horiz.pdf Graphic file (type pdf)
 
 <use figures/arm_model_horiz.pdf>
@@ -477,7 +477,7 @@ Overfull \hbox (1.57568pt too wide) in paragraph at lines 302--303
 -out the in-put space.
  []
 
-<images/Multivariate_Gaussian.png, id=331, 301.125pt x 188.705pt>
+<images/Multivariate_Gaussian.png, id=336, 301.125pt x 188.705pt>
 File: images/Multivariate_Gaussian.png Graphic file (type png)
 
 <use images/Multivariate_Gaussian.png>
@@ -488,7 +488,7 @@ Package pdftex.def Info: images/Multivariate_Gaussian.png used on input line 30
 tor_RBFN.py)
 (./codePython/functionApproximator_RBFN.py)
 (./codePython/functionApproximator_RBFN.py)
-<figures/cross-entropy.pdf, id=350, 185.493pt x 306.746pt>
+<figures/cross-entropy.pdf, id=355, 185.493pt x 306.746pt>
 File: figures/cross-entropy.pdf Graphic file (type pdf)
 
 <use figures/cross-entropy.pdf>
@@ -502,7 +502,7 @@ Package pdftex.def Info: figures/cross-entropy.pdf used on input line 365.
 l.366 \end{center}
                   ] [15 <./figures/cross-entropy.pdf>]
 Chapter 3.
-<figures/armWorkspace.png, id=374, 586.8324pt x 442.2924pt>
+<figures/armWorkspace.png, id=379, 586.8324pt x 442.2924pt>
 File: figures/armWorkspace.png Graphic file (type png)
 
 <use figures/armWorkspace.png>
@@ -511,14 +511,14 @@ Package pdftex.def Info: figures/armWorkspace.png used on input line 378.
  [16
 
  <./figures/armWorkspace.png>]
-<figures/NOPStrainingPoint.png, id=382, 586.8324pt x 442.2924pt>
+<figures/NOPStrainingPoint.png, id=387, 586.8324pt x 442.2924pt>
 File: figures/NOPStrainingPoint.png Graphic file (type png)
 
 <use figures/NOPStrainingPoint.png>
 Package pdftex.def Info: figures/NOPStrainingPoint.png used on input line 391.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
  [17 <./figures/NOPStrainingPoint.png>]
-[18] <figures/cmaesProgression6000.png, id=400, 586.8324pt x 442.2924pt>
+[18] <figures/cmaesProgression6000.png, id=405, 586.8324pt x 442.2924pt>
 File: figures/cmaesProgression6000.png Graphic file (type png)
 
 <use figures/cmaesProgression6000.png>
@@ -526,14 +526,14 @@ Package pdftex.def Info: figures/cmaesProgression6000.png used on input line 43
 6.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
 
-<figures/costMapBrent.png, id=401, 586.8324pt x 442.2924pt>
+<figures/costMapBrent.png, id=406, 586.8324pt x 442.2924pt>
 File: figures/costMapBrent.png Graphic file (type png)
 
 <use figures/costMapBrent.png>
 Package pdftex.def Info: figures/costMapBrent.png used on input line 443.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
  [19 <./figures/cmaesProgression6000.png> <./figures/costMapBrent.png>]
-<figures/costMapRBFNShuffle1.png, id=408, 586.8324pt x 442.2924pt>
+<figures/costMapRBFNShuffle1.png, id=413, 586.8324pt x 442.2924pt>
 File: figures/costMapRBFNShuffle1.png Graphic file (type png)
 
 <use figures/costMapRBFNShuffle1.png>
@@ -541,14 +541,14 @@ Package pdftex.def Info: figures/costMapRBFNShuffle1.png used on input line 450
 .
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
 
-<figures/costMapAll.png, id=409, 1164.9924pt x 659.1024pt>
+<figures/costMapAll.png, id=414, 1164.9924pt x 659.1024pt>
 File: figures/costMapAll.png Graphic file (type png)
 
 <use figures/costMapAll.png>
 Package pdftex.def Info: figures/costMapAll.png used on input line 458.
 (pdftex.def)             Requested size: 349.50041pt x 197.73224pt.
  [20 <./figures/costMapRBFNShuffle1.png>]
-<figures/cost_dyn_no_ext_force.png, id=415, 473.51906pt x 411.03563pt>
+<figures/cost_dyn_no_ext_force.png, id=420, 473.51906pt x 411.03563pt>
 File: figures/cost_dyn_no_ext_force.png Graphic file (type png)
 
 <use figures/cost_dyn_no_ext_force.png>
@@ -557,21 +557,21 @@ Package pdftex.def Info: figures/cost_dyn_no_ext_force.png used on input line 4
 (pdftex.def)             Requested size: 331.46106pt x 287.72298pt.
  [21 <./figures/costMapAll.png> <./figures/cost_dyn_no_ext_force.png (PNG copy)
 >]
-<figures/timeDistance.png, id=421, 586.8324pt x 442.2924pt>
+<figures/timeDistance.png, id=426, 586.8324pt x 442.2924pt>
 File: figures/timeDistance.png Graphic file (type png)
 
 <use figures/timeDistance.png>
 Package pdftex.def Info: figures/timeDistance.png used on input line 474.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
 
-<figures/timeLuka.png, id=422, 421.575pt x 316.18124pt>
+<figures/timeLuka.png, id=427, 421.575pt x 316.18124pt>
 File: figures/timeLuka.png Graphic file (type png)
 
 <use figures/timeLuka.png>
 Package pdftex.def Info: figures/timeLuka.png used on input line 481.
 (pdftex.def)             Requested size: 295.10048pt x 221.32535pt.
  [22 <./figures/timeDistance.png>]
-<figures/hitDispAll0p1_0p4175.png, id=428, 1164.9924pt x 659.1024pt>
+<figures/hitDispAll0p1_0p4175.png, id=433, 1164.9924pt x 659.1024pt>
 File: figures/hitDispAll0p1_0p4175.png Graphic file (type png)
 
 <use figures/hitDispAll0p1_0p4175.png>
@@ -579,14 +579,14 @@ Package pdftex.def Info: figures/hitDispAll0p1_0p4175.png used on input line 48
 9.
 (pdftex.def)             Requested size: 349.50041pt x 197.73224pt.
  [23 <./figures/timeLuka.png (PNG copy)> <./figures/hitDispAll0p1_0p4175.png>]
-<figures/fittsLaw.png, id=440, 586.8324pt x 442.2924pt>
+<figures/fittsLaw.png, id=445, 586.8324pt x 442.2924pt>
 File: figures/fittsLaw.png Graphic file (type png)
 
 <use figures/fittsLaw.png>
 Package pdftex.def Info: figures/fittsLaw.png used on input line 507.
 (pdftex.def)             Requested size: 293.41548pt x 221.14566pt.
 
-<figures/velocityProfileTreachSize0p02.png, id=443, 586.8324pt x 442.2924pt>
+<figures/velocityProfileTreachSize0p02.png, id=448, 586.8324pt x 442.2924pt>
 File: figures/velocityProfileTreachSize0p02.png Graphic file (type png)
 
 <use figures/velocityProfileTreachSize0p02.png>
@@ -603,33 +603,52 @@ Overfull \hbox (23.6313pt too wide) in paragraph at lines 579--607
  [] 
  []
 
-[28] [29] (./codePython/functionApproximator_RBFN.py [30] [31] [32])
-(./ArmModelTB.bbl [33]
+[28] [29] (./codePython/functionApproximator_RBFN.py [30] [31] [32]) [33]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [34
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+
+[34] (./ArmModelTB.bbl [35]
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+ [36
 
 ]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 661.
- [35]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 661.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 735.
+ [37]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 735.
  (./ArmModelTB.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 661.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 661.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 735.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 735.
 Package rerunfilecheck Info: File `ArmModelTB.out' has not changed.
-(rerunfilecheck)             Checksum: 2055A6C2D42E98A7CC3A94A42A8D96BB;1849.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 661.
+(rerunfilecheck)             Checksum: 5A1D1EA96D15B220504DF7DF613A24A2;1925.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 735.
  ) 
 Here is how much of TeX's memory you used:
- 8090 strings out of 493304
- 117105 string characters out of 6139872
- 317528 words of memory out of 5000000
- 11153 multiletter control sequences out of 15000+600000
+ 8095 strings out of 493304
+ 117157 string characters out of 6139872
+ 317585 words of memory out of 5000000
+ 11155 multiletter control sequences out of 15000+600000
  15372 words of font info for 56 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  29i,15n,43p,1334b,1719s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -649,10 +668,10 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ArmModelTB.pdf (36 pages, 1838239 bytes).
+Output written on ArmModelTB.pdf (38 pages, 1842666 bytes).
 PDF statistics:
- 762 PDF objects out of 1000 (max. 8388607)
- 649 compressed objects within 7 object streams
- 266 named destinations out of 1000 (max. 500000)
- 315 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 778 PDF objects out of 1000 (max. 8388607)
+ 663 compressed objects within 7 object streams
+ 269 named destinations out of 1000 (max. 500000)
+ 323 words of extra memory for PDF output out of 10000 (max. 10000000)
 
