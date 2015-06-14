@@ -22,8 +22,13 @@
 \BOOKMARK [1][-]{section.3.3}{Results}{chapter.3}% 22
 \BOOKMARK [2][-]{subsection.3.3.1}{Performance of the RBFN controller}{section.3.3}% 23
 \BOOKMARK [2][-]{subsection.3.3.2}{Performance of the CMA-ES controllers}{section.3.3}% 24
-\BOOKMARK [0][-]{chapter.4}{Appendix}{}% 25
-\BOOKMARK [1][-]{section.4.1}{Nomenclature of arm parameters}{chapter.4}% 26
-\BOOKMARK [1][-]{section.4.2}{Experiment parameters}{chapter.4}% 27
-\BOOKMARK [1][-]{section.4.3}{RBFN implementation}{chapter.4}% 28
-\BOOKMARK [1][-]{section.4.4}{Experimental methods on human}{chapter.4}% 29
+\BOOKMARK [2][-]{subsection.3.3.3}{Delayed feedback}{section.3.3}% 25
+\BOOKMARK [0][-]{chapter.4}{Conclusion}{}% 26
+\BOOKMARK [1][-]{section.4.1}{Difficulties experienced}{chapter.4}% 27
+\BOOKMARK [1][-]{section.4.2}{New knowledge obtained}{chapter.4}% 28
+\BOOKMARK [1][-]{section.4.3}{The continuation of the project}{chapter.4}% 29
+\BOOKMARK [0][-]{chapter.5}{Appendix}{}% 30
+\BOOKMARK [1][-]{section.5.1}{Nomenclature of arm parameters}{chapter.5}% 31
+\BOOKMARK [1][-]{section.5.2}{Experiment parameters}{chapter.5}% 32
+\BOOKMARK [1][-]{section.5.3}{RBFN implementation}{chapter.5}% 33
+\BOOKMARK [1][-]{section.5.4}{Experimental methods on human}{chapter.5}% 34
