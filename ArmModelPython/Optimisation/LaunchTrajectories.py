@@ -9,10 +9,11 @@ import numpy as np
 #import time
 from Utils.ThetaNormalization import vectorToMatrix, unNorm
 from Main.GenerateTrajectory import GenerateTrajectory
-from multiprocessing.context import Process
+import time
+#from multiprocessing.context import Process
 #from multiprocessing.sharedctypes import Array, Value
-from Utils.FileSaving import fileSavingBin, fileSavingStr
-from multiprocessing.pool import ThreadPool
+from Utils.FileSaving import fileSavingBin
+#from multiprocessing.pool import ThreadPool
     
 
 class LaunchTrajectories:
@@ -84,11 +85,14 @@ class LaunchTrajectories:
         for i in range(5):
             JuS = []
             #posIni is an array with all initials points used for the experiment
+            t1 = time.time()
+            print("time here", t1)
             for el in self.sti.posIni:
                 #generateTrajectories is the function which compute the trajectory from the initial point given
                 Ju = self.sti.generateTrajectories(el[0], el[1])
                 #store the cost of trajectories
                 JuS.append(Ju)
+            print("time now", time.time() - t1)
             costT[i] = JuS
         s = 0
         #compute the mean of the x tries for each trajectories

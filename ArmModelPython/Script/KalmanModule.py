@@ -46,7 +46,8 @@ class KalmanModule:
         observation_covariance = 1000*np.eye(self.dimState) #+ np.random.normal(0, 0.2, (self.dimState, self.dimState))
         initial_state_covariance = np.eye(self.dimState)
         #initial_state_covariance = initial_state_covariance*0.1
-        self.nextCovariance = initial_state_covariance
+        #self.nextCovariance = initial_state_covariance
+        self.nextCovariance = np.eye(self.dimState)*0.1
         self.ukf = UnscentedKalmanFilter(self.transition_function, self.observation_function,
                                     transition_covariance, observation_covariance,
                                     initial_state_mean, initial_state_covariance,
@@ -76,9 +77,6 @@ class KalmanModule:
         nexStateNoise = nextState + np.asarray([noise]).T
         return nexStateNoise.T[0]
     
-    def obs_fun_test(self, state, noise):
-        pass
-    
     def storeState(self, state):
         '''
         Store the state from t-delay to t
@@ -96,7 +94,7 @@ class KalmanModule:
         self.saveCovariance[self.nameToSave].append(self.nextCovariance)
         self.saveSpeed[self.nameToSave].append(np.linalg.norm(dotq))
         
-    def endRoutine(self, state):
+    '''def endRoutine(self, state):
         dotq, q = getDotQAndQFromStateVectorS(state)
         coordEl, coordHa = mgd(q, self.armP.l1, self.armP.l2)
         if coordHa[1] >= self.rs.targetOrdinate:
@@ -114,7 +112,7 @@ class KalmanModule:
         print("obs", coordHa)
         dotq, q = getDotQAndQFromStateVectorS(np.asarray([state3]).T)
         coordEl, coordHa = mgd(q, self.armP.l1, self.armP.l2)
-        print("next", coordHa)
+        print("next", coordHa)'''
         
     def runKalman(self, state, i):
         '''
@@ -124,8 +122,9 @@ class KalmanModule:
         if i == 0:
             self.nextState = self.state_store.T[self.delay-1]
         #print("state", self.state_store.T[self.delay-1], "\nObs", state.T[0], "\nCov")
-        self.nextCovariance = np.eye(self.dimState)*0.1
-        self.nextState, self.nextCovariance = self.ukf.filter_update(self.state_store.T[self.delay-1], self.nextCovariance, state.T[0])
+        #self.nextCovariance = np.eye(self.dimState)*0.1
+        #self.nextState, self.nextCovariance = self.ukf.filter_update(self.state_store.T[self.delay-1], self.nextCovariance, state.T[0])
+        self.nextState, junk = self.ukf.filter_update(self.state_store.T[self.delay-1], self.nextCovariance, state.T[0])
         #self.plotSome(self.state_store.T[self.delay-1], state.T[0], self.nextState)
         #self.endRoutine(state)
         self.saveState()

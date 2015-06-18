@@ -226,11 +226,11 @@ def plotForAllTargetVelocityProfile():
         ax1.plot(t[key], val, c ='b')
     ax1.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[0])))
     
-    '''ax2 = plt.subplot2grid((2,2), (0,1))
+    ax2 = plt.subplot2grid((2,2), (0,1))
     t, v = getVelocityProfileData(rs.sizeOfTarget[1])
     for key, val in v.items():
         ax2.plot(t[key], val, c ='b')
-    ax2.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[1])))'''
+    ax2.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[1])))
     
     ax3 = plt.subplot2grid((2,2), (1,0))
     t, v = getVelocityProfileData(rs.sizeOfTarget[2])
@@ -412,7 +412,7 @@ def plotAllCmaes():
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
         try:
-            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTime/actiMuscuCmaBIN"
+            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTK/actiMuscuCmaBIN"
             #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
             zDico.append(fr.getobjread(name))
         except:
@@ -456,12 +456,12 @@ def plotAllCmaes():
     ax3.contourf(xi, yi, zi[2], 15, cmap=cm.get_cmap('RdYlBu'))
     ax3.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[2])))
     
-    '''ax4 = plt.subplot2grid((2,2), (1,1))
+    ax4 = plt.subplot2grid((2,2), (1,1))
     t4 = ax4.scatter(x0[3], y0[3], c=z[3], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
     fig.colorbar(t4, shrink=0.5, aspect=5)
     ax4.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
     ax4.contourf(xi, yi, zi[3], 15, cmap=cm.get_cmap('RdYlBu'))
-    ax4.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[3])))'''
+    ax4.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[3])))
     
     plt.show(block = True)
     

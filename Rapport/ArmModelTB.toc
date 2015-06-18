@@ -16,11 +16,11 @@
 \contentsline {chapter}{\numberline {3}Study}{18}{chapter.3}
 \contentsline {section}{\numberline {3.1}Experimental set-up}{18}{section.3.1}
 \contentsline {section}{\numberline {3.2}Experiments}{20}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Model tests}{21}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}RBFN controller}{21}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.1}Model tests}{20}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}RBFN controller}{20}{subsection.3.2.2}
 \contentsline {subsection}{\numberline {3.2.3}Optimize the RBFN controller}{21}{subsection.3.2.3}
-\contentsline {section}{\numberline {3.3}Results}{22}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Performance of the RBFN controller}{22}{subsection.3.3.1}
+\contentsline {section}{\numberline {3.3}Results}{21}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Performance of the RBFN controller}{21}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Performance of the CMA-ES controllers}{23}{subsection.3.3.2}
 \contentsline {subsubsection}{Reproduction of Fitt's law}{27}{section*.2}
 \contentsline {subsubsection}{Velocity profile}{28}{section*.3}
@@ -28,7 +28,7 @@
 \contentsline {chapter}{\numberline {4}Conclusion}{30}{chapter.4}
 \contentsline {section}{\numberline {4.1}Difficulties experienced}{30}{section.4.1}
 \contentsline {section}{\numberline {4.2}New knowledge obtained}{30}{section.4.2}
-\contentsline {section}{\numberline {4.3}The continuation of the project}{30}{section.4.3}
+\contentsline {section}{\numberline {4.3}Continuation of the project}{30}{section.4.3}
 \contentsline {chapter}{\numberline {5}Appendix}{31}{chapter.5}
 \contentsline {section}{\numberline {5.1}Nomenclature of arm parameters}{31}{section.5.1}
 \contentsline {section}{\numberline {5.2}Experiment parameters}{33}{section.5.2}

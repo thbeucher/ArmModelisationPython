@@ -19,7 +19,6 @@ from Utils.InitUtil import initFRRS
 from Script.KalmanModule import KalmanModule
 import time
 
-
 class GenerateTrajectory:
     
     def __init__(self, nbtarget = 0, targetSize = 0):
@@ -141,7 +140,7 @@ class GenerateTrajectory:
         #Name used to save Data
         self.name1, self.name2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
-        #self.initSaveData()
+        self.initSaveData()
         #KalmanModule
         self.KM = KalmanModule(self.NS, inputQ, self.name2, self.armP, self.rs)
         #compute the trajectory ie find the next point

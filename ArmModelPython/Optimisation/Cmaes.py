@@ -114,10 +114,10 @@ def runMultiTargetCmaes():
     print("Debut du traitement d'optimisation!")
     t0 = time.time()
     
-    p = Pool(processes=4) 
-    p.map(procUse, rs.sizeOfTarget)
-    '''for i in range(4):
-        procUse(rs.sizeOfTarget[i])'''
+    #p = Pool(processes=4) 
+    #p.map(procUse, rs.sizeOfTarget)
+    for i in range(4):
+        procUse(rs.sizeOfTarget[i])
     '''pool = ThreadPool(4)
     pool.map(procUse, [rs.sizeOfTarget[0], rs.sizeOfTarget[1], rs.sizeOfTarget[2], rs.sizeOfTarget[3]])'''
         
