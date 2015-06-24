@@ -140,7 +140,7 @@ class GenerateTrajectory:
         #Name used to save Data
         self.name1, self.name2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
-        self.initSaveData()
+        #self.initSaveData()
         #KalmanModule
         self.KM = KalmanModule(self.NS, inputQ, self.name2, self.armP, self.rs)
         #compute the trajectory ie find the next point
@@ -172,11 +172,14 @@ class GenerateTrajectory:
         self.costSave[self.name2] = self.Ju
         return self.Ju'''
         #Kalman
+        self.KM.endRoutine(inputQ)
         for key, val in self.KM.saveAllCoord.items():
-            if((val[len(val)-1][0] >= (0-self.targetSizeS/2) and val[len(val)-1][0] <= (0+self.targetSizeS/2)) and val[len(val)-1][1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)) and self.KM.saveSpeed[self.name2][i-1] < 0.5:
+            #print(len(val), val[len(val)-1][0], "\n", val[len(val)-1][1], "\n", coordHA[0], "\n", coordHA[1])
+            #if((val[len(val)-1][0] >= (0-self.targetSizeS/2) and val[len(val)-1][0] <= (0+self.targetSizeS/2)) and val[len(val)-1][1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)) and self.KM.saveSpeed[self.name2][i-1] < 0.5:
+            if((val[len(val)-1][0] >= (0-self.targetSizeS/2) and val[len(val)-1][0] <= (0+self.targetSizeS/2)) and val[len(val)-1][1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
                 self.JuK += np.exp(-self.t/self.rs.gammaCF)*self.rs.rhoCF
         return self.JuK
-        
+    
     
 
 

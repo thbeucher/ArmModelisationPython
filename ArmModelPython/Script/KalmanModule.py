@@ -94,12 +94,12 @@ class KalmanModule:
         self.saveCovariance[self.nameToSave].append(self.nextCovariance)
         self.saveSpeed[self.nameToSave].append(np.linalg.norm(dotq))
         
-    '''def endRoutine(self, state):
+    def endRoutine(self, state):
         dotq, q = getDotQAndQFromStateVectorS(state)
         coordEl, coordHa = mgd(q, self.armP.l1, self.armP.l2)
         if coordHa[1] >= self.rs.targetOrdinate:
             for i in range(self.state_store.shape[1]-1):
-                self.nextCovariance = np.eye(self.dimState)*0.01
+                self.nextCovariance = np.eye(self.dimState)*0.1
                 self.nextState, self.nextCovariance = self.ukf.filter_update(self.state_store.T[self.delay-i-1], self.nextCovariance, self.state_store.T[self.delay-i-2])
                 self.saveState()
                 
@@ -112,7 +112,7 @@ class KalmanModule:
         print("obs", coordHa)
         dotq, q = getDotQAndQFromStateVectorS(np.asarray([state3]).T)
         coordEl, coordHa = mgd(q, self.armP.l1, self.armP.l2)
-        print("next", coordHa)'''
+        print("next", coordHa)
         
     def runKalman(self, state, i):
         '''

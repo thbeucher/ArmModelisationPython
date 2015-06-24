@@ -278,7 +278,7 @@ def cmaesCostProgression():
     costCma = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
-            name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(300)
+            name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(100)
             costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = fr.getobjread(name)
         except:
             pass
@@ -360,7 +360,7 @@ def plotTrajWhenTargetNotReach():
 
 def getTimeDistance(sizeTarget):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/ResTK/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/ResTK2/nbIteCmaBIN"
     #name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteRBFN" + str(sizeTarget) + "BIN"
     nbIteTraj = fr.getobjread(name)
     distTimeDico = {}
@@ -517,7 +517,7 @@ def plotScattergram():
 
 def getDistPerfSize(sizeT):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTK/actiMuscuCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTK2/actiMuscuCmaBIN"
     data = fr.getobjread(name)
     DistPerf = {}
     for key, val in data.items():
@@ -589,8 +589,8 @@ def plotTrackTraj():
 def getVelocityProfileData(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTK/SpeedSaveCmaBIN"
-    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTK/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTK2/SpeedSaveCmaBIN"
+    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTK2/nbIteCmaBIN"
     data = fr.getobjread(name)
     nbIte = fr.getobjread(nameNbIte)
     aAll, vAll, tAll = {}, {}, {}
@@ -656,5 +656,21 @@ def testInfluenceOfTimeStepOnNumberOfIte():
         
     
 #testInfluenceOfTimeStepOnNumberOfIte()
+
+
+def getTimeByArea(sizeT):
+    fr, rs = initFRRS()
+    #name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTK2/nbIteCmaBIN"
+    name = "RBFN2/" + str(rs.numfeats) + "feats/ResNT/nbIteRBFN" + str(sizeT) + "BIN"
+    data = fr.getobjread(name)
+    areaTime = []
+    for key, val in data.items():
+        areaTime.append((round(float(key.split("//")[0]), 4), round(float(key.split("//")[1]), 4), int(np.mean(val))))
+    return areaTime
+    
+#getTimeByArea(0.005)
+
+
+
     
 

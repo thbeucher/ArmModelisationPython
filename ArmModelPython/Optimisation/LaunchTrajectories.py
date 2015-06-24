@@ -85,14 +85,11 @@ class LaunchTrajectories:
         for i in range(5):
             JuS = []
             #posIni is an array with all initials points used for the experiment
-            t1 = time.time()
-            print("time here", t1)
             for el in self.sti.posIni:
                 #generateTrajectories is the function which compute the trajectory from the initial point given
                 Ju = self.sti.generateTrajectories(el[0], el[1])
                 #store the cost of trajectories
                 JuS.append(Ju)
-            print("time now", time.time() - t1)
             costT[i] = JuS
         s = 0
         #compute the mean of the x tries for each trajectories

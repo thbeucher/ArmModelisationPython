@@ -39,7 +39,7 @@ def runGenTraj():
     theta = fr.getobjread(nameT + "ThetaX7BIN")
     #theta = np.loadtxt("/home/beucher/workspace/Data/RBFN2/7feats/ThetaX72")
     sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-    saveAllDataTrajectories(nameT + "Res/", sti, meanJu, "RBFN" + str(rs.sizeOfTarget[3]))
+    #saveAllDataTrajectories(nameT + "ResNT/", sti, meanJu, "RBFN" + str(rs.sizeOfTarget[3]))
     print(meanJu)
     print("Fin de generation de trajectoire!")
     
@@ -70,11 +70,11 @@ def runGenTrajCma():
             print("Trajectories generation for target ", rs.sizeOfTarget[i])
             cf = LaunchTrajectories(4, rs.sizeOfTarget[i])
             #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
-            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfTK"
+            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSolCma" + str(rs.sizeOfTarget[i]) + "opti2BIN"
             theta = getThetaCma(fr, name)
             sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-            nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTK/"
-            saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
+            nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResOpti2/"
+            #saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
             print(meanJu)
             sti.initParamTraj()
         except:

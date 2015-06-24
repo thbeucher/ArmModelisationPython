@@ -20,7 +20,7 @@ from Utils.FileReading import FileReading
 #from shutil import copyfile
 #from posix import remove
 from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
-     getTimeDistance, getDistPerfSize, getVelocityProfileData
+     getTimeDistance, getDistPerfSize, getVelocityProfileData, getTimeByArea
 from matplotlib.mlab import griddata
 from scipy.spatial import ConvexHull
 
@@ -184,8 +184,8 @@ def hitDispersion(sizeT):
 def velocityProfile(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTime/SpeedSaveCmaBIN"
-    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTime/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTK2/SpeedSaveCmaBIN"
+    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTK2/nbIteCmaBIN"
     data = fr.getobjread(name)
     nbIte = fr.getobjread(nameNbIte)
     aAll, vAll, tAll = {}, {}, {}
@@ -412,7 +412,7 @@ def plotAllCmaes():
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
         try:
-            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTK/actiMuscuCmaBIN"
+            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTK2/actiMuscuCmaBIN"
             #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
             zDico.append(fr.getobjread(name))
         except:
@@ -420,9 +420,10 @@ def plotAllCmaes():
     for i in range(len(zDico)):
         x0[i], y0[i], z[i] = [], [], []
         for keyu, valu in zDico[i].items():
-            x0[i].append(float(keyu.split("//")[0]))    
-            y0[i].append(float(keyu.split("//")[1]))   
-            z[i].append(np.mean(valu))
+            if np.mean(valu) > -15:
+                x0[i].append(float(keyu.split("//")[0]))    
+                y0[i].append(float(keyu.split("//")[1]))   
+                z[i].append(np.mean(valu))
         x0[i] = np.asarray(x0[i])
         y0[i] = np.asarray(y0[i])
         z[i] = np.asarray(z[i])
@@ -480,7 +481,10 @@ def plotTimeDistanceTarget():
         for el in val:
             targetDistTime.append((key, el[0], el[1]))
     dicoTest, dicoTest2 = {}, {}
-    for el in targetDistTime:
+    print("la", targetDistTime)
+    print("sorted", sorted(targetDistTime, key = lambda col:(col[0],col[1])))
+    targetDistTimeSorted = sorted(targetDistTime, key = lambda col:(col[0],col[1]))
+    for el in targetDistTimeSorted:
         if not el[1] in dicoTest.keys():
             dicoTest[el[1]] = []
         if not el[1] in dicoTest2.keys():
@@ -489,10 +493,12 @@ def plotTimeDistanceTarget():
         dicoTest2[el[1]].append(el[2])
     plotTab = []
     print(dicoTest)
+    print("ici", dicoTest2)
     plt.figure()
     plt.ylabel("time")
     plt.xlabel("size (mm)")
     for key in sorted([x for x in dicoTest.keys()]):
+        print(key, dicoTest[key], dicoTest2[key])
         plotTab.append(plt.plot(dicoTest[key], dicoTest2[key], label = str("Distance: " + str(key))))
     plt.legend(loc = 0)
     plt.show(block = True)
@@ -559,6 +565,34 @@ def plotPerfSizeDist():
     plt.show(block = True)
         
 #plotPerfSizeDist()
+
+def plotMapTimeTrajectories():
+    fr, rs = initFRRS()
+    areaTimeBySize = {}
+    for i in range(len(rs.sizeOfTarget)):
+        try:
+            areaTimeBySize[rs.sizeOfTarget[i]] = getTimeByArea(rs.sizeOfTarget[i])
+        except:
+            pass
+    for key, val in areaTimeBySize.items():
+        x = [x[0] for x in val]
+        y = [y[1] for y in val]
+        z = [z[2] for z in val]
+        xi = np.linspace(-0.25,0.25,200)
+        yi = np.linspace(0.35,0.5,200)
+        zi = griddata(x, y, z, xi, yi)
+        fig = plt.figure(1, figsize=(16,9))
+        ax1 = plt.subplot2grid((2,2), (0,0))
+        t1 = ax1.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+        ax1.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
+        ax1.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+        fig.colorbar(t1, shrink=0.5, aspect=5)
+        ax1.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[0])))
+        plt.show(block = True)
+        
+    
+
+#plotMapTimeTrajectories()
 
 
         

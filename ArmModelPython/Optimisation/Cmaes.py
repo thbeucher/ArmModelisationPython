@@ -74,6 +74,9 @@ def procUse(sizeT):
     thetaN = normalization(theta)#Recuperation des theta normalises
     #Mise sous forme de vecteur simple
     thetaN = matrixToVector(thetaN)
+    
+    '''namee = "OptimisationResults/ResCma" + str(sizeT) + "/thetaSol" + str(sizeT) + "BINcfTK"
+    thetaN = fr.getobjread(namee)'''
     cf = LaunchTrajectories(4, sizeT)
     #run cma
     resSO = cma.fmin(cf.LaunchTrajectoriesCMAES, thetaN, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
@@ -95,8 +98,8 @@ def procUse(sizeT):
         for el in os.listdir(rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeT) + "/"):
             if "thetaSol" in el:
                 a += 1
-        nameS += "cfTK" + str(a)
-        nameSB += "cfTK" + str(a)
+        nameS += "cfTKWS" + str(a)
+        nameSB += "cfTKWS" + str(a)
     fileSavingStr(nameS, resSO[0])
     fileSavingBin(nameSB, resSO[0])
     fileSavingStr("OptimisationResults/CmaesRes" + str(sizeT), resSO)
@@ -114,10 +117,10 @@ def runMultiTargetCmaes():
     print("Debut du traitement d'optimisation!")
     t0 = time.time()
     
-    #p = Pool(processes=4) 
-    #p.map(procUse, rs.sizeOfTarget)
-    for i in range(4):
-        procUse(rs.sizeOfTarget[i])
+    p = Pool(processes=4) 
+    p.map(procUse, rs.sizeOfTarget)
+    '''for i in range(4):
+        procUse(rs.sizeOfTarget[i])'''
     '''pool = ThreadPool(4)
     pool.map(procUse, [rs.sizeOfTarget[0], rs.sizeOfTarget[1], rs.sizeOfTarget[2], rs.sizeOfTarget[3]])'''
         
