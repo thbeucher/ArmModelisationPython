@@ -412,7 +412,8 @@ def plotAllCmaes():
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
         try:
-            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTK2/actiMuscuCmaBIN"
+            #name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry1/actiMuscuCmaBIN"
+            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry1KM/actiMuscuKMCmaBIN"
             #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
             zDico.append(fr.getobjread(name))
         except:
@@ -591,7 +592,6 @@ def plotMapTimeTrajectories():
         plt.show(block = True)
         
     
-
 #plotMapTimeTrajectories()
 
 

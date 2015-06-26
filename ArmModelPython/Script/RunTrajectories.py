@@ -31,6 +31,9 @@ def saveAllDataTrajectories(nameSave, sti, meanJu, CorR):
     saveDataTrajectories(nameSave + "actiMuscu" + CorR, sti.actiMuscuSave)
     saveDataTrajectories(nameSave + "stateAndCommand" + CorR, sti.stateAndCommand)
     saveDataTrajectories(nameSave + "coordEndEffector" + CorR, sti.coordEndEffector)
+    saveDataTrajectories(nameSave + "CoordHitTargetKM" + CorR, sti.lastCoordKM)
+    saveDataTrajectories(nameSave + "actiMuscuKM" + CorR, sti.actiMuscuSaveKM)
+    saveDataTrajectories(nameSave + "SpeedSaveKM" + CorR, sti.speedSaveKM)
  
 def runGenTraj():
     fr, rs = initFRRS()
@@ -66,19 +69,19 @@ def getThetaCma(fr, name):
 def runGenTrajCma():
     fr, rs = initFRRS()
     for i in range(len(rs.sizeOfTarget)):
-        try:
-            print("Trajectories generation for target ", rs.sizeOfTarget[i])
-            cf = LaunchTrajectories(4, rs.sizeOfTarget[i])
-            #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
-            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSolCma" + str(rs.sizeOfTarget[i]) + "opti2BIN"
-            theta = getThetaCma(fr, name)
-            sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-            nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResOpti2/"
-            #saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
-            print(meanJu)
-            sti.initParamTraj()
-        except:
-            pass
+        #try:
+        print("Trajectories generation for target ", rs.sizeOfTarget[i])
+        cf = LaunchTrajectories(4, rs.sizeOfTarget[i])
+        #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSolCma" + str(rs.sizeOfTarget[i]) + "optiTry1BIN"
+        theta = getThetaCma(fr, name)
+        sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
+        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry1KM/"
+        saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
+        print(meanJu)
+        sti.initParamTraj()
+        #except:
+            #pass
 
 #runGenTrajCma()    
     
@@ -100,13 +103,14 @@ def plotTargetUnreach(sti):
     
 def saveHitDisp(nameSave, sti, pt):
     saveDataTrajectories(nameSave + "hitDispersion" + pt, sti.lastCoord)
+    saveDataTrajectories(nameSave + "hitDispersion" + pt, sti.lastCoordKM)
 
 def runTrajForScattergram():
     fr, rs = initFRRS()
     posIni = fr.getobjread(rs.experimentFilePosIni)
     for i in range(len(rs.sizeOfTarget)):
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSol" + str(rs.sizeOfTarget[i]) + "BINcfbm"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSolCma" + str(rs.sizeOfTarget[i]) + "try1BIN"
         theta = getThetaCma(fr, name)
         xi, yi = 0.1, 0.4175
         pt = str(xi) + "_" + str(yi)
@@ -116,10 +120,11 @@ def runTrajForScattergram():
         plt.scatter([x[0] for x in posIni], [x[1] for x in posIni], c = 'b')
         plt.show()'''
         sti = GenerateTrajectory(4, rs.sizeOfTarget[i])
+        sti.setTheta(theta)
         for j in range(100):
             for el in posIni:
-                sti.generateTrajectories(el[0], el[1], theta)
-        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResCfb15/"
+                sti.generateTrajectories(el[0], el[1])
+        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry1KM/"
         saveHitDisp(nameSave, sti, "All")
         sti.initSaveData()
     print("End of generation !")

@@ -22,13 +22,16 @@ class KalmanModule:
         self.state_store = np.tile(state, (1, self.delay))
         self.nameToSave = name
         self.armP = armP
+        self.initVarSave(name)
+        self.kalmanFilterInit()
+        
+    def initVarSave(self, name):
         self.saveAllCoord = {}
         self.saveAllCoord[name] = []
         self.saveCovariance = {}
         self.saveCovariance[name] = []
         self.saveSpeed = {}
         self.saveSpeed[name] = []
-        self.kalmanFilterInit()
         
     def setDelay(self):
         delaytmp = np.loadtxt(self.rs.pathFolderData + "TEST/delay")
@@ -94,14 +97,21 @@ class KalmanModule:
         self.saveCovariance[self.nameToSave].append(self.nextCovariance)
         self.saveSpeed[self.nameToSave].append(np.linalg.norm(dotq))
         
-    def endRoutine(self, state):
+    def endRoutine(self, state, t, JuK, costComputation):
         dotq, q = getDotQAndQFromStateVectorS(state)
         coordEl, coordHa = mgd(q, self.armP.l1, self.armP.l2)
+        t = t - self.delay*self.rs.dt
         if coordHa[1] >= self.rs.targetOrdinate:
             for i in range(self.state_store.shape[1]-1):
                 self.nextCovariance = np.eye(self.dimState)*0.1
                 self.nextState, self.nextCovariance = self.ukf.filter_update(self.state_store.T[self.delay-i-1], self.nextCovariance, self.state_store.T[self.delay-i-2])
+                Uk = self.NS.GC.getCommand(np.asarray([self.nextState]).T, self.NS.theta)
+                JuK = costComputation(JuK, Uk, t)
+                t += self.rs.dt
                 self.saveState()
+        dotq, q = getDotQAndQFromStateVectorS(np.asarray([self.nextState]).T)
+        coordEl, coordHa = mgd(q, self.armP.l1, self.armP.l2)
+        return JuK, coordHa
                 
     def plotSome(self, state1, state2, state3):
         dotq, q = getDotQAndQFromStateVectorS(np.asarray([state1]).T)

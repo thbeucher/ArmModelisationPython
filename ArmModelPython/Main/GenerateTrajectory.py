@@ -51,10 +51,13 @@ class GenerateTrajectory:
         self.Usave = {}
         self.IteSave = {}
         self.lastCoord = {}
+        self.lastCoordKM = {}
         self.saveOneTraj = {}
         self.speedSave = {}
+        self.speedSaveKM = {}
         self.costSave = {}
         self.actiMuscuSave = {}
+        self.actiMuscuSaveKM = {}
         self.stateAndCommand = {}
         self.coordEndEffector = {}
         
@@ -86,12 +89,18 @@ class GenerateTrajectory:
         self.Usave[self.name1] = []
         if not self.name2 in self.speedSave:
             self.speedSave[self.name2] = []
+        if not self.name2 in self.speedSaveKM:
+            self.speedSaveKM[self.name2] = []
         if not self.name2 in self.lastCoord:
             self.lastCoord[self.name2] = []
+        if not self.name2 in self.lastCoordKM:
+            self.lastCoordKM[self.name2] = []
         if not self.name2 in self.IteSave:
             self.IteSave[self.name2] = []
         if not self.name2 in self.actiMuscuSave:
             self.actiMuscuSave[self.name2] = []
+        if not self.name2 in self.actiMuscuSaveKM:
+            self.actiMuscuSaveKM[self.name2] = []
         if not self.name2 in self.stateAndCommand:
             self.stateAndCommand[self.name2] = []
         if not self.name2 in self.coordEndEffector:
@@ -107,13 +116,16 @@ class GenerateTrajectory:
         self.coordEndEffector[self.name2].append(coordHA)
         self.speedSave[self.name2].append((dotq[0,0], dotq[1,0], np.linalg.norm(dotq)))
     
-    def saveDataf(self, coordHA, i, Ju):
+    def saveDataf(self, coordHA, i, Ju, JuK, coordHAKM):
         '''
         Saves data generate at the end of the trajectory generation
         '''
         self.lastCoord[self.name2].append(coordHA)
+        self.lastCoordKM[self.name2].append(coordHAKM)
         self.IteSave[self.name2].append(i)
         self.actiMuscuSave[self.name2].append(Ju)
+        self.actiMuscuSaveKM[self.name2].append(JuK)
+        self.speedSaveKM[self.name2] = self.KM.saveSpeed[self.name2]
         
     def generateTrajectories(self, xI, yI, optQ = 0):
         '''
@@ -140,7 +152,7 @@ class GenerateTrajectory:
         #Name used to save Data
         self.name1, self.name2 = str(str(xI) + str(yI)), str(str(xI) + "//" + str(yI))
         #Initialization containers for saving data
-        #self.initSaveData()
+        self.initSaveData()
         #KalmanModule
         self.KM = KalmanModule(self.NS, inputQ, self.name2, self.armP, self.rs)
         #compute the trajectory ie find the next point
@@ -155,7 +167,7 @@ class GenerateTrajectory:
                 self.JuK = self.costComputation(self.JuK, Uk, self.t)
                 #saving data
                 coordEL, coordHA = mgd(q, self.armP.l1, self.armP.l2)
-                #self.saveDataB(coordEL, coordHA, inputQ, dotq, U)
+                self.saveDataB(coordEL, coordHA, inputQ, dotq, U)
                 #compute cost
                 self.Ju = self.costComputation(self.Ju, U, self.t)
             else:
@@ -164,21 +176,21 @@ class GenerateTrajectory:
             self.t += self.rs.dt
         #print(i)
         #Saving data f
-        #self.saveDataf(coordHA, i, self.Ju)
-        #if((coordHA[0] >= (0-self.targetSizeS/2) and coordHA[0] <= (0+self.targetSizeS/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
-        #Condition to obtain the reward for cmaes optimization
-        '''if((coordHA[0] >= (0-self.targetSizeS/2) and coordHA[0] <= (0+self.targetSizeS/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)) and self.speedSave[self.name2][i-1][2] < 1:
-            self.Ju += np.exp(-self.t/self.rs.gammaCF)*self.rs.rhoCF
-        self.costSave[self.name2] = self.Ju
-        return self.Ju'''
         #Kalman
-        self.KM.endRoutine(inputQ)
+        self.JuK, coordHAKM = self.KM.endRoutine(inputQ, self.t, self.JuK, self.costComputation)
+        self.saveDataf(coordHA, i, self.Ju, self.JuK, coordHAKM)
         for key, val in self.KM.saveAllCoord.items():
             #print(len(val), val[len(val)-1][0], "\n", val[len(val)-1][1], "\n", coordHA[0], "\n", coordHA[1])
             #if((val[len(val)-1][0] >= (0-self.targetSizeS/2) and val[len(val)-1][0] <= (0+self.targetSizeS/2)) and val[len(val)-1][1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)) and self.KM.saveSpeed[self.name2][i-1] < 0.5:
             if((val[len(val)-1][0] >= (0-self.targetSizeS/2) and val[len(val)-1][0] <= (0+self.targetSizeS/2)) and val[len(val)-1][1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
                 self.JuK += np.exp(-self.t/self.rs.gammaCF)*self.rs.rhoCF
         return self.JuK
+        #if((coordHA[0] >= (0-self.targetSizeS/2) and coordHA[0] <= (0+self.targetSizeS/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)):
+        #Condition to obtain the reward for cmaes optimization
+        '''if((coordHA[0] >= (0-self.targetSizeS/2) and coordHA[0] <= (0+self.targetSizeS/2)) and coordHA[1] >= (self.rs.targetOrdinate - self.rs.errorPosEnd)) and self.speedSave[self.name2][i-1][2] < 1:
+            self.Ju += np.exp(-self.t/self.rs.gammaCF)*self.rs.rhoCF
+        self.costSave[self.name2] = self.Ju
+        return self.Ju'''
     
     
 
