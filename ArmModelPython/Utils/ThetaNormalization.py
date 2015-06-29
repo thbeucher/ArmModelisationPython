@@ -9,6 +9,7 @@ Description: On retrouve dans ce fichier les fonctions pour normaliser theta
 import numpy as np
 from Utils.FileReading import FileReading
 from Utils.FileSaving import fileSavingBin
+import os
     
     
 def normalization(theta):
@@ -43,6 +44,19 @@ def vectorToMatrix(theta):
             thetaf = np.vstack((thetaf, np.array([thetaTmp])))
         nb += 6
     theta = thetaf
+    return theta
+
+def normalizationNP(theta, rs):
+    maxT = np.max(np.abs(theta), axis = 0)
+    for i in range(theta.shape[1]):
+        theta[:,i] = theta[:,i] / maxT[i]
+    np.savetxt(rs.pathFolderData + 'inputMaxTmp', maxT)
+    return theta
+
+def unNormNP(theta, rs):
+    maxT = np.loadtxt(rs.pathFolderData + 'inputMaxTmp')
+    for i in range(theta.shape[1]):
+        theta[:,i] = theta[:,i] * maxT[i]
     return theta
 
 

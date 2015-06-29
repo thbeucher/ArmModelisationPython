@@ -5,13 +5,19 @@ Module: testAll
 
 Description: 
 '''
+import cma
+import numpy as np
 from ArmModel.GeometricModel import mgi, mgd, jointStop
 from Utils.CreateVectorUtil import createVector
 from Utils.GenerateTrajectoryUtils import createStateVector
 from Regression.functionApproximator_RBFN import fa_rbfn
-import numpy as np
 from Utils.StateVectorUtil import getDotQAndQFromStateVectorS
 from ArmModel.ArmDynamics import mdd
+from Utils.ReadSetupFile import ReadSetupFile
+from Utils.ThetaNormalization import normalizationNP, matrixToVector
+from ArmModel.ArmParameters import ArmParameters
+from ArmModel.MusclesParameters import MusclesParameters
+from Utils.InitUtil import initFRRS
 
 
 def initController(rs, fr):
@@ -21,6 +27,29 @@ def initController(rs, fr):
     fa.setTrainingData(stateAll.T, commandAll.T)
     fa.setCentersAndWidths()
     return fa
+
+def launchCMAESForSpecificTargetSize(sizeOfTarget):
+    print("Start of the CMAES Optimization !")
+    fr, rs = initFRRS()
+    thetaLocalisation = rs.pathFolderData + "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7NP"
+    theta = np.loadtxt(thetaLocalisation)
+    fa = initController(rs, fr)
+    mac = MuscularActivationCommand()
+    mac.initParametersMAC(theta, fa, rs)
+    theta = normalizationNP(theta, rs)
+    theta = matrixToVector(theta)
+    armP = ArmParameters()
+    musclesP = MusclesParameters()
+    nsc = NextStateComputation()
+    nsc.initParametersNSC(mac, armP, rs, musclesP)
+    cc = CostComputation()
+    cc.initParametersCC(rs)
+    tg = TrajectoryGenerator()
+    tg.initParametersTG(armP, rs, nsc, cc, sizeOfTarget)
+    tgs = TrajectoriesGenerator()
+    tgs.initParameters(rs, 5, tg)
+    resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, theta, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    
 
 class TrajectoriesGenerator:
     
@@ -33,7 +62,7 @@ class TrajectoriesGenerator:
         self.rs = rs
         self.numberOfRepeat = numberOfRepeat
         self.tg = tg
-        self.posIni = self.fr.getobjread(self.rs.experimentFilePosIni)
+        self.posIni = np.loadtxt(self.rs.experimentFilePosIni)
     
     def runTrajectories(self):
         pass

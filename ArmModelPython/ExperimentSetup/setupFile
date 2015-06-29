@@ -13,6 +13,6 @@ Chemin du dossier contenant les trajectoires:/home/beucher/workspace/Data/trajec
 Tailles des cibles pour l'experimentation(mm)(float)(4 target max):0.005/0.01/0.02/0.04
 Ordonnee de la cible(float):0.628
 Pas de temps utilise pour l'experimentation(float):0.002
-fichier d'experimentation contenant les positions initiales:PosIniExperimentCircular
+fichier d'experimentation contenant les positions initiales:PosCircu24
 Nombre d'itération avant d'arreter une trajectoire non résolue:300
 Erreur de position finale acceptable:0.001
