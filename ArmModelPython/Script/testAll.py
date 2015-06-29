@@ -22,6 +22,34 @@ def initController(rs, fr):
     fa.setCentersAndWidths()
     return fa
 
+class TrajectoriesGenerator:
+    
+    def __init__(self):
+        self.name = "TrajectoriesGenerator"
+        self.call = 0
+        self.saveCost = []
+        
+    def initParameters(self, rs, numberOfRepeat, tg):
+        self.rs = rs
+        self.numberOfRepeat = numberOfRepeat
+        self.tg = tg
+        self.posIni = self.fr.getobjread(self.rs.experimentFilePosIni)
+    
+    def runTrajectories(self):
+        pass
+    
+    def runTrajectoriesCMAWithoutParallelization(self, theta):
+        costAll = [[self.tg.runTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(self.numberOfRepeat)]
+        meanByTraj = np.mean(np.asarray(costAll).reshape((self.numberOfRepeat, len(self.posIni))), axis = 0)    
+        meanAll = np.mean(meanByTraj)
+        self.saveCost.append(meanAll)
+        print("Call n°: ", self.call, "\nCost: ", meanAll)
+        self.call += 1
+        return meanAll*(-1)
+    
+    def runTrajectoriesCMAWithParallelization(self, theta):
+        pass
+
 class TrajectoryGenerator:
     
     def __init__(self):
