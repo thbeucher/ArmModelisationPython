@@ -13,7 +13,7 @@ from Utils.GenerateTrajectoryUtils import createStateVector
 from Regression.functionApproximator_RBFN import fa_rbfn
 from Utils.StateVectorUtil import getDotQAndQFromStateVectorS
 from ArmModel.ArmDynamics import mdd
-from Utils.ThetaNormalization import normalizationNP, matrixToVector
+from Utils.ThetaNormalization import normalizationNP, matrixToVector, unNormNP
 from ArmModel.ArmParameters import ArmParameters
 from ArmModel.MusclesParameters import MusclesParameters
 from Utils.InitUtil import initFRRS
@@ -27,16 +27,10 @@ def initController(rs, fr):
     fa.setCentersAndWidths()
     return fa
 
-def launchCMAESForSpecificTargetSize(sizeOfTarget):
-    print("Start of the CMAES Optimization !")
-    fr, rs = initFRRS()
-    thetaLocalisation = rs.pathFolderData + "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7NP"
-    theta = np.loadtxt(thetaLocalisation)
+def initAllUsefullObj(sizeOfTarget, fr, rs):
     fa = initController(rs, fr)
     mac = MuscularActivationCommand()
     mac.initParametersMAC(fa, rs)
-    theta = normalizationNP(theta, rs)
-    theta = matrixToVector(theta)
     armP = ArmParameters()
     musclesP = MusclesParameters()
     nsc = NextStateComputation()
@@ -47,8 +41,20 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     tg.initParametersTG(armP, rs, nsc, cc, sizeOfTarget)
     tgs = TrajectoriesGenerator()
     tgs.initParametersTGS(rs, 5, tg, 4, 6, mac)
+    return tgs
+
+def launchCMAESForSpecificTargetSize(sizeOfTarget):
+    print("Start of the CMAES Optimization for target " + str(sizeOfTarget) + " !")
+    fr, rs = initFRRS()
+    thetaLocalisation = rs.pathFolderData + "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7NP"
+    theta = np.loadtxt(thetaLocalisation)
+    theta = normalizationNP(theta, rs)
+    theta = matrixToVector(theta)
+    tgs = initAllUsefullObj(sizeOfTarget, fr, rs)
     resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, theta, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
-    
+    nameToSaveThetaCma = rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaCma" + str(sizeOfTarget) + "opti1"
+    np.savetxt(nameToSaveThetaCma, resCma[0])
+    print("End of optimization for target " + str(sizeOfTarget) + " !")
 
 class TrajectoriesGenerator:
     
@@ -70,7 +76,8 @@ class TrajectoriesGenerator:
         pass
     
     def initTheta(self, theta):
-        self.theta = np.asarray(theta).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
+        theta = np.asarray(theta).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
+        self.theta = unNormNP(theta, self.rs)
         self.mac.setThetaMAC(self.theta)
     
     def runTrajectoriesCMAWithoutParallelization(self, theta):
