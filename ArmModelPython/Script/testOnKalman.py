@@ -23,6 +23,7 @@ from Main.GenerateTrajectory import GenerateTrajectory
 from Utils.InitUtil import initFRRS
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import matplotlib.pyplot as plt
+from Script.testAll import initAllUsefullObj
 
 # initialize parameters
 def transition_function(state, noise):
@@ -160,7 +161,21 @@ def testTrajKalman():
             gt.initParamTraj()'''
     print("cout:", cost)
     
-testTrajKalman()
+#testTrajKalman()
+
+#Test New Kalman
+def testNewKalman():
+    fr, rs = initFRRS()
+    tgs = initAllUsefullObj(rs.sizeOfTarget[3], fr, rs)
+    x, y = 0.1, 0.35
+    thetaLocalisation = rs.pathFolderData + "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7NP"
+    theta = np.loadtxt(thetaLocalisation)
+    tgs.mac.setThetaMAC(theta)
+    cost = tgs.tg.runTrajectory(x, y)
+    
+        
+        
+testNewKalman()
 
 
     
