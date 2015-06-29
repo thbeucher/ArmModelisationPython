@@ -7,6 +7,7 @@ Description:
 '''
 import cma
 import numpy as np
+from pykalman import UnscentedKalmanFilter
 from ArmModel.GeometricModel import mgi, mgd, jointStop
 from Utils.CreateVectorUtil import createVector
 from Utils.GenerateTrajectoryUtils import createStateVector
@@ -191,24 +192,28 @@ class UnscentedKalmanFilter:
     def __init__(self):
         self.name = "UnscentedKalmanFilter"
         
-    def initParametersUKF(self, dimState, dimObs, delay):
+    def initParametersUKF(self, dimState, dimObs, delay, nsc):
         self.dimState = dimState
         self.dimObs = dimObs
         self.delay = delay
+        self.nsc = nsc
         transition_covariance = np.eye(self.dimState)*0.01
         initial_state_mean = np.zeros(self.dimState)
         observation_covariance = 1000*np.eye(self.dimObs) 
         initial_state_covariance = np.eye(self.dimState)
         self.nextCovariance = np.eye(self.dimState)*0.1
-        self.ukf = UnscentedKalmanFilter(self.transition_function, self.observation_function,
+        self.ukf = UnscentedKalmanFilter(self.transitionFunctionUKF, self.observationFunctionUKF,
                                     transition_covariance, observation_covariance,
                                     initial_state_mean, initial_state_covariance)
     
-    def transitionFunctionUKF(self, state, transitionNoise):
-        pass
+    def transitionFunctionUKF(self, state, transitionNoise = 0):
+        nextState, U = self.nsc.computeNextState(state)
+        nextState = nextState.T[0]
+        nextStateNoise = nextState + transitionNoise
+        return nextStateNoise
     
-    def observationFunctionUKF(self, state, observationNoise):
-        obs = np.asarray([state[2, 0], state[3, 0]])
+    def observationFunctionUKF(self, state, observationNoise = 0):
+        obs = np.asarray([state[2], state[3]])
         obsNoise = obs + observationNoise
         return obsNoise
     
@@ -219,8 +224,14 @@ class UnscentedKalmanFilter:
         self.stateStore = np.roll(self.stateStore, 1, axis = 1)
         self.stateStore.T[0] = state.T
     
-    def runUKF(self):
-        pass
+    def getObservation(self, state):
+        return np.asarray([state[2, 0], state[3, 0]])
+    
+    def runUKF(self, state):
+        self.storeState(state)
+        observation = self.getObservation(state)
+        nextState, self.nextCovariance = self.ukf.filter_update(self.stateStore.T[self.delay-1], self.nextCovariance, observation)
+        return nextState
         
         
         
