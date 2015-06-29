@@ -13,7 +13,6 @@ from Utils.GenerateTrajectoryUtils import createStateVector
 from Regression.functionApproximator_RBFN import fa_rbfn
 from Utils.StateVectorUtil import getDotQAndQFromStateVectorS
 from ArmModel.ArmDynamics import mdd
-from Utils.ReadSetupFile import ReadSetupFile
 from Utils.ThetaNormalization import normalizationNP, matrixToVector
 from ArmModel.ArmParameters import ArmParameters
 from ArmModel.MusclesParameters import MusclesParameters
@@ -35,7 +34,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     theta = np.loadtxt(thetaLocalisation)
     fa = initController(rs, fr)
     mac = MuscularActivationCommand()
-    mac.initParametersMAC(theta, fa, rs)
+    mac.initParametersMAC(fa, rs)
     theta = normalizationNP(theta, rs)
     theta = matrixToVector(theta)
     armP = ArmParameters()
@@ -47,7 +46,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     tg = TrajectoryGenerator()
     tg.initParametersTG(armP, rs, nsc, cc, sizeOfTarget)
     tgs = TrajectoriesGenerator()
-    tgs.initParameters(rs, 5, tg)
+    tgs.initParametersTGS(rs, 5, tg, 4, 6, mac)
     resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, theta, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     
 
@@ -58,16 +57,24 @@ class TrajectoriesGenerator:
         self.call = 0
         self.saveCost = []
         
-    def initParameters(self, rs, numberOfRepeat, tg):
+    def initParametersTGS(self, rs, numberOfRepeat, tg, dimState, dimOutput, mac):
         self.rs = rs
         self.numberOfRepeat = numberOfRepeat
         self.tg = tg
+        self.dimState = dimState
+        self.dimOutput = dimOutput
+        self.mac = mac
         self.posIni = np.loadtxt(self.rs.experimentFilePosIni)
     
     def runTrajectories(self):
         pass
     
+    def initTheta(self, theta):
+        self.theta = np.asarray(theta).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
+        self.mac.setThetaMAC(self.theta)
+    
     def runTrajectoriesCMAWithoutParallelization(self, theta):
+        self.initTheta(theta)
         costAll = [[self.tg.runTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(self.numberOfRepeat)]
         meanByTraj = np.mean(np.asarray(costAll).reshape((self.numberOfRepeat, len(self.posIni))), axis = 0)    
         meanAll = np.mean(meanByTraj)
@@ -153,10 +160,12 @@ class MuscularActivationCommand:
     def __init__(self):
         self.name = "MuscularActivationCommand"
         
-    def initParametersMAC(self, theta, fa, rs):
-        self.theta = theta
+    def initParametersMAC(self, fa, rs):
         self.fa = fa
         self.rs = rs
+        
+    def setThetaMAC(self, theta):
+        self.theta = theta
     
     def getCommandMAC(self, state):
         U = self.fa.computesOutput(state, self.theta)
