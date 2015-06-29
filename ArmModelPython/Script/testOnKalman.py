@@ -173,6 +173,21 @@ def testNewKalman():
     tgs.mac.setThetaMAC(theta)
     cost = tgs.tg.runTrajectory(x, y)
     print(tgs.tg.SaveCoordWK, "\n", tgs.tg.SaveCoordUKF)
+    for key, val in tgs.tg.SaveCoordWK.items():
+        WK = [el for el in val]
+        UKF = [el for el in tgs.tg.SaveCoordUKF[key]]
+    print(WK)
+    difTab = []
+    for el1, el2 in zip(WK, UKF):
+        a = np.sqrt((el1[0] - el2[0])**2 + (el1[1] - el2[1])**2)
+        difTab.append(a)
+    t = [i for i in range(len(difTab))]
+    plt.figure()
+    plt.plot([x[0] for x in WK], [y[1] for y in WK], c = 'b')
+    plt.plot([x[0] for x in UKF], [y[1] for y in UKF], c = 'r')
+    plt.figure()
+    plt.plot(t, difTab)
+    plt.show(block = True)
         
         
 testNewKalman()

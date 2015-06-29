@@ -161,7 +161,7 @@ class CostComputation:
         return cost
     
     def computeFinalCostReward(self, cost, t):
-        cost += np.exp(-self.t/self.rs.gammaCF)*self.rs.rhoCF
+        cost += np.exp(-t/self.rs.gammaCF)*self.rs.rhoCF
         return cost
 
 class NextStateComputation:
@@ -250,7 +250,7 @@ class UnscentedKalmanFilterControl:
     def runUKF(self, state):
         self.storeState(state)
         observation = self.getObservation(state)
-        nextState, self.nextCovariance = self.ukf.filter_update(self.stateStore.T[self.delay-1], self.nextCovariance, observation)
+        nextState, nextCovariance = self.ukf.filter_update(self.stateStore.T[self.delay-1], self.nextCovariance, observation)
         return np.asarray(nextState).reshape((self.dimState, 1))
         
         
