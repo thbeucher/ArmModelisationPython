@@ -125,14 +125,16 @@ class TrajectoryGenerator:
         coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
         i, t, cost = 0, 0, 0
         self.Ukf.initStateStore(state)
+        stateUKF = state
         
         self.nameToSaveTraj = str(x) + "//" + str(y)
         self.saveDataTG(coordHand, coordHand, init = 1)
         
-        while coordHand[1] <= self.rs.targetOrdinate:
+        while coordHand[1] < self.rs.targetOrdinate:
             if i < self.rs.numMaxIter:
                 state, U = self.nsc.computeNextState(state)
-                stateUKF = self.Ukf.runUKF(state)
+                stateEval, Ueval = self.nsc.computeNextState(stateUKF)
+                stateUKF = self.Ukf.runUKF(stateEval)
                 cost = self.cc.computeStateTransitionCost(cost, U, t)
                 dotq, q = getDotQAndQFromStateVectorS(state)
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
@@ -246,6 +248,17 @@ class UnscentedKalmanFilterControl:
     
     def getObservation(self, state):
         return np.asarray([state[2, 0], state[3, 0]])
+    
+    def endRoutineUKF(self, state):
+        #In progress
+        dotq, q = getDotQAndQFromStateVectorS(state)
+        coordElbow, coordHand = mgd(q, self.nsc.armP.l1, self.nsc.armP.l2)
+        nextState = state
+        observation = self.getObservation(state)
+        while coordHand[1] < self.nsc.rs.targetOrdinate:
+            nextState, nextCovariance = self.ukf.filter_update(nextState, self.nextCovariance, observation)
+            dotq, q = getDotQAndQFromStateVectorS(state)
+            coordElbow, coordHand = mgd(q, self.nsc.armP.l1, self.nsc.armP.l2)
     
     def runUKF(self, state):
         self.storeState(state)
