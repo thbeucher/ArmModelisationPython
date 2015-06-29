@@ -172,7 +172,7 @@ def testNewKalman():
     theta = np.loadtxt(thetaLocalisation)
     tgs.mac.setThetaMAC(theta)
     cost = tgs.tg.runTrajectory(x, y)
-    
+    print(tgs.tg.SaveCoordWK, "\n", tgs.tg.SaveCoordUKF)
         
         
 testNewKalman()

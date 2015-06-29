@@ -73,7 +73,7 @@ class TrajectoriesGenerator:
         self.dimState = dimState
         self.dimOutput = dimOutput
         self.mac = mac
-        self.posIni = np.loadtxt(self.rs.experimentFilePosIni)
+        self.posIni = np.loadtxt(self.rs.pathFolderData + self.rs.experimentFilePosIni)
     
     def runTrajectories(self):
         pass
@@ -111,6 +111,7 @@ class TrajectoryGenerator:
         
     def saveDataTG(self, coordWK, coordUKF, init = 0):
         if init == 1:
+            self.SaveCoordWK, self.SaveCoordUKF = {}, {}
             self.SaveCoordWK[self.nameToSaveTraj] = []
             self.SaveCoordUKF[self.nameToSaveTraj] = []
         self.SaveCoordWK[self.nameToSaveTraj].append(coordWK)
@@ -123,6 +124,7 @@ class TrajectoryGenerator:
         state = createStateVector(dotq, q)
         coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
         i, t, cost = 0, 0, 0
+        self.Ukf.initStateStore(state)
         
         self.nameToSaveTraj = str(x) + "//" + str(y)
         self.saveDataTG(coordHand, coordHand, init = 1)
@@ -225,7 +227,7 @@ class UnscentedKalmanFilterControl:
                                     initial_state_mean, initial_state_covariance)
     
     def transitionFunctionUKF(self, state, transitionNoise = 0):
-        nextState, U = self.nsc.computeNextState(state)
+        nextState, U = self.nsc.computeNextState(np.asarray(state).reshape((self.dimState, 1)))
         nextState = nextState.T[0]
         nextStateNoise = nextState + transitionNoise
         return nextStateNoise
@@ -249,7 +251,7 @@ class UnscentedKalmanFilterControl:
         self.storeState(state)
         observation = self.getObservation(state)
         nextState, self.nextCovariance = self.ukf.filter_update(self.stateStore.T[self.delay-1], self.nextCovariance, observation)
-        return nextState
+        return np.asarray(nextState).reshape((self.dimState, 1))
         
         
         
