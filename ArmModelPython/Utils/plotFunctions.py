@@ -412,8 +412,7 @@ def plotAllCmaes():
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
         try:
-            #name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry1/actiMuscuCmaBIN"
-            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry1KM/actiMuscuKMCmaBIN"
+            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry2/actiMuscuCmaBIN"
             #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
             zDico.append(fr.getobjread(name))
         except:

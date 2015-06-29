@@ -73,10 +73,10 @@ def runGenTrajCma():
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
         cf = LaunchTrajectories(4, rs.sizeOfTarget[i])
         #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSolCma" + str(rs.sizeOfTarget[i]) + "optiTry1BIN"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSolCma" + str(rs.sizeOfTarget[i]) + "optiTry2BIN"
         theta = getThetaCma(fr, name)
         sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
-        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry1KM/"
+        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry2/"
         saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")
         print(meanJu)
         sti.initParamTraj()
@@ -107,14 +107,16 @@ def saveHitDisp(nameSave, sti, pt):
 
 def runTrajForScattergram():
     fr, rs = initFRRS()
-    posIni = fr.getobjread(rs.experimentFilePosIni)
+    #posIni = fr.getobjread(rs.experimentFilePosIni)
+    posIni = np.loadtxt(rs.pathFolderData + rs.experimentFilePosIni)
     for i in range(len(rs.sizeOfTarget)):
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSolCma" + str(rs.sizeOfTarget[i]) + "try1BIN"
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSolCma" + str(rs.sizeOfTarget[i]) + "optiTry2BIN"
         theta = getThetaCma(fr, name)
         xi, yi = 0.1, 0.4175
         pt = str(xi) + "_" + str(yi)
-        posIni = fr.getobjread(rs.experimentFilePosIni)
+        #posIni = fr.getobjread(rs.experimentFilePosIni)
+        posIni = np.loadtxt(rs.pathFolderData + rs.experimentFilePosIni)
         '''plt.figure()
         plt.scatter(xi, yi, c = 'r')
         plt.scatter([x[0] for x in posIni], [x[1] for x in posIni], c = 'b')
@@ -124,7 +126,7 @@ def runTrajForScattergram():
         for j in range(100):
             for el in posIni:
                 sti.generateTrajectories(el[0], el[1])
-        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry1KM/"
+        nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry2/"
         saveHitDisp(nameSave, sti, "All")
         sti.initSaveData()
     print("End of generation !")

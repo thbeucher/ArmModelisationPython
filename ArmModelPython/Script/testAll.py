@@ -133,8 +133,8 @@ class TrajectoryGenerator:
         while coordHand[1] < self.rs.targetOrdinate:
             if i < self.rs.numMaxIter:
                 state, U = self.nsc.computeNextState(state)
-                stateEval, Ueval = self.nsc.computeNextState(stateUKF)
-                stateUKF = self.Ukf.runUKF(stateEval)
+                #stateEval, Ueval = self.nsc.computeNextState(stateUKF)
+                stateUKF = self.Ukf.runUKF(state)
                 cost = self.cc.computeStateTransitionCost(cost, U, t)
                 dotq, q = getDotQAndQFromStateVectorS(state)
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
