@@ -36,6 +36,8 @@ def initAllUsefullObj(sizeOfTarget, fr, rs):
     musclesP = MusclesParameters()
     nsc = NextStateComputation()
     nsc.initParametersNSC(mac, armP, rs, musclesP)
+    Ukf = UnscentedKalmanFilterControl()
+    Ukf.initParametersUKF(4, 2, 25, nsc)
     cc = CostComputation()
     cc.initParametersCC(rs)
     tg = TrajectoryGenerator()
@@ -187,7 +189,7 @@ class MuscularActivationCommand:
         return Unoise
     
     
-class UnscentedKalmanFilter:
+class UnscentedKalmanFilterControl:
     
     def __init__(self):
         self.name = "UnscentedKalmanFilter"
