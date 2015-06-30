@@ -5,6 +5,7 @@ Module: TrajectoriesGenerator
 
 Description: 
 '''
+import time
 import numpy as np
 from Utils.ThetaNormalization import unNormNP
 
@@ -34,12 +35,13 @@ class TrajectoriesGenerator:
         self.mac.setThetaMAC(self.theta)
     
     def runTrajectoriesCMAWithoutParallelization(self, theta):
+        t0 = time.time()
         self.initTheta(theta)
         costAll = [[self.tg.runTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(self.numberOfRepeat)]
         meanByTraj = np.mean(np.asarray(costAll).reshape((self.numberOfRepeat, len(self.posIni))), axis = 0)    
         meanAll = np.mean(meanByTraj)
         self.saveCost.append(meanAll)
-        print("Call n°: ", self.call, "\nCost: ", meanAll)
+        print("Call n°: ", self.call, "\nCost: ", meanAll, "\nTime: ", time.time() - t0)
         self.call += 1
         return meanAll*(-1)
     
