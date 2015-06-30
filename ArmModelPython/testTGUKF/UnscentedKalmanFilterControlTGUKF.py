@@ -27,6 +27,9 @@ class UnscentedKalmanFilterControl:
                                     transition_covariance, observation_covariance,
                                     initial_state_mean, initial_state_covariance)
     
+    def setDelayUKF(self, delay):
+        self.delay = delay
+    
     def transitionFunctionUKF(self, state, transitionNoise = 0):
         nextState, U = self.nsc.computeNextState(np.asarray(state).reshape((self.dimState, 1)))
         nextState = nextState.T[0]

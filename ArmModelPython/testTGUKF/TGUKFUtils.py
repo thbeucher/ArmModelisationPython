@@ -7,6 +7,7 @@ Description:
 '''
 import cma
 import numpy as np
+from multiprocessing.pool import Pool
 from Utils.InitUtil import initFRRS
 from Regression.functionApproximator_RBFN import fa_rbfn
 from testTGUKF.MuscularActivationCommandTGUKF import MuscularActivationCommand
@@ -40,7 +41,7 @@ def initAllUsefullObj(sizeOfTarget, fr, rs):
     nsc = NextStateComputation()
     nsc.initParametersNSC(mac, armP, rs, musclesP)
     Ukf = UnscentedKalmanFilterControl()
-    Ukf.initParametersUKF(4, 2, 25, nsc)
+    Ukf.initParametersUKF(4, 2, 10, nsc)
     cc = CostComputation()
     cc.initParametersCC(rs)
     tg = TrajectoryGenerator()
@@ -62,7 +63,10 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     np.savetxt(nameToSaveThetaCma, resCma[0])
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     
-    
+def launchCMAESForAllTargetSize():
+    fr, rs =initFRRS()
+    p = Pool(5)
+    p.map(launchCMAESForSpecificTargetSize, rs.sizeOfTarget)
     
     
 def testNewKalman():
@@ -72,23 +76,32 @@ def testNewKalman():
     thetaLocalisation = rs.pathFolderData + "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7NP"
     theta = np.loadtxt(thetaLocalisation)
     tgs.mac.setThetaMAC(theta)
-    cost = tgs.tg.runTrajectory(x, y)
-    print("cost: ", cost)
-    print(tgs.tg.SaveCoordWK, "\n", tgs.tg.SaveCoordUKF)
-    for key, val in tgs.tg.SaveCoordWK.items():
-        WK = [el for el in val]
-        UKF = [el for el in tgs.tg.SaveCoordUKF[key]]
-    print(WK)
-    difTab = []
-    for el1, el2 in zip(WK, UKF):
-        a = np.sqrt((el1[0] - el2[0])**2 + (el1[1] - el2[1])**2)
-        difTab.append(a)
-    t = [i for i in range(len(difTab))]
+    
+    ii, saveD = 5, {}
+    for i in range(5):
+        tgs.tg.Ukf.setDelayUKF(ii)
+        cost = tgs.tg.runTrajectory(x, y)
+        for key, val in tgs.tg.SaveCoordWK.items():
+            WK = [el for el in val]
+            UKF = [el for el in tgs.tg.SaveCoordUKF[key]]
+        difTab = []
+        for el1, el2 in zip(WK, UKF):
+            a = np.sqrt((el1[0] - el2[0])**2 + (el1[1] - el2[1])**2)
+            difTab.append(a)
+        t = [i for i in range(len(difTab))]
+        WKx, WKy, UKFx, UKFy = [x[0] for x in WK], [y[1] for y in WK], [x[0] for x in UKF], [y[1] for y in UKF]
+        saveD[ii] = (WKx, WKy, UKFx, UKFy, difTab, t)
+        ii += 5
+    
+    for key, val in saveD.items():
+        print("key: ", key, " last yWK: ", val[1][len(val[1])-1], " last yUKF: ", val[3][len(val[3])-1])
+    for key, val in saveD.items():
+        plt.figure()
+        plt.plot(val[0], val[1])
+        plt.plot(val[2], val[3])
     plt.figure()
-    plt.plot([x[0] for x in WK], [y[1] for y in WK], c = 'b')
-    plt.plot([x[0] for x in UKF], [y[1] for y in UKF], c = 'r')
-    plt.figure()
-    plt.plot(t, difTab)
+    for key, val in saveD.items():
+        plt.plot(val[5], val[4])
     plt.show(block = True)
         
         
