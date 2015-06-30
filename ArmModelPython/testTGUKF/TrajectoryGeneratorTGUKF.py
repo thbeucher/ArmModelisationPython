@@ -42,8 +42,8 @@ class TrajectoryGenerator:
         self.Ukf.initStateStore(state)
         stateUKF = state
         
-        self.nameToSaveTraj = str(x) + "//" + str(y)
-        self.saveDataTG(coordHand, coordHand, init = 1)
+        #self.nameToSaveTraj = str(x) + "//" + str(y)
+        #self.saveDataTG(coordHand, coordHand, init = 1)
         
         while coordHand[1] < self.rs.targetOrdinate:
             if i < self.rs.numMaxIter:
@@ -54,12 +54,13 @@ class TrajectoryGenerator:
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
                 dotqUKF, qUKF = getDotQAndQFromStateVectorS(stateUKF)
                 coordElbowUKF, coordHandUKF = mgd(qUKF, self.armP.l1, self.armP.l2)
-                self.saveDataTG(coordHand, coordHandUKF)
+                #self.saveDataTG(coordHand, coordHandUKF)
             else:
                 break
             i += 1
             t = self.rs.dt
-        if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.targetOrdinate:
+        #if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.targetOrdinate:
+        if coordHandUKF[0] >= -self.sizeOfTarget/2 and coordHandUKF[0] <= self.sizeOfTarget/2 and coordHandUKF[1] >= 0.6175:
             cost = self.cc.computeFinalCostReward(cost, t)
         return cost
     
