@@ -163,7 +163,7 @@ def timeDistance():
 def hitDispersion(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/CoordHitTargetBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResCfh/CoordHitTargetCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/CoordHitTargetCmaBIN"
     data = fr.getobjread(name)
     tab = []
     for el in data.values():

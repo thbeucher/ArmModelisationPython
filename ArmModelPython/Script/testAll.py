@@ -13,7 +13,7 @@ from Utils.CreateVectorUtil import createVector
 from Utils.GenerateTrajectoryUtils import createStateVector
 from Regression.functionApproximator_RBFN import fa_rbfn
 from Utils.StateVectorUtil import getDotQAndQFromStateVectorS
-from ArmModel.ArmDynamics import mdd
+from ArmModel.ArmDynamics import mdd, ArmDynamics
 from Utils.ThetaNormalization import normalizationNP, matrixToVector, unNormNP
 from ArmModel.ArmParameters import ArmParameters
 from ArmModel.MusclesParameters import MusclesParameters
@@ -34,6 +34,7 @@ def initAllUsefullObj(sizeOfTarget, fr, rs):
     mac.initParametersMAC(fa, rs)
     armP = ArmParameters()
     musclesP = MusclesParameters()
+    armD = ArmDynamics()
     nsc = NextStateComputation()
     nsc.initParametersNSC(mac, armP, rs, musclesP)
     Ukf = UnscentedKalmanFilterControl()
@@ -41,7 +42,7 @@ def initAllUsefullObj(sizeOfTarget, fr, rs):
     cc = CostComputation()
     cc.initParametersCC(rs)
     tg = TrajectoryGenerator()
-    tg.initParametersTG(armP, rs, nsc, cc, sizeOfTarget, Ukf)
+    tg.initParametersTG(armP, rs, nsc, cc, sizeOfTarget, Ukf, armD)
     tgs = TrajectoriesGenerator()
     tgs.initParametersTGS(rs, 5, tg, 4, 6, mac)
     return tgs
@@ -101,13 +102,14 @@ class TrajectoryGenerator:
     def __init__(self):
         self.name = "TrajectoryGenerator"
         
-    def initParametersTG(self, armP, rs, nsc, cc, sizeOfTarget, Ukf):
+    def initParametersTG(self, armP, rs, nsc, cc, sizeOfTarget, Ukf, armD):
         self.armP = armP
         self.rs = rs
         self.nsc = nsc
         self.cc = cc
         self.sizeOfTarget = sizeOfTarget
         self.Ukf = Ukf
+        self.armD = armD
         
     def saveDataTG(self, coordWK, coordUKF, init = 0):
         if init == 1:
@@ -133,7 +135,6 @@ class TrajectoryGenerator:
         while coordHand[1] < self.rs.targetOrdinate:
             if i < self.rs.numMaxIter:
                 state, U = self.nsc.computeNextState(state)
-                #stateEval, Ueval = self.nsc.computeNextState(stateUKF)
                 stateUKF = self.Ukf.runUKF(state)
                 cost = self.cc.computeStateTransitionCost(cost, U, t)
                 dotq, q = getDotQAndQFromStateVectorS(state)

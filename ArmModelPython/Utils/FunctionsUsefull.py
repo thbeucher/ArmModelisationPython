@@ -360,7 +360,7 @@ def plotTrajWhenTargetNotReach():
 
 def getTimeDistance(sizeTarget):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/ResTry1KM/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/ResTry2/nbIteCmaBIN"
     #name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteRBFN" + str(sizeTarget) + "BIN"
     nbIteTraj = fr.getobjread(name)
     distTimeDico = {}
@@ -482,7 +482,7 @@ def testNPDOT():
         
 def getDataScattergram(sizeT):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1KM/hitDispersionAllBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry2/hitDispersionAllBIN"
     coordHit = fr.getobjread(name)
     allX = []
     for key, val in coordHit.items():
@@ -518,7 +518,7 @@ def plotScattergram():
 def getDistPerfSize(sizeT):
     fr, rs = initFRRS()
     #name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/actiMuscuCmaBIN"
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1KM/actiMuscuKMCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry2/actiMuscuCmaBIN"
     data = fr.getobjread(name)
     DistPerf = {}
     for key, val in data.items():
@@ -572,7 +572,7 @@ def plotScattergram2():
     
     plt.show(block = True)
     
-#plotScattergram2()
+plotScattergram2()
         
 def plotTrackTraj():
     fr, rs = initFRRS()
