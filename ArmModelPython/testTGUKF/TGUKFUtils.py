@@ -38,14 +38,15 @@ def initAllUsefullObj(sizeOfTarget, fr, rs):
     armP = ArmParameters()
     musclesP = MusclesParameters()
     armD = ArmDynamics()
+    armD.initParametersAD(armP, musclesP, rs.dt)
     nsc = NextStateComputation()
     nsc.initParametersNSC(mac, armP, rs, musclesP)
     Ukf = UnscentedKalmanFilterControl()
-    Ukf.initParametersUKF(4, 2, 10, nsc)
+    Ukf.initParametersUKF(6, 4, 25, nsc, armD, mac)
     cc = CostComputation()
     cc.initParametersCC(rs)
     tg = TrajectoryGenerator()
-    tg.initParametersTG(armP, rs, nsc, cc, sizeOfTarget, Ukf, armD)
+    tg.initParametersTG(armP, rs, nsc, cc, sizeOfTarget, Ukf, armD, mac)
     tgs = TrajectoriesGenerator()
     tgs.initParametersTGS(rs, 5, tg, 4, 6, mac)
     return tgs
@@ -65,10 +66,28 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     
 def launchCMAESForAllTargetSize():
     fr, rs =initFRRS()
-    p = Pool(5)
+    p = Pool(4)
     p.map(launchCMAESForSpecificTargetSize, rs.sizeOfTarget)
 
 #launchCMAESForAllTargetSize()
+
+
+
+def testLastKalman():
+    fr, rs = initFRRS()
+    tgs = initAllUsefullObj(rs.sizeOfTarget[3], fr, rs)
+    x, y = 0.1, 0.35
+    thetaLocalisation = rs.pathFolderData + "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7NP"
+    theta = np.loadtxt(thetaLocalisation)
+    tgs.mac.setThetaMAC(theta)
+    cost = tgs.tg.runTrajectory(x, y)
+    for val in tgs.tg.SaveCoordWK.values():
+        coordXY = val
+    plt.figure()
+    plt.plot([x[0] for x in coordXY], [y[1] for y in coordXY])
+    plt.show(block = True)
+
+testLastKalman()
     
 def testNewKalman():
     fr, rs = initFRRS()
