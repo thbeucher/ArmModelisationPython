@@ -25,11 +25,13 @@ class TrajectoryGenerator:
         self.armD = armD
         self.mac = mac
         
-    def saveDataTG(self, coordWK, init = 0):
+    def saveDataTG(self, coordUKF, coordVerif, init = 0):
         if init == 1:
-            self.SaveCoordWK = {}
-            self.SaveCoordWK[self.nameToSaveTraj] = []
-        self.SaveCoordWK[self.nameToSaveTraj].append(coordWK)
+            self.SaveCoordUKF, self.SaveCoordVerif = {}, {}
+            self.SaveCoordUKF[self.nameToSaveTraj] = []
+            self.SaveCoordVerif[self.nameToSaveTraj] = []
+        self.SaveCoordUKF[self.nameToSaveTraj].append(coordUKF)
+        self.SaveCoordVerif[self.nameToSaveTraj].append(coordVerif)
     
     def runTrajectory(self, x, y):
         q1, q2 = mgi(x, y, self.armP.l1, self.armP.l2)
@@ -42,8 +44,9 @@ class TrajectoryGenerator:
         self.Ukf.initObsStore(state)
         self.armD.initStateAD(state)
         
+        '''stateVerif = state
         self.nameToSaveTraj = str(x) + "//" + str(y)
-        self.saveDataTG(coordHand, init = 1)
+        self.saveDataTG(coordHand, coordHand, init = 1)'''
         
         while coordHand[1] < self.rs.targetOrdinate:
             if i < self.rs.numMaxIter:
@@ -54,7 +57,10 @@ class TrajectoryGenerator:
                 dotq, q = getDotQAndQFromStateVectorS(state)
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
                 
-                self.saveDataTG(coordHand)
+                '''stateVerif, junk = self.nsc.computeNextState(stateVerif)
+                dotqV, qV = getDotQAndQFromStateVectorS(stateVerif)
+                coordElbowV, coordHandV = mgd(qV, self.armP.l1, self.armP.l2)
+                self.saveDataTG(coordHand, coordHandV)'''
             else:
                 break
             i += 1

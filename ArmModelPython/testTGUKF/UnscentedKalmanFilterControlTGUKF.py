@@ -24,7 +24,7 @@ class UnscentedKalmanFilterControl:
         initial_state_mean = np.zeros(self.dimState)
         observation_covariance = 1000*np.eye(self.dimObs) 
         initial_state_covariance = np.eye(self.dimState)
-        self.nextCovariance = np.eye(self.dimState)*0.01
+        self.nextCovariance = np.eye(self.dimState)*0.0001
         self.ukf = UnscentedKalmanFilter(self.transitionFunctionUKF, self.observationFunctionUKF,
                                     transition_covariance, observation_covariance,
                                     initial_state_mean, initial_state_covariance)

@@ -87,7 +87,7 @@ def testLastKalman():
     plt.plot([x[0] for x in coordXY], [y[1] for y in coordXY])
     plt.show(block = True)
 
-testLastKalman()
+#testLastKalman()
     
 def testNewKalman():
     fr, rs = initFRRS()
@@ -101,7 +101,7 @@ def testNewKalman():
     for i in range(5):
         tgs.tg.Ukf.setDelayUKF(ii)
         cost = tgs.tg.runTrajectory(x, y)
-        for key, val in tgs.tg.SaveCoordWK.items():
+        for key, val in tgs.tg.SaveCoordVerif.items():
             WK = [el for el in val]
             UKF = [el for el in tgs.tg.SaveCoordUKF[key]]
         difTab = []
@@ -117,8 +117,8 @@ def testNewKalman():
         print("key: ", key, " last yWK: ", val[1][len(val[1])-1], " last yUKF: ", val[3][len(val[3])-1])
     for key, val in saveD.items():
         plt.figure()
-        plt.plot(val[0], val[1])
-        plt.plot(val[2], val[3])
+        plt.plot(val[0], val[1], c = 'b')
+        plt.plot(val[2], val[3], c = 'r')
     plt.figure()
     for key, val in saveD.items():
         plt.plot(val[5], val[4])
