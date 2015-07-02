@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.5.6)  1 JUL 2015 16:19
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.5.6)  2 JUL 2015 10:44
 entering extended mode
  file:line:error style messages enabled.
  %&-line parsing enabled.
@@ -236,10 +236,10 @@ File: images/speed_for_diff_noise.png Graphic file (type png)
 File: images/cross-entropy_simple.png Graphic file (type png)
 
 <use images/cross-entropy_simple.png>
-./codyco.tex:622: Undefined control sequence.
+./codyco.tex:623: Undefined control sequence.
 <argument> ...t with the normal distribution $\Nu 
                                                   (\mu ,\sigma ^2)$. B: Draw...
-l.622 	\label{fig:cross-entropy}}
+l.623 	\label{fig:cross-entropy}}
                                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -247,10 +247,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:622: Undefined control sequence.
+./codyco.tex:623: Undefined control sequence.
 <recently read> \Nu 
                     
-l.622 	\label{fig:cross-entropy}}
+l.623 	\label{fig:cross-entropy}}
                                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -258,10 +258,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:622: Undefined control sequence.
+./codyco.tex:623: Undefined control sequence.
 <recently read> \Nu 
                     
-l.622 	\label{fig:cross-entropy}}
+l.623 	\label{fig:cross-entropy}}
                                  
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -274,10 +274,10 @@ and I'll forget about whatever was undefined.
 File: images/arm_model_horiz.pdf Graphic file (type pdf)
 
 <use images/arm_model_horiz.pdf>
-./codyco.tex:660: Undefined control sequence.
+./codyco.tex:661: Undefined control sequence.
 \ddq ->\vs 
            {\ddot {q}}
-l.660     \ddq
+l.661     \ddq
                = \ms{M}(\q)^{-1} (\vt - \ms{C}(\q, \dq) \dq - \vs{g}(\q)  - ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -285,8 +285,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:660: Undefined control sequence.
-l.660     \ddq = \ms
+./codyco.tex:661: Undefined control sequence.
+l.661     \ddq = \ms
                     {M}(\q)^{-1} (\vt - \ms{C}(\q, \dq) \dq - \vs{g}(\q)  - ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -294,10 +294,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:660: Undefined control sequence.
+./codyco.tex:661: Undefined control sequence.
 \q ->\vs 
          {q}
-l.660     \ddq = \ms{M}(\q
+l.661     \ddq = \ms{M}(\q
                           )^{-1} (\vt - \ms{C}(\q, \dq) \dq - \vs{g}(\q)  - ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -305,10 +305,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:660: Undefined control sequence.
+./codyco.tex:661: Undefined control sequence.
 \vt ->\vs 
           {\tau }
-l.660     \ddq = \ms{M}(\q)^{-1} (\vt
+l.661     \ddq = \ms{M}(\q)^{-1} (\vt
                                       - \ms{C}(\q, \dq) \dq - \vs{g}(\q)  - ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -316,8 +316,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:660: Undefined control sequence.
-l.660     \ddq = \ms{M}(\q)^{-1} (\vt - \ms
+./codyco.tex:661: Undefined control sequence.
+l.661     \ddq = \ms{M}(\q)^{-1} (\vt - \ms
                                            {C}(\q, \dq) \dq - \vs{g}(\q)  - ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -325,10 +325,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:660: Undefined control sequence.
+./codyco.tex:661: Undefined control sequence.
 \q ->\vs 
          {q}
-l.660     \ddq = \ms{M}(\q)^{-1} (\vt - \ms{C}(\q
+l.661     \ddq = \ms{M}(\q)^{-1} (\vt - \ms{C}(\q
                                                  , \dq) \dq - \vs{g}(\q)  - ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -336,10 +336,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:660: Undefined control sequence.
+./codyco.tex:661: Undefined control sequence.
 \dq ->\vs 
           {\dot {q}}
-l.660 ...q = \ms{M}(\q)^{-1} (\vt - \ms{C}(\q, \dq
+l.661 ...q = \ms{M}(\q)^{-1} (\vt - \ms{C}(\q, \dq
                                                   ) \dq - \vs{g}(\q)  - \ms{...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -347,10 +347,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:660: Undefined control sequence.
+./codyco.tex:661: Undefined control sequence.
 \dq ->\vs 
           {\dot {q}}
-l.660 ...ms{M}(\q)^{-1} (\vt - \ms{C}(\q, \dq) \dq
+l.661 ...ms{M}(\q)^{-1} (\vt - \ms{C}(\q, \dq) \dq
                                                    - \vs{g}(\q)  - \ms{B} \dq)
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -358,8 +358,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:660: Undefined control sequence.
-l.660 ...\q)^{-1} (\vt - \ms{C}(\q, \dq) \dq - \vs
+./codyco.tex:661: Undefined control sequence.
+l.661 ...\q)^{-1} (\vt - \ms{C}(\q, \dq) \dq - \vs
                                                   {g}(\q)  - \ms{B} \dq)
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -367,10 +367,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:660: Undefined control sequence.
+./codyco.tex:661: Undefined control sequence.
 \q ->\vs 
          {q}
-l.660 ...1} (\vt - \ms{C}(\q, \dq) \dq - \vs{g}(\q
+l.661 ...1} (\vt - \ms{C}(\q, \dq) \dq - \vs{g}(\q
                                                   )  - \ms{B} \dq)
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -378,8 +378,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:660: Undefined control sequence.
-l.660 ...- \ms{C}(\q, \dq) \dq - \vs{g}(\q)  - \ms
+./codyco.tex:661: Undefined control sequence.
+l.661 ...- \ms{C}(\q, \dq) \dq - \vs{g}(\q)  - \ms
                                                   {B} \dq)
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -387,10 +387,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:660: Undefined control sequence.
+./codyco.tex:661: Undefined control sequence.
 \dq ->\vs 
           {\dot {q}}
-l.660 ...}(\q, \dq) \dq - \vs{g}(\q)  - \ms{B} \dq
+l.661 ...}(\q, \dq) \dq - \vs{g}(\q)  - \ms{B} \dq
                                                   )
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -398,10 +398,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:663: Undefined control sequence.
+./codyco.tex:664: Undefined control sequence.
 <recently read> \vs 
                     
-l.663 where $\vs
+l.664 where $\vs
                 {q}$ is the current articular position, $\dq$ the current ar...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -409,10 +409,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:663: Undefined control sequence.
+./codyco.tex:664: Undefined control sequence.
 \dq ->\vs 
           {\dot {q}}
-l.663 ...$ is the current articular position, $\dq
+l.664 ...$ is the current articular position, $\dq
                                                   $ the current articular sp...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -420,10 +420,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:663: Undefined control sequence.
+./codyco.tex:664: Undefined control sequence.
 \ddq ->\vs 
            {\ddot {q}}
-l.663 ... $\dq$ the current articular speed, $\ddq
+l.664 ... $\dq$ the current articular speed, $\ddq
                                                   $ the current articular ac...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -431,10 +431,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:663: Undefined control sequence.
+./codyco.tex:664: Undefined control sequence.
 <recently read> \mat 
                      
-l.663 ...the current articular acceleration, $\mat
+l.664 ...the current articular acceleration, $\mat
                                                   {M}$ the inertia matrix, $...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -442,10 +442,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:663: Undefined control sequence.
+./codyco.tex:664: Undefined control sequence.
 <recently read> \vs 
                     
-l.663 ...ation, $\mat{M}$ the inertia matrix, $\vs
+l.664 ...ation, $\mat{M}$ the inertia matrix, $\vs
                                                   {C}$ the Coriolis force ve...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -453,10 +453,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:663: Undefined control sequence.
+./codyco.tex:664: Undefined control sequence.
 <recently read> \vs 
                     
-l.663 ... $\vs{C}$ the Coriolis force vector, $\vs
+l.664 ... $\vs{C}$ the Coriolis force vector, $\vs
                                                   {\tau}$ the segments torqu...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -464,10 +464,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:663: Undefined control sequence.
+./codyco.tex:664: Undefined control sequence.
 <recently read> \vs 
                     
-l.663 ...or, $\vs{\tau}$ the segments torque, $\vs
+l.664 ...or, $\vs{\tau}$ the segments torque, $\vs
                                                   {g}$ the gravity force vec...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -475,10 +475,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:663: Undefined control sequence.
+./codyco.tex:664: Undefined control sequence.
 <recently read> \vs 
                     
-l.663 ...\vs{g}$ the gravity force vector and $\vs
+l.664 ...\vs{g}$ the gravity force vector and $\vs
                                                   {B}$ a damping term that c...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -486,10 +486,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:665: Undefined control sequence.
+./codyco.tex:666: Undefined control sequence.
 <recently read> \vs 
                     
-l.665 Here, $\vs
+l.666 Here, $\vs
                 {g}$ is ignored since the arm is working in the sagittal plane.
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -497,8 +497,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:672: Undefined control sequence.
-l.672  \mat
+./codyco.tex:673: Undefined control sequence.
+l.673  \mat
            {M} = \begin{bmatrix}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -506,8 +506,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:680: Undefined control sequence.
-l.680 \vs
+./codyco.tex:681: Undefined control sequence.
+l.681 \vs
          {C} = \begin{bmatrix}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -515,10 +515,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:681: Undefined control sequence.
+./codyco.tex:682: Undefined control sequence.
 \dq ->\vs 
           {\dot {q}}
-l.681            -\dq
+l.682            -\dq
                      _2 (2 \dq_1 + \dq_2) k_2 \sin(q_2) & \dq_1^2 k_2 \sin(q_2)
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -526,10 +526,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:681: Undefined control sequence.
+./codyco.tex:682: Undefined control sequence.
 \dq ->\vs 
           {\dot {q}}
-l.681            -\dq_2 (2 \dq
+l.682            -\dq_2 (2 \dq
                               _1 + \dq_2) k_2 \sin(q_2) & \dq_1^2 k_2 \sin(q_2)
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -537,10 +537,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:681: Undefined control sequence.
+./codyco.tex:682: Undefined control sequence.
 \dq ->\vs 
           {\dot {q}}
-l.681            -\dq_2 (2 \dq_1 + \dq
+l.682            -\dq_2 (2 \dq_1 + \dq
                                       _2) k_2 \sin(q_2) & \dq_1^2 k_2 \sin(q_2)
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -548,10 +548,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:681: Undefined control sequence.
+./codyco.tex:682: Undefined control sequence.
 \dq ->\vs 
           {\dot {q}}
-l.681 ...q_2 (2 \dq_1 + \dq_2) k_2 \sin(q_2) & \dq
+l.682 ...q_2 (2 \dq_1 + \dq_2) k_2 \sin(q_2) & \dq
                                                   _1^2 k_2 \sin(q_2)
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -559,10 +559,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:686: Undefined control sequence.
+./codyco.tex:687: Undefined control sequence.
 <recently read> \vs 
                     
-l.686 $\vs
+l.687 $\vs
           {B} = \begin{bmatrix}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -570,10 +570,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:689: Undefined control sequence.
+./codyco.tex:690: Undefined control sequence.
 \dq ->\vs 
           {\dot {q}}
-l.689      \end{bmatrix} \dq
+l.690      \end{bmatrix} \dq
                             .$\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -582,14 +582,14 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 685--690
+Underfull \hbox (badness 10000) in paragraph at lines 686--691
 
  []
 
-./codyco.tex:691: Undefined control sequence.
+./codyco.tex:692: Undefined control sequence.
 <recently read> \vs 
                     
-l.691 ...em given an input muscular actuation $\vs
+l.692 ...em given an input muscular actuation $\vs
                                                   {u}$ is explained in the n...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -597,10 +597,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:695: Undefined control sequence.
+./codyco.tex:696: Undefined control sequence.
 <recently read> \mat 
                      
-l.695 ...t uses a constant moment arm matrix $\mat
+l.696 ...t uses a constant moment arm matrix $\mat
                                                   {A}$ whereas \cite{li2006}...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -608,10 +608,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:702: Undefined control sequence.
+./codyco.tex:703: Undefined control sequence.
 <argument>  \vs 
                 {f_{\max }} & = \begin {bmatrix}f_{\max 1} & f_{\max 2} & f_...
-l.702 \end{align*}
+l.703 \end{align*}
                   
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -619,10 +619,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:702: Undefined control sequence.
+./codyco.tex:703: Undefined control sequence.
 <argument>  \vs 
                 {f_{\max }} & = \begin {bmatrix}f_{\max 1} & f_{\max 2} & f_...
-l.702 \end{align*}
+l.703 \end{align*}
                   
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -631,10 +631,10 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 [14 <./images/arm_model_horiz.pdf>]
-./codyco.tex:715: Undefined control sequence.
+./codyco.tex:716: Undefined control sequence.
 <argument>  \ms 
                 {A} & = \begin {bmatrix} A_{11} & A_{21} & A_{31} & A_{41} &...
-l.715 \end{align*}
+l.716 \end{align*}
                   
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -642,10 +642,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:715: Undefined control sequence.
+./codyco.tex:716: Undefined control sequence.
 <argument>  \ms 
                 {A} & = \begin {bmatrix} A_{11} & A_{21} & A_{31} & A_{41} &...
-l.715 \end{align*}
+l.716 \end{align*}
                   
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -653,10 +653,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:717: Undefined control sequence.
+./codyco.tex:718: Undefined control sequence.
 <recently read> \vs 
                     
-l.717 Finally, given an action $\vs
+l.718 Finally, given an action $\vs
                                    {u}$ corresponding to a raw muscular acti...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -664,10 +664,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:719: Undefined control sequence.
+./codyco.tex:720: Undefined control sequence.
 <recently read> \vs 
                     
-l.719 is augmented with Gaussian noise using $\vs
+l.720 is augmented with Gaussian noise using $\vs
                                                  {\tilde{u}} = \log(\exp(\ka...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -675,8 +675,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:719: Undefined control sequence.
-l.719 ...{\tilde{u}} = \log(\exp(\kappa \times \vs
+./codyco.tex:720: Undefined control sequence.
+l.720 ...{\tilde{u}} = \log(\exp(\kappa \times \vs
                                                   {u}_t \times (1+\mathcal{N...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -684,8 +684,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:719: Undefined control sequence.
-l.719 ...mes \vs{u}_t \times (1+\mathcal{N}(0,\mat
+./codyco.tex:720: Undefined control sequence.
+l.720 ...mes \vs{u}_t \times (1+\mathcal{N}(0,\mat
                                                   {I}\sigma_u^2))) + 1) / \k...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -693,10 +693,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:719: Undefined control sequence.
+./codyco.tex:720: Undefined control sequence.
 <recently read> \mat 
                      
-l.719 ...to the element-wise multiplication, $\mat
+l.720 ...to the element-wise multiplication, $\mat
                                                   {I}$ is a $6 \times 6$ ide...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -704,10 +704,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:721: Undefined control sequence.
+./codyco.tex:722: Undefined control sequence.
 <recently read> \vs 
                     
-l.721 is computed as $\vs
+l.722 is computed as $\vs
                          {\tau} = \mat{A}^\top (\vs{f_{\max}} \times \vs{\ti...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -715,8 +715,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:721: Undefined control sequence.
-l.721 is computed as $\vs{\tau} = \mat
+./codyco.tex:722: Undefined control sequence.
+l.722 is computed as $\vs{\tau} = \mat
                                       {A}^\top (\vs{f_{\max}} \times \vs{\ti...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -724,8 +724,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:721: Undefined control sequence.
-l.721 ...omputed as $\vs{\tau} = \mat{A}^\top (\vs
+./codyco.tex:722: Undefined control sequence.
+l.722 ...omputed as $\vs{\tau} = \mat{A}^\top (\vs
                                                   {f_{\max}} \times \vs{\til...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -733,8 +733,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:721: Undefined control sequence.
-l.721 ... = \mat{A}^\top (\vs{f_{\max}} \times \vs
+./codyco.tex:722: Undefined control sequence.
+l.722 ... = \mat{A}^\top (\vs{f_{\max}} \times \vs
                                                   {\tilde{u}})$.
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -745,10 +745,10 @@ and I'll forget about whatever was undefined.
 <images/workspace.png, id=128, 578.16pt x 433.62pt>
 File: images/workspace.png Graphic file (type png)
  <use images/workspace.png>
-./codyco.tex:754: Undefined control sequence.
+./codyco.tex:755: Undefined control sequence.
 <recently read> \vs 
                     
-l.754 ...sts of the target articular position $\vs
+l.755 ...sts of the target articular position $\vs
                                                   {q}^*$, the current articu...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -756,10 +756,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:754: Undefined control sequence.
+./codyco.tex:755: Undefined control sequence.
 <recently read> \vs 
                     
-l.754 ...}^*$, the current articular position $\vs
+l.755 ...}^*$, the current articular position $\vs
                                                   {q}$ of the arm and its cu...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -767,10 +767,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:754: Undefined control sequence.
+./codyco.tex:755: Undefined control sequence.
 \dq ->\vs 
           {\dot {q}}
-l.754 ... arm and its current articular speed $\dq
+l.755 ... arm and its current articular speed $\dq
                                                   $. The state $ \vs{s} = (\...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -778,8 +778,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:754: Undefined control sequence.
-l.754 ...nt articular speed $\dq$. The state $ \vs
+./codyco.tex:755: Undefined control sequence.
+l.755 ...nt articular speed $\dq$. The state $ \vs
                                                   {s} = (\vs{q}^*, \vs{q}, \...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -787,8 +787,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:754: Undefined control sequence.
-l.754 ...ar speed $\dq$. The state $ \vs{s} = (\vs
+./codyco.tex:755: Undefined control sequence.
+l.755 ...ar speed $\dq$. The state $ \vs{s} = (\vs
                                                   {q}^*, \vs{q}, \dot{\vs{q}...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -796,8 +796,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:754: Undefined control sequence.
-l.754 ...\dq$. The state $ \vs{s} = (\vs{q}^*, \vs
+./codyco.tex:755: Undefined control sequence.
+l.755 ...\dq$. The state $ \vs{s} = (\vs{q}^*, \vs
                                                   {q}, \dot{\vs{q}})$ has a ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -805,10 +805,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:754: Undefined control sequence.
+./codyco.tex:755: Undefined control sequence.
 <recently read> \vs 
                     
-l.754 ... \vs{s} = (\vs{q}^*, \vs{q}, \dot{\vs{q}}
+l.755 ... \vs{s} = (\vs{q}^*, \vs{q}, \dot{\vs{q}}
                                                   )$ has a total of 6 dimens...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -816,10 +816,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:754: Undefined control sequence.
+./codyco.tex:755: Undefined control sequence.
 <argument> \vs 
                {q}
-l.754 ... \vs{s} = (\vs{q}^*, \vs{q}, \dot{\vs{q}}
+l.755 ... \vs{s} = (\vs{q}^*, \vs{q}, \dot{\vs{q}}
                                                   )$ has a total of 6 dimens...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -828,10 +828,10 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 [15]
-./codyco.tex:793: Undefined control sequence.
+./codyco.tex:794: Undefined control sequence.
 <recently read> \mat 
                      
-l.793 $\mat
+l.794 $\mat
            {A}$ & moment arm matrix ($\in \mathbb{R}^{6 \times 2}$)\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -839,10 +839,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:794: Undefined control sequence.
+./codyco.tex:795: Undefined control sequence.
 <recently read> \vs 
                     
-l.794 $\vs
+l.795 $\vs
           {f_{\max}}$ & maximum muscular tension ($\in \mathbb{R}^6$)\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -850,22 +850,11 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:795: Undefined control sequence.
+./codyco.tex:796: Undefined control sequence.
 <recently read> \mat 
                      
-l.795 $\mat
+l.796 $\mat
            {M}$ & inertia matrix ($\in \mathbb{R}^{2 \times 2}$)\\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./codyco.tex:797: Undefined control sequence.
-<recently read> \vs 
-                    
-l.797 $\vs
-          {C}$ & Coriolis force ($N.m \in \mathbb{R}^2$)\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -876,7 +865,7 @@ and I'll forget about whatever was undefined.
 <recently read> \vs 
                     
 l.798 $\vs
-          {\tau}$ & segments torque ($N.m \in \mathbb{R}^2$)\\
+          {C}$ & Coriolis force ($N.m \in \mathbb{R}^2$)\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -887,7 +876,7 @@ and I'll forget about whatever was undefined.
 <recently read> \vs 
                     
 l.799 $\vs
-          {B}$ & damping term ($N.m \in \mathbb{R}^2$)\\
+          {\tau}$ & segments torque ($N.m \in \mathbb{R}^2$)\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -898,18 +887,18 @@ and I'll forget about whatever was undefined.
 <recently read> \vs 
                     
 l.800 $\vs
-          {u}$ & raw muscular activation (action) ($\in [0,1]^6$)\\
+          {B}$ & damping term ($N.m \in \mathbb{R}^2$)\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./codyco.tex:802: Undefined control sequence.
+./codyco.tex:801: Undefined control sequence.
 <recently read> \vs 
                     
-l.802 $\vs
-          {\tilde{u}}$ & filtered noisy muscular activation ($\in [0,1]^6$)\\
+l.801 $\vs
+          {u}$ & raw muscular activation (action) ($\in [0,1]^6$)\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -920,7 +909,7 @@ and I'll forget about whatever was undefined.
 <recently read> \vs 
                     
 l.803 $\vs
-          {q}^*$ & target articular position ($rad \in [0,2\pi[^2$)\\
+          {\tilde{u}}$ & filtered noisy muscular activation ($\in [0,1]^6$)\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -931,7 +920,7 @@ and I'll forget about whatever was undefined.
 <recently read> \vs 
                     
 l.804 $\vs
-          {q}$ & current articular position ($rad \in [0,2\pi[^2$)\\
+          {q}^*$ & target articular position ($rad \in [0,2\pi[^2$)\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -939,10 +928,10 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ./codyco.tex:805: Undefined control sequence.
-\dq ->\vs 
-          {\dot {q}}
-l.805 $\dq
-          $ & current articular speed ($rad.s^{-1}$)\\
+<recently read> \vs 
+                    
+l.805 $\vs
+          {q}$ & current articular position ($rad \in [0,2\pi[^2$)\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -950,9 +939,20 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ./codyco.tex:806: Undefined control sequence.
+\dq ->\vs 
+          {\dot {q}}
+l.806 $\dq
+          $ & current articular speed ($rad.s^{-1}$)\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+./codyco.tex:807: Undefined control sequence.
 \ddq ->\vs 
            {\ddot {q}}
-l.806 $\ddq
+l.807 $\ddq
            $ & current articular acceleration ($rad.s^{-2}$)\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -975,7 +975,7 @@ Here is how much of TeX's memory you used:
  6368 multiletter control sequences out of 15000+50000
  10474 words of font info for 39 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 36i,15n,38p,1318b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,15n,38p,1324b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/a
 msfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
 cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
@@ -989,7 +989,7 @@ m/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texli
 ve/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/ty
 pe1/public/amsfonts/symbols/msbm10.pfb>
-Output written on codyco.pdf (20 pages, 1426429 bytes).
+Output written on codyco.pdf (20 pages, 1427248 bytes).
 PDF statistics:
  194 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
