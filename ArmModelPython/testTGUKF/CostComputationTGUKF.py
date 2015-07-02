@@ -7,7 +7,6 @@ Description:
 '''
 import numpy as np
 
-#Thomas : comments : what is rs?
 
 class CostComputation:
     

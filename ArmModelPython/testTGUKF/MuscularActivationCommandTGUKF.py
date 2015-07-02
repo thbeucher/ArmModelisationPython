@@ -7,7 +7,7 @@ Description:
 '''
 import numpy as np
 
-#Thomas: comments: what are fa, rs?
+
 class MuscularActivationCommand:
     
     def __init__(self):
@@ -23,13 +23,11 @@ class MuscularActivationCommand:
     def getCommandMAC(self, state):
         U = self.fa.computesOutput(state, self.theta)
         UnoiseTmp = U*(1+ np.random.normal(0,self.rs.knoiseU))
-#Thomas: comments: make a function for that: clipping the values of a vector in an interval.
         for i in range(UnoiseTmp.shape[0]):
             if UnoiseTmp[i] < 0:
                 UnoiseTmp[i] = 0
             elif UnoiseTmp[i] > 1:
                 UnoiseTmp[i] = 1
-#Thomas: comments: what is .T : transpose?
         Unoise = np.array([UnoiseTmp]).T 
         return Unoise
     
