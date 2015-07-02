@@ -198,14 +198,15 @@ On one hand, reaching a target faster requires a larger muscular effort (refs?).
 Green: subjective utility of hitting the target; red: muscular energy cost; black: global cost versus reward trade-off. The red area denotes infeasible short times; blue: probability to hit the target; orange:reward expectation (subjective reward times probability).
  A: Sketch of the models in \cite{shadmehr10} and \cite{rigoux12}.
 The subjective utility of hitting the reward decreases over time as one is less interested in gains that will occur in a distant future than at the present time. Hitting is less and less costly in terms of efforts as the movement is performed more slowly.
-The expected gain, resulting from the sum of the subjective reward and the (negative) cost reaches a maximum for a certain time. When the gain is negative (outside the useful interval), one should not move.
+The expected outcome, resulting from the sum of the subjective reward and the (negative) cost reaches a maximum for a certain time. When the outcome is negative (outside the useful interval), one should not move.
 B: Sketch of the presented model.
 In the case of a larger target, the hitting probability is higher for faster movements (solid lines) than for a smaller target (dashed lines). As a result, the maximum of the reward expectation is shifted towards longer time for smaller targets, and the optimum movement time is also longer for smaller targets.\label{fig:mvt_acc}}
 \end{figure}
 
 However, these models do not account directly for basic facts about the relation between movement difficulty and movement duration as captured more than fifty years ago by Fitts' law \cite{fitts54_JEP}.
 According to this law, the smaller a target, the slower the reaching movement. 
-This is well explained by the so-called {\em speed-accuracy trade-off} (SAT) stating that, the faster a movement, the less accurate it is, hence the higher the probability to miss the target. So a subject reaching too fast may not get the subjective value associated to reaching and should slow down.
+This is well explained by the so-called {\em speed-accuracy trade-off} (SAT) stating that, the faster a movement, the less accurate it is, hence the higher the probability to miss the target. 
+%So a subject reaching too fast may not get the subjective value associated to reaching and should slow down.
 
 In contrast with the models of \cite{shadmehr10} and \cite{rigoux12}, the model of Dean \cite{Dean2007} takes the SAT into account. The key difference with respect to \cite{shadmehr10} and \cite{rigoux12} is that, instead of maximizing a reward, this model maximizes a {\em reward expectation}, i.e. the reward times the probability to get it.
 
@@ -219,9 +220,10 @@ This unification is simply implemented by including sensory and motor noise into
 
 As a matter of fact, in the models of \cite{shadmehr10} and \cite{rigoux12}, the target is given as a single point and the movement is considered as always reaching it, irrespective of the size of the target. In order to fully account for Fitts' law, one must consider the intrinsic dispersion of reaching movements towards a target and the effect of sensory and muscular noise on this dispersion (e.g. \cite{harris98_N}, see \cite{faisal08} for a review), which is not the case of the models of \cite{shadmehr10} and \cite{rigoux12}. 
 
-As a result, the reward and muscular activation terms in the optimization criterion proposed in \cite{rigoux12} are replaced by reward and cost expectation terms. Considering expectation is a way to account for the fact that, in case of a miss, one would not get the reward, so the global outcome of the movement would only consist of its incurred cost. 
+Considering expectation is a way to account for the fact that, in case of a miss, one would not get the reward, so the global outcome of the movement would only consist of its incurred cost. 
 
-The mathematical way to capture this intuition is presented in Section~\ref{sec:math_model} and illustrated in Fig.~\ref{fig:mvt_acc}(B).
+The mathematical way to capture this intuition is presented in Section~\ref{sec:math_model} and illustrated in Fig.~\ref{fig:mvt_acc}(B). Technically, the reward and muscular activation terms in the optimization criterion proposed in \cite{rigoux12} are simply replaced by reward and cost expectation terms. 
+
 With respect to Fig.~\ref{fig:mvt_acc}(A), the new model includes an additional term that expresses the dependency between the size of the target and the probability to hit it, as expressed by the SAT. As can be seen in Fig.~\ref{fig:mvt_acc}(B), if the target is smaller, then the probability to get it is smaller for a given time, thus the reward expectation should itself be smaller. As a result, the optimum time resulting from the optimal combination of this reward expectation with the cost of movement should shift to longer times, which is qualitatively consistent with Fitts' law.
 
 Beyond a theoretical motor control model, this paper proposes a computational model that is tested against a set of experimental phenomena. 
@@ -270,8 +272,7 @@ One can see that the pattern of activation varies depending on the initial confi
 \label{sec:time_perf}
 
 The model presented in this paper is designed to investigate the complex relationships between movement duration, expected gain and final dispersion. In order to perform this investigation, we chose a set of five target sizes ($\{$1mm, 2mm, 6mm, 10mm, 20mm$\}$).
-For each (distance, target size) pair, we optimized a specific controller (see Methods). For each of these controllers corresponding to each (distance, target size) pair, we recorded movement time, final dispersion and performance.
-The corresponding data is shown in Fig.~\ref{fig:fitts_time}.
+For each target size, we optimized a specific controller (see Methods). For each of these controllers corresponding to each target size, we recorded movement time, final dispersion and performance. The corresponding data is shown in Fig.~\ref{fig:fitts_time}.
 
 \begin{figure}[htp]
   \centering
@@ -286,7 +287,7 @@ B: Expected movement gain for various target sizes and distances. The larger the
 \label{fig:fitts_time}}
 \end{figure}
 
-As illustrated in Fig.~\ref{fig:mvt_acc}(B), the probability to reach the target depends on the size of the target and the time of the movement (or its velocity). More precisely, if the target is smaller, fast movements should fail more often. Thus, as a result of including the accuracy constraint in the model, the optimal movement time resulting from the intuition described in Fig.~\ref{fig:mvt_acc}(B) should be always longer than the optimal movement time resulting from the model of \cite{rigoux12}.
+As illustrated in Fig.~\ref{fig:mvt_acc}(B), the probability to reach the target depends on the size of the target and the time of the movement (or its velocity). More precisely, if the target is smaller, fast movements should fail more often. Thus, as a result of including the accuracy constraint in the model, the optimal movement time resulting from the model described in Fig.~\ref{fig:mvt_acc}(B) should be always longer than the optimal movement time resulting from the model of \cite{rigoux12}.
 
 This is what is observed in Fig.~\ref{fig:fitts_time}(A). One can see that movement time increases when the target is smaller, and also increases with the movement distance, consistently with Fitt's law. 
 
@@ -343,7 +344,7 @@ The obtained values of $a$ and $b$ cannot be compared to empirical data from the
 The final dispersion in reaching trajectories is generated by motor noise.
 Following the minimum intervention principle from \cite{todorov02_NN}, motor noise being proportional to muscular activation, the only way to decrease motor noise is to decrease muscular activation.
 
-Thus, in order to hit a small trajectory, muscular activations should be small
+Thus, in order to hit a small target, muscular activations should be small
 by the end of the movement, which can result in first instance in less co-contraction and then in less velocity. Furthermore, a slower movement provides a better opportunity for state estimation to compensate for delayed feedback about the position of the end effector. Taken together, those two phenomena contribute to the fact that an optimal controller should generate less velocity by the end of the movement for a smaller target.
 So one way to make sure to hit a small target would be to perform a slow reaching movement.
 
@@ -416,8 +417,8 @@ of our methods, given the constraint on the number of samples.
 
 \subsection{Positionning}
 
-When performing a reaching movement towards a target, three inter-related factors must be determined. The first is the potential outcome of a successful or failed movement, characterized by a discounted reward. Movement time is crucial in this factor because more time means more discount.
-The second factor is the cost of the movement, depending on muscular activations and resulting in a velocity profile and a joint-space trajectory. Movement time is crucial in this factor because, for an identical trajectory, less time means more cost. The third factor is the final dispersion, generated by motor noise and imperfectly compensated for by the CNS due to sensory noise and delays. Movement time is crucial in this factor because less time means more dispersion.
+When performing a reaching movement towards a target, three inter-related factors must be determined. The first is the potential outcome of a successful or failed movement, characterized by a discounted reward. Movement time is crucial in this factor because more time means a more discounted reward.
+The second factor is the cost of the movement, depending on muscular activations and resulting in a velocity profile and a joint-space trajectory. Movement time is crucial in this factor because, for an identical trajectory, shorter time means higher cost. The third factor is the final dispersion, generated by motor noise and imperfectly compensated for by the CNS due to sensory noise and delays. Movement time is crucial in this factor because shorter time means higher dispersion.
 
 The works of \cite{rigoux12} and \cite{shadmehr10} only relate the first two of these factors. By contrast, the model presented in \cite{Dean2007} relates the first and the last factors, without consideration for the second. 
 
@@ -451,7 +452,7 @@ Figures~\ref{fig:cost_nops} and~\ref{fig:muscles_LR} are obtained in a 2D case w
 \label{sec:discu_fitts}
 Motor control results are obtained in \cite{rigoux12} in the absence of sensory and motor noise. As such, this model cannot provide a direct account of phenomena relying on the stochasticity of the motor system, such as Fitts' law. Actually, the model of \cite{rigoux12} provides an indirect account of Fitts' law (see \cite{rigoux12}, Fig.~7A). For obtaining these results, the authors have estimated dispersion as a function of velocity considering a constant velocity over the movement, and they have reconstructed the relationship between Difficulty Index and movement time based on the size of a target that would match this estimated dispersion (\cite{rigoux12}, personal communication). So Fig.~7A in \cite{rigoux12} is based on one target size only.
 
-In \cite{Dean2007}, a abstract SAT model is directly fitted to human movement data, without directly calling upond a measured movement dispersion.
+In \cite{Dean2007}, an abstract SAT model is directly fitted to human movement data, without directly calling upond a measured movement dispersion.
 
 In contrast, in Section~\ref{sec:fitts} we have shown that the proposed model accounts for Fitts' law by using several targets and several starting points. In this model, movement velocity is far from constant and dispersion is measured as an effect of motor noise and imperfect state estimation rather than inferred based on an a priori SAT model.
 
@@ -460,7 +461,7 @@ In contrast, in Section~\ref{sec:fitts} we have shown that the proposed model ac
 \subsubsection{The model does not account for movement planning}
 \label{sec:limitations}
 
-In \cite{Trommershauser2003a,Trommershauser2005}, the authors distinguish movement planning from motor planning. Movement planning consists in choosing where reaching should aim given a set of rewarded and penalized targets and motor variability. By contrast, motor planning consists in specifying movement execution in advance, in terms of muscular activations at each step of the movement, given a chosen target. Movement planning does not take motor costs into account and does not account for movement time.
+In \cite{Trommershauser2003a,Trommershauser2005}, the authors distinguish {\em movement planning} from {\em motor planning}. Movement planning consists in choosing where reaching should aim given a set of rewarded and penalized targets and motor variability. By contrast, motor planning consists in specifying movement execution in advance, in terms of muscular activations at each step of the movement, given a chosen target. Movement planning does not take motor costs into account and does not account for movement time.
 Interestingly, the work of \cite{Trommershauser2003a,Trommershauser2005} is focused on movement planning, thus it does not account for the motor trajectory and the choice of movement time as the models of \cite{shadmehr10} and \cite{rigoux12} do.
 
 The model proposed here  might be seen as providing a first stone of the bridge between the work of \cite{Trommershauser2003a,Trommershauser2005} and the one of \cite{shadmehr10} and \cite{rigoux12}.
