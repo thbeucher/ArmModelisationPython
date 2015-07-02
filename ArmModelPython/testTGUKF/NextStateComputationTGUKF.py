@@ -9,7 +9,7 @@ from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
 from ArmModel.ArmDynamics import mdd
 from ArmModel.GeometricModel import jointStop
 
-
+#Thomas: comments: what are the parameters?
 class NextStateComputation:
     
     def __init__(self):
@@ -21,6 +21,7 @@ class NextStateComputation:
         self.rs = rs
         self.musclesP = musclesP
     
+#Thomas: comments: where is jointStop?
     def computeNextState(self, state):
         U = self.mac.getCommandMAC(state)
         dotq, q = getDotQAndQFromStateVectorS(state)
