@@ -1,7 +1,7 @@
 '''
 Author: Thomas Beucher
 
-Module: NextStateComputation
+Module: Main
 
 Description: 
 '''
@@ -9,16 +9,6 @@ import cma
 import numpy as np
 from multiprocessing.pool import Pool
 from Utils.InitUtil import initFRRS
-from Regression.functionApproximator_RBFN import fa_rbfn
-from testTGUKF.MuscularActivationCommandTGUKF import MuscularActivationCommand
-from ArmModel.ArmParameters import ArmParameters
-from ArmModel.MusclesParameters import MusclesParameters
-from ArmModel.ArmDynamics import ArmDynamics
-from testTGUKF.NextStateComputationTGUKF import NextStateComputation
-from testTGUKF.UnscentedKalmanFilterControlTGUKF import UnscentedKalmanFilterControl
-from testTGUKF.CostComputationTGUKF import CostComputation
-from testTGUKF.TrajectoryGeneratorTGUKF import TrajectoryGenerator
-from testTGUKF.TrajectoriesGeneratorTGUKF import TrajectoriesGenerator
 from Utils.ThetaNormalization import normalizationNP, matrixToVector
 
 

@@ -1,9 +1,9 @@
 '''
 Author: Thomas Beucher
 
-Module: NextStateComputation
+Module: Main
 
-Description: 
+Description: We find here functions usefull to run cmaes and latter some script to run trajectories
 '''
 import cma
 import numpy as np
@@ -13,19 +13,33 @@ from Utils.ThetaNormalization import normalizationNP, matrixToVector
 
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget):
+    '''
+    Run cmaes for a specific target size
+
+    Input:	-sizeOfTarget, size of the target, float
+    '''
     print("Start of the CMAES Optimization for target " + str(sizeOfTarget) + " !")
     fr, rs = initFRRS()
     thetaLocalisation = rs.pathFolderData + "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7NP"
+    #load the controller, ie the vector of parameters theta
     theta = np.loadtxt(thetaLocalisation)
+    #normalize the vector
     theta = normalizationNP(theta, rs)
+    #put theta to a one dimension numpy array, ie row vector form
     theta = matrixToVector(theta)
+    #Initializes all the class used to generate trajectory
     tgs = initAllUsefullObj(sizeOfTarget, fr, rs)
+    #run the optimization (cmaes)
     resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, theta, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    #name used to save the new controller obtained by the optimization
     nameToSaveThetaCma = rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaCma" + str(sizeOfTarget) + "TGUKF1"
     np.savetxt(nameToSaveThetaCma, resCma[0])
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     
 def launchCMAESForAllTargetSize():
+    '''
+    Launch in parallele (on differents processor) the cmaes otpimization for each target size
+    '''
     fr, rs =initFRRS()
     p = Pool(4)
     p.map(launchCMAESForSpecificTargetSize, rs.sizeOfTarget)
