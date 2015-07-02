@@ -9,7 +9,8 @@ import time
 import numpy as np
 from Utils.ThetaNormalization import unNormNP
 
-
+#Thomas: comments: what are the parameters?
+#Thomas: why TrajectoriesGenerator: and TrajectoryGenerator?
 class TrajectoriesGenerator:
     
     def __init__(self):
