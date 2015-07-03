@@ -7,6 +7,8 @@ Description: Class used to compute the muscular activation vector U with motor n
 '''
 import numpy as np
 
+#Thoams: to be moved to ArmModel?
+
 class MuscularActivationCommand:
     
     def __init__(self):
@@ -14,7 +16,7 @@ class MuscularActivationCommand:
         
     def initParametersMAC(self, fa, rs):
 	'''
-	Initiliazes parameters used in the functions below
+	Initializes parameters used in the functions below
 
 	Inputs:		-fa, functionApproximator, class object
 			-rs, readsetup, class object

@@ -9,11 +9,15 @@ from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
 from ArmModel.ArmDynamics import mdd
 from ArmModel.GeometricModel import jointStop
 
+#Thomas: to be commented
+#Thomaas: put together with CostComputation?
 
 class NextStateComputation:
     
     def __init__(self):
         self.name = "NextStateComputation"
+
+#why NSC?
         
     def initParametersNSC(self, mac, armP, rs, musclesP):
         self.mac = mac

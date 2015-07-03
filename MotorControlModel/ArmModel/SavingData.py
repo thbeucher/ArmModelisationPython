@@ -1,5 +1,7 @@
 import numpy as np
 
+#Thomas: to be put in Utils?
+
 class SavingData:
     
     #Sauvegarde et initilisation pour la visualisation du mouvement du bras
