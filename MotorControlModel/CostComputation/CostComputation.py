@@ -7,6 +7,8 @@ Description:
 '''
 import numpy as np
 
+#Thomas : to be commented
+
 class CostComputation:
     
     def __init__(self):
