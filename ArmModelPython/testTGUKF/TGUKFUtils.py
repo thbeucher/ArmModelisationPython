@@ -20,6 +20,7 @@ from testTGUKF.CostComputationTGUKF import CostComputation
 from testTGUKF.TrajectoryGeneratorTGUKF import TrajectoryGenerator
 from testTGUKF.TrajectoriesGeneratorTGUKF import TrajectoriesGenerator
 from Utils.ThetaNormalization import normalizationNP, matrixToVector
+from Utils.FileSaving import fileSavingBin, fileSavingStr
 
 import matplotlib.pyplot as plt
 
@@ -50,6 +51,21 @@ def initAllUsefullObj(sizeOfTarget, fr, rs):
     tgs = TrajectoriesGenerator()
     tgs.initParametersTGS(rs, 5, tg, 4, 6, mac)
     return tgs
+
+def fileSavingData(nameFile, data):
+    fileSavingStr(nameFile, data)
+    nameFile = nameFile + "BIN"
+    fileSavingBin(nameFile, data)
+
+def fileSavingAllData(sizeOfTarget, tg):
+    nameSave = "ResCma" + str(sizeOfTarget) + "/ResUKF1/"
+    fileSavingData(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
+    fileSavingData(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
+    fileSavingData(nameSave + "saveMvtCost", tg.saveMvtCost)
+    fileSavingData(nameSave + "saveSpeed", tg.saveSpeed)
+    
+def generateRes():
+    pass
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget):
     print("Start of the CMAES Optimization for target " + str(sizeOfTarget) + " !")

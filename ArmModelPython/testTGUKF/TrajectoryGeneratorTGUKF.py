@@ -5,6 +5,7 @@ Module: TrajectoryGenerator
 
 Description: 
 '''
+import numpy as np
 from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
 from ArmModel.GeometricModel import mgd, mgi
 from Utils.CreateVectorUtil import createVector
@@ -14,6 +15,7 @@ class TrajectoryGenerator:
     
     def __init__(self):
         self.name = "TrajectoryGenerator"
+        self.initSaveVariables()
         
     def initParametersTG(self, armP, rs, nsc, cc, sizeOfTarget, Ukf, armD, mac):
         self.armP = armP
@@ -25,6 +27,12 @@ class TrajectoryGenerator:
         self.armD = armD
         self.mac = mac
         
+    def initSaveVariables(self):
+        self.saveNumberOfIteration = {}
+        self.saveCoordEndTraj = {}
+        self.saveMvtCost = {}
+        self.saveSpeed = {}
+    
     def saveDataTG(self, coordUKF, coordVerif, init = 0):
         if init == 1:
             self.SaveCoordUKF, self.SaveCoordVerif = {}, {}
@@ -32,6 +40,28 @@ class TrajectoryGenerator:
             self.SaveCoordVerif[self.nameToSaveTraj] = []
         self.SaveCoordUKF[self.nameToSaveTraj].append(coordUKF)
         self.SaveCoordVerif[self.nameToSaveTraj].append(coordVerif)
+        
+    def checkingKeyLoopData(self):
+        if not self.nameToSaveTraj in self.saveSpeed:
+            self.saveSpeed[self.nameToSaveTraj] = []
+        
+    def saveLoopData(self, speed):
+        self.checkingKeyLoopData()
+        self.saveSpeed[self.nameToSaveTraj].append(speed)
+        
+    def checkingKeyEndData(self):
+        if not self.nameToSaveTraj in self.saveNumberOfIteration:
+            self.saveNumberOfIteration[self.nameToSaveTraj] = []
+        if not self.nameToSaveTraj in self.saveCoordEndTraj:
+            self.saveCoordEndTraj[self.nameToSaveTraj] = []
+        if not self.nameToSaveTraj in self.saveMvtCost:
+            self.saveMvtCost[self.nameToSaveTraj] = []
+        
+    def saveEndData(self, nbIte, lastCoord, cost):
+        self.checkingKeyEndData()
+        self.saveNumberOfIteration[self.nameToSaveTraj].append(nbIte)
+        self.saveCoordEndTraj[self.nameToSaveTraj].append(lastCoord)
+        self.saveMvtCost[self.nameToSaveTraj].append(cost)
     
     def runTrajectory(self, x, y):
         q1, q2 = mgi(x, y, self.armP.l1, self.armP.l2)
@@ -44,9 +74,7 @@ class TrajectoryGenerator:
         self.Ukf.initObsStore(state)
         self.armD.initStateAD(state)
         
-        '''stateVerif = state
         self.nameToSaveTraj = str(x) + "//" + str(y)
-        self.saveDataTG(coordHand, coordHand, init = 1)'''
         
         while coordHand[1] < self.rs.targetOrdinate:
             if i < self.rs.numMaxIter:
@@ -57,14 +85,13 @@ class TrajectoryGenerator:
                 dotq, q = getDotQAndQFromStateVectorS(state)
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
                 
-                '''stateVerif, junk = self.nsc.computeNextState(stateVerif)
-                dotqV, qV = getDotQAndQFromStateVectorS(stateVerif)
-                coordElbowV, coordHandV = mgd(qV, self.armP.l1, self.armP.l2)
-                self.saveDataTG(coordHand, coordHandV)'''
+                self.saveLoopData(np.linalg.norm(dotq))
             else:
                 break
             i += 1
             t = self.rs.dt
+        self.saveEndData(i, coordHand, cost)
+            
         if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.targetOrdinate:
             cost = self.cc.computeFinalCostReward(cost, t)
         return cost
