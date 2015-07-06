@@ -412,7 +412,7 @@ def plotAllCmaes():
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
         try:
-            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry2/actiMuscuCmaBIN"
+            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResUKF1/saveMvtCostBIN"
             #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
             zDico.append(fr.getobjread(name))
         except:
@@ -420,10 +420,9 @@ def plotAllCmaes():
     for i in range(len(zDico)):
         x0[i], y0[i], z[i] = [], [], []
         for keyu, valu in zDico[i].items():
-            if np.mean(valu) > -15:
-                x0[i].append(float(keyu.split("//")[0]))    
-                y0[i].append(float(keyu.split("//")[1]))   
-                z[i].append(np.mean(valu))
+            x0[i].append(float(keyu.split("//")[0]))    
+            y0[i].append(float(keyu.split("//")[1]))   
+            z[i].append(np.mean(valu))
         x0[i] = np.asarray(x0[i])
         y0[i] = np.asarray(y0[i])
         z[i] = np.asarray(z[i])

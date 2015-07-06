@@ -572,7 +572,7 @@ def plotScattergram2():
     
     plt.show(block = True)
     
-plotScattergram2()
+#plotScattergram2()
         
 def plotTrackTraj():
     fr, rs = initFRRS()
@@ -590,8 +590,8 @@ def plotTrackTraj():
 def getVelocityProfileData(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/SpeedSaveCmaBIN"
-    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResUKF1/saveSpeedBIN"
+    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResUKF1/saveNumberOfIterationBIN"
     data = fr.getobjread(name)
     nbIte = fr.getobjread(nameNbIte)
     aAll, vAll, tAll = {}, {}, {}
@@ -612,6 +612,8 @@ def getVelocityProfileData(sizeT):
             ttmp.append(i)
         tAll[key] = ttmp
     return tAll, vAll
+
+#print(getVelocityProfileData(0.005))
 
 def getActiMuscuBrent():
     fr, rs = initFRRS()
@@ -671,7 +673,56 @@ def getTimeByArea(sizeT):
     
 #getTimeByArea(0.005)
 
+def variationHitCoord(sizeT):
+    fr, rs = initFRRS()
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResUKF1/saveCoordEndTrajBIN"
+    data = fr.getobjread(name)
+    varDico, varList = {}, []
+    for key, val in data.items():
+        mini, maxi = np.min(val), np.max(val)
+        varDico[key] = (mini, maxi, np.abs(maxi-mini))
+        varList.append((mini, maxi, np.abs(maxi-mini)))
+    m = [el[2] for el in varList]
+    print(np.mean(m))
+    plt.figure()
+    i = 0
+    for val in varDico.values():
+        plt.plot([val[0], val[1]], [i, i])
+        i += 1
+    plt.show(block = True)
 
+#variationHitCoord(0.005)
+
+def getPointUnresolved():
+    fr, rs = initFRRS()
+    data = {}
+    for el in rs.sizeOfTarget:
+        name = "OptimisationResults/ResCma" + str(el) + "/ResUKF1/saveNumberOfIterationBIN"
+        dataTmp = fr.getobjread(name)
+        for key, val in dataTmp.items():
+            dataTmp[key] = int(np.mean(val))
+        data[el] = dataTmp
+    trioDico = {}
+    for key1, val1 in data.items():
+        trio = []
+        for key2, val2 in val1.items():
+            x, y = float(key2.split('//')[0]), float(key2.split('//')[1])
+            if val2 == 300:
+                trio.append((x, y, 1))
+            else:
+                trio.append((x, y, 0))
+        trioDico[key1] = trio
+    print(trioDico)
+    for key, val in trioDico.items():
+        print("Target ", key)
+        for el in val:
+            if el[2] == 1:
+                plt.scatter(el[0], el[1], c = 'r')
+            else:
+                plt.scatter(el[0], el[1], c = 'b')
+        plt.show(block = True)
+    
+#getPointUnresolved()
 
     
 

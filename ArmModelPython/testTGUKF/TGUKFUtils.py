@@ -58,14 +58,25 @@ def fileSavingData(nameFile, data):
     fileSavingBin(nameFile, data)
 
 def fileSavingAllData(sizeOfTarget, tg):
-    nameSave = "ResCma" + str(sizeOfTarget) + "/ResUKF1/"
-    fileSavingData(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
-    fileSavingData(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
-    fileSavingData(nameSave + "saveMvtCost", tg.saveMvtCost)
-    fileSavingData(nameSave + "saveSpeed", tg.saveSpeed)
+    nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/ResUKF1/"
+    fileSavingData(nameSave + "saveNumberOfIteration2", tg.saveNumberOfIteration)
+    fileSavingData(nameSave + "saveCoordEndTraj2", tg.saveCoordEndTraj)
+    fileSavingData(nameSave + "saveMvtCost2", tg.saveMvtCost)
+    fileSavingData(nameSave + "saveSpeed2", tg.saveSpeed)
     
-def generateRes():
-    pass
+def generateResults():
+    fr, rs = initFRRS()
+    for el in rs.sizeOfTarget:
+        print("Results generation for target ", el)
+        thetaName = rs.pathFolderData + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF1"
+        theta = np.loadtxt(thetaName)
+        tgs = initAllUsefullObj(el, fr, rs)
+        tgs.runTrajectoriesResultsGeneration(theta, 10)
+        fileSavingAllData(el, tgs.tg)
+        break
+    print("End of generation")
+    
+#generateResults()
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget):
     print("Start of the CMAES Optimization for target " + str(sizeOfTarget) + " !")
