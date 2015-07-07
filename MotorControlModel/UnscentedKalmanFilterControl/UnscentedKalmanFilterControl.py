@@ -106,8 +106,11 @@ class UnscentedKalmanFilterControl:
 
 	Output:		-stateApprox: the next state approximation, numpy array of dimension (x, 1), here x = 4
 	'''
+	    #store the state of the arm to feed the filter with a delay on the observation
         self.storeObs(obs)
+		#compute the nextState approximation ie here the next muscular activation
         nextState, nextCovariance = self.ukf.filter_update(stateU.T[0], self.nextCovariance, self.obsStore.T[self.delay-1])
+		#compute the nextState ie the next position vector from the approximation of the next muscular activation vector given by the filter
         stateApprox = self.armD.mddADUKF(np.asarray(nextState).reshape((self.dimState, 1)), np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1)))
         return stateApprox
     

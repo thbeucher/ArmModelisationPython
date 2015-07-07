@@ -34,15 +34,16 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     nameToSaveThetaCma = rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaCma" + str(sizeOfTarget) + "TGUKF1"
     np.savetxt(nameToSaveThetaCma, resCma[0])
     print("End of optimization for target " + str(sizeOfTarget) + " !")
-
-#Thomas: comments : where is initFRRS() ? What are fr, rs?
     
 def launchCMAESForAllTargetSize():
     '''
     Launch in parallel (on differents processor) the cmaes optimization for each target size
     '''
+	#initializes fr (FileReading class) and rs (ReadSetup class) which allow to acces to setup variables and file reading functions
     fr, rs =initFRRS()
+	#initializes a pool of worker, ie multiprocessing
     p = Pool(4)
+	#run cmaes on each targets size on separate processor
     p.map(launchCMAESForSpecificTargetSize, rs.sizeOfTarget)
 
 #launchCMAESForAllTargetSize()

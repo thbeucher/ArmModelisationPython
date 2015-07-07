@@ -36,22 +36,6 @@ class TrajectoryGenerator:
         self.Ukf = Ukf
         self.armD = armD
         self.mac = mac
-        
-    def saveDataTG(self, coordUKF, coordVerif, init = 0):
-	'''
-	Used to save data
-
-	Inputs:		-coordUKF, coordinate of each points of the trajectory generated using the filter
-			-coordVerif, coordinate of each points of the trajectory generated without using the filter
-			-init, int used to know if the storage variable must be initialize
-			
-	'''
-        if init == 1:
-            self.SaveCoordUKF, self.SaveCoordVerif = {}, {}
-            self.SaveCoordUKF[self.nameToSaveTraj] = []
-            self.SaveCoordVerif[self.nameToSaveTraj] = []
-        self.SaveCoordUKF[self.nameToSaveTraj].append(coordUKF)
-        self.SaveCoordVerif[self.nameToSaveTraj].append(coordVerif)
     
     def runTrajectory(self, x, y):
 	'''
@@ -76,10 +60,6 @@ class TrajectoryGenerator:
         i, t, cost = 0, 0, 0
         self.Ukf.initObsStore(state)
         self.armD.initStateAD(state)
-        #code to save the coordinate of the trajectory
-        '''stateVerif = state
-        self.nameToSaveTraj = str(x) + "//" + str(y)
-        self.saveDataTG(coordHand, coordHand, init = 1)'''
         #loop to generate next position until the target is reached 
         while coordHand[1] < self.rs.targetOrdinate:
 	    #stop condition to avoid infinite loop
@@ -96,11 +76,6 @@ class TrajectoryGenerator:
                 dotq, q = getDotQAndQFromStateVectorS(state)
 		#computation of the coordinates to check if the target is reach or not
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
-                #code to save the coordinate of the trajectory
-                '''stateVerif, junk = self.nsc.computeNextState(stateVerif)
-                dotqV, qV = getDotQAndQFromStateVectorS(stateVerif)
-                coordElbowV, coordHandV = mgd(qV, self.armP.l1, self.armP.l2)
-                self.saveDataTG(coordHand, coordHandV)'''
             else:
                 break
             i += 1
