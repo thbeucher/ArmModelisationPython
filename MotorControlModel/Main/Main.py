@@ -11,7 +11,6 @@ from multiprocessing.pool import Pool
 from Utils.InitUtil import initFRRS
 from Utils.ThetaNormalization import normalizationNP, matrixToVector
 
-
 def launchCMAESForSpecificTargetSize(sizeOfTarget):
     '''
     Run cmaes for a specific target size
@@ -35,10 +34,12 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     nameToSaveThetaCma = rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaCma" + str(sizeOfTarget) + "TGUKF1"
     np.savetxt(nameToSaveThetaCma, resCma[0])
     print("End of optimization for target " + str(sizeOfTarget) + " !")
+
+#Thomas: comments : where is initFRRS() ? What are fr, rs?
     
 def launchCMAESForAllTargetSize():
     '''
-    Launch in parallele (on differents processor) the cmaes otpimization for each target size
+    Launch in parallel (on differents processor) the cmaes optimization for each target size
     '''
     fr, rs =initFRRS()
     p = Pool(4)
