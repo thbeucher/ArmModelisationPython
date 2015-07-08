@@ -14,5 +14,11 @@ Tailles des cibles pour l'experimentation(mm)(float)(4 target max):0.005/0.01/0.
 Ordonnee de la cible(float):0.628
 Pas de temps utilise pour l'experimentation(float):0.002
 fichier d'experimentation contenant les positions initiales:PosCircu24
-Nombre d'itération avant d'arreter une trajectoire non résolue:300
+Nombre d'iteration avant d'arreter une trajectoire non résolue:300
 Erreur de position finale acceptable:0.001
+Dimension de l'etat pour le filtre de kalman(int):6
+Dimension de l'observation pour le filtre de kalman(int):4
+Delai utilise pour le filtre de kalman(int):25
+Nombre de repetition pour chaque trajectoire(int):5
+Dimension de l'entree, ici le vecteur position(int):4
+Dimension de la sortie, ici le vecteur d'activation musculaire:6

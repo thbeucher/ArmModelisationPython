@@ -62,7 +62,7 @@ def initAllUsefullObj(sizeOfTarget, fr, rs):
     #ukf, unscented kalman filter
     Ukf = UnscentedKalmanFilterControl()
     #6 is the dimension of the state for the filter, 4 is the dimension of the observation for the filter, 25 is the delay used
-    Ukf.initParametersUKF(6, 4, 25, nsc, armD, mac)
+    Ukf.initParametersUKF(rs.dimStateUKF, rs.dimObsUKF, rs.delayUKF, nsc, armD, mac)
     #cc, cost computation
     cc = CostComputation()
     cc.initParametersCC(rs)
@@ -72,5 +72,5 @@ def initAllUsefullObj(sizeOfTarget, fr, rs):
     #tgs, trajectories generator
     tgs = TrajectoriesGenerator()
     #here 5 is the number of repeat of each trajectory, 4 is the dimension of the input, 6 is the dimension of the ouput
-    tgs.initParametersTGS(rs, 5, tg, 4, 6, mac)
+    tgs.initParametersTGS(rs, rs.numberOfRepeatEachTraj, tg, rs.inputDim, rs.outputDim, mac)
     return tgs
