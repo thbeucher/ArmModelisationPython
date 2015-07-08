@@ -11,6 +11,19 @@ from multiprocessing.pool import Pool
 from Utils.InitUtil import initFRRS
 from Utils.ThetaNormalization import normalizationNP, matrixToVector
 from Utils.InitUtilMain import initAllUsefullObj
+from Utils.FileSaving import fileSavingAllData
+
+def generateResults():
+    fr, rs = initFRRS()
+    for el in rs.sizeOfTarget:
+        print("Results generation for target ", el)
+        thetaName = rs.pathFolderData + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF1"
+        theta = np.loadtxt(thetaName)
+        tgs = initAllUsefullObj(el, fr, rs)
+        cost = tgs.runTrajectoriesResultsGeneration(theta, 30)
+        print("Cost: ", cost)
+        fileSavingAllData(el, tgs.tg)
+    print("End of generation")
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget):
     '''
@@ -47,7 +60,6 @@ def launchCMAESForAllTargetSize():
     #run cmaes on each targets size on separate processor
     p.map(launchCMAESForSpecificTargetSize, rs.sizeOfTarget)
 
-#launchCMAESForAllTargetSize()
 
 
 
