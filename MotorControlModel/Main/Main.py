@@ -12,12 +12,13 @@ from Utils.InitUtil import initFRRS
 from Utils.ThetaNormalization import normalizationNP, matrixToVector
 from Utils.InitUtilMain import initAllUsefullObj
 from Utils.FileSaving import fileSavingAllData
+from GlobalVariables import pathDataFolder
 
 def generateResults():
     fr, rs = initFRRS()
     for el in rs.sizeOfTarget:
         print("Results generation for target ", el)
-        thetaName = rs.pathFolderData + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF1"
+        thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF1"
         theta = np.loadtxt(thetaName)
         tgs = initAllUsefullObj(el, fr, rs)
         cost = tgs.runTrajectoriesResultsGeneration(theta, 30)
@@ -33,7 +34,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     '''
     print("Start of the CMAES Optimization for target " + str(sizeOfTarget) + " !")
     fr, rs = initFRRS()
-    thetaLocalisation = rs.pathFolderData + "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7NP"
+    thetaLocalisation = pathDataFolder + "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7NP"
     #load the controller, ie the vector of parameters theta
     theta = np.loadtxt(thetaLocalisation)
     #normalize the vector
@@ -45,7 +46,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     #run the optimization (cmaes)
     resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, theta, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     #name used to save the new controller obtained by the optimization
-    nameToSaveThetaCma = rs.pathFolderData + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaCma" + str(sizeOfTarget) + "TGUKF1"
+    nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaCma" + str(sizeOfTarget) + "TGUKF1"
     np.savetxt(nameToSaveThetaCma, resCma[0])
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     
