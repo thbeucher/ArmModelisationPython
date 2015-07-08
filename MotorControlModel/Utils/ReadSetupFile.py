@@ -6,6 +6,8 @@ Module: ReadConfFile
 Description: On retrouve dans ce fichier une fonction permettant de lire le fichier de configuration 
 '''
 
+from GlobalVariables import pathWorkingDirectory
+
 class ReadSetupFile:
     
     def __init__(self):
@@ -14,10 +16,10 @@ class ReadSetupFile:
     
     def readingSetupFile(self):
         '''
-        Cette fonction permet de lire le fichier de configuration 
+        Reads the setup file
         '''
         #Recuperation des donnees du fichier de configuration
-        with open("/home/beucher/workspace/ArmModelPython/ExperimentSetup/setupFile", "r") as file:
+        with open(pathWorkingDirectory + "/ExperimentSetup/setupFile", "r") as file:
             alls = file.read()
         #Split pour recuperer ligne par ligne
         allsByLign = alls.split("\n")
