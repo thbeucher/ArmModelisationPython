@@ -60,8 +60,9 @@ def runTrajTest():
     
 #runTrajTest()
     
-def getThetaCma(fr, name):
-    theta = fr.getobjread(name)
+def getThetaCma(fr, name, rs):
+    #theta = fr.getobjread(name)
+    theta = np.loadtxt(rs.pathFolderData + name)
     theta = vectorToMatrix(theta)
     theta = unNorm(theta)
     return theta
@@ -73,8 +74,8 @@ def runGenTrajCma():
         print("Trajectories generation for target ", rs.sizeOfTarget[i])
         cf = LaunchTrajectories(4, rs.sizeOfTarget[i])
         #fileSavingBin("targetSizeTmp", rs.sizeOfTarget[i])
-        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaSolCma" + str(rs.sizeOfTarget[i]) + "optiTry2BIN"
-        theta = getThetaCma(fr, name)
+        name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/thetaCma" + str(rs.sizeOfTarget[i]) + "TGUKF1"
+        theta = getThetaCma(fr, name, rs)
         sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
         nameSave = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry2/"
         saveAllDataTrajectories(nameSave, sti, meanJu, "Cma")

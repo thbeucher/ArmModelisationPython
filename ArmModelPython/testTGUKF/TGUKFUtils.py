@@ -43,7 +43,7 @@ def initAllUsefullObj(sizeOfTarget, fr, rs):
     nsc = NextStateComputation()
     nsc.initParametersNSC(mac, armP, rs, musclesP)
     Ukf = UnscentedKalmanFilterControl()
-    Ukf.initParametersUKF(6, 4, 25, nsc, armD, mac)
+    Ukf.initParametersUKF(6, 4, 15, nsc, armD, mac)
     cc = CostComputation()
     cc.initParametersCC(rs)
     tg = TrajectoryGenerator()
@@ -58,11 +58,11 @@ def fileSavingData(nameFile, data):
     fileSavingBin(nameFile, data)
 
 def fileSavingAllData(sizeOfTarget, tg):
-    nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/ResUKF1/"
-    fileSavingData(nameSave + "saveNumberOfIteration2", tg.saveNumberOfIteration)
-    fileSavingData(nameSave + "saveCoordEndTraj2", tg.saveCoordEndTraj)
-    fileSavingData(nameSave + "saveMvtCost2", tg.saveMvtCost)
-    fileSavingData(nameSave + "saveSpeed2", tg.saveSpeed)
+    nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/ResUKF1B/"
+    fileSavingData(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
+    fileSavingData(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
+    fileSavingData(nameSave + "saveMvtCost", tg.saveMvtCost)
+    fileSavingData(nameSave + "saveSpeed", tg.saveSpeed)
     
 def generateResults():
     fr, rs = initFRRS()
@@ -71,9 +71,8 @@ def generateResults():
         thetaName = rs.pathFolderData + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF1"
         theta = np.loadtxt(thetaName)
         tgs = initAllUsefullObj(el, fr, rs)
-        tgs.runTrajectoriesResultsGeneration(theta, 10)
+        tgs.runTrajectoriesResultsGeneration(theta, 30)
         fileSavingAllData(el, tgs.tg)
-        break
     print("End of generation")
     
 #generateResults()

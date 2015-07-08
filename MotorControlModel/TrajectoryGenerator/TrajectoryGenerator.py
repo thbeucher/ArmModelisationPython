@@ -14,6 +14,8 @@ class TrajectoryGenerator:
     
     def __init__(self):
         self.name = "TrajectoryGenerator"
+        #Initializes variables used to save trajectory
+        self.initSaveVariables()
         
     def initParametersTG(self, armP, rs, nsc, cc, sizeOfTarget, Ukf, armD, mac):
 	'''
@@ -36,22 +38,56 @@ class TrajectoryGenerator:
         self.Ukf = Ukf
         self.armD = armD
         self.mac = mac
-        
-    def saveDataTG(self, coordUKF, coordVerif, init = 0):
-	'''
-	Used to save data
 
-	Inputs:		-coordUKF, coordinate of each points of the trajectory generated using the filter
-			-coordVerif, coordinate of each points of the trajectory generated without using the filter
-			-init, int used to know if the storage variable must be initialize
-			
-	'''
-        if init == 1:
-            self.SaveCoordUKF, self.SaveCoordVerif = {}, {}
-            self.SaveCoordUKF[self.nameToSaveTraj] = []
-            self.SaveCoordVerif[self.nameToSaveTraj] = []
-        self.SaveCoordUKF[self.nameToSaveTraj].append(coordUKF)
-        self.SaveCoordVerif[self.nameToSaveTraj].append(coordVerif)
+    def initSaveVariables(self):
+        '''
+        Initializes variables used to save trajectory
+        '''
+        self.saveNumberOfIteration = {}
+        self.saveCoordEndTraj = {}
+        self.saveMvtCost = {}
+        self.saveSpeed = {}
+
+    def checkingKeyLoopData(self):
+        '''
+        Checks if the trajectory already has been run, if no, initializes the container to save it
+        '''
+        if not self.nameToSaveTraj in self.saveSpeed:
+            self.saveSpeed[self.nameToSaveTraj] = []
+        
+    def saveLoopData(self, speed):
+        '''
+        Saves data generated during the trajectory
+
+        Input:	-speed:the speed of the end effector along the trajectory, float
+        '''
+        self.checkingKeyLoopData()
+        self.saveSpeed[self.nameToSaveTraj].append(speed)
+        
+    def checkingKeyEndData(self):
+        '''
+        Checks if the trajectory already has been run, if no, initializes the container to save it
+        '''
+        if not self.nameToSaveTraj in self.saveNumberOfIteration:
+            self.saveNumberOfIteration[self.nameToSaveTraj] = []
+        if not self.nameToSaveTraj in self.saveCoordEndTraj:
+            self.saveCoordEndTraj[self.nameToSaveTraj] = []
+        if not self.nameToSaveTraj in self.saveMvtCost:
+            self.saveMvtCost[self.nameToSaveTraj] = []
+        
+    def saveEndData(self, nbIte, lastCoord, cost):
+        '''
+        Saves data generated at the end of the trajectory
+
+        Input:	-nbIte:number of iteration ie number of time steps to finish the trajectory, int
+		-lastCoord:coordinate of the end effector at the end of the trajectory, tuple
+		-cost, cost of the trajectory without the reward, float
+        '''
+        self.checkingKeyEndData()
+        self.saveNumberOfIteration[self.nameToSaveTraj].append(nbIte)
+        self.saveCoordEndTraj[self.nameToSaveTraj].append(lastCoord)
+        self.saveMvtCost[self.nameToSaveTraj].append(cost)
+        
     
     def runTrajectory(self, x, y):
 	'''
@@ -76,10 +112,8 @@ class TrajectoryGenerator:
         i, t, cost = 0, 0, 0
         self.Ukf.initObsStore(state)
         self.armD.initStateAD(state)
-        #code to save the coordinate of the trajectory
-        '''stateVerif = state
+        #code to save data of the trajectory
         self.nameToSaveTraj = str(x) + "//" + str(y)
-        self.saveDataTG(coordHand, coordHand, init = 1)'''
         #loop to generate next position until the target is reached 
         while coordHand[1] < self.rs.targetOrdinate:
 	    #stop condition to avoid infinite loop
@@ -96,11 +130,8 @@ class TrajectoryGenerator:
                 dotq, q = getDotQAndQFromStateVectorS(state)
 		#computation of the coordinates to check if the target is reach or not
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
-                #code to save the coordinate of the trajectory
-                '''stateVerif, junk = self.nsc.computeNextState(stateVerif)
-                dotqV, qV = getDotQAndQFromStateVectorS(stateVerif)
-                coordElbowV, coordHandV = mgd(qV, self.armP.l1, self.armP.l2)
-                self.saveDataTG(coordHand, coordHandV)'''
+                #code to save data of the trajectory
+                self.saveLoopData(np.linalg.norm(dotq))
             else:
                 break
             i += 1

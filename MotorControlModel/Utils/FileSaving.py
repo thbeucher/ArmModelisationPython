@@ -53,6 +53,19 @@ def fileSavingBin(nameFile, data, loc = 0):
     with open(nameToSave, "wb") as file:
         monPickler = pickle.Pickler(file)
         monPickler.dump(data)
+
+
+def fileSavingData(nameFile, data):
+    fileSavingStr(nameFile, data)
+    nameFile = nameFile + "BIN"
+    fileSavingBin(nameFile, data)
+
+def fileSavingAllData(sizeOfTarget, tg):
+    nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/ResUKF1B/"
+    fileSavingData(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
+    fileSavingData(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
+    fileSavingData(nameSave + "saveMvtCost", tg.saveMvtCost)
+    fileSavingData(nameSave + "saveSpeed", tg.saveSpeed)
         
         
         
