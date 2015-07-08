@@ -9,7 +9,6 @@ Description: On retrouve dans ce fichier les fonctions pour normaliser theta
 import numpy as np
 from Utils.FileReading import FileReading
 from Utils.FileSaving import fileSavingBin
-import os
     
     
 def normalization(theta):
