@@ -6,10 +6,9 @@ Module: MusclesParameters
 Description:    -We find here all muscles parameters
                 -we use a model of arm with two joints and six muscles
 '''
-import os
 import numpy as np
 import math
-from Utils.ReadSetupFile import ReadSetupFile
+from GlobalVariables import pathWorkingDirectory
 
 class MusclesParameters:
     
@@ -17,8 +16,7 @@ class MusclesParameters:
         '''
         class parameters initialization
         '''
-        rsp = ReadSetupFile()
-        self.pathSetupFile = rsp.pathFolderProject + "ArmModelPython/ArmModel/Setup/setupMusclesParameters"
+        self.pathSetupFile = pathWorkingDirectory + "/ArmModel/Setup/setupMusclesParameters"
         self.activationVectorInit()
         self.fmaxMatrix()
         

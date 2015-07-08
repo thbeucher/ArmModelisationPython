@@ -6,15 +6,13 @@ Module: ArmParameters
 Description:    -We find here all arm parameters
                 -we use a model of arm with two joints and six muscles
 '''
-import os, sys
 import numpy as np
-from Utils.ReadSetupFile import ReadSetupFile
+from GlobalVariables import pathWorkingDirectory
 
 class ArmParameters:
     
     def __init__(self):
-        rsp = ReadSetupFile()
-        self.pathSetupFile = rsp.pathFolderProject + "ArmModelPython/ArmModel/Setup/setupArmParameters"
+        self.pathSetupFile = pathWorkingDirectory + "/ArmModel/Setup/setupArmParameters"
         self.readSetupFile()
         self.massMatrix()
         self.AMatrix()

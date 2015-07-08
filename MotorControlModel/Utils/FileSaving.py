@@ -5,21 +5,8 @@ Module: FileSaving
 
 Description: On retrouve dans ce fichier les fonctions permettant de sauvegarder les donnees du projet
 '''
-import os as op
 import pickle
-from Utils.ReadSetupFile import ReadSetupFile
-
-def fileSaving(nameFile, data, nbfeat):
-    rs = ReadSetupFile()
-    folder = rs.pathFolderData + "RegressionResults/"
-    folderNbFeat = folder + str(nbfeat) + "_feats"
-    if not op.path.exists(folderNbFeat): 
-        op.makedirs(folderNbFeat)
-    folder = folderNbFeat + "/"
-    nameToSave = folder + nameFile
-    with open(nameToSave, "wb") as file:
-        monPickler = pickle.Pickler(file)
-        monPickler.dump(data)
+from GlobalVariables import pathDataFolder
         
 def fileSavingStr(nameFile, data, loc = 0):
     '''
@@ -29,9 +16,8 @@ def fileSavingStr(nameFile, data, loc = 0):
                 -data: donnees a enregistrer
                 
     '''
-    rs = ReadSetupFile()
     if loc == 0:
-        nameToSave = rs.pathFolderData + nameFile
+        nameToSave = pathDataFolder + nameFile
     else:
         nameToSave = nameFile
     with open(nameToSave, "w") as file:
@@ -45,9 +31,8 @@ def fileSavingBin(nameFile, data, loc = 0):
                 -data: donnees a enregistrer
                 
     '''
-    rs = ReadSetupFile()
     if loc == 0:
-        nameToSave = rs.pathFolderData + nameFile
+        nameToSave = pathDataFolder + nameFile
     else:
         nameToSave = nameFile
     with open(nameToSave, "wb") as file:

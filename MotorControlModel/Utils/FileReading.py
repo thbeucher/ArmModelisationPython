@@ -8,10 +8,8 @@ import numpy as np
 import os
 from Utils.ReadSetupFile import ReadSetupFile
 from ArmModel.ArmParameters import ArmParameters
-from Utils.NiemRoot import tronquerNB
-from shutil import copyfile
-import matplotlib.pyplot as plt
-from ArmModel.GeometricModel import mgd, mgi
+from ArmModel.GeometricModel import mgd
+from GlobalVariables import pathDataFolder
 
 class FileReading():
     
@@ -36,7 +34,7 @@ class FileReading():
         '''
         rs = ReadSetupFile()
         if loc == 0:
-            namet = rs.pathFolderData + name
+            namet = pathDataFolder + name
         else:
             namet = name
         with open(namet, "rb") as file:

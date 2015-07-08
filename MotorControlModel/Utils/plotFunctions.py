@@ -23,6 +23,7 @@ from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
      getTimeDistance, getDistPerfSize, getVelocityProfileData, getTimeByArea
 from matplotlib.mlab import griddata
 from scipy.spatial import ConvexHull
+from GlobalVariables import pathTrajectoriesFolder, pathDataFolder
 
 
 def costColorPlot(wha):
@@ -114,7 +115,7 @@ def plotActivationMuscular(what):
     fr, rs = initFRRS()
     nbfeat = rs.numfeats
     if what == "brent":
-        state, command = fr.getData(rs.pathFolderTrajectories)
+        state, command = fr.getData(pathTrajectoriesFolder)
         y = {}
         for key, val in command.items():
             y[key] = []
@@ -263,7 +264,7 @@ def plot_pos_ini():
     for el in posIni:
         x0.append(el[0])
         y0.append(el[1])
-    xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
+    xy, junk = fr.recup_pos_ini(pathTrajectoriesFolder)
     x, y = [], []
     aa, keyy = [], []
     for key, el in xy.items():
@@ -304,7 +305,7 @@ def plot_pos_ini():
 #plot_pos_ini() 
 
 def plotPosTAT(fr, rs):
-    xtr, junk = fr.recup_pos_ini(rs.pathFolderData + "ThetaAllTraj/")
+    xtr, junk = fr.recup_pos_ini(pathDataFolder + "ThetaAllTraj/")
     xt1, yt1 = [], []
     for key, el in xtr.items():
         xt1.append(el[0])

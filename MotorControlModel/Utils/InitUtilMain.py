@@ -15,6 +15,7 @@ from TrajectoryGenerator.TrajectoryGenerator import TrajectoryGenerator
 from runExperimentalSetupTrajectories.runExperimentalSetupTrajectories import TrajectoriesGenerator
 from CostComputation.CostComputation import CostComputation
 from CostComputation.NextStateComputation import NextStateComputation
+from GlobalVariables import pathTrajectoriesFolder
 
 
 def initController(rs, fr):
@@ -27,7 +28,7 @@ def initController(rs, fr):
     #Initializes the function approximator with the number of feature used
     fa = fa_rbfn(rs.numfeats)
     #Get state and command to initializes the controller by putting the features
-    state, command = fr.getData(rs.pathFolderTrajectories)
+    state, command = fr.getData(pathTrajectoriesFolder)
     #Transform data from dictionnary to numpy array
     stateAll, commandAll = fr.dicToArray(state), fr.dicToArray(command)
     #Set the data

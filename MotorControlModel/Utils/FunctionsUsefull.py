@@ -12,15 +12,13 @@ from scipy.spatial import ConvexHull
 import math
 from Utils.ThetaNormalization import normalization, matrixToVector,\
     vectorToMatrix, unNorm
-from Optimisation.LaunchTrajectories import LaunchTrajectories
 from matplotlib.mlab import griddata
 from matplotlib import cm
-from Script.RunTrajectories import saveAllDataTrajectories
 import timeit
 import matplotlib.patches as patches
 from Utils.ReadSetupFile import ReadSetupFile
 from scipy.stats.stats import linregress
-from Main.GenerateTrajectory import GenerateTrajectory
+from GlobalVariables import pathTrajectoriesFolder, pathDataFolder
 
 
 
@@ -97,7 +95,7 @@ def checkForDoublonInTraj(localisation):
 
 def playWithTraj():
     fr, rs = initFRRS()
-    data, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
+    data, junk = fr.recup_pos_ini(pathTrajectoriesFolder)
     x, y, x1, y1 = [], [], [], []
     todel = []
     for key, el in data.items():
@@ -170,7 +168,7 @@ def learningFieldRBFN():
     
     #print(r)
     #print(ang)
-    xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
+    xy, junk = fr.recup_pos_ini(pathTrajectoriesFolder)
     sx, sy = [], []
     for key, val in xy.items():
         rr, tt = invPosCircle(val[0], val[1])
@@ -197,7 +195,7 @@ def learningFieldRBFNSquare():
     for el in posIni:
         x.append(el[0])
         y.append(el[1])
-    xy, junk = fr.recup_pos_ini(rs.pathFolderTrajectories)
+    xy, junk = fr.recup_pos_ini(pathTrajectoriesFolder)
     sx, sy = [], []
     for key, val in xy.items():
         if val[0] <= (np.max(x) + 0.02) and val[0] >= (np.min(x) - 0.02) and val[1] >= (np.min(y) - 0.01) and val[1] <= (np.max(y) + 0.02):
@@ -217,12 +215,14 @@ def learningFieldRBFNSquare():
 
 def remakeTrajFolder():
     fr, rs = initFRRS()
-    for el in os.listdir(rs.pathFolderData + "/trajNotUsedTmp/"):
-        copyfile(rs.pathFolderData + "/trajNotUsedTmp/" + el, rs.pathFolderTrajectories + el)
-        remove(rs.pathFolderData + "/trajNotUsedTmp/" + el)
+    for el in os.listdir(pathDataFolder + "/trajNotUsedTmp/"):
+        copyfile(pathDataFolder + "/trajNotUsedTmp/" + el, pathTrajectoriesFolder + el)
+        remove(pathDataFolder + "/trajNotUsedTmp/" + el)
     
 #remakeTrajFolder()
-    
+
+###OutDated###
+'''
 def testOnWeight():
     fr, rs = initFRRS()
     cf = LaunchTrajectories()
@@ -271,7 +271,7 @@ def testOnWeight():
     fig.colorbar(cs, shrink=0.5, aspect=5)
     plt.show(block = True)
     
-#testOnWeight()
+#testOnWeight()'''
 
 def cmaesCostProgression():
     fr, rs = initFRRS()
@@ -300,6 +300,9 @@ def cmaesCostProgression():
         
 #cmaesCostProgression()
 
+
+### OutDated ###
+'''
 def evaluateTheta():
     fr, rs = initFRRS()
     name = "RBFN2/" + str(rs.numfeats) + "feats/"
@@ -318,14 +321,14 @@ def evaluateTheta():
         sti, meanJu = cf.LaunchTrajectoriesRBFN(theta)
         saveAllDataTrajectories(nameT, sti, meanJu)
         
-#evaluateTheta()
+#evaluateTheta()'''
 
 def plotCostColorMapForAllTheta():
     fr, rs = initFRRS()
     name = "RBFN2/" + str(rs.numfeats) + "feats/EvaluationOFTheta/"
     xi = np.linspace(-0.25,0.25,100)
     yi = np.linspace(0.35,0.5,100)
-    for el in os.listdir(rs.pathFolderData + name):
+    for el in os.listdir(pathDataFolder + name):
         nameTmp = name + el + "/"
         x0, y0, z = returnX0Y0Z(nameTmp)
         zi = griddata(x0, y0, z, xi, yi)
@@ -634,16 +637,19 @@ def getActiMuscuBrent():
 
 def getVelocityProfileBrent():
     fr, rs = initFRRS()
-    state, command = fr.getData(rs.pathFolderTrajectories)
+    state, command = fr.getData(pathTrajectoriesFolder)
     
 
 def saveThetaToNumpyArray():
     fr, rs = initFRRS()
     data = fr.getobjread("RBFN2/3feats/ThetaX7BIN")
-    np.savetxt(rs.pathFolderData + "RBFN2/3feats/ThetaX7NP", data)
+    np.savetxt(pathDataFolder + "RBFN2/3feats/ThetaX7NP", data)
     
 #saveThetaToNumpyArray()
 
+
+### OutDated ###
+'''
 def testInfluenceOfTimeStepOnNumberOfIte():
     fr, rs = initFRRS()
     gt = GenerateTrajectory(4, rs.sizeOfTarget[3])
@@ -656,7 +662,7 @@ def testInfluenceOfTimeStepOnNumberOfIte():
         break
         
     
-#testInfluenceOfTimeStepOnNumberOfIte()
+#testInfluenceOfTimeStepOnNumberOfIte()'''
 
 
 def getTimeByArea(sizeT):

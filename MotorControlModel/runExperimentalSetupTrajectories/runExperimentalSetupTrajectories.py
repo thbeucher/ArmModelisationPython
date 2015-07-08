@@ -8,6 +8,7 @@ Description: Class used to generate all the trajectories of the experimental set
 import time
 import numpy as np
 from Utils.ThetaNormalization import unNormNP
+from GlobalVariables import pathDataFolder
 
 
 class TrajectoriesGenerator:
@@ -34,7 +35,7 @@ class TrajectoriesGenerator:
         self.dimState = dimState
         self.dimOutput = dimOutput
         self.mac = mac
-        self.posIni = np.loadtxt(self.rs.pathFolderData + self.rs.experimentFilePosIni)
+        self.posIni = np.loadtxt(pathDataFolder + self.rs.experimentFilePosIni)
     
     def runTrajectories(self):
         pass

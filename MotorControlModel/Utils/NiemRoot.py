@@ -3,8 +3,9 @@ Module: NiemRoot
 
 Description: on retrouve dans ce fichier une fonction permettant de recuperer la raciene n-ieme d'un nombre
 '''
+from math import fabs
 
-from math import *
+
 
 def racin(A, n, x0):
     ''''Cette fonction base sur la methode de Newton-Raphson permet
@@ -37,3 +38,4 @@ def tronquerNB(nb, vir):
     nb = float(nb)
     nb = nb/ex
     return nb
+
