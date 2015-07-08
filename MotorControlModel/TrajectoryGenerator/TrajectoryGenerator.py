@@ -38,6 +38,7 @@ class TrajectoryGenerator:
         self.Ukf = Ukf
         self.armD = armD
         self.mac = mac
+<<<<<<< HEAD
 
     def initSaveVariables(self):
         '''
@@ -88,6 +89,8 @@ class TrajectoryGenerator:
         self.saveCoordEndTraj[self.nameToSaveTraj].append(lastCoord)
         self.saveMvtCost[self.nameToSaveTraj].append(cost)
         
+=======
+>>>>>>> d30064cc22169fc796c9a1a13c108f7ddc4c4e09
     
     def runTrajectory(self, x, y):
 	'''
@@ -112,8 +115,11 @@ class TrajectoryGenerator:
         i, t, cost = 0, 0, 0
         self.Ukf.initObsStore(state)
         self.armD.initStateAD(state)
+<<<<<<< HEAD
         #code to save data of the trajectory
         self.nameToSaveTraj = str(x) + "//" + str(y)
+=======
+>>>>>>> d30064cc22169fc796c9a1a13c108f7ddc4c4e09
         #loop to generate next position until the target is reached 
         while coordHand[1] < self.rs.targetOrdinate:
 	    #stop condition to avoid infinite loop
@@ -130,8 +136,11 @@ class TrajectoryGenerator:
                 dotq, q = getDotQAndQFromStateVectorS(state)
 		#computation of the coordinates to check if the target is reach or not
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
+<<<<<<< HEAD
                 #code to save data of the trajectory
                 self.saveLoopData(np.linalg.norm(dotq))
+=======
+>>>>>>> d30064cc22169fc796c9a1a13c108f7ddc4c4e09
             else:
                 break
             i += 1

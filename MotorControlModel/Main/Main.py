@@ -11,7 +11,6 @@ from multiprocessing.pool import Pool
 from Utils.InitUtil import initFRRS
 from Utils.ThetaNormalization import normalizationNP, matrixToVector
 
-
 def launchCMAESForSpecificTargetSize(sizeOfTarget):
     '''
     Run cmaes for a specific target size
@@ -38,10 +37,13 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     
 def launchCMAESForAllTargetSize():
     '''
-    Launch in parallele (on differents processor) the cmaes otpimization for each target size
+    Launch in parallel (on differents processor) the cmaes optimization for each target size
     '''
+	#initializes fr (FileReading class) and rs (ReadSetup class) which allow to acces to setup variables and file reading functions
     fr, rs =initFRRS()
+	#initializes a pool of worker, ie multiprocessing
     p = Pool(4)
+	#run cmaes on each targets size on separate processor
     p.map(launchCMAESForSpecificTargetSize, rs.sizeOfTarget)
 
 #launchCMAESForAllTargetSize()

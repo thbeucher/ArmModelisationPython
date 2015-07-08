@@ -10,6 +10,9 @@ from Utils.ReadSetupFile import ReadSetupFile
 
 
 def initFRRS():
+    '''
+	Initializes class object FileReading and ReadSetup
+	'''
     fr = FileReading()
     rs = ReadSetupFile()
     return fr, rs
