@@ -89,7 +89,7 @@ class TrajectoryGenerator:
             else:
                 break
             i += 1
-            t = self.rs.dt
+            t += self.rs.dt
         self.saveEndData(i, coordHand, cost)
             
         if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.targetOrdinate:

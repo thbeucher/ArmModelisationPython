@@ -71,7 +71,8 @@ def generateResults():
         thetaName = rs.pathFolderData + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF1"
         theta = np.loadtxt(thetaName)
         tgs = initAllUsefullObj(el, fr, rs)
-        tgs.runTrajectoriesResultsGeneration(theta, 30)
+        cost = tgs.runTrajectoriesResultsGeneration(theta, 30)
+        print("Cost: ", cost)
         fileSavingAllData(el, tgs.tg)
     print("End of generation")
     
