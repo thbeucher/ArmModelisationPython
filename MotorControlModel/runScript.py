@@ -12,6 +12,7 @@ import os
 from Main.Main import launchCMAESForSpecificTargetSize,\
     launchCMAESForAllTargetSize, generateResults
 from distlib.compat import raw_input
+#from Utils.plotFunctions import plotAllCmaes
 
 def checkPackages():
     a = site.getsitepackages()
@@ -46,6 +47,7 @@ def installMissingPackage(packageList):
 def runAll():
     checkV = True
     checkL = True
+    choix = 0
     while checkV:
         try:
             c = input("is it the first time you run the program? (0 = No, 1 = Yes) : ")
@@ -60,7 +62,7 @@ def runAll():
     else:
         while checkL:
             try:
-                print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n')
+                print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n')
                 choix = input('Enter the number corresponding to the script you want to run: ')
                 checkL = False
             except:
@@ -76,6 +78,9 @@ def runAll():
         nbret = input("Number of repeat for each trajectory (int): ")
         nbret = int(nbret)
         generateResults(nameF, nbret)
+    elif choix == 4:
+        nameF = raw_input('Folder name where the results are saved: ')
+        #plotAllCmaes(nameF)
     
 runAll()
 

@@ -585,7 +585,7 @@ def plotScattergram2():
     
     plt.show(block = True)
     
-plotScattergram2()
+#plotScattergram2()
         
 def plotTrackTraj():
     fr, rs = initFRRS()

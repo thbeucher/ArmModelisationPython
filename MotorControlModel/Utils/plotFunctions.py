@@ -409,14 +409,14 @@ def plotRBFNCostMap():
 #plotRBFNCostMap()
     
 
-def plotAllCmaes():
+def plotAllCmaes(nameF):
     fr, rs = initFRRS()
     x0, y0, z = {}, {}, {}
     xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
         try:
-            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResTry2/actiMuscuCmaBIN"
+            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/" + nameF + "/actiMuscuCmaBIN"
             #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
             zDico.append(fr.getobjread(name))
         except:
