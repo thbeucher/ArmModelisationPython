@@ -7,11 +7,10 @@ Module: runScript
 
 Description: main script to run what we want in the project
 '''
-'''import site
+import site
 import os
-from Main.Main import launchCMAESForSpecificTargetSize,\
-    launchCMAESForAllTargetSize, generateResults'''
-#from Utils.plotFunctions import plotAllCmaes
+from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults
+from Utils.plotFunctions import plotAllCmaes
 
 def checkPackages():
     a = site.getsitepackages()
@@ -41,6 +40,7 @@ def installMissingPackage(packageList):
             os.system('sudo easy_install numpy scipy Sphinx numpydoc nose pykalman')
             os.system('sudo pip install cma')
             os.system('sudo easy_install cython')
+            os.system('sudo pip install distlib')
         except:
             pass
     elif b == 3:
@@ -49,6 +49,7 @@ def installMissingPackage(packageList):
             os.system('sudo easy_install3 numpy scipy Sphinx numpydoc nose pykalman')
             os.system('sudo pip3 install cma')
             os.system('sudo easy_install3 cython')
+            os.system('sudo pip3 install distlib')
         except:
             pass
     os.system('clear')
@@ -68,6 +69,7 @@ def runAll():
     if c == 1:
         packageList = checkPackages()
         installMissingPackage(packageList)
+    from distlib.compat import raw_input
     while checkL:
         try:
             print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n')
@@ -88,7 +90,7 @@ def runAll():
         generateResults(nameF, nbret)
     elif choix == 4:
         nameF = raw_input('Folder name where the results are saved: ')
-        #plotAllCmaes(nameF)
+        plotAllCmaes(nameF)
     
 runAll()
 
