@@ -14,5 +14,3 @@ pathWorkingDirectory = os.getcwd()
 pathListForm = pathWorkingDirectory.split("/")
 pathDataFolder = pathWorkingDirectory.replace(pathListForm[len(pathListForm)-1], '') + "Data/"
 pathTrajectoriesFolder = pathDataFolder + "trajectoires/"
-
-print(pathDataFolder)
