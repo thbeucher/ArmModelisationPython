@@ -37,6 +37,7 @@ def installMissingPackage(packageList):
     except:
         pass
     try:
+        os
         os.system('sudo easy_install3 numpy scipy Sphinx numpydoc nose pykalman')
         os.system('sudo pip3 install cma')
         os.system('sudo easy_install3 cython')
