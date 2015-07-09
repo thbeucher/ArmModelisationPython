@@ -35,7 +35,6 @@ class FileReading():
         
         Sorties: les donnees du fichier
         '''
-        rs = ReadSetupFile()
         if loc == 0:
             namet = pathDataFolder + name
         else:
@@ -103,6 +102,18 @@ class FileReading():
                 dataA = np.vstack((dataA, np.array(el)))
             i += 1
         return dataA
+    
+    
+
+def readThetaTmpBySizeOfTarget(sizeOfTarget):
+    rs = ReadSetupFile()
+    dim0 = rs.numfeats**rs.inputDim
+    nameFileToRead = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaSolTmp_target" + str(sizeOfTarget)
+    f = open(nameFileToRead, 'r')
+    arrAll = np.loadtxt(f)
+    numberOfTheta = arrAll.shape[0]/dim0
+    arrList = np.split(arrAll, numberOfTheta)
+    return arrList
             
     
 
