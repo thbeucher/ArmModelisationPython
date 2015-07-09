@@ -12,8 +12,14 @@ import numpy as np
 from GlobalVariables import pathWorkingDirectory
 
 class ArmParameters:
+    '''
+    class ArmParameters
+    '''
     
     def __init__(self):
+        '''
+        Intializes the class
+        '''
         self.pathSetupFile = pathWorkingDirectory + "/ArmModel/Setup/setupArmParameters"
         self.readSetupFile()
         self.massMatrix()

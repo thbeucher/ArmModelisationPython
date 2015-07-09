@@ -1,0 +1,62 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module runExperimentalSetupTrajectories</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>runExperimentalSetupTrajectories</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/beucher/workspace/MotorControlModel/runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.py">/home/beucher/workspace/MotorControlModel/runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.py</a></font></td></tr></table>
+    <p><tt>Author:&nbsp;Thomas&nbsp;Beucher<br>
+&nbsp;<br>
+Module:&nbsp;<a href="#TrajectoriesGenerator">TrajectoriesGenerator</a><br>
+&nbsp;<br>
+Description:&nbsp;Class&nbsp;used&nbsp;to&nbsp;generate&nbsp;all&nbsp;the&nbsp;trajectories&nbsp;of&nbsp;the&nbsp;experimental&nbsp;setup&nbsp;and&nbsp;also&nbsp;used&nbsp;for&nbsp;the&nbsp;cmaes&nbsp;otpimization</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="runExperimentalSetupTrajectories.html#TrajectoriesGenerator">TrajectoriesGenerator</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TrajectoriesGenerator">class <strong>TrajectoriesGenerator</strong></a></font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="TrajectoriesGenerator-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="TrajectoriesGenerator-initParametersTGS"><strong>initParametersTGS</strong></a>(self, rs, numberOfRepeat, tg, dimState, dimOutput, mac)</dt><dd><tt>Initializes&nbsp;parameters&nbsp;used&nbsp;to&nbsp;run&nbsp;functions&nbsp;below<br>
+&nbsp;<br>
+Inputs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-rs:&nbsp;readSetup,&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-numberOfRepeat:&nbsp;number&nbsp;given&nbsp;how&nbsp;many&nbsp;times&nbsp;each&nbsp;trajectory&nbsp;are&nbsp;run,&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-tg:&nbsp;trajectoryGenerator:&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-dimState:&nbsp;dimension&nbsp;of&nbsp;the&nbsp;state,&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-dimOutput:&nbsp;dimension&nbsp;of&nbsp;the&nbsp;output,&nbsp;here&nbsp;the&nbsp;output&nbsp;correspond&nbsp;to&nbsp;the&nbsp;muscular&nbsp;activation&nbsp;vector&nbsp;U<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-mac:&nbsp;muscularActivationCommand,&nbsp;class&nbsp;object</tt></dd></dl>
+
+<dl><dt><a name="TrajectoriesGenerator-initTheta"><strong>initTheta</strong></a>(self, theta)</dt><dd><tt>Initializes&nbsp;the&nbsp;controller&nbsp;(ie&nbsp;the&nbsp;vector&nbsp;of&nbsp;parameters)&nbsp;for&nbsp;the&nbsp;rest&nbsp;of&nbsp;the&nbsp;code&nbsp;used&nbsp;to&nbsp;generate&nbsp;trajectories<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-theta:&nbsp;controller&nbsp;ie&nbsp;vector&nbsp;of&nbsp;parameters,&nbsp;numpy&nbsp;array</tt></dd></dl>
+
+<dl><dt><a name="TrajectoriesGenerator-runTrajectories"><strong>runTrajectories</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="TrajectoriesGenerator-runTrajectoriesCMAWithParallelization"><strong>runTrajectoriesCMAWithParallelization</strong></a>(self, theta)</dt></dl>
+
+<dl><dt><a name="TrajectoriesGenerator-runTrajectoriesCMAWithoutParallelization"><strong>runTrajectoriesCMAWithoutParallelization</strong></a>(self, theta)</dt><dd><tt>Generates&nbsp;all&nbsp;the&nbsp;trajectories&nbsp;of&nbsp;the&nbsp;experimental&nbsp;setup&nbsp;and&nbsp;return&nbsp;the&nbsp;mean&nbsp;cost.&nbsp;This&nbsp;function&nbsp;is&nbsp;used&nbsp;by&nbsp;cmaes&nbsp;to&nbsp;otpimize&nbsp;the&nbsp;controller.<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-theta:&nbsp;vector&nbsp;of&nbsp;parameters,&nbsp;one&nbsp;dimension&nbsp;normalized&nbsp;numpy&nbsp;array<br>
+&nbsp;<br>
+Ouput:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-meanAll:&nbsp;the&nbsp;mean&nbsp;of&nbsp;the&nbsp;cost&nbsp;of&nbsp;all&nbsp;trajectories&nbsp;generated,&nbsp;float</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

@@ -1,0 +1,58 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module CostComputation</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>CostComputation</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/beucher/workspace/MotorControlModel/CostComputation/CostComputation.py">/home/beucher/workspace/MotorControlModel/CostComputation/CostComputation.py</a></font></td></tr></table>
+    <p><tt>Author:&nbsp;Thomas&nbsp;Beucher<br>
+&nbsp;<br>
+Module:&nbsp;TrajectoryGenerator<br>
+&nbsp;<br>
+Description:&nbsp;The&nbsp;class&nbsp;which&nbsp;computes&nbsp;the&nbsp;trajectory&nbsp;cost</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="CostComputation.html#CostComputation">CostComputation</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="CostComputation">class <strong>CostComputation</strong></a></font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="CostComputation-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="CostComputation-computeFinalCostReward"><strong>computeFinalCostReward</strong></a>(self, cost, t)</dt><dd><tt>Computes&nbsp;the&nbsp;cost&nbsp;on&nbsp;final&nbsp;step&nbsp;if&nbsp;the&nbsp;target&nbsp;is&nbsp;reached<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-cost:&nbsp;cost&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;trajectory,&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-t:&nbsp;time,&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Output:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-cost:&nbsp;final&nbsp;cost&nbsp;if&nbsp;the&nbsp;target&nbsp;is&nbsp;reached</tt></dd></dl>
+
+<dl><dt><a name="CostComputation-computeStateTransitionCost"><strong>computeStateTransitionCost</strong></a>(self, cost, U, t)</dt><dd><tt>Computes&nbsp;the&nbsp;cost&nbsp;on&nbsp;one&nbsp;step&nbsp;of&nbsp;the&nbsp;trajectory<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;-cost:&nbsp;cost&nbsp;at&nbsp;time&nbsp;t,&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-U:&nbsp;muscular&nbsp;activation&nbsp;vector,&nbsp;numpy&nbsp;array&nbsp;(6,1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-t:&nbsp;time,&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Output:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-cost:&nbsp;cost&nbsp;at&nbsp;time&nbsp;t+1,&nbsp;float</tt></dd></dl>
+
+<dl><dt><a name="CostComputation-initParametersCC"><strong>initParametersCC</strong></a>(self, rs)</dt><dd><tt>Initializes&nbsp;class&nbsp;object&nbsp;needed&nbsp;to&nbsp;acces&nbsp;to&nbsp;the&nbsp;setup&nbsp;variables<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;-rs:&nbsp;ReadSetup,&nbsp;class&nbsp;object&nbsp;given&nbsp;acces&nbsp;to&nbsp;the&nbsp;setup&nbsp;variables</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

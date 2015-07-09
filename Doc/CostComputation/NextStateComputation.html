@@ -1,0 +1,53 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module NextStateComputation</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>NextStateComputation</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/beucher/workspace/MotorControlModel/CostComputation/NextStateComputation.py">/home/beucher/workspace/MotorControlModel/CostComputation/NextStateComputation.py</a></font></td></tr></table>
+    <p><tt>Author:&nbsp;Thomas&nbsp;Beucher<br>
+&nbsp;<br>
+Module:&nbsp;<a href="#NextStateComputation">NextStateComputation</a><br>
+&nbsp;<br>
+Description:&nbsp;this&nbsp;class&nbsp;permits&nbsp;to&nbsp;generate&nbsp;the&nbsp;next&nbsp;state&nbsp;from&nbsp;the&nbsp;previous&nbsp;state,&nbsp;ie&nbsp;state&nbsp;at&nbsp;time&nbsp;t+1&nbsp;given&nbsp;state&nbsp;at&nbsp;time&nbsp;t</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="NextStateComputation.html#NextStateComputation">NextStateComputation</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="NextStateComputation">class <strong>NextStateComputation</strong></a></font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="NextStateComputation-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="NextStateComputation-computeNextState"><strong>computeNextState</strong></a>(self, state)</dt><dd><tt>Compute&nbsp;the&nbsp;state&nbsp;at&nbsp;time&nbsp;t+1&nbsp;given&nbsp;the&nbsp;state&nbsp;at&nbsp;time&nbsp;t<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;&nbsp;&nbsp;-state:the&nbsp;state&nbsp;at&nbsp;time&nbsp;t,&nbsp;numpy&nbsp;array,&nbsp;here&nbsp;the&nbsp;dimension&nbsp;is&nbsp;(4,1),&nbsp;state&nbsp;=&nbsp;[dotq1,&nbsp;dotq2,&nbsp;q1,&nbsp;q2]<br>
+&nbsp;<br>
+Output:&nbsp;&nbsp;&nbsp;&nbsp;-nextState:&nbsp;state&nbsp;at&nbsp;time&nbsp;t+1,&nbsp;numpy&nbsp;array<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-U:&nbsp;muscular&nbsp;activation&nbsp;vector,&nbsp;numpy&nbsp;array,&nbsp;here&nbsp;the&nbsp;dimension&nbsp;is&nbsp;(6,1)</tt></dd></dl>
+
+<dl><dt><a name="NextStateComputation-initParametersNSC"><strong>initParametersNSC</strong></a>(self, mac, armP, rs, musclesP)</dt><dd><tt>Initializes&nbsp;parameters&nbsp;used&nbsp;in&nbsp;the&nbsp;functions&nbsp;below<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;&nbsp;&nbsp;-mac:&nbsp;Muscular&nbsp;Activation&nbsp;Command,&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-armP:&nbsp;armParameters,&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-rs:&nbsp;ReadSetup,&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-musclesP:&nbsp;musclesParameters,&nbsp;class&nbsp;object</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

@@ -7,10 +7,10 @@ Module: runScript
 
 Description: main script to run what we want in the project
 '''
-import site
+'''import site
 import os
 from Main.Main import launchCMAESForSpecificTargetSize,\
-    launchCMAESForAllTargetSize, generateResults
+    launchCMAESForAllTargetSize, generateResults'''
 #from Utils.plotFunctions import plotAllCmaes
 
 def checkPackages():

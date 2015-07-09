@@ -1,0 +1,73 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module TrajectoryGenerator</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>TrajectoryGenerator</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/beucher/workspace/MotorControlModel/TrajectoryGenerator/TrajectoryGenerator.py">/home/beucher/workspace/MotorControlModel/TrajectoryGenerator/TrajectoryGenerator.py</a></font></td></tr></table>
+    <p><tt>Author:&nbsp;Thomas&nbsp;Beucher<br>
+&nbsp;<br>
+Module:&nbsp;<a href="#TrajectoryGenerator">TrajectoryGenerator</a><br>
+&nbsp;<br>
+Description:&nbsp;Class&nbsp;to&nbsp;generate&nbsp;a&nbsp;trajectory</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="TrajectoryGenerator.html#TrajectoryGenerator">TrajectoryGenerator</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TrajectoryGenerator">class <strong>TrajectoryGenerator</strong></a></font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="TrajectoryGenerator-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="TrajectoryGenerator-checkingKeyEndData"><strong>checkingKeyEndData</strong></a>(self)</dt><dd><tt>Checks&nbsp;if&nbsp;the&nbsp;trajectory&nbsp;already&nbsp;has&nbsp;been&nbsp;run,&nbsp;if&nbsp;no,&nbsp;initializes&nbsp;the&nbsp;container&nbsp;to&nbsp;save&nbsp;it</tt></dd></dl>
+
+<dl><dt><a name="TrajectoryGenerator-checkingKeyLoopData"><strong>checkingKeyLoopData</strong></a>(self)</dt><dd><tt>Checks&nbsp;if&nbsp;the&nbsp;trajectory&nbsp;already&nbsp;has&nbsp;been&nbsp;run,&nbsp;if&nbsp;no,&nbsp;initializes&nbsp;the&nbsp;container&nbsp;to&nbsp;save&nbsp;it</tt></dd></dl>
+
+<dl><dt><a name="TrajectoryGenerator-initParametersTG"><strong>initParametersTG</strong></a>(self, armP, rs, nsc, cc, sizeOfTarget, Ukf, armD, mac)</dt><dd><tt>Initializes&nbsp;the&nbsp;parameters&nbsp;used&nbsp;to&nbsp;run&nbsp;the&nbsp;functions&nbsp;below<br>
+&nbsp;<br>
+Inputs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-armP,&nbsp;armParameters,&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-rs,&nbsp;readSetup,&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-nsc,&nbsp;nextStateComputation,&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-cc,&nbsp;costComputation,&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-sizeOfTarget,&nbsp;size&nbsp;of&nbsp;the&nbsp;target,&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-Ukf,&nbsp;unscented&nbsp;kalaman&nbsp;filter,&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-armD,&nbsp;armDynamics,&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-mac,&nbsp;muscularActivationCommand,&nbsp;class&nbsp;object</tt></dd></dl>
+
+<dl><dt><a name="TrajectoryGenerator-initSaveVariables"><strong>initSaveVariables</strong></a>(self)</dt><dd><tt>Initializes&nbsp;variables&nbsp;used&nbsp;to&nbsp;save&nbsp;trajectory</tt></dd></dl>
+
+<dl><dt><a name="TrajectoryGenerator-runTrajectory"><strong>runTrajectory</strong></a>(self, x, y)</dt><dd><tt>Generates&nbsp;trajectory&nbsp;from&nbsp;the&nbsp;initiale&nbsp;position&nbsp;(x,&nbsp;y)<br>
+&nbsp;<br>
+Inputs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-x:&nbsp;absciss&nbsp;of&nbsp;the&nbsp;initiale&nbsp;position,&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-y:&nbsp;ordinate&nbsp;of&nbsp;the&nbsp;initiale&nbsp;position,&nbsp;float<br>
+&nbsp;<br>
+Output:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-cost:&nbsp;the&nbsp;cost&nbsp;of&nbsp;the&nbsp;trajectory,&nbsp;float</tt></dd></dl>
+
+<dl><dt><a name="TrajectoryGenerator-saveEndData"><strong>saveEndData</strong></a>(self, nbIte, lastCoord, cost)</dt><dd><tt>Saves&nbsp;data&nbsp;generated&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;trajectory<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;-nbIte:number&nbsp;of&nbsp;iteration&nbsp;ie&nbsp;number&nbsp;of&nbsp;time&nbsp;steps&nbsp;to&nbsp;finish&nbsp;the&nbsp;trajectory,&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-lastCoord:coordinate&nbsp;of&nbsp;the&nbsp;end&nbsp;effector&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;trajectory,&nbsp;tuple<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-cost,&nbsp;cost&nbsp;of&nbsp;the&nbsp;trajectory&nbsp;without&nbsp;the&nbsp;reward,&nbsp;float</tt></dd></dl>
+
+<dl><dt><a name="TrajectoryGenerator-saveLoopData"><strong>saveLoopData</strong></a>(self, speed)</dt><dd><tt>Saves&nbsp;data&nbsp;generated&nbsp;during&nbsp;the&nbsp;trajectory<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;-speed:the&nbsp;speed&nbsp;of&nbsp;the&nbsp;end&nbsp;effector&nbsp;along&nbsp;the&nbsp;trajectory,&nbsp;float</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

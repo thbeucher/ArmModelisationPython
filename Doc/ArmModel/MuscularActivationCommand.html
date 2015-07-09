@@ -1,0 +1,60 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module MuscularActivationCommand</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>MuscularActivationCommand</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/beucher/workspace/MotorControlModel/ArmModel/MuscularActivationCommand.py">/home/beucher/workspace/MotorControlModel/ArmModel/MuscularActivationCommand.py</a></font></td></tr></table>
+    <p><tt>Author:&nbsp;Thomas&nbsp;Beucher<br>
+&nbsp;<br>
+Module:&nbsp;<a href="#MuscularActivationCommand">MuscularActivationCommand</a><br>
+&nbsp;<br>
+Description:&nbsp;Class&nbsp;used&nbsp;to&nbsp;compute&nbsp;the&nbsp;muscular&nbsp;activation&nbsp;vector&nbsp;U&nbsp;with&nbsp;motor&nbsp;noise</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="MuscularActivationCommand.html#MuscularActivationCommand">MuscularActivationCommand</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="MuscularActivationCommand">class <strong>MuscularActivationCommand</strong></a></font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="MuscularActivationCommand-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MuscularActivationCommand-checkRangeEndpoint"><strong>checkRangeEndpoint</strong></a>(self, UnoiseTmp)</dt><dd><tt>Checks&nbsp;if&nbsp;the&nbsp;muscular&nbsp;activation&nbsp;is&nbsp;between&nbsp;0&nbsp;and&nbsp;1<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-UnoiseTmp:&nbsp;muscular&nbsp;activation&nbsp;vector<br>
+&nbsp;<br>
+Output:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-UnoiseTmp:&nbsp;muscular&nbsp;activation&nbsp;vector</tt></dd></dl>
+
+<dl><dt><a name="MuscularActivationCommand-getCommandMAC"><strong>getCommandMAC</strong></a>(self, state)</dt><dd><tt>Computes&nbsp;the&nbsp;next&nbsp;muscular&nbsp;activation&nbsp;vector&nbsp;U<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-state:&nbsp;the&nbsp;state&nbsp;of&nbsp;the&nbsp;arm,&nbsp;numpy&nbsp;array<br>
+&nbsp;<br>
+Output:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-Unoise:&nbsp;the&nbsp;muscular&nbsp;activation&nbsp;vector&nbsp;U&nbsp;with&nbsp;motor&nbsp;noise</tt></dd></dl>
+
+<dl><dt><a name="MuscularActivationCommand-initParametersMAC"><strong>initParametersMAC</strong></a>(self, fa, rs)</dt><dd><tt>Initializes&nbsp;parameters&nbsp;used&nbsp;in&nbsp;the&nbsp;functions&nbsp;below<br>
+&nbsp;<br>
+Inputs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fa,&nbsp;functionApproximator,&nbsp;class&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-rs,&nbsp;readsetup,&nbsp;class&nbsp;object</tt></dd></dl>
+
+<dl><dt><a name="MuscularActivationCommand-setThetaMAC"><strong>setThetaMAC</strong></a>(self, theta)</dt><dd><tt>Set&nbsp;the&nbsp;theta&nbsp;for&nbsp;the&nbsp;rest&nbsp;of&nbsp;the&nbsp;class<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-theta,&nbsp;the&nbsp;controller&nbsp;ie&nbsp;the&nbsp;vector&nbsp;of&nbsp;parameters,&nbsp;numpy&nbsp;array</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

@@ -1,0 +1,65 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module FunctionsUsefull</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>FunctionsUsefull</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/beucher/workspace/MotorControlModel/Utils/FunctionsUsefull.py">/home/beucher/workspace/MotorControlModel/Utils/FunctionsUsefull.py</a></font></td></tr></table>
+    <p><tt>Author:&nbsp;Thomas&nbsp;Beucher<br>
+&nbsp;<br>
+Module:&nbsp;FunctionsUsefull<br>
+&nbsp;<br>
+Description:&nbsp;global&nbsp;variables&nbsp;used&nbsp;in&nbsp;the&nbsp;project</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-checkForDoublonInTraj"><strong>checkForDoublonInTraj</strong></a>(localisation)</dt><dd><tt>Input:&nbsp;&nbsp;&nbsp;&nbsp;-localisation:&nbsp;String,&nbsp;path&nbsp;given&nbsp;the&nbsp;folder&nbsp;where&nbsp;the&nbsp;trajectories&nbsp;are</tt></dd></dl>
+ <dl><dt><a name="-cmaesCostProgression"><strong>cmaesCostProgression</strong></a>()</dt></dl>
+ <dl><dt><a name="-evalCostVariation"><strong>evalCostVariation</strong></a>(sizeT)</dt></dl>
+ <dl><dt><a name="-getActiMuscuBrent"><strong>getActiMuscuBrent</strong></a>()</dt></dl>
+ <dl><dt><a name="-getDataScattergram"><strong>getDataScattergram</strong></a>(sizeT)</dt></dl>
+ <dl><dt><a name="-getDistPerfSize"><strong>getDistPerfSize</strong></a>(sizeT)</dt></dl>
+ <dl><dt><a name="-getTimeByArea"><strong>getTimeByArea</strong></a>(sizeT)</dt></dl>
+ <dl><dt><a name="-getTimeDistance"><strong>getTimeDistance</strong></a>(sizeTarget)</dt></dl>
+ <dl><dt><a name="-getTimeVariationForEachDistance"><strong>getTimeVariationForEachDistance</strong></a>(sizeTarget)</dt></dl>
+ <dl><dt><a name="-getVelocityProfileBrent"><strong>getVelocityProfileBrent</strong></a>()</dt></dl>
+ <dl><dt><a name="-getVelocityProfileData"><strong>getVelocityProfileData</strong></a>(sizeT)</dt></dl>
+ <dl><dt><a name="-invPosCircle"><strong>invPosCircle</strong></a>(x, y)</dt><dd><tt>give&nbsp;couple&nbsp;(radius,&nbsp;angle)&nbsp;from&nbsp;coordinate&nbsp;(x,&nbsp;y),&nbsp;here&nbsp;the&nbsp;center&nbsp;of&nbsp;the&nbsp;circle&nbsp;is&nbsp;(0,&nbsp;yt)&nbsp;(yt&nbsp;=&nbsp;0.6175)<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-x:&nbsp;scalar,&nbsp;ordinate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-y:&nbsp;scalar,&nbsp;absciss<br>
+&nbsp;<br>
+Output:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-r:&nbsp;scalar,&nbsp;radius&nbsp;of&nbsp;the&nbsp;circle<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-t:&nbsp;scalar,&nbsp;angle</tt></dd></dl>
+ <dl><dt><a name="-learningFieldRBFN"><strong>learningFieldRBFN</strong></a>()</dt></dl>
+ <dl><dt><a name="-learningFieldRBFNSquare"><strong>learningFieldRBFNSquare</strong></a>()</dt></dl>
+ <dl><dt><a name="-playWithTraj"><strong>playWithTraj</strong></a>()</dt></dl>
+ <dl><dt><a name="-plotCostColorMapForAllTheta"><strong>plotCostColorMapForAllTheta</strong></a>()</dt></dl>
+ <dl><dt><a name="-plotExperimentSetup"><strong>plotExperimentSetup</strong></a>()</dt></dl>
+ <dl><dt><a name="-plotScattergram"><strong>plotScattergram</strong></a>()</dt></dl>
+ <dl><dt><a name="-plotScattergram2"><strong>plotScattergram2</strong></a>()</dt></dl>
+ <dl><dt><a name="-plotTrackTraj"><strong>plotTrackTraj</strong></a>()</dt></dl>
+ <dl><dt><a name="-plotTrajWhenTargetNotReach"><strong>plotTrajWhenTargetNotReach</strong></a>()</dt></dl>
+ <dl><dt><a name="-posCircle"><strong>posCircle</strong></a>(r, t)</dt><dd><tt>give&nbsp;coordinate&nbsp;(x,y)&nbsp;from&nbsp;couple&nbsp;(radius,&nbsp;angle)<br>
+&nbsp;<br>
+Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-r:&nbsp;scalar,&nbsp;radius&nbsp;of&nbsp;the&nbsp;circle<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-t:&nbsp;scalar,&nbsp;angle<br>
+&nbsp;<br>
+Output:&nbsp;&nbsp;&nbsp;&nbsp;-x:&nbsp;scalar,&nbsp;ordinate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-y:&nbsp;scalar,&nbsp;absciss</tt></dd></dl>
+ <dl><dt><a name="-remakeTrajFolder"><strong>remakeTrajFolder</strong></a>()</dt></dl>
+ <dl><dt><a name="-returnDifCostBrentRBFN"><strong>returnDifCostBrentRBFN</strong></a>()</dt></dl>
+ <dl><dt><a name="-returnX0Y0Z"><strong>returnX0Y0Z</strong></a>(name)</dt></dl>
+ <dl><dt><a name="-saveThetaToNumpyArray"><strong>saveThetaToNumpyArray</strong></a>()</dt></dl>
+ <dl><dt><a name="-testNPDOT"><strong>testNPDOT</strong></a>()</dt></dl>
+</td></tr></table>
+</body></html>
