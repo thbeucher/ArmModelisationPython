@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 Author: Thomas Beucher
 
@@ -5,9 +7,6 @@ Module: Main
 
 Description: We find here functions usefull to run cmaes and latter some script to run trajectories
 '''
-'''import sys
-from GlobalVariables import pathWorkingDirectory
-sys.path.append(pathWorkingDirectory + "/Utils")'''
 
 import cma
 import numpy as np

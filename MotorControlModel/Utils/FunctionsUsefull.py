@@ -1,7 +1,12 @@
-'''import sys
-from GlobalVariables import pathWorkingDirectory
-sys.path.append(pathWorkingDirectory + "/Utils")
-sys.path.append(pathWorkingDirectory + "/ArmModel")'''
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''
+Author: Thomas Beucher
+
+Module: FunctionsUsefull
+
+Description: global variables used in the project
+'''
 
 from Utils.InitUtil import initFRRS
 from Utils.NiemRoot import tronquerNB

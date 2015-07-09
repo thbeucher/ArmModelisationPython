@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 Author: Thomas Beucher
 
@@ -5,13 +7,11 @@ Module: Functions
 
 Description: On retrouve dans ce fichier les fonctions pour normaliser theta
 '''
-'''import sys
-from GlobalVariables import pathWorkingDirectory
-sys.path.append(pathWorkingDirectory + "/Utils")'''
 
 import numpy as np
 from Utils.FileReading import FileReading
 from Utils.FileSaving import fileSavingBin
+from GlobalVariables import pathDataFolder
     
     
 def normalization(theta):
@@ -52,11 +52,11 @@ def normalizationNP(theta, rs):
     maxT = np.max(np.abs(theta), axis = 0)
     for i in range(theta.shape[1]):
         theta[:,i] = theta[:,i] / maxT[i]
-    np.savetxt(rs.pathFolderData + 'inputMaxTmp', maxT)
+    np.savetxt(pathDataFolder + 'inputMaxTmp', maxT)
     return theta
 
 def unNormNP(theta, rs):
-    maxT = np.loadtxt(rs.pathFolderData + 'inputMaxTmp')
+    maxT = np.loadtxt(pathDataFolder + 'inputMaxTmp')
     for i in range(theta.shape[1]):
         theta[:,i] = theta[:,i] * maxT[i]
     return theta

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 Author: Thomas Beucher
 
@@ -5,9 +7,6 @@ Module: plotFunctions
 
 Description: some plotting functions
 '''
-'''import sys
-from GlobalVariables import pathWorkingDirectory
-sys.path.append(pathWorkingDirectory + "/Utils")'''
 
 import numpy as np
 from scipy import stats

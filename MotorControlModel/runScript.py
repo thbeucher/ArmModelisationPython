@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 Author: Thomas Beucher
 
@@ -5,10 +7,6 @@ Module: runScript
 
 Description: main script to run what we want in the project
 '''
-'''import sys
-from GlobalVariables import pathWorkingDirectory
-sys.path.append(pathWorkingDirectory + "/Main")
-print(pathWorkingDirectory)'''
 
 import site
 import os
@@ -49,6 +47,6 @@ def runAll():
         pass
     
 #runAll()
-launchCMAESForSpecificTargetSize()
+launchCMAESForSpecificTargetSize(0.45)
 
 

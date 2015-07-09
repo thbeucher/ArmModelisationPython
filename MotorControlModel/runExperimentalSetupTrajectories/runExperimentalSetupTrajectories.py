@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 Author: Thomas Beucher
 
@@ -5,9 +7,6 @@ Module: TrajectoriesGenerator
 
 Description: Class used to generate all the trajectories of the experimental setup and also used for the cmaes otpimization
 '''
-'''import sys
-from GlobalVariables import pathWorkingDirectory
-sys.path.append(pathWorkingDirectory + "/Utils")'''
 
 import time
 import numpy as np

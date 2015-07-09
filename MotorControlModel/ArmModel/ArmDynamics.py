@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 Author: Thomas Beucher
 
@@ -7,9 +9,6 @@ Description:
 -Models an arm with two joints and six muscles
 -Computes its dynamics
 '''
-'''import sys
-from GlobalVariables import pathWorkingDirectory
-sys.path.append(pathWorkingDirectory + "/Utils")'''
 
 import numpy as np
 import math

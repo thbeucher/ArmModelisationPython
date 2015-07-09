@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 Author: Thomas Beucher
 
@@ -5,10 +7,6 @@ Module: TrajectoryGenerator
 
 Description: Class to generate a trajectory
 '''
-'''import sys
-from GlobalVariables import pathWorkingDirectory
-sys.path.append(pathWorkingDirectory + "/Utils")
-sys.path.append(pathWorkingDirectory + "/ArmModel")'''
 
 from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
 from ArmModel.GeometricModel import mgd, mgi

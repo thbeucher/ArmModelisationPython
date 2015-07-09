@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 Author: Thomas beucher
 
@@ -42,7 +44,7 @@ class ReadSetupFile:
         #lecture ligne 9, POUR CMAES, popsize
         self.popsizeCmaes = int((allsByLign[8].split(":"))[1])
         #lecture ligne 10, Taille de la cible pour l'experimentation
-        self.sizeOfTarget = [float(allsByLign[9].split(":")[1].split("/")[0]), float(allsByLign[12].split(":")[1].split("/")[1]), float(allsByLign[12].split(":")[1].split("/")[2]), float(allsByLign[12].split(":")[1].split("/")[3])]
+        self.sizeOfTarget = [float(allsByLign[9].split(":")[1].split("/")[0]), float(allsByLign[9].split(":")[1].split("/")[1]), float(allsByLign[9].split(":")[1].split("/")[2]), float(allsByLign[9].split(":")[1].split("/")[3])]
         #lecture ligne 11, ordonnee de la cible
         self.targetOrdinate = float((allsByLign[10].split(":"))[1])
         #lecture ligne 12, Pas de temps utilise pour l'experimentation

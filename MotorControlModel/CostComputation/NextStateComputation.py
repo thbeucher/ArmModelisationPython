@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 Author: Thomas Beucher
 
@@ -5,10 +7,6 @@ Module: NextStateComputation
 
 Description: this class permits to generate the next state from the previous state, ie state at time t+1 given state at time t
 '''
-'''import sys
-from GlobalVariables import pathWorkingDirectory
-sys.path.append(pathWorkingDirectory + "/Utils")
-sys.path.append(pathWorkingDirectory + "/ArmModel")'''
 
 from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
 from ArmModel.ArmDynamics import mdd

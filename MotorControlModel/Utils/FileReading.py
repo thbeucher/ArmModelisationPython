@@ -1,12 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 Author: Thomas Beucher
 Module: FileReading
 Description: On retrouve dans ce fichier les fonctions permettant de lire les donnees du projet
 '''
-'''import sys
-from GlobalVariables import pathWorkingDirectory
-sys.path.append(pathWorkingDirectory + "/Utils")
-sys.path.append(pathWorkingDirectory + "/ArmModel")'''
 
 import pickle
 import numpy as np
