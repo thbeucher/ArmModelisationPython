@@ -5,6 +5,9 @@ Module: ChangeExperimentalSetup
 
 Description: Script to change the initial position
 '''
+'''import sys
+from GlobalVariables import pathWorkingDirectory
+sys.path.append(pathWorkingDirectory + "/Utils")'''
 
 import numpy as np
 import math

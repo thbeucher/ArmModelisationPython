@@ -5,12 +5,15 @@ Module: functionApproximator_RBFN
 
 Description: We find here functions which allow to compute a RBFN regression
 '''
+'''import sys
+from GlobalVariables import pathWorkingDirectory
+sys.path.append(pathWorkingDirectory + "/Utils")'''
+
 import numpy as np
 from Utils.CartesianProduct import cartesian
-from multiprocessing.context import Process
+from multiprocessing import Process
 from multiprocessing.sharedctypes import Array
 import ctypes as ct
-
 
 class fa_rbfn():
     

@@ -5,6 +5,9 @@ Module: Functions
 
 Description: On retrouve dans ce fichier les fonctions pour normaliser theta
 '''
+'''import sys
+from GlobalVariables import pathWorkingDirectory
+sys.path.append(pathWorkingDirectory + "/Utils")'''
 
 import numpy as np
 from Utils.FileReading import FileReading

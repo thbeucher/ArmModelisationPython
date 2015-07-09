@@ -5,6 +5,15 @@ Module: initUtilMain
 
 Description: Here some functions which initializes objects usefull to generate trajectory
 '''
+'''import sys
+from GlobalVariables import pathWorkingDirectory
+sys.path.append(pathWorkingDirectory + "/ArmModel")
+sys.path.append(pathWorkingDirectory + "/Regression")
+sys.path.append(pathWorkingDirectory + "/TrajectoryGenerator")
+sys.path.append(pathWorkingDirectory + "/runExperimentalSetupTrajectories")
+sys.path.append(pathWorkingDirectory + "/CostComputation")
+sys.path.append(pathWorkingDirectory + "/UnscentedKalmanFilterControl")'''
+
 from ArmModel.ArmParameters import ArmParameters
 from ArmModel.MusclesParameters import MusclesParameters
 from ArmModel.ArmDynamics import ArmDynamics

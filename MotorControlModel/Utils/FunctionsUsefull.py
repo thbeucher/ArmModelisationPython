@@ -1,3 +1,8 @@
+'''import sys
+from GlobalVariables import pathWorkingDirectory
+sys.path.append(pathWorkingDirectory + "/Utils")
+sys.path.append(pathWorkingDirectory + "/ArmModel")'''
+
 from Utils.InitUtil import initFRRS
 from Utils.NiemRoot import tronquerNB
 import numpy as np

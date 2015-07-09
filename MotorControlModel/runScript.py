@@ -5,8 +5,14 @@ Module: runScript
 
 Description: main script to run what we want in the project
 '''
+'''import sys
+from GlobalVariables import pathWorkingDirectory
+sys.path.append(pathWorkingDirectory + "/Main")
+print(pathWorkingDirectory)'''
+
 import site
 import os
+from Main.Main import launchCMAESForSpecificTargetSize
 
 def checkPackages():
     a = site.getsitepackages()
@@ -42,6 +48,7 @@ def runAll():
     else:
         pass
     
-runAll()
+#runAll()
+launchCMAESForSpecificTargetSize()
 
 

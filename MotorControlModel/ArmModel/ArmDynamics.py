@@ -7,6 +7,10 @@ Description:
 -Models an arm with two joints and six muscles
 -Computes its dynamics
 '''
+'''import sys
+from GlobalVariables import pathWorkingDirectory
+sys.path.append(pathWorkingDirectory + "/Utils")'''
+
 import numpy as np
 import math
 from Utils.StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS

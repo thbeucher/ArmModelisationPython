@@ -5,6 +5,10 @@ Module: DataNormalization
 
 Description: We find here functions which normalize the input data
 '''
+'''import sys
+from GlobalVariables import pathWorkingDirectory
+sys.path.append(pathWorkingDirectory + "/Utils")'''
+
 import numpy as np
 from Utils.FileSaving import fileSavingBin
 

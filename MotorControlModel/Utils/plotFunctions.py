@@ -5,6 +5,10 @@ Module: plotFunctions
 
 Description: some plotting functions
 '''
+'''import sys
+from GlobalVariables import pathWorkingDirectory
+sys.path.append(pathWorkingDirectory + "/Utils")'''
+
 import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt

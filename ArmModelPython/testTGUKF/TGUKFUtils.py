@@ -5,6 +5,7 @@ Module: NextStateComputation
 
 Description: 
 '''
+
 import cma
 import numpy as np
 from multiprocessing.pool import Pool
