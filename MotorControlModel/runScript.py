@@ -79,4 +79,10 @@ def runAll():
     
 runAll()
 
+'''with open('/home/beucher/Desktop/tempFileCma', 'r') as file:
+    a = file.read()
+    
+b = a.split('\n')
+print(len(b), b[len(b)-2])'''
+
 
