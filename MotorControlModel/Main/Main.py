@@ -17,14 +17,14 @@ from Utils.InitUtilMain import initAllUsefullObj
 from Utils.FileSaving import fileSavingAllData
 from GlobalVariables import pathDataFolder
 
-def generateResults():
+def generateResults(nameFolderSave, nbret):
     fr, rs = initFRRS()
     for el in rs.sizeOfTarget:
         print("Results generation for target ", el)
-        thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF1"
+        thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + nameFolderSave
         theta = np.loadtxt(thetaName)
         tgs = initAllUsefullObj(el, fr, rs)
-        cost = tgs.runTrajectoriesResultsGeneration(theta, 30)
+        cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
         print("Cost: ", cost)
         fileSavingAllData(el, tgs.tg)
     print("End of generation")
