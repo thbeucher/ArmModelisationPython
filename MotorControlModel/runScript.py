@@ -11,7 +11,6 @@ import site
 import os
 from Main.Main import launchCMAESForSpecificTargetSize,\
     launchCMAESForAllTargetSize, generateResults
-from distlib.compat import raw_input
 #from Utils.plotFunctions import plotAllCmaes
 
 def checkPackages():
