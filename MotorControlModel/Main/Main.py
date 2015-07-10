@@ -48,7 +48,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     #Initializes all the class used to generate trajectory
     tgs = initAllUsefullObj(sizeOfTarget, fr, rs)
     #run the optimization (cmaes)
-    resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, theta, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     #name used to save the new controller obtained by the optimization
     nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaCma" + str(sizeOfTarget) + "TGUKF1"
     np.savetxt(nameToSaveThetaCma, resCma[0])
