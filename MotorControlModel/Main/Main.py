@@ -14,7 +14,7 @@ from multiprocessing.pool import Pool
 from Utils.InitUtil import initFRRS
 from Utils.ThetaNormalization import normalizationNP, matrixToVector
 from Utils.InitUtilMain import initAllUsefullObj
-from Utils.FileSaving import fileSavingAllData, fileSavingAllDataJson
+from Utils.FileSaving import fileSavingAllDataJson
 from GlobalVariables import pathDataFolder
 
 def generateResults(nameFolderSave, nbret):
