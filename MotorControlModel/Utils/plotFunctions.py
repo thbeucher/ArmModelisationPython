@@ -25,7 +25,7 @@ from Utils.FileReading import FileReading
 from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
      getTimeDistance, getDistPerfSize, getVelocityProfileData, getTimeByArea
 from matplotlib.mlab import griddata
-from scipy.spatial import ConvexHull
+#from scipy.spatial import ConvexHull
 from GlobalVariables import pathTrajectoriesFolder, pathDataFolder
 
 
