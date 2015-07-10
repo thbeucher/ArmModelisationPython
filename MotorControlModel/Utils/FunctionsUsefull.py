@@ -529,11 +529,12 @@ def plotScattergram():
 
 #plotScattergram()
 
-def getDistPerfSize(sizeT):
+def getDistPerfSize(sizeT, folderName):
     fr, rs = initFRRS()
     #name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/actiMuscuCmaBIN"
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry2/actiMuscuCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/actiMuscuCmaBIN"
     data = fr.getobjread(name)
+    #data = fr.getobjreadJson(name)
     DistPerf = {}
     for key, val in data.items():
         r, t = invPosCircle(float(key.split("//")[0]), float(key.split("//")[1]))

@@ -544,12 +544,12 @@ def plotFittsLaw(folderName):
     
 #plotFittsLaw()
         
-def plotPerfSizeDist():
+def plotPerfSizeDist(folderName):
     fr, rs = initFRRS()
     sizeDistPerfTmp = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
-            sizeDistPerfTmp[i] = getDistPerfSize(rs.sizeOfTarget[i])
+            sizeDistPerfTmp[i] = getDistPerfSize(rs.sizeOfTarget[i], folderName)
         except:
             pass
     print(sizeDistPerfTmp)

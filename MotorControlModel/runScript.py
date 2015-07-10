@@ -11,7 +11,7 @@ import site
 import os
 from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults
 from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
-    plotFittsLaw
+    plotFittsLaw, plotPerfSizeDist
 
 def checkPackages():
     a = site.getsitepackages()
@@ -73,7 +73,7 @@ def runAll():
     from distlib.compat import raw_input
     while checkL:
         try:
-            print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n                  5_plotTimeDistanceTarget\n                  6_plotFittsLaw\n')
+            print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n                  5_plotTimeDistanceTarget\n                  6_plotFittsLaw\n                  7_plotPerfSizeDist\n')
             choix = input('Enter the number corresponding to the script you want to run: ')
             choix = int(choix)
             checkL = False
@@ -99,6 +99,9 @@ def runAll():
     elif choix == 6:
         nameF = raw_input('Folder name where the results are saved: ')
         plotFittsLaw(nameF)
+    elif choix == 7:
+        nameF = raw_input('Folder name where the results are saved: ')
+        plotPerfSizeDist(nameF)
     
 runAll()
 

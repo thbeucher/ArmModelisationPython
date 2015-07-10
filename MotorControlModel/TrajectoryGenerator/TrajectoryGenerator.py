@@ -51,6 +51,7 @@ class TrajectoryGenerator:
         self.saveCoordEndTraj = {}
         self.saveMvtCost = {}
         self.saveSpeed = {}
+        self.saveU = {}
 
     def checkingKeyLoopData(self):
         '''
@@ -58,8 +59,10 @@ class TrajectoryGenerator:
         '''
         if not self.nameToSaveTraj in self.saveSpeed:
             self.saveSpeed[self.nameToSaveTraj] = []
+        if not self.nameToSaveTraj in self.saveU:
+            self.saveU[self.nameToSaveTraj] = []
         
-    def saveLoopData(self, speed):
+    def saveLoopData(self, speed, U):
         '''
         Saves data generated during the trajectory
 
@@ -67,6 +70,7 @@ class TrajectoryGenerator:
         '''
         self.checkingKeyLoopData()
         self.saveSpeed[self.nameToSaveTraj].append(speed)
+        self.saveU[self.nameToSaveTraj].append(U)
         
     def checkingKeyEndData(self):
         '''
@@ -134,7 +138,7 @@ class TrajectoryGenerator:
                 #computation of the coordinates to check if the target is reach or not
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
                 #code to save data of the trajectory
-                self.saveLoopData(np.linalg.norm(dotq))
+                self.saveLoopData(np.linalg.norm(dotq), Ucontrol)
             else:
                 break
             i += 1
