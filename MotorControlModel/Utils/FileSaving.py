@@ -9,6 +9,7 @@ Description: On retrouve dans ce fichier les fonctions permettant de sauvegarder
 '''
 import pickle
 from GlobalVariables import pathDataFolder
+import json
         
 def fileSavingStr(nameFile, data, loc = 0):
     '''
@@ -53,6 +54,11 @@ def fileSavingAllData(sizeOfTarget, tg):
     fileSavingData(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
     fileSavingData(nameSave + "saveMvtCost", tg.saveMvtCost)
     fileSavingData(nameSave + "saveSpeed", tg.saveSpeed)
+    
+def fileSavingStrJson(name, data):
+    name = pathDataFolder + name
+    f = open(name, 'w')
+    json.dump(data, f)
         
         
         

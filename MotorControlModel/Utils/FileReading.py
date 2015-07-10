@@ -13,6 +13,7 @@ from Utils.ReadSetupFile import ReadSetupFile
 from ArmModel.ArmParameters import ArmParameters
 from ArmModel.GeometricModel import mgd
 from GlobalVariables import pathDataFolder
+import json
 
 class FileReading():
     
@@ -44,7 +45,14 @@ class FileReading():
                 data = mondepickler.load()
         return data
     
-    
+    def getobjreadJson(self, name):
+        '''
+        Reads data from file saves with json
+        '''
+        name = pathDataFolder + name
+        f = open(name, 'r')
+        data = json.load(f)
+        return data
     
     def recup_pos_ini(self, location):
         '''
