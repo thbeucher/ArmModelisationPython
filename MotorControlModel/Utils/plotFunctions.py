@@ -512,12 +512,12 @@ def plotTimeDistanceTarget(folderName):
 #plotTimeDistanceTarget()
 
 
-def plotFittsLaw():
+def plotFittsLaw(folderName):
     fr, rs = initFRRS()
     data = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
-            data[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i])
+            data[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i], folderName)
         except:
             pass
     print(data)
