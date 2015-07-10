@@ -58,8 +58,8 @@ def fileSavingAllData(sizeOfTarget, tg):
     fileSavingData(nameSave + "saveMvtCost", tg.saveMvtCost)
     fileSavingData(nameSave + "saveSpeed", tg.saveSpeed)
     
-def fileSavingAllDataJson(sizeOfTarget, tg):
-    nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/ResUKF1B/"
+def fileSavingAllDataJson(sizeOfTarget, tg, folderName):
+    nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
     fileSavingDataJson(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
     fileSavingDataJson(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
     fileSavingDataJson(nameSave + "saveMvtCost", tg.saveMvtCost)

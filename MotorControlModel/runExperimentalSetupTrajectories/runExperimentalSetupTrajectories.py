@@ -61,6 +61,11 @@ class TrajectoriesGenerator:
         f = open(nameFileSave, 'a')
         np.savetxt(f, theta)
         
+    def runTrajectoriesResultsGeneration(self, theta, repeat):
+        self.initTheta(theta)
+        costAll = [[self.tg.runTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(repeat)]
+        meanByTraj = np.mean(np.asarray(costAll).reshape((repeat, len(self.posIni))), axis = 0)    
+        return meanByTraj
     
     def runTrajectoriesCMAWithoutParallelization(self, theta):
         '''
