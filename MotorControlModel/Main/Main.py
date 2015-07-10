@@ -70,7 +70,7 @@ def launchCMAESForAllTargetSize():
     #initializes fr (FileReading class) and rs (ReadSetup class) which allow to acces to setup variables and file reading functions
     fr, rs =initFRRS()
     #initializes a pool of worker, ie multiprocessing
-    p = Pool(4)
+    p = Pool()
     #run cmaes on each targets size on separate processor
     p.map(launchCMAESForSpecificTargetSize, rs.sizeOfTarget)
 
