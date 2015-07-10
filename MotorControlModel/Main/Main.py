@@ -57,8 +57,8 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     for el in os.listdir(nameToSaveThetaCma):
         tryName = "thetaCma" + str(sizeOfTarget) + "TGUKF"
         if tryName in el:
-            tryName += str(i)
-        i += 1
+            i += 1
+    tryName += str(i)
     nameToSaveThetaCma += tryName
     np.savetxt(nameToSaveThetaCma, resCma[0])
     print("End of optimization for target " + str(sizeOfTarget) + " !")
