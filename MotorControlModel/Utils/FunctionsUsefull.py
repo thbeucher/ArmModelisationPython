@@ -371,11 +371,12 @@ def plotTrajWhenTargetNotReach():
     
 #plotTrajWhenTargetNotReach()
 
-def getTimeDistance(sizeTarget):
+def getTimeDistance(sizeTarget, folderName):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/ResTry2/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/" + folderName + "/saveNumberOfIterationBIN"
     #name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteRBFN" + str(sizeTarget) + "BIN"
-    nbIteTraj = fr.getobjread(name)
+    #nbIteTraj = fr.getobjread(name)
+    nbIteTraj = fr.getobjreadJson(name)
     distTimeDico = {}
     for key, val in nbIteTraj.items():
         nbIteTraj[key] = int(np.mean(nbIteTraj[key]))

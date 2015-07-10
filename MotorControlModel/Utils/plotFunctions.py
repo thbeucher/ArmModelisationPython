@@ -473,12 +473,12 @@ def plotAllCmaes(nameF):
     
 #plotAllCmaes()
 
-def plotTimeDistanceTarget():
+def plotTimeDistanceTarget(folderName):
     fr, rs = initFRRS()
     targetDic = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
-            targetDic[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i])
+            targetDic[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i], folderName)
         except:
             pass
     targetDistTime = []
