@@ -59,7 +59,7 @@ class TrajectoriesGenerator:
         
     def saveThetaCmaes(self):
         nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_target" + str(self.tg.sizeOfTarget)
-        f = open(nameFileSave, 'a')
+        f = open(nameFileSave, 'ab')
         np.savetxt(f, self.theta)
         
     def runTrajectoriesResultsGeneration(self, theta, repeat):
