@@ -143,7 +143,9 @@ class TrajectoryGenerator:
                 break
             i += 1
             t = self.rs.dt
-            #check if the target is reach and give the reward if yes
+        #code to save data of the trajectory
+        self.saveEndData(i, coordHand, cost)
+        #check if the target is reach and give the reward if yes
         if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.targetOrdinate:
             cost = self.cc.computeFinalCostReward(cost, t)
         #return the cost of the trajectory
