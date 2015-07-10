@@ -18,16 +18,16 @@ from shutil import copyfile
 from posix import remove
 import matplotlib.pyplot as plt
 from ArmModel.GeometricModel import mgi, mgd
-from scipy.spatial import ConvexHull
+#from scipy.spatial import ConvexHull
 import math
 from Utils.ThetaNormalization import normalization, matrixToVector,\
     vectorToMatrix, unNorm
 from matplotlib.mlab import griddata
 from matplotlib import cm
 import timeit
-import matplotlib.patches as patches
+#import matplotlib.patches as patches
 from Utils.ReadSetupFile import ReadSetupFile
-from scipy.stats.stats import linregress
+#from scipy.stats.stats import linregress
 from GlobalVariables import pathTrajectoriesFolder, pathDataFolder
 
 

@@ -74,6 +74,7 @@ def runAll():
         try:
             print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n')
             choix = input('Enter the number corresponding to the script you want to run: ')
+            choix = int(choix)
             checkL = False
         except:
             print("Enter a number.")
