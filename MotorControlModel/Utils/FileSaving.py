@@ -10,6 +10,7 @@ Description: On retrouve dans ce fichier les fonctions permettant de sauvegarder
 import pickle
 from GlobalVariables import pathDataFolder
 import json
+import os
         
 def fileSavingStr(nameFile, data, loc = 0):
     '''
@@ -58,8 +59,14 @@ def fileSavingAllData(sizeOfTarget, tg):
     fileSavingData(nameSave + "saveMvtCost", tg.saveMvtCost)
     fileSavingData(nameSave + "saveSpeed", tg.saveSpeed)
     
+def checkIfFolderExist(name):
+    name = pathDataFolder + name
+    if not os.path.isdir(name):
+        os.makedirs(name)
+    
 def fileSavingAllDataJson(sizeOfTarget, tg, folderName):
     nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
+    checkIfFolderExist(nameSave)
     fileSavingDataJson(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
     fileSavingDataJson(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
     fileSavingDataJson(nameSave + "saveMvtCost", tg.saveMvtCost)

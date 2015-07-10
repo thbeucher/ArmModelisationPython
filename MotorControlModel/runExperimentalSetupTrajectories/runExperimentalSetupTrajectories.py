@@ -57,10 +57,10 @@ class TrajectoriesGenerator:
         #give the theta to the muscularActivationCommand class
         self.mac.setThetaMAC(self.theta)
         
-    def saveThetaCmaes(self, theta):
+    def saveThetaCmaes(self):
         nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_target" + str(self.tg.sizeOfTarget)
         f = open(nameFileSave, 'a')
-        np.savetxt(f, theta)
+        np.savetxt(f, self.theta)
         
     def runTrajectoriesResultsGeneration(self, theta, repeat):
         #self.initTheta(theta)
@@ -90,7 +90,7 @@ class TrajectoriesGenerator:
         self.saveCost.append(meanAll)
         print("Call n°: ", self.call, "\nCost: ", meanAll, "\nTime: ", time.time() - t0)
         self.call += 1
-        self.saveThetaCmaes(theta)
+        self.saveThetaCmaes()
         return meanAll*(-1)
     
     def runTrajectoriesCMAWithParallelization(self, theta):
