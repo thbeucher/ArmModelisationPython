@@ -53,7 +53,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     #name used to save the new controller obtained by the optimization
     nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/"
     #thetaCma" + str(sizeOfTarget) + "TGUKF1"
-    i = 0
+    i = 1
     for el in os.listdir(nameToSaveThetaCma):
         tryName = "thetaCma" + str(sizeOfTarget) + "TGUKF"
         if tryName in el:
