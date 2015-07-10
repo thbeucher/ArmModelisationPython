@@ -16,12 +16,13 @@ from Utils.ThetaNormalization import normalizationNP, matrixToVector
 from Utils.InitUtilMain import initAllUsefullObj
 from Utils.FileSaving import fileSavingAllDataJson
 from GlobalVariables import pathDataFolder
+import os
 
-def generateResults(nameFolderSave, nbret):
+def generateResults(nameFolderSave, nbret, nameT):
     fr, rs = initFRRS()
     for el in rs.sizeOfTarget:
         print("Results generation for target ", el)
-        thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF1"
+        thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/" + nameT
         theta = np.loadtxt(thetaName)
         tgs = initAllUsefullObj(el, fr, rs)
         cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
@@ -51,6 +52,8 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     #name used to save the new controller obtained by the optimization
     nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaCma" + str(sizeOfTarget) + "TGUKF1"
+    if os.path.isfile(nameToSaveThetaCma):
+        nameToSaveThetaCma += '1'
     np.savetxt(nameToSaveThetaCma, resCma[0])
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     
