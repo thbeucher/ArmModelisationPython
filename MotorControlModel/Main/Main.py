@@ -28,7 +28,6 @@ def generateResults(nameFolderSave, nbret):
         print("Cost: ", cost)
         fileSavingAllDataJson(el, tgs.tg, nameFolderSave)
         #fileSavingAllData(el, tgs.tg)
-        break
     print("End of generation")
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget):
@@ -51,7 +50,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     #run the optimization (cmaes)
     resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, theta, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     #name used to save the new controller obtained by the optimization
-    nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaCma" + str(sizeOfTarget) + "TGUKF"
+    nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaCma" + str(sizeOfTarget) + "TGUKF1"
     np.savetxt(nameToSaveThetaCma, resCma[0])
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     

@@ -142,7 +142,7 @@ class TrajectoryGenerator:
             else:
                 break
             i += 1
-            t = self.rs.dt
+            t += self.rs.dt
         #code to save data of the trajectory
         self.saveEndData(i, coordHand, cost)
         #check if the target is reach and give the reward if yes
