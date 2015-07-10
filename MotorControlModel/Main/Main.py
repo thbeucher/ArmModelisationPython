@@ -14,7 +14,7 @@ from multiprocessing.pool import Pool
 from Utils.InitUtil import initFRRS
 from Utils.ThetaNormalization import normalizationNP, matrixToVector
 from Utils.InitUtilMain import initAllUsefullObj
-from Utils.FileSaving import fileSavingAllData
+from Utils.FileSaving import fileSavingAllData, fileSavingAllDataJson
 from GlobalVariables import pathDataFolder
 
 def generateResults(nameFolderSave, nbret):
@@ -26,7 +26,8 @@ def generateResults(nameFolderSave, nbret):
         tgs = initAllUsefullObj(el, fr, rs)
         cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
         print("Cost: ", cost)
-        fileSavingAllData(el, tgs.tg)
+        fileSavingAllDataJson(el, tgs.tg)
+        #fileSavingAllData(el, tgs.tg)
     print("End of generation")
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget):

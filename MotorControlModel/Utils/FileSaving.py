@@ -47,6 +47,9 @@ def fileSavingData(nameFile, data):
     fileSavingStr(nameFile, data)
     nameFile = nameFile + "BIN"
     fileSavingBin(nameFile, data)
+    
+def fileSavingDataJson(name, data):
+    fileSavingStrJson(name, data)
 
 def fileSavingAllData(sizeOfTarget, tg):
     nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/ResUKF1B/"
@@ -54,6 +57,13 @@ def fileSavingAllData(sizeOfTarget, tg):
     fileSavingData(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
     fileSavingData(nameSave + "saveMvtCost", tg.saveMvtCost)
     fileSavingData(nameSave + "saveSpeed", tg.saveSpeed)
+    
+def fileSavingAllDataJson(sizeOfTarget, tg):
+    nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/ResUKF1B/"
+    fileSavingDataJson(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
+    fileSavingDataJson(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
+    fileSavingDataJson(nameSave + "saveMvtCost", tg.saveMvtCost)
+    fileSavingDataJson(nameSave + "saveSpeed", tg.saveSpeed)
     
 def fileSavingStrJson(name, data):
     name = pathDataFolder + name
