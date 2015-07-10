@@ -416,7 +416,7 @@ def plotAllCmaes(nameF):
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
         try:
-            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResUKF1B/saveMvtCostBIN"
+            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/ResUKF1B/saveMvtCost"
             #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
             #zDico.append(fr.getobjread(name))
             zDico.append(fr.getobjreadJson(name))
@@ -571,12 +571,12 @@ def plotPerfSizeDist(folderName):
         
 #plotPerfSizeDist()
 
-def plotMapTimeTrajectories():
+def plotMapTimeTrajectories(folderName):
     fr, rs = initFRRS()
     areaTimeBySize = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
-            areaTimeBySize[rs.sizeOfTarget[i]] = getTimeByArea(rs.sizeOfTarget[i])
+            areaTimeBySize[rs.sizeOfTarget[i]] = getTimeByArea(rs.sizeOfTarget[i], folderName)
         except:
             pass
     for key, val in areaTimeBySize.items():

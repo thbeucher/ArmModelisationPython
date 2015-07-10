@@ -373,7 +373,7 @@ def plotTrajWhenTargetNotReach():
 
 def getTimeDistance(sizeTarget, folderName):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/" + folderName + "/saveNumberOfIterationBIN"
+    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/" + folderName + "/saveNumberOfIteration"
     #name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteRBFN" + str(sizeTarget) + "BIN"
     #nbIteTraj = fr.getobjread(name)
     nbIteTraj = fr.getobjreadJson(name)
@@ -533,8 +533,8 @@ def getDistPerfSize(sizeT, folderName):
     fr, rs = initFRRS()
     #name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/actiMuscuCmaBIN"
     name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveU"
-    data = fr.getobjread(name)
-    #data = fr.getobjreadJson(name)
+    #data = fr.getobjread(name)
+    data = fr.getobjreadJson(name)
     DistPerf = {}
     for key, val in data.items():
         r, t = invPosCircle(float(key.split("//")[0]), float(key.split("//")[1]))
@@ -677,11 +677,12 @@ def testInfluenceOfTimeStepOnNumberOfIte():
 #testInfluenceOfTimeStepOnNumberOfIte()'''
 
 
-def getTimeByArea(sizeT):
+def getTimeByArea(sizeT, folderName):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/nbIteCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveNumberOfIteration"
     #name = "RBFN2/" + str(rs.numfeats) + "feats/ResNT/nbIteRBFN" + str(sizeT) + "BIN"
-    data = fr.getobjread(name)
+    #data = fr.getobjread(name)
+    data = fr.getobjreadJson(name)
     areaTime = []
     for key, val in data.items():
         areaTime.append((round(float(key.split("//")[0]), 4), round(float(key.split("//")[1]), 4), int(np.mean(val))))
