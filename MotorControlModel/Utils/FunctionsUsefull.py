@@ -532,7 +532,7 @@ def plotScattergram():
 def getDistPerfSize(sizeT, folderName):
     fr, rs = initFRRS()
     #name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/actiMuscuCmaBIN"
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/actiMuscuCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveU"
     data = fr.getobjread(name)
     #data = fr.getobjreadJson(name)
     DistPerf = {}
