@@ -422,7 +422,7 @@ def plotAllCmaes(nameF):
             zDico.append(fr.getobjreadJson(name))
         except:
             pass
-    print(zDico)
+    #print(zDico)
     for i in range(len(zDico)):
         x0[i], y0[i], z[i] = [], [], []
         for keyu, valu in zDico[i].items():
