@@ -49,10 +49,11 @@ class TrajectoriesGenerator:
     
     	Input:		-theta: controller ie vector of parameters, numpy array
     	'''
+        self.theta = np.copy(theta)
         #reshaping of the parameters vector because this function is used by the cmaes algorithm and cmaes feed the function with a one dimension numpy array but in the rest of the algorithm the 2 dimensions numpy array is expected for the vector of parameters theta
-        theta = np.asarray(theta).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
+        self.theta = np.asarray(self.theta).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
         #UnNorm the vector of parameters, because for cmaes we use a normalize vector
-        self.theta = unNormNP(theta, self.rs)
+        self.theta = unNormNP(self.theta, self.rs)
         #give the theta to the muscularActivationCommand class
         self.mac.setThetaMAC(self.theta)
         
@@ -63,8 +64,9 @@ class TrajectoriesGenerator:
         
     def runTrajectoriesResultsGeneration(self, theta, repeat):
         #self.initTheta(theta)
-        theta = np.asarray(theta).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
-        self.mac.setThetaMAC(theta)
+        thetaTG = np.copy(theta)
+        thetaTG = np.asarray(thetaTG).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
+        self.mac.setThetaMAC(thetaTG)
         costAll = [[self.tg.runTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(repeat)]
         meanByTraj = np.mean(np.asarray(costAll).reshape((repeat, len(self.posIni))), axis = 0)    
         return meanByTraj
