@@ -132,7 +132,6 @@ class TrajectoryGenerator:
                 Ucontrol = self.mac.getCommandMAC(estimateState)
                 #computation of the arm state
                 realState = self.armD.mddAD(Ucontrol)
-                self.armD.setStateAD(realState)
                 #computation of the approximated state
                 estimateState = self.Ukf.runUKF(Ucontrol, realState)
                 #computation of the cost
