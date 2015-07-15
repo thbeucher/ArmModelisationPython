@@ -579,21 +579,69 @@ def plotMapTimeTrajectories(folderName):
             areaTimeBySize[rs.sizeOfTarget[i]] = getTimeByArea(rs.sizeOfTarget[i], folderName)
         except:
             pass
-    for key, val in areaTimeBySize.items():
+    '''for key, val in areaTimeBySize.items():
         x = [x[0] for x in val]
         y = [y[1] for y in val]
         z = [z[2] for z in val]
         xi = np.linspace(-0.25,0.25,200)
         yi = np.linspace(0.35,0.5,200)
-        zi = griddata(x, y, z, xi, yi)
-        fig = plt.figure(1, figsize=(16,9))
-        ax1 = plt.subplot2grid((2,2), (0,0))
-        t1 = ax1.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-        ax1.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
-        ax1.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
-        fig.colorbar(t1, shrink=0.5, aspect=5)
-        ax1.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[0])))
-        plt.show(block = True)
+        zi = griddata(x, y, z, xi, yi)'''
+        
+    fig = plt.figure(1, figsize=(16,9))
+    
+    x = [x[0] for x in areaTimeBySize[rs.sizeOfTarget[0]]]
+    y = [y[1] for y in areaTimeBySize[rs.sizeOfTarget[0]]]
+    z = [z[2] for z in areaTimeBySize[rs.sizeOfTarget[0]]]
+    xi = np.linspace(-0.25,0.25,200)
+    yi = np.linspace(0.35,0.5,200)
+    zi = griddata(x, y, z, xi, yi)
+    ax1 = plt.subplot2grid((2,2), (0,0))
+    t1 = ax1.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+    ax1.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
+    ax1.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+    fig.colorbar(t1, shrink=0.5, aspect=5)
+    ax1.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[0])))
+    
+    x = [x[0] for x in areaTimeBySize[rs.sizeOfTarget[1]]]
+    y = [y[1] for y in areaTimeBySize[rs.sizeOfTarget[1]]]
+    z = [z[2] for z in areaTimeBySize[rs.sizeOfTarget[1]]]
+    xi = np.linspace(-0.25,0.25,200)
+    yi = np.linspace(0.35,0.5,200)
+    zi = griddata(x, y, z, xi, yi)
+    ax1 = plt.subplot2grid((2,2), (0,1))
+    t1 = ax1.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+    ax1.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
+    ax1.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+    fig.colorbar(t1, shrink=0.5, aspect=5)
+    ax1.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[1])))
+    
+    x = [x[0] for x in areaTimeBySize[rs.sizeOfTarget[2]]]
+    y = [y[1] for y in areaTimeBySize[rs.sizeOfTarget[2]]]
+    z = [z[2] for z in areaTimeBySize[rs.sizeOfTarget[2]]]
+    xi = np.linspace(-0.25,0.25,200)
+    yi = np.linspace(0.35,0.5,200)
+    zi = griddata(x, y, z, xi, yi)
+    ax1 = plt.subplot2grid((2,2), (1,0))
+    t1 = ax1.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+    ax1.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
+    ax1.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+    fig.colorbar(t1, shrink=0.5, aspect=5)
+    ax1.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[2])))
+    
+    x = [x[0] for x in areaTimeBySize[rs.sizeOfTarget[3]]]
+    y = [y[1] for y in areaTimeBySize[rs.sizeOfTarget[3]]]
+    z = [z[2] for z in areaTimeBySize[rs.sizeOfTarget[3]]]
+    xi = np.linspace(-0.25,0.25,200)
+    yi = np.linspace(0.35,0.5,200)
+    zi = griddata(x, y, z, xi, yi)
+    ax1 = plt.subplot2grid((2,2), (1,1))
+    t1 = ax1.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+    ax1.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
+    ax1.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+    fig.colorbar(t1, shrink=0.5, aspect=5)
+    ax1.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[3])))
+    
+    plt.show(block = True)
         
     
 #plotMapTimeTrajectories()
