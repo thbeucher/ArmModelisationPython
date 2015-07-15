@@ -539,7 +539,7 @@ def getDistPerfSize(sizeT, folderName):
         r = round(r, 2)
         if not r in DistPerf.keys():
             DistPerf[r] = []
-        DistPerf[r].append(np.mean(val))
+        DistPerf[r].append(np.mean(val[0]))
     for key, val in DistPerf.items():
         DistPerf[key] = np.mean(val)
     sizeDistPerf = []
