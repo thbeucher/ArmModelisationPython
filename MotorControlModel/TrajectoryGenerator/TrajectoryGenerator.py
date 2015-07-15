@@ -21,7 +21,7 @@ class TrajectoryGenerator:
         #Initializes variables used to save trajectory
         self.initSaveVariables()
         
-    def initParametersTG(self, armP, rs, nsc, cc, sizeOfTarget, Ukf, armD, mac):
+    def initParametersTG(self, armP, rs, nsc, cc, sizeOfTarget, Ukf, armD, mac, saveA):
         '''
     	Initializes the parameters used to run the functions below
     
@@ -30,9 +30,10 @@ class TrajectoryGenerator:
     			-nsc, nextStateComputation, class object
     			-cc, costComputation, class object
     			-sizeOfTarget, size of the target, float
-    			-Ukf, unscented kalaman filter, class object
+    			-Ukf, unscented kalman filter, class object
     			-armD, armDynamics, class object
     			-mac, muscularActivationCommand, class object
+    			-saveA, Boolean, true = Data are saved, false = data are not saved
     	'''
         self.armP = armP
         self.rs = rs
@@ -42,6 +43,7 @@ class TrajectoryGenerator:
         self.Ukf = Ukf
         self.armD = armD
         self.mac = mac
+        self.saveA = saveA
 
     def initSaveVariables(self):
         '''
@@ -138,13 +140,15 @@ class TrajectoryGenerator:
                 #computation of the coordinates to check if the target is reach or not
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
                 #code to save data of the trajectory
-                self.saveLoopData(np.linalg.norm(dotq), Ucontrol)
+                if self.saveA == True:
+                    self.saveLoopData(np.linalg.norm(dotq), Ucontrol)
             else:
                 break
             i += 1
             t += self.rs.dt
         #code to save data of the trajectory
-        self.saveEndData(i, coordHand, cost)
+        if self.saveA == True:
+            self.saveEndData(i, coordHand, cost)
         #check if the target is reach and give the reward if yes
         if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.targetOrdinate:
             cost = self.cc.computeFinalCostReward(cost, t)

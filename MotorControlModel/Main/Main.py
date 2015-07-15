@@ -24,7 +24,7 @@ def generateResults(nameFolderSave, nbret, nameT):
         print("Results generation for target ", el)
         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/" + nameT
         theta = np.loadtxt(thetaName)
-        tgs = initAllUsefullObj(el, fr, rs)
+        tgs = initAllUsefullObj(el, fr, rs, True)
         cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
         print("Cost: ", cost)
         fileSavingAllDataJson(el, tgs.tg, nameFolderSave)

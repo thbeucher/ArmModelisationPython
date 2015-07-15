@@ -40,7 +40,7 @@ def initController(rs, fr):
     fa.setCentersAndWidths()
     return fa
 
-def initAllUsefullObj(sizeOfTarget, fr, rs):
+def initAllUsefullObj(sizeOfTarget, fr, rs, save = False):
     '''
 	Initializes class object needed to generate trajectories
 	
@@ -72,7 +72,7 @@ def initAllUsefullObj(sizeOfTarget, fr, rs):
     cc.initParametersCC(rs)
     #tg, trajectory generator
     tg = TrajectoryGenerator()
-    tg.initParametersTG(armP, rs, nsc, cc, sizeOfTarget, Ukf, armD, mac)
+    tg.initParametersTG(armP, rs, nsc, cc, sizeOfTarget, Ukf, armD, mac, save)
     #tgs, trajectories generator
     tgs = TrajectoriesGenerator()
     #here 5 is the number of repeat of each trajectory, 4 is the dimension of the input, 6 is the dimension of the ouput
