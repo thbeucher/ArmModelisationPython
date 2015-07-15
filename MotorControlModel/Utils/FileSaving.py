@@ -72,7 +72,11 @@ def fileSavingAllDataJson(sizeOfTarget, tg, folderName):
     fileSavingDataJson(nameSave + "saveMvtCost", tg.saveMvtCost)
     fileSavingDataJson(nameSave + "saveSpeed", tg.saveSpeed)
     for key, val in tg.saveU.items():
-        tg.saveU[key] = str(val)
+        valTmpR = []
+        for el in val:
+            valTmp = [elt.tolist() for elt in el]
+            valTmpR.append(valTmp)
+        tg.saveU[key] = valTmpR
     fileSavingDataJson(nameSave + "saveU", tg.saveU)
     
 def fileSavingStrJson(name, data):

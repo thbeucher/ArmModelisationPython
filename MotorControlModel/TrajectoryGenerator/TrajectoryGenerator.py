@@ -59,10 +59,11 @@ class TrajectoryGenerator:
         '''
         Checks if the trajectory already has been run, if no, initializes the container to save it
         '''
-        if not self.nameToSaveTraj in self.saveSpeed:
-            self.saveSpeed[self.nameToSaveTraj] = []
-        if not self.nameToSaveTraj in self.saveU:
-            self.saveU[self.nameToSaveTraj] = []
+        pass
+    
+    def initSaveLoopData(self):
+        self.speedList = []
+        self.UList = []
         
     def saveLoopData(self, speed, U):
         '''
@@ -70,9 +71,8 @@ class TrajectoryGenerator:
 
         Input:	-speed:the speed of the end effector along the trajectory, float
         '''
-        self.checkingKeyLoopData()
-        self.saveSpeed[self.nameToSaveTraj].append(speed)
-        self.saveU[self.nameToSaveTraj].append(U)
+        self.speedList.append(speed)
+        self.UList.append(U)
         
     def checkingKeyEndData(self):
         '''
@@ -84,6 +84,10 @@ class TrajectoryGenerator:
             self.saveCoordEndTraj[self.nameToSaveTraj] = []
         if not self.nameToSaveTraj in self.saveMvtCost:
             self.saveMvtCost[self.nameToSaveTraj] = []
+        if not self.nameToSaveTraj in self.saveSpeed:
+            self.saveSpeed[self.nameToSaveTraj] = []
+        if not self.nameToSaveTraj in self.saveU:
+            self.saveU[self.nameToSaveTraj] = []
         
     def saveEndData(self, nbIte, lastCoord, cost):
         '''
@@ -97,6 +101,8 @@ class TrajectoryGenerator:
         self.saveNumberOfIteration[self.nameToSaveTraj].append(nbIte)
         self.saveCoordEndTraj[self.nameToSaveTraj].append(lastCoord)
         self.saveMvtCost[self.nameToSaveTraj].append(cost)
+        self.saveSpeed[self.nameToSaveTraj].append(self.speedList)
+        self.saveU[self.nameToSaveTraj].append(self.UList)
     
     def runTrajectory(self, x, y):
         '''
@@ -123,6 +129,8 @@ class TrajectoryGenerator:
         self.armD.initStateAD(state)
         #code to save data of the trajectory
         self.nameToSaveTraj = str(x) + "//" + str(y)
+        if self.saveA == True:
+            self.initSaveLoopData()
         #loop to generate next position until the target is reached 
         estimateState = state
         while coordHand[1] < self.rs.targetOrdinate:

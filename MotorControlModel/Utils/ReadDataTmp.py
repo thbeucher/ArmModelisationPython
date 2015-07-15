@@ -13,7 +13,7 @@ from Utils.InitUtil import initFRRS
 
 def readThetaTmpBySizeOfTarget(sizeOfTarget, rs):
     dim0 = rs.numfeats**rs.inputDim
-    nameFileToRead = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaSolTmp_target" + str(sizeOfTarget)
+    nameFileToRead = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaSolTmp_target" + str(sizeOfTarget) + "OldTmp"
     f = open(nameFileToRead, 'r')
     try:
         arrAll = np.loadtxt(f)
@@ -24,7 +24,7 @@ def readThetaTmpBySizeOfTarget(sizeOfTarget, rs):
     return arrList
 
 def readCostTmpBySizeOfTarget(sizeOfTarget):
-    nameFileToRead = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/meanCost" + str(sizeOfTarget)
+    nameFileToRead = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/meanCost" + str(sizeOfTarget) + "OldTmp"
     try:
         costList = np.loadtxt(nameFileToRead)
     except:
