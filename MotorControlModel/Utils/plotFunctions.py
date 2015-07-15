@@ -221,29 +221,29 @@ def velocityProfile(sizeT):
 
 #velocityProfile(0.02)
 
-def plotForAllTargetVelocityProfile():
+def plotForAllTargetVelocityProfile(folderName):
     fr, rs = initFRRS()
     fig = plt.figure(1, figsize=(16,9))
     ax1 = plt.subplot2grid((2,2), (0,0))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[0])
+    t, v = getVelocityProfileData(rs.sizeOfTarget[0], folderName)
     for key, val in v.items():
         ax1.plot(t[key], val, c ='b')
     ax1.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[0])))
     
     ax2 = plt.subplot2grid((2,2), (0,1))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[1])
+    t, v = getVelocityProfileData(rs.sizeOfTarget[1], folderName)
     for key, val in v.items():
         ax2.plot(t[key], val, c ='b')
     ax2.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[1])))
     
     ax3 = plt.subplot2grid((2,2), (1,0))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[2])
+    t, v = getVelocityProfileData(rs.sizeOfTarget[2], folderName)
     for key, val in v.items():
         ax3.plot(t[key], val, c ='b')
     ax3.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[2])))
     
     ax4 = plt.subplot2grid((2,2), (1,1))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[3])
+    t, v = getVelocityProfileData(rs.sizeOfTarget[3], folderName)
     for key, val in v.items():
         ax4.plot(t[key], val, c ='b')
     ax4.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[3])))

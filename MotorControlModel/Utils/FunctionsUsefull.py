@@ -600,13 +600,15 @@ def plotTrackTraj():
 
 #plotTrackTraj()
 
-def getVelocityProfileData(sizeT):
+def getVelocityProfileData(sizeT, folderName):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/SpeedSaveCmaBIN"
-    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/nbIteCmaBIN"
-    data = fr.getobjread(name)
-    nbIte = fr.getobjread(nameNbIte)
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveSpeed"
+    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveNumberOfIteration"
+    #data = fr.getobjread(name)
+    #nbIte = fr.getobjread(nameNbIte)
+    data = fr.getobjreadJson(name)
+    nbIte = fr.getobjreadJson(nameNbIte)
     aAll, vAll, tAll = {}, {}, {}
     for key, val in data.items():
         a = []
