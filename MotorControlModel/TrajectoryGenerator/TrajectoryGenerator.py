@@ -124,19 +124,21 @@ class TrajectoryGenerator:
         #code to save data of the trajectory
         self.nameToSaveTraj = str(x) + "//" + str(y)
         #loop to generate next position until the target is reached 
+        estimateState = state
         while coordHand[1] < self.rs.targetOrdinate:
             #stop condition to avoid infinite loop
             if i < self.rs.numMaxIter:
                 #computation of the next muscular activation vector
-                Ucontrol = self.mac.getCommandMAC(state)
+                Ucontrol = self.mac.getCommandMAC(estimateState)
                 #computation of the arm state
                 realState = self.armD.mddAD(Ucontrol)
+                self.armD.setStateAD(realState)
                 #computation of the approximated state
-                state = self.Ukf.runUKF(Ucontrol, realState)
+                estimateState = self.Ukf.runUKF(Ucontrol, realState)
                 #computation of the cost
                 cost = self.cc.computeStateTransitionCost(cost, Ucontrol, t)
                 #get dotq and q from the state vector
-                dotq, q = getDotQAndQFromStateVectorS(state)
+                dotq, q = getDotQAndQFromStateVectorS(realState)
                 #computation of the coordinates to check if the target is reach or not
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
                 #code to save data of the trajectory

@@ -26,6 +26,9 @@ class ArmDynamics:
         self.armP = armP
         self.musclesP = musclesP
         self.dt = dt
+    
+    def setStateAD(self, state):
+        self.state = state
         
     def setNewStateAD(self, dotq, q):
         self.state = createStateVector(dotq, q)
@@ -84,7 +87,6 @@ class ArmDynamics:
 
     dotq0 = property(get_dotq_0, set_dotq_0, del_dotq_0, "dotq0's docstring")
     
-
 
 def mdd(q, dotq, U, armP, musclesP, dt):
     '''
