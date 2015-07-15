@@ -9,7 +9,8 @@ Description: main script to run what we want in the project
 '''
 import site
 import os
-from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults
+from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
+    generateResultsWithBestThetaTmp
 from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories
 
@@ -73,7 +74,7 @@ def runAll():
     from distlib.compat import raw_input
     while checkL:
         try:
-            print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n                  5_plotTimeDistanceTarget\n                  6_plotFittsLaw\n                  7_plotPerfSizeDist\n                  8_plotMapTimeTrajectories\n')
+            print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n                  5_plotTimeDistanceTarget\n                  6_plotFittsLaw\n                  7_plotPerfSizeDist\n                  8_plotMapTimeTrajectories\n                  9_generateResultsWithBestThetaTmp\n')
             choix = input('Enter the number corresponding to the script you want to run: ')
             choix = int(choix)
             checkL = False
@@ -106,7 +107,14 @@ def runAll():
     elif choix == 8:
         nameF = raw_input('Folder name where the results are saved: ')
         plotMapTimeTrajectories(nameF)
+    elif choix == 9:
+        print("Generate results with the best theta temp !")
+        nameF = raw_input('Folder name where you want to save the results: ')
+        nbret = input("Number of repeat for each trajectory (int): ")
+        nbret = int(nbret)
+        generateResultsWithBestThetaTmp(nameF, nbret)
     
 runAll()
+
 
 

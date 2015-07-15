@@ -17,6 +17,7 @@ from Utils.InitUtilMain import initAllUsefullObj
 from Utils.FileSaving import fileSavingAllDataJson
 from GlobalVariables import pathDataFolder
 import os
+from Utils.ReadDataTmp import getBestTheta
 
 def generateResults(nameFolderSave, nbret, nameT):
     fr, rs = initFRRS()
@@ -29,6 +30,18 @@ def generateResults(nameFolderSave, nbret, nameT):
         print("Cost: ", cost)
         fileSavingAllDataJson(el, tgs.tg, nameFolderSave)
         #fileSavingAllData(el, tgs.tg)
+    print("End of generation")
+    
+def generateResultsWithBestThetaTmp(nameFolderSave, nbret):
+    fr, rs = initFRRS()
+    listBT = getBestTheta()
+    for el in listBT:
+        print("Results generation for target ", el[0])
+        theta = el[1]
+        tgs = initAllUsefullObj(el[0], fr, rs, True)
+        cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
+        print("Cost: ", cost)
+        fileSavingAllDataJson(el[0], tgs.tg, nameFolderSave)
     print("End of generation")
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget):

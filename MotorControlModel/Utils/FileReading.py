@@ -9,7 +9,6 @@ Description: On retrouve dans ce fichier les fonctions permettant de lire les do
 import pickle
 import numpy as np
 import os
-from Utils.ReadSetupFile import ReadSetupFile
 from ArmModel.ArmParameters import ArmParameters
 from ArmModel.GeometricModel import mgd
 from GlobalVariables import pathDataFolder
@@ -111,17 +110,6 @@ class FileReading():
             i += 1
         return dataA
     
-    
-
-def readThetaTmpBySizeOfTarget(sizeOfTarget):
-    rs = ReadSetupFile()
-    dim0 = rs.numfeats**rs.inputDim
-    nameFileToRead = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaSolTmp_target" + str(sizeOfTarget)
-    f = open(nameFileToRead, 'r')
-    arrAll = np.loadtxt(f)
-    numberOfTheta = arrAll.shape[0]/dim0
-    arrList = np.split(arrAll, numberOfTheta)
-    return arrList
             
     
 

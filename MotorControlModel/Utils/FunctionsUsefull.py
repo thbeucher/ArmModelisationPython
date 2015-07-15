@@ -12,7 +12,6 @@ from Utils.InitUtil import initFRRS
 from Utils.NiemRoot import tronquerNB
 import numpy as np
 from Utils.FileSaving import fileSavingBin, fileSavingStr
-from Utils.FileReading import FileReading
 import os
 from shutil import copyfile
 from posix import remove
@@ -26,7 +25,6 @@ from matplotlib.mlab import griddata
 from matplotlib import cm
 import timeit
 #import matplotlib.patches as patches
-from Utils.ReadSetupFile import ReadSetupFile
 #from scipy.stats.stats import linregress
 from GlobalVariables import pathTrajectoriesFolder, pathDataFolder
 
@@ -86,7 +84,7 @@ def checkForDoublonInTraj(localisation):
     
     Input:    -localisation: String, path given the folder where the trajectories are
     '''
-    fr = FileReading()
+    fr, rs = initFRRS()
     data, junk = fr.recup_pos_ini(localisation)
     tabEl, doublon = [], []
     for key, el in data.items():
@@ -514,7 +512,7 @@ def getDataScattergram(sizeT):
 #getDataScattergram(0.02)   
     
 def plotScattergram():
-    rs = ReadSetupFile()
+    fr, rs = initFRRS()
     s = 0
     for i in range(len(rs.sizeOfTarget)):
         dataTmp = getDataScattergram(rs.sizeOfTarget[i])
@@ -690,6 +688,7 @@ def getTimeByArea(sizeT, folderName):
     
 #getTimeByArea(0.005)
 
+    
 
 
     
