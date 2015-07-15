@@ -127,6 +127,7 @@ class TrajectoryGenerator:
         i, t, cost = 0, 0, 0
         self.Ukf.initObsStore(state)
         self.armD.initStateAD(state)
+        self.nsc.initStateNSC(state)
         #code to save data of the trajectory
         self.nameToSaveTraj = str(x) + "//" + str(y)
         if self.saveA == True:
@@ -139,7 +140,8 @@ class TrajectoryGenerator:
                 #computation of the next muscular activation vector
                 Ucontrol = self.mac.getCommandMAC(estimateState)
                 #computation of the arm state
-                realState = self.armD.mddAD(Ucontrol)
+                #realState = self.armD.mddAD(Ucontrol)
+                realState = self.nsc.computeNextState(Ucontrol)
                 #computation of the approximated state
                 estimateState = self.Ukf.runUKF(Ucontrol, realState)
                 #computation of the cost

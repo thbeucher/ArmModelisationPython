@@ -31,8 +31,14 @@ class NextStateComputation:
         self.armP = armP
         self.rs = rs
         self.musclesP = musclesP
+        
+    def initStateNSC(self, state):
+        self.state = state
+        
+    def setNewStateNSC(self, state):
+        self.state = state
     
-    def computeNextState(self, state):
+    def computeNextState(self, U):
         '''
         Compute the state at time t+1 given the state at time t
         
@@ -41,11 +47,11 @@ class NextStateComputation:
         Output:    -nextState: state at time t+1, numpy array
                     -U: muscular activation vector, numpy array, here the dimension is (6,1)
         '''
-        U = self.mac.getCommandMAC(state)
-        dotq, q = getDotQAndQFromStateVectorS(state)
+        dotq, q = getDotQAndQFromStateVectorS(self.state)
         ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
         q = jointStop(q)
         nextState = createStateVector(dotq, q)
+        self.setNewStateNSC(nextState)
         return nextState, U
     
     
