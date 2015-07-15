@@ -15,6 +15,7 @@ from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
     plotForAllTargetVelocityProfile
 from Utils.PurgeData import purgeCostNThetaTmp
+from Script.RunRegressionRBFN import runRBFN
 
 def checkPackages():
     a = site.getsitepackages()
@@ -76,7 +77,7 @@ def runAll():
     from distlib.compat import raw_input
     while checkL:
         try:
-            print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n                  5_plotTimeDistanceTarget\n                  6_plotFittsLaw\n                  7_plotPerfSizeDist\n                  8_plotMapTimeTrajectories\n                  9_generateResultsWithBestThetaTmp\n                  10_launchCMAESWithBestThetaTmpForAllTargetSize\n                  11_plotForAllTargetVelocityProfile\n')
+            print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n                  5_plotTimeDistanceTarget\n                  6_plotFittsLaw\n                  7_plotPerfSizeDist\n                  8_plotMapTimeTrajectories\n                  9_generateResultsWithBestThetaTmp\n                  10_launchCMAESWithBestThetaTmpForAllTargetSize\n                  11_plotForAllTargetVelocityProfile\n                  12_runRBFN\n')
             choix = input('Enter the number corresponding to the script you want to run: ')
             choix = int(choix)
             checkL = False
@@ -120,6 +121,9 @@ def runAll():
     elif choix == 11:
         nameF = raw_input('Folder name where the results are saved: ')
         plotForAllTargetVelocityProfile(nameF)
+    elif choix == 12:
+        nameC = raw_input('Name to save the RBFN controller: ')
+        runRBFN(nameC)
     
 runAll()
 
