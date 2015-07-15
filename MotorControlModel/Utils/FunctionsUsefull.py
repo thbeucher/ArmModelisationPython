@@ -613,7 +613,7 @@ def getVelocityProfileData(sizeT, folderName):
     for key, val in data.items():
         a = []
         for i in range(nbIte[key][0]):
-            a.append(data[key][i])
+            a.append(data[key][0][i])
         #print(key, len(a), a)
         aAll[key] = a
     for key, val in aAll.items():
