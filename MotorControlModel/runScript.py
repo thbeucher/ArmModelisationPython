@@ -13,6 +13,7 @@ from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetS
     generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize
 from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories
+from Utils.PurgeData import purgeCostNThetaTmp
 
 def checkPackages():
     a = site.getsitepackages()

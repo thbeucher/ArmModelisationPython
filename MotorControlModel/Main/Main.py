@@ -19,6 +19,7 @@ from Utils.FileSaving import fileSavingAllDataJson
 from GlobalVariables import pathDataFolder
 import os
 from Utils.ReadDataTmp import getBestTheta
+from Utils.PurgeData import purgeCostNThetaTmp
 
 def generateResults(nameFolderSave, nbret, nameT):
     fr, rs = initFRRS()
@@ -88,10 +89,11 @@ def launchCMAESWithBestThetaTmpForSpecificTargetSize(sizeOfTarget):
     listBT = getBestTheta()
     #get the best theta corresponding to the target size given
     for el in listBT:
-        if sizeOfTarget in el:
+        if el[0] == sizeOfTarget:
             theta = el[1]
     theta = normalizationNPWithoutSaving(theta, rs)
     theta = matrixToVector(theta)
+    purgeCostNThetaTmp(sizeOfTarget)
     tgs = initAllUsefullObj(sizeOfTarget, fr, rs)
     resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/"
