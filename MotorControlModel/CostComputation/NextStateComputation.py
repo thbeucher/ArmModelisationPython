@@ -52,7 +52,7 @@ class NextStateComputation:
         q = jointStop(q)
         nextState = createStateVector(dotq, q)
         self.setNewStateNSC(nextState)
-        return nextState, U
+        return nextState
     
     
     
