@@ -55,6 +55,12 @@ def normalizationNP(theta, rs):
     np.savetxt(pathDataFolder + 'inputMaxTmp', maxT)
     return theta
 
+def normalizationNPWithoutSaving(theta, rs):
+    maxT = np.loadtxt(pathDataFolder + 'inputMaxTmp')
+    for i in range(theta.shape[1]):
+        theta[:,i] = theta[:,i] / maxT[i]
+    return theta
+
 def unNormNP(theta, rs):
     maxT = np.loadtxt(pathDataFolder + 'inputMaxTmp')
     for i in range(theta.shape[1]):

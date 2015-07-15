@@ -12,7 +12,8 @@ import cma
 import numpy as np
 from multiprocessing.pool import Pool
 from Utils.InitUtil import initFRRS
-from Utils.ThetaNormalization import normalizationNP, matrixToVector
+from Utils.ThetaNormalization import normalizationNP, matrixToVector,\
+    normalizationNPWithoutSaving
 from Utils.InitUtilMain import initAllUsefullObj
 from Utils.FileSaving import fileSavingAllDataJson
 from GlobalVariables import pathDataFolder
@@ -75,6 +76,42 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     nameToSaveThetaCma += tryName
     np.savetxt(nameToSaveThetaCma, resCma[0])
     print("End of optimization for target " + str(sizeOfTarget) + " !")
+    
+def launchCMAESWithBestThetaTmpForSpecificTargetSize(sizeOfTarget):
+    '''
+    Run cmaes for a specific target size with the best theta tmp
+
+    Input:    -sizeOfTarget, size of the target, float
+    '''
+    print("Start of the CMAES Optimization for target " + str(sizeOfTarget) + " !")
+    fr, rs = initFRRS()
+    listBT = getBestTheta()
+    #get the best theta corresponding to the target size given
+    for el in listBT:
+        if sizeOfTarget in el:
+            theta = el[1]
+    theta = normalizationNPWithoutSaving(theta, rs)
+    theta = matrixToVector(theta)
+    tgs = initAllUsefullObj(sizeOfTarget, fr, rs)
+    resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/"
+    i = 1
+    tryName = "thetaCma" + str(sizeOfTarget) + "TGUKF"
+    for el in os.listdir(nameToSaveThetaCma):
+        if tryName in el:
+            i += 1
+    tryName += str(i)
+    nameToSaveThetaCma += tryName
+    np.savetxt(nameToSaveThetaCma, resCma[0])
+    print("End of optimization for target " + str(sizeOfTarget) + " !")
+
+def launchCMAESWithBestThetaTmpForAllTargetSize():
+    '''
+    Launch in parallel cmaes optimization for each target size with the best theta temp
+    '''
+    fr, rs = initFRRS()
+    p = Pool()
+    p.map(launchCMAESWithBestThetaTmpForSpecificTargetSize, rs.sizeOfTarget)
     
 def launchCMAESForAllTargetSize():
     '''
