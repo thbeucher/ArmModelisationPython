@@ -64,8 +64,11 @@ def checkIfFolderExist(name):
     if not os.path.isdir(name):
         os.makedirs(name)
     
-def fileSavingAllDataJson(sizeOfTarget, tg, folderName):
-    nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
+def fileSavingAllDataJson(sizeOfTarget, tg, folderName, rbfn = False):
+    if rbfn == True:
+        nameSave = "RBFN2/" + str(tg.rs.numfeats) + "feats/" + folderName + "/"
+    else:
+        nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
     checkIfFolderExist(nameSave)
     fileSavingDataJson(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
     fileSavingDataJson(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)

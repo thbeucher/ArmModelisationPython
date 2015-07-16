@@ -47,7 +47,7 @@ class ArmDynamics:
         C = np.array([[-dotq[1,0]*(2*dotq[0,0]+dotq[1,0])*self.armP.k2*math.sin(q[1,0])],[(dotq[0,0]**2)*self.armP.k2*math.sin(q[1,0])]])
         Minv = np.linalg.inv(M)
         Q = np.diag([q[0,0], q[0,0], q[1,0], q[1,0], q[0,0], q[0,0]])
-        return Minv, C, Q
+        return Minv, C, Q, dotq, q
         
     def mddAD(self, U):
         '''
@@ -80,9 +80,8 @@ class ArmDynamics:
 
         Output:    -nextState: (4,1) numpy array
         '''
-        Minv, C, Q = self.computeMCQ(state)
+        Minv, C, Q, dotq, q = self.computeMCQ(state)
         Gamma = np.dot((np.dot(self.armP.At, self.musclesP.fmax)-np.dot(self.musclesP.Knulle, Q)), U)
-        dotq, q = getDotQAndQFromStateVectorS(state)
         ddotq = np.dot(Minv,(Gamma - C - np.dot(self.armP.B, dotq)))
         dotq += ddotq*self.dt
         q += dotq*self.dt

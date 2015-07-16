@@ -54,6 +54,8 @@ class TrajectoryGenerator:
         self.saveMvtCost = {}
         self.saveSpeed = {}
         self.saveU = {}
+        self.elbowAllCoord = {}
+        self.handAllCoord = {}
 
     def checkingKeyLoopData(self):
         '''
@@ -64,8 +66,10 @@ class TrajectoryGenerator:
     def initSaveLoopData(self):
         self.speedList = []
         self.UList = []
+        self.elbowCoord = []
+        self.handCoord = []
         
-    def saveLoopData(self, speed, U):
+    def saveLoopData(self, speed, U, coordElbow, coordHand):
         '''
         Saves data generated during the trajectory
 
@@ -73,6 +77,8 @@ class TrajectoryGenerator:
         '''
         self.speedList.append(speed)
         self.UList.append(U)
+        self.elbowCoord.append(coordElbow)
+        self.handCoord.append(coordHand)
         
     def checkingKeyEndData(self):
         '''
@@ -103,6 +109,8 @@ class TrajectoryGenerator:
         self.saveMvtCost[self.nameToSaveTraj].append(cost)
         self.saveSpeed[self.nameToSaveTraj].append(self.speedList)
         self.saveU[self.nameToSaveTraj].append(self.UList)
+        self.elbowAllCoord[self.nameToSaveTraj] = self.elbowCoord
+        self.handAllCoord[self.nameToSaveTraja] = self.handCoord
     
     def runTrajectory(self, x, y):
         '''
@@ -152,7 +160,7 @@ class TrajectoryGenerator:
                 coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
                 #code to save data of the trajectory
                 if self.saveA == True:
-                    self.saveLoopData(np.linalg.norm(dotq), Ucontrol)
+                    self.saveLoopData(np.linalg.norm(dotq), Ucontrol, coordElbow, coordHand)
             else:
                 break
             i += 1

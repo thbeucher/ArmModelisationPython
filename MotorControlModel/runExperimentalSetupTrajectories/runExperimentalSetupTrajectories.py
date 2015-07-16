@@ -65,6 +65,12 @@ class TrajectoriesGenerator:
         g = open(nameFileSaveMeanCost, 'ab')
         np.savetxt(g, np.asarray([meanCost]))
         
+    def runOneTrajectoryRBFN(self, theta, coord):
+        thetaTG = np.copy(theta)
+        self.mac.setThetaMAC(thetaTG)
+        cost = self.tg.runTrajectory(coord[0], coord[1])
+        return cost
+        
     def runTrajectoriesResultsGeneration(self, theta, repeat):
         #self.initTheta(theta)
         thetaTG = np.copy(theta)

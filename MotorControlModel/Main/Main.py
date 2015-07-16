@@ -21,6 +21,26 @@ import os
 from Utils.ReadDataTmp import getBestTheta
 from Utils.PurgeData import purgeCostNThetaTmp
 
+def generateTrajectoryRBFN(nameFolder, nameT = 'None'):
+    fr, rs = initFRRS()
+    if nameT == 'None':
+        nameTheta = pathDataFolder + "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7NP"
+    else:
+        nameTheta = pathDataFolder + "RBFN2/" + str(rs.numfeats) + "feats/" + nameT
+    theta = np.loadtxt(nameTheta)
+    print("Enter coordinate of the initial point!")
+    x = input("x: ")
+    x = float(x)
+    y = input("y: ")
+    y = float(y)
+    coord = (x, y)
+    tgs = initAllUsefullObj(rs.sizeOfTarget[3], fr, rs, True)
+    cost = tgs.runOneTrajectoryRBFN(theta, coord)
+    print("Cost: ", cost)
+    fileSavingAllDataJson(0, tgs.tg, nameFolder, True)
+    print("End of generation")
+    
+    
 def generateResults(nameFolderSave, nbret, nameT):
     fr, rs = initFRRS()
     for el in rs.sizeOfTarget:
