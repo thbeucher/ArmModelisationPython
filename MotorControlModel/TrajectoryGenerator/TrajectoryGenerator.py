@@ -110,7 +110,7 @@ class TrajectoryGenerator:
         self.saveSpeed[self.nameToSaveTraj].append(self.speedList)
         self.saveU[self.nameToSaveTraj].append(self.UList)
         self.elbowAllCoord[self.nameToSaveTraj] = self.elbowCoord
-        self.handAllCoord[self.nameToSaveTraja] = self.handCoord
+        self.handAllCoord[self.nameToSaveTraj] = self.handCoord
     
     def runTrajectory(self, x, y):
         '''
