@@ -30,7 +30,7 @@ class ArmDynamics:
     def setNewStateAD(self, dotq, q):
         self.state = createStateVector(dotq, q)
         
-    def computeMCQ(self, state, dotq, q):
+    def computeMCQ(self, state):
         '''
         Sets M, C, Minv, Q to compute the dynamic equation of the arm
         
@@ -42,6 +42,7 @@ class ArmDynamics:
                     -C: coriolis force vector, numpy array
                     -Q: torque term, numpy array
         '''
+        dotq, q = getDotQAndQFromStateVectorS(state)
         M = np.array([[self.armP.k1+2*self.armP.k2*math.cos(q[1,0]),self.armP.k3+self.armP.k2*math.cos(q[1,0])],[self.armP.k3+self.armP.k2*math.cos(q[1,0]),self.armP.k3]])
         C = np.array([[-dotq[1,0]*(2*dotq[0,0]+dotq[1,0])*self.armP.k2*math.sin(q[1,0])],[(dotq[0,0]**2)*self.armP.k2*math.sin(q[1,0])]])
         Minv = np.linalg.inv(M)
@@ -56,8 +57,7 @@ class ArmDynamics:
 
         Output:    -state: (4,1) numpy array
         '''
-        dotq, q = getDotQAndQFromStateVectorS(self.state)
-        Minv, C, Q = self.computeMCQ(self.state, dotq, q)
+        Minv, C, Q = self.computeMCQ(self.state)
         #the commented version uses a non null stiffness for the muscles
         #Gamma = np.dot((np.dot(armP.At, musclesP.fmax)-np.dot(musclesP.Kraid, Q)), U)
         Gamma = np.dot((np.dot(self.armP.At, self.musclesP.fmax)-np.dot(self.musclesP.Knulle, Q)), U)
@@ -80,9 +80,9 @@ class ArmDynamics:
 
         Output:    -nextState: (4,1) numpy array
         '''
-        dotq, q = getDotQAndQFromStateVectorS(state)
-        Minv, C, Q = self.computeMCQ(state, dotq, q)
+        Minv, C, Q = self.computeMCQ(state)
         Gamma = np.dot((np.dot(self.armP.At, self.musclesP.fmax)-np.dot(self.musclesP.Knulle, Q)), U)
+        dotq, q = getDotQAndQFromStateVectorS(state)
         ddotq = np.dot(Minv,(Gamma - C - np.dot(self.armP.B, dotq)))
         dotq += ddotq*self.dt
         q += dotq*self.dt
