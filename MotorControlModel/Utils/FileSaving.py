@@ -74,6 +74,8 @@ def fileSavingAllDataJson(sizeOfTarget, tg, folderName, rbfn = False):
     fileSavingDataJson(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
     fileSavingDataJson(nameSave + "saveMvtCost", tg.saveMvtCost)
     fileSavingDataJson(nameSave + "saveSpeed", tg.saveSpeed)
+    fileSavingDataJson(nameSave + "elbowCoord", tg.elbowAllCoord)
+    fileSavingDataJson(nameSave + "handCoord", tg.handAllCoord)
     for key, val in tg.saveU.items():
         valTmpR = []
         for el in val:
