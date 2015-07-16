@@ -9,7 +9,15 @@ Module: UnscentedKalmanFilterControl
 Description: Class with some functions to use the unscented kalman filter to generate trajectories and reproduced the human control motor delay.
 Uses the librairy pykalman.
 '''
+import cython
+cimport cython
+
 import numpy as np
+cimport numpy as np
+
+DTYPE = np.float64
+ctypedef np.float64_t DTYPE_t
+
 from pykalman import UnscentedKalmanFilter
 
 class UnscentedKalmanFilterControl:

@@ -663,7 +663,7 @@ static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_codeobj__2;
 static PyObject *__pyx_codeobj__4;
 
-/* "Utils/NiemRoot.pyx":12
+/* "Utils/NiemRoot.pyx":13
  * 
  * 
  * def racin(A, n, x0):             # <<<<<<<<<<<<<<
@@ -706,16 +706,16 @@ static PyObject *__pyx_pw_5Utils_8NiemRoot_1racin(PyObject *__pyx_self, PyObject
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_n)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("racin", 1, 3, 3, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("racin", 1, 3, 3, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_x0)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("racin", 1, 3, 3, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("racin", 1, 3, 3, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "racin") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "racin") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -730,7 +730,7 @@ static PyObject *__pyx_pw_5Utils_8NiemRoot_1racin(PyObject *__pyx_self, PyObject
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("racin", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("racin", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("Utils.NiemRoot.racin", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -763,7 +763,7 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("racin", 0);
 
-  /* "Utils/NiemRoot.pyx":18
+  /* "Utils/NiemRoot.pyx":19
  *     x0 doit etre sous la forme d'un reel (exple x0=1.0)'''
  * 
  *     i=0             # <<<<<<<<<<<<<<
@@ -773,7 +773,7 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_i = __pyx_int_0;
 
-  /* "Utils/NiemRoot.pyx":19
+  /* "Utils/NiemRoot.pyx":20
  * 
  *     i=0
  *     x=x0             # <<<<<<<<<<<<<<
@@ -783,7 +783,7 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
   __Pyx_INCREF(__pyx_v_x0);
   __pyx_v_x = __pyx_v_x0;
 
-  /* "Utils/NiemRoot.pyx":20
+  /* "Utils/NiemRoot.pyx":21
  *     i=0
  *     x=x0
  *     tol=10e-8             # <<<<<<<<<<<<<<
@@ -792,31 +792,31 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
  */
   __pyx_v_tol = 10e-8;
 
-  /* "Utils/NiemRoot.pyx":21
+  /* "Utils/NiemRoot.pyx":22
  *     x=x0
  *     tol=10e-8
  *     if x==0:             # <<<<<<<<<<<<<<
  *         print("Erreur x0 doit etre different de zero")
  *     else:
  */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_x, __pyx_int_0, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_x, __pyx_int_0, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "Utils/NiemRoot.pyx":22
+    /* "Utils/NiemRoot.pyx":23
  *     tol=10e-8
  *     if x==0:
  *         print("Erreur x0 doit etre different de zero")             # <<<<<<<<<<<<<<
  *     else:
  *         while (i<3000):
  */
-    if (__Pyx_PrintOne(0, __pyx_kp_s_Erreur_x0_doit_etre_different_de) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (__Pyx_PrintOne(0, __pyx_kp_s_Erreur_x0_doit_etre_different_de) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     goto __pyx_L3;
   }
   /*else*/ {
 
-    /* "Utils/NiemRoot.pyx":24
+    /* "Utils/NiemRoot.pyx":25
  *         print("Erreur x0 doit etre different de zero")
  *     else:
  *         while (i<3000):             # <<<<<<<<<<<<<<
@@ -824,12 +824,12 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
  *             x=x-((x**(n)-A)/(n*x**(n-1)))
  */
     while (1) {
-      __pyx_t_1 = PyObject_RichCompare(__pyx_v_i, __pyx_int_3000, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyObject_RichCompare(__pyx_v_i, __pyx_int_3000, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (!__pyx_t_2) break;
 
-      /* "Utils/NiemRoot.pyx":25
+      /* "Utils/NiemRoot.pyx":26
  *     else:
  *         while (i<3000):
  *             c=x             # <<<<<<<<<<<<<<
@@ -839,58 +839,58 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_INCREF(__pyx_v_x);
       __Pyx_XDECREF_SET(__pyx_v_c, __pyx_v_x);
 
-      /* "Utils/NiemRoot.pyx":26
+      /* "Utils/NiemRoot.pyx":27
  *         while (i<3000):
  *             c=x
  *             x=x-((x**(n)-A)/(n*x**(n-1)))             # <<<<<<<<<<<<<<
  *             q=x-c
  *             err=fabs(q/x)
  */
-      __pyx_t_1 = PyNumber_Power(__pyx_v_x, __pyx_v_n, Py_None); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyNumber_Power(__pyx_v_x, __pyx_v_n, Py_None); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = PyNumber_Subtract(__pyx_t_1, __pyx_v_A); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = PyNumber_Subtract(__pyx_t_1, __pyx_v_A); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyNumber_Subtract(__pyx_v_n, __pyx_int_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyNumber_Subtract(__pyx_v_n, __pyx_int_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_4 = PyNumber_Power(__pyx_v_x, __pyx_t_1, Py_None); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = PyNumber_Power(__pyx_v_x, __pyx_t_1, Py_None); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyNumber_Multiply(__pyx_v_n, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyNumber_Multiply(__pyx_v_n, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyNumber_Divide(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyNumber_Divide(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyNumber_Subtract(__pyx_v_x, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyNumber_Subtract(__pyx_v_x, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF_SET(__pyx_v_x, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "Utils/NiemRoot.pyx":27
+      /* "Utils/NiemRoot.pyx":28
  *             c=x
  *             x=x-((x**(n)-A)/(n*x**(n-1)))
  *             q=x-c             # <<<<<<<<<<<<<<
  *             err=fabs(q/x)
  *             i=i+1
  */
-      __pyx_t_1 = PyNumber_Subtract(__pyx_v_x, __pyx_v_c); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyNumber_Subtract(__pyx_v_x, __pyx_v_c); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_q, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "Utils/NiemRoot.pyx":28
+      /* "Utils/NiemRoot.pyx":29
  *             x=x-((x**(n)-A)/(n*x**(n-1)))
  *             q=x-c
  *             err=fabs(q/x)             # <<<<<<<<<<<<<<
  *             i=i+1
  *     if (err <tol):
  */
-      __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_fabs); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_fabs); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_v_q, __pyx_v_x); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_v_q, __pyx_v_x); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_5 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -903,17 +903,17 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
         }
       }
       if (!__pyx_t_5) {
-        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else {
-        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_6);
         PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
         PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_3);
         __Pyx_GIVEREF(__pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
@@ -921,14 +921,14 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
       __Pyx_XDECREF_SET(__pyx_v_err, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "Utils/NiemRoot.pyx":29
+      /* "Utils/NiemRoot.pyx":30
  *             q=x-c
  *             err=fabs(q/x)
  *             i=i+1             # <<<<<<<<<<<<<<
  *     if (err <tol):
  *         print(c, err)
  */
-      __pyx_t_1 = PyNumber_Add(__pyx_v_i, __pyx_int_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyNumber_Add(__pyx_v_i, __pyx_int_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF_SET(__pyx_v_i, __pyx_t_1);
       __pyx_t_1 = 0;
@@ -936,32 +936,32 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
   }
   __pyx_L3:;
 
-  /* "Utils/NiemRoot.pyx":30
+  /* "Utils/NiemRoot.pyx":31
  *             err=fabs(q/x)
  *             i=i+1
  *     if (err <tol):             # <<<<<<<<<<<<<<
  *         print(c, err)
  *     else:
  */
-  if (unlikely(!__pyx_v_err)) { __Pyx_RaiseUnboundLocalError("err"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_tol); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_v_err)) { __Pyx_RaiseUnboundLocalError("err"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_tol); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyObject_RichCompare(__pyx_v_err, __pyx_t_1, Py_LT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyObject_RichCompare(__pyx_v_err, __pyx_t_1, Py_LT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_2) {
 
-    /* "Utils/NiemRoot.pyx":31
+    /* "Utils/NiemRoot.pyx":32
  *             i=i+1
  *     if (err <tol):
  *         print(c, err)             # <<<<<<<<<<<<<<
  *     else:
  *         print(" le systeme ne converge pas. Ajuster le compteur i ou jouer sur tol ou sur x0")
  */
-    if (unlikely(!__pyx_v_c)) { __Pyx_RaiseUnboundLocalError("c"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-    if (unlikely(!__pyx_v_err)) { __Pyx_RaiseUnboundLocalError("err"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(!__pyx_v_c)) { __Pyx_RaiseUnboundLocalError("c"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+    if (unlikely(!__pyx_v_err)) { __Pyx_RaiseUnboundLocalError("err"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_v_c);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_c);
@@ -969,24 +969,24 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
     __Pyx_INCREF(__pyx_v_err);
     PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_err);
     __Pyx_GIVEREF(__pyx_v_err);
-    if (__Pyx_PrintOne(0, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (__Pyx_PrintOne(0, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     goto __pyx_L6;
   }
   /*else*/ {
 
-    /* "Utils/NiemRoot.pyx":33
+    /* "Utils/NiemRoot.pyx":34
  *         print(c, err)
  *     else:
  *         print(" le systeme ne converge pas. Ajuster le compteur i ou jouer sur tol ou sur x0")             # <<<<<<<<<<<<<<
  *     return c
  * 
  */
-    if (__Pyx_PrintOne(0, __pyx_kp_s_le_systeme_ne_converge_pas_Ajus) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (__Pyx_PrintOne(0, __pyx_kp_s_le_systeme_ne_converge_pas_Ajus) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_L6:;
 
-  /* "Utils/NiemRoot.pyx":34
+  /* "Utils/NiemRoot.pyx":35
  *     else:
  *         print(" le systeme ne converge pas. Ajuster le compteur i ou jouer sur tol ou sur x0")
  *     return c             # <<<<<<<<<<<<<<
@@ -994,12 +994,12 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
  * def tronquerNB(nb, vir):
  */
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_c)) { __Pyx_RaiseUnboundLocalError("c"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+  if (unlikely(!__pyx_v_c)) { __Pyx_RaiseUnboundLocalError("c"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
   __Pyx_INCREF(__pyx_v_c);
   __pyx_r = __pyx_v_c;
   goto __pyx_L0;
 
-  /* "Utils/NiemRoot.pyx":12
+  /* "Utils/NiemRoot.pyx":13
  * 
  * 
  * def racin(A, n, x0):             # <<<<<<<<<<<<<<
@@ -1027,7 +1027,7 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_racin(CYTHON_UNUSED PyObject *__pyx_s
   return __pyx_r;
 }
 
-/* "Utils/NiemRoot.pyx":36
+/* "Utils/NiemRoot.pyx":37
  *     return c
  * 
  * def tronquerNB(nb, vir):             # <<<<<<<<<<<<<<
@@ -1067,11 +1067,11 @@ static PyObject *__pyx_pw_5Utils_8NiemRoot_3tronquerNB(PyObject *__pyx_self, PyO
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_vir)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("tronquerNB", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("tronquerNB", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "tronquerNB") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "tronquerNB") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1084,7 +1084,7 @@ static PyObject *__pyx_pw_5Utils_8NiemRoot_3tronquerNB(PyObject *__pyx_self, PyO
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("tronquerNB", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("tronquerNB", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("Utils.NiemRoot.tronquerNB", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1109,68 +1109,68 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_2tronquerNB(CYTHON_UNUSED PyObject *_
   __Pyx_RefNannySetupContext("tronquerNB", 0);
   __Pyx_INCREF(__pyx_v_nb);
 
-  /* "Utils/NiemRoot.pyx":37
+  /* "Utils/NiemRoot.pyx":38
  * 
  * def tronquerNB(nb, vir):
  *     ex = 10**vir             # <<<<<<<<<<<<<<
  *     nb = nb*ex
  *     nb = int(nb)
  */
-  __pyx_t_1 = PyNumber_Power(__pyx_int_10, __pyx_v_vir, Py_None); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyNumber_Power(__pyx_int_10, __pyx_v_vir, Py_None); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_ex = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "Utils/NiemRoot.pyx":38
+  /* "Utils/NiemRoot.pyx":39
  * def tronquerNB(nb, vir):
  *     ex = 10**vir
  *     nb = nb*ex             # <<<<<<<<<<<<<<
  *     nb = int(nb)
  *     nb = float(nb)
  */
-  __pyx_t_1 = PyNumber_Multiply(__pyx_v_nb, __pyx_v_ex); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyNumber_Multiply(__pyx_v_nb, __pyx_v_ex); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF_SET(__pyx_v_nb, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "Utils/NiemRoot.pyx":39
+  /* "Utils/NiemRoot.pyx":40
  *     ex = 10**vir
  *     nb = nb*ex
  *     nb = int(nb)             # <<<<<<<<<<<<<<
  *     nb = float(nb)
  *     nb = nb/ex
  */
-  __pyx_t_1 = PyNumber_Int(__pyx_v_nb); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyNumber_Int(__pyx_v_nb); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF_SET(__pyx_v_nb, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "Utils/NiemRoot.pyx":40
+  /* "Utils/NiemRoot.pyx":41
  *     nb = nb*ex
  *     nb = int(nb)
  *     nb = float(nb)             # <<<<<<<<<<<<<<
  *     nb = nb/ex
  *     return nb
  */
-  __pyx_t_2 = __Pyx_PyObject_AsDouble(__pyx_v_nb); if (unlikely(__pyx_t_2 == ((double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_AsDouble(__pyx_v_nb); if (unlikely(__pyx_t_2 == ((double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF_SET(__pyx_v_nb, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "Utils/NiemRoot.pyx":41
+  /* "Utils/NiemRoot.pyx":42
  *     nb = int(nb)
  *     nb = float(nb)
  *     nb = nb/ex             # <<<<<<<<<<<<<<
  *     return nb
  * 
  */
-  __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_v_nb, __pyx_v_ex); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_v_nb, __pyx_v_ex); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF_SET(__pyx_v_nb, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "Utils/NiemRoot.pyx":42
+  /* "Utils/NiemRoot.pyx":43
  *     nb = float(nb)
  *     nb = nb/ex
  *     return nb             # <<<<<<<<<<<<<<
@@ -1181,7 +1181,7 @@ static PyObject *__pyx_pf_5Utils_8NiemRoot_2tronquerNB(CYTHON_UNUSED PyObject *_
   __pyx_r = __pyx_v_nb;
   goto __pyx_L0;
 
-  /* "Utils/NiemRoot.pyx":36
+  /* "Utils/NiemRoot.pyx":37
  *     return c
  * 
  * def tronquerNB(nb, vir):             # <<<<<<<<<<<<<<
@@ -1261,29 +1261,29 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "Utils/NiemRoot.pyx":12
+  /* "Utils/NiemRoot.pyx":13
  * 
  * 
  * def racin(A, n, x0):             # <<<<<<<<<<<<<<
  *     ''''Cette fonction base sur la methode de Newton-Raphson permet
  *     de determiner la racine n-ieme d'un nbre. err est l' erreur relative
  */
-  __pyx_tuple_ = PyTuple_Pack(9, __pyx_n_s_A, __pyx_n_s_n, __pyx_n_s_x0, __pyx_n_s_i, __pyx_n_s_x, __pyx_n_s_tol, __pyx_n_s_c, __pyx_n_s_q, __pyx_n_s_err); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple_ = PyTuple_Pack(9, __pyx_n_s_A, __pyx_n_s_n, __pyx_n_s_x0, __pyx_n_s_i, __pyx_n_s_x, __pyx_n_s_tol, __pyx_n_s_c, __pyx_n_s_q, __pyx_n_s_err); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(3, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_n_s_racin, 12, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(3, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_n_s_racin, 13, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "Utils/NiemRoot.pyx":36
+  /* "Utils/NiemRoot.pyx":37
  *     return c
  * 
  * def tronquerNB(nb, vir):             # <<<<<<<<<<<<<<
  *     ex = 10**vir
  *     nb = nb*ex
  */
-  __pyx_tuple__3 = PyTuple_Pack(3, __pyx_n_s_nb, __pyx_n_s_vir, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__3 = PyTuple_Pack(3, __pyx_n_s_nb, __pyx_n_s_vir, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_n_s_tronquerNB, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_n_s_tronquerNB, 37, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -1388,55 +1388,55 @@ PyMODINIT_FUNC PyInit_NiemRoot(void)
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "Utils/NiemRoot.pyx":8
+  /* "Utils/NiemRoot.pyx":9
  * Description: on retrouve dans ce fichier une fonction permettant de recuperer la raciene n-ieme d'un nombre
  * '''
  * from math import fabs             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_fabs);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_fabs);
   __Pyx_GIVEREF(__pyx_n_s_fabs);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_math, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_math, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_fabs); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_fabs); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_fabs, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_fabs, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "Utils/NiemRoot.pyx":12
+  /* "Utils/NiemRoot.pyx":13
  * 
  * 
  * def racin(A, n, x0):             # <<<<<<<<<<<<<<
  *     ''''Cette fonction base sur la methode de Newton-Raphson permet
  *     de determiner la racine n-ieme d'un nbre. err est l' erreur relative
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5Utils_8NiemRoot_1racin, NULL, __pyx_n_s_Utils_NiemRoot); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5Utils_8NiemRoot_1racin, NULL, __pyx_n_s_Utils_NiemRoot); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_racin, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_racin, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "Utils/NiemRoot.pyx":36
+  /* "Utils/NiemRoot.pyx":37
  *     return c
  * 
  * def tronquerNB(nb, vir):             # <<<<<<<<<<<<<<
  *     ex = 10**vir
  *     nb = nb*ex
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5Utils_8NiemRoot_3tronquerNB, NULL, __pyx_n_s_Utils_NiemRoot); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5Utils_8NiemRoot_3tronquerNB, NULL, __pyx_n_s_Utils_NiemRoot); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tronquerNB, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tronquerNB, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Utils/NiemRoot.pyx":1
  * #!/usr/bin/env python             # <<<<<<<<<<<<<<
  * # -*- coding: utf-8 -*-
- * '''
+ * #cython: boundscheck=False, wraparound=False
  */
   __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
