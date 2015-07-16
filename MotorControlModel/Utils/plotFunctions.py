@@ -23,7 +23,8 @@ from Utils.FileReading import FileReading
 #from shutil import copyfile
 #from posix import remove
 from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
-     getTimeDistance, getDistPerfSize, getVelocityProfileData, getTimeByArea
+     getTimeDistance, getDistPerfSize, getVelocityProfileData, getTimeByArea,\
+    checkIfTargetIsReach
 from matplotlib.mlab import griddata
 #from scipy.spatial import ConvexHull
 from GlobalVariables import pathTrajectoriesFolder, pathDataFolder
@@ -645,6 +646,20 @@ def plotMapTimeTrajectories(folderName):
         
     
 #plotMapTimeTrajectories()
+
+def checkReachAllTarget(folderName):
+    fr, rs = initFRRS()
+    listOfDic = []
+    for el in rs.sizeOfTarget:
+        dicTmp = checkIfTargetIsReach(el, folderName)
+        for key, val in dicTmp.items():
+            i = 0
+            for elt in val:
+                if elt == 1:
+                    i += 1
+            dicTmp[key] = i*100/len(val)
+        listOfDic.append(dicTmp)
+    print(listOfDic)
 
 
         

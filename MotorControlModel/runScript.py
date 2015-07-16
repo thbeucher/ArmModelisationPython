@@ -14,8 +14,7 @@ from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetS
     generateTrajectoryForScattergram
 from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
-    plotForAllTargetVelocityProfile
-from Utils.PurgeData import purgeCostNThetaTmp
+    plotForAllTargetVelocityProfile, checkReachAllTarget
 from Script.RunRegressionRBFN import runRBFN
 
 def checkPackages():
@@ -131,6 +130,9 @@ def runAll():
         nbret = int(nbret)
         nameT = raw_input('Number at the end of the name of the theta file: ')
         generateTrajectoryForScattergram(nameF, nbret, nameT)
+    elif choix == 14:
+        nameF = raw_input('Folder name where the results are saved: ')
+        checkReachAllTarget(nameF)
     
 runAll()
 

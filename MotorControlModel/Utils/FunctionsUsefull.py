@@ -492,9 +492,9 @@ def testNPDOT():
 
 #testNPDOT()
         
-def getDataScattergram(sizeT):
+def getDataScattergram(sizeT, nameFolder):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry2/hitDispersionAllBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/" + nameFolder + "/hitDispersion"
     coordHit = fr.getobjread(name)
     allX = []
     for key, val in coordHit.items():
@@ -527,11 +527,11 @@ def getDataScattergram(sizeT):
 
 #plotScattergram()
 
-def plotScattergram2():
+def plotScattergram2(nameFolder):
     fr, rs = initFRRS()
     data = {}
     for i in range(len(rs.sizeOfTarget)):
-        data[rs.sizeOfTarget[i]] = getDataScattergram(rs.sizeOfTarget[i])
+        data[rs.sizeOfTarget[i]] = getDataScattergram(rs.sizeOfTarget[i], nameFolder)
     print(data)
             
     plt.figure(1, figsize=(16,9))
@@ -690,6 +690,19 @@ def getTimeByArea(sizeT, folderName):
     
 #getTimeByArea(0.005)
 
+def checkIfTargetIsReach(sizeOfTarget, folderName):
+    fr, rs = initFRRS()
+    name = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/" + folderName + "/saveCoordEndTraj"
+    data = fr.getobjreadJson(name)
+    targetReachOrNot = {}
+    for key, val in data.items():
+        targetReachOrNot[key] = []
+        for el in val:
+            if el[0] >= -sizeOfTarget/2 and el[0] <= sizeOfTarget/2:
+                targetReachOrNot[key].append(1)
+            else:
+                targetReachOrNot[key].append(0)
+    return targetReachOrNot
     
 
 
