@@ -91,7 +91,7 @@ def runAll():
         launchCMAESForAllTargetSize()
     elif choix == 3:
         nameF = raw_input('Folder name where you want to save the results: ')
-        nameT = raw_input('Name of the Theta file: ')
+        nameT = raw_input('Number at the end of the name of the theta file: ')
         nbret = input("Number of repeat for each trajectory (int): ")
         nbret = int(nbret)
         generateResults(nameF, nbret, nameT)

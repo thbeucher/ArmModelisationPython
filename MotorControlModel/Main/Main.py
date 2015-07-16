@@ -45,7 +45,7 @@ def generateResults(nameFolderSave, nbret, nameT):
     fr, rs = initFRRS()
     for el in rs.sizeOfTarget:
         print("Results generation for target ", el)
-        thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/" + nameT
+        thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + nameT
         theta = np.loadtxt(thetaName)
         tgs = initAllUsefullObj(el, fr, rs, True)
         cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
@@ -89,7 +89,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/"
     #thetaCma" + str(sizeOfTarget) + "TGUKF1"
     i = 1
-    tryName = "thetaCmaTGUKF"
+    tryName = "thetaCma" + str(sizeOfTarget) + "TGUKF"
     for el in os.listdir(nameToSaveThetaCma):
         if tryName in el:
             i += 1
