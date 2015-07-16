@@ -643,6 +643,7 @@ static char __pyx_k_cma[] = "cma";
 static char __pyx_k_el1[] = "el1";
 static char __pyx_k_el2[] = "el2";
 static char __pyx_k_end[] = "end";
+static char __pyx_k_Main[] = "Main";
 static char __pyx_k_file[] = "file";
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_site[] = "site";
@@ -667,7 +668,7 @@ static char __pyx_k_listdir[] = "listdir";
 static char __pyx_k_replace[] = "replace";
 static char __pyx_k_runRBFN[] = "runRBFN";
 static char __pyx_k_pykalman[] = "pykalman";
-static char __pyx_k_Main_Main[] = "Main.Main";
+static char __pyx_k_PurgeData[] = "PurgeData";
 static char __pyx_k_raw_input[] = "raw_input";
 static char __pyx_k_runScript[] = "runScript";
 static char __pyx_k_packageList[] = "packageList";
@@ -676,22 +677,21 @@ static char __pyx_k_plotAllCmaes[] = "plotAllCmaes";
 static char __pyx_k_plotFittsLaw[] = "plotFittsLaw";
 static char __pyx_k_checkPackages[] = "checkPackages";
 static char __pyx_k_packageNeeded[] = "packageNeeded";
+static char __pyx_k_plotFunctions[] = "plotFunctions";
 static char __pyx_k_Enter_a_number[] = "Enter a number.";
 static char __pyx_k_Size_of_target[] = "Size of target: ";
 static char __pyx_k_distlib_compat[] = "distlib.compat";
-static char __pyx_k_Utils_PurgeData[] = "Utils.PurgeData";
 static char __pyx_k_generateResults[] = "generateResults";
 static char __pyx_k_getsitepackages[] = "getsitepackages";
 static char __pyx_k_plotPerfSizeDist[] = "plotPerfSizeDist";
+static char __pyx_k_RunRegressionRBFN[] = "RunRegressionRBFN";
 static char __pyx_k_purgeCostNThetaTmp[] = "purgeCostNThetaTmp";
-static char __pyx_k_Utils_plotFunctions[] = "Utils.plotFunctions";
 static char __pyx_k_listOfPackageNeeded[] = "listOfPackageNeeded";
 static char __pyx_k_sudo_pip_install_cma[] = "sudo pip install cma";
 static char __pyx_k_installMissingPackage[] = "installMissingPackage";
 static char __pyx_k_sudo_pip3_install_cma[] = "sudo pip3 install cma";
 static char __pyx_k_plotTimeDistanceTarget[] = "plotTimeDistanceTarget";
 static char __pyx_k_plotMapTimeTrajectories[] = "plotMapTimeTrajectories";
-static char __pyx_k_Script_RunRegressionRBFN[] = "Script.RunRegressionRBFN";
 static char __pyx_k_sudo_easy_install_cython[] = "sudo easy_install cython";
 static char __pyx_k_sudo_pip_install_distlib[] = "sudo pip install distlib";
 static char __pyx_k_sudo_easy_install3_cython[] = "sudo easy_install3 cython";
@@ -722,15 +722,14 @@ static PyObject *__pyx_kp_s_Enter_the_number_corresponding_t;
 static PyObject *__pyx_kp_s_Folder_name_where_the_results_ar;
 static PyObject *__pyx_kp_s_Folder_name_where_you_want_to_sa;
 static PyObject *__pyx_kp_s_Generate_results_with_the_best_t;
-static PyObject *__pyx_n_s_Main_Main;
+static PyObject *__pyx_n_s_Main;
 static PyObject *__pyx_kp_s_Name_to_save_the_RBFN_controller;
 static PyObject *__pyx_kp_s_Number_at_the_end_of_the_name_of;
 static PyObject *__pyx_kp_s_Number_of_repeat_for_each_trajec;
-static PyObject *__pyx_n_s_Script_RunRegressionRBFN;
+static PyObject *__pyx_n_s_PurgeData;
+static PyObject *__pyx_n_s_RunRegressionRBFN;
 static PyObject *__pyx_kp_s_Script_available_1_launchCMAESFo;
 static PyObject *__pyx_kp_s_Size_of_target;
-static PyObject *__pyx_n_s_Utils_PurgeData;
-static PyObject *__pyx_n_s_Utils_plotFunctions;
 static PyObject *__pyx_kp_s__3;
 static PyObject *__pyx_n_s_a;
 static PyObject *__pyx_n_s_b;
@@ -772,6 +771,7 @@ static PyObject *__pyx_n_s_packageNeeded;
 static PyObject *__pyx_n_s_plotAllCmaes;
 static PyObject *__pyx_n_s_plotFittsLaw;
 static PyObject *__pyx_n_s_plotForAllTargetVelocityProfile;
+static PyObject *__pyx_n_s_plotFunctions;
 static PyObject *__pyx_n_s_plotMapTimeTrajectories;
 static PyObject *__pyx_n_s_plotPerfSizeDist;
 static PyObject *__pyx_n_s_plotTimeDistanceTarget;
@@ -846,7 +846,7 @@ static PyObject *__pyx_codeobj__33;
 static PyObject *__pyx_codeobj__35;
 
 /* "runScript.pyx":20
- * from Script.RunRegressionRBFN import runRBFN
+ * from RunRegressionRBFN import runRBFN
  * 
  * def checkPackages():             # <<<<<<<<<<<<<<
  *     a = site.getsitepackages()
@@ -1168,7 +1168,7 @@ static PyObject *__pyx_pf_9runScript_checkPackages(CYTHON_UNUSED PyObject *__pyx
   goto __pyx_L0;
 
   /* "runScript.pyx":20
- * from Script.RunRegressionRBFN import runRBFN
+ * from RunRegressionRBFN import runRBFN
  * 
  * def checkPackages():             # <<<<<<<<<<<<<<
  *     a = site.getsitepackages()
@@ -3024,15 +3024,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Folder_name_where_the_results_ar, __pyx_k_Folder_name_where_the_results_ar, sizeof(__pyx_k_Folder_name_where_the_results_ar), 0, 0, 1, 0},
   {&__pyx_kp_s_Folder_name_where_you_want_to_sa, __pyx_k_Folder_name_where_you_want_to_sa, sizeof(__pyx_k_Folder_name_where_you_want_to_sa), 0, 0, 1, 0},
   {&__pyx_kp_s_Generate_results_with_the_best_t, __pyx_k_Generate_results_with_the_best_t, sizeof(__pyx_k_Generate_results_with_the_best_t), 0, 0, 1, 0},
-  {&__pyx_n_s_Main_Main, __pyx_k_Main_Main, sizeof(__pyx_k_Main_Main), 0, 0, 1, 1},
+  {&__pyx_n_s_Main, __pyx_k_Main, sizeof(__pyx_k_Main), 0, 0, 1, 1},
   {&__pyx_kp_s_Name_to_save_the_RBFN_controller, __pyx_k_Name_to_save_the_RBFN_controller, sizeof(__pyx_k_Name_to_save_the_RBFN_controller), 0, 0, 1, 0},
   {&__pyx_kp_s_Number_at_the_end_of_the_name_of, __pyx_k_Number_at_the_end_of_the_name_of, sizeof(__pyx_k_Number_at_the_end_of_the_name_of), 0, 0, 1, 0},
   {&__pyx_kp_s_Number_of_repeat_for_each_trajec, __pyx_k_Number_of_repeat_for_each_trajec, sizeof(__pyx_k_Number_of_repeat_for_each_trajec), 0, 0, 1, 0},
-  {&__pyx_n_s_Script_RunRegressionRBFN, __pyx_k_Script_RunRegressionRBFN, sizeof(__pyx_k_Script_RunRegressionRBFN), 0, 0, 1, 1},
+  {&__pyx_n_s_PurgeData, __pyx_k_PurgeData, sizeof(__pyx_k_PurgeData), 0, 0, 1, 1},
+  {&__pyx_n_s_RunRegressionRBFN, __pyx_k_RunRegressionRBFN, sizeof(__pyx_k_RunRegressionRBFN), 0, 0, 1, 1},
   {&__pyx_kp_s_Script_available_1_launchCMAESFo, __pyx_k_Script_available_1_launchCMAESFo, sizeof(__pyx_k_Script_available_1_launchCMAESFo), 0, 0, 1, 0},
   {&__pyx_kp_s_Size_of_target, __pyx_k_Size_of_target, sizeof(__pyx_k_Size_of_target), 0, 0, 1, 0},
-  {&__pyx_n_s_Utils_PurgeData, __pyx_k_Utils_PurgeData, sizeof(__pyx_k_Utils_PurgeData), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_plotFunctions, __pyx_k_Utils_plotFunctions, sizeof(__pyx_k_Utils_plotFunctions), 0, 0, 1, 1},
   {&__pyx_kp_s__3, __pyx_k__3, sizeof(__pyx_k__3), 0, 0, 1, 0},
   {&__pyx_n_s_a, __pyx_k_a, sizeof(__pyx_k_a), 0, 0, 1, 1},
   {&__pyx_n_s_b, __pyx_k_b, sizeof(__pyx_k_b), 0, 0, 1, 1},
@@ -3074,6 +3073,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_plotAllCmaes, __pyx_k_plotAllCmaes, sizeof(__pyx_k_plotAllCmaes), 0, 0, 1, 1},
   {&__pyx_n_s_plotFittsLaw, __pyx_k_plotFittsLaw, sizeof(__pyx_k_plotFittsLaw), 0, 0, 1, 1},
   {&__pyx_n_s_plotForAllTargetVelocityProfile, __pyx_k_plotForAllTargetVelocityProfile, sizeof(__pyx_k_plotForAllTargetVelocityProfile), 0, 0, 1, 1},
+  {&__pyx_n_s_plotFunctions, __pyx_k_plotFunctions, sizeof(__pyx_k_plotFunctions), 0, 0, 1, 1},
   {&__pyx_n_s_plotMapTimeTrajectories, __pyx_k_plotMapTimeTrajectories, sizeof(__pyx_k_plotMapTimeTrajectories), 0, 0, 1, 1},
   {&__pyx_n_s_plotPerfSizeDist, __pyx_k_plotPerfSizeDist, sizeof(__pyx_k_plotPerfSizeDist), 0, 0, 1, 1},
   {&__pyx_n_s_plotTimeDistanceTarget, __pyx_k_plotTimeDistanceTarget, sizeof(__pyx_k_plotTimeDistanceTarget), 0, 0, 1, 1},
@@ -3411,7 +3411,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__29);
 
   /* "runScript.pyx":20
- * from Script.RunRegressionRBFN import runRBFN
+ * from RunRegressionRBFN import runRBFN
  * 
  * def checkPackages():             # <<<<<<<<<<<<<<
  *     a = site.getsitepackages()
@@ -3563,7 +3563,7 @@ PyMODINIT_FUNC PyInit_runScript(void)
  * '''
  * import site             # <<<<<<<<<<<<<<
  * import os
- * from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
+ * from Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_site, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -3574,7 +3574,7 @@ PyMODINIT_FUNC PyInit_runScript(void)
  * '''
  * import site
  * import os             # <<<<<<<<<<<<<<
- * from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
+ * from Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
  *     generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_os, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3585,9 +3585,9 @@ PyMODINIT_FUNC PyInit_runScript(void)
   /* "runScript.pyx":12
  * import site
  * import os
- * from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\             # <<<<<<<<<<<<<<
+ * from Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\             # <<<<<<<<<<<<<<
  *     generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize
- * from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
+ * from plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
  */
   __pyx_t_1 = PyList_New(5); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -3606,7 +3606,7 @@ PyMODINIT_FUNC PyInit_runScript(void)
   __Pyx_INCREF(__pyx_n_s_launchCMAESWithBestThetaTmpForAl);
   PyList_SET_ITEM(__pyx_t_1, 4, __pyx_n_s_launchCMAESWithBestThetaTmpForAl);
   __Pyx_GIVEREF(__pyx_n_s_launchCMAESWithBestThetaTmpForAl);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Main_Main, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Main, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_launchCMAESForSpecificTargetSize); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3632,9 +3632,9 @@ PyMODINIT_FUNC PyInit_runScript(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "runScript.pyx":14
- * from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
+ * from Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
  *     generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize
- * from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\             # <<<<<<<<<<<<<<
+ * from plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\             # <<<<<<<<<<<<<<
  *     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
  *     plotForAllTargetVelocityProfile
  */
@@ -3658,7 +3658,7 @@ PyMODINIT_FUNC PyInit_runScript(void)
   __Pyx_INCREF(__pyx_n_s_plotForAllTargetVelocityProfile);
   PyList_SET_ITEM(__pyx_t_2, 5, __pyx_n_s_plotForAllTargetVelocityProfile);
   __Pyx_GIVEREF(__pyx_n_s_plotForAllTargetVelocityProfile);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Utils_plotFunctions, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_plotFunctions, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_plotAllCmaes); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3690,8 +3690,8 @@ PyMODINIT_FUNC PyInit_runScript(void)
   /* "runScript.pyx":17
  *     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
  *     plotForAllTargetVelocityProfile
- * from Utils.PurgeData import purgeCostNThetaTmp             # <<<<<<<<<<<<<<
- * from Script.RunRegressionRBFN import runRBFN
+ * from PurgeData import purgeCostNThetaTmp             # <<<<<<<<<<<<<<
+ * from RunRegressionRBFN import runRBFN
  * 
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3699,7 +3699,7 @@ PyMODINIT_FUNC PyInit_runScript(void)
   __Pyx_INCREF(__pyx_n_s_purgeCostNThetaTmp);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_purgeCostNThetaTmp);
   __Pyx_GIVEREF(__pyx_n_s_purgeCostNThetaTmp);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_PurgeData, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_PurgeData, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_purgeCostNThetaTmp); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3710,8 +3710,8 @@ PyMODINIT_FUNC PyInit_runScript(void)
 
   /* "runScript.pyx":18
  *     plotForAllTargetVelocityProfile
- * from Utils.PurgeData import purgeCostNThetaTmp
- * from Script.RunRegressionRBFN import runRBFN             # <<<<<<<<<<<<<<
+ * from PurgeData import purgeCostNThetaTmp
+ * from RunRegressionRBFN import runRBFN             # <<<<<<<<<<<<<<
  * 
  * def checkPackages():
  */
@@ -3720,7 +3720,7 @@ PyMODINIT_FUNC PyInit_runScript(void)
   __Pyx_INCREF(__pyx_n_s_runRBFN);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_runRBFN);
   __Pyx_GIVEREF(__pyx_n_s_runRBFN);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Script_RunRegressionRBFN, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_RunRegressionRBFN, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_runRBFN); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3730,7 +3730,7 @@ PyMODINIT_FUNC PyInit_runScript(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "runScript.pyx":20
- * from Script.RunRegressionRBFN import runRBFN
+ * from RunRegressionRBFN import runRBFN
  * 
  * def checkPackages():             # <<<<<<<<<<<<<<
  *     a = site.getsitepackages()

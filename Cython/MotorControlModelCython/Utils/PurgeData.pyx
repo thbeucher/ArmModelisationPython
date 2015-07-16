@@ -5,7 +5,7 @@ Author: Thomas Beucher
 Module: PurgeData
 Description: the function below alow to purge temporary data
 '''
-from Utils.InitUtil import initFRRS
+from InitUtil import initFRRS
 from GlobalVariables import pathDataFolder
 import numpy as np
 

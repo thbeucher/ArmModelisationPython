@@ -671,6 +671,7 @@ static char __pyx_k_import[] = "__import__";
 static char __pyx_k_listBT[] = "listBT";
 static char __pyx_k_arrList[] = "arrList";
 static char __pyx_k_loadtxt[] = "loadtxt";
+static char __pyx_k_InitUtil[] = "InitUtil";
 static char __pyx_k_costList[] = "costList";
 static char __pyx_k_initFRRS[] = "initFRRS";
 static char __pyx_k_inputDim[] = "inputDim";
@@ -681,7 +682,6 @@ static char __pyx_k_getBestTheta[] = "getBestTheta";
 static char __pyx_k_sizeOfTarget[] = "sizeOfTarget";
 static char __pyx_k_costMaxIndice[] = "costMaxIndice";
 static char __pyx_k_numberOfTheta[] = "numberOfTheta";
-static char __pyx_k_Utils_InitUtil[] = "Utils.InitUtil";
 static char __pyx_k_nameFileToRead[] = "nameFileToRead";
 static char __pyx_k_pathDataFolder[] = "pathDataFolder";
 static char __pyx_k_GlobalVariables[] = "GlobalVariables";
@@ -693,9 +693,9 @@ static char __pyx_k_readThetaTmpBySizeOfTarget[] = "readThetaTmpBySizeOfTarget";
 static char __pyx_k_Author_Thomas_Beucher_Module_Re[] = "\nAuthor: Thomas Beucher\nModule: ReadDataTmp\nDescription: the function below alow to read temporary data\n";
 static char __pyx_k_home_beucher_workspace_Cython_M[] = "/home/beucher/workspace/Cython/MotorControlModelCython/Utils/ReadDataTmp.pyx";
 static PyObject *__pyx_n_s_GlobalVariables;
+static PyObject *__pyx_n_s_InitUtil;
 static PyObject *__pyx_n_s_None;
 static PyObject *__pyx_kp_s_OptimisationResults_ResCma;
-static PyObject *__pyx_n_s_Utils_InitUtil;
 static PyObject *__pyx_n_s_Utils_ReadDataTmp;
 static PyObject *__pyx_n_s_argmax;
 static PyObject *__pyx_n_s_arrAll;
@@ -1784,9 +1784,9 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
+  {&__pyx_n_s_InitUtil, __pyx_k_InitUtil, sizeof(__pyx_k_InitUtil), 0, 0, 1, 1},
   {&__pyx_n_s_None, __pyx_k_None, sizeof(__pyx_k_None), 0, 0, 1, 1},
   {&__pyx_kp_s_OptimisationResults_ResCma, __pyx_k_OptimisationResults_ResCma, sizeof(__pyx_k_OptimisationResults_ResCma), 0, 0, 1, 0},
-  {&__pyx_n_s_Utils_InitUtil, __pyx_k_Utils_InitUtil, sizeof(__pyx_k_Utils_InitUtil), 0, 0, 1, 1},
   {&__pyx_n_s_Utils_ReadDataTmp, __pyx_k_Utils_ReadDataTmp, sizeof(__pyx_k_Utils_ReadDataTmp), 0, 0, 1, 1},
   {&__pyx_n_s_argmax, __pyx_k_argmax, sizeof(__pyx_k_argmax), 0, 0, 1, 1},
   {&__pyx_n_s_arrAll, __pyx_k_arrAll, sizeof(__pyx_k_arrAll), 0, 0, 1, 1},
@@ -1978,7 +1978,7 @@ PyMODINIT_FUNC PyInit_ReadDataTmp(void)
  * 
  * import numpy as np             # <<<<<<<<<<<<<<
  * from GlobalVariables import pathDataFolder
- * from Utils.InitUtil import initFRRS
+ * from InitUtil import initFRRS
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -1989,7 +1989,7 @@ PyMODINIT_FUNC PyInit_ReadDataTmp(void)
  * 
  * import numpy as np
  * from GlobalVariables import pathDataFolder             # <<<<<<<<<<<<<<
- * from Utils.InitUtil import initFRRS
+ * from InitUtil import initFRRS
  * 
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2009,7 +2009,7 @@ PyMODINIT_FUNC PyInit_ReadDataTmp(void)
   /* "Utils/ReadDataTmp.pyx":11
  * import numpy as np
  * from GlobalVariables import pathDataFolder
- * from Utils.InitUtil import initFRRS             # <<<<<<<<<<<<<<
+ * from InitUtil import initFRRS             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -2018,7 +2018,7 @@ PyMODINIT_FUNC PyInit_ReadDataTmp(void)
   __Pyx_INCREF(__pyx_n_s_initFRRS);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_initFRRS);
   __Pyx_GIVEREF(__pyx_n_s_initFRRS);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Utils_InitUtil, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_InitUtil, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_initFRRS); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

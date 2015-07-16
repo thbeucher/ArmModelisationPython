@@ -706,41 +706,41 @@ static char __pyx_k_options[] = "options";
 static char __pyx_k_popsize[] = "popsize";
 static char __pyx_k_savetxt[] = "savetxt";
 static char __pyx_k_tryName[] = "tryName";
+static char __pyx_k_InitUtil[] = "InitUtil";
 static char __pyx_k_initFRRS[] = "initFRRS";
 static char __pyx_k_numfeats[] = "numfeats";
 static char __pyx_k_thetaCma[] = "/thetaCma";
 static char __pyx_k_Main_Main[] = "Main.Main";
+static char __pyx_k_PurgeData[] = "PurgeData";
 static char __pyx_k_nameTheta[] = "nameTheta";
 static char __pyx_k_thetaName[] = "thetaName";
+static char __pyx_k_FileSaving[] = "FileSaving";
 static char __pyx_k_nameFolder[] = "nameFolder";
 static char __pyx_k_sigmaCmaes[] = "sigmaCmaes";
 static char __pyx_k_thetaCma_2[] = "thetaCma";
+static char __pyx_k_ReadDataTmp[] = "ReadDataTmp";
+static char __pyx_k_InitUtilMain[] = "InitUtilMain";
 static char __pyx_k_getBestTheta[] = "getBestTheta";
 static char __pyx_k_maxIterCmaes[] = "maxIterCmaes";
 static char __pyx_k_popsizeCmaes[] = "popsizeCmaes";
 static char __pyx_k_sizeOfTarget[] = "sizeOfTarget";
-static char __pyx_k_Utils_InitUtil[] = "Utils.InitUtil";
 static char __pyx_k_matrixToVector[] = "matrixToVector";
 static char __pyx_k_nameFolderSave[] = "nameFolderSave";
 static char __pyx_k_pathDataFolder[] = "pathDataFolder";
 static char __pyx_k_GlobalVariables[] = "GlobalVariables";
-static char __pyx_k_Utils_PurgeData[] = "Utils.PurgeData";
 static char __pyx_k_feats_ThetaX7NP[] = "feats/ThetaX7NP";
 static char __pyx_k_generateResults[] = "generateResults";
 static char __pyx_k_normalizationNP[] = "normalizationNP";
-static char __pyx_k_Utils_FileSaving[] = "Utils.FileSaving";
 static char __pyx_k_End_of_generation[] = "End of generation";
-static char __pyx_k_Utils_ReadDataTmp[] = "Utils.ReadDataTmp";
 static char __pyx_k_initAllUsefullObj[] = "initAllUsefullObj";
 static char __pyx_k_thetaLocalisation[] = "thetaLocalisation";
-static char __pyx_k_Utils_InitUtilMain[] = "Utils.InitUtilMain";
+static char __pyx_k_ThetaNormalization[] = "ThetaNormalization";
 static char __pyx_k_nameToSaveThetaCma[] = "nameToSaveThetaCma";
 static char __pyx_k_purgeCostNThetaTmp[] = "purgeCostNThetaTmp";
 static char __pyx_k_multiprocessing_pool[] = "multiprocessing.pool";
 static char __pyx_k_runOneTrajectoryRBFN[] = "runOneTrajectoryRBFN";
 static char __pyx_k_fileSavingAllDataJson[] = "fileSavingAllDataJson";
 static char __pyx_k_generateTrajectoryRBFN[] = "generateTrajectoryRBFN";
-static char __pyx_k_Utils_ThetaNormalization[] = "Utils.ThetaNormalization";
 static char __pyx_k_OptimisationResults_ResCma[] = "OptimisationResults/ResCma";
 static char __pyx_k_launchCMAESForAllTargetSize[] = "launchCMAESForAllTargetSize";
 static char __pyx_k_normalizationNPWithoutSaving[] = "normalizationNPWithoutSaving";
@@ -760,21 +760,21 @@ static PyObject *__pyx_kp_s_Cost;
 static PyObject *__pyx_kp_s_End_of_generation;
 static PyObject *__pyx_kp_s_End_of_optimization_for_target;
 static PyObject *__pyx_kp_s_Enter_coordinate_of_the_initial;
+static PyObject *__pyx_n_s_FileSaving;
 static PyObject *__pyx_n_s_GlobalVariables;
+static PyObject *__pyx_n_s_InitUtil;
+static PyObject *__pyx_n_s_InitUtilMain;
 static PyObject *__pyx_n_s_Main_Main;
 static PyObject *__pyx_n_s_None;
 static PyObject *__pyx_kp_s_OptimisationResults_ResCma;
 static PyObject *__pyx_n_s_Pool;
+static PyObject *__pyx_n_s_PurgeData;
 static PyObject *__pyx_kp_s_RBFN2;
+static PyObject *__pyx_n_s_ReadDataTmp;
 static PyObject *__pyx_kp_s_Results_generation_for_target;
 static PyObject *__pyx_kp_s_Start_of_the_CMAES_Optimization;
 static PyObject *__pyx_n_s_TGUKF;
-static PyObject *__pyx_n_s_Utils_FileSaving;
-static PyObject *__pyx_n_s_Utils_InitUtil;
-static PyObject *__pyx_n_s_Utils_InitUtilMain;
-static PyObject *__pyx_n_s_Utils_PurgeData;
-static PyObject *__pyx_n_s_Utils_ReadDataTmp;
-static PyObject *__pyx_n_s_Utils_ThetaNormalization;
+static PyObject *__pyx_n_s_ThetaNormalization;
 static PyObject *__pyx_kp_s__3;
 static PyObject *__pyx_kp_s__4;
 static PyObject *__pyx_n_s_cma;
@@ -872,7 +872,7 @@ static PyObject *__pyx_codeobj__16;
 static PyObject *__pyx_codeobj__18;
 
 /* "Main/Main.pyx":24
- * from Utils.PurgeData import purgeCostNThetaTmp
+ * from PurgeData import purgeCostNThetaTmp
  * 
  * def generateTrajectoryRBFN(nameFolder, nameT = 'None'):             # <<<<<<<<<<<<<<
  *     fr, rs = initFRRS()
@@ -1414,7 +1414,7 @@ static PyObject *__pyx_pf_4Main_4Main_generateTrajectoryRBFN(CYTHON_UNUSED PyObj
   if (__Pyx_PrintOne(0, __pyx_kp_s_End_of_generation) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "Main/Main.pyx":24
- * from Utils.PurgeData import purgeCostNThetaTmp
+ * from PurgeData import purgeCostNThetaTmp
  * 
  * def generateTrajectoryRBFN(nameFolder, nameT = 'None'):             # <<<<<<<<<<<<<<
  *     fr, rs = initFRRS()
@@ -4525,21 +4525,21 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_End_of_generation, __pyx_k_End_of_generation, sizeof(__pyx_k_End_of_generation), 0, 0, 1, 0},
   {&__pyx_kp_s_End_of_optimization_for_target, __pyx_k_End_of_optimization_for_target, sizeof(__pyx_k_End_of_optimization_for_target), 0, 0, 1, 0},
   {&__pyx_kp_s_Enter_coordinate_of_the_initial, __pyx_k_Enter_coordinate_of_the_initial, sizeof(__pyx_k_Enter_coordinate_of_the_initial), 0, 0, 1, 0},
+  {&__pyx_n_s_FileSaving, __pyx_k_FileSaving, sizeof(__pyx_k_FileSaving), 0, 0, 1, 1},
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
+  {&__pyx_n_s_InitUtil, __pyx_k_InitUtil, sizeof(__pyx_k_InitUtil), 0, 0, 1, 1},
+  {&__pyx_n_s_InitUtilMain, __pyx_k_InitUtilMain, sizeof(__pyx_k_InitUtilMain), 0, 0, 1, 1},
   {&__pyx_n_s_Main_Main, __pyx_k_Main_Main, sizeof(__pyx_k_Main_Main), 0, 0, 1, 1},
   {&__pyx_n_s_None, __pyx_k_None, sizeof(__pyx_k_None), 0, 0, 1, 1},
   {&__pyx_kp_s_OptimisationResults_ResCma, __pyx_k_OptimisationResults_ResCma, sizeof(__pyx_k_OptimisationResults_ResCma), 0, 0, 1, 0},
   {&__pyx_n_s_Pool, __pyx_k_Pool, sizeof(__pyx_k_Pool), 0, 0, 1, 1},
+  {&__pyx_n_s_PurgeData, __pyx_k_PurgeData, sizeof(__pyx_k_PurgeData), 0, 0, 1, 1},
   {&__pyx_kp_s_RBFN2, __pyx_k_RBFN2, sizeof(__pyx_k_RBFN2), 0, 0, 1, 0},
+  {&__pyx_n_s_ReadDataTmp, __pyx_k_ReadDataTmp, sizeof(__pyx_k_ReadDataTmp), 0, 0, 1, 1},
   {&__pyx_kp_s_Results_generation_for_target, __pyx_k_Results_generation_for_target, sizeof(__pyx_k_Results_generation_for_target), 0, 0, 1, 0},
   {&__pyx_kp_s_Start_of_the_CMAES_Optimization, __pyx_k_Start_of_the_CMAES_Optimization, sizeof(__pyx_k_Start_of_the_CMAES_Optimization), 0, 0, 1, 0},
   {&__pyx_n_s_TGUKF, __pyx_k_TGUKF, sizeof(__pyx_k_TGUKF), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_FileSaving, __pyx_k_Utils_FileSaving, sizeof(__pyx_k_Utils_FileSaving), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_InitUtil, __pyx_k_Utils_InitUtil, sizeof(__pyx_k_Utils_InitUtil), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_InitUtilMain, __pyx_k_Utils_InitUtilMain, sizeof(__pyx_k_Utils_InitUtilMain), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_PurgeData, __pyx_k_Utils_PurgeData, sizeof(__pyx_k_Utils_PurgeData), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_ReadDataTmp, __pyx_k_Utils_ReadDataTmp, sizeof(__pyx_k_Utils_ReadDataTmp), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_ThetaNormalization, __pyx_k_Utils_ThetaNormalization, sizeof(__pyx_k_Utils_ThetaNormalization), 0, 0, 1, 1},
+  {&__pyx_n_s_ThetaNormalization, __pyx_k_ThetaNormalization, sizeof(__pyx_k_ThetaNormalization), 0, 0, 1, 1},
   {&__pyx_kp_s__3, __pyx_k__3, sizeof(__pyx_k__3), 0, 0, 1, 0},
   {&__pyx_kp_s__4, __pyx_k__4, sizeof(__pyx_k__4), 0, 0, 1, 0},
   {&__pyx_n_s_cma, __pyx_k_cma, sizeof(__pyx_k_cma), 0, 0, 1, 1},
@@ -4653,7 +4653,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__2);
 
   /* "Main/Main.pyx":24
- * from Utils.PurgeData import purgeCostNThetaTmp
+ * from PurgeData import purgeCostNThetaTmp
  * 
  * def generateTrajectoryRBFN(nameFolder, nameT = 'None'):             # <<<<<<<<<<<<<<
  *     fr, rs = initFRRS()
@@ -4854,7 +4854,7 @@ PyMODINIT_FUNC PyInit_Main(void)
  * import cma
  * import numpy as np             # <<<<<<<<<<<<<<
  * from multiprocessing.pool import Pool
- * from Utils.InitUtil import initFRRS
+ * from InitUtil import initFRRS
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -4865,8 +4865,8 @@ PyMODINIT_FUNC PyInit_Main(void)
  * import cma
  * import numpy as np
  * from multiprocessing.pool import Pool             # <<<<<<<<<<<<<<
- * from Utils.InitUtil import initFRRS
- * from Utils.ThetaNormalization import normalizationNP, matrixToVector,\
+ * from InitUtil import initFRRS
+ * from ThetaNormalization import normalizationNP, matrixToVector,\
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -4885,8 +4885,8 @@ PyMODINIT_FUNC PyInit_Main(void)
   /* "Main/Main.pyx":14
  * import numpy as np
  * from multiprocessing.pool import Pool
- * from Utils.InitUtil import initFRRS             # <<<<<<<<<<<<<<
- * from Utils.ThetaNormalization import normalizationNP, matrixToVector,\
+ * from InitUtil import initFRRS             # <<<<<<<<<<<<<<
+ * from ThetaNormalization import normalizationNP, matrixToVector,\
  *     normalizationNPWithoutSaving
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4894,7 +4894,7 @@ PyMODINIT_FUNC PyInit_Main(void)
   __Pyx_INCREF(__pyx_n_s_initFRRS);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_initFRRS);
   __Pyx_GIVEREF(__pyx_n_s_initFRRS);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Utils_InitUtil, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_InitUtil, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_initFRRS); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4905,10 +4905,10 @@ PyMODINIT_FUNC PyInit_Main(void)
 
   /* "Main/Main.pyx":15
  * from multiprocessing.pool import Pool
- * from Utils.InitUtil import initFRRS
- * from Utils.ThetaNormalization import normalizationNP, matrixToVector,\             # <<<<<<<<<<<<<<
+ * from InitUtil import initFRRS
+ * from ThetaNormalization import normalizationNP, matrixToVector,\             # <<<<<<<<<<<<<<
  *     normalizationNPWithoutSaving
- * from Utils.InitUtilMain import initAllUsefullObj
+ * from InitUtilMain import initAllUsefullObj
  */
   __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -4921,7 +4921,7 @@ PyMODINIT_FUNC PyInit_Main(void)
   __Pyx_INCREF(__pyx_n_s_normalizationNPWithoutSaving);
   PyList_SET_ITEM(__pyx_t_1, 2, __pyx_n_s_normalizationNPWithoutSaving);
   __Pyx_GIVEREF(__pyx_n_s_normalizationNPWithoutSaving);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_ThetaNormalization, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ThetaNormalization, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_normalizationNP); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4939,10 +4939,10 @@ PyMODINIT_FUNC PyInit_Main(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Main/Main.pyx":17
- * from Utils.ThetaNormalization import normalizationNP, matrixToVector,\
+ * from ThetaNormalization import normalizationNP, matrixToVector,\
  *     normalizationNPWithoutSaving
- * from Utils.InitUtilMain import initAllUsefullObj             # <<<<<<<<<<<<<<
- * from Utils.FileSaving import fileSavingAllDataJson
+ * from InitUtilMain import initAllUsefullObj             # <<<<<<<<<<<<<<
+ * from FileSaving import fileSavingAllDataJson
  * from GlobalVariables import pathDataFolder
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4950,7 +4950,7 @@ PyMODINIT_FUNC PyInit_Main(void)
   __Pyx_INCREF(__pyx_n_s_initAllUsefullObj);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_initAllUsefullObj);
   __Pyx_GIVEREF(__pyx_n_s_initAllUsefullObj);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Utils_InitUtilMain, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_InitUtilMain, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_initAllUsefullObj); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4961,8 +4961,8 @@ PyMODINIT_FUNC PyInit_Main(void)
 
   /* "Main/Main.pyx":18
  *     normalizationNPWithoutSaving
- * from Utils.InitUtilMain import initAllUsefullObj
- * from Utils.FileSaving import fileSavingAllDataJson             # <<<<<<<<<<<<<<
+ * from InitUtilMain import initAllUsefullObj
+ * from FileSaving import fileSavingAllDataJson             # <<<<<<<<<<<<<<
  * from GlobalVariables import pathDataFolder
  * import os
  */
@@ -4971,7 +4971,7 @@ PyMODINIT_FUNC PyInit_Main(void)
   __Pyx_INCREF(__pyx_n_s_fileSavingAllDataJson);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_fileSavingAllDataJson);
   __Pyx_GIVEREF(__pyx_n_s_fileSavingAllDataJson);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_FileSaving, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_FileSaving, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_fileSavingAllDataJson); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4981,11 +4981,11 @@ PyMODINIT_FUNC PyInit_Main(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Main/Main.pyx":19
- * from Utils.InitUtilMain import initAllUsefullObj
- * from Utils.FileSaving import fileSavingAllDataJson
+ * from InitUtilMain import initAllUsefullObj
+ * from FileSaving import fileSavingAllDataJson
  * from GlobalVariables import pathDataFolder             # <<<<<<<<<<<<<<
  * import os
- * from Utils.ReadDataTmp import getBestTheta
+ * from ReadDataTmp import getBestTheta
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -5002,11 +5002,11 @@ PyMODINIT_FUNC PyInit_Main(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Main/Main.pyx":20
- * from Utils.FileSaving import fileSavingAllDataJson
+ * from FileSaving import fileSavingAllDataJson
  * from GlobalVariables import pathDataFolder
  * import os             # <<<<<<<<<<<<<<
- * from Utils.ReadDataTmp import getBestTheta
- * from Utils.PurgeData import purgeCostNThetaTmp
+ * from ReadDataTmp import getBestTheta
+ * from PurgeData import purgeCostNThetaTmp
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_os, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -5016,8 +5016,8 @@ PyMODINIT_FUNC PyInit_Main(void)
   /* "Main/Main.pyx":21
  * from GlobalVariables import pathDataFolder
  * import os
- * from Utils.ReadDataTmp import getBestTheta             # <<<<<<<<<<<<<<
- * from Utils.PurgeData import purgeCostNThetaTmp
+ * from ReadDataTmp import getBestTheta             # <<<<<<<<<<<<<<
+ * from PurgeData import purgeCostNThetaTmp
  * 
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -5025,7 +5025,7 @@ PyMODINIT_FUNC PyInit_Main(void)
   __Pyx_INCREF(__pyx_n_s_getBestTheta);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_getBestTheta);
   __Pyx_GIVEREF(__pyx_n_s_getBestTheta);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_ReadDataTmp, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ReadDataTmp, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_getBestTheta); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -5036,8 +5036,8 @@ PyMODINIT_FUNC PyInit_Main(void)
 
   /* "Main/Main.pyx":22
  * import os
- * from Utils.ReadDataTmp import getBestTheta
- * from Utils.PurgeData import purgeCostNThetaTmp             # <<<<<<<<<<<<<<
+ * from ReadDataTmp import getBestTheta
+ * from PurgeData import purgeCostNThetaTmp             # <<<<<<<<<<<<<<
  * 
  * def generateTrajectoryRBFN(nameFolder, nameT = 'None'):
  */
@@ -5046,7 +5046,7 @@ PyMODINIT_FUNC PyInit_Main(void)
   __Pyx_INCREF(__pyx_n_s_purgeCostNThetaTmp);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_purgeCostNThetaTmp);
   __Pyx_GIVEREF(__pyx_n_s_purgeCostNThetaTmp);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Utils_PurgeData, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_PurgeData, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_purgeCostNThetaTmp); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -5056,7 +5056,7 @@ PyMODINIT_FUNC PyInit_Main(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Main/Main.pyx":24
- * from Utils.PurgeData import purgeCostNThetaTmp
+ * from PurgeData import purgeCostNThetaTmp
  * 
  * def generateTrajectoryRBFN(nameFolder, nameT = 'None'):             # <<<<<<<<<<<<<<
  *     fr, rs = initFRRS()

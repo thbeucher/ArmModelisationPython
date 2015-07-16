@@ -693,15 +693,15 @@ static char __pyx_k_qualname[] = "__qualname__";
 static char __pyx_k_jointStop[] = "jointStop";
 static char __pyx_k_metaclass[] = "__metaclass__";
 static char __pyx_k_nextState[] = "nextState";
+static char __pyx_k_ArmDynamics[] = "ArmDynamics";
 static char __pyx_k_initStateNSC[] = "initStateNSC";
+static char __pyx_k_GeometricModel[] = "GeometricModel";
 static char __pyx_k_setNewStateNSC[] = "setNewStateNSC";
+static char __pyx_k_StateVectorUtil[] = "StateVectorUtil";
 static char __pyx_k_computeNextState[] = "computeNextState";
 static char __pyx_k_createStateVector[] = "createStateVector";
 static char __pyx_k_initParametersNSC[] = "initParametersNSC";
-static char __pyx_k_ArmModel_ArmDynamics[] = "ArmModel.ArmDynamics";
 static char __pyx_k_NextStateComputation[] = "NextStateComputation";
-static char __pyx_k_Utils_StateVectorUtil[] = "Utils.StateVectorUtil";
-static char __pyx_k_ArmModel_GeometricModel[] = "ArmModel.GeometricModel";
 static char __pyx_k_NextStateComputation___init[] = "NextStateComputation.__init__";
 static char __pyx_k_getDotQAndQFromStateVectorS[] = "getDotQAndQFromStateVectorS";
 static char __pyx_k_Author_Thomas_Beucher_Module_Ne[] = "\nAuthor: Thomas Beucher\n\nModule: NextStateComputation\n\nDescription: this class permits to generate the next state from the previous state, ie state at time t+1 given state at time t\n";
@@ -711,17 +711,17 @@ static char __pyx_k_NextStateComputation_computeNext[] = "NextStateComputation.c
 static char __pyx_k_NextStateComputation_initParamet[] = "NextStateComputation.initParametersNSC";
 static char __pyx_k_NextStateComputation_initStateNS[] = "NextStateComputation.initStateNSC";
 static char __pyx_k_NextStateComputation_setNewState[] = "NextStateComputation.setNewStateNSC";
-static PyObject *__pyx_n_s_ArmModel_ArmDynamics;
-static PyObject *__pyx_n_s_ArmModel_GeometricModel;
+static PyObject *__pyx_n_s_ArmDynamics;
 static PyObject *__pyx_n_s_CostComputation_NextStateComputa;
+static PyObject *__pyx_n_s_GeometricModel;
 static PyObject *__pyx_n_s_NextStateComputation;
 static PyObject *__pyx_n_s_NextStateComputation___init;
 static PyObject *__pyx_n_s_NextStateComputation_computeNext;
 static PyObject *__pyx_n_s_NextStateComputation_initParamet;
 static PyObject *__pyx_n_s_NextStateComputation_initStateNS;
 static PyObject *__pyx_n_s_NextStateComputation_setNewState;
+static PyObject *__pyx_n_s_StateVectorUtil;
 static PyObject *__pyx_n_s_U;
-static PyObject *__pyx_n_s_Utils_StateVectorUtil;
 static PyObject *__pyx_n_s_armP;
 static PyObject *__pyx_n_s_computeNextState;
 static PyObject *__pyx_n_s_createStateVector;
@@ -1679,17 +1679,17 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_n_s_ArmModel_ArmDynamics, __pyx_k_ArmModel_ArmDynamics, sizeof(__pyx_k_ArmModel_ArmDynamics), 0, 0, 1, 1},
-  {&__pyx_n_s_ArmModel_GeometricModel, __pyx_k_ArmModel_GeometricModel, sizeof(__pyx_k_ArmModel_GeometricModel), 0, 0, 1, 1},
+  {&__pyx_n_s_ArmDynamics, __pyx_k_ArmDynamics, sizeof(__pyx_k_ArmDynamics), 0, 0, 1, 1},
   {&__pyx_n_s_CostComputation_NextStateComputa, __pyx_k_CostComputation_NextStateComputa, sizeof(__pyx_k_CostComputation_NextStateComputa), 0, 0, 1, 1},
+  {&__pyx_n_s_GeometricModel, __pyx_k_GeometricModel, sizeof(__pyx_k_GeometricModel), 0, 0, 1, 1},
   {&__pyx_n_s_NextStateComputation, __pyx_k_NextStateComputation, sizeof(__pyx_k_NextStateComputation), 0, 0, 1, 1},
   {&__pyx_n_s_NextStateComputation___init, __pyx_k_NextStateComputation___init, sizeof(__pyx_k_NextStateComputation___init), 0, 0, 1, 1},
   {&__pyx_n_s_NextStateComputation_computeNext, __pyx_k_NextStateComputation_computeNext, sizeof(__pyx_k_NextStateComputation_computeNext), 0, 0, 1, 1},
   {&__pyx_n_s_NextStateComputation_initParamet, __pyx_k_NextStateComputation_initParamet, sizeof(__pyx_k_NextStateComputation_initParamet), 0, 0, 1, 1},
   {&__pyx_n_s_NextStateComputation_initStateNS, __pyx_k_NextStateComputation_initStateNS, sizeof(__pyx_k_NextStateComputation_initStateNS), 0, 0, 1, 1},
   {&__pyx_n_s_NextStateComputation_setNewState, __pyx_k_NextStateComputation_setNewState, sizeof(__pyx_k_NextStateComputation_setNewState), 0, 0, 1, 1},
+  {&__pyx_n_s_StateVectorUtil, __pyx_k_StateVectorUtil, sizeof(__pyx_k_StateVectorUtil), 0, 0, 1, 1},
   {&__pyx_n_s_U, __pyx_k_U, sizeof(__pyx_k_U), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_StateVectorUtil, __pyx_k_Utils_StateVectorUtil, sizeof(__pyx_k_Utils_StateVectorUtil), 0, 0, 1, 1},
   {&__pyx_n_s_armP, __pyx_k_armP, sizeof(__pyx_k_armP), 0, 0, 1, 1},
   {&__pyx_n_s_computeNextState, __pyx_k_computeNextState, sizeof(__pyx_k_computeNextState), 0, 0, 1, 1},
   {&__pyx_n_s_createStateVector, __pyx_k_createStateVector, sizeof(__pyx_k_createStateVector), 0, 0, 1, 1},
@@ -1892,9 +1892,9 @@ PyMODINIT_FUNC PyInit_NextStateComputation(void)
   /* "CostComputation/NextStateComputation.pyx":11
  * '''
  * 
- * from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector             # <<<<<<<<<<<<<<
- * from ArmModel.ArmDynamics import mdd
- * from ArmModel.GeometricModel import jointStop
+ * from StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector             # <<<<<<<<<<<<<<
+ * from ArmDynamics import mdd
+ * from GeometricModel import jointStop
  */
   __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -1904,7 +1904,7 @@ PyMODINIT_FUNC PyInit_NextStateComputation(void)
   __Pyx_INCREF(__pyx_n_s_createStateVector);
   PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_createStateVector);
   __Pyx_GIVEREF(__pyx_n_s_createStateVector);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_StateVectorUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_StateVectorUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_getDotQAndQFromStateVectorS); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1919,9 +1919,9 @@ PyMODINIT_FUNC PyInit_NextStateComputation(void)
 
   /* "CostComputation/NextStateComputation.pyx":12
  * 
- * from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
- * from ArmModel.ArmDynamics import mdd             # <<<<<<<<<<<<<<
- * from ArmModel.GeometricModel import jointStop
+ * from StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
+ * from ArmDynamics import mdd             # <<<<<<<<<<<<<<
+ * from GeometricModel import jointStop
  * 
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1929,7 +1929,7 @@ PyMODINIT_FUNC PyInit_NextStateComputation(void)
   __Pyx_INCREF(__pyx_n_s_mdd);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_mdd);
   __Pyx_GIVEREF(__pyx_n_s_mdd);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ArmModel_ArmDynamics, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ArmDynamics, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_mdd); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1939,9 +1939,9 @@ PyMODINIT_FUNC PyInit_NextStateComputation(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "CostComputation/NextStateComputation.pyx":13
- * from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
- * from ArmModel.ArmDynamics import mdd
- * from ArmModel.GeometricModel import jointStop             # <<<<<<<<<<<<<<
+ * from StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
+ * from ArmDynamics import mdd
+ * from GeometricModel import jointStop             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -1950,7 +1950,7 @@ PyMODINIT_FUNC PyInit_NextStateComputation(void)
   __Pyx_INCREF(__pyx_n_s_jointStop);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_jointStop);
   __Pyx_GIVEREF(__pyx_n_s_jointStop);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ArmModel_GeometricModel, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_GeometricModel, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_jointStop); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

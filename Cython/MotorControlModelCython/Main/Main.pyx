@@ -11,15 +11,15 @@ Description: We find here functions usefull to run cmaes and latter some script 
 import cma
 import numpy as np
 from multiprocessing.pool import Pool
-from Utils.InitUtil import initFRRS
-from Utils.ThetaNormalization import normalizationNP, matrixToVector,\
+from InitUtil import initFRRS
+from ThetaNormalization import normalizationNP, matrixToVector,\
     normalizationNPWithoutSaving
-from Utils.InitUtilMain import initAllUsefullObj
-from Utils.FileSaving import fileSavingAllDataJson
+from InitUtilMain import initAllUsefullObj
+from FileSaving import fileSavingAllDataJson
 from GlobalVariables import pathDataFolder
 import os
-from Utils.ReadDataTmp import getBestTheta
-from Utils.PurgeData import purgeCostNThetaTmp
+from ReadDataTmp import getBestTheta
+from PurgeData import purgeCostNThetaTmp
 
 def generateTrajectoryRBFN(nameFolder, nameT = 'None'):
     fr, rs = initFRRS()

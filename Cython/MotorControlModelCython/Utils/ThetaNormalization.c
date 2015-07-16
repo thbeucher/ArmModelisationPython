@@ -657,6 +657,7 @@ static char __pyx_k_savetxt[] = "savetxt";
 static char __pyx_k_thetaTmp[] = "thetaTmp";
 static char __pyx_k_unNormNP[] = "unNormNP";
 static char __pyx_k_thetaTmpN[] = "thetaTmpN";
+static char __pyx_k_FileSaving[] = "FileSaving";
 static char __pyx_k_getobjread[] = "getobjread";
 static char __pyx_k_FileReading[] = "FileReading";
 static char __pyx_k_inputMaxTmp[] = "inputMaxTmp";
@@ -667,18 +668,15 @@ static char __pyx_k_pathDataFolder[] = "pathDataFolder";
 static char __pyx_k_vectorToMatrix[] = "vectorToMatrix";
 static char __pyx_k_GlobalVariables[] = "GlobalVariables";
 static char __pyx_k_normalizationNP[] = "normalizationNP";
-static char __pyx_k_Utils_FileSaving[] = "Utils.FileSaving";
-static char __pyx_k_Utils_FileReading[] = "Utils.FileReading";
 static char __pyx_k_Utils_ThetaNormalization[] = "Utils.ThetaNormalization";
 static char __pyx_k_OptimisationResults_maxTBIN[] = "OptimisationResults/maxTBIN";
 static char __pyx_k_normalizationNPWithoutSaving[] = "normalizationNPWithoutSaving";
 static char __pyx_k_Author_Thomas_Beucher_Module_Fu[] = "\nAuthor: Thomas Beucher\n\nModule: Functions\n\nDescription: On retrouve dans ce fichier les fonctions pour normaliser theta\n";
 static char __pyx_k_home_beucher_workspace_Cython_M[] = "/home/beucher/workspace/Cython/MotorControlModelCython/Utils/ThetaNormalization.pyx";
 static PyObject *__pyx_n_s_FileReading;
+static PyObject *__pyx_n_s_FileSaving;
 static PyObject *__pyx_n_s_GlobalVariables;
 static PyObject *__pyx_kp_s_OptimisationResults_maxTBIN;
-static PyObject *__pyx_n_s_Utils_FileReading;
-static PyObject *__pyx_n_s_Utils_FileSaving;
 static PyObject *__pyx_n_s_Utils_ThetaNormalization;
 static PyObject *__pyx_n_s_abs;
 static PyObject *__pyx_n_s_array;
@@ -2825,10 +2823,9 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_FileReading, __pyx_k_FileReading, sizeof(__pyx_k_FileReading), 0, 0, 1, 1},
+  {&__pyx_n_s_FileSaving, __pyx_k_FileSaving, sizeof(__pyx_k_FileSaving), 0, 0, 1, 1},
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
   {&__pyx_kp_s_OptimisationResults_maxTBIN, __pyx_k_OptimisationResults_maxTBIN, sizeof(__pyx_k_OptimisationResults_maxTBIN), 0, 0, 1, 0},
-  {&__pyx_n_s_Utils_FileReading, __pyx_k_Utils_FileReading, sizeof(__pyx_k_Utils_FileReading), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_FileSaving, __pyx_k_Utils_FileSaving, sizeof(__pyx_k_Utils_FileSaving), 0, 0, 1, 1},
   {&__pyx_n_s_Utils_ThetaNormalization, __pyx_k_Utils_ThetaNormalization, sizeof(__pyx_k_Utils_ThetaNormalization), 0, 0, 1, 1},
   {&__pyx_n_s_abs, __pyx_k_abs, sizeof(__pyx_k_abs), 0, 0, 1, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
@@ -3162,8 +3159,8 @@ PyMODINIT_FUNC PyInit_ThetaNormalization(void)
  * '''
  * 
  * import numpy as np             # <<<<<<<<<<<<<<
- * from Utils.FileReading import FileReading
- * from Utils.FileSaving import fileSavingBin
+ * from FileReading import FileReading
+ * from FileSaving import fileSavingBin
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -3173,8 +3170,8 @@ PyMODINIT_FUNC PyInit_ThetaNormalization(void)
   /* "Utils/ThetaNormalization.pyx":12
  * 
  * import numpy as np
- * from Utils.FileReading import FileReading             # <<<<<<<<<<<<<<
- * from Utils.FileSaving import fileSavingBin
+ * from FileReading import FileReading             # <<<<<<<<<<<<<<
+ * from FileSaving import fileSavingBin
  * from GlobalVariables import pathDataFolder
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3182,7 +3179,7 @@ PyMODINIT_FUNC PyInit_ThetaNormalization(void)
   __Pyx_INCREF(__pyx_n_s_FileReading);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_FileReading);
   __Pyx_GIVEREF(__pyx_n_s_FileReading);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_FileReading, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_FileReading, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_FileReading); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3193,8 +3190,8 @@ PyMODINIT_FUNC PyInit_ThetaNormalization(void)
 
   /* "Utils/ThetaNormalization.pyx":13
  * import numpy as np
- * from Utils.FileReading import FileReading
- * from Utils.FileSaving import fileSavingBin             # <<<<<<<<<<<<<<
+ * from FileReading import FileReading
+ * from FileSaving import fileSavingBin             # <<<<<<<<<<<<<<
  * from GlobalVariables import pathDataFolder
  * 
  */
@@ -3203,7 +3200,7 @@ PyMODINIT_FUNC PyInit_ThetaNormalization(void)
   __Pyx_INCREF(__pyx_n_s_fileSavingBin);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_fileSavingBin);
   __Pyx_GIVEREF(__pyx_n_s_fileSavingBin);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Utils_FileSaving, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_FileSaving, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_fileSavingBin); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3213,8 +3210,8 @@ PyMODINIT_FUNC PyInit_ThetaNormalization(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/ThetaNormalization.pyx":14
- * from Utils.FileReading import FileReading
- * from Utils.FileSaving import fileSavingBin
+ * from FileReading import FileReading
+ * from FileSaving import fileSavingBin
  * from GlobalVariables import pathDataFolder             # <<<<<<<<<<<<<<
  * 
  * 

@@ -8,18 +8,18 @@ Module: FunctionsUsefull
 Description: global variables used in the project
 '''
 
-from Utils.InitUtil import initFRRS
-from Utils.NiemRoot import tronquerNB
+from InitUtil import initFRRS
+from NiemRoot import tronquerNB
 import numpy as np
-from Utils.FileSaving import fileSavingBin, fileSavingStr
+from FileSaving import fileSavingBin, fileSavingStr
 import os
 from shutil import copyfile
 from posix import remove
 import matplotlib.pyplot as plt
-from ArmModel.GeometricModel import mgi, mgd
+from GeometricModel import mgi, mgd
 #from scipy.spatial import ConvexHull
 import math
-from Utils.ThetaNormalization import normalization, matrixToVector,\
+from ThetaNormalization import normalization, matrixToVector,\
     vectorToMatrix, unNorm
 from matplotlib.mlab import griddata
 from matplotlib import cm

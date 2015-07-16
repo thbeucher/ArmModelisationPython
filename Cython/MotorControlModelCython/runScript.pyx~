@@ -125,7 +125,7 @@ def runAll():
         nameC = raw_input('Name to save the RBFN controller: ')
         runRBFN(nameC)
     
-runAll()
+#runAll()
 
 
 

@@ -8,9 +8,9 @@ Module: TrajectoryGenerator
 Description: Class to generate a trajectory
 '''
 
-from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
-from ArmModel.GeometricModel import mgd, mgi
-from Utils.CreateVectorUtil import createVector
+from StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
+from GeometricModel import mgd, mgi
+from CreateVectorUtil import createVector
 import numpy as np
 
 

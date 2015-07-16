@@ -855,24 +855,21 @@ static char __pyx_k_trajectoire[] = "trajectoire";
 static char __pyx_k_mondepickler[] = "mondepickler";
 static char __pyx_k_ArmParameters[] = "ArmParameters";
 static char __pyx_k_recup_pos_ini[] = "recup_pos_ini";
+static char __pyx_k_GeometricModel[] = "GeometricModel";
 static char __pyx_k_getobjreadJson[] = "getobjreadJson";
 static char __pyx_k_pathDataFolder[] = "pathDataFolder";
 static char __pyx_k_GlobalVariables[] = "GlobalVariables";
 static char __pyx_k_Utils_FileReading[] = "Utils.FileReading";
 static char __pyx_k_FileReading___init[] = "FileReading.__init__";
 static char __pyx_k_FileReading_getData[] = "FileReading.getData";
-static char __pyx_k_ArmModel_ArmParameters[] = "ArmModel.ArmParameters";
 static char __pyx_k_FileReading_dicToArray[] = "FileReading.dicToArray";
 static char __pyx_k_FileReading_getobjread[] = "FileReading.getobjread";
-static char __pyx_k_ArmModel_GeometricModel[] = "ArmModel.GeometricModel";
 static char __pyx_k_FileReading_recup_pos_ini[] = "FileReading.recup_pos_ini";
 static char __pyx_k_FileReading_getobjreadJson[] = "FileReading.getobjreadJson";
 static char __pyx_k_Author_Thomas_Beucher_Module_Fi[] = "\nAuthor: Thomas Beucher\nModule: FileReading\nDescription: On retrouve dans ce fichier les fonctions permettant de lire les donnees du projet\n";
 static char __pyx_k_home_beucher_workspace_Cython_M[] = "/home/beucher/workspace/Cython/MotorControlModelCython/Utils/FileReading.pyx";
 static char __pyx_k_Debut_de_recuperation_des_positi[] = "Debut de recuperation des positions initiales!";
 static char __pyx_k_Fin_de_recuperation_des_position[] = "Fin de recuperation des positions initiales!";
-static PyObject *__pyx_n_s_ArmModel_ArmParameters;
-static PyObject *__pyx_n_s_ArmModel_GeometricModel;
 static PyObject *__pyx_n_s_ArmParameters;
 static PyObject *__pyx_kp_s_Debut_de_recuperation_des_positi;
 static PyObject *__pyx_n_s_FileReading;
@@ -883,6 +880,7 @@ static PyObject *__pyx_n_s_FileReading_getobjread;
 static PyObject *__pyx_n_s_FileReading_getobjreadJson;
 static PyObject *__pyx_n_s_FileReading_recup_pos_ini;
 static PyObject *__pyx_kp_s_Fin_de_recuperation_des_position;
+static PyObject *__pyx_n_s_GeometricModel;
 static PyObject *__pyx_n_s_GlobalVariables;
 static PyObject *__pyx_n_s_Q;
 static PyObject *__pyx_n_s_Unpickler;
@@ -3280,8 +3278,6 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_n_s_ArmModel_ArmParameters, __pyx_k_ArmModel_ArmParameters, sizeof(__pyx_k_ArmModel_ArmParameters), 0, 0, 1, 1},
-  {&__pyx_n_s_ArmModel_GeometricModel, __pyx_k_ArmModel_GeometricModel, sizeof(__pyx_k_ArmModel_GeometricModel), 0, 0, 1, 1},
   {&__pyx_n_s_ArmParameters, __pyx_k_ArmParameters, sizeof(__pyx_k_ArmParameters), 0, 0, 1, 1},
   {&__pyx_kp_s_Debut_de_recuperation_des_positi, __pyx_k_Debut_de_recuperation_des_positi, sizeof(__pyx_k_Debut_de_recuperation_des_positi), 0, 0, 1, 0},
   {&__pyx_n_s_FileReading, __pyx_k_FileReading, sizeof(__pyx_k_FileReading), 0, 0, 1, 1},
@@ -3292,6 +3288,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_FileReading_getobjreadJson, __pyx_k_FileReading_getobjreadJson, sizeof(__pyx_k_FileReading_getobjreadJson), 0, 0, 1, 1},
   {&__pyx_n_s_FileReading_recup_pos_ini, __pyx_k_FileReading_recup_pos_ini, sizeof(__pyx_k_FileReading_recup_pos_ini), 0, 0, 1, 1},
   {&__pyx_kp_s_Fin_de_recuperation_des_position, __pyx_k_Fin_de_recuperation_des_position, sizeof(__pyx_k_Fin_de_recuperation_des_position), 0, 0, 1, 0},
+  {&__pyx_n_s_GeometricModel, __pyx_k_GeometricModel, sizeof(__pyx_k_GeometricModel), 0, 0, 1, 1},
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
   {&__pyx_n_s_Q, __pyx_k_Q, sizeof(__pyx_k_Q), 0, 0, 1, 1},
   {&__pyx_n_s_Unpickler, __pyx_k_Unpickler, sizeof(__pyx_k_Unpickler), 0, 0, 1, 1},
@@ -3611,7 +3608,7 @@ PyMODINIT_FUNC PyInit_FileReading(void)
  * import pickle
  * import numpy as np             # <<<<<<<<<<<<<<
  * import os
- * from ArmModel.ArmParameters import ArmParameters
+ * from ArmParameters import ArmParameters
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -3622,8 +3619,8 @@ PyMODINIT_FUNC PyInit_FileReading(void)
  * import pickle
  * import numpy as np
  * import os             # <<<<<<<<<<<<<<
- * from ArmModel.ArmParameters import ArmParameters
- * from ArmModel.GeometricModel import mgd
+ * from ArmParameters import ArmParameters
+ * from GeometricModel import mgd
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_os, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -3633,8 +3630,8 @@ PyMODINIT_FUNC PyInit_FileReading(void)
   /* "Utils/FileReading.pyx":12
  * import numpy as np
  * import os
- * from ArmModel.ArmParameters import ArmParameters             # <<<<<<<<<<<<<<
- * from ArmModel.GeometricModel import mgd
+ * from ArmParameters import ArmParameters             # <<<<<<<<<<<<<<
+ * from GeometricModel import mgd
  * from GlobalVariables import pathDataFolder
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3642,7 +3639,7 @@ PyMODINIT_FUNC PyInit_FileReading(void)
   __Pyx_INCREF(__pyx_n_s_ArmParameters);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ArmParameters);
   __Pyx_GIVEREF(__pyx_n_s_ArmParameters);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ArmModel_ArmParameters, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ArmParameters, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ArmParameters); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3653,8 +3650,8 @@ PyMODINIT_FUNC PyInit_FileReading(void)
 
   /* "Utils/FileReading.pyx":13
  * import os
- * from ArmModel.ArmParameters import ArmParameters
- * from ArmModel.GeometricModel import mgd             # <<<<<<<<<<<<<<
+ * from ArmParameters import ArmParameters
+ * from GeometricModel import mgd             # <<<<<<<<<<<<<<
  * from GlobalVariables import pathDataFolder
  * import json
  */
@@ -3663,7 +3660,7 @@ PyMODINIT_FUNC PyInit_FileReading(void)
   __Pyx_INCREF(__pyx_n_s_mgd);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_mgd);
   __Pyx_GIVEREF(__pyx_n_s_mgd);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ArmModel_GeometricModel, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_GeometricModel, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_mgd); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3673,8 +3670,8 @@ PyMODINIT_FUNC PyInit_FileReading(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/FileReading.pyx":14
- * from ArmModel.ArmParameters import ArmParameters
- * from ArmModel.GeometricModel import mgd
+ * from ArmParameters import ArmParameters
+ * from GeometricModel import mgd
  * from GlobalVariables import pathDataFolder             # <<<<<<<<<<<<<<
  * import json
  * 
@@ -3694,7 +3691,7 @@ PyMODINIT_FUNC PyInit_FileReading(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Utils/FileReading.pyx":15
- * from ArmModel.GeometricModel import mgd
+ * from GeometricModel import mgd
  * from GlobalVariables import pathDataFolder
  * import json             # <<<<<<<<<<<<<<
  * 

@@ -584,15 +584,11 @@ static char __pyx_k_initFRRS[] = "initFRRS";
 static char __pyx_k_FileReading[] = "FileReading";
 static char __pyx_k_ReadSetupFile[] = "ReadSetupFile";
 static char __pyx_k_Utils_InitUtil[] = "Utils.InitUtil";
-static char __pyx_k_Utils_FileReading[] = "Utils.FileReading";
-static char __pyx_k_Utils_ReadSetupFile[] = "Utils.ReadSetupFile";
 static char __pyx_k_Author_Thomas_Beucher_Module_In[] = "\nAuthor: Thomas Beucher\n\nModule: InitUtil\n\nDescription: We find here function which give acces to some class\n";
 static char __pyx_k_home_beucher_workspace_Cython_M[] = "/home/beucher/workspace/Cython/MotorControlModelCython/Utils/InitUtil.pyx";
 static PyObject *__pyx_n_s_FileReading;
 static PyObject *__pyx_n_s_ReadSetupFile;
-static PyObject *__pyx_n_s_Utils_FileReading;
 static PyObject *__pyx_n_s_Utils_InitUtil;
-static PyObject *__pyx_n_s_Utils_ReadSetupFile;
 static PyObject *__pyx_n_s_fr;
 static PyObject *__pyx_kp_s_home_beucher_workspace_Cython_M;
 static PyObject *__pyx_n_s_import;
@@ -764,9 +760,7 @@ static struct PyModuleDef __pyx_moduledef = {
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_FileReading, __pyx_k_FileReading, sizeof(__pyx_k_FileReading), 0, 0, 1, 1},
   {&__pyx_n_s_ReadSetupFile, __pyx_k_ReadSetupFile, sizeof(__pyx_k_ReadSetupFile), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_FileReading, __pyx_k_Utils_FileReading, sizeof(__pyx_k_Utils_FileReading), 0, 0, 1, 1},
   {&__pyx_n_s_Utils_InitUtil, __pyx_k_Utils_InitUtil, sizeof(__pyx_k_Utils_InitUtil), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_ReadSetupFile, __pyx_k_Utils_ReadSetupFile, sizeof(__pyx_k_Utils_ReadSetupFile), 0, 0, 1, 1},
   {&__pyx_n_s_fr, __pyx_k_fr, sizeof(__pyx_k_fr), 0, 0, 1, 1},
   {&__pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_k_home_beucher_workspace_Cython_M, sizeof(__pyx_k_home_beucher_workspace_Cython_M), 0, 0, 1, 0},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
@@ -898,8 +892,8 @@ PyMODINIT_FUNC PyInit_InitUtil(void)
   /* "Utils/InitUtil.pyx":11
  * '''
  * 
- * from Utils.FileReading import FileReading             # <<<<<<<<<<<<<<
- * from Utils.ReadSetupFile import ReadSetupFile
+ * from FileReading import FileReading             # <<<<<<<<<<<<<<
+ * from ReadSetupFile import ReadSetupFile
  * 
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -907,7 +901,7 @@ PyMODINIT_FUNC PyInit_InitUtil(void)
   __Pyx_INCREF(__pyx_n_s_FileReading);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_FileReading);
   __Pyx_GIVEREF(__pyx_n_s_FileReading);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_FileReading, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_FileReading, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_FileReading); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -918,8 +912,8 @@ PyMODINIT_FUNC PyInit_InitUtil(void)
 
   /* "Utils/InitUtil.pyx":12
  * 
- * from Utils.FileReading import FileReading
- * from Utils.ReadSetupFile import ReadSetupFile             # <<<<<<<<<<<<<<
+ * from FileReading import FileReading
+ * from ReadSetupFile import ReadSetupFile             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -928,7 +922,7 @@ PyMODINIT_FUNC PyInit_InitUtil(void)
   __Pyx_INCREF(__pyx_n_s_ReadSetupFile);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_ReadSetupFile);
   __Pyx_GIVEREF(__pyx_n_s_ReadSetupFile);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Utils_ReadSetupFile, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ReadSetupFile, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_ReadSetupFile); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

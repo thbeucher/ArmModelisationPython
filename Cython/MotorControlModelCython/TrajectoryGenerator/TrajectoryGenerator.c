@@ -794,8 +794,11 @@ static char __pyx_k_elbowAllCoord[] = "elbowAllCoord";
 static char __pyx_k_estimateState[] = "estimateState";
 static char __pyx_k_getCommandMAC[] = "getCommandMAC";
 static char __pyx_k_runTrajectory[] = "runTrajectory";
+static char __pyx_k_GeometricModel[] = "GeometricModel";
 static char __pyx_k_nameToSaveTraj[] = "nameToSaveTraj";
 static char __pyx_k_targetOrdinate[] = "targetOrdinate";
+static char __pyx_k_StateVectorUtil[] = "StateVectorUtil";
+static char __pyx_k_CreateVectorUtil[] = "CreateVectorUtil";
 static char __pyx_k_computeNextState[] = "computeNextState";
 static char __pyx_k_initParametersTG[] = "initParametersTG";
 static char __pyx_k_initSaveLoopData[] = "initSaveLoopData";
@@ -805,11 +808,8 @@ static char __pyx_k_initSaveVariables[] = "initSaveVariables";
 static char __pyx_k_checkingKeyEndData[] = "checkingKeyEndData";
 static char __pyx_k_TrajectoryGenerator[] = "TrajectoryGenerator";
 static char __pyx_k_checkingKeyLoopData[] = "checkingKeyLoopData";
-static char __pyx_k_Utils_StateVectorUtil[] = "Utils.StateVectorUtil";
 static char __pyx_k_saveNumberOfIteration[] = "saveNumberOfIteration";
-static char __pyx_k_Utils_CreateVectorUtil[] = "Utils.CreateVectorUtil";
 static char __pyx_k_computeFinalCostReward[] = "computeFinalCostReward";
-static char __pyx_k_ArmModel_GeometricModel[] = "ArmModel.GeometricModel";
 static char __pyx_k_TrajectoryGenerator___init[] = "TrajectoryGenerator.__init__";
 static char __pyx_k_computeStateTransitionCost[] = "computeStateTransitionCost";
 static char __pyx_k_getDotQAndQFromStateVectorS[] = "getDotQAndQFromStateVectorS";
@@ -824,7 +824,9 @@ static char __pyx_k_TrajectoryGenerator_initSaveLoop[] = "TrajectoryGenerator.in
 static char __pyx_k_TrajectoryGenerator_initSaveVari[] = "TrajectoryGenerator.initSaveVariables";
 static char __pyx_k_TrajectoryGenerator_runTrajector[] = "TrajectoryGenerator.runTrajectory";
 static char __pyx_k_TrajectoryGenerator_saveLoopData[] = "TrajectoryGenerator.saveLoopData";
-static PyObject *__pyx_n_s_ArmModel_GeometricModel;
+static PyObject *__pyx_n_s_CreateVectorUtil;
+static PyObject *__pyx_n_s_GeometricModel;
+static PyObject *__pyx_n_s_StateVectorUtil;
 static PyObject *__pyx_n_s_TrajectoryGenerator;
 static PyObject *__pyx_n_s_TrajectoryGenerator_TrajectoryGe;
 static PyObject *__pyx_n_s_TrajectoryGenerator___init;
@@ -840,8 +842,6 @@ static PyObject *__pyx_n_s_U;
 static PyObject *__pyx_n_s_UList;
 static PyObject *__pyx_n_s_Ucontrol;
 static PyObject *__pyx_n_s_Ukf;
-static PyObject *__pyx_n_s_Utils_CreateVectorUtil;
-static PyObject *__pyx_n_s_Utils_StateVectorUtil;
 static PyObject *__pyx_kp_s__2;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_armD;
@@ -3694,7 +3694,9 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_n_s_ArmModel_GeometricModel, __pyx_k_ArmModel_GeometricModel, sizeof(__pyx_k_ArmModel_GeometricModel), 0, 0, 1, 1},
+  {&__pyx_n_s_CreateVectorUtil, __pyx_k_CreateVectorUtil, sizeof(__pyx_k_CreateVectorUtil), 0, 0, 1, 1},
+  {&__pyx_n_s_GeometricModel, __pyx_k_GeometricModel, sizeof(__pyx_k_GeometricModel), 0, 0, 1, 1},
+  {&__pyx_n_s_StateVectorUtil, __pyx_k_StateVectorUtil, sizeof(__pyx_k_StateVectorUtil), 0, 0, 1, 1},
   {&__pyx_n_s_TrajectoryGenerator, __pyx_k_TrajectoryGenerator, sizeof(__pyx_k_TrajectoryGenerator), 0, 0, 1, 1},
   {&__pyx_n_s_TrajectoryGenerator_TrajectoryGe, __pyx_k_TrajectoryGenerator_TrajectoryGe, sizeof(__pyx_k_TrajectoryGenerator_TrajectoryGe), 0, 0, 1, 1},
   {&__pyx_n_s_TrajectoryGenerator___init, __pyx_k_TrajectoryGenerator___init, sizeof(__pyx_k_TrajectoryGenerator___init), 0, 0, 1, 1},
@@ -3710,8 +3712,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_UList, __pyx_k_UList, sizeof(__pyx_k_UList), 0, 0, 1, 1},
   {&__pyx_n_s_Ucontrol, __pyx_k_Ucontrol, sizeof(__pyx_k_Ucontrol), 0, 0, 1, 1},
   {&__pyx_n_s_Ukf, __pyx_k_Ukf, sizeof(__pyx_k_Ukf), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_CreateVectorUtil, __pyx_k_Utils_CreateVectorUtil, sizeof(__pyx_k_Utils_CreateVectorUtil), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_StateVectorUtil, __pyx_k_Utils_StateVectorUtil, sizeof(__pyx_k_Utils_StateVectorUtil), 0, 0, 1, 1},
   {&__pyx_kp_s__2, __pyx_k__2, sizeof(__pyx_k__2), 0, 0, 1, 0},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_armD, __pyx_k_armD, sizeof(__pyx_k_armD), 0, 0, 1, 1},
@@ -4027,9 +4027,9 @@ PyMODINIT_FUNC PyInit_TrajectoryGenerator(void)
   /* "TrajectoryGenerator/TrajectoryGenerator.pyx":11
  * '''
  * 
- * from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector             # <<<<<<<<<<<<<<
- * from ArmModel.GeometricModel import mgd, mgi
- * from Utils.CreateVectorUtil import createVector
+ * from StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector             # <<<<<<<<<<<<<<
+ * from GeometricModel import mgd, mgi
+ * from CreateVectorUtil import createVector
  */
   __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -4039,7 +4039,7 @@ PyMODINIT_FUNC PyInit_TrajectoryGenerator(void)
   __Pyx_INCREF(__pyx_n_s_createStateVector);
   PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_createStateVector);
   __Pyx_GIVEREF(__pyx_n_s_createStateVector);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_StateVectorUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_StateVectorUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_getDotQAndQFromStateVectorS); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4054,9 +4054,9 @@ PyMODINIT_FUNC PyInit_TrajectoryGenerator(void)
 
   /* "TrajectoryGenerator/TrajectoryGenerator.pyx":12
  * 
- * from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
- * from ArmModel.GeometricModel import mgd, mgi             # <<<<<<<<<<<<<<
- * from Utils.CreateVectorUtil import createVector
+ * from StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
+ * from GeometricModel import mgd, mgi             # <<<<<<<<<<<<<<
+ * from CreateVectorUtil import createVector
  * import numpy as np
  */
   __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4067,7 +4067,7 @@ PyMODINIT_FUNC PyInit_TrajectoryGenerator(void)
   __Pyx_INCREF(__pyx_n_s_mgi);
   PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_s_mgi);
   __Pyx_GIVEREF(__pyx_n_s_mgi);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ArmModel_GeometricModel, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_GeometricModel, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_mgd); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4081,9 +4081,9 @@ PyMODINIT_FUNC PyInit_TrajectoryGenerator(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "TrajectoryGenerator/TrajectoryGenerator.pyx":13
- * from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
- * from ArmModel.GeometricModel import mgd, mgi
- * from Utils.CreateVectorUtil import createVector             # <<<<<<<<<<<<<<
+ * from StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
+ * from GeometricModel import mgd, mgi
+ * from CreateVectorUtil import createVector             # <<<<<<<<<<<<<<
  * import numpy as np
  * 
  */
@@ -4092,7 +4092,7 @@ PyMODINIT_FUNC PyInit_TrajectoryGenerator(void)
   __Pyx_INCREF(__pyx_n_s_createVector);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_createVector);
   __Pyx_GIVEREF(__pyx_n_s_createVector);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_CreateVectorUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_CreateVectorUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_createVector); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4102,8 +4102,8 @@ PyMODINIT_FUNC PyInit_TrajectoryGenerator(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "TrajectoryGenerator/TrajectoryGenerator.pyx":14
- * from ArmModel.GeometricModel import mgd, mgi
- * from Utils.CreateVectorUtil import createVector
+ * from GeometricModel import mgd, mgi
+ * from CreateVectorUtil import createVector
  * import numpy as np             # <<<<<<<<<<<<<<
  * 
  * 

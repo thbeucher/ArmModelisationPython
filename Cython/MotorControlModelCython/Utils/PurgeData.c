@@ -585,12 +585,12 @@ static char __pyx_k_OldTmp[] = "OldTmp";
 static char __pyx_k_import[] = "__import__";
 static char __pyx_k_loadtxt[] = "loadtxt";
 static char __pyx_k_savetxt[] = "savetxt";
+static char __pyx_k_InitUtil[] = "InitUtil";
 static char __pyx_k_initFRRS[] = "initFRRS";
 static char __pyx_k_meanCost[] = "/meanCost";
 static char __pyx_k_nameFileSave[] = "nameFileSave";
 static char __pyx_k_sizeOfTarget[] = "sizeOfTarget";
 static char __pyx_k_nameFileSave1[] = "nameFileSave1";
-static char __pyx_k_Utils_InitUtil[] = "Utils.InitUtil";
 static char __pyx_k_pathDataFolder[] = "pathDataFolder";
 static char __pyx_k_GlobalVariables[] = "GlobalVariables";
 static char __pyx_k_Utils_PurgeData[] = "Utils.PurgeData";
@@ -602,9 +602,9 @@ static char __pyx_k_OptimisationResults_ResCma[] = "OptimisationResults/ResCma";
 static char __pyx_k_Author_Thomas_Beucher_Module_Pu[] = "\nAuthor: Thomas Beucher\nModule: PurgeData\nDescription: the function below alow to purge temporary data\n";
 static char __pyx_k_home_beucher_workspace_Cython_M[] = "/home/beucher/workspace/Cython/MotorControlModelCython/Utils/PurgeData.pyx";
 static PyObject *__pyx_n_s_GlobalVariables;
+static PyObject *__pyx_n_s_InitUtil;
 static PyObject *__pyx_n_s_OldTmp;
 static PyObject *__pyx_kp_s_OptimisationResults_ResCma;
-static PyObject *__pyx_n_s_Utils_InitUtil;
 static PyObject *__pyx_n_s_Utils_PurgeData;
 static PyObject *__pyx_n_s_a;
 static PyObject *__pyx_n_s_b;
@@ -1088,9 +1088,9 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
+  {&__pyx_n_s_InitUtil, __pyx_k_InitUtil, sizeof(__pyx_k_InitUtil), 0, 0, 1, 1},
   {&__pyx_n_s_OldTmp, __pyx_k_OldTmp, sizeof(__pyx_k_OldTmp), 0, 0, 1, 1},
   {&__pyx_kp_s_OptimisationResults_ResCma, __pyx_k_OptimisationResults_ResCma, sizeof(__pyx_k_OptimisationResults_ResCma), 0, 0, 1, 0},
-  {&__pyx_n_s_Utils_InitUtil, __pyx_k_Utils_InitUtil, sizeof(__pyx_k_Utils_InitUtil), 0, 0, 1, 1},
   {&__pyx_n_s_Utils_PurgeData, __pyx_k_Utils_PurgeData, sizeof(__pyx_k_Utils_PurgeData), 0, 0, 1, 1},
   {&__pyx_n_s_a, __pyx_k_a, sizeof(__pyx_k_a), 0, 0, 1, 1},
   {&__pyx_n_s_b, __pyx_k_b, sizeof(__pyx_k_b), 0, 0, 1, 1},
@@ -1244,7 +1244,7 @@ PyMODINIT_FUNC PyInit_PurgeData(void)
   /* "Utils/PurgeData.pyx":8
  * Description: the function below alow to purge temporary data
  * '''
- * from Utils.InitUtil import initFRRS             # <<<<<<<<<<<<<<
+ * from InitUtil import initFRRS             # <<<<<<<<<<<<<<
  * from GlobalVariables import pathDataFolder
  * import numpy as np
  */
@@ -1253,7 +1253,7 @@ PyMODINIT_FUNC PyInit_PurgeData(void)
   __Pyx_INCREF(__pyx_n_s_initFRRS);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_initFRRS);
   __Pyx_GIVEREF(__pyx_n_s_initFRRS);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_InitUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_InitUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_initFRRS); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1264,7 +1264,7 @@ PyMODINIT_FUNC PyInit_PurgeData(void)
 
   /* "Utils/PurgeData.pyx":9
  * '''
- * from Utils.InitUtil import initFRRS
+ * from InitUtil import initFRRS
  * from GlobalVariables import pathDataFolder             # <<<<<<<<<<<<<<
  * import numpy as np
  * 
@@ -1284,7 +1284,7 @@ PyMODINIT_FUNC PyInit_PurgeData(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/PurgeData.pyx":10
- * from Utils.InitUtil import initFRRS
+ * from InitUtil import initFRRS
  * from GlobalVariables import pathDataFolder
  * import numpy as np             # <<<<<<<<<<<<<<
  * 

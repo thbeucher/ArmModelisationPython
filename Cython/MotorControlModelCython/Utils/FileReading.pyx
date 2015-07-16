@@ -9,8 +9,8 @@ Description: On retrouve dans ce fichier les fonctions permettant de lire les do
 import pickle
 import numpy as np
 import os
-from ArmModel.ArmParameters import ArmParameters
-from ArmModel.GeometricModel import mgd
+from ArmParameters import ArmParameters
+from GeometricModel import mgd
 from GlobalVariables import pathDataFolder
 import json
 

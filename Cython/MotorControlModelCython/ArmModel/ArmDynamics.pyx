@@ -12,7 +12,7 @@ Description:
 
 import numpy as np
 import math
-from Utils.StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS
+from StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS
 
 class ArmDynamics:
     

@@ -10,7 +10,7 @@ Description: Class used to generate all the trajectories of the experimental set
 
 import time
 import numpy as np
-from Utils.ThetaNormalization import unNormNP
+from ThetaNormalization import unNormNP
 from GlobalVariables import pathDataFolder
 
 

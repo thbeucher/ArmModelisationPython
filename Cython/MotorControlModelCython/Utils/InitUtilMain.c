@@ -643,45 +643,28 @@ static char __pyx_k_initParametersUKF[] = "initParametersUKF";
 static char __pyx_k_Utils_InitUtilMain[] = "Utils.InitUtilMain";
 static char __pyx_k_TrajectoryGenerator[] = "TrajectoryGenerator";
 static char __pyx_k_setCentersAndWidths[] = "setCentersAndWidths";
-static char __pyx_k_ArmModel_ArmDynamics[] = "ArmModel.ArmDynamics";
 static char __pyx_k_NextStateComputation[] = "NextStateComputation";
 static char __pyx_k_TrajectoriesGenerator[] = "TrajectoriesGenerator";
-static char __pyx_k_ArmModel_ArmParameters[] = "ArmModel.ArmParameters";
 static char __pyx_k_numberOfRepeatEachTraj[] = "numberOfRepeatEachTraj";
 static char __pyx_k_pathTrajectoriesFolder[] = "pathTrajectoriesFolder";
 static char __pyx_k_MuscularActivationCommand[] = "MuscularActivationCommand";
-static char __pyx_k_ArmModel_MusclesParameters[] = "ArmModel.MusclesParameters";
+static char __pyx_k_functionApproximator_RBFN[] = "functionApproximator_RBFN";
 static char __pyx_k_UnscentedKalmanFilterControl[] = "UnscentedKalmanFilterControl";
 static char __pyx_k_Author_Thomas_Beucher_Module_in[] = "\nAuthor: Thomas Beucher\n\nModule: initUtilMain\n\nDescription: Here some functions which initializes objects usefull to generate trajectory\n";
-static char __pyx_k_CostComputation_CostComputation[] = "CostComputation.CostComputation";
-static char __pyx_k_Regression_functionApproximator[] = "Regression.functionApproximator_RBFN";
 static char __pyx_k_home_beucher_workspace_Cython_M[] = "/home/beucher/workspace/Cython/MotorControlModelCython/Utils/InitUtilMain.pyx";
-static char __pyx_k_ArmModel_MuscularActivationComma[] = "ArmModel.MuscularActivationCommand";
-static char __pyx_k_CostComputation_NextStateComputa[] = "CostComputation.NextStateComputation";
-static char __pyx_k_TrajectoryGenerator_TrajectoryGe[] = "TrajectoryGenerator.TrajectoryGenerator";
-static char __pyx_k_UnscentedKalmanFilterControl_Uns[] = "UnscentedKalmanFilterControl.UnscentedKalmanFilterControl";
-static char __pyx_k_runExperimentalSetupTrajectories[] = "runExperimentalSetupTrajectories.runExperimentalSetupTrajectories";
+static char __pyx_k_runExperimentalSetupTrajectories[] = "runExperimentalSetupTrajectories";
 static PyObject *__pyx_n_s_ArmDynamics;
-static PyObject *__pyx_n_s_ArmModel_ArmDynamics;
-static PyObject *__pyx_n_s_ArmModel_ArmParameters;
-static PyObject *__pyx_n_s_ArmModel_MusclesParameters;
-static PyObject *__pyx_n_s_ArmModel_MuscularActivationComma;
 static PyObject *__pyx_n_s_ArmParameters;
 static PyObject *__pyx_n_s_CostComputation;
-static PyObject *__pyx_n_s_CostComputation_CostComputation;
-static PyObject *__pyx_n_s_CostComputation_NextStateComputa;
 static PyObject *__pyx_n_s_GlobalVariables;
 static PyObject *__pyx_n_s_MusclesParameters;
 static PyObject *__pyx_n_s_MuscularActivationCommand;
 static PyObject *__pyx_n_s_NextStateComputation;
-static PyObject *__pyx_n_s_Regression_functionApproximator;
 static PyObject *__pyx_n_s_T;
 static PyObject *__pyx_n_s_TrajectoriesGenerator;
 static PyObject *__pyx_n_s_TrajectoryGenerator;
-static PyObject *__pyx_n_s_TrajectoryGenerator_TrajectoryGe;
 static PyObject *__pyx_n_s_Ukf;
 static PyObject *__pyx_n_s_UnscentedKalmanFilterControl;
-static PyObject *__pyx_n_s_UnscentedKalmanFilterControl_Uns;
 static PyObject *__pyx_n_s_Utils_InitUtilMain;
 static PyObject *__pyx_n_s_armD;
 static PyObject *__pyx_n_s_armP;
@@ -696,6 +679,7 @@ static PyObject *__pyx_n_s_dt;
 static PyObject *__pyx_n_s_fa;
 static PyObject *__pyx_n_s_fa_rbfn;
 static PyObject *__pyx_n_s_fr;
+static PyObject *__pyx_n_s_functionApproximator_RBFN;
 static PyObject *__pyx_n_s_getData;
 static PyObject *__pyx_kp_s_home_beucher_workspace_Cython_M;
 static PyObject *__pyx_n_s_import;
@@ -1962,26 +1946,17 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ArmDynamics, __pyx_k_ArmDynamics, sizeof(__pyx_k_ArmDynamics), 0, 0, 1, 1},
-  {&__pyx_n_s_ArmModel_ArmDynamics, __pyx_k_ArmModel_ArmDynamics, sizeof(__pyx_k_ArmModel_ArmDynamics), 0, 0, 1, 1},
-  {&__pyx_n_s_ArmModel_ArmParameters, __pyx_k_ArmModel_ArmParameters, sizeof(__pyx_k_ArmModel_ArmParameters), 0, 0, 1, 1},
-  {&__pyx_n_s_ArmModel_MusclesParameters, __pyx_k_ArmModel_MusclesParameters, sizeof(__pyx_k_ArmModel_MusclesParameters), 0, 0, 1, 1},
-  {&__pyx_n_s_ArmModel_MuscularActivationComma, __pyx_k_ArmModel_MuscularActivationComma, sizeof(__pyx_k_ArmModel_MuscularActivationComma), 0, 0, 1, 1},
   {&__pyx_n_s_ArmParameters, __pyx_k_ArmParameters, sizeof(__pyx_k_ArmParameters), 0, 0, 1, 1},
   {&__pyx_n_s_CostComputation, __pyx_k_CostComputation, sizeof(__pyx_k_CostComputation), 0, 0, 1, 1},
-  {&__pyx_n_s_CostComputation_CostComputation, __pyx_k_CostComputation_CostComputation, sizeof(__pyx_k_CostComputation_CostComputation), 0, 0, 1, 1},
-  {&__pyx_n_s_CostComputation_NextStateComputa, __pyx_k_CostComputation_NextStateComputa, sizeof(__pyx_k_CostComputation_NextStateComputa), 0, 0, 1, 1},
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
   {&__pyx_n_s_MusclesParameters, __pyx_k_MusclesParameters, sizeof(__pyx_k_MusclesParameters), 0, 0, 1, 1},
   {&__pyx_n_s_MuscularActivationCommand, __pyx_k_MuscularActivationCommand, sizeof(__pyx_k_MuscularActivationCommand), 0, 0, 1, 1},
   {&__pyx_n_s_NextStateComputation, __pyx_k_NextStateComputation, sizeof(__pyx_k_NextStateComputation), 0, 0, 1, 1},
-  {&__pyx_n_s_Regression_functionApproximator, __pyx_k_Regression_functionApproximator, sizeof(__pyx_k_Regression_functionApproximator), 0, 0, 1, 1},
   {&__pyx_n_s_T, __pyx_k_T, sizeof(__pyx_k_T), 0, 0, 1, 1},
   {&__pyx_n_s_TrajectoriesGenerator, __pyx_k_TrajectoriesGenerator, sizeof(__pyx_k_TrajectoriesGenerator), 0, 0, 1, 1},
   {&__pyx_n_s_TrajectoryGenerator, __pyx_k_TrajectoryGenerator, sizeof(__pyx_k_TrajectoryGenerator), 0, 0, 1, 1},
-  {&__pyx_n_s_TrajectoryGenerator_TrajectoryGe, __pyx_k_TrajectoryGenerator_TrajectoryGe, sizeof(__pyx_k_TrajectoryGenerator_TrajectoryGe), 0, 0, 1, 1},
   {&__pyx_n_s_Ukf, __pyx_k_Ukf, sizeof(__pyx_k_Ukf), 0, 0, 1, 1},
   {&__pyx_n_s_UnscentedKalmanFilterControl, __pyx_k_UnscentedKalmanFilterControl, sizeof(__pyx_k_UnscentedKalmanFilterControl), 0, 0, 1, 1},
-  {&__pyx_n_s_UnscentedKalmanFilterControl_Uns, __pyx_k_UnscentedKalmanFilterControl_Uns, sizeof(__pyx_k_UnscentedKalmanFilterControl_Uns), 0, 0, 1, 1},
   {&__pyx_n_s_Utils_InitUtilMain, __pyx_k_Utils_InitUtilMain, sizeof(__pyx_k_Utils_InitUtilMain), 0, 0, 1, 1},
   {&__pyx_n_s_armD, __pyx_k_armD, sizeof(__pyx_k_armD), 0, 0, 1, 1},
   {&__pyx_n_s_armP, __pyx_k_armP, sizeof(__pyx_k_armP), 0, 0, 1, 1},
@@ -1996,6 +1971,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_fa, __pyx_k_fa, sizeof(__pyx_k_fa), 0, 0, 1, 1},
   {&__pyx_n_s_fa_rbfn, __pyx_k_fa_rbfn, sizeof(__pyx_k_fa_rbfn), 0, 0, 1, 1},
   {&__pyx_n_s_fr, __pyx_k_fr, sizeof(__pyx_k_fr), 0, 0, 1, 1},
+  {&__pyx_n_s_functionApproximator_RBFN, __pyx_k_functionApproximator_RBFN, sizeof(__pyx_k_functionApproximator_RBFN), 0, 0, 1, 1},
   {&__pyx_n_s_getData, __pyx_k_getData, sizeof(__pyx_k_getData), 0, 0, 1, 1},
   {&__pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_k_home_beucher_workspace_Cython_M, sizeof(__pyx_k_home_beucher_workspace_Cython_M), 0, 0, 1, 0},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
@@ -2164,16 +2140,16 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   /* "Utils/InitUtilMain.pyx":11
  * '''
  * 
- * from ArmModel.ArmParameters import ArmParameters             # <<<<<<<<<<<<<<
- * from ArmModel.MusclesParameters import MusclesParameters
- * from ArmModel.ArmDynamics import ArmDynamics
+ * from ArmParameters import ArmParameters             # <<<<<<<<<<<<<<
+ * from MusclesParameters import MusclesParameters
+ * from ArmDynamics import ArmDynamics
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_ArmParameters);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ArmParameters);
   __Pyx_GIVEREF(__pyx_n_s_ArmParameters);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ArmModel_ArmParameters, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ArmParameters, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ArmParameters); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2184,17 +2160,17 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
 
   /* "Utils/InitUtilMain.pyx":12
  * 
- * from ArmModel.ArmParameters import ArmParameters
- * from ArmModel.MusclesParameters import MusclesParameters             # <<<<<<<<<<<<<<
- * from ArmModel.ArmDynamics import ArmDynamics
- * from Regression.functionApproximator_RBFN import fa_rbfn
+ * from ArmParameters import ArmParameters
+ * from MusclesParameters import MusclesParameters             # <<<<<<<<<<<<<<
+ * from ArmDynamics import ArmDynamics
+ * from functionApproximator_RBFN import fa_rbfn
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_MusclesParameters);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_MusclesParameters);
   __Pyx_GIVEREF(__pyx_n_s_MusclesParameters);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ArmModel_MusclesParameters, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_MusclesParameters, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_MusclesParameters); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2204,18 +2180,18 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/InitUtilMain.pyx":13
- * from ArmModel.ArmParameters import ArmParameters
- * from ArmModel.MusclesParameters import MusclesParameters
- * from ArmModel.ArmDynamics import ArmDynamics             # <<<<<<<<<<<<<<
- * from Regression.functionApproximator_RBFN import fa_rbfn
- * from ArmModel.MuscularActivationCommand import MuscularActivationCommand
+ * from ArmParameters import ArmParameters
+ * from MusclesParameters import MusclesParameters
+ * from ArmDynamics import ArmDynamics             # <<<<<<<<<<<<<<
+ * from functionApproximator_RBFN import fa_rbfn
+ * from MuscularActivationCommand import MuscularActivationCommand
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_ArmDynamics);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ArmDynamics);
   __Pyx_GIVEREF(__pyx_n_s_ArmDynamics);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ArmModel_ArmDynamics, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ArmDynamics, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ArmDynamics); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2225,18 +2201,18 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Utils/InitUtilMain.pyx":14
- * from ArmModel.MusclesParameters import MusclesParameters
- * from ArmModel.ArmDynamics import ArmDynamics
- * from Regression.functionApproximator_RBFN import fa_rbfn             # <<<<<<<<<<<<<<
- * from ArmModel.MuscularActivationCommand import MuscularActivationCommand
- * from UnscentedKalmanFilterControl.UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
+ * from MusclesParameters import MusclesParameters
+ * from ArmDynamics import ArmDynamics
+ * from functionApproximator_RBFN import fa_rbfn             # <<<<<<<<<<<<<<
+ * from MuscularActivationCommand import MuscularActivationCommand
+ * from UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_fa_rbfn);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_fa_rbfn);
   __Pyx_GIVEREF(__pyx_n_s_fa_rbfn);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Regression_functionApproximator, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_functionApproximator_RBFN, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_fa_rbfn); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2246,18 +2222,18 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/InitUtilMain.pyx":15
- * from ArmModel.ArmDynamics import ArmDynamics
- * from Regression.functionApproximator_RBFN import fa_rbfn
- * from ArmModel.MuscularActivationCommand import MuscularActivationCommand             # <<<<<<<<<<<<<<
- * from UnscentedKalmanFilterControl.UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
- * from TrajectoryGenerator.TrajectoryGenerator import TrajectoryGenerator
+ * from ArmDynamics import ArmDynamics
+ * from functionApproximator_RBFN import fa_rbfn
+ * from MuscularActivationCommand import MuscularActivationCommand             # <<<<<<<<<<<<<<
+ * from UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
+ * from TrajectoryGenerator import TrajectoryGenerator
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_MuscularActivationCommand);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_MuscularActivationCommand);
   __Pyx_GIVEREF(__pyx_n_s_MuscularActivationCommand);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ArmModel_MuscularActivationComma, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_MuscularActivationCommand, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_MuscularActivationCommand); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2267,18 +2243,18 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Utils/InitUtilMain.pyx":16
- * from Regression.functionApproximator_RBFN import fa_rbfn
- * from ArmModel.MuscularActivationCommand import MuscularActivationCommand
- * from UnscentedKalmanFilterControl.UnscentedKalmanFilterControl import UnscentedKalmanFilterControl             # <<<<<<<<<<<<<<
- * from TrajectoryGenerator.TrajectoryGenerator import TrajectoryGenerator
- * from runExperimentalSetupTrajectories.runExperimentalSetupTrajectories import TrajectoriesGenerator
+ * from functionApproximator_RBFN import fa_rbfn
+ * from MuscularActivationCommand import MuscularActivationCommand
+ * from UnscentedKalmanFilterControl import UnscentedKalmanFilterControl             # <<<<<<<<<<<<<<
+ * from TrajectoryGenerator import TrajectoryGenerator
+ * from runExperimentalSetupTrajectories import TrajectoriesGenerator
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_UnscentedKalmanFilterControl);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_UnscentedKalmanFilterControl);
   __Pyx_GIVEREF(__pyx_n_s_UnscentedKalmanFilterControl);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_UnscentedKalmanFilterControl_Uns, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_UnscentedKalmanFilterControl, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_UnscentedKalmanFilterControl); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2288,18 +2264,18 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/InitUtilMain.pyx":17
- * from ArmModel.MuscularActivationCommand import MuscularActivationCommand
- * from UnscentedKalmanFilterControl.UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
- * from TrajectoryGenerator.TrajectoryGenerator import TrajectoryGenerator             # <<<<<<<<<<<<<<
- * from runExperimentalSetupTrajectories.runExperimentalSetupTrajectories import TrajectoriesGenerator
- * from CostComputation.CostComputation import CostComputation
+ * from MuscularActivationCommand import MuscularActivationCommand
+ * from UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
+ * from TrajectoryGenerator import TrajectoryGenerator             # <<<<<<<<<<<<<<
+ * from runExperimentalSetupTrajectories import TrajectoriesGenerator
+ * from CostComputation import CostComputation
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_TrajectoryGenerator);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_TrajectoryGenerator);
   __Pyx_GIVEREF(__pyx_n_s_TrajectoryGenerator);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_TrajectoryGenerator_TrajectoryGe, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_TrajectoryGenerator, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_TrajectoryGenerator); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2309,11 +2285,11 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Utils/InitUtilMain.pyx":18
- * from UnscentedKalmanFilterControl.UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
- * from TrajectoryGenerator.TrajectoryGenerator import TrajectoryGenerator
- * from runExperimentalSetupTrajectories.runExperimentalSetupTrajectories import TrajectoriesGenerator             # <<<<<<<<<<<<<<
- * from CostComputation.CostComputation import CostComputation
- * from CostComputation.NextStateComputation import NextStateComputation
+ * from UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
+ * from TrajectoryGenerator import TrajectoryGenerator
+ * from runExperimentalSetupTrajectories import TrajectoriesGenerator             # <<<<<<<<<<<<<<
+ * from CostComputation import CostComputation
+ * from NextStateComputation import NextStateComputation
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -2330,10 +2306,10 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/InitUtilMain.pyx":19
- * from TrajectoryGenerator.TrajectoryGenerator import TrajectoryGenerator
- * from runExperimentalSetupTrajectories.runExperimentalSetupTrajectories import TrajectoriesGenerator
- * from CostComputation.CostComputation import CostComputation             # <<<<<<<<<<<<<<
- * from CostComputation.NextStateComputation import NextStateComputation
+ * from TrajectoryGenerator import TrajectoryGenerator
+ * from runExperimentalSetupTrajectories import TrajectoriesGenerator
+ * from CostComputation import CostComputation             # <<<<<<<<<<<<<<
+ * from NextStateComputation import NextStateComputation
  * from GlobalVariables import pathTrajectoriesFolder
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2341,7 +2317,7 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   __Pyx_INCREF(__pyx_n_s_CostComputation);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_CostComputation);
   __Pyx_GIVEREF(__pyx_n_s_CostComputation);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_CostComputation_CostComputation, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_CostComputation, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_CostComputation); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2351,9 +2327,9 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Utils/InitUtilMain.pyx":20
- * from runExperimentalSetupTrajectories.runExperimentalSetupTrajectories import TrajectoriesGenerator
- * from CostComputation.CostComputation import CostComputation
- * from CostComputation.NextStateComputation import NextStateComputation             # <<<<<<<<<<<<<<
+ * from runExperimentalSetupTrajectories import TrajectoriesGenerator
+ * from CostComputation import CostComputation
+ * from NextStateComputation import NextStateComputation             # <<<<<<<<<<<<<<
  * from GlobalVariables import pathTrajectoriesFolder
  * 
  */
@@ -2362,7 +2338,7 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   __Pyx_INCREF(__pyx_n_s_NextStateComputation);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_NextStateComputation);
   __Pyx_GIVEREF(__pyx_n_s_NextStateComputation);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_CostComputation_NextStateComputa, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_NextStateComputation, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_NextStateComputation); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2372,8 +2348,8 @@ PyMODINIT_FUNC PyInit_InitUtilMain(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/InitUtilMain.pyx":21
- * from CostComputation.CostComputation import CostComputation
- * from CostComputation.NextStateComputation import NextStateComputation
+ * from CostComputation import CostComputation
+ * from NextStateComputation import NextStateComputation
  * from GlobalVariables import pathTrajectoriesFolder             # <<<<<<<<<<<<<<
  * 
  * 

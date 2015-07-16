@@ -730,6 +730,7 @@ static char __pyx_k_set_dotq_0[] = "set_dotq_0";
 static char __pyx_k_ArmDynamics[] = "ArmDynamics";
 static char __pyx_k_initStateAD[] = "initStateAD";
 static char __pyx_k_setNewStateAD[] = "setNewStateAD";
+static char __pyx_k_StateVectorUtil[] = "StateVectorUtil";
 static char __pyx_k_initParametersAD[] = "initParametersAD";
 static char __pyx_k_ArmDynamics_mddAD[] = "ArmDynamics.mddAD";
 static char __pyx_k_createStateVector[] = "createStateVector";
@@ -738,7 +739,6 @@ static char __pyx_k_ArmDynamics___init[] = "ArmDynamics.__init__";
 static char __pyx_k_ArmDynamics__dotq0[] = "_ArmDynamics__dotq0";
 static char __pyx_k_ArmDynamics_mddADUKF[] = "ArmDynamics.mddADUKF";
 static char __pyx_k_ArmModel_ArmDynamics[] = "ArmModel.ArmDynamics";
-static char __pyx_k_Utils_StateVectorUtil[] = "Utils.StateVectorUtil";
 static char __pyx_k_ArmDynamics_computeMCQ[] = "ArmDynamics.computeMCQ";
 static char __pyx_k_ArmDynamics_del_dotq_0[] = "ArmDynamics.del_dotq_0";
 static char __pyx_k_ArmDynamics_get_dotq_0[] = "ArmDynamics.get_dotq_0";
@@ -770,8 +770,8 @@ static PyObject *__pyx_n_s_Knulle;
 static PyObject *__pyx_n_s_M;
 static PyObject *__pyx_n_s_Minv;
 static PyObject *__pyx_n_s_Q;
+static PyObject *__pyx_n_s_StateVectorUtil;
 static PyObject *__pyx_n_s_U;
-static PyObject *__pyx_n_s_Utils_StateVectorUtil;
 static PyObject *__pyx_n_s_armP;
 static PyObject *__pyx_n_s_array;
 static PyObject *__pyx_n_s_computeMCQ;
@@ -4561,8 +4561,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_M, __pyx_k_M, sizeof(__pyx_k_M), 0, 0, 1, 1},
   {&__pyx_n_s_Minv, __pyx_k_Minv, sizeof(__pyx_k_Minv), 0, 0, 1, 1},
   {&__pyx_n_s_Q, __pyx_k_Q, sizeof(__pyx_k_Q), 0, 0, 1, 1},
+  {&__pyx_n_s_StateVectorUtil, __pyx_k_StateVectorUtil, sizeof(__pyx_k_StateVectorUtil), 0, 0, 1, 1},
   {&__pyx_n_s_U, __pyx_k_U, sizeof(__pyx_k_U), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_StateVectorUtil, __pyx_k_Utils_StateVectorUtil, sizeof(__pyx_k_Utils_StateVectorUtil), 0, 0, 1, 1},
   {&__pyx_n_s_armP, __pyx_k_armP, sizeof(__pyx_k_armP), 0, 0, 1, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
   {&__pyx_n_s_computeMCQ, __pyx_k_computeMCQ, sizeof(__pyx_k_computeMCQ), 0, 0, 1, 1},
@@ -5006,7 +5006,7 @@ PyMODINIT_FUNC PyInit_ArmDynamics(void)
  * 
  * import numpy as np             # <<<<<<<<<<<<<<
  * import math
- * from Utils.StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS
+ * from StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -5017,7 +5017,7 @@ PyMODINIT_FUNC PyInit_ArmDynamics(void)
  * 
  * import numpy as np
  * import math             # <<<<<<<<<<<<<<
- * from Utils.StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS
+ * from StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS
  * 
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_math, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -5028,7 +5028,7 @@ PyMODINIT_FUNC PyInit_ArmDynamics(void)
   /* "ArmModel/ArmDynamics.pyx":15
  * import numpy as np
  * import math
- * from Utils.StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS             # <<<<<<<<<<<<<<
+ * from StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS             # <<<<<<<<<<<<<<
  * 
  * class ArmDynamics:
  */
@@ -5040,7 +5040,7 @@ PyMODINIT_FUNC PyInit_ArmDynamics(void)
   __Pyx_INCREF(__pyx_n_s_getDotQAndQFromStateVectorS);
   PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_getDotQAndQFromStateVectorS);
   __Pyx_GIVEREF(__pyx_n_s_getDotQAndQFromStateVectorS);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_StateVectorUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_StateVectorUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_createStateVector); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -5054,7 +5054,7 @@ PyMODINIT_FUNC PyInit_ArmDynamics(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "ArmModel/ArmDynamics.pyx":17
- * from Utils.StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS
+ * from StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS
  * 
  * class ArmDynamics:             # <<<<<<<<<<<<<<
  * 
@@ -5232,7 +5232,7 @@ PyMODINIT_FUNC PyInit_ArmDynamics(void)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "ArmModel/ArmDynamics.pyx":17
- * from Utils.StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS
+ * from StateVectorUtil import createStateVector, getDotQAndQFromStateVectorS
  * 
  * class ArmDynamics:             # <<<<<<<<<<<<<<
  * 

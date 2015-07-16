@@ -9,7 +9,7 @@ Description: We find here functions which normalize the input data
 '''
 
 import numpy as np
-from Utils.FileSaving import fileSavingBin
+from FileSaving import fileSavingBin
 
 def normData(inputData):
     maxABSInputData = np.max(np.abs(inputData))

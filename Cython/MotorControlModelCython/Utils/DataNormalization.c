@@ -605,17 +605,17 @@ static char __pyx_k_shape[] = "shape";
 static char __pyx_k_import[] = "__import__";
 static char __pyx_k_normData[] = "normData";
 static char __pyx_k_inputData[] = "inputData";
+static char __pyx_k_FileSaving[] = "FileSaving";
 static char __pyx_k_fileSavingBin[] = "fileSavingBin";
 static char __pyx_k_maxABSInputData[] = "maxABSInputData";
-static char __pyx_k_Utils_FileSaving[] = "Utils.FileSaving";
 static char __pyx_k_Utils_DataNormalization[] = "Utils.DataNormalization";
 static char __pyx_k_RegressionInfo_maxABSInputData[] = "RegressionInfo/maxABSInputData";
 static char __pyx_k_Author_Thomas_Beucher_Module_Da[] = "\nAuthor: Thomas Beucher\n\nModule: DataNormalization\n\nDescription: We find here functions which normalize the input data\n";
 static char __pyx_k_home_beucher_workspace_Cython_M[] = "/home/beucher/workspace/Cython/MotorControlModelCython/Utils/DataNormalization.pyx";
 static char __pyx_k_normDataForEachIndividualColumns[] = "normDataForEachIndividualColumns";
+static PyObject *__pyx_n_s_FileSaving;
 static PyObject *__pyx_kp_s_RegressionInfo_maxABSInputData;
 static PyObject *__pyx_n_s_Utils_DataNormalization;
-static PyObject *__pyx_n_s_Utils_FileSaving;
 static PyObject *__pyx_n_s_abs;
 static PyObject *__pyx_n_s_axis;
 static PyObject *__pyx_n_s_fileSavingBin;
@@ -642,7 +642,7 @@ static PyObject *__pyx_codeobj__4;
 static PyObject *__pyx_codeobj__6;
 
 /* "Utils/DataNormalization.pyx":14
- * from Utils.FileSaving import fileSavingBin
+ * from FileSaving import fileSavingBin
  * 
  * def normData(inputData):             # <<<<<<<<<<<<<<
  *     maxABSInputData = np.max(np.abs(inputData))
@@ -814,7 +814,7 @@ static PyObject *__pyx_pf_5Utils_17DataNormalization_normData(CYTHON_UNUSED PyOb
   goto __pyx_L0;
 
   /* "Utils/DataNormalization.pyx":14
- * from Utils.FileSaving import fileSavingBin
+ * from FileSaving import fileSavingBin
  * 
  * def normData(inputData):             # <<<<<<<<<<<<<<
  *     maxABSInputData = np.max(np.abs(inputData))
@@ -1100,9 +1100,9 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_n_s_FileSaving, __pyx_k_FileSaving, sizeof(__pyx_k_FileSaving), 0, 0, 1, 1},
   {&__pyx_kp_s_RegressionInfo_maxABSInputData, __pyx_k_RegressionInfo_maxABSInputData, sizeof(__pyx_k_RegressionInfo_maxABSInputData), 0, 0, 1, 0},
   {&__pyx_n_s_Utils_DataNormalization, __pyx_k_Utils_DataNormalization, sizeof(__pyx_k_Utils_DataNormalization), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_FileSaving, __pyx_k_Utils_FileSaving, sizeof(__pyx_k_Utils_FileSaving), 0, 0, 1, 1},
   {&__pyx_n_s_abs, __pyx_k_abs, sizeof(__pyx_k_abs), 0, 0, 1, 1},
   {&__pyx_n_s_axis, __pyx_k_axis, sizeof(__pyx_k_axis), 0, 0, 1, 1},
   {&__pyx_n_s_fileSavingBin, __pyx_k_fileSavingBin, sizeof(__pyx_k_fileSavingBin), 0, 0, 1, 1},
@@ -1147,7 +1147,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_slice__2);
 
   /* "Utils/DataNormalization.pyx":14
- * from Utils.FileSaving import fileSavingBin
+ * from FileSaving import fileSavingBin
  * 
  * def normData(inputData):             # <<<<<<<<<<<<<<
  *     maxABSInputData = np.max(np.abs(inputData))
@@ -1274,7 +1274,7 @@ PyMODINIT_FUNC PyInit_DataNormalization(void)
  * '''
  * 
  * import numpy as np             # <<<<<<<<<<<<<<
- * from Utils.FileSaving import fileSavingBin
+ * from FileSaving import fileSavingBin
  * 
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1285,7 +1285,7 @@ PyMODINIT_FUNC PyInit_DataNormalization(void)
   /* "Utils/DataNormalization.pyx":12
  * 
  * import numpy as np
- * from Utils.FileSaving import fileSavingBin             # <<<<<<<<<<<<<<
+ * from FileSaving import fileSavingBin             # <<<<<<<<<<<<<<
  * 
  * def normData(inputData):
  */
@@ -1294,7 +1294,7 @@ PyMODINIT_FUNC PyInit_DataNormalization(void)
   __Pyx_INCREF(__pyx_n_s_fileSavingBin);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_fileSavingBin);
   __Pyx_GIVEREF(__pyx_n_s_fileSavingBin);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_FileSaving, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_FileSaving, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_fileSavingBin); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1304,7 +1304,7 @@ PyMODINIT_FUNC PyInit_DataNormalization(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Utils/DataNormalization.pyx":14
- * from Utils.FileSaving import fileSavingBin
+ * from FileSaving import fileSavingBin
  * 
  * def normData(inputData):             # <<<<<<<<<<<<<<
  *     maxABSInputData = np.max(np.abs(inputData))

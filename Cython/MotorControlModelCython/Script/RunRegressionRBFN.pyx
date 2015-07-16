@@ -9,9 +9,9 @@ Description: We find here the function to run rbfn algorithm to create the contr
 '''
 import time
 import numpy as np
-from Utils.InitUtil import initFRRS
-from Regression.functionApproximator_RBFN import fa_rbfn
-from Utils.FileSaving import fileSavingStrJson
+from InitUtil import initFRRS
+from functionApproximator_RBFN import fa_rbfn
+from FileSaving import fileSavingStrJson
 from GlobalVariables import pathTrajectoriesFolder
 
 

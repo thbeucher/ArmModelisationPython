@@ -8,16 +8,16 @@ Module: initUtilMain
 Description: Here some functions which initializes objects usefull to generate trajectory
 '''
 
-from ArmModel.ArmParameters import ArmParameters
-from ArmModel.MusclesParameters import MusclesParameters
-from ArmModel.ArmDynamics import ArmDynamics
-from Regression.functionApproximator_RBFN import fa_rbfn
-from ArmModel.MuscularActivationCommand import MuscularActivationCommand
-from UnscentedKalmanFilterControl.UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
-from TrajectoryGenerator.TrajectoryGenerator import TrajectoryGenerator
-from runExperimentalSetupTrajectories.runExperimentalSetupTrajectories import TrajectoriesGenerator
-from CostComputation.CostComputation import CostComputation
-from CostComputation.NextStateComputation import NextStateComputation
+from ArmParameters import ArmParameters
+from MusclesParameters import MusclesParameters
+from ArmDynamics import ArmDynamics
+from functionApproximator_RBFN import fa_rbfn
+from MuscularActivationCommand import MuscularActivationCommand
+from UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
+from TrajectoryGenerator import TrajectoryGenerator
+from runExperimentalSetupTrajectories import TrajectoriesGenerator
+from CostComputation import CostComputation
+from NextStateComputation import NextStateComputation
 from GlobalVariables import pathTrajectoriesFolder
 
 

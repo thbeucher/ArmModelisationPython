@@ -9,7 +9,7 @@ Description: We find here functions which allow to compute a RBFN regression
 '''
 
 import numpy as np
-from Utils.CartesianProduct import cartesian
+from CartesianProduct import cartesian
 from multiprocessing import Process
 from multiprocessing.sharedctypes import Array
 import ctypes as ct

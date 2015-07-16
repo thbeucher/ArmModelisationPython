@@ -15,14 +15,14 @@ from matplotlib import cm
 #from matplotlib import animation
 #import mpl_toolkits
 import os
-from ArmModel.GeometricModel import mgd
+from GeometricModel import mgd
 import math
-from Utils.NiemRoot import tronquerNB
-from Utils.InitUtil import initFRRS
-from Utils.FileReading import FileReading
+from NiemRoot import tronquerNB
+from InitUtil import initFRRS
+from FileReading import FileReading
 #from shutil import copyfile
 #from posix import remove
-from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
+from FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
      getTimeDistance, getDistPerfSize, getVelocityProfileData, getTimeByArea
 from matplotlib.mlab import griddata
 #from scipy.spatial import ConvexHull

@@ -8,9 +8,9 @@ Module: NextStateComputation
 Description: this class permits to generate the next state from the previous state, ie state at time t+1 given state at time t
 '''
 
-from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
-from ArmModel.ArmDynamics import mdd
-from ArmModel.GeometricModel import jointStop
+from StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
+from ArmDynamics import mdd
+from GeometricModel import jointStop
 
 
 class NextStateComputation:

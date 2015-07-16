@@ -641,36 +641,35 @@ static char __pyx_k_fa_rbfn[] = "fa_rbfn";
 static char __pyx_k_getData[] = "getData";
 static char __pyx_k_runRBFN[] = "runRBFN";
 static char __pyx_k_shuffle[] = "shuffle";
+static char __pyx_k_InitUtil[] = "InitUtil";
 static char __pyx_k_initFRRS[] = "initFRRS";
 static char __pyx_k_numfeats[] = "numfeats";
 static char __pyx_k_stateAll[] = "stateAll";
 static char __pyx_k_nameSaveC[] = "nameSaveC";
+static char __pyx_k_FileSaving[] = "FileSaving";
 static char __pyx_k_commandAll[] = "commandAll";
 static char __pyx_k_dicToArray[] = "dicToArray";
 static char __pyx_k_train_rbfn[] = "train_rbfn";
-static char __pyx_k_Utils_InitUtil[] = "Utils.InitUtil";
 static char __pyx_k_GlobalVariables[] = "GlobalVariables";
 static char __pyx_k_setTrainingData[] = "setTrainingData";
-static char __pyx_k_Utils_FileSaving[] = "Utils.FileSaving";
 static char __pyx_k_fileSavingStrJson[] = "fileSavingStrJson";
 static char __pyx_k_Dbut_de_traitement[] = "D\303\251but de traitement!";
 static char __pyx_k_setCentersAndWidths[] = "setCentersAndWidths";
 static char __pyx_k_nombre_d_echantillons[] = "nombre d'echantillons: ";
 static char __pyx_k_pathTrajectoriesFolder[] = "pathTrajectoriesFolder";
 static char __pyx_k_Script_RunRegressionRBFN[] = "Script.RunRegressionRBFN";
+static char __pyx_k_functionApproximator_RBFN[] = "functionApproximator_RBFN";
 static char __pyx_k_Author_Thomas_Beucher_Module_Ru[] = "\nAuthor: Thomas Beucher\n\nModule: RunRegressionRBFN\n\nDescription: We find here the function to run rbfn algorithm to create the controller\n";
-static char __pyx_k_Regression_functionApproximator[] = "Regression.functionApproximator_RBFN";
 static char __pyx_k_home_beucher_workspace_Cython_M[] = "/home/beucher/workspace/Cython/MotorControlModelCython/Script/RunRegressionRBFN.pyx";
 static char __pyx_k_Fin_du_traitement_temps_d_execut[] = "Fin du traitement! (temps d'execution:";
 static PyObject *__pyx_kp_s_Dbut_de_traitement;
+static PyObject *__pyx_n_s_FileSaving;
 static PyObject *__pyx_kp_s_Fin_du_traitement_temps_d_execut;
 static PyObject *__pyx_n_s_GlobalVariables;
+static PyObject *__pyx_n_s_InitUtil;
 static PyObject *__pyx_kp_s_RBFN2;
-static PyObject *__pyx_n_s_Regression_functionApproximator;
 static PyObject *__pyx_n_s_Script_RunRegressionRBFN;
 static PyObject *__pyx_n_s_T;
-static PyObject *__pyx_n_s_Utils_FileSaving;
-static PyObject *__pyx_n_s_Utils_InitUtil;
 static PyObject *__pyx_n_s_command;
 static PyObject *__pyx_n_s_commandAll;
 static PyObject *__pyx_n_s_dicToArray;
@@ -681,6 +680,7 @@ static PyObject *__pyx_kp_s_feats;
 static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_fileSavingStrJson;
 static PyObject *__pyx_n_s_fr;
+static PyObject *__pyx_n_s_functionApproximator_RBFN;
 static PyObject *__pyx_n_s_getData;
 static PyObject *__pyx_kp_s_home_beucher_workspace_Cython_M;
 static PyObject *__pyx_n_s_import;
@@ -1519,14 +1519,13 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Dbut_de_traitement, __pyx_k_Dbut_de_traitement, sizeof(__pyx_k_Dbut_de_traitement), 0, 0, 1, 0},
+  {&__pyx_n_s_FileSaving, __pyx_k_FileSaving, sizeof(__pyx_k_FileSaving), 0, 0, 1, 1},
   {&__pyx_kp_s_Fin_du_traitement_temps_d_execut, __pyx_k_Fin_du_traitement_temps_d_execut, sizeof(__pyx_k_Fin_du_traitement_temps_d_execut), 0, 0, 1, 0},
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
+  {&__pyx_n_s_InitUtil, __pyx_k_InitUtil, sizeof(__pyx_k_InitUtil), 0, 0, 1, 1},
   {&__pyx_kp_s_RBFN2, __pyx_k_RBFN2, sizeof(__pyx_k_RBFN2), 0, 0, 1, 0},
-  {&__pyx_n_s_Regression_functionApproximator, __pyx_k_Regression_functionApproximator, sizeof(__pyx_k_Regression_functionApproximator), 0, 0, 1, 1},
   {&__pyx_n_s_Script_RunRegressionRBFN, __pyx_k_Script_RunRegressionRBFN, sizeof(__pyx_k_Script_RunRegressionRBFN), 0, 0, 1, 1},
   {&__pyx_n_s_T, __pyx_k_T, sizeof(__pyx_k_T), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_FileSaving, __pyx_k_Utils_FileSaving, sizeof(__pyx_k_Utils_FileSaving), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_InitUtil, __pyx_k_Utils_InitUtil, sizeof(__pyx_k_Utils_InitUtil), 0, 0, 1, 1},
   {&__pyx_n_s_command, __pyx_k_command, sizeof(__pyx_k_command), 0, 0, 1, 1},
   {&__pyx_n_s_commandAll, __pyx_k_commandAll, sizeof(__pyx_k_commandAll), 0, 0, 1, 1},
   {&__pyx_n_s_dicToArray, __pyx_k_dicToArray, sizeof(__pyx_k_dicToArray), 0, 0, 1, 1},
@@ -1537,6 +1536,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_fileSavingStrJson, __pyx_k_fileSavingStrJson, sizeof(__pyx_k_fileSavingStrJson), 0, 0, 1, 1},
   {&__pyx_n_s_fr, __pyx_k_fr, sizeof(__pyx_k_fr), 0, 0, 1, 1},
+  {&__pyx_n_s_functionApproximator_RBFN, __pyx_k_functionApproximator_RBFN, sizeof(__pyx_k_functionApproximator_RBFN), 0, 0, 1, 1},
   {&__pyx_n_s_getData, __pyx_k_getData, sizeof(__pyx_k_getData), 0, 0, 1, 1},
   {&__pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_k_home_beucher_workspace_Cython_M, sizeof(__pyx_k_home_beucher_workspace_Cython_M), 0, 0, 1, 0},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
@@ -1716,7 +1716,7 @@ PyMODINIT_FUNC PyInit_RunRegressionRBFN(void)
  * '''
  * import time             # <<<<<<<<<<<<<<
  * import numpy as np
- * from Utils.InitUtil import initFRRS
+ * from InitUtil import initFRRS
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_time, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -1727,8 +1727,8 @@ PyMODINIT_FUNC PyInit_RunRegressionRBFN(void)
  * '''
  * import time
  * import numpy as np             # <<<<<<<<<<<<<<
- * from Utils.InitUtil import initFRRS
- * from Regression.functionApproximator_RBFN import fa_rbfn
+ * from InitUtil import initFRRS
+ * from functionApproximator_RBFN import fa_rbfn
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -1738,16 +1738,16 @@ PyMODINIT_FUNC PyInit_RunRegressionRBFN(void)
   /* "Script/RunRegressionRBFN.pyx":12
  * import time
  * import numpy as np
- * from Utils.InitUtil import initFRRS             # <<<<<<<<<<<<<<
- * from Regression.functionApproximator_RBFN import fa_rbfn
- * from Utils.FileSaving import fileSavingStrJson
+ * from InitUtil import initFRRS             # <<<<<<<<<<<<<<
+ * from functionApproximator_RBFN import fa_rbfn
+ * from FileSaving import fileSavingStrJson
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_initFRRS);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_initFRRS);
   __Pyx_GIVEREF(__pyx_n_s_initFRRS);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_InitUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_InitUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_initFRRS); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1758,9 +1758,9 @@ PyMODINIT_FUNC PyInit_RunRegressionRBFN(void)
 
   /* "Script/RunRegressionRBFN.pyx":13
  * import numpy as np
- * from Utils.InitUtil import initFRRS
- * from Regression.functionApproximator_RBFN import fa_rbfn             # <<<<<<<<<<<<<<
- * from Utils.FileSaving import fileSavingStrJson
+ * from InitUtil import initFRRS
+ * from functionApproximator_RBFN import fa_rbfn             # <<<<<<<<<<<<<<
+ * from FileSaving import fileSavingStrJson
  * from GlobalVariables import pathTrajectoriesFolder
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1768,7 +1768,7 @@ PyMODINIT_FUNC PyInit_RunRegressionRBFN(void)
   __Pyx_INCREF(__pyx_n_s_fa_rbfn);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_fa_rbfn);
   __Pyx_GIVEREF(__pyx_n_s_fa_rbfn);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Regression_functionApproximator, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_functionApproximator_RBFN, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_fa_rbfn); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1778,9 +1778,9 @@ PyMODINIT_FUNC PyInit_RunRegressionRBFN(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Script/RunRegressionRBFN.pyx":14
- * from Utils.InitUtil import initFRRS
- * from Regression.functionApproximator_RBFN import fa_rbfn
- * from Utils.FileSaving import fileSavingStrJson             # <<<<<<<<<<<<<<
+ * from InitUtil import initFRRS
+ * from functionApproximator_RBFN import fa_rbfn
+ * from FileSaving import fileSavingStrJson             # <<<<<<<<<<<<<<
  * from GlobalVariables import pathTrajectoriesFolder
  * 
  */
@@ -1789,7 +1789,7 @@ PyMODINIT_FUNC PyInit_RunRegressionRBFN(void)
   __Pyx_INCREF(__pyx_n_s_fileSavingStrJson);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_fileSavingStrJson);
   __Pyx_GIVEREF(__pyx_n_s_fileSavingStrJson);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_FileSaving, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_FileSaving, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_fileSavingStrJson); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1799,8 +1799,8 @@ PyMODINIT_FUNC PyInit_RunRegressionRBFN(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Script/RunRegressionRBFN.pyx":15
- * from Regression.functionApproximator_RBFN import fa_rbfn
- * from Utils.FileSaving import fileSavingStrJson
+ * from functionApproximator_RBFN import fa_rbfn
+ * from FileSaving import fileSavingStrJson
  * from GlobalVariables import pathTrajectoriesFolder             # <<<<<<<<<<<<<<
  * 
  * 

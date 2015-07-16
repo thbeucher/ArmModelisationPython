@@ -970,6 +970,8 @@ static char __pyx_k_scatter[] = "scatter";
 static char __pyx_k_size_mm[] = "size (mm)";
 static char __pyx_k_std_err[] = "std_err";
 static char __pyx_k_Distance[] = "Distance: ";
+static char __pyx_k_InitUtil[] = "InitUtil";
+static char __pyx_k_NiemRoot[] = "NiemRoot";
 static char __pyx_k_angleIni[] = "angleIni";
 static char __pyx_k_brentbvp[] = "brentbvp";
 static char __pyx_k_colorbar[] = "colorbar";
@@ -1018,8 +1020,7 @@ static char __pyx_k_log_D_W_log_2[] = "log(D/W)/log(2)";
 static char __pyx_k_recup_pos_ini[] = "recup_pos_ini";
 static char __pyx_k_timeDistWidth[] = "timeDistWidth";
 static char __pyx_k_AttributeError[] = "AttributeError";
-static char __pyx_k_Utils_InitUtil[] = "Utils.InitUtil";
-static char __pyx_k_Utils_NiemRoot[] = "Utils.NiemRoot";
+static char __pyx_k_GeometricModel[] = "GeometricModel";
 static char __pyx_k_areaTimeBySize[] = "areaTimeBySize";
 static char __pyx_k_feats_nbIteBIN[] = "feats/nbIteBIN";
 static char __pyx_k_getobjreadJson[] = "getobjreadJson";
@@ -1033,10 +1034,10 @@ static char __pyx_k_matplotlib_mlab[] = "matplotlib.mlab";
 static char __pyx_k_plotRBFNCostMap[] = "plotRBFNCostMap";
 static char __pyx_k_sizeDistPerfTmp[] = "sizeDistPerfTmp";
 static char __pyx_k_velocityProfile[] = "velocityProfile";
+static char __pyx_k_FunctionsUsefull[] = "FunctionsUsefull";
 static char __pyx_k_Velocity_profile[] = "Velocity profile";
 static char __pyx_k_feats_costBINCma[] = "feats/costBINCma";
 static char __pyx_k_plotPerfSizeDist[] = "plotPerfSizeDist";
-static char __pyx_k_Utils_FileReading[] = "Utils.FileReading";
 static char __pyx_k_matplotlib_pyplot[] = "matplotlib.pyplot";
 static char __pyx_k_CostMap_for_Target[] = "CostMap for Target ";
 static char __pyx_k_ResTK2_nbIteCmaBIN[] = "/ResTK2/nbIteCmaBIN";
@@ -1047,14 +1048,12 @@ static char __pyx_k_experimentFilePosIni[] = "experimentFilePosIni";
 static char __pyx_k_plotTrajThetaAllTraj[] = "plotTrajThetaAllTraj";
 static char __pyx_k_targetDistTimeSorted[] = "targetDistTimeSorted";
 static char __pyx_k_ResTK2_SpeedSaveCmaBIN[] = "/ResTK2/SpeedSaveCmaBIN";
-static char __pyx_k_Utils_FunctionsUsefull[] = "Utils.FunctionsUsefull";
 static char __pyx_k_getVelocityProfileData[] = "getVelocityProfileData";
 static char __pyx_k_pathTrajectoriesFolder[] = "pathTrajectoriesFolder";
 static char __pyx_k_plotActivationMuscular[] = "plotActivationMuscular";
 static char __pyx_k_plotPosIniOutputSolver[] = "plotPosIniOutputSolver";
 static char __pyx_k_plotTimeDistanceTarget[] = "plotTimeDistanceTarget";
 static char __pyx_k_returnDifCostBrentRBFN[] = "returnDifCostBrentRBFN";
-static char __pyx_k_ArmModel_GeometricModel[] = "ArmModel.GeometricModel";
 static char __pyx_k_plotMapTimeTrajectories[] = "plotMapTimeTrajectories";
 static char __pyx_k_OptimisationResults_ResCma[] = "OptimisationResults/ResCma";
 static char __pyx_k_Velocity_profile_for_target[] = "Velocity profile for target ";
@@ -1068,7 +1067,6 @@ static char __pyx_k_feats_ResultShuffle_actiMuscuRBF[] = "feats/ResultShuffle/ac
 static char __pyx_k_plotTimeDistanceTarget_locals_la[] = "plotTimeDistanceTarget.<locals>.<lambda>";
 static char __pyx_k_trajectoires_cout_trajectoire_co[] = "trajectoires_cout/trajectoire_coutCoordXBIN";
 static char __pyx_k_home_beucher_Desktop_Monfray_Co_2[] = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster2/";
-static PyObject *__pyx_n_s_ArmModel_GeometricModel;
 static PyObject *__pyx_n_s_AttributeError;
 static PyObject *__pyx_n_s_BIN;
 static PyObject *__pyx_kp_s_Bruit;
@@ -1077,10 +1075,14 @@ static PyObject *__pyx_kp_s_CostMap_for_Target;
 static PyObject *__pyx_n_s_DI;
 static PyObject *__pyx_kp_s_Distance;
 static PyObject *__pyx_n_s_FileReading;
+static PyObject *__pyx_n_s_FunctionsUsefull;
+static PyObject *__pyx_n_s_GeometricModel;
 static PyObject *__pyx_n_s_GlobalVariables;
 static PyObject *__pyx_n_s_IndexError;
+static PyObject *__pyx_n_s_InitUtil;
 static PyObject *__pyx_kp_s_Instantaneous_speed;
 static PyObject *__pyx_n_s_MT;
+static PyObject *__pyx_n_s_NiemRoot;
 static PyObject *__pyx_kp_s_OptimisationResults_ResCma;
 static PyObject *__pyx_n_s_Q;
 static PyObject *__pyx_kp_s_RBFN2;
@@ -1092,10 +1094,6 @@ static PyObject *__pyx_n_s_T;
 static PyObject *__pyx_kp_s_ThetaAllTraj;
 static PyObject *__pyx_n_s_Time;
 static PyObject *__pyx_kp_s_TimeMap_for_Target;
-static PyObject *__pyx_n_s_Utils_FileReading;
-static PyObject *__pyx_n_s_Utils_FunctionsUsefull;
-static PyObject *__pyx_n_s_Utils_InitUtil;
-static PyObject *__pyx_n_s_Utils_NiemRoot;
 static PyObject *__pyx_n_s_Utils_plotFunctions;
 static PyObject *__pyx_kp_s_Velocity_profile;
 static PyObject *__pyx_kp_s_Velocity_profile_for_target;
@@ -19797,7 +19795,6 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_n_s_ArmModel_GeometricModel, __pyx_k_ArmModel_GeometricModel, sizeof(__pyx_k_ArmModel_GeometricModel), 0, 0, 1, 1},
   {&__pyx_n_s_AttributeError, __pyx_k_AttributeError, sizeof(__pyx_k_AttributeError), 0, 0, 1, 1},
   {&__pyx_n_s_BIN, __pyx_k_BIN, sizeof(__pyx_k_BIN), 0, 0, 1, 1},
   {&__pyx_kp_s_Bruit, __pyx_k_Bruit, sizeof(__pyx_k_Bruit), 0, 0, 1, 0},
@@ -19806,10 +19803,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_DI, __pyx_k_DI, sizeof(__pyx_k_DI), 0, 0, 1, 1},
   {&__pyx_kp_s_Distance, __pyx_k_Distance, sizeof(__pyx_k_Distance), 0, 0, 1, 0},
   {&__pyx_n_s_FileReading, __pyx_k_FileReading, sizeof(__pyx_k_FileReading), 0, 0, 1, 1},
+  {&__pyx_n_s_FunctionsUsefull, __pyx_k_FunctionsUsefull, sizeof(__pyx_k_FunctionsUsefull), 0, 0, 1, 1},
+  {&__pyx_n_s_GeometricModel, __pyx_k_GeometricModel, sizeof(__pyx_k_GeometricModel), 0, 0, 1, 1},
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
   {&__pyx_n_s_IndexError, __pyx_k_IndexError, sizeof(__pyx_k_IndexError), 0, 0, 1, 1},
+  {&__pyx_n_s_InitUtil, __pyx_k_InitUtil, sizeof(__pyx_k_InitUtil), 0, 0, 1, 1},
   {&__pyx_kp_s_Instantaneous_speed, __pyx_k_Instantaneous_speed, sizeof(__pyx_k_Instantaneous_speed), 0, 0, 1, 0},
   {&__pyx_n_s_MT, __pyx_k_MT, sizeof(__pyx_k_MT), 0, 0, 1, 1},
+  {&__pyx_n_s_NiemRoot, __pyx_k_NiemRoot, sizeof(__pyx_k_NiemRoot), 0, 0, 1, 1},
   {&__pyx_kp_s_OptimisationResults_ResCma, __pyx_k_OptimisationResults_ResCma, sizeof(__pyx_k_OptimisationResults_ResCma), 0, 0, 1, 0},
   {&__pyx_n_s_Q, __pyx_k_Q, sizeof(__pyx_k_Q), 0, 0, 1, 1},
   {&__pyx_kp_s_RBFN2, __pyx_k_RBFN2, sizeof(__pyx_k_RBFN2), 0, 0, 1, 0},
@@ -19821,10 +19822,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_ThetaAllTraj, __pyx_k_ThetaAllTraj, sizeof(__pyx_k_ThetaAllTraj), 0, 0, 1, 0},
   {&__pyx_n_s_Time, __pyx_k_Time, sizeof(__pyx_k_Time), 0, 0, 1, 1},
   {&__pyx_kp_s_TimeMap_for_Target, __pyx_k_TimeMap_for_Target, sizeof(__pyx_k_TimeMap_for_Target), 0, 0, 1, 0},
-  {&__pyx_n_s_Utils_FileReading, __pyx_k_Utils_FileReading, sizeof(__pyx_k_Utils_FileReading), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_FunctionsUsefull, __pyx_k_Utils_FunctionsUsefull, sizeof(__pyx_k_Utils_FunctionsUsefull), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_InitUtil, __pyx_k_Utils_InitUtil, sizeof(__pyx_k_Utils_InitUtil), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_NiemRoot, __pyx_k_Utils_NiemRoot, sizeof(__pyx_k_Utils_NiemRoot), 0, 0, 1, 1},
   {&__pyx_n_s_Utils_plotFunctions, __pyx_k_Utils_plotFunctions, sizeof(__pyx_k_Utils_plotFunctions), 0, 0, 1, 1},
   {&__pyx_kp_s_Velocity_profile, __pyx_k_Velocity_profile, sizeof(__pyx_k_Velocity_profile), 0, 0, 1, 0},
   {&__pyx_kp_s_Velocity_profile_for_target, __pyx_k_Velocity_profile_for_target, sizeof(__pyx_k_Velocity_profile_for_target), 0, 0, 1, 0},
@@ -21318,7 +21315,7 @@ PyMODINIT_FUNC PyInit_plotFunctions(void)
  * #from matplotlib import animation
  * #import mpl_toolkits
  * import os             # <<<<<<<<<<<<<<
- * from ArmModel.GeometricModel import mgd
+ * from GeometricModel import mgd
  * import math
  */
   __pyx_t_2 = __Pyx_Import(__pyx_n_s_os, 0, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21329,16 +21326,16 @@ PyMODINIT_FUNC PyInit_plotFunctions(void)
   /* "Utils/plotFunctions.pyx":18
  * #import mpl_toolkits
  * import os
- * from ArmModel.GeometricModel import mgd             # <<<<<<<<<<<<<<
+ * from GeometricModel import mgd             # <<<<<<<<<<<<<<
  * import math
- * from Utils.NiemRoot import tronquerNB
+ * from NiemRoot import tronquerNB
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_mgd);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_mgd);
   __Pyx_GIVEREF(__pyx_n_s_mgd);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ArmModel_GeometricModel, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_GeometricModel, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_mgd); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21349,10 +21346,10 @@ PyMODINIT_FUNC PyInit_plotFunctions(void)
 
   /* "Utils/plotFunctions.pyx":19
  * import os
- * from ArmModel.GeometricModel import mgd
+ * from GeometricModel import mgd
  * import math             # <<<<<<<<<<<<<<
- * from Utils.NiemRoot import tronquerNB
- * from Utils.InitUtil import initFRRS
+ * from NiemRoot import tronquerNB
+ * from InitUtil import initFRRS
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_math, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -21360,18 +21357,18 @@ PyMODINIT_FUNC PyInit_plotFunctions(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/plotFunctions.pyx":20
- * from ArmModel.GeometricModel import mgd
+ * from GeometricModel import mgd
  * import math
- * from Utils.NiemRoot import tronquerNB             # <<<<<<<<<<<<<<
- * from Utils.InitUtil import initFRRS
- * from Utils.FileReading import FileReading
+ * from NiemRoot import tronquerNB             # <<<<<<<<<<<<<<
+ * from InitUtil import initFRRS
+ * from FileReading import FileReading
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_tronquerNB);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_tronquerNB);
   __Pyx_GIVEREF(__pyx_n_s_tronquerNB);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_NiemRoot, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_NiemRoot, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_tronquerNB); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21382,9 +21379,9 @@ PyMODINIT_FUNC PyInit_plotFunctions(void)
 
   /* "Utils/plotFunctions.pyx":21
  * import math
- * from Utils.NiemRoot import tronquerNB
- * from Utils.InitUtil import initFRRS             # <<<<<<<<<<<<<<
- * from Utils.FileReading import FileReading
+ * from NiemRoot import tronquerNB
+ * from InitUtil import initFRRS             # <<<<<<<<<<<<<<
+ * from FileReading import FileReading
  * #from shutil import copyfile
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21392,7 +21389,7 @@ PyMODINIT_FUNC PyInit_plotFunctions(void)
   __Pyx_INCREF(__pyx_n_s_initFRRS);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_initFRRS);
   __Pyx_GIVEREF(__pyx_n_s_initFRRS);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Utils_InitUtil, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_InitUtil, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_initFRRS); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21402,9 +21399,9 @@ PyMODINIT_FUNC PyInit_plotFunctions(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/plotFunctions.pyx":22
- * from Utils.NiemRoot import tronquerNB
- * from Utils.InitUtil import initFRRS
- * from Utils.FileReading import FileReading             # <<<<<<<<<<<<<<
+ * from NiemRoot import tronquerNB
+ * from InitUtil import initFRRS
+ * from FileReading import FileReading             # <<<<<<<<<<<<<<
  * #from shutil import copyfile
  * #from posix import remove
  */
@@ -21413,7 +21410,7 @@ PyMODINIT_FUNC PyInit_plotFunctions(void)
   __Pyx_INCREF(__pyx_n_s_FileReading);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_FileReading);
   __Pyx_GIVEREF(__pyx_n_s_FileReading);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_FileReading, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_FileReading, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_FileReading); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21425,7 +21422,7 @@ PyMODINIT_FUNC PyInit_plotFunctions(void)
   /* "Utils/plotFunctions.pyx":25
  * #from shutil import copyfile
  * #from posix import remove
- * from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\             # <<<<<<<<<<<<<<
+ * from FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\             # <<<<<<<<<<<<<<
  *      getTimeDistance, getDistPerfSize, getVelocityProfileData, getTimeByArea
  * from matplotlib.mlab import griddata
  */
@@ -21449,7 +21446,7 @@ PyMODINIT_FUNC PyInit_plotFunctions(void)
   __Pyx_INCREF(__pyx_n_s_getTimeByArea);
   PyList_SET_ITEM(__pyx_t_2, 5, __pyx_n_s_getTimeByArea);
   __Pyx_GIVEREF(__pyx_n_s_getTimeByArea);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Utils_FunctionsUsefull, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_FunctionsUsefull, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_returnX0Y0Z); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21479,7 +21476,7 @@ PyMODINIT_FUNC PyInit_plotFunctions(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/plotFunctions.pyx":27
- * from Utils.FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
+ * from FunctionsUsefull import returnX0Y0Z, returnDifCostBrentRBFN,\
  *      getTimeDistance, getDistPerfSize, getVelocityProfileData, getTimeByArea
  * from matplotlib.mlab import griddata             # <<<<<<<<<<<<<<
  * #from scipy.spatial import ConvexHull

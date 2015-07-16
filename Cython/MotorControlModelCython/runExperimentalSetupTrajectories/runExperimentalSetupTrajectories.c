@@ -805,12 +805,12 @@ static char __pyx_k_saveThetaCmaes[] = "saveThetaCmaes";
 static char __pyx_k_GlobalVariables[] = "GlobalVariables";
 static char __pyx_k_runTrajectories[] = "runTrajectories";
 static char __pyx_k_initParametersTGS[] = "initParametersTGS";
+static char __pyx_k_ThetaNormalization[] = "ThetaNormalization";
 static char __pyx_k_thetaSolTmp_target[] = "/thetaSolTmp_target";
 static char __pyx_k_experimentFilePosIni[] = "experimentFilePosIni";
 static char __pyx_k_nameFileSaveMeanCost[] = "nameFileSaveMeanCost";
 static char __pyx_k_runOneTrajectoryRBFN[] = "runOneTrajectoryRBFN";
 static char __pyx_k_TrajectoriesGenerator[] = "TrajectoriesGenerator";
-static char __pyx_k_Utils_ThetaNormalization[] = "Utils.ThetaNormalization";
 static char __pyx_k_OptimisationResults_ResCma[] = "OptimisationResults/ResCma";
 static char __pyx_k_TrajectoriesGenerator___init[] = "TrajectoriesGenerator.__init__";
 static char __pyx_k_Author_Thomas_Beucher_Module_Tr[] = "\nAuthor: Thomas Beucher\n\nModule: TrajectoriesGenerator\n\nDescription: Class used to generate all the trajectories of the experimental setup and also used for the cmaes otpimization\n";
@@ -831,6 +831,7 @@ static PyObject *__pyx_kp_s_Call_n;
 static PyObject *__pyx_kp_s_Cost;
 static PyObject *__pyx_n_s_GlobalVariables;
 static PyObject *__pyx_kp_s_OptimisationResults_ResCma;
+static PyObject *__pyx_n_s_ThetaNormalization;
 static PyObject *__pyx_kp_s_Time;
 static PyObject *__pyx_n_s_TrajectoriesGenerator;
 static PyObject *__pyx_n_s_TrajectoriesGenerator___init;
@@ -842,7 +843,6 @@ static PyObject *__pyx_n_s_TrajectoriesGenerator_runTraject_2;
 static PyObject *__pyx_n_s_TrajectoriesGenerator_runTraject_3;
 static PyObject *__pyx_n_s_TrajectoriesGenerator_runTraject_4;
 static PyObject *__pyx_n_s_TrajectoriesGenerator_saveThetaC;
-static PyObject *__pyx_n_s_Utils_ThetaNormalization;
 static PyObject *__pyx_n_s_ab;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_asarray;
@@ -3600,6 +3600,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Cost, __pyx_k_Cost, sizeof(__pyx_k_Cost), 0, 0, 1, 0},
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
   {&__pyx_kp_s_OptimisationResults_ResCma, __pyx_k_OptimisationResults_ResCma, sizeof(__pyx_k_OptimisationResults_ResCma), 0, 0, 1, 0},
+  {&__pyx_n_s_ThetaNormalization, __pyx_k_ThetaNormalization, sizeof(__pyx_k_ThetaNormalization), 0, 0, 1, 1},
   {&__pyx_kp_s_Time, __pyx_k_Time, sizeof(__pyx_k_Time), 0, 0, 1, 0},
   {&__pyx_n_s_TrajectoriesGenerator, __pyx_k_TrajectoriesGenerator, sizeof(__pyx_k_TrajectoriesGenerator), 0, 0, 1, 1},
   {&__pyx_n_s_TrajectoriesGenerator___init, __pyx_k_TrajectoriesGenerator___init, sizeof(__pyx_k_TrajectoriesGenerator___init), 0, 0, 1, 1},
@@ -3611,7 +3612,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_TrajectoriesGenerator_runTraject_3, __pyx_k_TrajectoriesGenerator_runTraject_3, sizeof(__pyx_k_TrajectoriesGenerator_runTraject_3), 0, 0, 1, 1},
   {&__pyx_n_s_TrajectoriesGenerator_runTraject_4, __pyx_k_TrajectoriesGenerator_runTraject_4, sizeof(__pyx_k_TrajectoriesGenerator_runTraject_4), 0, 0, 1, 1},
   {&__pyx_n_s_TrajectoriesGenerator_saveThetaC, __pyx_k_TrajectoriesGenerator_saveThetaC, sizeof(__pyx_k_TrajectoriesGenerator_saveThetaC), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_ThetaNormalization, __pyx_k_Utils_ThetaNormalization, sizeof(__pyx_k_Utils_ThetaNormalization), 0, 0, 1, 1},
   {&__pyx_n_s_ab, __pyx_k_ab, sizeof(__pyx_k_ab), 0, 0, 1, 1},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_asarray, __pyx_k_asarray, sizeof(__pyx_k_asarray), 0, 0, 1, 1},
@@ -3913,7 +3913,7 @@ PyMODINIT_FUNC PyInit_runExperimentalSetupTrajectories(void)
  * 
  * import time             # <<<<<<<<<<<<<<
  * import numpy as np
- * from Utils.ThetaNormalization import unNormNP
+ * from ThetaNormalization import unNormNP
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_time, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -3924,7 +3924,7 @@ PyMODINIT_FUNC PyInit_runExperimentalSetupTrajectories(void)
  * 
  * import time
  * import numpy as np             # <<<<<<<<<<<<<<
- * from Utils.ThetaNormalization import unNormNP
+ * from ThetaNormalization import unNormNP
  * from GlobalVariables import pathDataFolder
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3935,7 +3935,7 @@ PyMODINIT_FUNC PyInit_runExperimentalSetupTrajectories(void)
   /* "runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.pyx":13
  * import time
  * import numpy as np
- * from Utils.ThetaNormalization import unNormNP             # <<<<<<<<<<<<<<
+ * from ThetaNormalization import unNormNP             # <<<<<<<<<<<<<<
  * from GlobalVariables import pathDataFolder
  * 
  */
@@ -3944,7 +3944,7 @@ PyMODINIT_FUNC PyInit_runExperimentalSetupTrajectories(void)
   __Pyx_INCREF(__pyx_n_s_unNormNP);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_unNormNP);
   __Pyx_GIVEREF(__pyx_n_s_unNormNP);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_ThetaNormalization, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ThetaNormalization, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_unNormNP); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3955,7 +3955,7 @@ PyMODINIT_FUNC PyInit_runExperimentalSetupTrajectories(void)
 
   /* "runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.pyx":14
  * import numpy as np
- * from Utils.ThetaNormalization import unNormNP
+ * from ThetaNormalization import unNormNP
  * from GlobalVariables import pathDataFolder             # <<<<<<<<<<<<<<
  * 
  * 

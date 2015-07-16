@@ -807,6 +807,7 @@ static char __pyx_k_numberOfSamples[] = "numberOfSamples";
 static char __pyx_k_outputDimension[] = "outputDimension";
 static char __pyx_k_rangeForEachDim[] = "rangeForEachDim";
 static char __pyx_k_setTrainingData[] = "setTrainingData";
+static char __pyx_k_CartesianProduct[] = "CartesianProduct";
 static char __pyx_k_fa_rbfn_computeA[] = "fa_rbfn.computeA";
 static char __pyx_k_fa_rbfn_computeb[] = "fa_rbfn.computeb";
 static char __pyx_k_fa_rbfn_train_rbfn[] = "fa_rbfn.train_rbfn";
@@ -815,7 +816,6 @@ static char __pyx_k_setCentersAndWidths[] = "setCentersAndWidths";
 static char __pyx_k_computeFeatureWeight[] = "computeFeatureWeight";
 static char __pyx_k_numberOfInputSamples[] = "numberOfInputSamples";
 static char __pyx_k_numberOfOutputSamples[] = "numberOfOutputSamples";
-static char __pyx_k_Utils_CartesianProduct[] = "Utils.CartesianProduct";
 static char __pyx_k_fa_rbfn_computesOutput[] = "fa_rbfn.computesOutput";
 static char __pyx_k_centersInEachDimensions[] = "centersInEachDimensions";
 static char __pyx_k_fa_rbfn_setTrainingData[] = "fa_rbfn.setTrainingData";
@@ -831,11 +831,11 @@ static PyObject *__pyx_n_s_AnumpyShare;
 static PyObject *__pyx_n_s_Array;
 static PyObject *__pyx_n_s_AshareObj;
 static PyObject *__pyx_n_s_At;
+static PyObject *__pyx_n_s_CartesianProduct;
 static PyObject *__pyx_kp_s_Number_of_samples_not_equal_for;
 static PyObject *__pyx_n_s_Process;
 static PyObject *__pyx_n_s_Regression_functionApproximator;
 static PyObject *__pyx_n_s_T;
-static PyObject *__pyx_n_s_Utils_CartesianProduct;
 static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_array;
 static PyObject *__pyx_n_s_axis;
@@ -4518,11 +4518,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Array, __pyx_k_Array, sizeof(__pyx_k_Array), 0, 0, 1, 1},
   {&__pyx_n_s_AshareObj, __pyx_k_AshareObj, sizeof(__pyx_k_AshareObj), 0, 0, 1, 1},
   {&__pyx_n_s_At, __pyx_k_At, sizeof(__pyx_k_At), 0, 0, 1, 1},
+  {&__pyx_n_s_CartesianProduct, __pyx_k_CartesianProduct, sizeof(__pyx_k_CartesianProduct), 0, 0, 1, 1},
   {&__pyx_kp_s_Number_of_samples_not_equal_for, __pyx_k_Number_of_samples_not_equal_for, sizeof(__pyx_k_Number_of_samples_not_equal_for), 0, 0, 1, 0},
   {&__pyx_n_s_Process, __pyx_k_Process, sizeof(__pyx_k_Process), 0, 0, 1, 1},
   {&__pyx_n_s_Regression_functionApproximator, __pyx_k_Regression_functionApproximator, sizeof(__pyx_k_Regression_functionApproximator), 0, 0, 1, 1},
   {&__pyx_n_s_T, __pyx_k_T, sizeof(__pyx_k_T), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_CartesianProduct, __pyx_k_Utils_CartesianProduct, sizeof(__pyx_k_Utils_CartesianProduct), 0, 0, 1, 1},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
   {&__pyx_n_s_axis, __pyx_k_axis, sizeof(__pyx_k_axis), 0, 0, 1, 1},
@@ -4836,7 +4836,7 @@ PyMODINIT_FUNC PyInit_functionApproximator_RBFN(void)
  * '''
  * 
  * import numpy as np             # <<<<<<<<<<<<<<
- * from Utils.CartesianProduct import cartesian
+ * from CartesianProduct import cartesian
  * from multiprocessing import Process
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4847,7 +4847,7 @@ PyMODINIT_FUNC PyInit_functionApproximator_RBFN(void)
   /* "Regression/functionApproximator_RBFN.pyx":12
  * 
  * import numpy as np
- * from Utils.CartesianProduct import cartesian             # <<<<<<<<<<<<<<
+ * from CartesianProduct import cartesian             # <<<<<<<<<<<<<<
  * from multiprocessing import Process
  * from multiprocessing.sharedctypes import Array
  */
@@ -4856,7 +4856,7 @@ PyMODINIT_FUNC PyInit_functionApproximator_RBFN(void)
   __Pyx_INCREF(__pyx_n_s_cartesian);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_cartesian);
   __Pyx_GIVEREF(__pyx_n_s_cartesian);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_CartesianProduct, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_CartesianProduct, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_cartesian); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4867,7 +4867,7 @@ PyMODINIT_FUNC PyInit_functionApproximator_RBFN(void)
 
   /* "Regression/functionApproximator_RBFN.pyx":13
  * import numpy as np
- * from Utils.CartesianProduct import cartesian
+ * from CartesianProduct import cartesian
  * from multiprocessing import Process             # <<<<<<<<<<<<<<
  * from multiprocessing.sharedctypes import Array
  * import ctypes as ct
@@ -4887,7 +4887,7 @@ PyMODINIT_FUNC PyInit_functionApproximator_RBFN(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Regression/functionApproximator_RBFN.pyx":14
- * from Utils.CartesianProduct import cartesian
+ * from CartesianProduct import cartesian
  * from multiprocessing import Process
  * from multiprocessing.sharedctypes import Array             # <<<<<<<<<<<<<<
  * import ctypes as ct

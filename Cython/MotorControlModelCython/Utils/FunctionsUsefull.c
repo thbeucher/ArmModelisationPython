@@ -902,6 +902,8 @@ static char __pyx_k_valcost[] = "valcost";
 static char __pyx_k_version[] = "version:";
 static char __pyx_k_xyBrent[] = "xyBrent";
 static char __pyx_k_DistPerf[] = "DistPerf";
+static char __pyx_k_InitUtil[] = "InitUtil";
+static char __pyx_k_NiemRoot[] = "NiemRoot";
 static char __pyx_k_areaTime[] = "areaTime";
 static char __pyx_k_colorbar[] = "colorbar";
 static char __pyx_k_contourf[] = "contourf";
@@ -932,6 +934,7 @@ static char __pyx_k_slow_blas[] = "slow blas";
 static char __pyx_k_testNPDOT[] = "testNPDOT";
 static char __pyx_k_version_2[] = "__version__";
 static char __pyx_k_xByPosIni[] = "xByPosIni";
+static char __pyx_k_FileSaving[] = "FileSaving";
 static char __pyx_k_folderName[] = "folderName";
 static char __pyx_k_getobjread[] = "getobjread";
 static char __pyx_k_matplotlib[] = "matplotlib";
@@ -956,8 +959,7 @@ static char __pyx_k_getTimeByArea[] = "getTimeByArea";
 static char __pyx_k_normalization[] = "normalization";
 static char __pyx_k_plotTrackTraj[] = "plotTrackTraj";
 static char __pyx_k_recup_pos_ini[] = "recup_pos_ini";
-static char __pyx_k_Utils_InitUtil[] = "Utils.InitUtil";
-static char __pyx_k_Utils_NiemRoot[] = "Utils.NiemRoot";
+static char __pyx_k_GeometricModel[] = "GeometricModel";
 static char __pyx_k_getobjreadJson[] = "getobjreadJson";
 static char __pyx_k_matrixToVector[] = "matrixToVector";
 static char __pyx_k_nbItecp5CmaBIN[] = "/nbItecp5CmaBIN";
@@ -972,7 +974,6 @@ static char __pyx_k_getTimeDistance[] = "getTimeDistance";
 static char __pyx_k_matplotlib_mlab[] = "matplotlib.mlab";
 static char __pyx_k_numpy_dot_x_x_T[] = "numpy.dot(x, x.T)";
 static char __pyx_k_plotScattergram[] = "plotScattergram";
-static char __pyx_k_Utils_FileSaving[] = "Utils.FileSaving";
 static char __pyx_k_difCostBrentRBFN[] = "difCostBrentRBFN";
 static char __pyx_k_plotScattergram2[] = "plotScattergram2";
 static char __pyx_k_remakeTrajFolder[] = "remakeTrajFolder";
@@ -980,6 +981,7 @@ static char __pyx_k_evalCostVariation[] = "evalCostVariation";
 static char __pyx_k_getActiMuscuBrent[] = "getActiMuscuBrent";
 static char __pyx_k_learningFieldRBFN[] = "learningFieldRBFN";
 static char __pyx_k_matplotlib_pyplot[] = "matplotlib.pyplot";
+static char __pyx_k_ThetaNormalization[] = "ThetaNormalization";
 static char __pyx_k_getDataScattergram[] = "getDataScattergram";
 static char __pyx_k_difCostBrentRBFNBIN[] = "difCostBrentRBFNBIN";
 static char __pyx_k_numpy_core__dotblas[] = "numpy.core._dotblas";
@@ -995,13 +997,11 @@ static char __pyx_k_Utils_FunctionsUsefull[] = "Utils.FunctionsUsefull";
 static char __pyx_k_getVelocityProfileData[] = "getVelocityProfileData";
 static char __pyx_k_pathTrajectoriesFolder[] = "pathTrajectoriesFolder";
 static char __pyx_k_returnDifCostBrentRBFN[] = "returnDifCostBrentRBFN";
-static char __pyx_k_ArmModel_GeometricModel[] = "ArmModel.GeometricModel";
 static char __pyx_k_RBFN2_3feats_ThetaX7BIN[] = "RBFN2/3feats/ThetaX7BIN";
 static char __pyx_k_feats_EvaluationOFTheta[] = "feats/EvaluationOFTheta/";
 static char __pyx_k_getVelocityProfileBrent[] = "getVelocityProfileBrent";
 static char __pyx_k_learningFieldRBFNSquare[] = "learningFieldRBFNSquare";
 static char __pyx_k_HitDispersion_for_Target[] = "HitDispersion for Target ";
-static char __pyx_k_Utils_ThetaNormalization[] = "Utils.ThetaNormalization";
 static char __pyx_k_OptimisationResults_ResCma[] = "OptimisationResults/ResCma";
 static char __pyx_k_plotTrajWhenTargetNotReach[] = "plotTrajWhenTargetNotReach";
 static char __pyx_k_ResTry2_hitDispersionAllBIN[] = "/ResTry2/hitDispersionAllBIN";
@@ -1016,14 +1016,17 @@ static char __pyx_k_feats_ResShuffleAll_coordEndEffe[] = "feats/ResShuffleAll/co
 static char __pyx_k_import_numpy_x_numpy_random_rand[] = "import numpy; x = numpy.random.random((1000,1000))";
 static char __pyx_k_trajectoires_cout_trajectoire_co[] = "trajectoires_cout/trajectoire_coutCoordXBIN";
 static PyObject *__pyx_kp_s_;
-static PyObject *__pyx_n_s_ArmModel_GeometricModel;
 static PyObject *__pyx_n_s_BIN;
 static PyObject *__pyx_n_s_Brent;
 static PyObject *__pyx_n_s_DistPerf;
 static PyObject *__pyx_kp_s_FAST_BLAS;
+static PyObject *__pyx_n_s_FileSaving;
+static PyObject *__pyx_n_s_GeometricModel;
 static PyObject *__pyx_n_s_GlobalVariables;
 static PyObject *__pyx_kp_s_HitDispersion_for_Target;
 static PyObject *__pyx_n_s_ImportError;
+static PyObject *__pyx_n_s_InitUtil;
+static PyObject *__pyx_n_s_NiemRoot;
 static PyObject *__pyx_kp_s_OptimisationResults_ResCma;
 static PyObject *__pyx_kp_s_OptimisationResults_costEvalAll;
 static PyObject *__pyx_n_s_RBFN;
@@ -1034,12 +1037,9 @@ static PyObject *__pyx_n_s_RdYlBu;
 static PyObject *__pyx_kp_s_ResTry2_hitDispersionAllBIN;
 static PyObject *__pyx_n_s_T;
 static PyObject *__pyx_kp_s_Target;
+static PyObject *__pyx_n_s_ThetaNormalization;
 static PyObject *__pyx_n_s_Timer;
-static PyObject *__pyx_n_s_Utils_FileSaving;
 static PyObject *__pyx_n_s_Utils_FunctionsUsefull;
-static PyObject *__pyx_n_s_Utils_InitUtil;
-static PyObject *__pyx_n_s_Utils_NiemRoot;
-static PyObject *__pyx_n_s_Utils_ThetaNormalization;
 static PyObject *__pyx_n_s__13;
 static PyObject *__pyx_kp_s__19;
 static PyObject *__pyx_n_s__33;
@@ -20690,14 +20690,17 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_, __pyx_k_, sizeof(__pyx_k_), 0, 0, 1, 0},
-  {&__pyx_n_s_ArmModel_GeometricModel, __pyx_k_ArmModel_GeometricModel, sizeof(__pyx_k_ArmModel_GeometricModel), 0, 0, 1, 1},
   {&__pyx_n_s_BIN, __pyx_k_BIN, sizeof(__pyx_k_BIN), 0, 0, 1, 1},
   {&__pyx_n_s_Brent, __pyx_k_Brent, sizeof(__pyx_k_Brent), 0, 0, 1, 1},
   {&__pyx_n_s_DistPerf, __pyx_k_DistPerf, sizeof(__pyx_k_DistPerf), 0, 0, 1, 1},
   {&__pyx_kp_s_FAST_BLAS, __pyx_k_FAST_BLAS, sizeof(__pyx_k_FAST_BLAS), 0, 0, 1, 0},
+  {&__pyx_n_s_FileSaving, __pyx_k_FileSaving, sizeof(__pyx_k_FileSaving), 0, 0, 1, 1},
+  {&__pyx_n_s_GeometricModel, __pyx_k_GeometricModel, sizeof(__pyx_k_GeometricModel), 0, 0, 1, 1},
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
   {&__pyx_kp_s_HitDispersion_for_Target, __pyx_k_HitDispersion_for_Target, sizeof(__pyx_k_HitDispersion_for_Target), 0, 0, 1, 0},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
+  {&__pyx_n_s_InitUtil, __pyx_k_InitUtil, sizeof(__pyx_k_InitUtil), 0, 0, 1, 1},
+  {&__pyx_n_s_NiemRoot, __pyx_k_NiemRoot, sizeof(__pyx_k_NiemRoot), 0, 0, 1, 1},
   {&__pyx_kp_s_OptimisationResults_ResCma, __pyx_k_OptimisationResults_ResCma, sizeof(__pyx_k_OptimisationResults_ResCma), 0, 0, 1, 0},
   {&__pyx_kp_s_OptimisationResults_costEvalAll, __pyx_k_OptimisationResults_costEvalAll, sizeof(__pyx_k_OptimisationResults_costEvalAll), 0, 0, 1, 0},
   {&__pyx_n_s_RBFN, __pyx_k_RBFN, sizeof(__pyx_k_RBFN), 0, 0, 1, 1},
@@ -20708,12 +20711,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_ResTry2_hitDispersionAllBIN, __pyx_k_ResTry2_hitDispersionAllBIN, sizeof(__pyx_k_ResTry2_hitDispersionAllBIN), 0, 0, 1, 0},
   {&__pyx_n_s_T, __pyx_k_T, sizeof(__pyx_k_T), 0, 0, 1, 1},
   {&__pyx_kp_s_Target, __pyx_k_Target, sizeof(__pyx_k_Target), 0, 0, 1, 0},
+  {&__pyx_n_s_ThetaNormalization, __pyx_k_ThetaNormalization, sizeof(__pyx_k_ThetaNormalization), 0, 0, 1, 1},
   {&__pyx_n_s_Timer, __pyx_k_Timer, sizeof(__pyx_k_Timer), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_FileSaving, __pyx_k_Utils_FileSaving, sizeof(__pyx_k_Utils_FileSaving), 0, 0, 1, 1},
   {&__pyx_n_s_Utils_FunctionsUsefull, __pyx_k_Utils_FunctionsUsefull, sizeof(__pyx_k_Utils_FunctionsUsefull), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_InitUtil, __pyx_k_Utils_InitUtil, sizeof(__pyx_k_Utils_InitUtil), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_NiemRoot, __pyx_k_Utils_NiemRoot, sizeof(__pyx_k_Utils_NiemRoot), 0, 0, 1, 1},
-  {&__pyx_n_s_Utils_ThetaNormalization, __pyx_k_Utils_ThetaNormalization, sizeof(__pyx_k_Utils_ThetaNormalization), 0, 0, 1, 1},
   {&__pyx_n_s__13, __pyx_k__13, sizeof(__pyx_k__13), 0, 0, 1, 1},
   {&__pyx_kp_s__19, __pyx_k__19, sizeof(__pyx_k__19), 0, 0, 1, 0},
   {&__pyx_n_s__33, __pyx_k__33, sizeof(__pyx_k__33), 0, 0, 1, 1},
@@ -21928,8 +21928,8 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   /* "Utils/FunctionsUsefull.pyx":11
  * '''
  * 
- * from Utils.InitUtil import initFRRS             # <<<<<<<<<<<<<<
- * from Utils.NiemRoot import tronquerNB
+ * from InitUtil import initFRRS             # <<<<<<<<<<<<<<
+ * from NiemRoot import tronquerNB
  * import numpy as np
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21937,7 +21937,7 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   __Pyx_INCREF(__pyx_n_s_initFRRS);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_initFRRS);
   __Pyx_GIVEREF(__pyx_n_s_initFRRS);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_InitUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_InitUtil, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_initFRRS); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21948,17 +21948,17 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
 
   /* "Utils/FunctionsUsefull.pyx":12
  * 
- * from Utils.InitUtil import initFRRS
- * from Utils.NiemRoot import tronquerNB             # <<<<<<<<<<<<<<
+ * from InitUtil import initFRRS
+ * from NiemRoot import tronquerNB             # <<<<<<<<<<<<<<
  * import numpy as np
- * from Utils.FileSaving import fileSavingBin, fileSavingStr
+ * from FileSaving import fileSavingBin, fileSavingStr
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_tronquerNB);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_tronquerNB);
   __Pyx_GIVEREF(__pyx_n_s_tronquerNB);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Utils_NiemRoot, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_NiemRoot, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_tronquerNB); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21968,10 +21968,10 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/FunctionsUsefull.pyx":13
- * from Utils.InitUtil import initFRRS
- * from Utils.NiemRoot import tronquerNB
+ * from InitUtil import initFRRS
+ * from NiemRoot import tronquerNB
  * import numpy as np             # <<<<<<<<<<<<<<
- * from Utils.FileSaving import fileSavingBin, fileSavingStr
+ * from FileSaving import fileSavingBin, fileSavingStr
  * import os
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21980,9 +21980,9 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/FunctionsUsefull.pyx":14
- * from Utils.NiemRoot import tronquerNB
+ * from NiemRoot import tronquerNB
  * import numpy as np
- * from Utils.FileSaving import fileSavingBin, fileSavingStr             # <<<<<<<<<<<<<<
+ * from FileSaving import fileSavingBin, fileSavingStr             # <<<<<<<<<<<<<<
  * import os
  * from shutil import copyfile
  */
@@ -21994,7 +21994,7 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   __Pyx_INCREF(__pyx_n_s_fileSavingStr);
   PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_fileSavingStr);
   __Pyx_GIVEREF(__pyx_n_s_fileSavingStr);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_Utils_FileSaving, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_FileSaving, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_fileSavingBin); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22009,7 +22009,7 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
 
   /* "Utils/FunctionsUsefull.pyx":15
  * import numpy as np
- * from Utils.FileSaving import fileSavingBin, fileSavingStr
+ * from FileSaving import fileSavingBin, fileSavingStr
  * import os             # <<<<<<<<<<<<<<
  * from shutil import copyfile
  * from posix import remove
@@ -22020,7 +22020,7 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Utils/FunctionsUsefull.pyx":16
- * from Utils.FileSaving import fileSavingBin, fileSavingStr
+ * from FileSaving import fileSavingBin, fileSavingStr
  * import os
  * from shutil import copyfile             # <<<<<<<<<<<<<<
  * from posix import remove
@@ -22045,7 +22045,7 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
  * from shutil import copyfile
  * from posix import remove             # <<<<<<<<<<<<<<
  * import matplotlib.pyplot as plt
- * from ArmModel.GeometricModel import mgi, mgd
+ * from GeometricModel import mgi, mgd
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -22065,7 +22065,7 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
  * from shutil import copyfile
  * from posix import remove
  * import matplotlib.pyplot as plt             # <<<<<<<<<<<<<<
- * from ArmModel.GeometricModel import mgi, mgd
+ * from GeometricModel import mgi, mgd
  * #from scipy.spatial import ConvexHull
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22082,7 +22082,7 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   /* "Utils/FunctionsUsefull.pyx":19
  * from posix import remove
  * import matplotlib.pyplot as plt
- * from ArmModel.GeometricModel import mgi, mgd             # <<<<<<<<<<<<<<
+ * from GeometricModel import mgi, mgd             # <<<<<<<<<<<<<<
  * #from scipy.spatial import ConvexHull
  * import math
  */
@@ -22094,7 +22094,7 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   __Pyx_INCREF(__pyx_n_s_mgd);
   PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_mgd);
   __Pyx_GIVEREF(__pyx_n_s_mgd);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ArmModel_GeometricModel, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_GeometricModel, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_mgi); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22108,10 +22108,10 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Utils/FunctionsUsefull.pyx":21
- * from ArmModel.GeometricModel import mgi, mgd
+ * from GeometricModel import mgi, mgd
  * #from scipy.spatial import ConvexHull
  * import math             # <<<<<<<<<<<<<<
- * from Utils.ThetaNormalization import normalization, matrixToVector,\
+ * from ThetaNormalization import normalization, matrixToVector,\
  *     vectorToMatrix, unNorm
  */
   __pyx_t_2 = __Pyx_Import(__pyx_n_s_math, 0, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22122,7 +22122,7 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   /* "Utils/FunctionsUsefull.pyx":22
  * #from scipy.spatial import ConvexHull
  * import math
- * from Utils.ThetaNormalization import normalization, matrixToVector,\             # <<<<<<<<<<<<<<
+ * from ThetaNormalization import normalization, matrixToVector,\             # <<<<<<<<<<<<<<
  *     vectorToMatrix, unNorm
  * from matplotlib.mlab import griddata
  */
@@ -22140,7 +22140,7 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   __Pyx_INCREF(__pyx_n_s_unNorm);
   PyList_SET_ITEM(__pyx_t_2, 3, __pyx_n_s_unNorm);
   __Pyx_GIVEREF(__pyx_n_s_unNorm);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_Utils_ThetaNormalization, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ThetaNormalization, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_normalization); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22162,7 +22162,7 @@ PyMODINIT_FUNC PyInit_FunctionsUsefull(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "Utils/FunctionsUsefull.pyx":24
- * from Utils.ThetaNormalization import normalization, matrixToVector,\
+ * from ThetaNormalization import normalization, matrixToVector,\
  *     vectorToMatrix, unNorm
  * from matplotlib.mlab import griddata             # <<<<<<<<<<<<<<
  * from matplotlib import cm
