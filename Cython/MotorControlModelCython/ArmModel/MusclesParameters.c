@@ -805,13 +805,12 @@ static char __pyx_k_pathWorkingDirectory[] = "pathWorkingDirectory";
 static char __pyx_k_MusclesParameters___init[] = "MusclesParameters.__init__";
 static char __pyx_k_ArmModel_MusclesParameters[] = "ArmModel.MusclesParameters";
 static char __pyx_k_MusclesParameters_fmaxMatrix[] = "MusclesParameters.fmaxMatrix";
-static char __pyx_k_ArmModel_Setup_setupMusclesPara[] = "/ArmModel/Setup/setupMusclesParameters";
 static char __pyx_k_Author_Thomas_Beucher_Module_Mu[] = "\nAuthor: Thomas Beucher\n\nModule: MusclesParameters\n\nDescription:    -We find here all muscles parameters\n                -we use a model of arm with two joints and six muscles\n";
+static char __pyx_k_MotorControlModelCython_ArmMode[] = "/MotorControlModelCython/ArmModel/Setup/setupMusclesParameters";
 static char __pyx_k_home_beucher_workspace_Cython_M[] = "/home/beucher/workspace/Cython/MotorControlModelCython/ArmModel/MusclesParameters.pyx";
 static char __pyx_k_MusclesParameters_activationVect[] = "MusclesParameters.activationVectorInit";
 static char __pyx_k_MusclesParameters_activationVect_2[] = "MusclesParameters.activationVectorUse";
 static PyObject *__pyx_n_s_ArmModel_MusclesParameters;
-static PyObject *__pyx_kp_s_ArmModel_Setup_setupMusclesPara;
 static PyObject *__pyx_n_s_GammaMax;
 static PyObject *__pyx_n_s_Gamma_H;
 static PyObject *__pyx_n_s_GlobalVariables;
@@ -829,6 +828,7 @@ static PyObject *__pyx_n_s_Kp11;
 static PyObject *__pyx_n_s_Kp2;
 static PyObject *__pyx_n_s_Kp22;
 static PyObject *__pyx_n_s_Kraid;
+static PyObject *__pyx_kp_s_MotorControlModelCython_ArmMode;
 static PyObject *__pyx_n_s_MusclesParameters;
 static PyObject *__pyx_n_s_MusclesParameters___init;
 static PyObject *__pyx_n_s_MusclesParameters_activationVect;
@@ -953,13 +953,13 @@ static PyObject *__pyx_pf_8ArmModel_17MusclesParameters_17MusclesParameters___in
   /* "ArmModel/MusclesParameters.pyx":22
  *         class parameters initialization
  *         '''
- *         self.pathSetupFile = pathWorkingDirectory + "/ArmModel/Setup/setupMusclesParameters"             # <<<<<<<<<<<<<<
+ *         self.pathSetupFile = pathWorkingDirectory + "/MotorControlModelCython/ArmModel/Setup/setupMusclesParameters"             # <<<<<<<<<<<<<<
  *         self.activationVectorInit()
  *         self.fmaxMatrix()
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pathWorkingDirectory); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_ArmModel_Setup_setupMusclesPara); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_MotorControlModelCython_ArmMode); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_pathSetupFile, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -967,7 +967,7 @@ static PyObject *__pyx_pf_8ArmModel_17MusclesParameters_17MusclesParameters___in
 
   /* "ArmModel/MusclesParameters.pyx":23
  *         '''
- *         self.pathSetupFile = pathWorkingDirectory + "/ArmModel/Setup/setupMusclesParameters"
+ *         self.pathSetupFile = pathWorkingDirectory + "/MotorControlModelCython/ArmModel/Setup/setupMusclesParameters"
  *         self.activationVectorInit()             # <<<<<<<<<<<<<<
  *         self.fmaxMatrix()
  * 
@@ -995,7 +995,7 @@ static PyObject *__pyx_pf_8ArmModel_17MusclesParameters_17MusclesParameters___in
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "ArmModel/MusclesParameters.pyx":24
- *         self.pathSetupFile = pathWorkingDirectory + "/ArmModel/Setup/setupMusclesParameters"
+ *         self.pathSetupFile = pathWorkingDirectory + "/MotorControlModelCython/ArmModel/Setup/setupMusclesParameters"
  *         self.activationVectorInit()
  *         self.fmaxMatrix()             # <<<<<<<<<<<<<<
  * 
@@ -2587,7 +2587,6 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ArmModel_MusclesParameters, __pyx_k_ArmModel_MusclesParameters, sizeof(__pyx_k_ArmModel_MusclesParameters), 0, 0, 1, 1},
-  {&__pyx_kp_s_ArmModel_Setup_setupMusclesPara, __pyx_k_ArmModel_Setup_setupMusclesPara, sizeof(__pyx_k_ArmModel_Setup_setupMusclesPara), 0, 0, 1, 0},
   {&__pyx_n_s_GammaMax, __pyx_k_GammaMax, sizeof(__pyx_k_GammaMax), 0, 0, 1, 1},
   {&__pyx_n_s_Gamma_H, __pyx_k_Gamma_H, sizeof(__pyx_k_Gamma_H), 0, 0, 1, 1},
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
@@ -2605,6 +2604,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Kp2, __pyx_k_Kp2, sizeof(__pyx_k_Kp2), 0, 0, 1, 1},
   {&__pyx_n_s_Kp22, __pyx_k_Kp22, sizeof(__pyx_k_Kp22), 0, 0, 1, 1},
   {&__pyx_n_s_Kraid, __pyx_k_Kraid, sizeof(__pyx_k_Kraid), 0, 0, 1, 1},
+  {&__pyx_kp_s_MotorControlModelCython_ArmMode, __pyx_k_MotorControlModelCython_ArmMode, sizeof(__pyx_k_MotorControlModelCython_ArmMode), 0, 0, 1, 0},
   {&__pyx_n_s_MusclesParameters, __pyx_k_MusclesParameters, sizeof(__pyx_k_MusclesParameters), 0, 0, 1, 1},
   {&__pyx_n_s_MusclesParameters___init, __pyx_k_MusclesParameters___init, sizeof(__pyx_k_MusclesParameters___init), 0, 0, 1, 1},
   {&__pyx_n_s_MusclesParameters_activationVect, __pyx_k_MusclesParameters_activationVect, sizeof(__pyx_k_MusclesParameters_activationVect), 0, 0, 1, 1},

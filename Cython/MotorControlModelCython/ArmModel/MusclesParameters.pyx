@@ -19,7 +19,7 @@ class MusclesParameters:
         '''
         class parameters initialization
         '''
-        self.pathSetupFile = pathWorkingDirectory + "/ArmModel/Setup/setupMusclesParameters"
+        self.pathSetupFile = pathWorkingDirectory + "/MotorControlModelCython/ArmModel/Setup/setupMusclesParameters"
         self.activationVectorInit()
         self.fmaxMatrix()
         

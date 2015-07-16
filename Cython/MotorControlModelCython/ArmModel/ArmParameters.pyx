@@ -21,7 +21,7 @@ class ArmParameters:
         '''
         Intializes the class
         '''
-        self.pathSetupFile = pathWorkingDirectory + "/ArmModel/Setup/setupArmParameters"
+        self.pathSetupFile = pathWorkingDirectory + "/MotorControlModelCython/ArmModel/Setup/setupArmParameters"
         self.readSetupFile()
         self.massMatrix()
         self.AMatrix()

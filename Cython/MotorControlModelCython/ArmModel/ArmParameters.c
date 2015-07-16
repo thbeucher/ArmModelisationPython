@@ -795,12 +795,11 @@ static char __pyx_k_ArmParameters_BMatrix[] = "ArmParameters.BMatrix";
 static char __pyx_k_ArmModel_ArmParameters[] = "ArmModel.ArmParameters";
 static char __pyx_k_ArmParameters_massMatrix[] = "ArmParameters.massMatrix";
 static char __pyx_k_ArmParameters_readSetupFile[] = "ArmParameters.readSetupFile";
-static char __pyx_k_ArmModel_Setup_setupArmParamete[] = "/ArmModel/Setup/setupArmParameters";
 static char __pyx_k_Author_Thomas_Beucher_Module_Ar[] = "\nAuthor: Thomas Beucher\n\nModule: ArmParameters\n\nDescription:    -We find here all arm parameters\n                -we use a model of arm with two joints and six muscles\n";
+static char __pyx_k_MotorControlModelCython_ArmMode[] = "/MotorControlModelCython/ArmModel/Setup/setupArmParameters";
 static char __pyx_k_home_beucher_workspace_Cython_M[] = "/home/beucher/workspace/Cython/MotorControlModelCython/ArmModel/ArmParameters.pyx";
 static PyObject *__pyx_n_s_AMatrix;
 static PyObject *__pyx_n_s_ArmModel_ArmParameters;
-static PyObject *__pyx_kp_s_ArmModel_Setup_setupArmParamete;
 static PyObject *__pyx_n_s_ArmParameters;
 static PyObject *__pyx_n_s_ArmParameters_AMatrix;
 static PyObject *__pyx_n_s_ArmParameters_BMatrix;
@@ -811,6 +810,7 @@ static PyObject *__pyx_n_s_At;
 static PyObject *__pyx_n_s_B;
 static PyObject *__pyx_n_s_BMatrix;
 static PyObject *__pyx_n_s_GlobalVariables;
+static PyObject *__pyx_kp_s_MotorControlModelCython_ArmMode;
 static PyObject *__pyx_kp_s__2;
 static PyObject *__pyx_kp_s__4;
 static PyObject *__pyx_n_s_a1;
@@ -947,13 +947,13 @@ static PyObject *__pyx_pf_8ArmModel_13ArmParameters_13ArmParameters___init__(CYT
   /* "ArmModel/ArmParameters.pyx":24
  *         Intializes the class
  *         '''
- *         self.pathSetupFile = pathWorkingDirectory + "/ArmModel/Setup/setupArmParameters"             # <<<<<<<<<<<<<<
+ *         self.pathSetupFile = pathWorkingDirectory + "/MotorControlModelCython/ArmModel/Setup/setupArmParameters"             # <<<<<<<<<<<<<<
  *         self.readSetupFile()
  *         self.massMatrix()
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pathWorkingDirectory); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_ArmModel_Setup_setupArmParamete); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_MotorControlModelCython_ArmMode); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_pathSetupFile, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -961,7 +961,7 @@ static PyObject *__pyx_pf_8ArmModel_13ArmParameters_13ArmParameters___init__(CYT
 
   /* "ArmModel/ArmParameters.pyx":25
  *         '''
- *         self.pathSetupFile = pathWorkingDirectory + "/ArmModel/Setup/setupArmParameters"
+ *         self.pathSetupFile = pathWorkingDirectory + "/MotorControlModelCython/ArmModel/Setup/setupArmParameters"
  *         self.readSetupFile()             # <<<<<<<<<<<<<<
  *         self.massMatrix()
  *         self.AMatrix()
@@ -989,7 +989,7 @@ static PyObject *__pyx_pf_8ArmModel_13ArmParameters_13ArmParameters___init__(CYT
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "ArmModel/ArmParameters.pyx":26
- *         self.pathSetupFile = pathWorkingDirectory + "/ArmModel/Setup/setupArmParameters"
+ *         self.pathSetupFile = pathWorkingDirectory + "/MotorControlModelCython/ArmModel/Setup/setupArmParameters"
  *         self.readSetupFile()
  *         self.massMatrix()             # <<<<<<<<<<<<<<
  *         self.AMatrix()
@@ -2789,7 +2789,6 @@ static struct PyModuleDef __pyx_moduledef = {
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_AMatrix, __pyx_k_AMatrix, sizeof(__pyx_k_AMatrix), 0, 0, 1, 1},
   {&__pyx_n_s_ArmModel_ArmParameters, __pyx_k_ArmModel_ArmParameters, sizeof(__pyx_k_ArmModel_ArmParameters), 0, 0, 1, 1},
-  {&__pyx_kp_s_ArmModel_Setup_setupArmParamete, __pyx_k_ArmModel_Setup_setupArmParamete, sizeof(__pyx_k_ArmModel_Setup_setupArmParamete), 0, 0, 1, 0},
   {&__pyx_n_s_ArmParameters, __pyx_k_ArmParameters, sizeof(__pyx_k_ArmParameters), 0, 0, 1, 1},
   {&__pyx_n_s_ArmParameters_AMatrix, __pyx_k_ArmParameters_AMatrix, sizeof(__pyx_k_ArmParameters_AMatrix), 0, 0, 1, 1},
   {&__pyx_n_s_ArmParameters_BMatrix, __pyx_k_ArmParameters_BMatrix, sizeof(__pyx_k_ArmParameters_BMatrix), 0, 0, 1, 1},
@@ -2800,6 +2799,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_B, __pyx_k_B, sizeof(__pyx_k_B), 0, 0, 1, 1},
   {&__pyx_n_s_BMatrix, __pyx_k_BMatrix, sizeof(__pyx_k_BMatrix), 0, 0, 1, 1},
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
+  {&__pyx_kp_s_MotorControlModelCython_ArmMode, __pyx_k_MotorControlModelCython_ArmMode, sizeof(__pyx_k_MotorControlModelCython_ArmMode), 0, 0, 1, 0},
   {&__pyx_kp_s__2, __pyx_k__2, sizeof(__pyx_k__2), 0, 0, 1, 0},
   {&__pyx_kp_s__4, __pyx_k__4, sizeof(__pyx_k__4), 0, 0, 1, 0},
   {&__pyx_n_s_a1, __pyx_k_a1, sizeof(__pyx_k_a1), 0, 0, 1, 1},
