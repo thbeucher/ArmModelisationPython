@@ -89,7 +89,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/"
     #thetaCma" + str(sizeOfTarget) + "TGUKF1"
     i = 1
-    tryName = "thetaCma" + str(sizeOfTarget) + "TGUKF"
+    tryName = "thetaCmaTGUKF"
     for el in os.listdir(nameToSaveThetaCma):
         if tryName in el:
             i += 1
