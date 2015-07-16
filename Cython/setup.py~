@@ -8,7 +8,7 @@ from Cython.Distutils import build_ext
 
  
 extensions = [
-    Extension("GlobalVariables", ["MotorControlModelCython/GlobalVariables.pyx"]),
+    Extension("GlobalVariables", ["GlobalVariables.pyx"]),
     Extension("runScript", ["MotorControlModelCython/runScript.pyx"]),
     Extension("ArmDynamics", ["MotorControlModelCython/ArmModel/ArmDynamics.pyx"]),
     Extension("ArmParameters", ["MotorControlModelCython/ArmModel/ArmParameters.pyx"]),

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#cython: boundscheck=False, wraparound=False
 
 from distutils.core import setup
 from distutils.extension import Extension

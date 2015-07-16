@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#cython: boundscheck=False, wraparound=False
 '''
 Author: Thomas Beucher
 Module: PurgeData

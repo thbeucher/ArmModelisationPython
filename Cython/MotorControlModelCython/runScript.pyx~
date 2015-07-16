@@ -9,13 +9,13 @@ Description: main script to run what we want in the project
 '''
 import site
 import os
-from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
+from Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
     generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize
-from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
+from plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
     plotForAllTargetVelocityProfile
-from Utils.PurgeData import purgeCostNThetaTmp
-from Script.RunRegressionRBFN import runRBFN
+from PurgeData import purgeCostNThetaTmp
+from RunRegressionRBFN import runRBFN
 
 def checkPackages():
     a = site.getsitepackages()
