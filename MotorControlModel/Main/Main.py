@@ -15,11 +15,22 @@ from Utils.InitUtil import initFRRS
 from Utils.ThetaNormalization import normalizationNP, matrixToVector,\
     normalizationNPWithoutSaving
 from Utils.InitUtilMain import initAllUsefullObj
-from Utils.FileSaving import fileSavingAllDataJson
+from Utils.FileSaving import fileSavingAllDataJson, fileSavingScattergramJson
 from GlobalVariables import pathDataFolder
 import os
 from Utils.ReadDataTmp import getBestTheta
 from Utils.PurgeData import purgeCostNThetaTmp
+
+def generateTrajectoryForScattergram(nameFolderSave, repeat, nameT = 'None'):
+    fr, rs = initFRRS()
+    for el in rs.sizeOfTarget:
+        nameTheta = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
+        theta = np.loadtxt(nameTheta)
+        tgs = initAllUsefullObj(el, fr, rs, True)
+        cost = tgs.runTrajectoriesResultsGeneration(theta, repeat)
+        print("Cost: ", cost)
+        fileSavingScattergramJson(el, tgs.tg, nameFolderSave)
+        print("End of generation")
 
 def generateTrajectoryRBFN(nameFolder, nameT = 'None'):
     fr, rs = initFRRS()

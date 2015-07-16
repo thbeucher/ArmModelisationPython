@@ -63,6 +63,10 @@ def checkIfFolderExist(name):
     name = pathDataFolder + name
     if not os.path.isdir(name):
         os.makedirs(name)
+        
+def fileSavingScattergramJson(sizeOfTarget, tg, folderName):
+    nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
+    fileSavingDataJson(nameSave + "hitDispersion", tg.saveCoordEndTraj)
     
 def fileSavingAllDataJson(sizeOfTarget, tg, folderName, rbfn = False):
     if rbfn == True:
