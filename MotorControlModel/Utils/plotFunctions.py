@@ -486,8 +486,8 @@ def plotTimeDistanceTarget(folderName):
         for el in val:
             targetDistTime.append((key, el[0], el[1]))
     dicoTest, dicoTest2 = {}, {}
-    print("la", targetDistTime)
-    print("sorted", sorted(targetDistTime, key = lambda col:(col[0],col[1])))
+    #print("la", targetDistTime)
+    #print("sorted", sorted(targetDistTime, key = lambda col:(col[0],col[1])))
     targetDistTimeSorted = sorted(targetDistTime, key = lambda col:(col[0],col[1]))
     for el in targetDistTimeSorted:
         if not el[1] in dicoTest.keys():
@@ -497,8 +497,8 @@ def plotTimeDistanceTarget(folderName):
         dicoTest[el[1]].append(el[0])
         dicoTest2[el[1]].append(el[2])
     plotTab = []
-    print(dicoTest)
-    print("ici", dicoTest2)
+    #print(dicoTest)
+    #print("ici", dicoTest2)
     plt.figure()
     plt.ylabel("time")
     plt.xlabel("size (mm)")
@@ -520,19 +520,19 @@ def plotFittsLaw(folderName):
             data[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i], folderName)
         except:
             pass
-    print(data)
+    #print(data)
     timeDistWidth = []
     for key, val in data.items():
         for el in val:
             timeDistWidth.append((el[1], el[0], key))
-    print(timeDistWidth)
+    #print(timeDistWidth)
     MT, DI = [], []
     for el in timeDistWidth:
         MT.append(el[0])
         DI.append(np.log2(el[1]/el[2]))
     slope, intercept, r_value, p_value, std_err = stats.linregress(DI,MT)
     yLR = slope * np.asarray(DI) + intercept
-    print(slope, intercept)
+    #print(slope, intercept)
     plt.figure()
     for el in timeDistWidth:
         plt.scatter(np.log2(el[1]/el[2]), el[0])
@@ -552,14 +552,14 @@ def plotPerfSizeDist(folderName):
             sizeDistPerfTmp[i] = getDistPerfSize(rs.sizeOfTarget[i], folderName)
         except:
             pass
-    print(sizeDistPerfTmp)
+    #print(sizeDistPerfTmp)
     distDico = {}
     for key, val in sizeDistPerfTmp.items():
         for el in val:
             if not el[1] in distDico.keys():
                 distDico[el[1]] = []
             distDico[el[1]].append((el[0], el[2]))
-    print(distDico)
+    #print(distDico)
     plotTab = []
     plt.figure()
     plt.ylabel("performance")

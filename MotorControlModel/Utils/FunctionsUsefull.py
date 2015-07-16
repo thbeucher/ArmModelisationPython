@@ -511,7 +511,7 @@ def getDataScattergram(sizeT):
 
 #getDataScattergram(0.02)   
     
-def plotScattergram():
+'''def plotScattergram():
     fr, rs = initFRRS()
     s = 0
     for i in range(len(rs.sizeOfTarget)):
@@ -523,32 +523,9 @@ def plotScattergram():
             data = np.hstack((data, np.asarray(dataTmp)))
     plt.figure()
     plt.hist(data, 20)
-    plt.show(block = True)
+    plt.show(block = True)'''
 
 #plotScattergram()
-
-def getDistPerfSize(sizeT, folderName):
-    fr, rs = initFRRS()
-    #name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/actiMuscuCmaBIN"
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveU"
-    #data = fr.getobjread(name)
-    data = fr.getobjreadJson(name)
-    DistPerf = {}
-    for key, val in data.items():
-        r, t = invPosCircle(float(key.split("//")[0]), float(key.split("//")[1]))
-        r = round(r, 2)
-        if not r in DistPerf.keys():
-            DistPerf[r] = []
-        DistPerf[r].append(np.mean(val[0]))
-    for key, val in DistPerf.items():
-        DistPerf[key] = np.mean(val)
-    sizeDistPerf = []
-    for key, val in DistPerf.items():
-        sizeDistPerf.append((sizeT, key, val))
-    return sizeDistPerf
-    
-#getDistPerfSize(0.02)
-
 
 def plotScattergram2():
     fr, rs = initFRRS()
@@ -586,6 +563,29 @@ def plotScattergram2():
     plt.show(block = True)
     
 #plotScattergram2()
+
+def getDistPerfSize(sizeT, folderName):
+    fr, rs = initFRRS()
+    #name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/actiMuscuCmaBIN"
+    name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveU"
+    #data = fr.getobjread(name)
+    data = fr.getobjreadJson(name)
+    DistPerf = {}
+    for key, val in data.items():
+        r, t = invPosCircle(float(key.split("//")[0]), float(key.split("//")[1]))
+        r = round(r, 2)
+        if not r in DistPerf.keys():
+            DistPerf[r] = []
+        DistPerf[r].append(np.mean(val[0]))
+    for key, val in DistPerf.items():
+        DistPerf[key] = np.mean(val)
+    sizeDistPerf = []
+    for key, val in DistPerf.items():
+        sizeDistPerf.append((sizeT, key, val))
+    return sizeDistPerf
+    
+#getDistPerfSize(0.02)
+
         
 def plotTrackTraj():
     fr, rs = initFRRS()
