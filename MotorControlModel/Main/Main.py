@@ -45,7 +45,7 @@ def generateResults(nameFolderSave, nbret, nameT):
     fr, rs = initFRRS()
     for el in rs.sizeOfTarget:
         print("Results generation for target ", el)
-        thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + nameT
+        thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
         theta = np.loadtxt(thetaName)
         tgs = initAllUsefullObj(el, fr, rs, True)
         cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
