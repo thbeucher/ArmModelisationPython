@@ -775,12 +775,12 @@ static char __pyx_k_ReadSetupFile___init[] = "ReadSetupFile.__init__";
 static char __pyx_k_experimentFilePosIni[] = "experimentFilePosIni";
 static char __pyx_k_pathWorkingDirectory[] = "pathWorkingDirectory";
 static char __pyx_k_numberOfRepeatEachTraj[] = "numberOfRepeatEachTraj";
-static char __pyx_k_ExperimentSetup_setupFile[] = "/ExperimentSetup/setupFile";
 static char __pyx_k_ReadSetupFile_readingSetupFile[] = "ReadSetupFile.readingSetupFile";
 static char __pyx_k_Author_Thomas_beucher_Module_Re[] = "\nAuthor: Thomas beucher\n\nModule: ReadConfFile\n\nDescription: On retrouve dans ce fichier une fonction permettant de lire le fichier de configuration \n";
+static char __pyx_k_MotorControlModelCython_Experim[] = "/MotorControlModelCython/ExperimentSetup/setupFile";
 static char __pyx_k_home_beucher_workspace_Cython_M[] = "/home/beucher/workspace/Cython/MotorControlModelCython/Utils/ReadSetupFile.pyx";
-static PyObject *__pyx_kp_s_ExperimentSetup_setupFile;
 static PyObject *__pyx_n_s_GlobalVariables;
+static PyObject *__pyx_kp_s_MotorControlModelCython_Experim;
 static PyObject *__pyx_n_s_ReadSetupFile;
 static PyObject *__pyx_n_s_ReadSetupFile___init;
 static PyObject *__pyx_n_s_ReadSetupFile_readingSetupFile;
@@ -1012,14 +1012,14 @@ static PyObject *__pyx_pf_5Utils_13ReadSetupFile_13ReadSetupFile_2readingSetupFi
   /* "Utils/ReadSetupFile.pyx":24
  *         '''
  *         #Recuperation des donnees du fichier de configuration
- *         with open(pathWorkingDirectory + "/ExperimentSetup/setupFile", "r") as file:             # <<<<<<<<<<<<<<
+ *         with open(pathWorkingDirectory + "/MotorControlModelCython/ExperimentSetup/setupFile", "r") as file:             # <<<<<<<<<<<<<<
  *             alls = file.read()
  *         #Split pour recuperer ligne par ligne
  */
   /*with:*/ {
     __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pathWorkingDirectory); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_ExperimentSetup_setupFile); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_MotorControlModelCython_Experim); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1070,7 +1070,7 @@ static PyObject *__pyx_pf_5Utils_13ReadSetupFile_13ReadSetupFile_2readingSetupFi
 
           /* "Utils/ReadSetupFile.pyx":25
  *         #Recuperation des donnees du fichier de configuration
- *         with open(pathWorkingDirectory + "/ExperimentSetup/setupFile", "r") as file:
+ *         with open(pathWorkingDirectory + "/MotorControlModelCython/ExperimentSetup/setupFile", "r") as file:
  *             alls = file.read()             # <<<<<<<<<<<<<<
  *         #Split pour recuperer ligne par ligne
  *         allsByLign = alls.split("\n")
@@ -1111,7 +1111,7 @@ static PyObject *__pyx_pf_5Utils_13ReadSetupFile_13ReadSetupFile_2readingSetupFi
         /* "Utils/ReadSetupFile.pyx":24
  *         '''
  *         #Recuperation des donnees du fichier de configuration
- *         with open(pathWorkingDirectory + "/ExperimentSetup/setupFile", "r") as file:             # <<<<<<<<<<<<<<
+ *         with open(pathWorkingDirectory + "/MotorControlModelCython/ExperimentSetup/setupFile", "r") as file:             # <<<<<<<<<<<<<<
  *             alls = file.read()
  *         #Split pour recuperer ligne par ligne
  */
@@ -1847,8 +1847,8 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_kp_s_ExperimentSetup_setupFile, __pyx_k_ExperimentSetup_setupFile, sizeof(__pyx_k_ExperimentSetup_setupFile), 0, 0, 1, 0},
   {&__pyx_n_s_GlobalVariables, __pyx_k_GlobalVariables, sizeof(__pyx_k_GlobalVariables), 0, 0, 1, 1},
+  {&__pyx_kp_s_MotorControlModelCython_Experim, __pyx_k_MotorControlModelCython_Experim, sizeof(__pyx_k_MotorControlModelCython_Experim), 0, 0, 1, 0},
   {&__pyx_n_s_ReadSetupFile, __pyx_k_ReadSetupFile, sizeof(__pyx_k_ReadSetupFile), 0, 0, 1, 1},
   {&__pyx_n_s_ReadSetupFile___init, __pyx_k_ReadSetupFile___init, sizeof(__pyx_k_ReadSetupFile___init), 0, 0, 1, 1},
   {&__pyx_n_s_ReadSetupFile_readingSetupFile, __pyx_k_ReadSetupFile_readingSetupFile, sizeof(__pyx_k_ReadSetupFile_readingSetupFile), 0, 0, 1, 1},
@@ -1917,7 +1917,7 @@ static int __Pyx_InitCachedConstants(void) {
   /* "Utils/ReadSetupFile.pyx":24
  *         '''
  *         #Recuperation des donnees du fichier de configuration
- *         with open(pathWorkingDirectory + "/ExperimentSetup/setupFile", "r") as file:             # <<<<<<<<<<<<<<
+ *         with open(pathWorkingDirectory + "/MotorControlModelCython/ExperimentSetup/setupFile", "r") as file:             # <<<<<<<<<<<<<<
  *             alls = file.read()
  *         #Split pour recuperer ligne par ligne
  */

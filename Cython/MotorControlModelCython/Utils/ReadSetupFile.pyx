@@ -21,7 +21,7 @@ class ReadSetupFile:
         Reads the setup file
         '''
         #Recuperation des donnees du fichier de configuration
-        with open(pathWorkingDirectory + "/ExperimentSetup/setupFile", "r") as file:
+        with open(pathWorkingDirectory + "/MotorControlModelCython/ExperimentSetup/setupFile", "r") as file:
             alls = file.read()
         #Split pour recuperer ligne par ligne
         allsByLign = alls.split("\n")

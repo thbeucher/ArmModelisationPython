@@ -24,20 +24,20 @@ extensions = [
     Extension("RunRegressionRBFN", ["MotorControlModelCython/Script/RunRegressionRBFN.pyx"]),
     Extension("TrajectoryGenerator", ["MotorControlModelCython/TrajectoryGenerator/TrajectoryGenerator.pyx"]),
     Extension("UnscentedKalmanFilterControl", ["MotorControlModelCython/UnscentedKalmanFilterControl/UnscentedKalmanFilterControl.pyx"]),
-    Extension("CartesianProduct", ["MotorControlModelCython/Utils/CartesianProduct.pyx"])
-    Extension("CreateVectorUtil", ["MotorControlModelCython/Utils/CreateVectorUtil.pyx"])
-    Extension("DataNormalization", ["MotorControlModelCython/Utils/DataNormalization.pyx"])
-    Extension("FileReading", ["MotorControlModelCython/Utils/FileReading.pyx"])
-    Extension("FileSaving", ["MotorControlModelCython/Utils/FileSaving.pyx"])
-    Extension("FunctionsUsefull", ["MotorControlModelCython/Utils/FunctionsUsefull.pyx"])
-    Extension("InitUtil", ["MotorControlModelCython/Utils/InitUtil.pyx"])
-    Extension("InitUtilMain", ["MotorControlModelCython/Utils/InitUtilMain.pyx"])
-    Extension("NiemRoot", ["MotorControlModelCython/Utils/NiemRoot.pyx"])
-    Extension("plotFunctions", ["MotorControlModelCython/Utils/plotFunctions.pyx"])
-    Extension("PurgeData", ["MotorControlModelCython/Utils/PurgeData.pyx"])
-    Extension("ReadDataTmp", ["MotorControlModelCython/Utils/ReadDataTmp.pyx"])
-    Extension("ReadSetupFile", ["MotorControlModelCython/Utils/ReadSetupFile.pyx"])
-    Extension("StateVectorUtil", ["MotorControlModelCython/Utils/StateVectorUtil.pyx"])
+    Extension("CartesianProduct", ["MotorControlModelCython/Utils/CartesianProduct.pyx"]),
+    Extension("CreateVectorUtil", ["MotorControlModelCython/Utils/CreateVectorUtil.pyx"]),
+    Extension("DataNormalization", ["MotorControlModelCython/Utils/DataNormalization.pyx"]),
+    Extension("FileReading", ["MotorControlModelCython/Utils/FileReading.pyx"]),
+    Extension("FileSaving", ["MotorControlModelCython/Utils/FileSaving.pyx"]),
+    Extension("FunctionsUsefull", ["MotorControlModelCython/Utils/FunctionsUsefull.pyx"]),
+    Extension("InitUtil", ["MotorControlModelCython/Utils/InitUtil.pyx"]),
+    Extension("InitUtilMain", ["MotorControlModelCython/Utils/InitUtilMain.pyx"]),
+    Extension("NiemRoot", ["MotorControlModelCython/Utils/NiemRoot.pyx"]),
+    Extension("plotFunctions", ["MotorControlModelCython/Utils/plotFunctions.pyx"]),
+    Extension("PurgeData", ["MotorControlModelCython/Utils/PurgeData.pyx"]),
+    Extension("ReadDataTmp", ["MotorControlModelCython/Utils/ReadDataTmp.pyx"]),
+    Extension("ReadSetupFile", ["MotorControlModelCython/Utils/ReadSetupFile.pyx"]),
+    Extension("StateVectorUtil", ["MotorControlModelCython/Utils/StateVectorUtil.pyx"]),
     Extension("ThetaNormalization", ["MotorControlModelCython/Utils/ThetaNormalization.pyx"])
 ]
  
