@@ -104,7 +104,7 @@ class UnscentedKalmanFilterControl:
     	Function used to compute the next state approximation with the filter
     
     	Inputs:		-stateU: the state to feed the filter, here its the muscular activation vector U, numpy array of dimension (x, 1), here x = 6
-    			-obs: the observation of the arm position, numpy array of dimension (x, 1), here x = 4
+    			    -obs: the observation of the arm position, numpy array of dimension (x, 1), here x = 4
     
     	Output:		-stateApprox: the next state approximation, numpy array of dimension (x, 1), here x = 4
     	'''
