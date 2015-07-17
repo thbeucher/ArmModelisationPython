@@ -8,6 +8,14 @@ Module: initUtilMain
 
 Description: Here some functions which initializes objects usefull to generate trajectory
 '''
+import cython
+cimport cython
+
+import numpy as np
+cimport numpy as np
+
+DTYPE = np.float64
+ctypedef np.float64_t DTYPE_t
 
 from ArmParameters import ArmParameters
 from MusclesParameters import MusclesParameters
@@ -22,13 +30,19 @@ from NextStateComputation import NextStateComputation
 from GlobalVariables import pathTrajectoriesFolder
 
 
-def initController(rs, fr):
+cpdef object initController(object rs, object fr):
     '''
 	Initializes the controller allowing to compute the output from the input and the vector of parameters theta
 	
 	Input:		-rs: ReadSetup, class object
 				-fr, FileReading, class object
 	'''
+    cdef:
+        object fa
+        dict state
+        dict command
+        np.ndarray[DTYPE_t, ndim=2] stateAll
+        np.ndarray[DTYPE_t, ndim=2] commandAll
     #Initializes the function approximator with the number of feature used
     fa = fa_rbfn(rs.numfeats)
     #Get state and command to initializes the controller by putting the features
@@ -41,7 +55,7 @@ def initController(rs, fr):
     fa.setCentersAndWidths()
     return fa
 
-def initAllUsefullObj(sizeOfTarget, fr, rs, save = False):
+cpdef object initAllUsefullObj(double sizeOfTarget, object fr, object rs, bint save = False):
     '''
 	Initializes class object needed to generate trajectories
 	
@@ -49,6 +63,17 @@ def initAllUsefullObj(sizeOfTarget, fr, rs, save = False):
 				-fr, FileReading, class object
 				-rs, ReadSetup, class object
 	'''
+    cdef:
+        object fa
+        object mac
+        object armP
+        object musclesP
+        object armD
+        object nsc
+        object Ukf
+        object cc
+        object tg
+        object tgs
     #fa, function approximator ie the controller
     fa = initController(rs, fr)
     #mac,muscular activation command ie the class which compute the next muscular activation vector

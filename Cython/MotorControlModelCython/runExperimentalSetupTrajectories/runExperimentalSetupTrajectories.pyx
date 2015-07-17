@@ -8,21 +8,41 @@ Module: TrajectoriesGenerator
 
 Description: Class used to generate all the trajectories of the experimental setup and also used for the cmaes otpimization
 '''
+import cython
+cimport cython
+
+import numpy as np
+cimport numpy as np
+
+DTYPE = np.float64
+ctypedef np.float64_t DTYPE_t
 
 import time
-import numpy as np
 from ThetaNormalization import unNormNP
 from GlobalVariables import pathDataFolder
 
 
-class TrajectoriesGenerator:
+cdef class TrajectoriesGenerator:
+
+    cdef:
+        str name
+        int call
+        list saveCost
+        object rs
+        int numberOfRepeat
+        object tg
+        int dimState
+        int dimOutput
+        object mac
+        np.ndarray posIni
+        np.ndarray theta
     
     def __init__(self):
         self.name = "TrajectoriesGenerator"
         self.call = 0
         self.saveCost = []
         
-    def initParametersTGS(self, rs, numberOfRepeat, tg, dimState, dimOutput, mac):
+    cpdef initParametersTGS(self, object rs, int numberOfRepeat, object tg, int dimState, int dimOutput, object mac):
         '''
     	Initializes parameters used to run functions below
     
@@ -41,38 +61,44 @@ class TrajectoriesGenerator:
         self.mac = mac
         self.posIni = np.loadtxt(pathDataFolder + self.rs.experimentFilePosIni)
     
-    def runTrajectories(self):
+    cpdef runTrajectories(self):
         pass
     
-    def initTheta(self, theta):
+    cpdef initTheta(self, theta):
         '''
     	Initializes the controller (ie the vector of parameters) for the rest of the code used to generate trajectories
     
     	Input:		-theta: controller ie vector of parameters, numpy array
     	'''
-        self.theta = np.copy(theta)
+        thetaH = np.copy(theta)
         #reshaping of the parameters vector because this function is used by the cmaes algorithm and cmaes feed the function with a one dimension numpy array but in the rest of the algorithm the 2 dimensions numpy array is expected for the vector of parameters theta
-        self.theta = np.asarray(self.theta).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
+        self.theta = np.asarray(thetaH).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
         #UnNorm the vector of parameters, because for cmaes we use a normalize vector
         self.theta = unNormNP(self.theta, self.rs)
         #give the theta to the muscularActivationCommand class
         self.mac.setThetaMAC(self.theta)
         
-    def saveThetaCmaes(self, meanCost):
-        nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_target" + str(self.tg.sizeOfTarget)
+    cpdef saveThetaCmaes(self, double meanCost):
+        cdef:
+            str nameFileSave
+            str nameFileSaveMeanCost
+        nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_targetCython" + str(self.tg.sizeOfTarget)
         f = open(nameFileSave, 'ab')
         np.savetxt(f, self.theta)
-        nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCost" + str(self.tg.sizeOfTarget)
+        nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCostCython" + str(self.tg.sizeOfTarget)
         g = open(nameFileSaveMeanCost, 'ab')
         np.savetxt(g, np.asarray([meanCost]))
         
-    def runOneTrajectoryRBFN(self, theta, coord):
+    cpdef runOneTrajectoryRBFN(self, np.ndarray[DTYPE_t, ndim=2] theta, tuple coord):
+        cdef:
+            np.ndarray[DTYPE_t, ndim=2] thetaTG
+            double cost
         thetaTG = np.copy(theta)
         self.mac.setThetaMAC(thetaTG)
         cost = self.tg.runTrajectory(coord[0], coord[1])
         return cost
         
-    def runTrajectoriesResultsGeneration(self, theta, repeat):
+    cpdef runTrajectoriesResultsGeneration(self, theta, int repeat):
         #self.initTheta(theta)
         thetaTG = np.copy(theta)
         thetaTG = np.asarray(thetaTG).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
@@ -81,7 +107,7 @@ class TrajectoriesGenerator:
         meanByTraj = np.mean(np.asarray(costAll).reshape((repeat, len(self.posIni))), axis = 0)    
         return meanByTraj
     
-    def runTrajectoriesCMAWithoutParallelization(self, theta):
+    cpdef double runTrajectoriesCMAWithoutParallelization(self, theta):
         '''
     	Generates all the trajectories of the experimental setup and return the mean cost. This function is used by cmaes to otpimize the controller.
     
@@ -89,6 +115,11 @@ class TrajectoriesGenerator:
     
     	Ouput:		-meanAll: the mean of the cost of all trajectories generated, float
     	'''
+        cdef:
+            double t0
+            list costAll
+            np.ndarray meanByTraj
+            double meanAll
         t0 = time.time()
         self.initTheta(theta)
         #compute all the trajectories x times each, x = numberOfRepeat
@@ -103,7 +134,7 @@ class TrajectoriesGenerator:
         self.saveThetaCmaes(meanAll)
         return meanAll*(-1)
     
-    def runTrajectoriesCMAWithParallelization(self, theta):
+    cpdef runTrajectoriesCMAWithParallelization(self, theta):
         pass
     
     

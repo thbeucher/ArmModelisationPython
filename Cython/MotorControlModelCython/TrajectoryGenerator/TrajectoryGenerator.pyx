@@ -8,21 +8,52 @@ Module: TrajectoryGenerator
 
 Description: Class to generate a trajectory
 '''
+import cython
+cimport cython
+
+import numpy as np
+cimport numpy as np
+
+DTYPE = np.float64
+ctypedef np.float64_t DTYPE_t
 
 from StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
 from GeometricModel import mgd, mgi
 from CreateVectorUtil import createVector
-import numpy as np
 
 
-class TrajectoryGenerator:
-    
+cdef class TrajectoryGenerator:
+
+    cdef:
+        str name
+        object armP
+        object rs
+        object nsc
+        object cc
+        double sizeOfTarget
+        object Ukf
+        object armD
+        object mac
+        bint saveA
+        dict saveNumberOfIteration
+        dict saveCoordEndTraj
+        dict saveMvtCost
+        dict saveSpeed
+        dict saveU
+        dict elbowAllCoord
+        dict handAllCoord
+        list speedList
+        list UList
+        list elbowCoord
+        list handCoord
+        str nameToSaveTraj
+        
     def __init__(self):
         self.name = "TrajectoryGenerator"
         #Initializes variables used to save trajectory
         self.initSaveVariables()
         
-    def initParametersTG(self, armP, rs, nsc, cc, sizeOfTarget, Ukf, armD, mac, saveA):
+    cpdef initParametersTG(self, object armP, object rs, object nsc, object cc, double sizeOfTarget, object Ukf, object armD, object mac, bint saveA):
         '''
     	Initializes the parameters used to run the functions below
     
@@ -46,7 +77,7 @@ class TrajectoryGenerator:
         self.mac = mac
         self.saveA = saveA
 
-    def initSaveVariables(self):
+    cpdef initSaveVariables(self):
         '''
         Initializes variables used to save trajectory
         '''
@@ -58,19 +89,19 @@ class TrajectoryGenerator:
         self.elbowAllCoord = {}
         self.handAllCoord = {}
 
-    def checkingKeyLoopData(self):
+    cpdef checkingKeyLoopData(self):
         '''
         Checks if the trajectory already has been run, if no, initializes the container to save it
         '''
         pass
     
-    def initSaveLoopData(self):
+    cpdef initSaveLoopData(self):
         self.speedList = []
         self.UList = []
         self.elbowCoord = []
         self.handCoord = []
         
-    def saveLoopData(self, speed, U, coordElbow, coordHand):
+    cpdef saveLoopData(self, double speed, np.ndarray[DTYPE_t, ndim=2] U, tuple coordElbow, tuple coordHand):
         '''
         Saves data generated during the trajectory
 
@@ -81,7 +112,7 @@ class TrajectoryGenerator:
         self.elbowCoord.append(coordElbow)
         self.handCoord.append(coordHand)
         
-    def checkingKeyEndData(self):
+    cpdef checkingKeyEndData(self):
         '''
         Checks if the trajectory already has been run, if no, initializes the container to save it
         '''
@@ -96,7 +127,7 @@ class TrajectoryGenerator:
         if not self.nameToSaveTraj in self.saveU:
             self.saveU[self.nameToSaveTraj] = []
         
-    def saveEndData(self, nbIte, lastCoord, cost):
+    cpdef saveEndData(self, int nbIte, tuple lastCoord, double cost):
         '''
         Saves data generated at the end of the trajectory
 
@@ -113,7 +144,7 @@ class TrajectoryGenerator:
         self.elbowAllCoord[self.nameToSaveTraj] = self.elbowCoord
         self.handAllCoord[self.nameToSaveTraj] = self.handCoord
     
-    def runTrajectory(self, x, y):
+    cpdef double runTrajectory(self, double x, double y):
         '''
     	Generates trajectory from the initiale position (x, y)
     
@@ -122,6 +153,20 @@ class TrajectoryGenerator:
     
     	Output:		-cost: the cost of the trajectory, float
     	'''
+        cdef:
+            double q1
+            double q2
+            np.ndarray[DTYPE_t, ndim=2] q
+            np.ndarray[DTYPE_t, ndim=2] dotq
+            np.ndarray[DTYPE_t, ndim=2] state
+            tuple coordElbow
+            tuple coordHand
+            int i
+            double t
+            double cost
+            np.ndarray[DTYPE_t, ndim=2] estimateState
+            np.ndarray[DTYPE_t, ndim=2] Ucontrol
+            np.ndarray[DTYPE_t, ndim=2] realState
         #computation of the articular position q1, q2 from the initiale coordinates (x, y)
         q1, q2 = mgi(x, y, self.armP.l1, self.armP.l2)
         #create the position vector [q1, q2]

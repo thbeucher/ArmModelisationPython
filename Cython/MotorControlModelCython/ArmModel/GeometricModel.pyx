@@ -9,9 +9,16 @@ Module: InverseGeometricModel
 Description: we find here the inverse and direct geometric model for a two joints arm and also the joint stop function 
                 for the human arm
 '''
+import cython
+cimport cython
+
+import numpy as np
+cimport numpy as np
+
+DTYPE = np.float64
+ctypedef np.float64_t DTYPE_t
 
 import math
-import numpy as np
 
 def mgi(xi, yi, l1, l2):
     '''
@@ -38,7 +45,7 @@ def mgi(xi, yi, l1, l2):
         return "None"
     
     
-def mgd(q, l1, l2):
+cpdef tuple mgd(np.ndarray[DTYPE_t, ndim=2] q, double l1, double l2):
     '''
     Direct geometric model of the arm
         
@@ -50,12 +57,15 @@ def mgd(q, l1, l2):
                 -coordElbow: elbow coordinate
                 -coordHand: hand coordinate
     '''
+    cdef:
+        tuple coordElbow
+        tuple coordHand
     coordElbow = (l1*np.cos(q[0,0]), l1*np.sin(q[0,0]))
     coordHand = (l2*np.cos(q[1,0] + q[0,0]) + l1*np.cos(q[0,0]), l2*np.sin(q[1,0] + q[0,0]) + l1*np.sin(q[0,0]))
     return coordElbow, coordHand
     
     
-def jointStop(q):
+cpdef np.ndarray[DTYPE_t, ndim=2] jointStop(np.ndarray[DTYPE_t, ndim=2] q):
     '''
     Articular stop for the human arm
     Shoulder: -0.6 <= q1 <= 2.6
