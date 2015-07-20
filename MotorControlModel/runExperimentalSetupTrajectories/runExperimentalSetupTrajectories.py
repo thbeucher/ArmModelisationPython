@@ -72,10 +72,10 @@ class TrajectoriesGenerator:
         return cost
         
     def runTrajectoriesResultsGeneration(self, theta, repeat):
-        #self.initTheta(theta)
-        thetaTG = np.copy(theta)
-        thetaTG = np.asarray(thetaTG).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
-        self.mac.setThetaMAC(thetaTG)
+        self.initTheta(theta)
+        #thetaTG = np.copy(theta)
+        #thetaTG = np.asarray(thetaTG).reshape((self.rs.numfeats**self.dimState, self.dimOutput))
+        #self.mac.setThetaMAC(thetaTG)
         costAll = [[self.tg.runTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(repeat)]
         meanByTraj = np.mean(np.asarray(costAll).reshape((repeat, len(self.posIni))), axis = 0)    
         return meanByTraj
