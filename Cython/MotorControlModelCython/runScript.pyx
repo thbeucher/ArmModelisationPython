@@ -90,7 +90,11 @@ def runAll():
         st = float(st)
         launchCMAESForSpecificTargetSize(st)
     elif choix == 2:
-        launchCMAESForAllTargetSize()
+        try:
+            launchCMAESForAllTargetSize()
+        except:
+            os.system("clear")
+            print("If you see this, go to 'launch for all targets in cython' part in the user manual")
     elif choix == 3:
         nameF = raw_input('Folder name where you want to save the results: ')
         nameT = raw_input('Number at the end of the name of the theta file: ')

@@ -705,6 +705,7 @@ static char __pyx_k_Enter_the_number_corresponding_t[] = "Enter the number corre
 static char __pyx_k_Folder_name_where_the_results_ar[] = "Folder name where the results are saved: ";
 static char __pyx_k_Folder_name_where_you_want_to_sa[] = "Folder name where you want to save the results: ";
 static char __pyx_k_Generate_results_with_the_best_t[] = "Generate results with the best theta temp !";
+static char __pyx_k_If_you_see_this_go_to_launch_for[] = "If you see this, go to 'launch for all targets in cython' part in the user manual";
 static char __pyx_k_Name_to_save_the_RBFN_controller[] = "Name to save the RBFN controller: ";
 static char __pyx_k_Number_at_the_end_of_the_name_of[] = "Number at the end of the name of the theta file: ";
 static char __pyx_k_Number_of_repeat_for_each_trajec[] = "Number of repeat for each trajectory (int): ";
@@ -722,6 +723,7 @@ static PyObject *__pyx_kp_s_Enter_the_number_corresponding_t;
 static PyObject *__pyx_kp_s_Folder_name_where_the_results_ar;
 static PyObject *__pyx_kp_s_Folder_name_where_you_want_to_sa;
 static PyObject *__pyx_kp_s_Generate_results_with_the_best_t;
+static PyObject *__pyx_kp_s_If_you_see_this_go_to_launch_for;
 static PyObject *__pyx_n_s_Main;
 static PyObject *__pyx_kp_s_Name_to_save_the_RBFN_controller;
 static PyObject *__pyx_kp_s_Number_at_the_end_of_the_name_of;
@@ -839,11 +841,12 @@ static PyObject *__pyx_tuple__27;
 static PyObject *__pyx_tuple__28;
 static PyObject *__pyx_tuple__29;
 static PyObject *__pyx_tuple__30;
-static PyObject *__pyx_tuple__32;
-static PyObject *__pyx_tuple__34;
-static PyObject *__pyx_codeobj__31;
-static PyObject *__pyx_codeobj__33;
-static PyObject *__pyx_codeobj__35;
+static PyObject *__pyx_tuple__31;
+static PyObject *__pyx_tuple__33;
+static PyObject *__pyx_tuple__35;
+static PyObject *__pyx_codeobj__32;
+static PyObject *__pyx_codeobj__34;
+static PyObject *__pyx_codeobj__36;
 
 /* "runScript.pyx":22
  * from RunRegressionRBFN import runRBFN
@@ -1776,7 +1779,8 @@ static PyObject *__pyx_pf_9runScript_4runAll(CYTHON_UNUSED PyObject *__pyx_self)
   PyObject *__pyx_t_8 = NULL;
   PyObject *__pyx_t_9 = NULL;
   double __pyx_t_10;
-  Py_ssize_t __pyx_t_11;
+  PyObject *__pyx_t_11 = NULL;
+  Py_ssize_t __pyx_t_12;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2207,7 +2211,7 @@ static PyObject *__pyx_pf_9runScript_4runAll(CYTHON_UNUSED PyObject *__pyx_self)
  *         st = float(st)
  *         launchCMAESForSpecificTargetSize(st)             # <<<<<<<<<<<<<<
  *     elif choix == 2:
- *         launchCMAESForAllTargetSize()
+ *         try:
  */
     __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_launchCMAESForSpecificTargetSize); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
@@ -2244,8 +2248,8 @@ static PyObject *__pyx_pf_9runScript_4runAll(CYTHON_UNUSED PyObject *__pyx_self)
  *         st = float(st)
  *         launchCMAESForSpecificTargetSize(st)
  *     elif choix == 2:             # <<<<<<<<<<<<<<
- *         launchCMAESForAllTargetSize()
- *     elif choix == 3:
+ *         try:
+ *             launchCMAESForAllTargetSize()
  */
   __pyx_t_9 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_2, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 92; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 92; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2255,169 +2259,251 @@ static PyObject *__pyx_pf_9runScript_4runAll(CYTHON_UNUSED PyObject *__pyx_self)
     /* "runScript.pyx":93
  *         launchCMAESForSpecificTargetSize(st)
  *     elif choix == 2:
- *         launchCMAESForAllTargetSize()             # <<<<<<<<<<<<<<
+ *         try:             # <<<<<<<<<<<<<<
+ *             launchCMAESForAllTargetSize()
+ *         except:
+ */
+    {
+      __Pyx_ExceptionSave(&__pyx_t_2, &__pyx_t_3, &__pyx_t_4);
+      __Pyx_XGOTREF(__pyx_t_2);
+      __Pyx_XGOTREF(__pyx_t_3);
+      __Pyx_XGOTREF(__pyx_t_4);
+      /*try:*/ {
+
+        /* "runScript.pyx":94
+ *     elif choix == 2:
+ *         try:
+ *             launchCMAESForAllTargetSize()             # <<<<<<<<<<<<<<
+ *         except:
+ *             os.system("clear")
+ */
+        __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_launchCMAESForAllTargetSize); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L32_error;}
+        __Pyx_GOTREF(__pyx_t_8);
+        __pyx_t_5 = NULL;
+        if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
+          __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
+          if (likely(__pyx_t_5)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+            __Pyx_INCREF(__pyx_t_5);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_8, function);
+          }
+        }
+        if (__pyx_t_5) {
+          __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_5); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L32_error;}
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        } else {
+          __pyx_t_9 = __Pyx_PyObject_CallNoArg(__pyx_t_8); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L32_error;}
+        }
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      }
+      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      goto __pyx_L39_try_end;
+      __pyx_L32_error:;
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+      /* "runScript.pyx":95
+ *         try:
+ *             launchCMAESForAllTargetSize()
+ *         except:             # <<<<<<<<<<<<<<
+ *             os.system("clear")
+ *             print("If you see this, go to 'launch for all targets in cython' part in the user manual")
+ */
+      /*except:*/ {
+        __Pyx_AddTraceback("runScript.runAll", __pyx_clineno, __pyx_lineno, __pyx_filename);
+        if (__Pyx_GetException(&__pyx_t_9, &__pyx_t_8, &__pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L34_except_error;}
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_GOTREF(__pyx_t_5);
+
+        /* "runScript.pyx":96
+ *             launchCMAESForAllTargetSize()
+ *         except:
+ *             os.system("clear")             # <<<<<<<<<<<<<<
+ *             print("If you see this, go to 'launch for all targets in cython' part in the user manual")
+ *     elif choix == 3:
+ */
+        __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L34_except_error;}
+        __Pyx_GOTREF(__pyx_t_7);
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_system); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L34_except_error;}
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L34_except_error;}
+        __Pyx_GOTREF(__pyx_t_7);
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+
+        /* "runScript.pyx":97
+ *         except:
+ *             os.system("clear")
+ *             print("If you see this, go to 'launch for all targets in cython' part in the user manual")             # <<<<<<<<<<<<<<
  *     elif choix == 3:
  *         nameF = raw_input('Folder name where you want to save the results: ')
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_launchCMAESForAllTargetSize); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_5 = NULL;
-    if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-        __Pyx_INCREF(__pyx_t_5);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_8, function);
+        if (__Pyx_PrintOne(0, __pyx_kp_s_If_you_see_this_go_to_launch_for) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L34_except_error;}
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        goto __pyx_L33_exception_handled;
       }
+      __pyx_L34_except_error:;
+      __Pyx_XGIVEREF(__pyx_t_2);
+      __Pyx_XGIVEREF(__pyx_t_3);
+      __Pyx_XGIVEREF(__pyx_t_4);
+      __Pyx_ExceptionReset(__pyx_t_2, __pyx_t_3, __pyx_t_4);
+      goto __pyx_L1_error;
+      __pyx_L33_exception_handled:;
+      __Pyx_XGIVEREF(__pyx_t_2);
+      __Pyx_XGIVEREF(__pyx_t_3);
+      __Pyx_XGIVEREF(__pyx_t_4);
+      __Pyx_ExceptionReset(__pyx_t_2, __pyx_t_3, __pyx_t_4);
+      __pyx_L39_try_end:;
     }
-    if (__pyx_t_5) {
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_5); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    } else {
-      __pyx_t_9 = __Pyx_PyObject_CallNoArg(__pyx_t_8); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    }
-    __Pyx_GOTREF(__pyx_t_9);
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     goto __pyx_L31;
   }
 
-  /* "runScript.pyx":94
- *     elif choix == 2:
- *         launchCMAESForAllTargetSize()
+  /* "runScript.pyx":98
+ *             os.system("clear")
+ *             print("If you see this, go to 'launch for all targets in cython' part in the user manual")
  *     elif choix == 3:             # <<<<<<<<<<<<<<
  *         nameF = raw_input('Folder name where you want to save the results: ')
  *         nameT = raw_input('Number at the end of the name of the theta file: ')
  */
-  __pyx_t_9 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_5 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_1) {
 
-    /* "runScript.pyx":95
- *         launchCMAESForAllTargetSize()
+    /* "runScript.pyx":99
+ *             print("If you see this, go to 'launch for all targets in cython' part in the user manual")
  *     elif choix == 3:
  *         nameF = raw_input('Folder name where you want to save the results: ')             # <<<<<<<<<<<<<<
  *         nameT = raw_input('Number at the end of the name of the theta file: ')
  *         nbret = input("Number of repeat for each trajectory (int): ")
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nameF = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nameF = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":96
+    /* "runScript.pyx":100
  *     elif choix == 3:
  *         nameF = raw_input('Folder name where you want to save the results: ')
  *         nameT = raw_input('Number at the end of the name of the theta file: ')             # <<<<<<<<<<<<<<
  *         nbret = input("Number of repeat for each trajectory (int): ")
  *         nbret = int(nbret)
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nameT = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 100; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nameT = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":97
+    /* "runScript.pyx":101
  *         nameF = raw_input('Folder name where you want to save the results: ')
  *         nameT = raw_input('Number at the end of the name of the theta file: ')
  *         nbret = input("Number of repeat for each trajectory (int): ")             # <<<<<<<<<<<<<<
  *         nbret = int(nbret)
  *         generateResults(nameF, nbret, nameT)
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_input, __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nbret = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_input, __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nbret = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":98
+    /* "runScript.pyx":102
  *         nameT = raw_input('Number at the end of the name of the theta file: ')
  *         nbret = input("Number of repeat for each trajectory (int): ")
  *         nbret = int(nbret)             # <<<<<<<<<<<<<<
  *         generateResults(nameF, nbret, nameT)
  *     elif choix == 4:
  */
-    __pyx_t_9 = PyNumber_Int(__pyx_v_nbret); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __Pyx_DECREF_SET(__pyx_v_nbret, __pyx_t_9);
-    __pyx_t_9 = 0;
+    __pyx_t_5 = PyNumber_Int(__pyx_v_nbret); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF_SET(__pyx_v_nbret, __pyx_t_5);
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":99
+    /* "runScript.pyx":103
  *         nbret = input("Number of repeat for each trajectory (int): ")
  *         nbret = int(nbret)
  *         generateResults(nameF, nbret, nameT)             # <<<<<<<<<<<<<<
  *     elif choix == 4:
  *         nameF = raw_input('Folder name where the results are saved: ')
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_generateResults); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_generateResults); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_5 = NULL;
-    __pyx_t_11 = 0;
+    __pyx_t_9 = NULL;
+    __pyx_t_12 = 0;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
-      if (likely(__pyx_t_5)) {
+      __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_8);
+      if (likely(__pyx_t_9)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_9);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_8, function);
-        __pyx_t_11 = 1;
+        __pyx_t_12 = 1;
       }
     }
-    __pyx_t_7 = PyTuple_New(3+__pyx_t_11); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_7 = PyTuple_New(3+__pyx_t_12); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
-    if (__pyx_t_5) {
-      PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
+    if (__pyx_t_9) {
+      PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9); __Pyx_GIVEREF(__pyx_t_9); __pyx_t_9 = NULL;
     }
     __Pyx_INCREF(__pyx_v_nameF);
-    PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_11, __pyx_v_nameF);
+    PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_12, __pyx_v_nameF);
     __Pyx_GIVEREF(__pyx_v_nameF);
     __Pyx_INCREF(__pyx_v_nbret);
-    PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_11, __pyx_v_nbret);
+    PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_12, __pyx_v_nbret);
     __Pyx_GIVEREF(__pyx_v_nbret);
     __Pyx_INCREF(__pyx_v_nameT);
-    PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_11, __pyx_v_nameT);
+    PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_12, __pyx_v_nameT);
     __Pyx_GIVEREF(__pyx_v_nameT);
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L31;
   }
 
-  /* "runScript.pyx":100
+  /* "runScript.pyx":104
  *         nbret = int(nbret)
  *         generateResults(nameF, nbret, nameT)
  *     elif choix == 4:             # <<<<<<<<<<<<<<
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotAllCmaes(nameF)
  */
-  __pyx_t_9 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_4, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 100; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 100; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_5 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_4, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_1) {
 
-    /* "runScript.pyx":101
+    /* "runScript.pyx":105
  *         generateResults(nameF, nbret, nameT)
  *     elif choix == 4:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotAllCmaes(nameF)
  *     elif choix == 5:
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nameF = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nameF = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":102
+    /* "runScript.pyx":106
  *     elif choix == 4:
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotAllCmaes(nameF)             # <<<<<<<<<<<<<<
  *     elif choix == 5:
  *         nameF = raw_input('Folder name where the results are saved: ')
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotAllCmaes); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotAllCmaes); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 106; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_7 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
@@ -2430,118 +2516,118 @@ static PyObject *__pyx_pf_9runScript_4runAll(CYTHON_UNUSED PyObject *__pyx_self)
       }
     }
     if (!__pyx_t_7) {
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_9);
-    } else {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 106; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
-      PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __Pyx_GIVEREF(__pyx_t_7); __pyx_t_7 = NULL;
-      __Pyx_INCREF(__pyx_v_nameF);
-      PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_nameF);
-      __Pyx_GIVEREF(__pyx_v_nameF);
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_5, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    } else {
+      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 106; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __Pyx_GIVEREF(__pyx_t_7); __pyx_t_7 = NULL;
+      __Pyx_INCREF(__pyx_v_nameF);
+      PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_v_nameF);
+      __Pyx_GIVEREF(__pyx_v_nameF);
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 106; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L31;
   }
 
-  /* "runScript.pyx":103
+  /* "runScript.pyx":107
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotAllCmaes(nameF)
  *     elif choix == 5:             # <<<<<<<<<<<<<<
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotTimeDistanceTarget(nameF)
  */
-  __pyx_t_9 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_5, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_5 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_5, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_1) {
 
-    /* "runScript.pyx":104
+    /* "runScript.pyx":108
  *         plotAllCmaes(nameF)
  *     elif choix == 5:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotTimeDistanceTarget(nameF)
  *     elif choix == 6:
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nameF = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__23, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nameF = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":105
+    /* "runScript.pyx":109
  *     elif choix == 5:
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotTimeDistanceTarget(nameF)             # <<<<<<<<<<<<<<
  *     elif choix == 6:
  *         nameF = raw_input('Folder name where the results are saved: ')
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotTimeDistanceTarget); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotTimeDistanceTarget); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_5 = NULL;
+    __pyx_t_9 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
-      if (likely(__pyx_t_5)) {
+      __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_8);
+      if (likely(__pyx_t_9)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_9);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_8, function);
       }
     }
-    if (!__pyx_t_5) {
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_9);
+    if (!__pyx_t_9) {
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
     } else {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_7);
-      PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
+      PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9); __Pyx_GIVEREF(__pyx_t_9); __pyx_t_9 = NULL;
       __Pyx_INCREF(__pyx_v_nameF);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_nameF);
       __Pyx_GIVEREF(__pyx_v_nameF);
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L31;
   }
 
-  /* "runScript.pyx":106
+  /* "runScript.pyx":110
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotTimeDistanceTarget(nameF)
  *     elif choix == 6:             # <<<<<<<<<<<<<<
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotFittsLaw(nameF)
  */
-  __pyx_t_9 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_6, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 106; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 106; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_5 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_6, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_1) {
 
-    /* "runScript.pyx":107
+    /* "runScript.pyx":111
  *         plotTimeDistanceTarget(nameF)
  *     elif choix == 6:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotFittsLaw(nameF)
  *     elif choix == 7:
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__23, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nameF = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__24, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nameF = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":108
+    /* "runScript.pyx":112
  *     elif choix == 6:
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotFittsLaw(nameF)             # <<<<<<<<<<<<<<
  *     elif choix == 7:
  *         nameF = raw_input('Folder name where the results are saved: ')
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotFittsLaw); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotFittsLaw); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_7 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
@@ -2554,118 +2640,118 @@ static PyObject *__pyx_pf_9runScript_4runAll(CYTHON_UNUSED PyObject *__pyx_self)
       }
     }
     if (!__pyx_t_7) {
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_9);
-    } else {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
-      PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __Pyx_GIVEREF(__pyx_t_7); __pyx_t_7 = NULL;
-      __Pyx_INCREF(__pyx_v_nameF);
-      PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_nameF);
-      __Pyx_GIVEREF(__pyx_v_nameF);
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_5, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    } else {
+      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __Pyx_GIVEREF(__pyx_t_7); __pyx_t_7 = NULL;
+      __Pyx_INCREF(__pyx_v_nameF);
+      PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_v_nameF);
+      __Pyx_GIVEREF(__pyx_v_nameF);
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L31;
   }
 
-  /* "runScript.pyx":109
+  /* "runScript.pyx":113
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotFittsLaw(nameF)
  *     elif choix == 7:             # <<<<<<<<<<<<<<
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotPerfSizeDist(nameF)
  */
-  __pyx_t_9 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_7, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_5 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_7, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_1) {
 
-    /* "runScript.pyx":110
+    /* "runScript.pyx":114
  *         plotFittsLaw(nameF)
  *     elif choix == 7:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotPerfSizeDist(nameF)
  *     elif choix == 8:
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__24, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nameF = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__25, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nameF = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":111
+    /* "runScript.pyx":115
  *     elif choix == 7:
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotPerfSizeDist(nameF)             # <<<<<<<<<<<<<<
  *     elif choix == 8:
  *         nameF = raw_input('Folder name where the results are saved: ')
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotPerfSizeDist); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotPerfSizeDist); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_5 = NULL;
+    __pyx_t_9 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
-      if (likely(__pyx_t_5)) {
+      __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_8);
+      if (likely(__pyx_t_9)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_9);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_8, function);
       }
     }
-    if (!__pyx_t_5) {
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_9);
+    if (!__pyx_t_9) {
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
     } else {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_7);
-      PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
+      PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9); __Pyx_GIVEREF(__pyx_t_9); __pyx_t_9 = NULL;
       __Pyx_INCREF(__pyx_v_nameF);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_nameF);
       __Pyx_GIVEREF(__pyx_v_nameF);
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L31;
   }
 
-  /* "runScript.pyx":112
+  /* "runScript.pyx":116
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotPerfSizeDist(nameF)
  *     elif choix == 8:             # <<<<<<<<<<<<<<
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotMapTimeTrajectories(nameF)
  */
-  __pyx_t_9 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_8, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_5 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_8, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_1) {
 
-    /* "runScript.pyx":113
+    /* "runScript.pyx":117
  *         plotPerfSizeDist(nameF)
  *     elif choix == 8:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotMapTimeTrajectories(nameF)
  *     elif choix == 9:
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__25, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nameF = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__26, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nameF = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":114
+    /* "runScript.pyx":118
  *     elif choix == 8:
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotMapTimeTrajectories(nameF)             # <<<<<<<<<<<<<<
  *     elif choix == 9:
  *         print("Generate results with the best theta temp !")
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotMapTimeTrajectories); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotMapTimeTrajectories); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_7 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
@@ -2678,141 +2764,141 @@ static PyObject *__pyx_pf_9runScript_4runAll(CYTHON_UNUSED PyObject *__pyx_self)
       }
     }
     if (!__pyx_t_7) {
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_9);
-    } else {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
-      PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __Pyx_GIVEREF(__pyx_t_7); __pyx_t_7 = NULL;
-      __Pyx_INCREF(__pyx_v_nameF);
-      PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_nameF);
-      __Pyx_GIVEREF(__pyx_v_nameF);
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_5, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    } else {
+      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __Pyx_GIVEREF(__pyx_t_7); __pyx_t_7 = NULL;
+      __Pyx_INCREF(__pyx_v_nameF);
+      PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_v_nameF);
+      __Pyx_GIVEREF(__pyx_v_nameF);
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L31;
   }
 
-  /* "runScript.pyx":115
+  /* "runScript.pyx":119
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotMapTimeTrajectories(nameF)
  *     elif choix == 9:             # <<<<<<<<<<<<<<
  *         print("Generate results with the best theta temp !")
  *         nameF = raw_input('Folder name where you want to save the results: ')
  */
-  __pyx_t_9 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_9, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_5 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_9, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_1) {
 
-    /* "runScript.pyx":116
+    /* "runScript.pyx":120
  *         plotMapTimeTrajectories(nameF)
  *     elif choix == 9:
  *         print("Generate results with the best theta temp !")             # <<<<<<<<<<<<<<
  *         nameF = raw_input('Folder name where you want to save the results: ')
  *         nbret = input("Number of repeat for each trajectory (int): ")
  */
-    if (__Pyx_PrintOne(0, __pyx_kp_s_Generate_results_with_the_best_t) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (__Pyx_PrintOne(0, __pyx_kp_s_Generate_results_with_the_best_t) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "runScript.pyx":117
+    /* "runScript.pyx":121
  *     elif choix == 9:
  *         print("Generate results with the best theta temp !")
  *         nameF = raw_input('Folder name where you want to save the results: ')             # <<<<<<<<<<<<<<
  *         nbret = input("Number of repeat for each trajectory (int): ")
  *         nbret = int(nbret)
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__26, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nameF = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__27, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nameF = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":118
+    /* "runScript.pyx":122
  *         print("Generate results with the best theta temp !")
  *         nameF = raw_input('Folder name where you want to save the results: ')
  *         nbret = input("Number of repeat for each trajectory (int): ")             # <<<<<<<<<<<<<<
  *         nbret = int(nbret)
  *         generateResultsWithBestThetaTmp(nameF, nbret)
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_input, __pyx_tuple__27, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nbret = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_input, __pyx_tuple__28, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nbret = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":119
+    /* "runScript.pyx":123
  *         nameF = raw_input('Folder name where you want to save the results: ')
  *         nbret = input("Number of repeat for each trajectory (int): ")
  *         nbret = int(nbret)             # <<<<<<<<<<<<<<
  *         generateResultsWithBestThetaTmp(nameF, nbret)
  *     elif choix == 10:
  */
-    __pyx_t_9 = PyNumber_Int(__pyx_v_nbret); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __Pyx_DECREF_SET(__pyx_v_nbret, __pyx_t_9);
-    __pyx_t_9 = 0;
+    __pyx_t_5 = PyNumber_Int(__pyx_v_nbret); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF_SET(__pyx_v_nbret, __pyx_t_5);
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":120
+    /* "runScript.pyx":124
  *         nbret = input("Number of repeat for each trajectory (int): ")
  *         nbret = int(nbret)
  *         generateResultsWithBestThetaTmp(nameF, nbret)             # <<<<<<<<<<<<<<
  *     elif choix == 10:
  *         launchCMAESWithBestThetaTmpForAllTargetSize()
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_generateResultsWithBestThetaTmp); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_generateResultsWithBestThetaTmp); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_5 = NULL;
-    __pyx_t_11 = 0;
+    __pyx_t_9 = NULL;
+    __pyx_t_12 = 0;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
-      if (likely(__pyx_t_5)) {
+      __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_8);
+      if (likely(__pyx_t_9)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_9);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_8, function);
-        __pyx_t_11 = 1;
+        __pyx_t_12 = 1;
       }
     }
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_12); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
-    if (__pyx_t_5) {
-      PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
+    if (__pyx_t_9) {
+      PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9); __Pyx_GIVEREF(__pyx_t_9); __pyx_t_9 = NULL;
     }
     __Pyx_INCREF(__pyx_v_nameF);
-    PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_11, __pyx_v_nameF);
+    PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_12, __pyx_v_nameF);
     __Pyx_GIVEREF(__pyx_v_nameF);
     __Pyx_INCREF(__pyx_v_nbret);
-    PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_11, __pyx_v_nbret);
+    PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_12, __pyx_v_nbret);
     __Pyx_GIVEREF(__pyx_v_nbret);
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L31;
   }
 
-  /* "runScript.pyx":121
+  /* "runScript.pyx":125
  *         nbret = int(nbret)
  *         generateResultsWithBestThetaTmp(nameF, nbret)
  *     elif choix == 10:             # <<<<<<<<<<<<<<
  *         launchCMAESWithBestThetaTmpForAllTargetSize()
  *     elif choix == 11:
  */
-  __pyx_t_9 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_10, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_5 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_10, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_1) {
 
-    /* "runScript.pyx":122
+    /* "runScript.pyx":126
  *         generateResultsWithBestThetaTmp(nameF, nbret)
  *     elif choix == 10:
  *         launchCMAESWithBestThetaTmpForAllTargetSize()             # <<<<<<<<<<<<<<
  *     elif choix == 11:
  *         nameF = raw_input('Folder name where the results are saved: ')
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_launchCMAESWithBestThetaTmpForAl); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_launchCMAESWithBestThetaTmpForAl); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_7 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
@@ -2825,49 +2911,49 @@ static PyObject *__pyx_pf_9runScript_4runAll(CYTHON_UNUSED PyObject *__pyx_self)
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_9 = __Pyx_PyObject_CallNoArg(__pyx_t_8); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_8); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
-    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L31;
   }
 
-  /* "runScript.pyx":123
+  /* "runScript.pyx":127
  *     elif choix == 10:
  *         launchCMAESWithBestThetaTmpForAllTargetSize()
  *     elif choix == 11:             # <<<<<<<<<<<<<<
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotForAllTargetVelocityProfile(nameF)
  */
-  __pyx_t_9 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_11, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_5 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_11, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_1) {
 
-    /* "runScript.pyx":124
+    /* "runScript.pyx":128
  *         launchCMAESWithBestThetaTmpForAllTargetSize()
  *     elif choix == 11:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotForAllTargetVelocityProfile(nameF)
  *     elif choix == 12:
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__28, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nameF = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__29, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nameF = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":125
+    /* "runScript.pyx":129
  *     elif choix == 11:
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotForAllTargetVelocityProfile(nameF)             # <<<<<<<<<<<<<<
  *     elif choix == 12:
  *         nameC = raw_input('Name to save the RBFN controller: ')
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotForAllTargetVelocityProfile); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_plotForAllTargetVelocityProfile); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_7 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
@@ -2880,83 +2966,83 @@ static PyObject *__pyx_pf_9runScript_4runAll(CYTHON_UNUSED PyObject *__pyx_self)
       }
     }
     if (!__pyx_t_7) {
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_9);
-    } else {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameF); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
-      PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __Pyx_GIVEREF(__pyx_t_7); __pyx_t_7 = NULL;
-      __Pyx_INCREF(__pyx_v_nameF);
-      PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_nameF);
-      __Pyx_GIVEREF(__pyx_v_nameF);
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_5, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    } else {
+      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __Pyx_GIVEREF(__pyx_t_7); __pyx_t_7 = NULL;
+      __Pyx_INCREF(__pyx_v_nameF);
+      PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_v_nameF);
+      __Pyx_GIVEREF(__pyx_v_nameF);
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L31;
   }
 
-  /* "runScript.pyx":126
+  /* "runScript.pyx":130
  *         nameF = raw_input('Folder name where the results are saved: ')
  *         plotForAllTargetVelocityProfile(nameF)
  *     elif choix == 12:             # <<<<<<<<<<<<<<
  *         nameC = raw_input('Name to save the RBFN controller: ')
  *         runRBFN(nameC)
  */
-  __pyx_t_9 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_12, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_5 = PyObject_RichCompare(__pyx_v_choix, __pyx_int_12, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_1) {
 
-    /* "runScript.pyx":127
+    /* "runScript.pyx":131
  *         plotForAllTargetVelocityProfile(nameF)
  *     elif choix == 12:
  *         nameC = raw_input('Name to save the RBFN controller: ')             # <<<<<<<<<<<<<<
  *         runRBFN(nameC)
  * 
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__29, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_v_nameC = __pyx_t_9;
-    __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_v_raw_input, __pyx_tuple__30, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_v_nameC = __pyx_t_5;
+    __pyx_t_5 = 0;
 
-    /* "runScript.pyx":128
+    /* "runScript.pyx":132
  *     elif choix == 12:
  *         nameC = raw_input('Name to save the RBFN controller: ')
  *         runRBFN(nameC)             # <<<<<<<<<<<<<<
  * 
  * #runAll()
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_runRBFN); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_runRBFN); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_5 = NULL;
+    __pyx_t_9 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_8))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
-      if (likely(__pyx_t_5)) {
+      __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_8);
+      if (likely(__pyx_t_9)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_9);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_8, function);
       }
     }
-    if (!__pyx_t_5) {
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameC); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_9);
+    if (!__pyx_t_9) {
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_v_nameC); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
     } else {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_7);
-      PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
+      PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9); __Pyx_GIVEREF(__pyx_t_9); __pyx_t_9 = NULL;
       __Pyx_INCREF(__pyx_v_nameC);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_nameC);
       __Pyx_GIVEREF(__pyx_v_nameC);
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L31;
   }
   __pyx_L31:;
@@ -2977,6 +3063,7 @@ static PyObject *__pyx_pf_9runScript_4runAll(CYTHON_UNUSED PyObject *__pyx_self)
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_11);
   __Pyx_AddTraceback("runScript.runAll", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -3024,6 +3111,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Folder_name_where_the_results_ar, __pyx_k_Folder_name_where_the_results_ar, sizeof(__pyx_k_Folder_name_where_the_results_ar), 0, 0, 1, 0},
   {&__pyx_kp_s_Folder_name_where_you_want_to_sa, __pyx_k_Folder_name_where_you_want_to_sa, sizeof(__pyx_k_Folder_name_where_you_want_to_sa), 0, 0, 1, 0},
   {&__pyx_kp_s_Generate_results_with_the_best_t, __pyx_k_Generate_results_with_the_best_t, sizeof(__pyx_k_Generate_results_with_the_best_t), 0, 0, 1, 0},
+  {&__pyx_kp_s_If_you_see_this_go_to_launch_for, __pyx_k_If_you_see_this_go_to_launch_for, sizeof(__pyx_k_If_you_see_this_go_to_launch_for), 0, 0, 1, 0},
   {&__pyx_n_s_Main, __pyx_k_Main, sizeof(__pyx_k_Main), 0, 0, 1, 1},
   {&__pyx_kp_s_Name_to_save_the_RBFN_controller, __pyx_k_Name_to_save_the_RBFN_controller, sizeof(__pyx_k_Name_to_save_the_RBFN_controller), 0, 0, 1, 0},
   {&__pyx_kp_s_Number_at_the_end_of_the_name_of, __pyx_k_Number_at_the_end_of_the_name_of, sizeof(__pyx_k_Number_at_the_end_of_the_name_of), 0, 0, 1, 0},
@@ -3278,137 +3366,148 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
 
-  /* "runScript.pyx":95
- *         launchCMAESForAllTargetSize()
+  /* "runScript.pyx":96
+ *             launchCMAESForAllTargetSize()
+ *         except:
+ *             os.system("clear")             # <<<<<<<<<<<<<<
+ *             print("If you see this, go to 'launch for all targets in cython' part in the user manual")
+ *     elif choix == 3:
+ */
+  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_n_s_clear); if (unlikely(!__pyx_tuple__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__18);
+  __Pyx_GIVEREF(__pyx_tuple__18);
+
+  /* "runScript.pyx":99
+ *             print("If you see this, go to 'launch for all targets in cython' part in the user manual")
  *     elif choix == 3:
  *         nameF = raw_input('Folder name where you want to save the results: ')             # <<<<<<<<<<<<<<
  *         nameT = raw_input('Number at the end of the name of the theta file: ')
  *         nbret = input("Number of repeat for each trajectory (int): ")
  */
-  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_you_want_to_sa); if (unlikely(!__pyx_tuple__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__18);
-  __Pyx_GIVEREF(__pyx_tuple__18);
+  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_you_want_to_sa); if (unlikely(!__pyx_tuple__19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__19);
+  __Pyx_GIVEREF(__pyx_tuple__19);
 
-  /* "runScript.pyx":96
+  /* "runScript.pyx":100
  *     elif choix == 3:
  *         nameF = raw_input('Folder name where you want to save the results: ')
  *         nameT = raw_input('Number at the end of the name of the theta file: ')             # <<<<<<<<<<<<<<
  *         nbret = input("Number of repeat for each trajectory (int): ")
  *         nbret = int(nbret)
  */
-  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_kp_s_Number_at_the_end_of_the_name_of); if (unlikely(!__pyx_tuple__19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__19);
-  __Pyx_GIVEREF(__pyx_tuple__19);
+  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_kp_s_Number_at_the_end_of_the_name_of); if (unlikely(!__pyx_tuple__20)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 100; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__20);
+  __Pyx_GIVEREF(__pyx_tuple__20);
 
-  /* "runScript.pyx":97
+  /* "runScript.pyx":101
  *         nameF = raw_input('Folder name where you want to save the results: ')
  *         nameT = raw_input('Number at the end of the name of the theta file: ')
  *         nbret = input("Number of repeat for each trajectory (int): ")             # <<<<<<<<<<<<<<
  *         nbret = int(nbret)
  *         generateResults(nameF, nbret, nameT)
  */
-  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_kp_s_Number_of_repeat_for_each_trajec); if (unlikely(!__pyx_tuple__20)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__20);
-  __Pyx_GIVEREF(__pyx_tuple__20);
+  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_kp_s_Number_of_repeat_for_each_trajec); if (unlikely(!__pyx_tuple__21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
 
-  /* "runScript.pyx":101
+  /* "runScript.pyx":105
  *         generateResults(nameF, nbret, nameT)
  *     elif choix == 4:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotAllCmaes(nameF)
  *     elif choix == 5:
  */
-  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__21);
-  __Pyx_GIVEREF(__pyx_tuple__21);
+  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
 
-  /* "runScript.pyx":104
+  /* "runScript.pyx":108
  *         plotAllCmaes(nameF)
  *     elif choix == 5:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotTimeDistanceTarget(nameF)
  *     elif choix == 6:
  */
-  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__22);
-  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__23);
+  __Pyx_GIVEREF(__pyx_tuple__23);
 
-  /* "runScript.pyx":107
+  /* "runScript.pyx":111
  *         plotTimeDistanceTarget(nameF)
  *     elif choix == 6:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotFittsLaw(nameF)
  *     elif choix == 7:
  */
-  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__23);
-  __Pyx_GIVEREF(__pyx_tuple__23);
+  __pyx_tuple__24 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__24);
+  __Pyx_GIVEREF(__pyx_tuple__24);
 
-  /* "runScript.pyx":110
+  /* "runScript.pyx":114
  *         plotFittsLaw(nameF)
  *     elif choix == 7:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotPerfSizeDist(nameF)
  *     elif choix == 8:
  */
-  __pyx_tuple__24 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__24);
-  __Pyx_GIVEREF(__pyx_tuple__24);
+  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__25)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__25);
+  __Pyx_GIVEREF(__pyx_tuple__25);
 
-  /* "runScript.pyx":113
+  /* "runScript.pyx":117
  *         plotPerfSizeDist(nameF)
  *     elif choix == 8:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotMapTimeTrajectories(nameF)
  *     elif choix == 9:
  */
-  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__25)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__25);
-  __Pyx_GIVEREF(__pyx_tuple__25);
+  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__26);
+  __Pyx_GIVEREF(__pyx_tuple__26);
 
-  /* "runScript.pyx":117
+  /* "runScript.pyx":121
  *     elif choix == 9:
  *         print("Generate results with the best theta temp !")
  *         nameF = raw_input('Folder name where you want to save the results: ')             # <<<<<<<<<<<<<<
  *         nbret = input("Number of repeat for each trajectory (int): ")
  *         nbret = int(nbret)
  */
-  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_you_want_to_sa); if (unlikely(!__pyx_tuple__26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__26);
-  __Pyx_GIVEREF(__pyx_tuple__26);
+  __pyx_tuple__27 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_you_want_to_sa); if (unlikely(!__pyx_tuple__27)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__27);
+  __Pyx_GIVEREF(__pyx_tuple__27);
 
-  /* "runScript.pyx":118
+  /* "runScript.pyx":122
  *         print("Generate results with the best theta temp !")
  *         nameF = raw_input('Folder name where you want to save the results: ')
  *         nbret = input("Number of repeat for each trajectory (int): ")             # <<<<<<<<<<<<<<
  *         nbret = int(nbret)
  *         generateResultsWithBestThetaTmp(nameF, nbret)
  */
-  __pyx_tuple__27 = PyTuple_Pack(1, __pyx_kp_s_Number_of_repeat_for_each_trajec); if (unlikely(!__pyx_tuple__27)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__27);
-  __Pyx_GIVEREF(__pyx_tuple__27);
+  __pyx_tuple__28 = PyTuple_Pack(1, __pyx_kp_s_Number_of_repeat_for_each_trajec); if (unlikely(!__pyx_tuple__28)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__28);
+  __Pyx_GIVEREF(__pyx_tuple__28);
 
-  /* "runScript.pyx":124
+  /* "runScript.pyx":128
  *         launchCMAESWithBestThetaTmpForAllTargetSize()
  *     elif choix == 11:
  *         nameF = raw_input('Folder name where the results are saved: ')             # <<<<<<<<<<<<<<
  *         plotForAllTargetVelocityProfile(nameF)
  *     elif choix == 12:
  */
-  __pyx_tuple__28 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__28)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__28);
-  __Pyx_GIVEREF(__pyx_tuple__28);
+  __pyx_tuple__29 = PyTuple_Pack(1, __pyx_kp_s_Folder_name_where_the_results_ar); if (unlikely(!__pyx_tuple__29)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__29);
+  __Pyx_GIVEREF(__pyx_tuple__29);
 
-  /* "runScript.pyx":127
+  /* "runScript.pyx":131
  *         plotForAllTargetVelocityProfile(nameF)
  *     elif choix == 12:
  *         nameC = raw_input('Name to save the RBFN controller: ')             # <<<<<<<<<<<<<<
  *         runRBFN(nameC)
  * 
  */
-  __pyx_tuple__29 = PyTuple_Pack(1, __pyx_kp_s_Name_to_save_the_RBFN_controller); if (unlikely(!__pyx_tuple__29)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__29);
-  __Pyx_GIVEREF(__pyx_tuple__29);
+  __pyx_tuple__30 = PyTuple_Pack(1, __pyx_kp_s_Name_to_save_the_RBFN_controller); if (unlikely(!__pyx_tuple__30)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__30);
+  __Pyx_GIVEREF(__pyx_tuple__30);
 
   /* "runScript.pyx":22
  * from RunRegressionRBFN import runRBFN
@@ -3417,10 +3516,10 @@ static int __Pyx_InitCachedConstants(void) {
  *     a = site.getsitepackages()
  *     packageList = os.listdir(a[0])
  */
-  __pyx_tuple__30 = PyTuple_Pack(7, __pyx_n_s_a, __pyx_n_s_packageList, __pyx_n_s_packageNeeded, __pyx_n_s_listOfPackageNeeded, __pyx_n_s_el, __pyx_n_s_el1, __pyx_n_s_el2); if (unlikely(!__pyx_tuple__30)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__30);
-  __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(0, 0, 7, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_n_s_checkPackages, 22, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__31 = PyTuple_Pack(7, __pyx_n_s_a, __pyx_n_s_packageList, __pyx_n_s_packageNeeded, __pyx_n_s_listOfPackageNeeded, __pyx_n_s_el, __pyx_n_s_el1, __pyx_n_s_el2); if (unlikely(!__pyx_tuple__31)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__31);
+  __Pyx_GIVEREF(__pyx_tuple__31);
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(0, 0, 7, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_n_s_checkPackages, 22, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "runScript.pyx":36
  *     return packageNeeded
@@ -3429,10 +3528,10 @@ static int __Pyx_InitCachedConstants(void) {
  *     a = site.getsitepackages()
  *     a = a[0]
  */
-  __pyx_tuple__32 = PyTuple_Pack(4, __pyx_n_s_packageList, __pyx_n_s_a, __pyx_n_s_el, __pyx_n_s_b); if (unlikely(!__pyx_tuple__32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__32);
-  __Pyx_GIVEREF(__pyx_tuple__32);
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_n_s_installMissingPackage, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__33 = PyTuple_Pack(4, __pyx_n_s_packageList, __pyx_n_s_a, __pyx_n_s_el, __pyx_n_s_b); if (unlikely(!__pyx_tuple__33)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__33);
+  __Pyx_GIVEREF(__pyx_tuple__33);
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_n_s_installMissingPackage, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "runScript.pyx":64
  *     os.system('clear')
@@ -3441,10 +3540,10 @@ static int __Pyx_InitCachedConstants(void) {
  *     checkV = True
  *     checkL = True
  */
-  __pyx_tuple__34 = PyTuple_Pack(11, __pyx_n_s_checkV, __pyx_n_s_checkL, __pyx_n_s_choix, __pyx_n_s_c, __pyx_n_s_packageList, __pyx_n_s_raw_input, __pyx_n_s_st, __pyx_n_s_nameF, __pyx_n_s_nameT, __pyx_n_s_nbret, __pyx_n_s_nameC); if (unlikely(!__pyx_tuple__34)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__34);
-  __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(0, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_n_s_runAll, 64, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__35 = PyTuple_Pack(11, __pyx_n_s_checkV, __pyx_n_s_checkL, __pyx_n_s_choix, __pyx_n_s_c, __pyx_n_s_packageList, __pyx_n_s_raw_input, __pyx_n_s_st, __pyx_n_s_nameF, __pyx_n_s_nameT, __pyx_n_s_nbret, __pyx_n_s_nameC); if (unlikely(!__pyx_tuple__35)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__35);
+  __Pyx_GIVEREF(__pyx_tuple__35);
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(0, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_beucher_workspace_Cython_M, __pyx_n_s_runAll, 64, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
