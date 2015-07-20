@@ -17,11 +17,12 @@ from GlobalVariables import pathDataFolder
 
 def trajectoriesAnimation(folderName, rbfn = False):
     fr, rs = initFRRS()
-    if rbfn == False:
-        pass
-    else:
+    if rbfn == True:
         nameEC = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/elbowCoord"
         nameHC = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/handCoord"
+    else:
+        nameEC = "OptimisationResults/ResCma0.005/" + folderName + "/elbowCoord"
+        nameHC = "OptimisationResults/ResCma0.005/" + folderName + "/handCoord"
     ec = fr.getobjreadJson(nameEC)
     hc = fr.getobjreadJson(nameHC)
     
