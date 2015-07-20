@@ -14,7 +14,7 @@ from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetS
     generateTrajectoryForScattergram, generateResultsRBFN
 from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
-    plotForAllTargetVelocityProfile, checkReachAllTarget
+    plotForAllTargetVelocityProfile, checkReachAllTarget, plotActiMuscu
 from Script.RunRegressionRBFN import runRBFN
 from Script.TrajectoryAnimation import trajectoriesAnimation
 
@@ -157,6 +157,14 @@ def runAll():
             trajectoriesAnimation(nameF, True)
         elif rorc == 1:
             trajectoriesAnimation(nameF)
+    elif choix == 18:
+        rorc = input("enter 1 if cmaes results or 2 if rbfn results: ")
+        rorc = int(rorc)
+        nameF = raw_input('Folder name where the results are saved: ')
+        if rorc == 2:
+            plotActiMuscu(nameF, True)
+        elif rorc == 1:
+            plotActiMuscu(nameF)
     
 runAll()
 

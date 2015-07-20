@@ -662,6 +662,40 @@ def checkReachAllTarget(folderName):
             dicTmp[key] = i*100/len(val)
         listOfDic.append(dicTmp)
     print(listOfDic)
+    
+    
+def plotActiMuscu(folderName, rbfn = False):
+    fr, rs = initFRRS()
+    if rbfn == False:
+        name = "OptimisationResults/ResCma0.01/" + folderName + "/saveU"
+    else:
+        name = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/saveU"
+    data = fr.getobjreadJson(name)
+    u1, u2, u3, u4, u5, u6 = [], [], [], [], [], []
+    t = []
+    for key, val in data.items():
+        for el1 in val:
+            for el in el1:
+                u1.append(el[0])
+                u2.append(el[1])
+                u3.append(el[2])
+                u4.append(el[3])
+                u5.append(el[4])
+                u6.append(el[5])
+            for i in range(len(el1)):
+                t.append(i)
+            plt.figure()
+            plt.plot(t, u1)
+            plt.plot(t, u2)
+            plt.plot(t, u3)
+            plt.plot(t, u4)
+            plt.plot(t, u5)
+            plt.plot(t, u6)
+            plt.show(block = True)
+            #break
+        break
+    
+    
 
 
         
