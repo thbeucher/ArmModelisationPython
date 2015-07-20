@@ -369,10 +369,12 @@ def plotTrajWhenTargetNotReach():
     
 #plotTrajWhenTargetNotReach()
 
-def getTimeDistance(sizeTarget, folderName):
+def getTimeDistance(sizeTarget, folderName, rbfn = False):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/" + folderName + "/saveNumberOfIteration"
-    #name = "RBFN2/" + str(rs.numfeats) + "feats/nbIteRBFN" + str(sizeTarget) + "BIN"
+    if rbfn == False:
+        name = "OptimisationResults/ResCma" + str(sizeTarget) + "/" + folderName + "/saveNumberOfIteration"
+    else:
+        name = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/saveNumberOfIteration"
     #nbIteTraj = fr.getobjread(name)
     nbIteTraj = fr.getobjreadJson(name)
     distTimeDico = {}
@@ -564,10 +566,13 @@ def plotScattergram2(nameFolder):
     
 #plotScattergram2()
 
-def getDistPerfSize(sizeT, folderName):
+def getDistPerfSize(sizeT, folderName, rbfn = False):
     fr, rs = initFRRS()
     #name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/actiMuscuCmaBIN"
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveU"
+    if rbfn == False:
+        name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveU"
+    else:
+        name = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/saveU"
     #data = fr.getobjread(name)
     data = fr.getobjreadJson(name)
     DistPerf = {}
@@ -600,11 +605,14 @@ def plotTrackTraj():
 
 #plotTrackTraj()
 
-def getVelocityProfileData(sizeT, folderName):
+def getVelocityProfileData(sizeT, folderName, rbfn = False):
     fr, rs = initFRRS()
-    #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveSpeed"
-    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveNumberOfIteration"
+    if rbfn == False:
+        name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveSpeed"
+        nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveNumberOfIteration"
+    else:
+        name = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/saveSpeed"
+        nameNbIte = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/saveNumberOfIteration"
     #data = fr.getobjread(name)
     #nbIte = fr.getobjread(nameNbIte)
     data = fr.getobjreadJson(name)
@@ -677,10 +685,12 @@ def testInfluenceOfTimeStepOnNumberOfIte():
 #testInfluenceOfTimeStepOnNumberOfIte()'''
 
 
-def getTimeByArea(sizeT, folderName):
+def getTimeByArea(sizeT, folderName, rbfn = False):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveNumberOfIteration"
-    #name = "RBFN2/" + str(rs.numfeats) + "feats/ResNT/nbIteRBFN" + str(sizeT) + "BIN"
+    if rbfn == False:
+        name = "OptimisationResults/ResCma" + str(sizeT) + "/" + folderName + "/saveNumberOfIteration"
+    else:
+        name = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/saveNumberOfIteration"
     #data = fr.getobjread(name)
     data = fr.getobjreadJson(name)
     areaTime = []

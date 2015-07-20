@@ -222,29 +222,29 @@ def velocityProfile(sizeT):
 
 #velocityProfile(0.02)
 
-def plotForAllTargetVelocityProfile(folderName):
+def plotForAllTargetVelocityProfile(folderName, rbfn = False):
     fr, rs = initFRRS()
     fig = plt.figure(1, figsize=(16,9))
     ax1 = plt.subplot2grid((2,2), (0,0))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[0], folderName)
+    t, v = getVelocityProfileData(rs.sizeOfTarget[0], folderName, rbfn)
     for key, val in v.items():
         ax1.plot(t[key], val, c ='b')
     ax1.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[0])))
     
     ax2 = plt.subplot2grid((2,2), (0,1))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[1], folderName)
+    t, v = getVelocityProfileData(rs.sizeOfTarget[1], folderName, rbfn)
     for key, val in v.items():
         ax2.plot(t[key], val, c ='b')
     ax2.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[1])))
     
     ax3 = plt.subplot2grid((2,2), (1,0))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[2], folderName)
+    t, v = getVelocityProfileData(rs.sizeOfTarget[2], folderName, rbfn)
     for key, val in v.items():
         ax3.plot(t[key], val, c ='b')
     ax3.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[2])))
     
     ax4 = plt.subplot2grid((2,2), (1,1))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[3], folderName)
+    t, v = getVelocityProfileData(rs.sizeOfTarget[3], folderName, rbfn)
     for key, val in v.items():
         ax4.plot(t[key], val, c ='b')
     ax4.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[3])))
@@ -410,15 +410,17 @@ def plotRBFNCostMap():
 #plotRBFNCostMap()
     
 
-def plotAllCmaes(nameF):
+def plotAllCmaes(nameF, rbfn = False):
     fr, rs = initFRRS()
     x0, y0, z = {}, {}, {}
     xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
         try:
-            name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/" + nameF + "/saveMvtCost"
-            #name = "RBFN2/" + str(rs.numfeats) + "feats/actiMuscuRBFN" + str(rs.sizeOfTarget[i]) + "BIN"
+            if rbfn == False:
+                name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/" + nameF + "/saveMvtCost"
+            else:
+                name = "RBFN2/" + str(rs.numfeats) + "feats/" + nameF + "/saveMvtCost"
             #zDico.append(fr.getobjread(name))
             zDico.append(fr.getobjreadJson(name))
         except:
@@ -474,12 +476,12 @@ def plotAllCmaes(nameF):
     
 #plotAllCmaes()
 
-def plotTimeDistanceTarget(folderName):
+def plotTimeDistanceTarget(folderName, rbfn = False):
     fr, rs = initFRRS()
     targetDic = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
-            targetDic[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i], folderName)
+            targetDic[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i], folderName, rbfn)
         except:
             pass
     targetDistTime = []
@@ -513,12 +515,12 @@ def plotTimeDistanceTarget(folderName):
 #plotTimeDistanceTarget()
 
 
-def plotFittsLaw(folderName):
+def plotFittsLaw(folderName, rbfn = False):
     fr, rs = initFRRS()
     data = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
-            data[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i], folderName)
+            data[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i], folderName, rbfn)
         except:
             pass
     #print(data)
@@ -545,12 +547,12 @@ def plotFittsLaw(folderName):
     
 #plotFittsLaw()
         
-def plotPerfSizeDist(folderName):
+def plotPerfSizeDist(folderName, rbfn = False):
     fr, rs = initFRRS()
     sizeDistPerfTmp = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
-            sizeDistPerfTmp[i] = getDistPerfSize(rs.sizeOfTarget[i], folderName)
+            sizeDistPerfTmp[i] = getDistPerfSize(rs.sizeOfTarget[i], folderName, rbfn)
         except:
             pass
     #print(sizeDistPerfTmp)
@@ -572,12 +574,12 @@ def plotPerfSizeDist(folderName):
         
 #plotPerfSizeDist()
 
-def plotMapTimeTrajectories(folderName):
+def plotMapTimeTrajectories(folderName, rbfn = False):
     fr, rs = initFRRS()
     areaTimeBySize = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
-            areaTimeBySize[rs.sizeOfTarget[i]] = getTimeByArea(rs.sizeOfTarget[i], folderName)
+            areaTimeBySize[rs.sizeOfTarget[i]] = getTimeByArea(rs.sizeOfTarget[i], folderName, rbfn)
         except:
             pass
     '''for key, val in areaTimeBySize.items():

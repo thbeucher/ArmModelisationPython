@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 
-from Main import launchCMAESWithBestThetaTmpForSpecificTargetSize
+from Main import launchCMAESForSpecificTargetSize
 
 import sys
 
 size = float(sys.argv[1])
 
-launchCMAESWithBestThetaTmpForSpecificTargetSize(size)
+launchCMAESForSpecificTargetSize(size)

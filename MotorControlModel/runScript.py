@@ -140,6 +140,14 @@ def runAll():
         nbret = int(nbret)
         nameT = raw_input('Name of the theta file to use: ')
         generateResultsRBFN(nameF, nbret, nameT)
+    elif choix == 16:
+        nameF = raw_input('Folder name where the results are saved: ')
+        plotForAllTargetVelocityProfile(nameF, True)
+        plotAllCmaes(nameF, True)
+        #plotTimeDistanceTarget(nameF, True)
+        #plotFittsLaw(nameF, True)
+        #plotPerfSizeDist(nameF, True)
+        plotMapTimeTrajectories(nameF, True)
     
 runAll()
 
