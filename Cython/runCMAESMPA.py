@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-#from Main import launchCMAESWithBestThetaTmpForSpecificTargetSize
+from Main import launchCMAESWithBestThetaTmpForSpecificTargetSize
 
 import sys
 
