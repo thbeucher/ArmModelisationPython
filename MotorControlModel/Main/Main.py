@@ -56,7 +56,7 @@ def generateResultsRBFN(nameFolderSave, nbret, nameT):
     thetaName = pathDataFolder + "RBFN2/" + str(rs.numfeats) + "feats/" + nameT
     theta = np.loadtxt(thetaName)
     tgs = initAllUsefullObj(rs.sizeOfTarget[3], fr, rs, True)
-    cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
+    cost = tgs.runTrajectoriesResultsGeneration(theta, nbret, True)
     print("Cost: ", cost)
     fileSavingAllDataJson(0, tgs.tg, nameFolderSave, True)
     print("End of generation")
