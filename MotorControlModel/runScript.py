@@ -16,6 +16,7 @@ from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
     plotForAllTargetVelocityProfile, checkReachAllTarget
 from Script.RunRegressionRBFN import runRBFN
+from Script.TrajectoryAnimation import trajectoriesAnimation
 
 def checkPackages():
     a = site.getsitepackages()
@@ -78,7 +79,7 @@ def runAll():
     while checkL:
         try:
             print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n                  5_plotTimeDistanceTarget\n                  6_plotFittsLaw\n                  7_plotPerfSizeDist\n                  8_plotMapTimeTrajectories\n                  9_generateResultsWithBestThetaTmp\n                  10_launchCMAESWithBestThetaTmpForAllTargetSize\n                  11_plotForAllTargetVelocityProfile\n                  12_runRBFN\n                  13_generateTrajectoryForScattergram')
-            print('                  15_generateResultsRBFN\n')
+            print('                  15_generateResultsRBFN\n                  16_plotRbfnResults\n                  17_trajectoriesAnimation\n')
             choix = input('Enter the number corresponding to the script you want to run: ')
             choix = int(choix)
             checkL = False
@@ -148,6 +149,14 @@ def runAll():
         #plotFittsLaw(nameF, True)
         #plotPerfSizeDist(nameF, True)
         plotMapTimeTrajectories(nameF, True)
+    elif choix == 17:
+        rorc = input("enter 1 if cmaes results or 2 if rbfn results: ")
+        rorc = int(rorc)
+        nameF = raw_input('Folder name where the results are saved: ')
+        if rorc == 2:
+            trajectoriesAnimation(nameF, True)
+        elif rorc == 1:
+            trajectoriesAnimation(nameF)
     
 runAll()
 
