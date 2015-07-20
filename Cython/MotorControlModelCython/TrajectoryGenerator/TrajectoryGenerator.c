@@ -1218,6 +1218,31 @@ static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19Trajecto
 static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12checkingKeyEndData(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_14saveEndData(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, int __pyx_v_nbIte, PyObject *__pyx_v_lastCoord, double __pyx_v_cost); /* proto */
 static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16runTrajectory(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, double __pyx_v_x, double __pyx_v_y); /* proto */
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tp_new_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -4869,6 +4894,926 @@ static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19Trajecto
   return __pyx_r;
 }
 
+/* "TrajectoryGenerator/TrajectoryGenerator.pyx":33
+ *         object nsc
+ *         object cc
+ *         public double sizeOfTarget             # <<<<<<<<<<<<<<
+ *         object Ukf
+ *         object armD
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget___get__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->sizeOfTarget); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("TrajectoryGenerator.TrajectoryGenerator.TrajectoryGenerator.sizeOfTarget.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget_2__set__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  double __pyx_t_1;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_self->sizeOfTarget = __pyx_t_1;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("TrajectoryGenerator.TrajectoryGenerator.TrajectoryGenerator.sizeOfTarget.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "TrajectoryGenerator/TrajectoryGenerator.pyx":37
+ *         object armD
+ *         object mac
+ *         public bint saveA             # <<<<<<<<<<<<<<
+ *         public dict saveNumberOfIteration
+ *         public dict saveCoordEndTraj
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA___get__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->saveA); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("TrajectoryGenerator.TrajectoryGenerator.TrajectoryGenerator.saveA.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA_2__set__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_self->saveA = __pyx_t_1;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("TrajectoryGenerator.TrajectoryGenerator.TrajectoryGenerator.saveA.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "TrajectoryGenerator/TrajectoryGenerator.pyx":38
+ *         object mac
+ *         public bint saveA
+ *         public dict saveNumberOfIteration             # <<<<<<<<<<<<<<
+ *         public dict saveCoordEndTraj
+ *         public dict saveMvtCost
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration___get__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->saveNumberOfIteration);
+  __pyx_r = __pyx_v_self->saveNumberOfIteration;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_2__set__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_v_value)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->saveNumberOfIteration);
+  __Pyx_DECREF(__pyx_v_self->saveNumberOfIteration);
+  __pyx_v_self->saveNumberOfIteration = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("TrajectoryGenerator.TrajectoryGenerator.TrajectoryGenerator.saveNumberOfIteration.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_4__del__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->saveNumberOfIteration);
+  __Pyx_DECREF(__pyx_v_self->saveNumberOfIteration);
+  __pyx_v_self->saveNumberOfIteration = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "TrajectoryGenerator/TrajectoryGenerator.pyx":39
+ *         public bint saveA
+ *         public dict saveNumberOfIteration
+ *         public dict saveCoordEndTraj             # <<<<<<<<<<<<<<
+ *         public dict saveMvtCost
+ *         public dict saveSpeed
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj___get__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->saveCoordEndTraj);
+  __pyx_r = __pyx_v_self->saveCoordEndTraj;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_2__set__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_v_value)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->saveCoordEndTraj);
+  __Pyx_DECREF(__pyx_v_self->saveCoordEndTraj);
+  __pyx_v_self->saveCoordEndTraj = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("TrajectoryGenerator.TrajectoryGenerator.TrajectoryGenerator.saveCoordEndTraj.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_4__del__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->saveCoordEndTraj);
+  __Pyx_DECREF(__pyx_v_self->saveCoordEndTraj);
+  __pyx_v_self->saveCoordEndTraj = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "TrajectoryGenerator/TrajectoryGenerator.pyx":40
+ *         public dict saveNumberOfIteration
+ *         public dict saveCoordEndTraj
+ *         public dict saveMvtCost             # <<<<<<<<<<<<<<
+ *         public dict saveSpeed
+ *         public dict saveU
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost___get__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->saveMvtCost);
+  __pyx_r = __pyx_v_self->saveMvtCost;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_2__set__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_v_value)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->saveMvtCost);
+  __Pyx_DECREF(__pyx_v_self->saveMvtCost);
+  __pyx_v_self->saveMvtCost = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("TrajectoryGenerator.TrajectoryGenerator.TrajectoryGenerator.saveMvtCost.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_4__del__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->saveMvtCost);
+  __Pyx_DECREF(__pyx_v_self->saveMvtCost);
+  __pyx_v_self->saveMvtCost = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "TrajectoryGenerator/TrajectoryGenerator.pyx":41
+ *         public dict saveCoordEndTraj
+ *         public dict saveMvtCost
+ *         public dict saveSpeed             # <<<<<<<<<<<<<<
+ *         public dict saveU
+ *         public dict elbowAllCoord
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed___get__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->saveSpeed);
+  __pyx_r = __pyx_v_self->saveSpeed;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_2__set__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_v_value)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->saveSpeed);
+  __Pyx_DECREF(__pyx_v_self->saveSpeed);
+  __pyx_v_self->saveSpeed = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("TrajectoryGenerator.TrajectoryGenerator.TrajectoryGenerator.saveSpeed.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_4__del__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->saveSpeed);
+  __Pyx_DECREF(__pyx_v_self->saveSpeed);
+  __pyx_v_self->saveSpeed = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "TrajectoryGenerator/TrajectoryGenerator.pyx":42
+ *         public dict saveMvtCost
+ *         public dict saveSpeed
+ *         public dict saveU             # <<<<<<<<<<<<<<
+ *         public dict elbowAllCoord
+ *         public dict handAllCoord
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU___get__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->saveU);
+  __pyx_r = __pyx_v_self->saveU;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_2__set__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_v_value)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->saveU);
+  __Pyx_DECREF(__pyx_v_self->saveU);
+  __pyx_v_self->saveU = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("TrajectoryGenerator.TrajectoryGenerator.TrajectoryGenerator.saveU.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_4__del__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->saveU);
+  __Pyx_DECREF(__pyx_v_self->saveU);
+  __pyx_v_self->saveU = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "TrajectoryGenerator/TrajectoryGenerator.pyx":43
+ *         public dict saveSpeed
+ *         public dict saveU
+ *         public dict elbowAllCoord             # <<<<<<<<<<<<<<
+ *         public dict handAllCoord
+ *         list speedList
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord___get__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->elbowAllCoord);
+  __pyx_r = __pyx_v_self->elbowAllCoord;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_2__set__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_v_value)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->elbowAllCoord);
+  __Pyx_DECREF(__pyx_v_self->elbowAllCoord);
+  __pyx_v_self->elbowAllCoord = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("TrajectoryGenerator.TrajectoryGenerator.TrajectoryGenerator.elbowAllCoord.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_4__del__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->elbowAllCoord);
+  __Pyx_DECREF(__pyx_v_self->elbowAllCoord);
+  __pyx_v_self->elbowAllCoord = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "TrajectoryGenerator/TrajectoryGenerator.pyx":44
+ *         public dict saveU
+ *         public dict elbowAllCoord
+ *         public dict handAllCoord             # <<<<<<<<<<<<<<
+ *         list speedList
+ *         list UList
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord___get__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord___get__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->handAllCoord);
+  __pyx_r = __pyx_v_self->handAllCoord;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_2__set__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_2__set__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_v_value)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->handAllCoord);
+  __Pyx_DECREF(__pyx_v_self->handAllCoord);
+  __pyx_v_self->handAllCoord = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("TrajectoryGenerator.TrajectoryGenerator.TrajectoryGenerator.handAllCoord.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_4__del__(((struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_4__del__(struct __pyx_obj_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->handAllCoord);
+  __Pyx_DECREF(__pyx_v_self->handAllCoord);
+  __pyx_v_self->handAllCoord = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
 /* "../../../../usr/local/lib/python2.7/dist-packages/Cython/Includes/numpy/__init__.pxd":197
  *         # experimental exception made for __getbuffer__ and __releasebuffer__
  *         # -- the details of this may change.
@@ -7057,6 +8002,125 @@ static int __pyx_tp_clear_19TrajectoryGenerator_19TrajectoryGenerator_Trajectory
   return 0;
 }
 
+static PyObject *__pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_sizeOfTarget(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget_1__get__(o);
+}
+
+static int __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_sizeOfTarget(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12sizeOfTarget_3__set__(o, v);
+  }
+  else {
+    PyErr_SetString(PyExc_NotImplementedError, "__del__");
+    return -1;
+  }
+}
+
+static PyObject *__pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveA(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA_1__get__(o);
+}
+
+static int __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveA(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveA_3__set__(o, v);
+  }
+  else {
+    PyErr_SetString(PyExc_NotImplementedError, "__del__");
+    return -1;
+  }
+}
+
+static PyObject *__pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveNumberOfIteration(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_1__get__(o);
+}
+
+static int __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveNumberOfIteration(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_21saveNumberOfIteration_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveCoordEndTraj(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_1__get__(o);
+}
+
+static int __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveCoordEndTraj(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16saveCoordEndTraj_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveMvtCost(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_1__get__(o);
+}
+
+static int __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveMvtCost(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_11saveMvtCost_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveSpeed(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_1__get__(o);
+}
+
+static int __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveSpeed(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_9saveSpeed_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveU(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_1__get__(o);
+}
+
+static int __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveU(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5saveU_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_elbowAllCoord(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_1__get__(o);
+}
+
+static int __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_elbowAllCoord(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_13elbowAllCoord_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_handAllCoord(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_1__get__(o);
+}
+
+static int __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_handAllCoord(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_12handAllCoord_5__del__(o);
+  }
+}
+
 static PyMethodDef __pyx_methods_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator[] = {
   {"initParametersTG", (PyCFunction)__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_3initParametersTG, METH_VARARGS|METH_KEYWORDS, __pyx_doc_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_2initParametersTG},
   {"initSaveVariables", (PyCFunction)__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_5initSaveVariables, METH_NOARGS, __pyx_doc_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_4initSaveVariables},
@@ -7067,6 +8131,19 @@ static PyMethodDef __pyx_methods_19TrajectoryGenerator_19TrajectoryGenerator_Tra
   {"saveEndData", (PyCFunction)__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_15saveEndData, METH_VARARGS|METH_KEYWORDS, __pyx_doc_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_14saveEndData},
   {"runTrajectory", (PyCFunction)__pyx_pw_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_17runTrajectory, METH_VARARGS|METH_KEYWORDS, __pyx_doc_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_16runTrajectory},
   {0, 0, 0, 0}
+};
+
+static struct PyGetSetDef __pyx_getsets_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator[] = {
+  {(char *)"sizeOfTarget", __pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_sizeOfTarget, __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_sizeOfTarget, 0, 0},
+  {(char *)"saveA", __pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveA, __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveA, 0, 0},
+  {(char *)"saveNumberOfIteration", __pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveNumberOfIteration, __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveNumberOfIteration, 0, 0},
+  {(char *)"saveCoordEndTraj", __pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveCoordEndTraj, __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveCoordEndTraj, 0, 0},
+  {(char *)"saveMvtCost", __pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveMvtCost, __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveMvtCost, 0, 0},
+  {(char *)"saveSpeed", __pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveSpeed, __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveSpeed, 0, 0},
+  {(char *)"saveU", __pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveU, __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_saveU, 0, 0},
+  {(char *)"elbowAllCoord", __pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_elbowAllCoord, __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_elbowAllCoord, 0, 0},
+  {(char *)"handAllCoord", __pyx_getprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_handAllCoord, __pyx_setprop_19TrajectoryGenerator_19TrajectoryGenerator_19TrajectoryGenerator_handAllCoord, 0, 0},
+  {0, 0, 0, 0, 0}
 };
 
 static PyTypeObject __pyx_type_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator = {
@@ -7103,7 +8180,7 @@ static PyTypeObject __pyx_type_19TrajectoryGenerator_19TrajectoryGenerator_Traje
   0, /*tp_iternext*/
   __pyx_methods_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator, /*tp_methods*/
   0, /*tp_members*/
-  0, /*tp_getset*/
+  __pyx_getsets_19TrajectoryGenerator_19TrajectoryGenerator_TrajectoryGenerator, /*tp_getset*/
   0, /*tp_base*/
   0, /*tp_dict*/
   0, /*tp_descr_get*/

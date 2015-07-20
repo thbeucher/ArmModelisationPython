@@ -696,6 +696,7 @@ static char __pyx_k_nbret[] = "nbret";
 static char __pyx_k_numpy[] = "numpy";
 static char __pyx_k_print[] = "print";
 static char __pyx_k_theta[] = "theta";
+static char __pyx_k_TGUKFC[] = "TGUKFC";
 static char __pyx_k_import[] = "__import__";
 static char __pyx_k_listBT[] = "listBT";
 static char __pyx_k_resCma[] = "resCma";
@@ -774,6 +775,7 @@ static PyObject *__pyx_n_s_ReadDataTmp;
 static PyObject *__pyx_kp_s_Results_generation_for_target;
 static PyObject *__pyx_kp_s_Start_of_the_CMAES_Optimization;
 static PyObject *__pyx_n_s_TGUKF;
+static PyObject *__pyx_n_s_TGUKFC;
 static PyObject *__pyx_n_s_ThetaNormalization;
 static PyObject *__pyx_kp_s__3;
 static PyObject *__pyx_kp_s__4;
@@ -1638,7 +1640,7 @@ static PyObject *__pyx_pf_4Main_4Main_2generateResults(CYTHON_UNUSED PyObject *_
  *     fr, rs = initFRRS()
  *     for el in rs.sizeOfTarget:             # <<<<<<<<<<<<<<
  *         print("Results generation for target ", el)
- *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
+ *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKFC" + str(nameT)
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_rs, __pyx_n_s_sizeOfTarget); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -1687,7 +1689,7 @@ static PyObject *__pyx_pf_4Main_4Main_2generateResults(CYTHON_UNUSED PyObject *_
  *     fr, rs = initFRRS()
  *     for el in rs.sizeOfTarget:
  *         print("Results generation for target ", el)             # <<<<<<<<<<<<<<
- *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
+ *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKFC" + str(nameT)
  *         theta = np.loadtxt(thetaName)
  */
     __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1704,7 +1706,7 @@ static PyObject *__pyx_pf_4Main_4Main_2generateResults(CYTHON_UNUSED PyObject *_
     /* "Main/Main.pyx":49
  *     for el in rs.sizeOfTarget:
  *         print("Results generation for target ", el)
- *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)             # <<<<<<<<<<<<<<
+ *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKFC" + str(nameT)             # <<<<<<<<<<<<<<
  *         theta = np.loadtxt(thetaName)
  *         tgs = initAllUsefullObj(el, fr, rs, True)
  */
@@ -1740,7 +1742,7 @@ static PyObject *__pyx_pf_4Main_4Main_2generateResults(CYTHON_UNUSED PyObject *_
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyNumber_Add(__pyx_t_1, __pyx_n_s_TGUKF); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 49; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = PyNumber_Add(__pyx_t_1, __pyx_n_s_TGUKFC); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 49; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 49; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1760,7 +1762,7 @@ static PyObject *__pyx_pf_4Main_4Main_2generateResults(CYTHON_UNUSED PyObject *_
 
     /* "Main/Main.pyx":50
  *         print("Results generation for target ", el)
- *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
+ *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKFC" + str(nameT)
  *         theta = np.loadtxt(thetaName)             # <<<<<<<<<<<<<<
  *         tgs = initAllUsefullObj(el, fr, rs, True)
  *         cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
@@ -1799,7 +1801,7 @@ static PyObject *__pyx_pf_4Main_4Main_2generateResults(CYTHON_UNUSED PyObject *_
     __pyx_t_1 = 0;
 
     /* "Main/Main.pyx":51
- *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
+ *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKFC" + str(nameT)
  *         theta = np.loadtxt(thetaName)
  *         tgs = initAllUsefullObj(el, fr, rs, True)             # <<<<<<<<<<<<<<
  *         cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
@@ -1948,7 +1950,7 @@ static PyObject *__pyx_pf_4Main_4Main_2generateResults(CYTHON_UNUSED PyObject *_
  *     fr, rs = initFRRS()
  *     for el in rs.sizeOfTarget:             # <<<<<<<<<<<<<<
  *         print("Results generation for target ", el)
- *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
+ *         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKFC" + str(nameT)
  */
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4539,6 +4541,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Results_generation_for_target, __pyx_k_Results_generation_for_target, sizeof(__pyx_k_Results_generation_for_target), 0, 0, 1, 0},
   {&__pyx_kp_s_Start_of_the_CMAES_Optimization, __pyx_k_Start_of_the_CMAES_Optimization, sizeof(__pyx_k_Start_of_the_CMAES_Optimization), 0, 0, 1, 0},
   {&__pyx_n_s_TGUKF, __pyx_k_TGUKF, sizeof(__pyx_k_TGUKF), 0, 0, 1, 1},
+  {&__pyx_n_s_TGUKFC, __pyx_k_TGUKFC, sizeof(__pyx_k_TGUKFC), 0, 0, 1, 1},
   {&__pyx_n_s_ThetaNormalization, __pyx_k_ThetaNormalization, sizeof(__pyx_k_ThetaNormalization), 0, 0, 1, 1},
   {&__pyx_kp_s__3, __pyx_k__3, sizeof(__pyx_k__3), 0, 0, 1, 0},
   {&__pyx_kp_s__4, __pyx_k__4, sizeof(__pyx_k__4), 0, 0, 1, 0},

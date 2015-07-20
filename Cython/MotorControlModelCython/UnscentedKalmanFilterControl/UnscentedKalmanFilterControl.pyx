@@ -20,12 +20,24 @@ ctypedef np.float64_t DTYPE_t
 
 from pykalman import UnscentedKalmanFilter
 
-class UnscentedKalmanFilterControl:
+cdef class UnscentedKalmanFilterControl:
+
+    cdef:
+        str name
+        int dimState
+        int dimObs
+        int delay
+        public object nsc
+        object armD
+        object mac
+        np.ndarray nextCovariance
+        object ukf
+        np.ndarray obsStore
     
     def __init__(self):
         self.name = "UnscentedKalmanFilter"
         
-    def initParametersUKF(self, dimState, dimObs, delay, nsc, armD, mac):
+    cpdef initParametersUKF(self, int dimState, int dimObs, int delay, object nsc, object armD, object mac):
         '''
     	Initializes parameters to uses the function implemented below
     	
@@ -36,6 +48,11 @@ class UnscentedKalmanFilterControl:
     			-armD, armDynamics, class object
     			-mac, MuscularActivationCommand
     	'''
+        cdef:
+            np.ndarray[DTYPE_t, ndim=2] transition_covariance
+            np.ndarray[DTYPE_t, ndim=1] initial_state_mean
+            np.ndarray[DTYPE_t, ndim=2] observation_covariance
+            np.ndarray[DTYPE_t, ndim=2] initial_state_covariance
         self.dimState = dimState
         self.dimObs = dimObs
         self.delay = delay
@@ -52,7 +69,7 @@ class UnscentedKalmanFilterControl:
                                     transition_covariance, observation_covariance,
                                     initial_state_mean, initial_state_covariance)
     
-    def setDelayUKF(self, delay):
+    cpdef setDelayUKF(self, int delay):
         '''
     	Sets the delay used for the filter
     	
@@ -60,7 +77,7 @@ class UnscentedKalmanFilterControl:
     	'''
         self.delay = delay
     
-    def transitionFunctionUKF(self, stateU, transitionNoise = 0):
+    cpdef np.ndarray[DTYPE_t, ndim=1] transitionFunctionUKF(self, np.ndarray stateU, np.ndarray transitionNoise):
         '''
     	Transition function used by the filter, function of the state and the transition noise at time t and produces the state at time t+1
     	
@@ -69,6 +86,10 @@ class UnscentedKalmanFilterControl:
     
     	Output:		-nextStateUNoise: the next State with noise added, numpy array
     	'''
+        cdef:
+            np.ndarray[DTYPE_t, ndim=2] nextX
+            np.ndarray[DTYPE_t, ndim=2] nextStateU
+            np.ndarray[DTYPE_t, ndim=1] nextStateUNoise
         #computation of the next Q vector [dotq1, dotq2, q1, q2]
         nextX = self.armD.mddADUKF(np.asarray(stateU).reshape((self.dimState, 1)), np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1)))
         #computation of the next muscular activation vector U
@@ -77,7 +98,7 @@ class UnscentedKalmanFilterControl:
         nextStateUNoise = nextStateU.T[0] + transitionNoise
         return nextStateUNoise
     
-    def observationFunctionUKF(self, stateU, observationNoise = 0):
+    cpdef np.ndarray[DTYPE_t, ndim=1] observationFunctionUKF(self, np.ndarray stateU, np.ndarray observationNoise):
         '''
     	Observation function used by the filter, function of the state and the observation noise at time t and produces the observation at time t
     
@@ -86,12 +107,15 @@ class UnscentedKalmanFilterControl:
     
     	Output:		-nextObsNoise: observation at time t+1
     	'''
+        cdef:
+            np.ndarray[DTYPE_t, ndim=2] nextObs
+            np.ndarray[DTYPE_t, ndim=1] nextObsNoise
         #computation of the next observation
         nextObs = self.armD.mddADUKF(np.asarray(stateU).reshape((self.dimState, 1)), np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1)))
         nextObsNoise = nextObs.T[0] + observationNoise
         return nextObsNoise
     
-    def initObsStore(self, state):
+    cpdef initObsStore(self, np.ndarray[DTYPE_t, ndim=2] state):
         '''
     	Initialization of the observation storage
     
@@ -99,7 +123,7 @@ class UnscentedKalmanFilterControl:
     	'''
         self.obsStore = np.tile(state, (1, self.delay))
     
-    def storeObs(self, state):
+    cpdef storeObs(self, np.ndarray[DTYPE_t, ndim=2] state):
         '''
     	Stores the state to create the delay wanted
     
@@ -108,7 +132,7 @@ class UnscentedKalmanFilterControl:
         self.obsStore = np.roll(self.obsStore, 1, axis = 1)
         self.obsStore.T[0] = state.T
     
-    def runUKF(self, stateU, obs):
+    cpdef np.ndarray[DTYPE_t, ndim=2] runUKF(self, np.ndarray[DTYPE_t, ndim=2] stateU, np.ndarray[DTYPE_t, ndim=2] obs):
         '''
     	Function used to compute the next state approximation with the filter
     
@@ -117,6 +141,10 @@ class UnscentedKalmanFilterControl:
     
     	Output:		-stateApprox: the next state approximation, numpy array of dimension (x, 1), here x = 4
     	'''
+        cdef:
+            np.ndarray nextState
+            np.ndarray nextCovariance
+            np.ndarray[DTYPE_t, ndim=2] stateApprox
         #store the state of the arm to feed the filter with a delay on the observation
         self.storeObs(obs)
         #compute the nextState approximation ie here the next muscular activation

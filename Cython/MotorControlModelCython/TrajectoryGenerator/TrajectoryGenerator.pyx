@@ -30,18 +30,18 @@ cdef class TrajectoryGenerator:
         object rs
         object nsc
         object cc
-        double sizeOfTarget
+        public double sizeOfTarget
         object Ukf
         object armD
         object mac
-        bint saveA
-        dict saveNumberOfIteration
-        dict saveCoordEndTraj
-        dict saveMvtCost
-        dict saveSpeed
-        dict saveU
-        dict elbowAllCoord
-        dict handAllCoord
+        public bint saveA
+        public dict saveNumberOfIteration
+        public dict saveCoordEndTraj
+        public dict saveMvtCost
+        public dict saveSpeed
+        public dict saveU
+        public dict elbowAllCoord
+        public dict handAllCoord
         list speedList
         list UList
         list elbowCoord

@@ -1291,7 +1291,6 @@ static char __pyx_k_loadtxt[] = "loadtxt";
 static char __pyx_k_reshape[] = "reshape";
 static char __pyx_k_savetxt[] = "savetxt";
 static char __pyx_k_dimState[] = "dimState";
-static char __pyx_k_meanCost[] = "/meanCost";
 static char __pyx_k_numfeats[] = "numfeats";
 static char __pyx_k_unNormNP[] = "unNormNP";
 static char __pyx_k_dimOutput[] = "dimOutput";
@@ -1302,6 +1301,7 @@ static char __pyx_k_setThetaMAC[] = "setThetaMAC";
 static char __pyx_k_RuntimeError[] = "RuntimeError";
 static char __pyx_k_sizeOfTarget[] = "sizeOfTarget";
 static char __pyx_k_runTrajectory[] = "runTrajectory";
+static char __pyx_k_meanCostCython[] = "/meanCostCython";
 static char __pyx_k_numberOfRepeat[] = "numberOfRepeat";
 static char __pyx_k_pathDataFolder[] = "pathDataFolder";
 static char __pyx_k_saveThetaCmaes[] = "saveThetaCmaes";
@@ -1309,10 +1309,10 @@ static char __pyx_k_GlobalVariables[] = "GlobalVariables";
 static char __pyx_k_runTrajectories[] = "runTrajectories";
 static char __pyx_k_initParametersTGS[] = "initParametersTGS";
 static char __pyx_k_ThetaNormalization[] = "ThetaNormalization";
-static char __pyx_k_thetaSolTmp_target[] = "/thetaSolTmp_target";
 static char __pyx_k_experimentFilePosIni[] = "experimentFilePosIni";
 static char __pyx_k_runOneTrajectoryRBFN[] = "runOneTrajectoryRBFN";
 static char __pyx_k_TrajectoriesGenerator[] = "TrajectoriesGenerator";
+static char __pyx_k_thetaSolTmp_targetCython[] = "/thetaSolTmp_targetCython";
 static char __pyx_k_OptimisationResults_ResCma[] = "OptimisationResults/ResCma";
 static char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static char __pyx_k_Author_Thomas_Beucher_Module_Tr[] = "\nAuthor: Thomas Beucher\n\nModule: TrajectoriesGenerator\n\nDescription: Class used to generate all the trajectories of the experimental setup and also used for the cmaes otpimization\n";
@@ -1355,7 +1355,7 @@ static PyObject *__pyx_n_s_loadtxt;
 static PyObject *__pyx_n_s_mac;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_mean;
-static PyObject *__pyx_kp_s_meanCost;
+static PyObject *__pyx_kp_s_meanCostCython;
 static PyObject *__pyx_kp_u_ndarray_is_not_C_contiguous;
 static PyObject *__pyx_kp_u_ndarray_is_not_Fortran_contiguou;
 static PyObject *__pyx_n_s_np;
@@ -1383,7 +1383,7 @@ static PyObject *__pyx_n_s_sizeOfTarget;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_tg;
 static PyObject *__pyx_n_s_theta;
-static PyObject *__pyx_kp_s_thetaSolTmp_target;
+static PyObject *__pyx_kp_s_thetaSolTmp_targetCython;
 static PyObject *__pyx_n_s_time;
 static PyObject *__pyx_n_s_unNormNP;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
@@ -2386,7 +2386,7 @@ static PyObject *__pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSet
   /* "runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.pyx":85
  *             str nameFileSave
  *             str nameFileSaveMeanCost
- *         nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_target" + str(self.tg.sizeOfTarget)             # <<<<<<<<<<<<<<
+ *         nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_targetCython" + str(self.tg.sizeOfTarget)             # <<<<<<<<<<<<<<
  *         f = open(nameFileSave, 'ab')
  *         np.savetxt(f, self.theta)
  */
@@ -2409,7 +2409,7 @@ static PyObject *__pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSet
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_4, __pyx_kp_s_thetaSolTmp_target); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyNumber_Add(__pyx_t_4, __pyx_kp_s_thetaSolTmp_targetCython); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->tg, __pyx_n_s_sizeOfTarget); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2432,10 +2432,10 @@ static PyObject *__pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSet
 
   /* "runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.pyx":86
  *             str nameFileSaveMeanCost
- *         nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_target" + str(self.tg.sizeOfTarget)
+ *         nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_targetCython" + str(self.tg.sizeOfTarget)
  *         f = open(nameFileSave, 'ab')             # <<<<<<<<<<<<<<
  *         np.savetxt(f, self.theta)
- *         nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCost" + str(self.tg.sizeOfTarget)
+ *         nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCostCython" + str(self.tg.sizeOfTarget)
  */
   __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -2452,10 +2452,10 @@ static PyObject *__pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSet
   __pyx_t_4 = 0;
 
   /* "runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.pyx":87
- *         nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_target" + str(self.tg.sizeOfTarget)
+ *         nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_targetCython" + str(self.tg.sizeOfTarget)
  *         f = open(nameFileSave, 'ab')
  *         np.savetxt(f, self.theta)             # <<<<<<<<<<<<<<
- *         nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCost" + str(self.tg.sizeOfTarget)
+ *         nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCostCython" + str(self.tg.sizeOfTarget)
  *         g = open(nameFileSaveMeanCost, 'ab')
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2495,7 +2495,7 @@ static PyObject *__pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSet
   /* "runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.pyx":88
  *         f = open(nameFileSave, 'ab')
  *         np.savetxt(f, self.theta)
- *         nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCost" + str(self.tg.sizeOfTarget)             # <<<<<<<<<<<<<<
+ *         nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCostCython" + str(self.tg.sizeOfTarget)             # <<<<<<<<<<<<<<
  *         g = open(nameFileSaveMeanCost, 'ab')
  *         np.savetxt(g, np.asarray([meanCost]))
  */
@@ -2518,7 +2518,7 @@ static PyObject *__pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSet
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_Add(__pyx_t_6, __pyx_kp_s_meanCost); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_6, __pyx_kp_s_meanCostCython); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->tg, __pyx_n_s_sizeOfTarget); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2541,7 +2541,7 @@ static PyObject *__pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSet
 
   /* "runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.pyx":89
  *         np.savetxt(f, self.theta)
- *         nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCost" + str(self.tg.sizeOfTarget)
+ *         nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCostCython" + str(self.tg.sizeOfTarget)
  *         g = open(nameFileSaveMeanCost, 'ab')             # <<<<<<<<<<<<<<
  *         np.savetxt(g, np.asarray([meanCost]))
  * 
@@ -2561,7 +2561,7 @@ static PyObject *__pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSet
   __pyx_t_6 = 0;
 
   /* "runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.pyx":90
- *         nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCost" + str(self.tg.sizeOfTarget)
+ *         nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCostCython" + str(self.tg.sizeOfTarget)
  *         g = open(nameFileSaveMeanCost, 'ab')
  *         np.savetxt(g, np.asarray([meanCost]))             # <<<<<<<<<<<<<<
  * 
@@ -3703,8 +3703,6 @@ static double __pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSetupT
   double __pyx_v_meanAll;
   CYTHON_UNUSED int __pyx_v_i;
   PyObject *__pyx_v_xy = NULL;
-  __Pyx_LocalBuf_ND __pyx_pybuffernd_meanByTraj;
-  __Pyx_Buffer __pyx_pybuffer_meanByTraj;
   double __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3722,19 +3720,11 @@ static double __pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSetupT
   PyObject *__pyx_t_13 = NULL;
   Py_ssize_t __pyx_t_14;
   PyObject *__pyx_t_15 = NULL;
-  PyArrayObject *__pyx_t_16 = NULL;
-  PyObject *__pyx_t_17 = NULL;
-  PyObject *__pyx_t_18 = NULL;
-  PyObject *__pyx_t_19 = NULL;
-  int __pyx_t_20;
+  int __pyx_t_16;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("runTrajectoriesCMAWithoutParallelization", 0);
-  __pyx_pybuffer_meanByTraj.pybuffer.buf = NULL;
-  __pyx_pybuffer_meanByTraj.refcount = 0;
-  __pyx_pybuffernd_meanByTraj.data = NULL;
-  __pyx_pybuffernd_meanByTraj.rcbuffer = &__pyx_pybuffer_meanByTraj;
   /* Check if called by wrapper */
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
@@ -3778,7 +3768,7 @@ static double __pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSetupT
   }
 
   /* "runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.pyx":123
- *             np.ndarray[DTYPE_t, ndim=2] meanByTraj
+ *             np.ndarray meanByTraj
  *             double meanAll
  *         t0 = time.time()             # <<<<<<<<<<<<<<
  *         self.initTheta(theta)
@@ -4019,24 +4009,6 @@ static double __pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSetupT
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_16 = ((PyArrayObject *)__pyx_t_2);
-  {
-    __Pyx_BufFmt_StackElem __pyx_stack[1];
-    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_meanByTraj.rcbuffer->pybuffer);
-    __pyx_t_7 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_meanByTraj.rcbuffer->pybuffer, (PyObject*)__pyx_t_16, &__Pyx_TypeInfo_nn___pyx_t_32runExperimentalSetupTrajectories_32runExperimentalSetupTrajectories_DTYPE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
-    if (unlikely(__pyx_t_7 < 0)) {
-      PyErr_Fetch(&__pyx_t_17, &__pyx_t_18, &__pyx_t_19);
-      if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_meanByTraj.rcbuffer->pybuffer, (PyObject*)__pyx_v_meanByTraj, &__Pyx_TypeInfo_nn___pyx_t_32runExperimentalSetupTrajectories_32runExperimentalSetupTrajectories_DTYPE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
-        Py_XDECREF(__pyx_t_17); Py_XDECREF(__pyx_t_18); Py_XDECREF(__pyx_t_19);
-        __Pyx_RaiseBufferFallbackError();
-      } else {
-        PyErr_Restore(__pyx_t_17, __pyx_t_18, __pyx_t_19);
-      }
-    }
-    __pyx_pybuffernd_meanByTraj.diminfo[0].strides = __pyx_pybuffernd_meanByTraj.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_meanByTraj.diminfo[0].shape = __pyx_pybuffernd_meanByTraj.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_meanByTraj.diminfo[1].strides = __pyx_pybuffernd_meanByTraj.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_meanByTraj.diminfo[1].shape = __pyx_pybuffernd_meanByTraj.rcbuffer->pybuffer.shape[1];
-    if (unlikely(__pyx_t_7 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-  __pyx_t_16 = 0;
   __pyx_v_meanByTraj = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
 
@@ -4094,7 +4066,7 @@ static double __pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSetupT
   }
   __pyx_t_2 = PyFloat_FromDouble(__pyx_v_meanAll); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_self->saveCost, __pyx_t_2); if (unlikely(__pyx_t_20 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_16 = __Pyx_PyList_Append(__pyx_v_self->saveCost, __pyx_t_2); if (unlikely(__pyx_t_16 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "runExperimentalSetupTrajectories/runExperimentalSetupTrajectories.pyx":132
@@ -4209,16 +4181,9 @@ static double __pyx_f_32runExperimentalSetupTrajectories_32runExperimentalSetupT
   __Pyx_XDECREF(__pyx_t_12);
   __Pyx_XDECREF(__pyx_t_13);
   __Pyx_XDECREF(__pyx_t_15);
-  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
-    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
-    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_meanByTraj.rcbuffer->pybuffer);
-  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
   __Pyx_WriteUnraisable("runExperimentalSetupTrajectories.runExperimentalSetupTrajectories.TrajectoriesGenerator.runTrajectoriesCMAWithoutParallelization", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
   __pyx_r = 0;
-  goto __pyx_L2;
   __pyx_L0:;
-  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_meanByTraj.rcbuffer->pybuffer);
-  __pyx_L2:;
   __Pyx_XDECREF(__pyx_v_costAll);
   __Pyx_XDECREF((PyObject *)__pyx_v_meanByTraj);
   __Pyx_XDECREF(__pyx_v_xy);
@@ -6614,7 +6579,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_mac, __pyx_k_mac, sizeof(__pyx_k_mac), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_mean, __pyx_k_mean, sizeof(__pyx_k_mean), 0, 0, 1, 1},
-  {&__pyx_kp_s_meanCost, __pyx_k_meanCost, sizeof(__pyx_k_meanCost), 0, 0, 1, 0},
+  {&__pyx_kp_s_meanCostCython, __pyx_k_meanCostCython, sizeof(__pyx_k_meanCostCython), 0, 0, 1, 0},
   {&__pyx_kp_u_ndarray_is_not_C_contiguous, __pyx_k_ndarray_is_not_C_contiguous, sizeof(__pyx_k_ndarray_is_not_C_contiguous), 0, 1, 0, 0},
   {&__pyx_kp_u_ndarray_is_not_Fortran_contiguou, __pyx_k_ndarray_is_not_Fortran_contiguou, sizeof(__pyx_k_ndarray_is_not_Fortran_contiguou), 0, 1, 0, 0},
   {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
@@ -6642,7 +6607,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_tg, __pyx_k_tg, sizeof(__pyx_k_tg), 0, 0, 1, 1},
   {&__pyx_n_s_theta, __pyx_k_theta, sizeof(__pyx_k_theta), 0, 0, 1, 1},
-  {&__pyx_kp_s_thetaSolTmp_target, __pyx_k_thetaSolTmp_target, sizeof(__pyx_k_thetaSolTmp_target), 0, 0, 1, 0},
+  {&__pyx_kp_s_thetaSolTmp_targetCython, __pyx_k_thetaSolTmp_targetCython, sizeof(__pyx_k_thetaSolTmp_targetCython), 0, 0, 1, 0},
   {&__pyx_n_s_time, __pyx_k_time, sizeof(__pyx_k_time), 0, 0, 1, 1},
   {&__pyx_n_s_unNormNP, __pyx_k_unNormNP, sizeof(__pyx_k_unNormNP), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},

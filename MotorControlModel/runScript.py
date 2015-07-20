@@ -11,7 +11,7 @@ import site
 import os
 from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
     generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize,\
-    generateTrajectoryForScattergram
+    generateTrajectoryForScattergram, generateResultsRBFN
 from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
     plotForAllTargetVelocityProfile, checkReachAllTarget
@@ -77,7 +77,8 @@ def runAll():
     from distlib.compat import raw_input
     while checkL:
         try:
-            print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n                  5_plotTimeDistanceTarget\n                  6_plotFittsLaw\n                  7_plotPerfSizeDist\n                  8_plotMapTimeTrajectories\n                  9_generateResultsWithBestThetaTmp\n                  10_launchCMAESWithBestThetaTmpForAllTargetSize\n                  11_plotForAllTargetVelocityProfile\n                  12_runRBFN\n                  13_generateTrajectoryForScattergram\n')
+            print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n                  5_plotTimeDistanceTarget\n                  6_plotFittsLaw\n                  7_plotPerfSizeDist\n                  8_plotMapTimeTrajectories\n                  9_generateResultsWithBestThetaTmp\n                  10_launchCMAESWithBestThetaTmpForAllTargetSize\n                  11_plotForAllTargetVelocityProfile\n                  12_runRBFN\n                  13_generateTrajectoryForScattergram')
+            print('                  15_generateResultsRBFN\n')
             choix = input('Enter the number corresponding to the script you want to run: ')
             choix = int(choix)
             checkL = False
@@ -133,6 +134,12 @@ def runAll():
     elif choix == 14:
         nameF = raw_input('Folder name where the results are saved: ')
         checkReachAllTarget(nameF)
+    elif choix == 15:
+        nameF = raw_input('Folder name where you want to save the results: ')
+        nbret = input("Number of repeat for each trajectory (int): ")
+        nbret = int(nbret)
+        nameT = raw_input('Name of the theta file to use: ')
+        generateResultsRBFN(nameF, nbret, nameT)
     
 runAll()
 
