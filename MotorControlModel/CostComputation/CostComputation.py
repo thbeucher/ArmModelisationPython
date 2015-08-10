@@ -37,6 +37,7 @@ class CostComputation:
         #compute the cost following the law of the model
         cost += np.exp(-t/self.rs.gammaCF)*(-self.rs.upsCF*mvtCost)
         return cost
+
     
     def computeFinalCostReward(self, cost, t):
         '''
