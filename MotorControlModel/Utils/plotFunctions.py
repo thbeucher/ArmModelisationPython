@@ -268,7 +268,7 @@ def plot_pos_ini():
     for el in posIni:
         x0.append(el[0])
         y0.append(el[1])
-    xy, junk = fr.recup_pos_ini(pathTrajectoriesFolder)
+    xy, junk = fr.getInitPos(pathTrajectoriesFolder)
     x, y = [], []
     aa, keyy = [], []
     for key, el in xy.items():
@@ -309,7 +309,7 @@ def plot_pos_ini():
 #plot_pos_ini() 
 
 def plotPosTAT(fr, rs):
-    xtr, junk = fr.recup_pos_ini(pathDataFolder + "ThetaAllTraj/")
+    xtr, junk = fr.getInitPos(pathDataFolder + "ThetaAllTraj/")
     xt1, yt1 = [], []
     for key, el in xtr.items():
         xt1.append(el[0])
@@ -374,7 +374,7 @@ def plotPosIniOutputSolver():
 def plotTrajThetaAllTraj():
     name = "/home/beucher/workspace/Data/ThetaAllTraj/"
     fr = FileReading()
-    traj, junk = fr.recup_pos_ini(name)
+    traj, junk = fr.getInitPos(name)
     x, y, x1, y1 = [], [], [], []
     for el in traj.values():
         x.append(el[0])

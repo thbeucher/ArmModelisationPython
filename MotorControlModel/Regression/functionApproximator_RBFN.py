@@ -29,7 +29,7 @@ class fa_rbfn():
     def setTrainingData(self, inputData, outputData):
         '''
         Verifies the validity of the given input and output data
-        Data should be organize by columns
+        Data should be organized by columns
         
         Input:      -inputdata, numpy N-D array
                     -outputData, numpy N-D array

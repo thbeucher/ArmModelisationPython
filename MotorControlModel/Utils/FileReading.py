@@ -53,7 +53,7 @@ class FileReading():
         data = json.load(f)
         return data
     
-    def recup_pos_ini(self, location):
+    def getInitPos(self, location):
         '''
         Cette fonction permet de recuperer toutes les positions initiales des trajectoires utilisees pour
         entrainer l'algorithme de regression

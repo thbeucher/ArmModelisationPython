@@ -85,7 +85,7 @@ def checkForDoublonInTraj(localisation):
     Input:    -localisation: String, path given the folder where the trajectories are
     '''
     fr, rs = initFRRS()
-    data, junk = fr.recup_pos_ini(localisation)
+    data, junk = fr.getInitPos(localisation)
     tabEl, doublon = [], []
     for key, el in data.items():
         if el in tabEl:
@@ -103,7 +103,7 @@ def checkForDoublonInTraj(localisation):
 
 def playWithTraj():
     fr, rs = initFRRS()
-    data, junk = fr.recup_pos_ini(pathTrajectoriesFolder)
+    data, junk = fr.getInitPos(pathTrajectoriesFolder)
     x, y, x1, y1 = [], [], [], []
     todel = []
     for key, el in data.items():
@@ -176,7 +176,7 @@ def learningFieldRBFN():
     
     #print(r)
     #print(ang)
-    xy, junk = fr.recup_pos_ini(pathTrajectoriesFolder)
+    xy, junk = fr.getInitPos(pathTrajectoriesFolder)
     sx, sy = [], []
     for key, val in xy.items():
         rr, tt = invPosCircle(val[0], val[1])
@@ -203,7 +203,7 @@ def learningFieldRBFNSquare():
     for el in posIni:
         x.append(el[0])
         y.append(el[1])
-    xy, junk = fr.recup_pos_ini(pathTrajectoriesFolder)
+    xy, junk = fr.getInitPos(pathTrajectoriesFolder)
     sx, sy = [], []
     for key, val in xy.items():
         if val[0] <= (np.max(x) + 0.02) and val[0] >= (np.min(x) - 0.02) and val[1] >= (np.min(y) - 0.01) and val[1] <= (np.max(y) + 0.02):
