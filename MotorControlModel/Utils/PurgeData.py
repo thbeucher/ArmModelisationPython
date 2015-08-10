@@ -3,7 +3,7 @@
 '''
 Author: Thomas Beucher
 Module: PurgeData
-Description: the function below alow to purge temporary data
+Description: the function below purges (removes?) temporary data
 '''
 from Utils.InitUtil import initFRRS
 from GlobalVariables import pathDataFolder

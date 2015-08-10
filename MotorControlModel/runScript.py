@@ -23,7 +23,6 @@ from Plot.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
 
 from Utils.UsefulFunctions import checkReachAllTarget
 
-
 def checkPackages():
     a = site.getsitepackages()
     packageList = os.listdir(a[0])
@@ -84,8 +83,8 @@ def runAll():
     from distlib.compat import raw_input
     while checkL:
         try:
-            print('Script available: 1_launchCMAESForSpecificTargetSize\n                  2_launchCMAESForAllTargetSize\n                  3_generateResults\n                  4_plotAllCmaes\n                  5_plotTimeDistanceTarget\n                  6_plotFittsLaw\n                  7_plotPerfSizeDist\n                  8_plotMapTimeTrajectories\n                  9_generateResultsWithBestThetaTmp\n                  10_launchCMAESWithBestThetaTmpForAllTargetSize\n                  11_plotForAllTargetVelocityProfile\n                  12_runRBFN\n                  13_generateTrajectoryForScattergram')
-            print('                  15_generateResultsRBFN\n                  16_plotRbfnResults\n                  17_trajectoriesAnimation\n')
+            print('Available scripts: 1 launch CMAES for one Target Size\n                  2 launch CMAES For All Target Size\n                  3 generate Results\n                  4 plotAllCmaes\n                  5 plotTimeDistanceTarget\n                  6 plot Fitts Law\n                  7 plotPerfSizeDist\n                  8 plotMapTimeTrajectories\n                  9 generateResultsWithBestThetaTmp\n                  10 launchCMAESWithBestThetaTmpForAllTargetSize\n                  11 plotForAllTargetVelocityProfile\n                  12 runRBFN\n                  13 generateTrajectoryForScattergram')
+            print('                  15 generateResultsRBFN\n                  16 plotRbfnResults\n                  17 trajectoriesAnimation\n')
             choix = input('Enter the number corresponding to the script you want to run: ')
             choix = int(choix)
             checkL = False
@@ -128,7 +127,7 @@ def runAll():
         launchCMAESWithBestThetaTmpForAllTargetSize()
     elif choix == 11:
         nameF = raw_input('Folder name where the results are saved: ')
-        plotForAllTargetVelocityProfile(nameF)
+        plotVelocityProfilesCMAES(nameF)
     elif choix == 12:
         nameC = raw_input('Name to save the RBFN controller: ')
         runRBFN(nameC)

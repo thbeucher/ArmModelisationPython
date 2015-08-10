@@ -84,7 +84,6 @@ def costColorPlot(what):
                 x0.append(el[0])
                 y0.append(el[1])
     
-    #zb = z/maxt
     zb = z
     xi = np.linspace(-0.25,0.25,100)
     yi = np.linspace(0.35,0.5,100)
@@ -215,16 +214,17 @@ def plotPosIniOutputSolver():
     for el in xy2:
         if not el in xy:
             gt.append(el[0])
-            #copyfile(name2 + el[0], name1 + el[0])
             
     print(len(gt), gt)
     
     plt.figure()
     plt.scatter(x, y, c = 'b')
-    #plt.scatter(x2, y2, c = 'r')
     plt.show(block = True)
 
 def plotTrajThetaAllTraj():
+'''
+deprecated
+'''
     name = "/home/beucher/workspace/Data/ThetaAllTraj/"
     fr = FileReading()
     traj, junk = fr.getInitPos(name)
@@ -272,7 +272,7 @@ def plotAllCmaes(nameF, rbfn = False):
             zDico.append(fr.getobjreadJson(name))
         except:
             pass
-    #print(zDico)
+ 
     for i in range(len(zDico)):
         x0[i], y0[i], z[i] = [], [], []
         for keyu, valu in zDico[i].items():
@@ -291,33 +291,14 @@ def plotAllCmaes(nameF, rbfn = False):
     
     fig = plt.figure(1, figsize=(16,9))
     #fig, (ax1, ax2, ax3, ax4) = plt.subplots(len(rs.sizeOfTarget), sharex = True, sharey = True)
-    ax1 = plt.subplot2grid((2,2), (0,0))
-    t1 = ax1.scatter(x0[0], y0[0], c=z[0], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    ax1.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
-    ax1.contourf(xi, yi, zi[0], 15, cmap=cm.get_cmap('RdYlBu'))
-    fig.colorbar(t1, shrink=0.5, aspect=5)
-    ax1.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[0])))
-    
-    ax2 = plt.subplot2grid((2,2), (0,1))
-    t2 = ax2.scatter(x0[1], y0[1], c=z[1], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    ax2.contourf(xi, yi, zi[1], 15, cmap=cm.get_cmap('RdYlBu'))
-    fig.colorbar(t2, shrink=0.5, aspect=5)
-    ax2.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
-    ax2.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[1])))
-    
-    ax3 = plt.subplot2grid((2,2), (1,0))
-    t3 = ax3.scatter(x0[2], y0[2], c=z[2], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    fig.colorbar(t3, shrink=0.5, aspect=5)
-    ax3.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
-    ax3.contourf(xi, yi, zi[2], 15, cmap=cm.get_cmap('RdYlBu'))
-    ax3.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[2])))
-    
-    ax4 = plt.subplot2grid((2,2), (1,1))
-    t4 = ax4.scatter(x0[3], y0[3], c=z[3], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    fig.colorbar(t4, shrink=0.5, aspect=5)
-    ax4.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
-    ax4.contourf(xi, yi, zi[3], 15, cmap=cm.get_cmap('RdYlBu'))
-    ax4.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[3])))
+
+    for j in range(4):
+        ax = plt.subplot2grid((2,2), (j/2,j%2))
+        t1 = ax.scatter(x0[j], y0[j], c=z[j], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+        ax.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
+        ax.contourf(xi, yi, zi[j], 15, cmap=cm.get_cmap('RdYlBu'))
+        fig.colorbar(t1, shrink=0.5, aspect=5)
+        ax.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[j])))
     
     plt.show(block = True)
     
@@ -418,8 +399,6 @@ def plotPerfSizeDist(folderName, rbfn = False):
         plotTab.append(plt.plot([x[0] for x in distDico[key]], [x[1] for x in distDico[key]], label = str("Distance: " + str(key))))
     plt.legend(loc = 0)
     plt.show(block = True)
-        
-#plotPerfSizeDist()
 
 def plotMapTimeTrajectories(folderName, rbfn = False):
     fr, rs = initFRRS()
@@ -438,58 +417,21 @@ def plotMapTimeTrajectories(folderName, rbfn = False):
         zi = griddata(x, y, z, xi, yi)'''
         
     fig = plt.figure(1, figsize=(16,9))
-    
-    x = [x[0] for x in areaTimeBySize[rs.sizeOfTarget[0]]]
-    y = [y[1] for y in areaTimeBySize[rs.sizeOfTarget[0]]]
-    z = [z[2] for z in areaTimeBySize[rs.sizeOfTarget[0]]]
-    xi = np.linspace(-0.25,0.25,200)
-    yi = np.linspace(0.35,0.5,200)
-    zi = griddata(x, y, z, xi, yi)
-    ax1 = plt.subplot2grid((2,2), (0,0))
-    t1 = ax1.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    ax1.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
-    ax1.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
-    fig.colorbar(t1, shrink=0.5, aspect=5)
-    ax1.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[0])))
-    
-    x = [x[0] for x in areaTimeBySize[rs.sizeOfTarget[1]]]
-    y = [y[1] for y in areaTimeBySize[rs.sizeOfTarget[1]]]
-    z = [z[2] for z in areaTimeBySize[rs.sizeOfTarget[1]]]
-    xi = np.linspace(-0.25,0.25,200)
-    yi = np.linspace(0.35,0.5,200)
-    zi = griddata(x, y, z, xi, yi)
-    ax1 = plt.subplot2grid((2,2), (0,1))
-    t1 = ax1.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    ax1.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
-    ax1.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
-    fig.colorbar(t1, shrink=0.5, aspect=5)
-    ax1.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[1])))
-    
-    x = [x[0] for x in areaTimeBySize[rs.sizeOfTarget[2]]]
-    y = [y[1] for y in areaTimeBySize[rs.sizeOfTarget[2]]]
-    z = [z[2] for z in areaTimeBySize[rs.sizeOfTarget[2]]]
-    xi = np.linspace(-0.25,0.25,200)
-    yi = np.linspace(0.35,0.5,200)
-    zi = griddata(x, y, z, xi, yi)
-    ax1 = plt.subplot2grid((2,2), (1,0))
-    t1 = ax1.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    ax1.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
-    ax1.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
-    fig.colorbar(t1, shrink=0.5, aspect=5)
-    ax1.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[2])))
-    
-    x = [x[0] for x in areaTimeBySize[rs.sizeOfTarget[3]]]
-    y = [y[1] for y in areaTimeBySize[rs.sizeOfTarget[3]]]
-    z = [z[2] for z in areaTimeBySize[rs.sizeOfTarget[3]]]
-    xi = np.linspace(-0.25,0.25,200)
-    yi = np.linspace(0.35,0.5,200)
-    zi = griddata(x, y, z, xi, yi)
-    ax1 = plt.subplot2grid((2,2), (1,1))
-    t1 = ax1.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    ax1.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
-    ax1.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
-    fig.colorbar(t1, shrink=0.5, aspect=5)
-    ax1.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[3])))
+
+    for i in range(4):
+        x = [x[0] for x in areaTimeBySize[rs.sizeOfTarget[i]]]
+        y = [y[1] for y in areaTimeBySize[rs.sizeOfTarget[i]]]
+        z = [z[2] for z in areaTimeBySize[rs.sizeOfTarget[i]]]
+        xi = np.linspace(-0.25,0.25,200)
+        yi = np.linspace(0.35,0.5,200)
+        zi = griddata(x, y, z, xi, yi)
+
+        ax = plt.subplot2grid((2,2), (i/2,i%2))
+        t1 = ax.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+        ax.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
+        ax.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+        fig.colorbar(t1, shrink=0.5, aspect=5)
+        ax.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[i])))
     
     plt.show(block = True)
  
@@ -603,38 +545,21 @@ def plotExperimentSetup():
     plt.plot([-0.3,0.3], [0.6175, 0.6175], c = 'g')
     plt.show(block = True)
 
-def plotScattergram2(nameFolder):
+def plotScattergram2(folderName):
     fr, rs = initFRRS()
     data = {}
     for i in range(len(rs.sizeOfTarget)):
-        data[rs.sizeOfTarget[i]] = getDataScattergram(rs.sizeOfTarget[i], nameFolder)
+        data[rs.sizeOfTarget[i]] = getDataScattergram(rs.sizeOfTarget[i], folderName)
     print(data)
             
     plt.figure(1, figsize=(16,9))
-    #fig, (ax1, ax2, ax3, ax4) = plt.subplots(len(rs.sizeOfTarget), sharex = True, sharey = True)
-    ax1 = plt.subplot2grid((2,2), (0,0))
-    ax1.hist(data[rs.sizeOfTarget[0]], 20)
-    ax1.plot([-rs.sizeOfTarget[0], -rs.sizeOfTarget[0]], [0, 20], c = 'r', linewidth = 3)
-    ax1.plot([rs.sizeOfTarget[0], rs.sizeOfTarget[0]], [0, 20], c = 'r', linewidth = 3)
-    ax1.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[0])))
-    
-    ax2 = plt.subplot2grid((2,2), (0,1))
-    ax2.hist(data[rs.sizeOfTarget[1]], 20)
-    ax2.plot([-rs.sizeOfTarget[1], -rs.sizeOfTarget[1]], [0, 20], c = 'r', linewidth = 3)
-    ax2.plot([rs.sizeOfTarget[1], rs.sizeOfTarget[1]], [0, 20], c = 'r', linewidth = 3)
-    ax2.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[1])))
-    
-    ax3 = plt.subplot2grid((2,2), (1,0))
-    ax3.hist(data[rs.sizeOfTarget[2]], 20)
-    ax3.plot([-rs.sizeOfTarget[2], -rs.sizeOfTarget[2]], [0, 20], c = 'r', linewidth = 3)
-    ax3.plot([rs.sizeOfTarget[2], rs.sizeOfTarget[2]], [0, 20], c = 'r', linewidth = 3)
-    ax3.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[2])))
-    
-    ax4 = plt.subplot2grid((2,2), (1,1))
-    ax4.hist(data[rs.sizeOfTarget[3]], 20)
-    ax4.plot([-rs.sizeOfTarget[3], -rs.sizeOfTarget[3]], [0, 20], c = 'r', linewidth = 3)
-    ax4.plot([rs.sizeOfTarget[3], rs.sizeOfTarget[3]], [0, 20], c = 'r', linewidth = 3)
-    ax4.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[3])))
+
+    for i in range(4):
+        ax = plt.subplot2grid((2,2), (i/2,i%2))
+        ax.hist(data[rs.sizeOfTarget[i]], 20)
+        ax.plot([-rs.sizeOfTarget[i], -rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
+        ax.plot([rs.sizeOfTarget[i], rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
+        ax.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[i])))
     
     plt.show(block = True)
         
@@ -782,29 +707,13 @@ def plotVelocityProfileRBFN(sizeT):
 def plotVelocityProfilesCMAES(folderName, rbfn = False):
     fr, rs = initFRRS()
     fig = plt.figure(1, figsize=(16,9))
-    ax1 = plt.subplot2grid((2,2), (0,0))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[0], folderName, rbfn)
-    for key, val in v.items():
-        ax1.plot(t[key], val, c ='b')
-    ax1.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[0])))
-    
-    ax2 = plt.subplot2grid((2,2), (0,1))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[1], folderName, rbfn)
-    for key, val in v.items():
-        ax2.plot(t[key], val, c ='b')
-    ax2.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[1])))
-    
-    ax3 = plt.subplot2grid((2,2), (1,0))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[2], folderName, rbfn)
-    for key, val in v.items():
-        ax3.plot(t[key], val, c ='b')
-    ax3.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[2])))
-    
-    ax4 = plt.subplot2grid((2,2), (1,1))
-    t, v = getVelocityProfileData(rs.sizeOfTarget[3], folderName, rbfn)
-    for key, val in v.items():
-        ax4.plot(t[key], val, c ='b')
-    ax4.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[3])))
+
+    for i in range(4):
+        ax = plt.subplot2grid((2,2), (i/2,i%2))
+        t, v = getVelocityProfileData(rs.sizeOfTarget[i], folderName, rbfn)
+        for key, val in v.items():
+            ax.plot(t[key], val, c ='b')
+            ax.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[i])))
     
     plt.show(block = True)
 
