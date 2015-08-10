@@ -40,7 +40,7 @@ def initController(rs, fr):
     fa.setCentersAndWidths()
     return fa
 
-def initAllUsefullObj(sizeOfTarget, fr, rs, save = False):
+def initAll(sizeOfTarget, fr, rs, save = False):
     '''
 	Initializes class object needed to generate trajectories
 	

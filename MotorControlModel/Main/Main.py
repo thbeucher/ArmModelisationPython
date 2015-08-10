@@ -14,7 +14,7 @@ from multiprocessing.pool import Pool
 from Utils.InitUtil import initFRRS
 from Utils.ThetaNormalization import normalizationNP, matrixToVector,\
     normalizationNPWithoutSaving
-from Utils.InitUtilMain import initAllUsefullObj
+from Utils.InitUtilMain import initAll
 from Utils.FileSaving import fileSavingAllDataJson, fileSavingScattergramJson
 from GlobalVariables import pathDataFolder
 import os
@@ -26,7 +26,7 @@ def generateTrajectoryForScattergram(nameFolderSave, repeat, nameT = 'None'):
     for el in rs.sizeOfTarget:
         nameTheta = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
         theta = np.loadtxt(nameTheta)
-        tgs = initAllUsefullObj(el, fr, rs, True)
+        tgs = initAll(el, fr, rs, True)
         cost = tgs.runTrajectoriesResultsGeneration(theta, repeat)
         print("Cost: ", cost)
         fileSavingScattergramJson(el, tgs.tg, nameFolderSave)
@@ -45,7 +45,7 @@ def generateTrajectoryRBFN(nameFolder, nameT = 'None'):
     y = input("y: ")
     y = float(y)
     coord = (x, y)
-    tgs = initAllUsefullObj(rs.sizeOfTarget[3], fr, rs, True)
+    tgs = initAll(rs.sizeOfTarget[3], fr, rs, True)
     cost = tgs.runOneTrajectoryRBFN(theta, coord)
     print("Cost: ", cost)
     fileSavingAllDataJson(0, tgs.tg, nameFolder, True)
@@ -55,7 +55,7 @@ def generateResultsRBFN(nameFolderSave, nbret, nameT):
     fr, rs = initFRRS()
     thetaName = pathDataFolder + "RBFN2/" + str(rs.numfeats) + "feats/" + nameT
     theta = np.loadtxt(thetaName)
-    tgs = initAllUsefullObj(rs.sizeOfTarget[3], fr, rs, True)
+    tgs = initAll(rs.sizeOfTarget[3], fr, rs, True)
     cost = tgs.runTrajectoriesResultsGeneration(theta, nbret, True)
     print("Cost: ", cost)
     fileSavingAllDataJson(0, tgs.tg, nameFolderSave, True)
@@ -68,7 +68,7 @@ def generateResults(nameFolderSave, nbret, nameT):
         print("Results generation for target ", el)
         thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
         theta = np.loadtxt(thetaName)
-        tgs = initAllUsefullObj(el, fr, rs, True)
+        tgs = initAll(el, fr, rs, True)
         cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
         print("Cost: ", cost)
         fileSavingAllDataJson(el, tgs.tg, nameFolderSave)
@@ -81,7 +81,7 @@ def generateResultsWithBestThetaTmp(nameFolderSave, nbret):
     for el in listBT:
         print("Results generation for target ", el[0])
         theta = el[1]
-        tgs = initAllUsefullObj(el[0], fr, rs, True)
+        tgs = initAll(el[0], fr, rs, True)
         cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
         print("Cost: ", cost)
         fileSavingAllDataJson(el[0], tgs.tg, nameFolderSave)
@@ -103,7 +103,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     #put theta to a one dimension numpy array, ie row vector form
     theta = matrixToVector(theta)
     #Initializes all the class used to generate trajectory
-    tgs = initAllUsefullObj(sizeOfTarget, fr, rs)
+    tgs = initAll(sizeOfTarget, fr, rs)
     #run the optimization (cmaes)
     resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     #name used to save the new controller obtained by the optimization
@@ -135,7 +135,7 @@ def launchCMAESWithBestThetaTmpForSpecificTargetSize(sizeOfTarget):
     theta = normalizationNPWithoutSaving(theta, rs)
     theta = matrixToVector(theta)
     purgeCostNThetaTmp(sizeOfTarget)
-    tgs = initAllUsefullObj(sizeOfTarget, fr, rs)
+    tgs = initAll(sizeOfTarget, fr, rs)
     resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/"
     i = 1

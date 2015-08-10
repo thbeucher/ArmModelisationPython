@@ -12,11 +12,17 @@ import os
 from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
     generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize,\
     generateTrajectoryForScattergram, generateResultsRBFN
-from Utils.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
-    plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
-    plotForAllTargetVelocityProfile, checkReachAllTarget, plotActiMuscu
+
 from Script.RunRegressionRBFN import runRBFN
 from Script.TrajectoryAnimation import trajectoriesAnimation
+
+from Plot.MuscularActivationsPlotFunctions import plotMuscularActivations
+from Plot.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
+    plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
+    plotVelocityProfilesCMAES
+
+from Utils.UsefulFunctions import checkReachAllTarget
+
 
 def checkPackages():
     a = site.getsitepackages()
@@ -162,7 +168,7 @@ def runAll():
         rorc = int(rorc)
         nameF = raw_input('Folder name where the results are saved: ')
         if rorc == 2:
-            plotActiMuscu(nameF, True)
+            plotMuscularActivations(nameF, True)
         elif rorc == 1:
             plotActiMuscu(nameF)
     
