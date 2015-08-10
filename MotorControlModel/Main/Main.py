@@ -24,7 +24,7 @@ from Utils.PurgeData import purgeCostNThetaTmp
 def generateTrajectoryForScattergram(nameFolderSave, repeat, nameT = 'None'):
     fr, rs = initFRRS()
     for el in rs.sizeOfTarget:
-        nameTheta = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
+        nameTheta = pathDataFolder + "cmaesPath/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
         theta = np.loadtxt(nameTheta)
         tgs = initAll(el, fr, rs, True)
         cost = tgs.runTrajectoriesResultsGeneration(theta, repeat)
@@ -66,7 +66,7 @@ def generateResults(nameFolderSave, nbret, nameT):
     fr, rs = initFRRS()
     for el in rs.sizeOfTarget:
         print("Results generation for target ", el)
-        thetaName = pathDataFolder + "OptimisationResults/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
+        thetaName = pathDataFolder + cmaesPath + "/ResCma" + str(el) + "/thetaCma" + str(el) + "TGUKF" + str(nameT)
         theta = np.loadtxt(thetaName)
         tgs = initAll(el, fr, rs, True)
         cost = tgs.runTrajectoriesResultsGeneration(theta, nbret)
@@ -93,7 +93,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
 
     Input:	-sizeOfTarget, size of the target, float
     '''
-    print("Start of the CMAES Optimization for target " + str(sizeOfTarget) + " !")
+    print("Starting the CMAES Optimization for target " + str(sizeOfTarget) + " !")
     fr, rs = initFRRS()
     thetaLocalisation = pathDataFolder + "RBFN2/" + str(rs.numfeats) + "feats/ThetaX7NP"
     #load the controller, ie the vector of parameters theta
@@ -107,7 +107,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget):
     #run the optimization (cmaes)
     resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     #name used to save the new controller obtained by the optimization
-    nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/"
+    nameToSaveThetaCma = pathDataFolder + cmaesPath + "/ResCma" + str(sizeOfTarget) + "/"
     #thetaCma" + str(sizeOfTarget) + "TGUKF1"
     i = 1
     tryName = "thetaCma" + str(sizeOfTarget) + "TGUKF"
@@ -137,7 +137,7 @@ def launchCMAESWithBestThetaTmpForSpecificTargetSize(sizeOfTarget):
     purgeCostNThetaTmp(sizeOfTarget)
     tgs = initAll(sizeOfTarget, fr, rs)
     resCma = cma.fmin(tgs.runTrajectoriesCMAWithoutParallelization, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
-    nameToSaveThetaCma = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/"
+    nameToSaveThetaCma = pathDataFolder + cmaesPath + "/ResCma" + str(sizeOfTarget) + "/"
     i = 1
     tryName = "thetaCma" + str(sizeOfTarget) + "TGUKF"
     for el in os.listdir(nameToSaveThetaCma):

@@ -25,7 +25,7 @@ def plotMuscularActivations(folderName, rbfn = False):
     '''
     fr, rs = initFRRS()
     if rbfn == False:
-        name = "OptimisationResults/ResCma0.01/" + folderName + "/saveU"
+        name = cmaesPath + "/ResCma0.01/" + folderName + "/saveU"
     else:
         name = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/saveU"
     data = fr.getobjreadJson(name)
@@ -63,7 +63,7 @@ def plotMuscularActivation(what):
     '''
     fr, rs = initFRRS()
     if what == "brent":
-        state, command = fr.getData(pathTrajectoriesFolder)
+        state, command = fr.getData(BrentTrajectoriesFolder)
         y = {}
         for key, val in command.items():
             y[key] = []
@@ -89,7 +89,7 @@ def plotMuscularActivation(what):
             plt.show(block = True)
         
     elif what == "cma":
-        name = "OptimisationResults/ResCma"
+        name = cmaespath + "/ResCma"
 #unfinished function???           
     
 def plotActiMuscuBrent():

@@ -12,10 +12,10 @@ import numpy as np
 
 def purgeCostNThetaTmp(sizeOfTarget):
     '''
-    
+    purges (removes?) temporary data
     '''
-    nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/thetaSolTmp_target" + str(sizeOfTarget)
-    nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(sizeOfTarget) + "/meanCost" + str(sizeOfTarget)
+    nameFileSave = pathDataFolder + cmaesPath + "/ResCma" + str(sizeOfTarget) + "/thetaSolTmp_target" + str(sizeOfTarget)
+    nameFileSaveMeanCost = pathDataFolder + cmaesPath + "/ResCma" + str(sizeOfTarget) + "/meanCost" + str(sizeOfTarget)
     a = np.loadtxt(nameFileSave)
     b = np.loadtxt(nameFileSaveMeanCost)
     nameFileSave1 = nameFileSave + "OldTmp"

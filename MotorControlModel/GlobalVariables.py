@@ -13,4 +13,5 @@ import os
 pathWorkingDirectory = os.getcwd()
 pathListForm = pathWorkingDirectory.split("/")
 pathDataFolder = pathWorkingDirectory.replace(pathListForm[len(pathListForm)-1], '') + "Data/"
-pathTrajectoriesFolder = pathDataFolder + "trajectoires/"
+BrentTrajectoriesFolder = pathDataFolder + "Brent/"
+cmaesPath = "CMAES"

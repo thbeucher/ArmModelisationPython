@@ -14,15 +14,15 @@ from Utils.InitUtil import initFRRS
 from GlobalVariables import pathDataFolder
 
 
-
+# mettre size of target en argument
 def trajectoriesAnimation(folderName, rbfn = False):
     fr, rs = initFRRS()
     if rbfn == True:
         nameEC = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/elbowCoord"
         nameHC = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/handCoord"
     else:
-        nameEC = "OptimisationResults/ResCma0.005/" + folderName + "/elbowCoord"
-        nameHC = "OptimisationResults/ResCma0.005/" + folderName + "/handCoord"
+        nameEC = cmaesPath + "/ResCma0.005/" + folderName + "/elbowCoord"
+        nameHC = cmaesPath + "/ResCma0.005/" + folderName + "/handCoord"
     ec = fr.getobjreadJson(nameEC)
     hc = fr.getobjreadJson(nameHC)
     

@@ -19,7 +19,7 @@ from Script.TrajectoryAnimation import trajectoriesAnimation
 from Plot.MuscularActivationsPlotFunctions import plotMuscularActivations
 from Plot.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
-    plotVelocityProfilesCMAES
+    plotVelocityProfiles
 
 from Utils.UsefulFunctions import checkReachAllTarget
 
@@ -71,7 +71,7 @@ def runAll():
     choix = 0
     while checkV:
         try:
-            c = input("is it the first time you run the program? (0 = No, 1 = Yes) : ")
+            c = input("Is it the first time you run the program? (0 = No, 1 = Yes) : ")
             c = int(c)
             if c == 0 or c == 1:
                 checkV = False
@@ -83,8 +83,8 @@ def runAll():
     from distlib.compat import raw_input
     while checkL:
         try:
-            print('Available scripts: 1 launch CMAES for one Target Size\n                  2 launch CMAES For All Target Size\n                  3 generate Results\n                  4 plotAllCmaes\n                  5 plotTimeDistanceTarget\n                  6 plot Fitts Law\n                  7 plotPerfSizeDist\n                  8 plotMapTimeTrajectories\n                  9 generateResultsWithBestThetaTmp\n                  10 launchCMAESWithBestThetaTmpForAllTargetSize\n                  11 plotForAllTargetVelocityProfile\n                  12 runRBFN\n                  13 generateTrajectoryForScattergram')
-            print('                  15 generateResultsRBFN\n                  16 plotRbfnResults\n                  17 trajectoriesAnimation\n')
+            print('Available scripts: 1 launch CMAES for one Target Size\n                  2 launch CMAES For All Target Size\n                  3 generate Results\n                  4 plotAllCmaes\n                  5 plotTimeDistanceTarget\n                  6 plot Fitts Law\n                  7 plotPerfSizeDist\n                  8 plotMapTimeTrajectories\n                  9 generateResultsWithBestThetaTmp\n                  10 launchCMAESWithBestThetaTmpForAllTargetSize\n                  11 plot velocity profiles (RBFN and CMAES) \n                  12 run RBFN controller\n                  13 generate Trajectory For Scattergram')
+            print('                  15 generateResultsRBFN\n                  16 plot RBFN Results\n                  17 show trajectory animations\n')
             choix = input('Enter the number corresponding to the script you want to run: ')
             choix = int(choix)
             checkL = False
@@ -126,8 +126,14 @@ def runAll():
     elif choix == 10:
         launchCMAESWithBestThetaTmpForAllTargetSize()
     elif choix == 11:
+        c = input("RBFN (0) or CMAES (1)? : ")
+        c = int(c)
         nameF = raw_input('Folder name where the results are saved: ')
-        plotVelocityProfilesCMAES(nameF)
+        if c == 0: 
+            rbfn= True
+        else:
+            rbfn=False
+        plotVelocityProfiles(nameF,rbfn)
     elif choix == 12:
         nameC = raw_input('Name to save the RBFN controller: ')
         runRBFN(nameC)

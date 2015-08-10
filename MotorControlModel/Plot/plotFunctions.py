@@ -14,24 +14,19 @@ from scipy import stats
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.mlab import griddata
-#from scipy.spatial import ConvexHull
-#import matplotlib.patches as patches
-#from matplotlib import animation
 
-#import mpl_toolkits
 import os
 from ArmModel.GeometricModel import mgd
 import math
 from Utils.NiemRoot import tronquerNB
 from Utils.InitUtil import initFRRS
 from Utils.FileReading import FileReading
-#from shutil import copyfile
-#from posix import remove
+
 from Utils.UsefulFunctions import returnX0Y0Z, returnDifCostBrentRBFN,\
-     getTimeDistance, getDistPerfSize, getVelocityProfileData, getTimeByArea,\
+     getTimeDistance, getDistPerfSize, getVelocityProfileDataRBFN, getVelocityProfileDataCMAES, getTimeByArea,\
     checkIfTargetIsReach
 
-from GlobalVariables import pathTrajectoriesFolder, pathDataFolder
+from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder
 
 def costColorPlot(what):
     '''
@@ -55,7 +50,6 @@ def costColorPlot(what):
     if what == "rbfn":
         name = "RBFN2/" + str(nbfeat) + "feats/"
         x0, y0, z = returnX0Y0Z(name)
-        #maxt = np.max(np.abs(z))
         
     elif what == "cma":
         name = "RBFN2/" + str(nbfeat) + "feats/costBINCma"
@@ -63,7 +57,6 @@ def costColorPlot(what):
         for i in range(len(z)):
             if z[i] > 0:
                 z[i] -= rs.rhoCF
-        #maxt = np.max(abs(z))
         
     elif wha == "brent":
         data = fr.getobjread("trajectoires_cout/trajectoire_coutCoordXBIN")
@@ -72,7 +65,6 @@ def costColorPlot(what):
             z.append(el[1]-rs.rhoCF)
             x0.append(el[2])
             y0.append(el[3])
-        #maxt = np.max(np.abs(z))
     
     elif what == "difBR":
         dif = returnDifCostBrentRBFN()
@@ -106,13 +98,12 @@ def costColorPlot(what):
     plt.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
     CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
     fig.colorbar(t1, shrink=0.5, aspect=5)
-    
     plt.show(block = True)
 
 def plotHitDispersion(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/CoordHitTargetBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTry1/CoordHitTargetCmaBIN"
+    name = cmaesPath + "/ResCma" + str(sizeT) + "/ResTry1/CoordHitTargetCmaBIN"
     data = fr.getobjread(name)
     tab = []
     for el in data.values():
@@ -126,114 +117,6 @@ def plotHitDispersion(sizeT):
     plt.plot([-0.12, 0.12], [rs.targetOrdinate, rs.targetOrdinate], c = 'r')
     plt.scatter([-rs.sizeOfTarget[0]/2, rs.sizeOfTarget[0]/2], [rs.targetOrdinate, rs.targetOrdinate], marker=u'|', s = 100)
     plt.scatter(tabx, taby, c = 'b')
-    plt.show(block = True)
-
-def plot_pos_ini():
-    '''
-    Plots the initial position of trajectories present in the "trajectoire" directory
-    '''
-    x0 = []
-    y0 = []
-    fr, rs = initFRRS()
-    xt = 0
-    yt = rs.targetOrdinate
-    posIni = fr.getobjread(rs.experimentFilePosIni)
-    for el in posIni:
-        x0.append(el[0])
-        y0.append(el[1])
-    xy, junk = fr.getInitPos(pathTrajectoriesFolder)
-    x, y = [], []
-    aa, keyy = [], []
-    for key, el in xy.items():
-        x.append(el[0])
-        y.append(el[1])
-        a = math.sqrt((el[0]**2) + (el[1] - rs.targetOrdinate)**2)
-        if tronquerNB(a, 3) not in aa:
-            aa.append(tronquerNB(a, 3))
-        if a < 0.11:
-            keyy.append(key)
-        
-    plt.figure()
-    plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
-    plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
-    plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
-    
-    plt.show(block = True)
-
-def plotPosTAT(fr, rs):
-    xtr, junk = fr.getInitPos(pathDataFolder + "ThetaAllTraj/")
-    xt1, yt1 = [], []
-    for key, el in xtr.items():
-        xt1.append(el[0])
-        yt1.append(el[1])
-    plt.scatter(xt1, yt1, c = 'y')
-
-
-
-def plotPosIniOutputSolver():
-    '''
-    plots the initial positions of trajectories in output_solver(bin)
-    Note: explicit path to be removed
-    '''
-    angleIni = {}
-    Q = []
-    name1 = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/"
-    for el in os.listdir(name1):
-        if "brentbvp" in el and not "fail" in el:
-            #Chargement du fichier
-            mati = np.loadtxt(name1 + el)
-            Q.append((el, mati[0,10], mati[0,11]))
-            #recuperation de q1 et q2 initiales et conversion en coordonnees
-            coordElbow, coordHand = mgd(np.mat([[mati[0,10]], [mati[0,11]]]), 0.3, 0.35)
-            angleIni[el] = (coordHand[0], coordHand[1])
-    
-    angleIni2 = {}  
-    name2 = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster2/"
-    for el in os.listdir(name2):
-        if "brentbvp" in el and not "fail" in el:
-            #Chargement du fichier
-            mati2 = np.loadtxt(name2 + el)
-            #Q.append((el, mati[0,10], mati[0,11]))
-            #recuperation de q1 et q2 initiales et conversion en coordonnees
-            coordElbow2, coordHand2 = mgd(np.mat([[mati2[0,10]], [mati2[0,11]]]), 0.3, 0.35)
-            angleIni2[el] = (coordHand2[0], coordHand2[1])
-    
-    x, y, xy = [], [], []
-    for key, el in angleIni.items():
-        x.append(el[0])
-        y.append(el[1])
-        xy.append((key, el[0], el[1]))
-        
-    x2, y2, xy2 = [], [], []
-    for key, el in angleIni2.items():
-        x2.append(el[0])
-        y2.append(el[1])
-        xy2.append((key, el[0], el[1]))
-    
-    gt = []
-    for el in xy2:
-        if not el in xy:
-            gt.append(el[0])
-            
-    print(len(gt), gt)
-    
-    plt.figure()
-    plt.scatter(x, y, c = 'b')
-    plt.show(block = True)
-
-def plotTrajThetaAllTraj():
-'''
-deprecated
-'''
-    name = "/home/beucher/workspace/Data/ThetaAllTraj/"
-    fr = FileReading()
-    traj, junk = fr.getInitPos(name)
-    x, y, x1, y1 = [], [], [], []
-    for el in traj.values():
-        x.append(el[0])
-        y.append(el[1])
-    plt.figure()
-    plt.scatter(x, y, c = 'b')
     plt.show(block = True)
 
 def plotRBFNCostMap():
@@ -250,7 +133,7 @@ def plotRBFNCostMap():
     xi = np.linspace(-0.25,0.25,200)
     yi = np.linspace(0.35,0.5,200)
     zi = griddata(x0, y0, z, xi, yi)
-    fig = plt.figure()
+    plt.figure()
     t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
     plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
@@ -265,10 +148,9 @@ def plotAllCmaes(nameF, rbfn = False):
     for i in range(len(rs.sizeOfTarget)):
         try:
             if rbfn == False:
-                name = "OptimisationResults/ResCma" + str(rs.sizeOfTarget[i]) + "/" + nameF + "/saveMvtCost"
+                name = cmaesPath + "/ResCma" + str(rs.sizeOfTarget[i]) + "/" + nameF + "/saveMvtCost"
             else:
                 name = "RBFN2/" + str(rs.numfeats) + "feats/" + nameF + "/saveMvtCost"
-            #zDico.append(fr.getobjread(name))
             zDico.append(fr.getobjreadJson(name))
         except:
             pass
@@ -290,7 +172,6 @@ def plotAllCmaes(nameF, rbfn = False):
         zi[i] = griddata(x0[i], y0[i], z[i], xi, yi)
     
     fig = plt.figure(1, figsize=(16,9))
-    #fig, (ax1, ax2, ax3, ax4) = plt.subplots(len(rs.sizeOfTarget), sharex = True, sharey = True)
 
     for j in range(4):
         ax = plt.subplot2grid((2,2), (j/2,j%2))
@@ -302,8 +183,6 @@ def plotAllCmaes(nameF, rbfn = False):
     
     plt.show(block = True)
     
-#plotAllCmaes()
-
 def plotTimeDistanceTarget(folderName, rbfn = False):
     fr, rs = initFRRS()
     targetDic = {}
@@ -317,8 +196,7 @@ def plotTimeDistanceTarget(folderName, rbfn = False):
         for el in val:
             targetDistTime.append((key, el[0], el[1]))
     dicoTest, dicoTest2 = {}, {}
-    #print("la", targetDistTime)
-    #print("sorted", sorted(targetDistTime, key = lambda col:(col[0],col[1])))
+
     targetDistTimeSorted = sorted(targetDistTime, key = lambda col:(col[0],col[1]))
     for el in targetDistTimeSorted:
         if not el[1] in dicoTest.keys():
@@ -328,8 +206,7 @@ def plotTimeDistanceTarget(folderName, rbfn = False):
         dicoTest[el[1]].append(el[0])
         dicoTest2[el[1]].append(el[2])
     plotTab = []
-    #print(dicoTest)
-    #print("ici", dicoTest2)
+
     plt.figure()
     plt.ylabel("time")
     plt.xlabel("size (mm)")
@@ -339,10 +216,6 @@ def plotTimeDistanceTarget(folderName, rbfn = False):
     plt.legend(loc = 0)
     plt.show(block = True)
             
-
-#plotTimeDistanceTarget()
-
-
 def plotFittsLaw(folderName, rbfn = False):
     fr, rs = initFRRS()
     data = {}
@@ -351,19 +224,17 @@ def plotFittsLaw(folderName, rbfn = False):
             data[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i], folderName, rbfn)
         except:
             pass
-    #print(data)
+
     timeDistWidth = []
     for key, val in data.items():
         for el in val:
             timeDistWidth.append((el[1], el[0], key))
-    #print(timeDistWidth)
     MT, DI = [], []
     for el in timeDistWidth:
         MT.append(el[0])
         DI.append(np.log2(el[1]/el[2]))
     slope, intercept, r_value, p_value, std_err = stats.linregress(DI,MT)
     yLR = slope * np.asarray(DI) + intercept
-    #print(slope, intercept)
     plt.figure()
     for el in timeDistWidth:
         plt.scatter(np.log2(el[1]/el[2]), el[0])
@@ -373,8 +244,6 @@ def plotFittsLaw(folderName, rbfn = False):
     plt.ylabel("Time")
     plt.show(block = True)
     
-#plotFittsLaw()
-        
 def plotPerfSizeDist(folderName, rbfn = False):
     fr, rs = initFRRS()
     sizeDistPerfTmp = {}
@@ -383,14 +252,12 @@ def plotPerfSizeDist(folderName, rbfn = False):
             sizeDistPerfTmp[i] = getDistPerfSize(rs.sizeOfTarget[i], folderName, rbfn)
         except:
             pass
-    #print(sizeDistPerfTmp)
     distDico = {}
     for key, val in sizeDistPerfTmp.items():
         for el in val:
             if not el[1] in distDico.keys():
                 distDico[el[1]] = []
             distDico[el[1]].append((el[0], el[2]))
-    #print(distDico)
     plotTab = []
     plt.figure()
     plt.ylabel("performance")
@@ -408,13 +275,6 @@ def plotMapTimeTrajectories(folderName, rbfn = False):
             areaTimeBySize[rs.sizeOfTarget[i]] = getTimeByArea(rs.sizeOfTarget[i], folderName, rbfn)
         except:
             pass
-    '''for key, val in areaTimeBySize.items():
-        x = [x[0] for x in val]
-        y = [y[1] for y in val]
-        z = [z[2] for z in val]
-        xi = np.linspace(-0.25,0.25,200)
-        yi = np.linspace(0.35,0.5,200)
-        zi = griddata(x, y, z, xi, yi)'''
         
     fig = plt.figure(1, figsize=(16,9))
 
@@ -440,19 +300,16 @@ def plotcmaesCostProgress():
     costCma = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
-            name = "OptimisationResults/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(100)
+            name = cmaesPath + "/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(100)
             costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = fr.getobjread(name)
         except:
             pass
     costEvo = {}
     for key, val in costCma.items():
-        #val.reverse()
         costArray = np.asarray(val).reshape(rs.maxIterCmaes, rs.popsizeCmaes)
-        #costArray = np.asarray(val).reshape(100, 150)
         costEvo[key] = np.mean(costArray, axis = 1)
     y = []
     for i in range(rs.maxIterCmaes):
-    #for i in range(100):
         y.append(i)
     f, ax = plt.subplots(len(rs.sizeOfTarget), sharex = True)
     for key, x in costEvo.items():
@@ -575,7 +432,7 @@ def plotTrackTraj():
 
 def plotPlayWithTraj():
     fr, rs = initFRRS()
-    data, junk = fr.getInitPos(pathTrajectoriesFolder)
+    data, junk = fr.getInitPos(BrentTrajectoriesFolder)
     x, y, x1, y1 = [], [], [], []
     todel = []
     for key, el in data.items():
@@ -609,7 +466,7 @@ def plotLearningFieldRBFN():
         r.append(a)
         ang.append(b)
     
-    xy, junk = fr.getInitPos(pathTrajectoriesFolder)
+    xy, junk = fr.getInitPos(BrentTrajectoriesFolder)
     sx, sy = [], []
     for key, val in xy.items():
         rr, tt = invPosCircle(val[0], val[1])
@@ -632,7 +489,7 @@ def plotLearningFieldRBFNSquare():
     for el in posIni:
         x.append(el[0])
         y.append(el[1])
-    xy, junk = fr.getInitPos(pathTrajectoriesFolder)
+    xy, junk = fr.getInitPos(BrentTrajectoriesFolder)
     sx, sy = [], []
     for key, val in xy.items():
         if val[0] <= (np.max(x) + 0.02) and val[0] >= (np.min(x) - 0.02) and val[1] >= (np.min(y) - 0.01) and val[1] <= (np.max(y) + 0.02):
@@ -648,7 +505,7 @@ def plotLearningFieldRBFNSquare():
 
 def plotTimeVariationForEachDistance(sizeTarget):
     fr, rs = initFRRS()
-    name = "OptimisationResults/ResCma" + str(sizeTarget) + "/nbItecp5CmaBIN"
+    name = cmaesPath + "/ResCma" + str(sizeTarget) + "/nbItecp5CmaBIN"
     nbIteTraj = fr.getobjread(name)
     distTimeDico = {}
     for key, val in nbIteTraj.items():
@@ -673,8 +530,8 @@ def plotTimeVariationForEachDistance(sizeTarget):
 def plotVelocityProfileRBFN(sizeT):
     fr, rs = initFRRS()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = "OptimisationResults/ResCma" + str(sizeT) + "/ResTK2/SpeedSaveCmaBIN"
-    nameNbIte = "OptimisationResults/ResCma" + str(sizeT) + "/ResTK2/nbIteCmaBIN"
+    name = cmaesPath + "/ResCma" + str(sizeT) + "/ResTK2/SpeedSaveCmaBIN"
+    nameNbIte = cmaesPath + "/ResCma" + str(sizeT) + "/ResTK2/nbIteCmaBIN"
     data = fr.getobjread(name)
     nbIte = fr.getobjread(nameNbIte)
     aAll, vAll, tAll = {}, {}, {}
@@ -697,24 +554,139 @@ def plotVelocityProfileRBFN(sizeT):
     plt.figure()
     for key, val in vAll.items():
         t = plt.plot(tAll[key], val, label=str("Bruit = " + str(rs.knoiseU)))
-    #t = plt.plot(t, v, label=str("Bruit = " + str(rs.knoiseU)))
     plt.xlabel("time")
     plt.ylabel("Instantaneous speed")
-    #plt.legend(loc=0)
     plt.title("Velocity profile")
     plt.show(block = True)
 
-def plotVelocityProfilesCMAES(folderName, rbfn = False):
+def plotVelocityProfiles(folderName, rbfn = False):
     fr, rs = initFRRS()
     fig = plt.figure(1, figsize=(16,9))
 
-    for i in range(4):
-        ax = plt.subplot2grid((2,2), (i/2,i%2))
-        t, v = getVelocityProfileData(rs.sizeOfTarget[i], folderName, rbfn)
+    if rbfn:
+        t, v = getVelocityProfileDataRBFN(folderName)
         for key, val in v.items():
-            ax.plot(t[key], val, c ='b')
-            ax.set_title(str("Velocity profile for target " + str(rs.sizeOfTarget[i])))
+            plt.plot(t[key], val, c ='b')
+            plt.title("Velocity profiles for RBFN ")
+    else:
+        for i in range(4):
+            ax = plt.subplot2grid((2,2), (i/2,i%2))
+            t, v = getVelocityProfileDataCMAES(rs.sizeOfTarget[i], folderName)
+            for key, val in v.items():
+                ax.plot(t[key], val, c ='b')
+                ax.set_title(str("Velocity profiles for target " + str(rs.sizeOfTarget[i])))
     
+    plt.show(block = True)
+
+#-----------------------------------------------------------------------------------------
+# those functions are not used
+
+def plotInitPos():
+    '''
+    Plots the initial position of trajectories present in the "trajectoire" directory
+    '''
+    x0 = []
+    y0 = []
+    fr, rs = initFRRS()
+    xt = 0
+    yt = rs.targetOrdinate
+    posIni = fr.getobjread(rs.experimentFilePosIni)
+    for el in posIni:
+        x0.append(el[0])
+        y0.append(el[1])
+    xy, junk = fr.getInitPos(BrentTrajectoriesFolder)
+    x, y = [], []
+    aa, keyy = [], []
+    for key, el in xy.items():
+        x.append(el[0])
+        y.append(el[1])
+        a = math.sqrt((el[0]**2) + (el[1] - rs.targetOrdinate)**2)
+        if tronquerNB(a, 3) not in aa:
+            aa.append(tronquerNB(a, 3))
+        if a < 0.11:
+            keyy.append(key)
+        
+    plt.figure()
+    plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
+    plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
+    plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
+    
+    plt.show(block = True)
+
+def plotPosTAT(fr, rs):
+    xtr, junk = fr.getInitPos(pathDataFolder + "ThetaAllTraj/")
+    xt1, yt1 = [], []
+    for key, el in xtr.items():
+        xt1.append(el[0])
+        yt1.append(el[1])
+    plt.scatter(xt1, yt1, c = 'y')
+
+
+
+def plotInitPosOutputSolver():
+    '''
+    plots the initial positions of trajectories in output_solver(bin)
+    Note: explicit path to be removed
+    '''
+    angleIni = {}
+    Q = []
+    name1 = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/"
+    for el in os.listdir(name1):
+        if "brentbvp" in el and not "fail" in el:
+            #Chargement du fichier
+            mati = np.loadtxt(name1 + el)
+            Q.append((el, mati[0,10], mati[0,11]))
+            #recuperation de q1 et q2 initiales et conversion en coordonnees
+            coordElbow, coordHand = mgd(np.mat([[mati[0,10]], [mati[0,11]]]), 0.3, 0.35)
+            angleIni[el] = (coordHand[0], coordHand[1])
+    
+    angleIni2 = {}  
+    name2 = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster2/"
+    for el in os.listdir(name2):
+        if "brentbvp" in el and not "fail" in el:
+            #Chargement du fichier
+            mati2 = np.loadtxt(name2 + el)
+            #Q.append((el, mati[0,10], mati[0,11]))
+            #recuperation de q1 et q2 initiales et conversion en coordonnees
+            coordElbow2, coordHand2 = mgd(np.mat([[mati2[0,10]], [mati2[0,11]]]), 0.3, 0.35)
+            angleIni2[el] = (coordHand2[0], coordHand2[1])
+    
+    x, y, xy = [], [], []
+    for key, el in angleIni.items():
+        x.append(el[0])
+        y.append(el[1])
+        xy.append((key, el[0], el[1]))
+        
+    x2, y2, xy2 = [], [], []
+    for key, el in angleIni2.items():
+        x2.append(el[0])
+        y2.append(el[1])
+        xy2.append((key, el[0], el[1]))
+    
+    gt = []
+    for el in xy2:
+        if not el in xy:
+            gt.append(el[0])
+            
+    print(len(gt), gt)
+    
+    plt.figure()
+    plt.scatter(x, y, c = 'b')
+    plt.show(block = True)
+
+def plotTrajThetaAllTraj():
+    '''
+    Note: deprecated
+    '''
+    name = "/home/beucher/workspace/Data/ThetaAllTraj/"
+    fr = FileReading()
+    traj, junk = fr.getInitPos(name)
+    x, y, x1, y1 = [], [], [], []
+    for el in traj.values():
+        x.append(el[0])
+        y.append(el[1])
+    plt.figure()
+    plt.scatter(x, y, c = 'b')
     plt.show(block = True)
 
 

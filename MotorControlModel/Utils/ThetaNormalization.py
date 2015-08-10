@@ -18,12 +18,12 @@ def normalization(theta):
     maxT = np.max(np.abs(theta), axis = 0)
     for i in range(theta.shape[1]):
         theta[:,i] = theta[:,i] / maxT[i]
-    fileSavingBin("OptimisationResults/maxTBIN", maxT)
+    fileSavingBin(str(cmaesPath + "/maxTBIN"), maxT)
     return theta
 
 def unNorm(theta):
     fr = FileReading()
-    maxT = fr.getobjread("OptimisationResults/maxTBIN")
+    maxT = fr.getobjread(str(cmaesPath + "/maxTBIN"))
     for i in range(theta.shape[1]):
         theta[:,i] = theta[:,i] * maxT[i]
     return theta

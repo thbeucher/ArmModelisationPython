@@ -14,7 +14,7 @@ import os
         
 def fileSavingStr(nameFile, data, loc = 0):
     '''
-    Cette fonction permet d'enregistrer les donnees sous format str
+    Records data under str format
     
     Entrees:    -nameFile: nom du fichier ou enregistrer les donnees
                 -data: donnees a enregistrer
@@ -29,7 +29,7 @@ def fileSavingStr(nameFile, data, loc = 0):
 
 def fileSavingBin(nameFile, data, loc = 0):
     '''
-    Cette fonction permet d'enregistrer les donnees sous format binaire
+    Records data under binary format
     
     Entrees:    -nameFile: nom du fichier ou enregistrer les donnees
                 -data: donnees a enregistrer
@@ -43,7 +43,6 @@ def fileSavingBin(nameFile, data, loc = 0):
         monPickler = pickle.Pickler(file)
         monPickler.dump(data)
 
-
 def fileSavingData(nameFile, data):
     fileSavingStr(nameFile, data)
     nameFile = nameFile + "BIN"
@@ -52,27 +51,27 @@ def fileSavingData(nameFile, data):
 def fileSavingDataJson(name, data):
     fileSavingStrJson(name, data)
 
-def fileSavingAllData(sizeOfTarget, tg):
-    nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/ResUKF1B/"
+def fileSavingCMAESData(sizeOfTarget, tg):
+    nameSave = cmaesPath + "/ResCma" + str(sizeOfTarget) + "/ResUKF1B/"
     fileSavingData(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
     fileSavingData(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
     fileSavingData(nameSave + "saveMvtCost", tg.saveMvtCost)
     fileSavingData(nameSave + "saveSpeed", tg.saveSpeed)
     
-def checkIfFolderExist(name):
+def checkFolderExists(name):
     name = pathDataFolder + name
     if not os.path.isdir(name):
         os.makedirs(name)
         
 def fileSavingScattergramJson(sizeOfTarget, tg, folderName):
-    nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
+    nameSave = cmaesPath + "/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
     fileSavingDataJson(nameSave + "hitDispersion", tg.saveCoordEndTraj)
     
 def fileSavingAllDataJson(sizeOfTarget, tg, folderName, rbfn = False):
     if rbfn == True:
         nameSave = "RBFN2/" + str(tg.rs.numfeats) + "feats/" + folderName + "/"
     else:
-        nameSave = "OptimisationResults/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
+        nameSave = cmaesPath + "/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
     checkIfFolderExist(nameSave)
     fileSavingDataJson(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
     fileSavingDataJson(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)

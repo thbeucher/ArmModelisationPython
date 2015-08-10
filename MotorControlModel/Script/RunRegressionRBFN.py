@@ -12,7 +12,7 @@ import numpy as np
 from Utils.InitUtil import initFRRS
 from Regression.functionApproximator_RBFN import fa_rbfn
 from Utils.FileSaving import fileSavingStrJson
-from GlobalVariables import pathTrajectoriesFolder
+from GlobalVariables import BrentTrajectoriesFolder
 
 
 ####################################################################################################
@@ -22,7 +22,7 @@ def runRBFN(nameSaveC):
     print("Début de traitement!")
     t0 = time.time()
     fr, rs = initFRRS()
-    state, command = fr.getData(pathTrajectoriesFolder)
+    state, command = fr.getData(BrentTrajectoriesFolder)
     #change the data (dictionary) into numpy array
     stateAll, commandAll = fr.dicToArray(state), fr.dicToArray(command)
     np.random.seed(0)

@@ -58,10 +58,10 @@ class TrajectoriesGenerator:
         self.mac.setThetaMAC(self.theta)
         
     def saveThetaCmaes(self, meanCost):
-        nameFileSave = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_target" + str(self.tg.sizeOfTarget)
+        nameFileSave = pathDataFolder + cmaesPath + "/ResCma" + str(self.tg.sizeOfTarget) + "/thetaSolTmp_target" + str(self.tg.sizeOfTarget)
         f = open(nameFileSave, 'ab')
         np.savetxt(f, self.theta)
-        nameFileSaveMeanCost = pathDataFolder + "OptimisationResults/ResCma" + str(self.tg.sizeOfTarget) + "/meanCost" + str(self.tg.sizeOfTarget)
+        nameFileSaveMeanCost = pathDataFolder + cmaesPath + "/ResCma" + str(self.tg.sizeOfTarget) + "/meanCost" + str(self.tg.sizeOfTarget)
         g = open(nameFileSaveMeanCost, 'ab')
         np.savetxt(g, np.asarray([meanCost]))
         

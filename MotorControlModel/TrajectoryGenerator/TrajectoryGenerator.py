@@ -33,7 +33,7 @@ class TrajectoryGenerator:
     			-Ukf, unscented kalman filter, class object
     			-armD, armDynamics, class object
     			-mac, muscularActivationCommand, class object
-    			-saveA, Boolean, true = Data are saved, false = data are not saved
+    			-saveA, Boolean: true = Data are saved, false = data are not saved
     	'''
         self.armP = armP
         self.rs = rs
@@ -59,7 +59,7 @@ class TrajectoryGenerator:
 
     def checkingKeyLoopData(self):
         '''
-        Checks if the trajectory already has been run, if no, initializes the container to save it
+        Checks if the trajectory has already been run, if no, initializes the container to save it
         '''
         pass
     
@@ -73,7 +73,7 @@ class TrajectoryGenerator:
         '''
         Saves data generated during the trajectory
 
-        Input:	-speed:the speed of the end effector along the trajectory, float
+        Input:	-speed: the speed of the end effector along the trajectory, float
         '''
         self.speedList.append(speed)
         self.UList.append(U)
@@ -82,7 +82,7 @@ class TrajectoryGenerator:
         
     def checkingKeyEndData(self):
         '''
-        Checks if the trajectory already has been run, if no, initializes the container to save it
+        Checks if the trajectory has already been run, if no, initializes the container to save it
         '''
         if not self.nameToSaveTraj in self.saveNumberOfIteration:
             self.saveNumberOfIteration[self.nameToSaveTraj] = []
@@ -99,8 +99,8 @@ class TrajectoryGenerator:
         '''
         Saves data generated at the end of the trajectory
 
-        Input:	-nbIte:number of iteration ie number of time steps to finish the trajectory, int
-		-lastCoord:coordinate of the end effector at the end of the trajectory, tuple
+        Input:	-nbIte: number of iteration ie number of time steps to finish the trajectory, int
+		-lastCoord: coordinates of the end effector at the end of the trajectory, tuple
 		-cost, cost of the trajectory without the reward, float
         '''
         self.checkingKeyEndData()
@@ -168,7 +168,7 @@ class TrajectoryGenerator:
         #code to save data of the trajectory
         if self.saveA == True:
             self.saveEndData(i, coordHand, cost)
-        #check if the target is reach and give the reward if yes
+        #check if the target is reached and give the reward if yes
         if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.targetOrdinate:
             cost = self.cc.computeFinalCostReward(cost, t)
         #return the cost of the trajectory
