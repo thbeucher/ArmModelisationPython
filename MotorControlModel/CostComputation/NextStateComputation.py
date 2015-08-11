@@ -8,34 +8,26 @@ Module: NextStateComputation
 Description: this class permits to generate the next state from the previous state, ie state at time t+1 given state at time t
 '''
 
-from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
-from ArmModel.ArmDynamics import mdd
-from ArmModel.GeometricModel import jointStop
-
+#from ArmModel.Arm import getDotQAndQFromStateVector, createStateVector
 
 class NextStateComputation:
     
     def __init__(self):
         self.name = "NextStateComputation"
         
-    def initParametersNSC(self, mac, armP, rs, musclesP):
+    def initParametersNSC(self, mac, armM, rs):
         '''
         Initializes parameters used in the functions below
         
         Input:    -mac: Muscular Activation Command, class object
-                    -armP: armParameters, class object
+                    -armM: armModel, class object
                     -rs: ReadSetup, class object
-                    -musclesP: musclesParameters, class object
         '''
         self.mac = mac
-        self.armP = armP
+        self.armM = armM
         self.rs = rs
-        self.musclesP = musclesP
         
-    def initStateNSC(self, state):
-        self.state = state
-        
-    def setNewStateNSC(self, state):
+    def setState(self, state):
         self.state = state
     
     def computeNextState(self, U):
@@ -47,8 +39,8 @@ class NextStateComputation:
         Output:    -nextState: state at time t+1, numpy array
                     -U: muscular activation vector, numpy array, here the dimension is (6,1)
         '''
-        dotq, q = getDotQAndQFromStateVectorS(self.state)
-        ddotq, dotq, q = mdd(q, dotq, U, self.armP, self.musclesP, self.rs.dt)
+        dotq, q = getDotQAndQFromStateVector(self.state)
+        ddotq, dotq, q = self.armM.mdd(q, dotq, U, self.rs.dt)
         q = jointStop(q)
         nextState = createStateVector(dotq, q)
         self.setNewStateNSC(nextState)

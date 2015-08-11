@@ -7,7 +7,7 @@ Description: the function below alow to read temporary data
 '''
 
 import numpy as np
-from GlobalVariables import pathDataFolder
+from GlobalVariables import pathDataFolder, cmaesPath
 from Utils.InitUtil import initFRRS
 
 

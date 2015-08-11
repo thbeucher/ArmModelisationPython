@@ -6,7 +6,7 @@ Module: PurgeData
 Description: the function below purges (removes?) temporary data
 '''
 from Utils.InitUtil import initFRRS
-from GlobalVariables import pathDataFolder
+from GlobalVariables import pathDataFolder, cmaesPath
 import numpy as np
 
 

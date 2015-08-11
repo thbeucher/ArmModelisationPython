@@ -16,7 +16,7 @@ class UnscentedKalmanFilterControl:
     def __init__(self):
         self.name = "UnscentedKalmanFilter"
         
-    def initParametersUKF(self, dimState, dimObs, delay, nsc, armD, mac):
+    def initParametersUKF(self, dimState, dimObs, delay, nsc, arm, mac):
         '''
     	Initializes parameters to uses the function implemented below
     	
@@ -24,14 +24,14 @@ class UnscentedKalmanFilterControl:
     			-dimObs: dimension of the observation, here the observation is the position of the arm given by the model, int
     			-delay: the delay with which we give the observation to the filter, int
     			-nsc, nextStateComputation, class object
-    			-armD, armDynamics, class object
+    			-arm, armModel, class object
     			-mac, MuscularActivationCommand
     	'''
         self.dimState = dimState
         self.dimObs = dimObs
         self.delay = delay
         self.nsc = nsc
-        self.armD = armD
+        self.arm = arm
         self.mac = mac
         #initialization of some parameters for the filter
         transition_covariance = np.eye(self.dimState)*0.01
@@ -61,7 +61,7 @@ class UnscentedKalmanFilterControl:
     	Output:		-nextStateUNoise: the next State with noise added, numpy array
     	'''
         #computation of the next Q vector [dotq1, dotq2, q1, q2]
-        nextX = self.armD.mddADUKF(np.asarray(stateU).reshape((self.dimState, 1)), np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1)))
+        nextX = self.arm.mddADUKF(np.asarray(stateU).reshape((self.dimState, 1)), np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1)))
         #computation of the next muscular activation vector U
         nextStateU = self.mac.getCommandMAC(nextX)
         #noise add to the next state generated
@@ -78,7 +78,7 @@ class UnscentedKalmanFilterControl:
     	Output:		-nextObsNoise: observation at time t+1
     	'''
         #computation of the next observation
-        nextObs = self.armD.mddADUKF(np.asarray(stateU).reshape((self.dimState, 1)), np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1)))
+        nextObs = self.arm.mddADUKF(np.asarray(stateU).reshape((self.dimState, 1)), np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1)))
         nextObsNoise = nextObs.T[0] + observationNoise
         return nextObsNoise
     
@@ -113,7 +113,7 @@ class UnscentedKalmanFilterControl:
         #compute the nextState approximation ie here the next muscular activation
         nextState, nextCovariance = self.ukf.filter_update(stateU.T[0], self.nextCovariance, self.obsStore.T[self.delay-1])
         #compute the nextState ie the next position vector from the approximation of the next muscular activation vector given by the filter
-        stateApprox = self.armD.mddADUKF(np.asarray(nextState).reshape((self.dimState, 1)), np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1)))
+        stateApprox = self.arm.mddADUKF(np.asarray(nextState).reshape((self.dimState, 1)), np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1)))
         return stateApprox
     
     

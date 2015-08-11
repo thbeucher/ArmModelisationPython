@@ -8,6 +8,9 @@ Module: plotFunctions
 Description: some plotting functions
 '''
 
+import os
+import random as rd
+import math
 import numpy as np
 from scipy import stats
 
@@ -15,18 +18,16 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.mlab import griddata
 
-import os
-from ArmModel.GeometricModel import mgd
-import math
+
 from Utils.NiemRoot import tronquerNB
 from Utils.InitUtil import initFRRS
-from Utils.FileReading import FileReading
+from ArmModel.Arm import mgd, getDotQAndQFromStateVector
 
 from Utils.UsefulFunctions import returnX0Y0Z, returnDifCostBrentRBFN,\
      getTimeDistance, getDistPerfSize, getVelocityProfileDataRBFN, getVelocityProfileDataCMAES, getTimeByArea,\
     checkIfTargetIsReach
 
-from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder
+from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder, cmaesPath
 
 def costColorPlot(what):
     '''
@@ -555,27 +556,80 @@ def plotVelocityProfileRBFN(sizeT):
     for key, val in vAll.items():
         t = plt.plot(tAll[key], val, label=str("Bruit = " + str(rs.knoiseU)))
     plt.xlabel("time")
-    plt.ylabel("Instantaneous speed")
+    plt.ylabel("Instantaneous velocity")
     plt.title("Velocity profile")
     plt.show(block = True)
 
 def plotVelocityProfiles(folderName, rbfn = False):
     fr, rs = initFRRS()
-    fig = plt.figure(1, figsize=(16,9))
+    plt.figure(1, figsize=(16,9))
 
     if rbfn:
         t, v = getVelocityProfileDataRBFN(folderName)
         for key, val in v.items():
             plt.plot(t[key], val, c ='b')
-            plt.title("Velocity profiles for RBFN ")
+            plt.title("Velocity profiles for RBFN")
     else:
         for i in range(4):
             ax = plt.subplot2grid((2,2), (i/2,i%2))
             t, v = getVelocityProfileDataCMAES(rs.sizeOfTarget[i], folderName)
             for key, val in v.items():
                 ax.plot(t[key], val, c ='b')
+                ax.xlabel("time")
+                ax.ylabel("Instantaneous velocity")
                 ax.set_title(str("Velocity profiles for target " + str(rs.sizeOfTarget[i])))
-    
+    plt.show(block = True)
+
+def plotVelocityProfileBrent():
+    fr, rs = initFRRS()
+    plt.figure(1, figsize=(16,9))
+
+    state = fr.getStateDataFromBrent(BrentTrajectoriesFolder)
+    for k,v in state.items():
+        if rd.random()<0.06:
+            index, speed = [], []
+            for j in range(len(v)):
+                index.append(j)
+                speed.append(np.linalg.norm([v[j][0],v[j][1]]))
+                plt.plot(index, speed, c ='b')
+    plt.xlabel("time")
+    plt.ylabel("Instantaneous velocity")
+    plt.title("Velocity profiles for Brent")
+    plt.show(block = True)
+
+def plotXYPositionsBrent(arm):
+    fr, rs = initFRRS()
+    plt.figure(1, figsize=(16,9))
+
+    state = fr.getStateDataFromBrent(BrentTrajectoriesFolder)
+    for k,v in state.items():
+        if rd.random()<0.06:
+            posX, posY = [], []
+            for j in range(len(v)):
+                coordElbow,coordHand = mgd(arm,v[j])
+                posX.append(coordHand[0])
+                posY.append(coordHand[1])
+                plt.plot(posX,posY, c ='b')
+    plt.xlabel("X")
+    plt.ylabel("Y")
+    plt.title("XY Positions for Brent")
+    plt.show(block = True)
+
+def plotArticularPositionsBrent():
+    fr, rs = initFRRS()
+    plt.figure(1, figsize=(16,9))
+
+    state = fr.getStateDataFromBrent(BrentTrajectoriesFolder)
+    for k,v in state.items():
+        if rd.random()<0.06:
+            posX, posY = [], []
+            for j in range(len(v)):
+                posX.append(v[j][2])
+                posY.append(v[j][3])
+                plt.plot(posX,posY, c ='b')
+    plt.xlabel("Q1")
+    plt.ylabel("Q2")
+    plt.title("Articular positions for Brent")
     plt.show(block = True)
 
 #-----------------------------------------------------------------------------------------
@@ -583,7 +637,7 @@ def plotVelocityProfiles(folderName, rbfn = False):
 
 def plotInitPos():
     '''
-    Plots the initial position of trajectories present in the "trajectoire" directory
+    Plots the initial position of trajectories present in the Brent directory
     '''
     x0 = []
     y0 = []

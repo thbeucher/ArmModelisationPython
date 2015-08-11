@@ -8,11 +8,10 @@ Module: TrajectoryGenerator
 Description: Class to generate a trajectory
 '''
 
-from Utils.StateVectorUtil import getDotQAndQFromStateVectorS, createStateVector
-from ArmModel.GeometricModel import mgd, mgi
-from Utils.CreateVectorUtil import createVector
 import numpy as np
 
+from Utils.CreateVectorUtil import createVector
+from ArmModel.Arm import mgi, mgd, getDotQAndQFromStateVector, createStateVector
 
 class TrajectoryGenerator:
     
@@ -21,27 +20,26 @@ class TrajectoryGenerator:
         #Initializes variables used to save trajectory
         self.initSaveVariables()
         
-    def initParametersTG(self, armP, rs, nsc, cc, sizeOfTarget, Ukf, armD, mac, saveA):
+    def initParametersTG(self, armM, rs, nsc, cc, sizeOfTarget, Ukf, mac, saveA):
         '''
     	Initializes the parameters used to run the functions below
     
-    	Inputs:		-armP, armParameters, class object
-    			-rs, readSetup, class object
+    	Inputs:		
+    			-armM, armModel, class object
+                        -rs, readSetup, class object
     			-nsc, nextStateComputation, class object
     			-cc, costComputation, class object
     			-sizeOfTarget, size of the target, float
     			-Ukf, unscented kalman filter, class object
-    			-armD, armDynamics, class object
-    			-mac, muscularActivationCommand, class object
+     			-mac, muscularActivationCommand, class object
     			-saveA, Boolean: true = Data are saved, false = data are not saved
     	'''
-        self.armP = armP
         self.rs = rs
         self.nsc = nsc
         self.cc = cc
         self.sizeOfTarget = sizeOfTarget
         self.Ukf = Ukf
-        self.armD = armD
+        self.armM = armM
         self.mac = mac
         self.saveA = saveA
 
@@ -114,28 +112,28 @@ class TrajectoryGenerator:
     
     def runTrajectory(self, x, y):
         '''
-    	Generates trajectory from the initiale position (x, y)
+    	Generates trajectory from the initial position (x, y)
     
-    	Inputs:		-x: absciss of the initiale position, float
-    			-y: ordinate of the initiale position, float
+    	Inputs:		-x: abscissa of the initial position, float
+    			-y: ordinate of the initial position, float
     
     	Output:		-cost: the cost of the trajectory, float
     	'''
-        #computation of the articular position q1, q2 from the initiale coordinates (x, y)
-        q1, q2 = mgi(x, y, self.armP.l1, self.armP.l2)
-        #create the position vector [q1, q2]
+        #computes the articular position q1, q2 from the initial coordinates (x, y)
+        q1, q2 = mgi(self.armM,x, y)
+        #creates the position vector [q1, q2]
         q = createVector(q1, q2)
-        #create the speed vector [dotq1, dotq2]
+        #creates the speed vector [dotq1, dotq2]
         dotq = createVector(0., 0.)
-        #create the state vector [dotq1, dotq2, q1, q2]
+        #creates the state vector [dotq1, dotq2, q1, q2]
         state = createStateVector(dotq, q)
-        #compute the coordinates of the hand and the elbow from the position vector
-        coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
+        #computes the coordinates of the hand and the elbow from the position vector
+        coordElbow, coordHand = mgd(self.armM,q)
         #initializes parameters for the trajectory
         i, t, cost = 0, 0, 0
         self.Ukf.initObsStore(state)
-        self.armD.initStateAD(state)
-        self.nsc.initStateNSC(state)
+        self.armM.initStateAD(state)
+        self.nsc.setState(state)
         #code to save data of the trajectory
         self.nameToSaveTraj = str(x) + "//" + str(y)
         if self.saveA == True:
@@ -148,7 +146,7 @@ class TrajectoryGenerator:
                 #computation of the next muscular activation vector
                 Ucontrol = self.mac.getCommandMAC(estimateState)
                 #computation of the arm state
-                #realState = self.armD.mddAD(Ucontrol)
+                #realState = self.armM.mddAD(Ucontrol)
                 realState = self.nsc.computeNextState(Ucontrol)
                 #computation of the approximated state
                 estimateState = self.Ukf.runUKF(Ucontrol, realState)
@@ -157,7 +155,7 @@ class TrajectoryGenerator:
                 #get dotq and q from the state vector
                 dotq, q = getDotQAndQFromStateVectorS(realState)
                 #computation of the coordinates to check if the target is reach or not
-                coordElbow, coordHand = mgd(q, self.armP.l1, self.armP.l2)
+                coordElbow, coordHand = self.armM.mgd(q)
                 #code to save data of the trajectory
                 if self.saveA == True:
                     self.saveLoopData(np.linalg.norm(dotq), Ucontrol, coordElbow, coordHand)

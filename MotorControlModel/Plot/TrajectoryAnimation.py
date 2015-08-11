@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import animation
 from Utils.InitUtil import initFRRS
-from GlobalVariables import pathDataFolder
+from GlobalVariables import pathDataFolder, cmaesPath
 
 
 # mettre size of target en argument

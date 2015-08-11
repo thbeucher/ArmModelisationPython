@@ -13,15 +13,17 @@ from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetS
     generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize,\
     generateTrajectoryForScattergram, generateResultsRBFN
 
-from Script.RunRegressionRBFN import runRBFN
-from Script.TrajectoryAnimation import trajectoriesAnimation
+from Regression.RunRegressionRBFN import runRBFN
+from Plot.TrajectoryAnimation import trajectoriesAnimation
 
 from Plot.MuscularActivationsPlotFunctions import plotMuscularActivations
 from Plot.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
     plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
-    plotVelocityProfiles
+    plotVelocityProfiles, plotVelocityProfileBrent, plotXYPositionsBrent, plotArticularPositionsBrent
 
 from Utils.UsefulFunctions import checkReachAllTarget
+
+from ArmModel.Arm import Arm
 
 def checkPackages():
     a = site.getsitepackages()
@@ -83,8 +85,8 @@ def runAll():
     from distlib.compat import raw_input
     while checkL:
         try:
-            print('Available scripts: 1 launch CMAES for one Target Size\n                  2 launch CMAES For All Target Size\n                  3 generate Results\n                  4 plotAllCmaes\n                  5 plotTimeDistanceTarget\n                  6 plot Fitts Law\n                  7 plotPerfSizeDist\n                  8 plotMapTimeTrajectories\n                  9 generateResultsWithBestThetaTmp\n                  10 launchCMAESWithBestThetaTmpForAllTargetSize\n                  11 plot velocity profiles (RBFN and CMAES) \n                  12 run RBFN controller\n                  13 generate Trajectory For Scattergram')
-            print('                  15 generateResultsRBFN\n                  16 plot RBFN Results\n                  17 show trajectory animations\n')
+            print('Available scripts: 1 launch CMAES for one Target Size\n                  2 launch CMAES For All Target Size\n                  3 generate Results\n                  4 plot All CMAES\n                  5 plot Time x Distance for Targets\n                  6 plot Fitts Law\n                  7 plot Size x Dist\n                  8 plot MapTime Trajectories\n                  9 generate Results With Best ThetaTmp\n                  10 launch CMAES With Best ThetaTmp For All Target Sizes\n                  11 plot velocity profiles (RBFN, CMAES or Brent) \n                  12 run RBFN controller\n                  13 generate Trajectory For Scattergram')
+            print('                  15 generateResultsRBFN\n                  16 plot RBFN Results\n                  17 show trajectory animations\n                 18 plot muscular activations\n                 19 show Brent positions\n')
             choix = input('Enter the number corresponding to the script you want to run: ')
             choix = int(choix)
             checkL = False
@@ -126,14 +128,17 @@ def runAll():
     elif choix == 10:
         launchCMAESWithBestThetaTmpForAllTargetSize()
     elif choix == 11:
-        c = input("RBFN (0) or CMAES (1)? : ")
+        c = input("RBFN (0), CMAES (1) or Brent (2)? : ")
         c = int(c)
         nameF = raw_input('Folder name where the results are saved: ')
-        if c == 0: 
-            rbfn= True
+        if c == 2:
+            plotVelocityProfileBrent()
         else:
-            rbfn=False
-        plotVelocityProfiles(nameF,rbfn)
+            if c == 0: 
+                rbfn= True
+            else:
+                rbfn=False
+            plotVelocityProfiles(nameF,rbfn)
     elif choix == 12:
         nameC = raw_input('Name to save the RBFN controller: ')
         runRBFN(nameC)
@@ -175,7 +180,15 @@ def runAll():
         if rorc == 2:
             plotMuscularActivations(nameF, True)
         elif rorc == 1:
-            plotActiMuscu(nameF)
+            plotMuscularActivations(nameF)
+    elif choix == 19:
+        c = input("XY (0) or articular (1)? : ")
+        c = int(c)
+        if c == 0:
+            arm = Arm()
+            plotXYPositionsBrent(arm)
+        else:
+            plotArticularPositionsBrent()
     
 runAll()
 

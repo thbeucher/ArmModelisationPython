@@ -40,10 +40,12 @@ class MuscularActivationCommand:
     
     	Output:		-Unoise: the muscular activation vector U with motor noise
     	'''
-        #compute the next muscular activation vector using the controller theta
-        U = self.fa.computesOutput(state, self.theta)
+        #computes the next muscular activation vector using the controller theta
+        U = self.fa.computeOutput(state, self.theta)
+        print U
         #add the motor noise
         UnoiseTmp = U*(1+ np.random.normal(0,self.rs.knoiseU))
+        print UnoiseTmp
         #check if the muscular activation are normed, ie between 0 and 1
         UnoiseTmp = self.checkRangeEndpoint(UnoiseTmp)
         #put U in column vector form
@@ -52,7 +54,7 @@ class MuscularActivationCommand:
     
     def checkRangeEndpoint(self, UnoiseTmp):
         '''
-		Checks if the muscular activation is between 0 and 1
+		Makes sure that the muscular activation is between 0 and 1
 		
 		Input:		-UnoiseTmp: muscular activation vector
 		

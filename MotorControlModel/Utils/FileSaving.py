@@ -8,7 +8,7 @@ Module: FileSaving
 Description: On retrouve dans ce fichier les fonctions permettant de sauvegarder les donnees du projet
 '''
 import pickle
-from GlobalVariables import pathDataFolder
+from GlobalVariables import pathDataFolder, cmaesPath
 import json
 import os
         

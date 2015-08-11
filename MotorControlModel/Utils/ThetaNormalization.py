@@ -11,8 +11,7 @@ Description: On retrouve dans ce fichier les fonctions pour normaliser theta
 import numpy as np
 from Utils.FileReading import FileReading
 from Utils.FileSaving import fileSavingBin
-from GlobalVariables import pathDataFolder
-    
+from GlobalVariables import pathDataFolder, cmaesPath    
     
 def normalization(theta):
     maxT = np.max(np.abs(theta), axis = 0)
@@ -66,39 +65,3 @@ def unNormNP(theta, rs):
     for i in range(theta.shape[1]):
         theta[:,i] = theta[:,i] * maxT[i]
     return theta
-
-
-
-
-
-'''def normalizeThetaFunction():
-    fr = FileReading()
-    fr.getTheta(3, 0)
-    vzeros = []
-    #Enregistrement des theta en Str
-    for i in range(6):
-        name = "ThetaAllTraj/Theta_u" + str(i+1)
-        fileSavingStr(name, fr.theta_store[str("u" + str(i+1))])
-    #Normalisation des theta
-    for i in range(6):
-        mini = np.min(fr.theta_store[str("u" + str(i+1))])
-        maxi = np.max(fr.theta_store[str("u" + str(i+1))])
-        vs = fr.theta_store[str("u" + str(i+1))]
-        v = (vs - mini)/(maxi - mini)
-        vtest = v + 0.1
-        name = "ThetaAllTraj/thetaNormalize_u" + str(i+1)
-        fileSavingStr(name, v)
-        nameb = "ThetaAllTraj/Python_thetaNormalize_u" + str(i+1)
-        fileSavingBin(nameb, v)
-    #Coefficient de normalisation
-    for i in range(6):
-        namec = "ThetaAllTraj/CoefNormalization_theta_u" + str(i+1)
-        vTmp = fr.getobjread(str("ThetaAllTraj/Python_thetaNormalize_u" + str(i+1)))
-        coef =  np.divide(vTmp, fr.theta_store[str("u" + str(i+1))])
-        fileSavingBin(namec, coef)
-        fileSavingStr(str(namec + "_str"), coef)
-'''
-
-
-
-

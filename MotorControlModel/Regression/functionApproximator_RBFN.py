@@ -16,14 +16,14 @@ import ctypes as ct
 
 class fa_rbfn():
     
-    def __init__(self, nbFeature):
+    def __init__(self, nbFeatures):
         '''
 	Initializes class parameters
 	
 	Input:     -nbFeature: int, number of feature in order to perform the regression
 
         '''
-        self.nbFeat = nbFeature
+        self.nbFeat = nbFeatures
         self.title = "rbfn"
         
     def setTrainingData(self, inputData, outputData):
@@ -134,7 +134,7 @@ class fa_rbfn():
         return phi
 
 
-    def computesOutput(self, inputData, theta):
+    def computeOutput(self, inputData, theta):
         '''
         Returns the output depending on the given input and theta
         

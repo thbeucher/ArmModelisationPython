@@ -14,6 +14,9 @@ from scipy import stats
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
+from Utils.InitUtil import initFRRS
+from GlobalVariables import cmaesPath
+
 def plotMuscularActivations(folderName, rbfn = False):
     '''
     plots the muscular actuations from a folder
@@ -22,10 +25,11 @@ def plotMuscularActivations(folderName, rbfn = False):
               -rbfn: get them from rbfn or from cmaes controllers (default is cmaes)
 
     Note : does not work for the Brent controller
+    Note : for CMAES, the target size should be read from the setup file (here, set to 0.1)
     '''
     fr, rs = initFRRS()
     if rbfn == False:
-        name = cmaesPath + "/ResCma0.01/" + folderName + "/saveU"
+        name = cmaesPath + "/ResCma0.1/" + folderName + "/saveU"
     else:
         name = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/saveU"
     data = fr.getobjreadJson(name)
@@ -63,15 +67,15 @@ def plotMuscularActivation(what):
     '''
     fr, rs = initFRRS()
     if what == "brent":
-        state, command = fr.getData(BrentTrajectoriesFolder)
+        state, command = fr.getStateAndCommandDataFromBrent(BrentTrajectoriesFolder)
         y = {}
         for key, val in command.items():
             y[key] = []
-            for i in range(len(command[key])):
+            for i in range(len(val)):
                 y[key].append(i)
             plt.figure()
             for i in range(6):
-                plt.plot(y[key], np.array(command[key]).T[i])
+                plt.plot(y[key], np.array(val).T[i])
             plt.show(block = True)
         
     elif what == "rbfn":

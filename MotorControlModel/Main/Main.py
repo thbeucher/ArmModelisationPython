@@ -16,7 +16,7 @@ from Utils.ThetaNormalization import normalizationNP, matrixToVector,\
     normalizationNPWithoutSaving
 from Utils.InitUtilMain import initAll
 from Utils.FileSaving import fileSavingAllDataJson, fileSavingScattergramJson
-from GlobalVariables import pathDataFolder
+from GlobalVariables import pathDataFolder, cmaesPath
 import os
 from Utils.ReadDataTmp import getBestTheta
 from Utils.PurgeData import purgeCostNThetaTmp

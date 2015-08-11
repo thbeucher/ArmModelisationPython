@@ -14,7 +14,7 @@ import numpy as np
 
 def mgi(xi, yi, l1, l2):
     '''
-    Inverse geometric model
+    Inverse geometric model of the arm
         
     Inputs:     -xi: abscissa of the end-effector point
                 -yi: ordinate of the end-effectior point
@@ -53,26 +53,6 @@ def mgd(q, l1, l2):
     coordHand = (l2*np.cos(q[1,0] + q[0,0]) + l1*np.cos(q[0,0]), l2*np.sin(q[1,0] + q[0,0]) + l1*np.sin(q[0,0]))
     return coordElbow, coordHand
     
-    
-def jointStop(q):
-    '''
-    Articular stop for the human arm
-    Shoulder: -0.6 <= q1 <= 2.6
-    Elbow: -0.2 <= q2 <= 3.0
-    
-    Inputs:    -q: (2,1) numpy array
-    
-    Outputs:    -q: (2,1) numpy array
-    '''
-    if q[0,0] < -0.6:
-        q[0,0] = -0.6
-    elif q[0,0] > 2.6:
-        q[0,0] = 2.6
-    if q[1,0] < -0.2:
-        q[1,0] = -0.2
-    elif q[1,0] > 3.0:
-        q[1,0] = 3.0
-    return q
 
 
 
