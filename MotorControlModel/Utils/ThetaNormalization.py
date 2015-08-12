@@ -9,7 +9,6 @@ Description: On retrouve dans ce fichier les fonctions pour normaliser theta
 '''
 
 import numpy as np
-from Utils.FileReading import FileReading
 from Utils.FileSaving import fileSavingBin
 from GlobalVariables import pathDataFolder, cmaesPath    
     
@@ -21,8 +20,13 @@ def normalization(theta):
     return theta
 
 def unNorm(theta):
-    fr = FileReading()
-    maxT = fr.getobjread(str(cmaesPath + "/maxTBIN"))
+    maxT = getobjread(str(cmaesPath + "/maxTBIN"))
+    for i in range(theta.shape[1]):
+        theta[:,i] = theta[:,i] * maxT[i]
+    return theta
+
+def unNormNP(theta):
+    maxT = np.loadtxt(pathDataFolder + 'inputMaxTmp')
     for i in range(theta.shape[1]):
         theta[:,i] = theta[:,i] * maxT[i]
     return theta
@@ -58,10 +62,4 @@ def normalizationNPWithoutSaving(theta, rs):
     maxT = np.loadtxt(pathDataFolder + 'inputMaxTmp')
     for i in range(theta.shape[1]):
         theta[:,i] = theta[:,i] / maxT[i]
-    return theta
-
-def unNormNP(theta, rs):
-    maxT = np.loadtxt(pathDataFolder + 'inputMaxTmp')
-    for i in range(theta.shape[1]):
-        theta[:,i] = theta[:,i] * maxT[i]
     return theta

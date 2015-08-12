@@ -10,21 +10,20 @@ Description: We find here functions usefull to run cmaes and latter some script 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import animation
-from Utils.InitUtil import initFRRS
 from GlobalVariables import pathDataFolder, cmaesPath
 
 
 # mettre size of target en argument
 def trajectoriesAnimation(folderName, rbfn = False):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     if rbfn == True:
         nameEC = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/elbowCoord"
         nameHC = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/handCoord"
     else:
         nameEC = cmaesPath + "/ResCma0.005/" + folderName + "/elbowCoord"
         nameHC = cmaesPath + "/ResCma0.005/" + folderName + "/handCoord"
-    ec = fr.getobjreadJson(nameEC)
-    hc = fr.getobjreadJson(nameHC)
+    ec = getobjreadJson(nameEC)
+    hc = getobjreadJson(nameHC)
     
     posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
     

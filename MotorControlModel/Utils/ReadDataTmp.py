@@ -8,8 +8,6 @@ Description: the function below alow to read temporary data
 
 import numpy as np
 from GlobalVariables import pathDataFolder, cmaesPath
-from Utils.InitUtil import initFRRS
-
 
 def readThetaTmpBySizeOfTarget(sizeOfTarget, rs):
     dim0 = rs.numfeats**rs.inputDim
@@ -33,7 +31,7 @@ def readCostTmpBySizeOfTarget(sizeOfTarget):
 
 
 def getBestTheta():
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     listBT = []
     for el in rs.sizeOfTarget:
         listT = readThetaTmpBySizeOfTarget(el, rs)

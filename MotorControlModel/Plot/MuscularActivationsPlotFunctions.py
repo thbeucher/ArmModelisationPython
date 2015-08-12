@@ -14,7 +14,6 @@ from scipy import stats
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
-from Utils.InitUtil import initFRRS
 from GlobalVariables import cmaesPath
 
 def plotMuscularActivations(folderName, rbfn = False):
@@ -27,7 +26,7 @@ def plotMuscularActivations(folderName, rbfn = False):
     Note : does not work for the Brent controller
     Note : for CMAES, the target size should be read from the setup file (here, set to 0.1)
     '''
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     if rbfn == False:
         name = cmaesPath + "/ResCma0.1/" + folderName + "/saveU"
     else:
@@ -65,7 +64,7 @@ def plotMuscularActivation(what):
               -nbfeat: number of features used to generate the current controller 
     Note : probably deprecated               
     '''
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     if what == "brent":
         state, command = fr.getStateAndCommandDataFromBrent(BrentTrajectoriesFolder)
         y = {}
@@ -101,7 +100,7 @@ def plotActiMuscuBrent():
     Plots the muscular activation using the Brent controller
     Note : probably deprecated, the given path is not correct              
     '''
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     data = fr.getobjread("trajectoires_cout/actiMuscuBIN")
     xi, yi = np.linspace(-0.25,0.25,200), np.linspace(0.26,0.6,200)
     x0, y0, z = [], [], []

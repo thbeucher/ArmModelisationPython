@@ -9,19 +9,16 @@ Description: The class which computes the trajectory cost
 '''
 import numpy as np
 
-
 class CostComputation:
     
-    def __init__(self):
-        self.name = "CostComputation"
-        
-    def initParametersCC(self, rs):
+    def __init__(self, rs):
         '''Initializes class object needed to acces to the setup variables
         
         Input:	-rs: ReadSetup, class object given acces to the setup variables
         '''
+        self.name = "CostComputation"
         self.rs = rs
-        
+         
     def computeStateTransitionCost(self, cost, U, t):
         '''
 		Computes the cost on one step of the trajectory

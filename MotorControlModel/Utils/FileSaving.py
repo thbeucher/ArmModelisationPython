@@ -7,10 +7,10 @@ Module: FileSaving
 
 Description: On retrouve dans ce fichier les fonctions permettant de sauvegarder les donnees du projet
 '''
+import os
+import json
 import pickle
 from GlobalVariables import pathDataFolder, cmaesPath
-import json
-import os
         
 def fileSavingStr(nameFile, data, loc = 0):
     '''
@@ -47,9 +47,6 @@ def fileSavingData(nameFile, data):
     fileSavingStr(nameFile, data)
     nameFile = nameFile + "BIN"
     fileSavingBin(nameFile, data)
-    
-def fileSavingDataJson(name, data):
-    fileSavingStrJson(name, data)
 
 def fileSavingCMAESData(sizeOfTarget, tg):
     nameSave = cmaesPath + "/ResCma" + str(sizeOfTarget) + "/ResUKF1B/"
@@ -65,7 +62,7 @@ def checkFolderExists(name):
         
 def fileSavingScattergramJson(sizeOfTarget, tg, folderName):
     nameSave = cmaesPath + "/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
-    fileSavingDataJson(nameSave + "hitDispersion", tg.saveCoordEndTraj)
+    fileSavingStrJson(nameSave + "hitDispersion", tg.saveCoordEndTraj)
     
 def fileSavingAllDataJson(sizeOfTarget, tg, folderName, rbfn = False):
     if rbfn == True:

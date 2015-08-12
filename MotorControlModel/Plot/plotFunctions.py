@@ -18,14 +18,15 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.mlab import griddata
 
-
+from Utils.FileReading import getStateDataFromBrent, getInitPos, getobjread, getobjreadJson
+from Utils.ReadSetupFile import ReadSetupFile
 from Utils.NiemRoot import tronquerNB
-from Utils.InitUtil import initFRRS
-from ArmModel.Arm import mgd, getDotQAndQFromStateVector
 
 from Utils.UsefulFunctions import returnX0Y0Z, returnDifCostBrentRBFN,\
      getTimeDistance, getDistPerfSize, getVelocityProfileDataRBFN, getVelocityProfileDataCMAES, getTimeByArea,\
     checkIfTargetIsReach
+
+from ArmModel.Arm import Arm
 
 from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder, cmaesPath
 
@@ -38,12 +39,12 @@ def costColorPlot(what):
     '''
     xt = 0
     
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     nbfeat = rs.numfeats
     
     x0 = []
     y0 = []
-    posi = fr.getobjread(rs.experimentFilePosIni)
+    posi = getobjread(rs.experimentFilePosIni)
     for el in posi:
         x0.append(el[0])
         y0.append(el[1])
@@ -54,13 +55,13 @@ def costColorPlot(what):
         
     elif what == "cma":
         name = "RBFN2/" + str(nbfeat) + "feats/costBINCma"
-        z = fr.getobjread(name)
+        z = getobjread(name)
         for i in range(len(z)):
             if z[i] > 0:
                 z[i] -= rs.rhoCF
         
     elif wha == "brent":
-        data = fr.getobjread("trajectoires_cout/trajectoire_coutCoordXBIN")
+        data = getobjread("trajectoires_cout/trajectoire_coutCoordXBIN")
         z, x0, y0 = [], [], []
         for el in data:
             z.append(el[1]-rs.rhoCF)
@@ -102,10 +103,10 @@ def costColorPlot(what):
     plt.show(block = True)
 
 def plotHitDispersion(sizeT):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/CoordHitTargetBIN" 
     name = cmaesPath + "/ResCma" + str(sizeT) + "/ResTry1/CoordHitTargetCmaBIN"
-    data = fr.getobjread(name)
+    data = getobjread(name)
     tab = []
     for el in data.values():
         for el1 in el:
@@ -121,12 +122,12 @@ def plotHitDispersion(sizeT):
     plt.show(block = True)
 
 def plotRBFNCostMap():
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     x0, y0, z = [], [], []
     xt = 0
     name = "RBFN2/" + str(rs.numfeats) + "feats/ResultShuffle/actiMuscuRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
     #example : name = "/home/beucher/Desktop/runRBFN/RBFN/RBFN2/4feats/Res42/actiMuscuRBFN0.1BIN"
-    data = fr.getobjread(name)
+    data = getobjread(name)
     for key, val in data.items():
         x0.append(float(key.split("//")[0]))
         y0.append(float(key.split("//")[1]))
@@ -142,7 +143,7 @@ def plotRBFNCostMap():
     plt.show(block = True)
 
 def plotAllCmaes(nameF, rbfn = False):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     x0, y0, z = {}, {}, {}
     xt = 0
     zDico = []
@@ -152,7 +153,7 @@ def plotAllCmaes(nameF, rbfn = False):
                 name = cmaesPath + "/ResCma" + str(rs.sizeOfTarget[i]) + "/" + nameF + "/saveMvtCost"
             else:
                 name = "RBFN2/" + str(rs.numfeats) + "feats/" + nameF + "/saveMvtCost"
-            zDico.append(fr.getobjreadJson(name))
+            zDico.append(getobjreadJson(name))
         except:
             pass
  
@@ -185,7 +186,7 @@ def plotAllCmaes(nameF, rbfn = False):
     plt.show(block = True)
     
 def plotTimeDistanceTarget(folderName, rbfn = False):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     targetDic = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
@@ -218,7 +219,7 @@ def plotTimeDistanceTarget(folderName, rbfn = False):
     plt.show(block = True)
             
 def plotFittsLaw(folderName, rbfn = False):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     data = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
@@ -246,7 +247,7 @@ def plotFittsLaw(folderName, rbfn = False):
     plt.show(block = True)
     
 def plotPerfSizeDist(folderName, rbfn = False):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     sizeDistPerfTmp = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
@@ -269,7 +270,7 @@ def plotPerfSizeDist(folderName, rbfn = False):
     plt.show(block = True)
 
 def plotMapTimeTrajectories(folderName, rbfn = False):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     areaTimeBySize = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
@@ -297,12 +298,12 @@ def plotMapTimeTrajectories(folderName, rbfn = False):
     plt.show(block = True)
  
 def plotcmaesCostProgress():
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     costCma = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
             name = cmaesPath + "/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(100)
-            costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = fr.getobjread(name)
+            costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = getobjread(name)
         except:
             pass
     costEvo = {}
@@ -319,7 +320,7 @@ def plotcmaesCostProgress():
     plt.show(block = True)
 
 def plotCostColorMapForAllTheta():
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     name = "RBFN2/" + str(rs.numfeats) + "feats/EvaluationOFTheta/"
     xi = np.linspace(-0.25,0.25,100)
     yi = np.linspace(0.35,0.5,100)
@@ -335,9 +336,9 @@ def plotCostColorMapForAllTheta():
         plt.show(block = True)
         
 def plotTrajWhenTargetNotReach():
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     name = "RBFN2/" + str(rs.numfeats) + "feats/costTrajRBFNBIN"
-    data = fr.getobjread(name)
+    data = getobjread(name)
     xr, xnr, yr, ynr = [], [], [], []
     for key, val in data.items():
         if val <= 280:
@@ -352,9 +353,9 @@ def plotTrajWhenTargetNotReach():
     plt.show(block = True)
    
 def plotCostVariation(sizeT):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     name = "RBFN2/" + str(rs.numfeats) + "feats/costArrayAll/costArrayBIN" + str(sizeT)
-    costArr = fr.getobjread(name)
+    costArr = getobjread(name)
     print(costArr.shape)
     lineCost = {}
     for i in range(costArr.shape[0]):
@@ -368,10 +369,10 @@ def plotCostVariation(sizeT):
         plt.show(block = True)
 
 def plotExperimentSetup():
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     q1 = np.linspace(-0.6, 2.6, 100, True)
     q2 = np.linspace(-0.2, 3, 100, True)
-    posIni = fr.getobjread(rs.experimentFilePosIni)
+    posIni = getobjread(rs.experimentFilePosIni)
     xi, yi = [], []
     xb, yb = [0], [0]
     t = 0
@@ -404,7 +405,7 @@ def plotExperimentSetup():
     plt.show(block = True)
 
 def plotScattergram2(folderName):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     data = {}
     for i in range(len(rs.sizeOfTarget)):
         data[rs.sizeOfTarget[i]] = getDataScattergram(rs.sizeOfTarget[i], folderName)
@@ -422,9 +423,9 @@ def plotScattergram2(folderName):
     plt.show(block = True)
         
 def plotTrackTraj():
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     name = "RBFN2/" + str(rs.numfeats) + "feats/ResShuffleAll/coordEndEffectorRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
-    coordAll = fr.getobjread(name)
+    coordAll = getobjread(name)
     plt.figure()
     for key, val in coordAll.items():
         plt.plot([x[0] for x in val], [y[1] for y in val])
@@ -432,8 +433,8 @@ def plotTrackTraj():
     print(len(coordAll))
 
 def plotPlayWithTraj():
-    fr, rs = initFRRS()
-    data, junk = fr.getInitPos(BrentTrajectoriesFolder)
+    rs = ReadSetupFile()
+    data, junk = getInitPos(BrentTrajectoriesFolder)
     x, y, x1, y1 = [], [], [], []
     todel = []
     for key, el in data.items():
@@ -453,8 +454,8 @@ def plotPlayWithTraj():
     plt.show(block = True)
         
 def plotLearningFieldRBFN():
-    fr, rs = initFRRS()
-    posIni = fr.getobjread(rs.experimentFilePosIni)
+    rs = ReadSetupFile()
+    posIni = getobjread(rs.experimentFilePosIni)
     x, y = [], []
     for el in posIni:
         x.append(el[0])
@@ -467,7 +468,7 @@ def plotLearningFieldRBFN():
         r.append(a)
         ang.append(b)
     
-    xy, junk = fr.getInitPos(BrentTrajectoriesFolder)
+    xy, junk = getInitPos(BrentTrajectoriesFolder)
     sx, sy = [], []
     for key, val in xy.items():
         rr, tt = invPosCircle(val[0], val[1])
@@ -484,13 +485,13 @@ def plotLearningFieldRBFN():
     plt.show(block = True)
 
 def plotLearningFieldRBFNSquare():
-    fr, rs = initFRRS()
-    posIni = fr.getobjread(rs.experimentFilePosIni)
+    rs = ReadSetupFile()
+    posIni = getobjread(rs.experimentFilePosIni)
     x, y = [], []
     for el in posIni:
         x.append(el[0])
         y.append(el[1])
-    xy, junk = fr.getInitPos(BrentTrajectoriesFolder)
+    xy, junk = getInitPos(BrentTrajectoriesFolder)
     sx, sy = [], []
     for key, val in xy.items():
         if val[0] <= (np.max(x) + 0.02) and val[0] >= (np.min(x) - 0.02) and val[1] >= (np.min(y) - 0.01) and val[1] <= (np.max(y) + 0.02):
@@ -505,9 +506,9 @@ def plotLearningFieldRBFNSquare():
     plt.show(block = True)
 
 def plotTimeVariationForEachDistance(sizeTarget):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     name = cmaesPath + "/ResCma" + str(sizeTarget) + "/nbItecp5CmaBIN"
-    nbIteTraj = fr.getobjread(name)
+    nbIteTraj = getobjread(name)
     distTimeDico = {}
     for key, val in nbIteTraj.items():
         nbIteTraj[key] = int(np.mean(nbIteTraj[key]))
@@ -529,12 +530,12 @@ def plotTimeVariationForEachDistance(sizeTarget):
 #Functions related to velocity profiles
     
 def plotVelocityProfileRBFN(sizeT):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
     name = cmaesPath + "/ResCma" + str(sizeT) + "/ResTK2/SpeedSaveCmaBIN"
     nameNbIte = cmaesPath + "/ResCma" + str(sizeT) + "/ResTK2/nbIteCmaBIN"
-    data = fr.getobjread(name)
-    nbIte = fr.getobjread(nameNbIte)
+    data = getobjread(name)
+    nbIte = getobjread(nameNbIte)
     aAll, vAll, tAll = {}, {}, {}
     for key, val in data.items():
         a = []
@@ -561,7 +562,7 @@ def plotVelocityProfileRBFN(sizeT):
     plt.show(block = True)
 
 def plotVelocityProfiles(folderName, rbfn = False):
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     plt.figure(1, figsize=(16,9))
 
     if rbfn:
@@ -575,16 +576,16 @@ def plotVelocityProfiles(folderName, rbfn = False):
             t, v = getVelocityProfileDataCMAES(rs.sizeOfTarget[i], folderName)
             for key, val in v.items():
                 ax.plot(t[key], val, c ='b')
-                ax.xlabel("time")
-                ax.ylabel("Instantaneous velocity")
+                ax.set_xlabel("time")
+                ax.set_ylabel("Instantaneous velocity")
                 ax.set_title(str("Velocity profiles for target " + str(rs.sizeOfTarget[i])))
     plt.show(block = True)
 
 def plotVelocityProfileBrent():
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     plt.figure(1, figsize=(16,9))
 
-    state = fr.getStateDataFromBrent(BrentTrajectoriesFolder)
+    state = getStateDataFromBrent(BrentTrajectoriesFolder)
     for k,v in state.items():
         if rd.random()<0.06:
             index, speed = [], []
@@ -597,16 +598,17 @@ def plotVelocityProfileBrent():
     plt.title("Velocity profiles for Brent")
     plt.show(block = True)
 
-def plotXYPositionsBrent(arm):
-    fr, rs = initFRRS()
+def plotXYPositionsBrent():
     plt.figure(1, figsize=(16,9))
 
-    state = fr.getStateDataFromBrent(BrentTrajectoriesFolder)
+    arm = Arm()
+
+    state = getStateDataFromBrent(BrentTrajectoriesFolder)
     for k,v in state.items():
         if rd.random()<0.06:
             posX, posY = [], []
             for j in range(len(v)):
-                coordElbow,coordHand = mgd(arm,v[j])
+                coordElbow,coordHand = arm.mgd(v[j])
                 posX.append(coordHand[0])
                 posY.append(coordHand[1])
                 plt.plot(posX,posY, c ='b')
@@ -616,10 +618,9 @@ def plotXYPositionsBrent(arm):
     plt.show(block = True)
 
 def plotArticularPositionsBrent():
-    fr, rs = initFRRS()
     plt.figure(1, figsize=(16,9))
 
-    state = fr.getStateDataFromBrent(BrentTrajectoriesFolder)
+    state = getStateDataFromBrent(BrentTrajectoriesFolder)
     for k,v in state.items():
         if rd.random()<0.06:
             posX, posY = [], []
@@ -641,14 +642,14 @@ def plotInitPos():
     '''
     x0 = []
     y0 = []
-    fr, rs = initFRRS()
+    rs = ReadSetupFile()
     xt = 0
     yt = rs.targetOrdinate
-    posIni = fr.getobjread(rs.experimentFilePosIni)
+    posIni = getobjread(rs.experimentFilePosIni)
     for el in posIni:
         x0.append(el[0])
         y0.append(el[1])
-    xy, junk = fr.getInitPos(BrentTrajectoriesFolder)
+    xy, junk = getInitPos(BrentTrajectoriesFolder)
     x, y = [], []
     aa, keyy = [], []
     for key, el in xy.items():
@@ -668,7 +669,7 @@ def plotInitPos():
     plt.show(block = True)
 
 def plotPosTAT(fr, rs):
-    xtr, junk = fr.getInitPos(pathDataFolder + "ThetaAllTraj/")
+    xtr, junk = getInitPos(pathDataFolder + "ThetaAllTraj/")
     xt1, yt1 = [], []
     for key, el in xtr.items():
         xt1.append(el[0])
@@ -733,8 +734,7 @@ def plotTrajThetaAllTraj():
     Note: deprecated
     '''
     name = "/home/beucher/workspace/Data/ThetaAllTraj/"
-    fr = FileReading()
-    traj, junk = fr.getInitPos(name)
+    traj, junk = getInitPos(name)
     x, y, x1, y1 = [], [], [], []
     for el in traj.values():
         x.append(el[0])

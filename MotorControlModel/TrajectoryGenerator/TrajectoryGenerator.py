@@ -11,38 +11,34 @@ Description: Class to generate a trajectory
 import numpy as np
 
 from Utils.CreateVectorUtil import createVector
-from ArmModel.Arm import mgi, mgd, getDotQAndQFromStateVector, createStateVector
+from ArmModel.Arm import Arm, createStateVector, getDotQAndQFromStateVector
 
 class TrajectoryGenerator:
     
-    def __init__(self):
-        self.name = "TrajectoryGenerator"
-        #Initializes variables used to save trajectory
-        self.initSaveVariables()
-        
-    def initParametersTG(self, armM, rs, nsc, cc, sizeOfTarget, Ukf, mac, saveA):
+    def __init__(self, arm, rs, cc, sizeOfTarget, Ukf, saveA, controller):
         '''
     	Initializes the parameters used to run the functions below
     
     	Inputs:		
-    			-armM, armModel, class object
+    			-arm, armModel, class object
                         -rs, readSetup, class object
-    			-nsc, nextStateComputation, class object
     			-cc, costComputation, class object
     			-sizeOfTarget, size of the target, float
     			-Ukf, unscented kalman filter, class object
-     			-mac, muscularActivationCommand, class object
     			-saveA, Boolean: true = Data are saved, false = data are not saved
     	'''
+        self.name = "TrajectoryGenerator"
+        self.arm = arm
         self.rs = rs
-        self.nsc = nsc
         self.cc = cc
         self.sizeOfTarget = sizeOfTarget
         self.Ukf = Ukf
-        self.armM = armM
-        self.mac = mac
+        self.mac = arm.mac
         self.saveA = saveA
-
+        self.controller = controller
+        #Initializes variables used to save trajectory
+        self.initSaveVariables()
+ 
     def initSaveVariables(self):
         '''
         Initializes variables used to save trajectory
@@ -120,42 +116,45 @@ class TrajectoryGenerator:
     	Output:		-cost: the cost of the trajectory, float
     	'''
         #computes the articular position q1, q2 from the initial coordinates (x, y)
-        q1, q2 = mgi(self.armM,x, y)
+        q1, q2 = self.arm.mgi(x, y)
         #creates the position vector [q1, q2]
         q = createVector(q1, q2)
         #creates the speed vector [dotq1, dotq2]
         dotq = createVector(0., 0.)
         #creates the state vector [dotq1, dotq2, q1, q2]
         state = createStateVector(dotq, q)
+
         #computes the coordinates of the hand and the elbow from the position vector
-        coordElbow, coordHand = mgd(self.armM,q)
+        coordElbow, coordHand = self.arm.mgd(q)
         #initializes parameters for the trajectory
         i, t, cost = 0, 0, 0
         self.Ukf.initObsStore(state)
-        self.armM.initStateAD(state)
-        self.nsc.setState(state)
-        #code to save data of the trajectory
+        self.arm.setState(state)
+         #code to save data of the trajectory
         self.nameToSaveTraj = str(x) + "//" + str(y)
         if self.saveA == True:
             self.initSaveLoopData()
         #loop to generate next position until the target is reached 
-        estimateState = state
+        estimState = state
         while coordHand[1] < self.rs.targetOrdinate:
             #stop condition to avoid infinite loop
             if i < self.rs.numMaxIter:
                 #computation of the next muscular activation vector
-                Ucontrol = self.mac.getCommandMAC(estimateState)
+            #computes the next muscular activation vector using the controller theta
+                U = self.controller.computeOutput(estimState, self.mac.theta)
+                Ucontrol = self.mac.getNoisyCommand(U,self.rs.knoiseU)
                 #computation of the arm state
-                #realState = self.armM.mddAD(Ucontrol)
-                realState = self.nsc.computeNextState(Ucontrol)
+                realState = self.arm.computeNextState(Ucontrol,self.arm.state)
+                self.arm.setState(realState)
+
                 #computation of the approximated state
-                estimateState = self.Ukf.runUKF(Ucontrol, realState)
+                estimState = self.Ukf.runUKF(Ucontrol, realState)
                 #computation of the cost
                 cost = self.cc.computeStateTransitionCost(cost, Ucontrol, t)
                 #get dotq and q from the state vector
-                dotq, q = getDotQAndQFromStateVectorS(realState)
+                dotq, q = getDotQAndQFromStateVector(realState)
                 #computation of the coordinates to check if the target is reach or not
-                coordElbow, coordHand = self.armM.mgd(q)
+                coordElbow, coordHand = self.arm.mgd(q)
                 #code to save data of the trajectory
                 if self.saveA == True:
                     self.saveLoopData(np.linalg.norm(dotq), Ucontrol, coordElbow, coordHand)

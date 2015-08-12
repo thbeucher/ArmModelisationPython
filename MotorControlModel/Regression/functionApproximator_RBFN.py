@@ -34,11 +34,15 @@ class fa_rbfn():
         Input:      -inputdata, numpy N-D array
                     -outputData, numpy N-D array
         '''
-        self.inputData = inputData
-        self.outputData = outputData
+        self.inputData = inputData.T
+        self.outputData = outputData.T
+
         #Getting input and output dimensions and number of samples
-        self.inputDimension, numberOfInputSamples = np.shape(inputData)
-        self.outputDimension, numberOfOutputSamples = np.shape(outputData)
+        self.inputDimension = len(inputData[0])
+        numberOfInputSamples = len(inputData)
+        self.outputDimension = len(outputData[0])
+        numberOfOutputSamples = len(outputData)
+        print "dimensions : " + str(self.inputDimension) + "x" +  str(self.outputDimension)
         #check if there are the same number of samples for input and output data
         assert(numberOfInputSamples == numberOfOutputSamples), "Number of samples not equal for output and input"
         self.numberOfSamples = numberOfInputSamples
@@ -58,7 +62,7 @@ class fa_rbfn():
     
     def train_rbfn(self):
         '''
-        Defines the training function to find solution of the approximation
+        Training function to learn the approximation (multiprocessing version)
         
         '''
         fop = self.computeFeatureWeight(self.inputData.T)
@@ -106,7 +110,7 @@ class fa_rbfn():
     
     def computeFeatureWeight(self, inputData):
         '''
-        Computates Gaussian parameters
+        Computes Gaussian parameters
         
         Input:     -inputData: numpy N-D array
         
@@ -143,12 +147,8 @@ class fa_rbfn():
         
         Output:     -fa_out: numpy N-D array, output approximated
         '''
-        if inputData.shape[1] == 1:
-            phi = self.computeFeatureWeight(inputData)
-            fa_out = np.dot(phi.T, theta) 
-        else:
-            phi = self.computeFeatureWeight(inputData)
-            fa_out = np.dot(phi.T, theta) 
+        phi = self.computeFeatureWeight(inputData)
+        fa_out = np.dot(phi.T, theta) 
         return fa_out
        
     
