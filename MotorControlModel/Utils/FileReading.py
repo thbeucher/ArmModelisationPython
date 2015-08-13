@@ -66,7 +66,7 @@ def getStateAndCommandDataFromBrent(location):
     '''
     state, command = {}, {}
     for el in os.listdir(location):
-        if rd.random()<0.01:
+        #if rd.random()<0.001:
             state[el], command[el] = [], []
             mati = np.loadtxt(location + el)
             for i in range(mati.shape[0]):

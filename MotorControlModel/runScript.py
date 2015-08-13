@@ -15,8 +15,8 @@ from Regression.RunRegressionRBFN import runRBFN
 from Plot.TrajectoryAnimation import trajectoriesAnimation
 
 from Plot.MuscularActivationsPlotFunctions import plotMuscularActivations
-from Plot.plotFunctions import plotAllCmaes, plotTimeDistanceTarget,\
-    plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,\
+from Plot.plotFunctions import plotCostMapCMAES, plotCostMapRBFN, plotTimeDistanceTarget,\
+    plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram,\
     plotVelocityProfiles, plotVelocityProfileBrent, plotXYPositionsBrent, plotArticularPositionsBrent
 
 from Utils.UsefulFunctions import checkReachAllTarget
@@ -70,31 +70,32 @@ def installMissingPackage(packageList):
 def printMainMenu():
     print('Available scripts:')
     print('	Brent:')
-    print('		1 velocity profiles')
-    print('		2 articular positions')
-    print('		3 XY positions')
-    print('		4 muscular actuations (NOT AVAILABLE)')
+    print('		1 plot velocity profiles')
+    print('		2 plot articular positions')
+    print('		3 plot XY positions')
+    print('		4 plot muscular actuations (NOT AVAILABLE)')
     print('		5 (NOT AVAILABLE)')
     print('-------------------------------------------------')
     print('	RBFN:')
     print('		6 train from Brent data')
-    print('		7 velocity profiles')
-    print('		8 articular positions (NOT AVAILABLE)')
-    print('		9 muscular actuations')
-    print('		10 (NOT AVAILABLE)')
-    print('		11 (NOT AVAILABLE)')
+    print('		7 plot velocity profiles')
+    print('		8 plot articular positions (NOT AVAILABLE)')
+    print('		9 plot muscular actuations')
+    print('		10 plot cost Map')
     print('-------------------------------------------------')
     print('	CMAES:')
-    print('		12 train for all targets')
-    print('		13 velocity profiles')
-    print('		14 articular positions (NOT AVAILABLE)')
-    print('		15 muscular actuations')
+    print('		11 train for all targets')
+    print('		12 generate results from current controllers')
+    print('		13 plot velocity profiles')
+    print('		14 plot articular positions (NOT AVAILABLE)')
+    print('		15 plot muscular actuations')
     print('		16 plot cost Map')                  
     print('		17 plot Time x Distance for Targets')                  
     print('		18 plot Size x Dist')                  
     print('		19 plot Fitts Law')                  
-    print('		20 generate results from current controllers')
+    print('		20 plot Map Time x Trajectory')
     print('		21 show trajectory animations')                 
+    print('		22 plot Hit dispersion')
 
 def runAll():
     runInstall()
@@ -151,8 +152,17 @@ def chooseFunction(choix):
     elif choix == 9:
         nameF = raw_input('Folder where the results are saved: ')
         plotMuscularActivations(nameF,True)
-    elif choix == 12:
+    elif choix == 10:
+        nameF = raw_input('Folder where the results are saved: ')
+        plotCostMapRBFN(nameF)
+        generateFromCMAES(nbret, nameTheta, name)
+    elif choix == 11:
         launchCMAESForAllTargetSizes()
+    elif choix == 12:
+        nameTheta = raw_input('Name of the controller file: ')
+        name = raw_input('Folder where you want to save the results: ')
+        nbret = input("Number of repeat for each trajectory (int): ")
+        nbret = int(nbret)
     elif choix == 13:
         nameF = raw_input('Folder where the results are saved: ')
         plotVelocityProfiles(nameF,False)
@@ -161,7 +171,7 @@ def chooseFunction(choix):
         plotMuscularActivations(nameF)
     elif choix == 16:
         nameF = raw_input('Folder where the results are saved: ')
-        plotMapTimeTrajectories(nameF)
+        plotCostMapCMAES(nameF)
     elif choix == 17:
         nameF = raw_input('Folder where the results are saved: ')
         plotTimeDistanceTarget(nameF)
@@ -172,10 +182,8 @@ def chooseFunction(choix):
         nameF = raw_input('Folder where the results are saved: ')
         plotFittsLaw(nameF)
     elif choix == 20:
-        name = raw_input('Folder where you want to save the results: ')
-        nbret = input("Number of repeat for each trajectory (int): ")
-        nbret = int(nbret)
-        generateFromCMAES(nbret, name)
+        nameF = raw_input('Folder where the results are saved: ')
+        plotMapTimeTrajectories(nameF)
     elif choix == 21:
         rorc = input("enter 1 if cmaes results or 2 if rbfn results: ")
         rorc = int(rorc)
@@ -184,7 +192,9 @@ def chooseFunction(choix):
             trajectoriesAnimation(nameF, True)
         elif rorc == 1:
             trajectoriesAnimation(nameF)
-
+    elif choix == 22:
+        nameF = raw_input('Folder where the results are saved: ')
+        plotScattergram(nameF)
 '''
 JUNK
 
@@ -192,15 +202,6 @@ JUNK
         st = input('Size of target: ')
         st = float(st)
         launchCMAESForSpecificTargetSize(st)
-    elif choix == 3:
-        nameF = raw_input('Folder where you want to save the results: ')
-        nameT = raw_input('Number at the end of the name of the theta file: ')
-        nbret = input("Number of repeat for each trajectory (int): ")
-        nbret = int(nbret)
-        generateResults(nameF, nbret, nameT)
-    elif choix == 4:
-        nameF = raw_input('Folder where the results are saved: ')
-        plotAllCmaes(nameF)
     elif choix == 14:
         nameF = raw_input('Folder where the results are saved: ')
         checkReachAllTarget(nameF)
@@ -210,25 +211,7 @@ JUNK
         nbret = input("Number of repeat for each trajectory (int): ")
         nbret = int(nbret)
         generateResultsWithBestThetaTmp(nameF, nbret)
-
-        launchCMAESWithBestThetaTmpForAllTargetSize()
-         else:
-
-    elif choix == 15:
-        nameF = raw_input('Folder where you want to save the results: ')
-        nbret = input("Number of repeat for each trajectory (int): ")
-        nbret = int(nbret)
-        nameT = raw_input('Name of the theta file to use: ')
-        generateResultsRBFN(nameF, nbret, nameT)
-    elif choix == 16:
-        nameF = raw_input('Folder where the results are saved: ')
-        plotVelocityProfile(nameF, True)
-        plotAllCmaes(nameF, True)
-        plotTimeDistanceTarget(nameF, True)
-        plotFittsLaw(nameF, True)
-        plotPerfSizeDist(nameF, True)
-        plotMapTimeTrajectories(nameF, True)
-    elif choix == 15:'''
+'''
 
     
 runChoice()

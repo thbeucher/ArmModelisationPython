@@ -12,17 +12,20 @@ import matplotlib.pyplot as plt
 from matplotlib import animation
 from GlobalVariables import pathDataFolder
 
-# Note: mettre size of target en argument au lieu de 0.005
+from Utils.ReadSetupFile import ReadSetupFile
+from Utils.FileReading import getobjreadJson,getobjread
+
+# Note: mettre size of target en argument au lieu de 0.05
 def trajectoriesAnimation(folderName, rbfn = False):
     rs = ReadSetupFile()
     if rbfn == True:
         nameEC = rs.RBFNpath + folderName + "/elbowCoord"
         nameHC = rs.RBFNpath + folderName + "/handCoord"
     else:
-        nameEC = rs.CMAESpath + "0.005/" + folderName + "/elbowCoord"
-        nameHC = rs.CMAESpath + "0.005/" + folderName + "/handCoord"
-    ec = getobjreadJson(nameEC)
-    hc = getobjreadJson(nameHC)
+        nameEC = rs.CMAESpath + str(rs.sizeOfTarget[0]) + "/" + folderName + "/elbowCoord"
+        nameHC = rs.CMAESpath + str(rs.sizeOfTarget[0]) + "/" + folderName + "/handCoord"
+    ec = getobjread(nameEC)
+    hc = getobjread(nameHC)
     
     posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
     

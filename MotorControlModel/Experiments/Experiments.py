@@ -98,7 +98,7 @@ class Experiments:
         #compute the mean cost for all trajectories 
         meanAll = np.mean(meanByTraj)
         self.saveCost.append(meanAll)
-        print("Call #: ", self.call, "\n Cost: ", meanAll, "\n Time: ", time.time() - t0)
+        print("Call #: ", self.call, "\n Cost: ", meanAll, "\n Time: ", time.time() - t0, "s")
         self.call += 1
         self.saveThetaCmaes(meanAll)
         return meanAll*(-1)

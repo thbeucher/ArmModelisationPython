@@ -77,9 +77,12 @@ def saveAllData(sizeOfTarget, tg, folderName):
             valTmpR.append(valTmp)
         tg.saveU[key] = valTmpR
     saveJson(folderName + "saveU", tg.saveU)
-    saveStr(folderName + "elbowCoord", tg.elbowAllCoord)
-    saveStr(folderName + "handCoord", tg.handAllCoord)
+
+    #----------------- the next 3 cannot be saved with Json ------------------
     #dispersion, used for scattergram
     saveStr(folderName + "saveCoordEndTraj", tg.saveCoordEndTraj)
-        
+
+    saveStr(folderName + "elbowCoord", tg.elbowAllCoord)
+    saveStr(folderName + "handCoord", tg.handAllCoord)
+       
         

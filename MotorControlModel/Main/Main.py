@@ -151,17 +151,21 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
     #Initializes all the class used to generate trajectory
     exp = initAll(sizeOfTarget, rs)
     #run the optimization (cmaes)
-    resCma = cma.fmin(exp.runTrajectoriesCMAES, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    for i in range(rs.maxIterCmaes):
+        resCma = cma.fmin(exp.runTrajectoriesCMAES, np.copy(theta), rs.sigmaCmaes, options={'maxiter':1, 'popsize':rs.popsizeCmaes})
     #name used to save the new controller obtained by the optimization
-    nameToSaveThetaCma = rs.CMAESpath + str(sizeOfTarget) + "/"
-    i = 1
-    tryName = "thetaCma" + str(sizeOfTarget) + "save"
-    for el in os.listdir(nameToSaveThetaCma):
-        if tryName in el:
-            i += 1
-    tryName += str(i)
-    nameToSaveThetaCma += tryName
-    np.savetxt(nameToSaveThetaCma, resCma[0])
+        nameToSaveThetaCma = rs.CMAESpath + str(sizeOfTarget) + "/"
+        i = 1
+        tryName = "thetaCma" + str(sizeOfTarget) + "save"
+        for el in os.listdir(nameToSaveThetaCma):
+            if tryName in el:
+                i += 1
+                tryName += str(i)
+        nameToSaveThetaCma += tryName
+        np.savetxt(nameToSaveThetaCma, resCma[0])
+        theta = resCma[0]
+        print("loop step")
+
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     
 def launchCMAESWithBestThetaTmpForSpecificTargetSize(sizeOfTarget):
