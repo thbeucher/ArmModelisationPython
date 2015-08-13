@@ -14,7 +14,8 @@ from scipy import stats
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
-from GlobalVariables import cmaesPath
+from Utils.ReadSetupFile import ReadSetupFile
+from Utils.FileReading import getobjreadJson, getobjread
 
 def plotMuscularActivations(folderName, rbfn = False):
     '''
@@ -28,10 +29,10 @@ def plotMuscularActivations(folderName, rbfn = False):
     '''
     rs = ReadSetupFile()
     if rbfn == False:
-        name = cmaesPath + "/ResCma0.1/" + folderName + "/saveU"
+        name = rs.CMAESpath + "0.1/" + folderName + "/saveU"
     else:
-        name = "RBFN2/" + str(rs.numfeats) + "feats/" + folderName + "/saveU"
-    data = fr.getobjreadJson(name)
+        name = rs.RBFNpath + folderName + "/saveU"
+    data = getobjreadJson(name)
     u1, u2, u3, u4, u5, u6 = [], [], [], [], [], []
     t = []
     for key, val in data.items():
@@ -78,7 +79,7 @@ def plotMuscularActivation(what):
             plt.show(block = True)
         
     elif what == "rbfn":
-        nameR = "RBFN2/" + str(rs.numfeats) + "feats/Uall"
+        nameR = rs.RBFNpath + "Uall"
         coutTraj = fr.getobjread(nameR)
         dicoVal = {}
         for key, val in coutTraj.items():
@@ -92,7 +93,7 @@ def plotMuscularActivation(what):
             plt.show(block = True)
         
     elif what == "cma":
-        name = cmaespath + "/ResCma"
+        name = rs.CMAESpath
 #unfinished function???           
     
 def plotActiMuscuBrent():
@@ -101,7 +102,7 @@ def plotActiMuscuBrent():
     Note : probably deprecated, the given path is not correct              
     '''
     rs = ReadSetupFile()
-    data = fr.getobjread("trajectoires_cout/actiMuscuBIN")
+    data = getobjread("trajectoires_cout/actiMuscuBIN")
     xi, yi = np.linspace(-0.25,0.25,200), np.linspace(0.26,0.6,200)
     x0, y0, z = [], [], []
     for key, val in data.items():

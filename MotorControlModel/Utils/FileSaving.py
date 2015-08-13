@@ -5,89 +5,81 @@ Author: Thomas Beucher
 
 Module: FileSaving
 
-Description: On retrouve dans ce fichier les fonctions permettant de sauvegarder les donnees du projet
+Description: Functions to save data into files
 '''
 import os
 import json
 import pickle
-from GlobalVariables import pathDataFolder, cmaesPath
-        
-def fileSavingStr(nameFile, data, loc = 0):
+import numpy as np
+
+def checkIfFolderExists(name):
+    if not os.path.isdir(name):
+        os.makedirs(name)
+
+def saveTxt(fileName, data):
     '''
     Records data under str format
     
-    Entrees:    -nameFile: nom du fichier ou enregistrer les donnees
-                -data: donnees a enregistrer
+    Input:    -fileName: name of the file where data will be recorded
+                -data: recorded data
                 
     '''
-    if loc == 0:
-        nameToSave = pathDataFolder + nameFile
-    else:
-        nameToSave = nameFile
-    with open(nameToSave, "w") as file:
+    print ("txt taille", len(data))
+    np.savetxt(fileName, data)
+        
+def saveStr(fileName, data):
+    '''
+    Records data under str format
+    
+    Input:    -fileName: name of the file where data will be recorded
+                -data: recorded data
+                
+    '''
+    print ("str taille", len(data))
+    with open(fileName, "w") as file:
         file.write(str(data))
+    
+def saveJson(fileName, data):
+    '''
+    Records data under Json format
+    
+    Input:    -fileName: name of the file where data will be recorded
+                -data: recorded data
+                
+    '''
+    print ("json taille", len(data))
+    f = open(fileName, 'w')
+    json.dump(data, f)
 
-def fileSavingBin(nameFile, data, loc = 0):
+def saveBin(fileName, data):
     '''
     Records data under binary format
     
-    Entrees:    -nameFile: nom du fichier ou enregistrer les donnees
-                -data: donnees a enregistrer
+    Input:    -fileName: name of the file where data will be recorded
+                -data: recorded data
                 
     '''
-    if loc == 0:
-        nameToSave = pathDataFolder + nameFile
-    else:
-        nameToSave = nameFile
-    with open(nameToSave, "wb") as file:
+    print ("taille", len(data))
+    with open(fileName, "wb") as file:
         monPickler = pickle.Pickler(file)
         monPickler.dump(data)
 
-def fileSavingData(nameFile, data):
-    fileSavingStr(nameFile, data)
-    nameFile = nameFile + "BIN"
-    fileSavingBin(nameFile, data)
-
-def fileSavingCMAESData(sizeOfTarget, tg):
-    nameSave = cmaesPath + "/ResCma" + str(sizeOfTarget) + "/ResUKF1B/"
-    fileSavingData(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
-    fileSavingData(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
-    fileSavingData(nameSave + "saveMvtCost", tg.saveMvtCost)
-    fileSavingData(nameSave + "saveSpeed", tg.saveSpeed)
-    
-def checkFolderExists(name):
-    name = pathDataFolder + name
-    if not os.path.isdir(name):
-        os.makedirs(name)
-        
-def fileSavingScattergramJson(sizeOfTarget, tg, folderName):
-    nameSave = cmaesPath + "/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
-    fileSavingStrJson(nameSave + "hitDispersion", tg.saveCoordEndTraj)
-    
-def fileSavingAllDataJson(sizeOfTarget, tg, folderName, rbfn = False):
-    if rbfn == True:
-        nameSave = "RBFN2/" + str(tg.rs.numfeats) + "feats/" + folderName + "/"
-    else:
-        nameSave = cmaesPath + "/ResCma" + str(sizeOfTarget) + "/" + folderName + "/"
-    checkIfFolderExist(nameSave)
-    fileSavingDataJson(nameSave + "saveNumberOfIteration", tg.saveNumberOfIteration)
-    fileSavingDataJson(nameSave + "saveCoordEndTraj", tg.saveCoordEndTraj)
-    fileSavingDataJson(nameSave + "saveMvtCost", tg.saveMvtCost)
-    fileSavingDataJson(nameSave + "saveSpeed", tg.saveSpeed)
-    fileSavingDataJson(nameSave + "elbowCoord", tg.elbowAllCoord)
-    fileSavingDataJson(nameSave + "handCoord", tg.handAllCoord)
+def saveAllData(sizeOfTarget, tg, folderName):
+    checkIfFolderExists(folderName)
+    print("folder Name : ",folderName)
+    saveJson(folderName + "saveSpeed", tg.saveSpeed)
+    saveJson(folderName + "saveNumberOfIteration", tg.saveNumberOfIteration)
+    saveJson(folderName + "saveMvtCost", tg.saveMvtCost)
     for key, val in tg.saveU.items():
         valTmpR = []
         for el in val:
             valTmp = [elt.tolist() for elt in el]
             valTmpR.append(valTmp)
         tg.saveU[key] = valTmpR
-    fileSavingDataJson(nameSave + "saveU", tg.saveU)
-    
-def fileSavingStrJson(name, data):
-    name = pathDataFolder + name
-    f = open(name, 'w')
-    json.dump(data, f)
-        
+    saveJson(folderName + "saveU", tg.saveU)
+    saveStr(folderName + "elbowCoord", tg.elbowAllCoord)
+    saveStr(folderName + "handCoord", tg.handAllCoord)
+    #dispersion, used for scattergram
+    saveStr(folderName + "saveCoordEndTraj", tg.saveCoordEndTraj)
         
         

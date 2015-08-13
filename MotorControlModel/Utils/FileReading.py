@@ -10,13 +10,11 @@ import random as rd
 import pickle
 import numpy as np
 import os
+import json
 
 from ArmModel.Arm import Arm
 
-from GlobalVariables import pathDataFolder
-import json
-
-def getobjread(name, loc = 0):
+def getobjread(name):
     '''
     Get data from a file
     
@@ -24,11 +22,7 @@ def getobjread(name, loc = 0):
     
     Output: the obtained data
     '''
-    if loc == 0:
-        namet = pathDataFolder + name
-    else:
-        namet = name
-    with open(namet, "rb") as file:
+    with open(name, "rb") as file:
         mondepickler = pickle.Unpickler(file)
         data = mondepickler.load()
     return data
@@ -37,7 +31,6 @@ def getobjreadJson(name):
     '''
     Reads data from file saved with json
     '''
-    name = pathDataFolder + name
     f = open(name, 'r')
     data = json.load(f)
     return data

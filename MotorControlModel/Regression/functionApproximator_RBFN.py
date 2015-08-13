@@ -16,7 +16,7 @@ import ctypes as ct
 
 class fa_rbfn():
     
-    def __init__(self, nbFeatures):
+    def __init__(self, nbFeatures, inputDim, outputDim):
         '''
 	Initializes class parameters
 	
@@ -25,7 +25,11 @@ class fa_rbfn():
         '''
         self.nbFeat = nbFeatures
         self.title = "rbfn"
-        
+        self.inputDimension = inputDim
+        self.outputDimension = outputDim
+        print "dimensions : " + str(self.inputDimension) + "x" +  str(self.outputDimension)
+        self.theta = np.zeros((self.nbFeat, self.outputDimension))
+
     def setTrainingData(self, inputData, outputData):
         '''
         Verifies the validity of the given input and output data
@@ -38,15 +42,15 @@ class fa_rbfn():
         self.outputData = outputData.T
 
         #Getting input and output dimensions and number of samples
-        self.inputDimension = len(inputData[0])
         numberOfInputSamples = len(inputData)
-        self.outputDimension = len(outputData[0])
         numberOfOutputSamples = len(outputData)
-        print "dimensions : " + str(self.inputDimension) + "x" +  str(self.outputDimension)
         #check if there are the same number of samples for input and output data
         assert(numberOfInputSamples == numberOfOutputSamples), "Number of samples not equal for output and input"
+        #check dimensions
+        assert(len(inputData[0]) == self.inputDimension), "Mismatch in input dimension"
+        assert(len(outputData[0]) == self.outputDimension), "Mismatch in output dimension"
+
         self.numberOfSamples = numberOfInputSamples
-        self.theta = np.zeros((self.nbFeat, self.outputDimension))
 
     def computeA(self, A, fop):
         At = np.dot(fop, fop.T)
@@ -89,7 +93,6 @@ class fa_rbfn():
         '''
         Sets the centers and widths of Gaussian features.
         Uses linspace to evenly distribute the features.
-        
         '''
         #get max and min of the input data
         minInputData = np.min(self.inputData, axis = 1)
@@ -99,7 +102,7 @@ class fa_rbfn():
         widthConstant = rangeForEachDim / self.nbFeat
         #create the diagonal matrix of sigmas to compute the gaussian
         self.widths = np.diag(widthConstant)
-        #coef for gaussian
+        #coef for Gaussian features
         self.norma = 1/np.sqrt(((2*np.pi)**self.inputDimension)*np.linalg.det(self.widths)) 
         linspaceForEachDim = []
         #set the number of gaussian used and allocate them in each dimensions

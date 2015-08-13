@@ -23,12 +23,12 @@ from Utils.ReadSetupFile import ReadSetupFile
 from Utils.NiemRoot import tronquerNB
 
 from Utils.UsefulFunctions import returnX0Y0Z, returnDifCostBrentRBFN,\
-     getTimeDistance, getDistPerfSize, getVelocityProfileDataRBFN, getVelocityProfileDataCMAES, getTimeByArea,\
+     getTimeDistance, getDistPerfSize, getVelocityProfileData, getTimeByArea,\
     checkIfTargetIsReach
 
 from ArmModel.Arm import Arm
 
-from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder, cmaesPath
+from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder
 
 def costColorPlot(what):
     '''
@@ -50,18 +50,18 @@ def costColorPlot(what):
         y0.append(el[1])
         
     if what == "rbfn":
-        name = "RBFN2/" + str(nbfeat) + "feats/"
+        name = rs.RBFNpath
         x0, y0, z = returnX0Y0Z(name)
         
     elif what == "cma":
-        name = "RBFN2/" + str(nbfeat) + "feats/costBINCma"
+        name = rs.RBFNpath + "costBINCma"
         z = getobjread(name)
         for i in range(len(z)):
             if z[i] > 0:
                 z[i] -= rs.rhoCF
         
     elif wha == "brent":
-        data = getobjread("trajectoires_cout/trajectoire_coutCoordXBIN")
+        data = getobjread("Exp12TrajBrent/trajectoire_coutCoordXBIN")
         z, x0, y0 = [], [], []
         for el in data:
             z.append(el[1]-rs.rhoCF)
@@ -104,8 +104,8 @@ def costColorPlot(what):
 
 def plotHitDispersion(sizeT):
     rs = ReadSetupFile()
-    #name = "RBFN2/" + str(rs.numfeats) + "feats/CoordHitTargetBIN" 
-    name = cmaesPath + "/ResCma" + str(sizeT) + "/ResTry1/CoordHitTargetCmaBIN"
+    #name = rs.RBFNpath + "CoordHitTargetBIN" 
+    name = rs.CMAESpath + str(sizeT) + "/ResTry1/CoordHitTargetCmaBIN"
     data = getobjread(name)
     tab = []
     for el in data.values():
@@ -125,8 +125,7 @@ def plotRBFNCostMap():
     rs = ReadSetupFile()
     x0, y0, z = [], [], []
     xt = 0
-    name = "RBFN2/" + str(rs.numfeats) + "feats/ResultShuffle/actiMuscuRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
-    #example : name = "/home/beucher/Desktop/runRBFN/RBFN/RBFN2/4feats/Res42/actiMuscuRBFN0.1BIN"
+    name = rs.RBFNpath + "ResultShuffle/actiMuscuRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
     data = getobjread(name)
     for key, val in data.items():
         x0.append(float(key.split("//")[0]))
@@ -150,9 +149,9 @@ def plotAllCmaes(nameF, rbfn = False):
     for i in range(len(rs.sizeOfTarget)):
         try:
             if rbfn == False:
-                name = cmaesPath + "/ResCma" + str(rs.sizeOfTarget[i]) + "/" + nameF + "/saveMvtCost"
+                name = rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + nameF + "/saveMvtCost"
             else:
-                name = "RBFN2/" + str(rs.numfeats) + "feats/" + nameF + "/saveMvtCost"
+                name = rs.RBFNpath + nameF + "/saveMvtCost"
             zDico.append(getobjreadJson(name))
         except:
             pass
@@ -302,7 +301,7 @@ def plotcmaesCostProgress():
     costCma = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
-            name = cmaesPath + "/costEvalAll/costEval" + str(rs.sizeOfTarget[i]) + str(100)
+            name = rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/costEvalAll/costEval" + str(100)
             costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = getobjread(name)
         except:
             pass
@@ -321,7 +320,7 @@ def plotcmaesCostProgress():
 
 def plotCostColorMapForAllTheta():
     rs = ReadSetupFile()
-    name = "RBFN2/" + str(rs.numfeats) + "feats/EvaluationOFTheta/"
+    name = rs.RBFNpath + "EvaluationOFTheta/"
     xi = np.linspace(-0.25,0.25,100)
     yi = np.linspace(0.35,0.5,100)
     for el in os.listdir(pathDataFolder + name):
@@ -337,7 +336,7 @@ def plotCostColorMapForAllTheta():
         
 def plotTrajWhenTargetNotReach():
     rs = ReadSetupFile()
-    name = "RBFN2/" + str(rs.numfeats) + "feats/costTrajRBFNBIN"
+    name = rs.RBFNpath + "costTrajRBFNBIN"
     data = getobjread(name)
     xr, xnr, yr, ynr = [], [], [], []
     for key, val in data.items():
@@ -354,7 +353,7 @@ def plotTrajWhenTargetNotReach():
    
 def plotCostVariation(sizeT):
     rs = ReadSetupFile()
-    name = "RBFN2/" + str(rs.numfeats) + "feats/costArrayAll/costArrayBIN" + str(sizeT)
+    name = rs.RBFNpath + "costArrayAll/costArrayBIN" + str(sizeT)
     costArr = getobjread(name)
     print(costArr.shape)
     lineCost = {}
@@ -424,7 +423,7 @@ def plotScattergram2(folderName):
         
 def plotTrackTraj():
     rs = ReadSetupFile()
-    name = "RBFN2/" + str(rs.numfeats) + "feats/ResShuffleAll/coordEndEffectorRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
+    name = rs.RBFNpath + "ResShuffleAll/coordEndEffectorRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
     coordAll = getobjread(name)
     plt.figure()
     for key, val in coordAll.items():
@@ -507,7 +506,7 @@ def plotLearningFieldRBFNSquare():
 
 def plotTimeVariationForEachDistance(sizeTarget):
     rs = ReadSetupFile()
-    name = cmaesPath + "/ResCma" + str(sizeTarget) + "/nbItecp5CmaBIN"
+    name = rs.CMAESpath + str(sizeTarget) + "/nbItecp5CmaBIN"
     nbIteTraj = getobjread(name)
     distTimeDico = {}
     for key, val in nbIteTraj.items():
@@ -530,10 +529,10 @@ def plotTimeVariationForEachDistance(sizeTarget):
 #Functions related to velocity profiles
     
 def plotVelocityProfileRBFN(sizeT):
+#not working yet
     rs = ReadSetupFile()
-    #name = "RBFN2/" + str(rs.numfeats) + "feats/SpeedSaveBIN" 
-    name = cmaesPath + "/ResCma" + str(sizeT) + "/ResTK2/SpeedSaveCmaBIN"
-    nameNbIte = cmaesPath + "/ResCma" + str(sizeT) + "/ResTK2/nbIteCmaBIN"
+    name = rs.CMAESpath + str(sizeT) + "/ResTK2/SpeedSaveCmaBIN"
+    nameNbIte = rs.CMAESpath + str(sizeT) + "/ResTK2/nbIteCmaBIN"
     data = getobjread(name)
     nbIte = getobjread(nameNbIte)
     aAll, vAll, tAll = {}, {}, {}
@@ -566,14 +565,15 @@ def plotVelocityProfiles(folderName, rbfn = False):
     plt.figure(1, figsize=(16,9))
 
     if rbfn:
-        t, v = getVelocityProfileDataRBFN(folderName)
+        t, v = getVelocityProfileData(rs.RBFNpath + folderName)
         for key, val in v.items():
             plt.plot(t[key], val, c ='b')
             plt.title("Velocity profiles for RBFN")
     else:
         for i in range(4):
             ax = plt.subplot2grid((2,2), (i/2,i%2))
-            t, v = getVelocityProfileDataCMAES(rs.sizeOfTarget[i], folderName)
+            name =  rs.CMAESpath + str(rs.sizeOfTarget[i])
+            t, v = getVelocityProfileData(name + folderName)
             for key, val in v.items():
                 ax.plot(t[key], val, c ='b')
                 ax.set_xlabel("time")

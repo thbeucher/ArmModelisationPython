@@ -8,7 +8,7 @@ Module: ReadConfFile
 Description: On retrouve dans ce fichier une fonction permettant de lire le fichier de configuration 
 '''
 
-from GlobalVariables import pathWorkingDirectory
+from GlobalVariables import pathWorkingDirectory, pathDataFolder, cmaesPath
 
 class ReadSetupFile:
     
@@ -67,5 +67,7 @@ class ReadSetupFile:
         self.inputDim = int((allsByLign[19].split(":"))[1])
         #reading line 21, Dimension de la sortie, ici le vecteur d'activation musculaire
         self.outputDim = int((allsByLign[20].split(":"))[1])
+        self.RBFNpath = pathDataFolder + "RBFN/" + str(self.numfeats) + "feats/"
+        self.CMAESpath = pathDataFolder + cmaesPath + "/ResCma"
         
 

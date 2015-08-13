@@ -7,11 +7,10 @@ Description: the function below alow to read temporary data
 '''
 
 import numpy as np
-from GlobalVariables import pathDataFolder, cmaesPath
 
 def readThetaTmpBySizeOfTarget(sizeOfTarget, rs):
     dim0 = rs.numfeats**rs.inputDim
-    nameFileToRead = pathDataFolder + cmaesPath + "/ResCma" + str(sizeOfTarget) + "/thetaSolTmp_target" + str(sizeOfTarget)
+    nameFileToRead = rs.CMAESpath + str(sizeOfTarget) + "/thetaSolTmp_target" + str(sizeOfTarget)
     f = open(nameFileToRead, 'r')
     try:
         arrAll = np.loadtxt(f)
@@ -22,7 +21,7 @@ def readThetaTmpBySizeOfTarget(sizeOfTarget, rs):
     return arrList
 
 def readCostTmpBySizeOfTarget(sizeOfTarget):
-    nameFileToRead = pathDataFolder + cmaesPath + "/ResCma" + str(sizeOfTarget) + "/meanCost" + str(sizeOfTarget)
+    nameFileToRead = rs.CMAESpath + str(sizeOfTarget) + "/meanCost" + str(sizeOfTarget)
     try:
         costList = np.loadtxt(nameFileToRead)
     except:

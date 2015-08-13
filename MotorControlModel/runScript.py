@@ -9,9 +9,7 @@ Description: main script to run what we want in the project
 '''
 import site
 import os
-from Main.Main import launchCMAESForSpecificTargetSize, launchCMAESForAllTargetSize, generateResults,\
-    generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize,\
-    generateTrajectoryForScattergram, generateResultsRBFN
+from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTargetSizes #launchCMAESForSpecificTargetSize, generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize,\ generateTrajectoryForScattergram
 
 from Regression.RunRegressionRBFN import runRBFN
 from Plot.TrajectoryAnimation import trajectoriesAnimation
@@ -75,27 +73,27 @@ def printMainMenu():
     print('		1 velocity profiles')
     print('		2 articular positions')
     print('		3 XY positions')
-    print('		4 muscular actuations (NOT AVAIBLABLE)')
-    print('		5 ')
+    print('		4 muscular actuations (NOT AVAILABLE)')
+    print('		5 (NOT AVAILABLE)')
     print('-------------------------------------------------')
     print('	RBFN:')
     print('		6 train from Brent data')
     print('		7 velocity profiles')
-    print('		8 articular positions (NOT AVAIBLABLE)')
+    print('		8 articular positions (NOT AVAILABLE)')
     print('		9 muscular actuations')
-    print('		10 ')
-    print('		11 ')
+    print('		10 (NOT AVAILABLE)')
+    print('		11 (NOT AVAILABLE)')
     print('-------------------------------------------------')
     print('	CMAES:')
     print('		12 train for all targets')
     print('		13 velocity profiles')
-    print('		14 articular positions (NOT AVAIBLABLE)')
+    print('		14 articular positions (NOT AVAILABLE)')
     print('		15 muscular actuations')
     print('		16 plot cost Map')                  
     print('		17 plot Time x Distance for Targets')                  
     print('		18 plot Size x Dist')                  
     print('		19 plot Fitts Law')                  
-    print('		20 generate Trajectory For Scattergram')
+    print('		20 generate results from current controllers')
     print('		21 show trajectory animations')                 
 
 def runAll():
@@ -142,54 +140,50 @@ def chooseFunction(choix):
     elif choix == 3:
         plotXYPositionsBrent()
     elif choix == 6:
-        nameC = raw_input('Name of file to save the RBFN controller: ')
-        runRBFN(nameC)
+        name = raw_input('Name of file to save the RBFN controller: ')
+        runRBFN(name)
+
         nbret = input("Number of repeat for each trajectory (int): ")
-        generateResultsRBFN(nbret, nameC)
+        generateFromRBFN(nbret, name)
     elif choix == 7:
-        nameF = raw_input('Folder name where the results are saved: ')
-        plotVelocityProfiles(nameF,False)
-    elif choix == 9:
-        nameF = raw_input('Folder name where the results are saved: ')
-        plotMuscularActivations(nameF)
-    elif choix == 12:
-        launchCMAESForAllTargetSize()
-    elif choix == 13:
-        nameF = raw_input('Folder name where the results are saved: ')
+        nameF = raw_input('Folder where the results are saved: ')
         plotVelocityProfiles(nameF,True)
+    elif choix == 9:
+        nameF = raw_input('Folder where the results are saved: ')
+        plotMuscularActivations(nameF,True)
+    elif choix == 12:
+        launchCMAESForAllTargetSizes()
+    elif choix == 13:
+        nameF = raw_input('Folder where the results are saved: ')
+        plotVelocityProfiles(nameF,False)
     elif choix == 15:
-        nameF = raw_input('Folder name where the results are saved: ')
-        plotMuscularActivations(nameF, True)
+        nameF = raw_input('Folder where the results are saved: ')
+        plotMuscularActivations(nameF)
     elif choix == 16:
-        nameF = raw_input('Folder name where the results are saved: ')
+        nameF = raw_input('Folder where the results are saved: ')
         plotMapTimeTrajectories(nameF)
     elif choix == 17:
-        nameF = raw_input('Folder name where the results are saved: ')
+        nameF = raw_input('Folder where the results are saved: ')
         plotTimeDistanceTarget(nameF)
     elif choix == 18:
-        nameF = raw_input('Folder name where the results are saved: ')
+        nameF = raw_input('Folder where the results are saved: ')
         plotPerfSizeDist(nameF)
     elif choix == 19:
-        nameF = raw_input('Folder name where the results are saved: ')
+        nameF = raw_input('Folder where the results are saved: ')
         plotFittsLaw(nameF)
     elif choix == 20:
-        nameF = raw_input('Folder name where you want to save the results: ')
+        name = raw_input('Folder where you want to save the results: ')
         nbret = input("Number of repeat for each trajectory (int): ")
         nbret = int(nbret)
-        nameT = raw_input('Number at the end of the name of the theta file: ')
-        generateTrajectoryForScattergram(nameF, nbret, nameT)
+        generateFromCMAES(nbret, name)
     elif choix == 21:
         rorc = input("enter 1 if cmaes results or 2 if rbfn results: ")
         rorc = int(rorc)
-        nameF = raw_input('Folder name where the results are saved: ')
+        nameF = raw_input('Folder where the results are saved: ')
         if rorc == 2:
             trajectoriesAnimation(nameF, True)
         elif rorc == 1:
             trajectoriesAnimation(nameF)
-    
-#runChoice()
-#runAuto()
-generateResultsRBFN(20, "test3")
 
 '''
 JUNK
@@ -199,20 +193,20 @@ JUNK
         st = float(st)
         launchCMAESForSpecificTargetSize(st)
     elif choix == 3:
-        nameF = raw_input('Folder name where you want to save the results: ')
+        nameF = raw_input('Folder where you want to save the results: ')
         nameT = raw_input('Number at the end of the name of the theta file: ')
         nbret = input("Number of repeat for each trajectory (int): ")
         nbret = int(nbret)
         generateResults(nameF, nbret, nameT)
     elif choix == 4:
-        nameF = raw_input('Folder name where the results are saved: ')
+        nameF = raw_input('Folder where the results are saved: ')
         plotAllCmaes(nameF)
     elif choix == 14:
-        nameF = raw_input('Folder name where the results are saved: ')
+        nameF = raw_input('Folder where the results are saved: ')
         checkReachAllTarget(nameF)
     elif choix == 9:
         print("Generate results with the best theta temp !")
-        nameF = raw_input('Folder name where you want to save the results: ')
+        nameF = raw_input('Folder where you want to save the results: ')
         nbret = input("Number of repeat for each trajectory (int): ")
         nbret = int(nbret)
         generateResultsWithBestThetaTmp(nameF, nbret)
@@ -221,13 +215,13 @@ JUNK
          else:
 
     elif choix == 15:
-        nameF = raw_input('Folder name where you want to save the results: ')
+        nameF = raw_input('Folder where you want to save the results: ')
         nbret = input("Number of repeat for each trajectory (int): ")
         nbret = int(nbret)
         nameT = raw_input('Name of the theta file to use: ')
         generateResultsRBFN(nameF, nbret, nameT)
     elif choix == 16:
-        nameF = raw_input('Folder name where the results are saved: ')
+        nameF = raw_input('Folder where the results are saved: ')
         plotVelocityProfile(nameF, True)
         plotAllCmaes(nameF, True)
         plotTimeDistanceTarget(nameF, True)
@@ -236,3 +230,7 @@ JUNK
         plotMapTimeTrajectories(nameF, True)
     elif choix == 15:'''
 
+    
+runChoice()
+#runAuto()
+#generateFromRBFN(nbret, nameC)
