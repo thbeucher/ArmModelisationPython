@@ -237,36 +237,6 @@ def getDistPerfSize(sizeT, folderName, rbfn = False):
         sizeDistPerf.append((sizeT, key, val))
     return sizeDistPerf
 
-
-#---------------------- velocity profiles --------------------------------------------------------------
-
-def getVelocityProfileData(folderName):
-    rs = ReadSetupFile()
-    name = folderName + "/saveSpeed"
-    nameNbIte = folderName + "/saveNumberOfIteration"
-
-    data = getobjreadJson(name)
-    nbIte = getobjreadJson(nameNbIte)
-    aAll, vAll, tAll = {}, {}, {}
-    for key, val in data.items():
-        a = []
-        for i in range(nbIte[key][0]):
-            a.append(data[key][0][i])
-        aAll[key] = a
-    for key, val in aAll.items():
-        vtmp = []
-        for el in val:
-            vtmp.append(np.linalg.norm(el))
-        vAll[key] = vtmp
-    for key, val in vAll.items():
-        ttmp = []
-        for i in range(len(val)):
-            ttmp.append(i)
-        tAll[key] = ttmp
-    return tAll, vAll
-
-#---------------------- end of velocity profiles --------------------------------------------------------------
-
 def getTimeByArea(sizeT, folderName, rbfn = False):
     rs = ReadSetupFile()
     if rbfn == False:

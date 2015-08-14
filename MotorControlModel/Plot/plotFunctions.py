@@ -18,16 +18,184 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.mlab import griddata
 
-from Utils.FileReading import getStateDataFromBrent, getInitPos, getobjread, getobjreadJson
+from Utils.FileReading import getStateDataFromBrent, getCommandDataFromBrent, getInitPos, getobjread, getobjreadJson
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.NiemRoot import tronquerNB
 
 from Utils.UsefulFunctions import returnX0Y0Z, returnDifCostBrentRBFN,\
-     getTimeDistance, getDistPerfSize, getVelocityProfileData, getTimeByArea, getDataScattergram, checkIfTargetIsReach
+     getTimeDistance, getDistPerfSize, getTimeByArea, getDataScattergram, checkIfTargetIsReach
 
 from ArmModel.Arm import Arm
 
 from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder
+
+#----------------------------------------------------------------------------------------------------------------------------
+#Functions related to velocity profiles
+
+def plotVelocityProfile(what, folderName = "None"):
+    rs = ReadSetupFile()
+    plt.figure(1, figsize=(16,9))
+
+    if what == "CMAES":
+        for i in range(4):
+            ax = plt.subplot2grid((2,2), (i/2,i%2))
+            name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + foldername + "/Log"
+            state = getStateDataFromBrent(name)
+            for k,v in state.items():
+                index, speed = [], []
+                for j in range(len(v)):
+                    index.append(j)
+                    speed.append(np.linalg.norm([v[j][0],v[j][1]]))
+                ax.plot(index, speed, c ='b')
+                ax.set_xlabel("time")
+                ax.set_ylabel("Instantaneous velocity")
+                ax.set_title(str("Velocity profiles for target " + str(rs.sizeOfTarget[i])))
+    else:
+        if what == "Brent":
+            name = BrentTrajectoriesFolder
+        else:
+            name = rs.RBFNpath + folderName + "/Log/"
+
+        state = getStateDataFromBrent(name)
+        for k,v in state.items():
+            if rd.random()<0.06:
+                index, speed = [], []
+                for j in range(len(v)):
+                    index.append(j)
+                    speed.append(np.linalg.norm([v[j][0],v[j][1]]))
+                    plt.plot(index, speed, c ='b')
+        plt.xlabel("time")
+        plt.ylabel("Instantaneous velocity")
+        plt.title("Velocity profiles for" + what)
+    plt.show(block = True)
+
+def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
+    rs = ReadSetupFile()
+    plt.figure(1, figsize=(16,9))
+
+    arm = Arm()
+ 
+    if what == "CMAES":
+        name = rs.CMAESpath + targetSize + folderName + "/Log/"
+    elif what == "Brent":
+        name = BrentTrajectoriesFolder
+    else:
+        name = rs.RBFNpath + folderName + "/Log/"
+
+    state = getStateDataFromBrent(name)
+    for k,v in state.items():
+        if rd.random()<0.06:
+            posX, posY = [], []
+            for j in range(len(v)):
+                coordElbow, coordHand = arm.mgd(v[j])
+                posX.append(coordHand[0])
+                posY.append(coordHand[1])
+
+            print posX, posY
+            plt.plot(posX,posY, c ='b')
+    plt.xlabel("X")
+    plt.ylabel("Y")
+    plt.title("XY Positions for Brent")
+    plt.show(block = True)
+
+def plotArticularPositions(what, folderName = "None", targetSize = "0.1"):
+    rs = ReadSetupFile()
+    plt.figure(1, figsize=(16,9))
+
+    if what == "CMAES":
+        name = rs.CMAESpath + targetSize + folderName + "/Log/"
+    elif what == "Brent":
+        name = BrentTrajectoriesFolder
+    else:
+        name = rs.RBFNpath + folderName + "/Log/"
+
+    state = getStateDataFromBrent(name)
+
+    for k,v in state.items():
+        if rd.random()<0.06:
+            Q1, Q2 = [], []
+            for j in range(len(v)):
+                Q1.append(v[j][2])
+                Q2.append(v[j][3])
+            plt.plot(Q1,Q2, c ='b')
+    plt.xlabel("Q1")
+    plt.ylabel("Q2")
+    plt.title("Articular positions for Brent")
+    plt.show(block = True)
+
+def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
+    '''
+    plots the muscular activations from a folder
+    
+    input:    -folderName: the folder where the data lies
+              -what: get from Brent, rbfn or from cmaes controllers
+
+    '''
+    rs = ReadSetupFile()
+    if what == "CMAES":
+        name = rs.CMAESpath + targetSize + folderName + "/Log/"
+    elif what == "Brent":
+        name = BrentTrajectoriesFolder
+    else:
+        name = rs.RBFNpath + folderName + "/Log/"
+
+    U = getCommandDataFromBrent(name)
+
+    u1, u2, u3, u4, u5, u6 = [], [], [], [], [], []
+    t = []
+    for key, el1 in U.items():
+        for i in range(len(el1)):
+            t.append(i)
+            u1.append(el1[i][0])
+            u2.append(el1[i][1])
+            u3.append(el1[i][2])
+            u4.append(el1[i][3])
+            u5.append(el1[i][4])
+            u6.append(el1[i][5])
+
+        plt.figure()
+        plt.plot(t, u1)
+        plt.plot(t, u2)
+        plt.plot(t, u3)
+        plt.plot(t, u4)
+        plt.plot(t, u5)
+        plt.plot(t, u6)
+        break
+    plt.show(block = True)
+
+def plotInitPos():
+    '''
+    Plots the initial position of trajectories present in the Brent directory
+    '''
+    x0 = []
+    y0 = []
+    rs = ReadSetupFile()
+    xt = 0
+    yt = rs.targetOrdinate
+    posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
+    for el in posIni:
+        x0.append(el[0])
+        y0.append(el[1])
+    xy, junk = getInitPos(BrentTrajectoriesFolder)
+    x, y = [], []
+    aa, keyy = [], []
+    for key, el in xy.items():
+        x.append(el[0])
+        y.append(el[1])
+        a = math.sqrt((el[0]**2) + (el[1] - rs.targetOrdinate)**2)
+        if tronquerNB(a, 3) not in aa:
+            aa.append(tronquerNB(a, 3))
+        if a < 0.11:
+            keyy.append(key)
+        
+    plt.figure()
+    plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
+    plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
+    plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
+    
+    plt.show(block = True)
+
+# ---------------------------------------------------------------------------------------------
 
 def costColorPlot(what):
     '''
@@ -423,7 +591,7 @@ def plotScattergram(folderName):
     
     plt.show(block = True)
         
-# ---------------- hit dispersion ---------------------------------------
+# ---------------- end of hit dispersion ---------------------------------------
 
 def plotTrackTraj():
     rs = ReadSetupFile()
@@ -527,146 +695,6 @@ def plotTimeVariationForEachDistance(sizeTarget):
         for el in val:
             plt.scatter(el[1], el[0])
         break
-    plt.show(block = True)
-
-#----------------------------------------------------------------------------------------------------------------------------
-#Functions related to velocity profiles
-    
-def plotVelocityProfileRBFN(sizeT):
-#not working yet
-    rs = ReadSetupFile()
-    name = rs.CMAESpath + str(sizeT) + "/ResTK2/SpeedSaveCmaBIN"
-    nameNbIte = rs.CMAESpath + str(sizeT) + "/ResTK2/nbIteCmaBIN"
-    data = getobjread(name)
-    nbIte = getobjread(nameNbIte)
-    aAll, vAll, tAll = {}, {}, {}
-    for key, val in data.items():
-        a = []
-        for i in range(nbIte[key][0]):
-            a.append(data[key][i])
-        #print(key, len(a), a)
-        aAll[key] = a
-    for key, val in aAll.items():
-        vtmp = []
-        for el in val:
-            vtmp.append(np.linalg.norm(el))
-        vAll[key] = vtmp
-    for key, val in vAll.items():
-        ttmp = []
-        for i in range(len(val)):
-            ttmp.append(i)
-        tAll[key] = ttmp
-    plt.figure()
-    for key, val in vAll.items():
-        t = plt.plot(tAll[key], val, label=str("Bruit = " + str(rs.knoiseU)))
-    plt.xlabel("time")
-    plt.ylabel("Instantaneous velocity")
-    plt.title("Velocity profile")
-    plt.show(block = True)
-
-def plotVelocityProfiles(folderName, rbfn = False):
-    rs = ReadSetupFile()
-    plt.figure(1, figsize=(16,9))
-
-    if rbfn:
-        t, v = getVelocityProfileData(rs.RBFNpath + folderName)
-        for key, val in v.items():
-            plt.plot(t[key], val, c ='b')
-            plt.title("Velocity profiles for RBFN")
-    else:
-        for i in range(4):
-            ax = plt.subplot2grid((2,2), (i/2,i%2))
-            name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/"
-            t, v = getVelocityProfileData(name + folderName)
-            for key, val in v.items():
-                ax.plot(t[key], val, c ='b')
-                ax.set_xlabel("time")
-                ax.set_ylabel("Instantaneous velocity")
-                ax.set_title(str("Velocity profiles for target " + str(rs.sizeOfTarget[i])))
-    plt.show(block = True)
-
-def plotVelocityProfileBrent():
-    rs = ReadSetupFile()
-    plt.figure(1, figsize=(16,9))
-
-    state = getStateDataFromBrent(BrentTrajectoriesFolder)
-    for k,v in state.items():
-        if rd.random()<0.06:
-            index, speed = [], []
-            for j in range(len(v)):
-                index.append(j)
-                speed.append(np.linalg.norm([v[j][0],v[j][1]]))
-                plt.plot(index, speed, c ='b')
-    plt.xlabel("time")
-    plt.ylabel("Instantaneous velocity")
-    plt.title("Velocity profiles for Brent")
-    plt.show(block = True)
-
-def plotXYPositionsBrent():
-    plt.figure(1, figsize=(16,9))
-
-    arm = Arm()
-
-    state = getStateDataFromBrent(BrentTrajectoriesFolder)
-    for k,v in state.items():
-        if rd.random()<0.06:
-            posX, posY = [], []
-            for j in range(len(v)):
-                coordElbow, coordHand = arm.mgd(v[j])
-                posX.append(coordHand[0])
-                posY.append(coordHand[1])
-            plt.plot(posX,posY, c ='b')
-    plt.xlabel("X")
-    plt.ylabel("Y")
-    plt.title("XY Positions for Brent")
-    plt.show(block = True)
-
-def plotArticularPositionsBrent():
-    plt.figure(1, figsize=(16,9))
-
-    state = getStateDataFromBrent(BrentTrajectoriesFolder)
-    for k,v in state.items():
-        if rd.random()<0.06:
-            Q1, Q2 = [], []
-            for j in range(len(v)):
-                Q1.append(v[j][2])
-                Q2.append(v[j][3])
-            plt.plot(Q1,Q2, c ='b')
-    plt.xlabel("Q1")
-    plt.ylabel("Q2")
-    plt.title("Articular positions for Brent")
-    plt.show(block = True)
-
-def plotInitPos():
-    '''
-    Plots the initial position of trajectories present in the Brent directory
-    '''
-    x0 = []
-    y0 = []
-    rs = ReadSetupFile()
-    xt = 0
-    yt = rs.targetOrdinate
-    posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
-    for el in posIni:
-        x0.append(el[0])
-        y0.append(el[1])
-    xy, junk = getInitPos(BrentTrajectoriesFolder)
-    x, y = [], []
-    aa, keyy = [], []
-    for key, el in xy.items():
-        x.append(el[0])
-        y.append(el[1])
-        a = math.sqrt((el[0]**2) + (el[1] - rs.targetOrdinate)**2)
-        if tronquerNB(a, 3) not in aa:
-            aa.append(tronquerNB(a, 3))
-        if a < 0.11:
-            keyy.append(key)
-        
-    plt.figure()
-    plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
-    plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
-    plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
-    
     plt.show(block = True)
 
 #-----------------------------------------------------------------------------------------

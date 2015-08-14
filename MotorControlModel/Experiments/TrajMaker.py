@@ -71,7 +71,7 @@ class TrajMaker:
         self.Ukf = UnscentedKalmanFilterControl(rs.dimStateUKF, rs.dimObsUKF, rs.delayUKF, self.arm, rs.knoiseU, self.controller)
         self.saveA = saveA
         #Initializes variables used to save trajectory
-        self.costStore = []
+        self.costStore = {}
 
     def setTheta(self, theta):
         self.controller.setTheta(theta)
@@ -125,6 +125,7 @@ class TrajMaker:
             coordElbow, coordHand = self.arm.mgd(q)
             #code to save data of the trajectory
 
+            #Note : these structures might be much improved
             if self.saveA == True:
                 stepStore.append([0.0, self.rs.targetOrdinate])
                 stepStore.append(estimState.flatten().tolist())
@@ -135,10 +136,11 @@ class TrajMaker:
                 stepStore.append(realNextState.flatten().tolist())
                 stepStore.append([coordElbow[0][0], coordElbow[1][0]])
                 stepStore.append([coordHand[0][0], coordHand[1][0]])
-                print ("before",stepStore)
-                store = np.array(stepStore).flatten()
-                print ("store",store)
-                dataStore.append(store)
+                #print ("before",stepStore)
+                tmpstore = np.array(stepStore).flatten()
+                row = [item for sub in tmpstore for item in sub]
+                #print ("store",row)
+                dataStore.append(row)
 
             estimState = estimNextState
             i += 1
@@ -148,9 +150,20 @@ class TrajMaker:
         if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.targetOrdinate:
             cost = self.cc.computeFinalCostReward(cost, t)
         #return the cost of the trajectory
-        self.costStore.append([x, y])
-        self.costStore.append(cost)
 
+        '''
+        tmp = []
+        tmp.append([x, y])
+        tmp.append([cost])
+        tmps = np.array(tmp).flatten()
+        print tmps
+        row = [item for sub in tmps for item in sub]
+        print row
+
+        self.costStore[filename] = row
+        '''
+        self.costStore[filename] = [x, y, cost]
+  
         if self.saveA == True:
             np.savetxt(filename,dataStore)
         return cost

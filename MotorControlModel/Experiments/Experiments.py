@@ -12,6 +12,7 @@ import time
 import numpy as np
 from Utils.ThetaNormalization import unNormNP
 from Utils.ReadSetupFile import ReadSetupFile
+from Utils.FileReading import dicToArray
 
 from GlobalVariables import pathDataFolder
 
@@ -19,11 +20,10 @@ from TrajMaker import TrajMaker
 
 def findDataFileName(foldername, extension):
     i = 1
-    for el in os.listdir(foldername):
+    tryName = "traj1" + extension
+    while tryName in os.listdir(foldername):
+        i += 1
         tryName = "traj" + str(i) + extension
-        if tryName in el:
-            i += 1
-            tryName = "traj" + str(i) + extension
     filename = foldername + tryName
     return filename
 
@@ -39,7 +39,6 @@ class Experiments:
         self.rs = rs
         self.name = "Experiments"
         self.call = 0
-        self.saveCost = []
         self.numfeats = rs.numfeats
         self.numberOfRepeat = rs.numberOfRepeatEachTraj
         self.tm = TrajMaker(rs, sizeOfTarget, saveA)
@@ -64,24 +63,19 @@ class Experiments:
         #give the theta to the muscularActivationCommand class
         self.setTheta(self.theta)
          
-    def saveCost(self, foldername):
-        filename = findDataFileName(foldername,".cost")
-        f = open(nameFileSave, 'ab')
-        np.savetxt(f, self.theta)
-        nameFileSaveMeanCost = self.rs.CMAESpath + str(self.tm.sizeOfTarget + "\meanCost" + str(iter)
-        g = open(nameFileSaveMeanCost, 'ab')
-        np.savetxt(g, np.asarray([meanCost]))
-        
-    def runOneTrajectory(self, theta, coord):
+    def saveCost(self):
+        filename = findDataFileName(self.foldername+"Cost/",".cost")
+        np.savetxt(filename, dicToArray(self.tm.costStore))
+         
+    def runOneTrajectory(self, theta, x, y):
         self.setTheta(theta)
-        filename = findDataFileName(self.foldername,".log")
-        cost = self.tm.runTrajectory(coord[0], coord[1], filename)
+        filename = findDataFileName(self.foldername+"Log/",".log")
+        cost = self.tm.runTrajectory(x, y, filename)
         return cost
             
     def runTrajectoriesResultsGeneration(self, theta, repeat):
         self.setTheta(theta)
-        filename = findDataFileName(self.foldername,".log")
-        costAll = [[self.tm.runTrajectory(xy[0], xy[1], filename) for xy in self.posIni] for i in range(repeat)]
+        costAll = [[self.runOneTrajectory(theta, xy[0], xy[1]) for xy in self.posIni] for i in range(repeat)]
         meanByTraj = np.mean(np.asarray(costAll).reshape((repeat, len(self.posIni))), axis = 0)    
         return meanByTraj
     
@@ -96,8 +90,8 @@ class Experiments:
         t0 = time.time()
         self.initTheta(theta)
         #compute all the trajectories x times each, x = numberOfRepeat
-        filename = findDataFileName(self.foldername,".log")
-        costAll = [[self.tm.runTrajectory(xy[0], xy[1], filename) for xy in self.posIni] for i in range(self.numberOfRepeat)]
+        filename = findDataFileName(self.foldername+"Log/",".log")
+        costAll = [[self.runOneTrajectory(theta, xy[0], xy[1]) for xy in self.posIni] for i in range(self.numberOfRepeat)]
         #compute the mean cost for the x times generated trajectories
         meanByTraj = np.mean(np.asarray(costAll).reshape((self.numberOfRepeat, len(self.posIni))), axis = 0)   
         #compute the mean cost for all trajectories 

@@ -26,8 +26,9 @@ def GenerateDataFromTheta(sizeOfTarget, thetaLoadFile, foldername, repeat, rs):
     theta = normalizationNP(theta)
     exp = Experiments(rs, sizeOfTarget, True, foldername)
     cost = exp.runTrajectoriesResultsGeneration(theta, repeat)
-    print("Cost: ", cost)
-    exp.saveCost(foldername)
+    print("CostArray: ", cost)
+    print("foldername : ", foldername)
+    exp.saveCost()
 
 def generateFromCMAES(repeat, thetaFile, saveDir = 'Data'):
     rs = ReadSetupFile()
@@ -60,9 +61,9 @@ def generateOneTrajFromRBFN(folderName, saveFile = 'None'):
     y = float(y)
     coord = (x, y)
     exp = Experiments(rs, rs.sizeOfTarget[3], True, foldername)
-    cost = exp.runOneTrajectory(theta, coord)
+    cost = exp.runOneTrajectory(theta, coord[0], coord[1])
     print("Cost: ", cost)
-    exp.saveCost(foldername)
+    exp.saveCost()
     print("End of generation")
 
 def generateResultsWithBestThetaTmp(folderName, nbret):
@@ -74,7 +75,7 @@ def generateResultsWithBestThetaTmp(folderName, nbret):
         exp = Experiments(rs,el[0], True, foldername)
         cost = exp.runTrajectoriesResultsGeneration(theta, nbret)
         print("Cost: ", cost)
-        exp.saveCost(foldername)
+    exp.saveCost()
     print("End of generation")
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):

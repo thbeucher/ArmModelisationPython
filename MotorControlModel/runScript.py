@@ -15,9 +15,7 @@ from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTarg
 from Regression.RunRegressionRBFN import runRBFN
 from Plot.TrajectoryAnimation import trajectoriesAnimation
 
-from Plot.MuscularActivationsPlotFunctions import plotMuscularActivations
-from Plot.plotFunctions import plotCostMapCMAES, plotCostMapRBFN, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram,\
-    plotVelocityProfiles, plotVelocityProfileBrent, plotXYPositionsBrent, plotArticularPositionsBrent, plotInitPos
+from Plot.plotFunctions import plotCostMapCMAES, plotCostMapRBFN, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations
 
 from Utils.UsefulFunctions import checkReachAllTarget
 
@@ -73,14 +71,14 @@ def printMainMenu():
     print('		1 plot velocity profiles')
     print('		2 plot articular positions')
     print('		3 plot XY positions')
-    print('		4 plot muscular actuations (NOT AVAILABLE)')
+    print('		4 plot muscular activations')
     print('-------------------------------------------------')
     print('	RBFN:')
     print('		5 train from Brent data')
     print('		6 generate results from RBFN controller')
     print('		7 plot velocity profiles')
-    print('		8 plot articular positions (NOT AVAILABLE)')
-    print('		9 plot muscular actuations')
+    print('		8 plot XY positions')
+    print('		9 plot muscular activations')
     print('		10 plot cost Map')
     print('-------------------------------------------------')
     print('	CMAES:')
@@ -88,7 +86,7 @@ def printMainMenu():
     print('		12 generate results from current controllers')
     print('		13 plot velocity profiles')
     print('		14 plot articular positions (NOT AVAILABLE)')
-    print('		15 plot muscular actuations')
+    print('		15 plot muscular activations')
     print('		16 plot cost Map')                  
     print('		17 plot Time x Distance for Targets')                  
     print('		18 plot Size x Dist')                  
@@ -135,17 +133,19 @@ def runAuto():
 
 def chooseFunction(choix):
     if choix == 1:
-        plotVelocityProfileBrent()
+        plotVelocityProfile("Brent")
     elif choix == 2:
-        plotArticularPositionsBrent()
+        plotArticularPositions("Brent")
     elif choix == 3:
-        plotXYPositionsBrent()
+        plotXYPositions("Brent")
+    elif choix == 4:
+        plotMuscularActivations("Brent")
     elif choix == 5:
         name = raw_input('Name of file to save the RBFN controller: ')
         t0 = time.time()
         runRBFN(name)
         t1 = time.time()
-        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
+        print("Fin du traitement! Temps d'exécution:", (t1-t0), "s")
 
     elif choix == 6:
         name = raw_input('Name of the RBFN controller file: ')
@@ -153,13 +153,21 @@ def chooseFunction(choix):
         t0 = time.time()
         generateFromRBFN(nbret, name)
         t1 = time.time()
-        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
+        print("Fin du traitement! Temps d'exécution:", (t1-t0), "s")
     elif choix == 7:
         nameF = raw_input('Folder where the results are saved: ')
-        plotVelocityProfiles(nameF,True)
+        plotVelocityProfile("RBFN",nameF)
+    elif choix == 8:
+        nameF = raw_input('Folder where the results are saved: ')
+        rorc = input("enter 1 if XY or 2 if Joint results: ")
+        rorc = int(rorc)
+        if rorc == 1:
+            plotXYPositions("RBFN",nameF)
+        else:
+            plotArticularPositions("RBFN",nameF)
     elif choix == 9:
         nameF = raw_input('Folder where the results are saved: ')
-        plotMuscularActivations(nameF,True)
+        plotMuscularActivations("RBFN",nameF)
     elif choix == 10:
         nameF = raw_input('Folder where the results are saved: ')
         plotCostMapRBFN(nameF)
@@ -167,7 +175,7 @@ def chooseFunction(choix):
         t0 = time.time()
         launchCMAESForAllTargetSizes()
         t1 = time.time()
-        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
+        print("Fin du traitement! Temps d'exécution:", (t1-t0), "s")
     elif choix == 12:
         nameTheta = raw_input('Name of the controller file: ')
         name = raw_input('Folder where you want to save the results: ')
@@ -176,13 +184,14 @@ def chooseFunction(choix):
         t0 = time.time()
         generateFromCMAES(nbret, nameTheta, name)
         t1 = time.time()
-        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
+        print("Fin du traitement! Temps d'exécution:", (t1-t0), "s")
     elif choix == 13:
         nameF = raw_input('Folder where the results are saved: ')
-        plotVelocityProfiles(nameF,False)
+        plotVelocityProfiles("CMAES",nameF)
     elif choix == 15:
         nameF = raw_input('Folder where the results are saved: ')
-        plotMuscularActivations(nameF)
+        tSize = raw_input('Target Size: ')
+        plotMuscularActivations("CMAES",nameF,tSize)
     elif choix == 16:
         nameF = raw_input('Folder where the results are saved: ')
         plotCostMapCMAES(nameF)

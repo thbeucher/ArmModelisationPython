@@ -17,45 +17,6 @@ from matplotlib import cm
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.FileReading import getobjreadJson, getobjread
 
-def plotMuscularActivations(folderName, rbfn = False):
-    '''
-    plots the muscular actuations from a folder
-    
-    input:    -folderName: the folder where the data lies
-              -rbfn: get them from rbfn or from cmaes controllers (default is cmaes)
-
-    Note : does not work for the Brent controller
-    Note : for CMAES, the target size should be read from the setup file (here, set to 0.1)
-    '''
-    rs = ReadSetupFile()
-    if rbfn == False:
-        name = rs.CMAESpath + "0.1/" + folderName + "/saveU"
-    else:
-        name = rs.RBFNpath + folderName + "/saveU"
-    data = getobjreadJson(name)
-    u1, u2, u3, u4, u5, u6 = [], [], [], [], [], []
-    t = []
-    for key, val in data.items():
-        for el1 in val:
-            for el in el1:
-                u1.append(el[0])
-                u2.append(el[1])
-                u3.append(el[2])
-                u4.append(el[3])
-                u5.append(el[4])
-                u6.append(el[5])
-            for i in range(len(el1)):
-                t.append(i)
-            plt.figure()
-            plt.plot(t, u1)
-            plt.plot(t, u2)
-            plt.plot(t, u3)
-            plt.plot(t, u4)
-            plt.plot(t, u5)
-            plt.plot(t, u6)
-            plt.show(block = True)
-        break
-
 
 def plotMuscularActivation(what):
     '''
