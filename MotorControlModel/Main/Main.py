@@ -69,7 +69,7 @@ def GenerateDataFromTheta(sizeOfTarget, thetaLoadFile, dataSaveDir, repeat, rs):
     exp = initAll(sizeOfTarget, rs, True)
     cost = exp.runTrajectoriesResultsGeneration(theta, repeat)
     print("Cost: ", cost)
-    exp.saveData(sizeOfTarget, dataSaveDir)
+    exp.saveData(dataSaveDir)
 
 def generateFromCMAES(repeat, thetaFile, saveDir = 'Data'):
     rs = ReadSetupFile()
@@ -88,7 +88,7 @@ def generateFromRBFN(repeat, thetaFile, saveDir = 'Data'):
 
 #------------------------- not updated -------------------------------------
     
-def generateOneTrajFromRBFN(nameFolder, saveFile = 'None'):
+def generateOneTrajFromRBFN(folderName, saveFile = 'None'):
     rs = ReadSetupFile()
     if saveFile == 'None':
         thetaName = rs.RBFNpath + "ThetaX7NP"
@@ -104,10 +104,10 @@ def generateOneTrajFromRBFN(nameFolder, saveFile = 'None'):
     exp = initAll(rs.sizeOfTarget[3], rs, True)
     cost = exp.runOneTrajectory(theta, coord)
     print("Cost: ", cost)
-    exp.saveData(0, nameFolder, True)
+    exp.saveData(folderName)
     print("End of generation")
 
-def generateResultsWithBestThetaTmp(nameFolderSave, nbret):
+def generateResultsWithBestThetaTmp(folderName, nbret):
     rs = ReadSetupFile()
     listBT = getBestTheta()
     for el in listBT:
@@ -116,7 +116,7 @@ def generateResultsWithBestThetaTmp(nameFolderSave, nbret):
         exp = initAll(el[0], rs, True)
         cost = exp.runTrajectoriesResultsGeneration(theta, nbret)
         print("Cost: ", cost)
-        exp.saveData(el[0], nameFolderSave)
+        exp.saveData(folderName)
     print("End of generation")
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):

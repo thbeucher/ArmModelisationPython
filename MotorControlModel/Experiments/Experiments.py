@@ -7,7 +7,7 @@ Module: Experiments
 
 Description: Class used to generate all the trajectories of the experimental setup and also used for CMAES optimization
 '''
-
+import os
 import time
 import numpy as np
 from Utils.ThetaNormalization import unNormNP
@@ -15,7 +15,7 @@ from Utils.ReadSetupFile import ReadSetupFile
 
 from GlobalVariables import pathDataFolder
 
-from Experiments.TrajMaker import TrajMaker
+from TrajMaker import TrajMaker
 
 class Experiments:
     def __init__(self, arm, rs, sizeOfTarget, saveA, controller):
@@ -23,12 +23,8 @@ class Experiments:
     	Initializes parameters used to run functions below
     
     	Inputs:
-    			-numberOfRepeat: number given how many times each trajectory are run, int
-    			-tm: trajMaker: class object
-    			-dimState: dimension of the state, int
-    			-dimOutput: dimension of the output, here the output correspond to the muscular activation vector U
-    			-mac: muscularActivationCommand, class object
-    	'''
+     	'''
+        self.rs = rs
         self.name = "Experiments"
         self.call = 0
         self.saveCost = []
@@ -55,22 +51,20 @@ class Experiments:
         self.mac.setThetaMAC(self.theta)
 
     def saveData(self, foldername):
-        nameToSaveThetaCma = rs.CMAESpath + str(sizeOfTarget) + "/"
         i = 1
         for el in os.listdir(foldername):
             tryName = "traj" + str(i) + ".log"
             if tryName in el:
                 i += 1
                 tryName = "traj" + str(i) + ".log"
-        filename = foldername + tryname
-        tm.saveData(filename)
+        filename = foldername + tryName
+        self.tm.saveData(filename)
         
     def saveThetaCmaes(self, meanCost, iter):
-        rs = ReadSetupFile()
         nameFileSave = rs.CMAESpath + str(self.tm.sizeOfTarget) + "/thetaTmp" + str(iter)
         f = open(nameFileSave, 'ab')
         np.savetxt(f, self.theta)
-        nameFileSaveMeanCost = rs.CMAESpath + str(self.tm.sizeOfTarget) + "/meanCost" + str(iter)
+        nameFileSaveMeanCost = self.rs.CMAESpath + str(self.tm.sizeOfTarget) + "/meanCost" + str(iter)
         g = open(nameFileSaveMeanCost, 'ab')
         np.savetxt(g, np.asarray([meanCost]))
         

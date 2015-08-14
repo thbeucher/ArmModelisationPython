@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-Author: Thomas Beucher
+Author: Olivier Sigaud
 
 Module: TrajMaker
 
@@ -12,8 +12,8 @@ import numpy as np
 from Utils.CreateVectorUtil import createVector
 from ArmModel.Arm import Arm, createStateVector, getDotQAndQFromStateVector
 
-from Experiments.CostComputation import CostComputation
-from Experiments.UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
+from CostComputation import CostComputation
+from UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
 
 class TrajMaker:
     
@@ -67,12 +67,8 @@ class TrajMaker:
         i, t, cost = 0, 0, 0
         self.Ukf.initObsStore(state)
         self.arm.setState(state)
-         #code to save data of the trajectory
-        self.nameToSaveTraj = str(x) + "//" + str(y)
-        if self.saveA == True:
-            self.initSaveLoopData()
-        #loop to generate next position until the target is reached 
         estimState = state
+        #loop to generate next position until the target is reached 
         while coordHand[1] < self.rs.targetOrdinate and i < self.rs.numMaxIter:
             stepStore = []
             #computation of the next muscular activation vector using the controller theta
@@ -83,17 +79,17 @@ class TrajMaker:
             self.arm.setState(realNextState)
 
             #computation of the approximated state
-            estimNextState = self.Ukf.runUKF(Unoisy, realState)
+            estimNextState = self.Ukf.runUKF(Unoisy, realNextState)
             #computation of the cost
             cost = self.cc.computeStateTransitionCost(cost, Unoisy, t)
             #get dotq and q from the state vector
-            dotq, q = getDotQAndQFromStateVector(realState)
+            dotq, q = getDotQAndQFromStateVector(realNextState)
             #computation of the coordinates to check if the target is reach or not
             coordElbow, coordHand = self.arm.mgd(q)
             #code to save data of the trajectory
 
             if self.saveA == True:
-                stepStore.append([0.0 self.rs.targetOrdinate])
+                stepStore.append([0.0, self.rs.targetOrdinate])
                 stepStore.append(estimState)
                 stepStore.append(state)
                 stepStore.append(Unoisy)
@@ -102,7 +98,7 @@ class TrajMaker:
                 stepStore.append(realNextState)
                 stepStore.append(coordElbow)
                 stepStore.append(coordHand)
-                print stepStore
+                #print stepStore
 
             estimState = estimNextState
             i += 1
@@ -112,13 +108,13 @@ class TrajMaker:
         if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.targetOrdinate:
             cost = self.cc.computeFinalCostReward(cost, t)
         #return the cost of the trajectory
-        dataStore.append(stepStore)
-        costStore.append(cost)
+        self.dataStore.append(stepStore)
+        self.costStore.append(cost)
         return cost
     
-    def saveData(filename):
-        np.saveTxt(filename+".log",dataStore)
-        np.saveTxt(filename+".cost",costStore)
+    def saveData(self,filename):
+        np.savetxt(filename+".log",self.dataStore)
+        np.savetxt(filename+".cost",self.costStore)
     
     
     
