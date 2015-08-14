@@ -68,7 +68,7 @@ class Experiments:
         filename = findDataFileName(foldername,".cost")
         f = open(nameFileSave, 'ab')
         np.savetxt(f, self.theta)
-        nameFileSaveMeanCost = self.rs.CMAESpath + str(self.tm.sizeOfTarget) + "/meanCost" + str(iter)
+        nameFileSaveMeanCost = self.rs.CMAESpath + str(self.tm.sizeOfTarget + "\meanCost" + str(iter)
         g = open(nameFileSaveMeanCost, 'ab')
         np.savetxt(g, np.asarray([meanCost]))
         

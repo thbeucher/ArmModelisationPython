@@ -68,6 +68,9 @@ class ReadSetupFile:
         #reading line 21, Dimension de la sortie, ici le vecteur d'activation musculaire
         self.outputDim = int((allsByLign[20].split(":"))[1])
         self.RBFNpath = pathDataFolder + "RBFN/" + str(self.numfeats) + "feats/"
-        self.CMAESpath = pathDataFolder + cmaesPath + "/ResCma"
+        self.CMAESpath = []
+        for i in len(self.sizeOfTarget):
+            self.CMAESpath[i] = pathDataFolder + cmaesPath + "/ResCma" + self.sizeOfTarget[i] + "/"
+           
         
 

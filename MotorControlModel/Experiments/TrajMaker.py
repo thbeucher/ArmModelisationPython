@@ -127,17 +127,17 @@ class TrajMaker:
 
             if self.saveA == True:
                 stepStore.append([0.0, self.rs.targetOrdinate])
-                stepStore.append(estimState)
-                stepStore.append(state)
-                stepStore.append(Unoisy)
-                stepStore.append(U)
-                stepStore.append(estimNextState)
-                stepStore.append(realNextState)
-                stepStore.append(coordElbow)
-                stepStore.append(coordHand)
-                print stepStore
-                store = np.vstack(np.array(stepStore))
-                print store
+                stepStore.append(estimState.flatten().tolist())
+                stepStore.append(state.flatten().tolist())
+                stepStore.append(Unoisy.flatten().tolist())
+                stepStore.append(U.flatten().tolist())
+                stepStore.append(estimNextState.flatten().tolist())
+                stepStore.append(realNextState.flatten().tolist())
+                stepStore.append([coordElbow[0][0], coordElbow[1][0]])
+                stepStore.append([coordHand[0][0], coordHand[1][0]])
+                print ("before",stepStore)
+                store = np.array(stepStore).flatten()
+                print ("store",store)
                 dataStore.append(store)
 
             estimState = estimNextState

@@ -27,7 +27,7 @@ def  createStateVector(dotq, q):
     
   Outputs:    -state: numpy array, the state vector
   '''
-  state = np.array([dotq[0], dotq[1], q[0], q[1]])
+  state = np.array([dotq[0], dotq[1], q[0], q[1]])   #.flatten()
   return state
 
 def getDotQAndQFromStateVector(state):
@@ -132,8 +132,8 @@ class Arm:
         -coordElbow: elbow coordinate
         -coordHand: hand coordinate
         '''
-        coordElbow = (self.armP.l1*np.cos(q[0]), self.armP.l1*np.sin(q[0]))
-        coordHand = (self.armP.l2*np.cos(q[1] + q[0]) + self.armP.l1*np.cos(q[0]), self.armP.l2*np.sin(q[1] + q[0]) + self.armP.l1*np.sin(q[0]))
+        coordElbow = [self.armP.l1*np.cos(q[0]), self.armP.l1*np.sin(q[0])]
+        coordHand = [self.armP.l2*np.cos(q[1] + q[0]) + self.armP.l1*np.cos(q[0]), self.armP.l2*np.sin(q[1] + q[0]) + self.armP.l1*np.sin(q[0])]
         return coordElbow, coordHand
 
   def mgi(self, xi, yi):
