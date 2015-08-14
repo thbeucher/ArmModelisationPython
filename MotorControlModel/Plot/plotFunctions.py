@@ -612,10 +612,10 @@ def plotXYPositionsBrent():
         if rd.random()<0.06:
             posX, posY = [], []
             for j in range(len(v)):
-                coordElbow,coordHand = arm.mgd(v[j])
+                coordElbow, coordHand = arm.mgd(v[j])
                 posX.append(coordHand[0])
                 posY.append(coordHand[1])
-                plt.plot(posX,posY, c ='b')
+            plt.plot(posX,posY, c ='b')
     plt.xlabel("X")
     plt.ylabel("Y")
     plt.title("XY Positions for Brent")
@@ -627,18 +627,15 @@ def plotArticularPositionsBrent():
     state = getStateDataFromBrent(BrentTrajectoriesFolder)
     for k,v in state.items():
         if rd.random()<0.06:
-            posX, posY = [], []
+            Q1, Q2 = [], []
             for j in range(len(v)):
-                posX.append(v[j][2])
-                posY.append(v[j][3])
-                plt.plot(posX,posY, c ='b')
+                Q1.append(v[j][2])
+                Q2.append(v[j][3])
+            plt.plot(Q1,Q2, c ='b')
     plt.xlabel("Q1")
     plt.ylabel("Q2")
     plt.title("Articular positions for Brent")
     plt.show(block = True)
-
-#-----------------------------------------------------------------------------------------
-# those functions are not used
 
 def plotInitPos():
     '''
@@ -649,7 +646,7 @@ def plotInitPos():
     rs = ReadSetupFile()
     xt = 0
     yt = rs.targetOrdinate
-    posIni = getobjread(rs.experimentFilePosIni)
+    posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
     for el in posIni:
         x0.append(el[0])
         y0.append(el[1])
@@ -671,6 +668,9 @@ def plotInitPos():
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
     
     plt.show(block = True)
+
+#-----------------------------------------------------------------------------------------
+# those functions are not used
 
 def plotPosTAT(fr, rs):
     xtr, junk = getInitPos(pathDataFolder + "ThetaAllTraj/")

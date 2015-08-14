@@ -15,15 +15,16 @@ from Utils.ReadSetupFile import ReadSetupFile
 
 from GlobalVariables import pathDataFolder
 
+from Experiments.TrajMaker import TrajMaker
+
 class Experiments:
-    
-    def __init__(self, numfeats, numberOfRepeat, tg, dimState, dimOutput, mac, filename):
+    def __init__(self, arm, rs, sizeOfTarget, saveA, controller):
         '''
     	Initializes parameters used to run functions below
     
     	Inputs:
     			-numberOfRepeat: number given how many times each trajectory are run, int
-    			-tg: trajectoryGenerator: class object
+    			-tm: trajMaker: class object
     			-dimState: dimension of the state, int
     			-dimOutput: dimension of the output, here the output correspond to the muscular activation vector U
     			-mac: muscularActivationCommand, class object
@@ -31,16 +32,13 @@ class Experiments:
         self.name = "Experiments"
         self.call = 0
         self.saveCost = []
-        self.numfeats = numfeats
-        self.numberOfRepeat = numberOfRepeat
-        self.tg = tg
-        self.dimState = dimState
-        self.dimOutput = dimOutput
-        self.mac = mac
-        self.posIni = np.loadtxt(pathDataFolder + filename)
-    
-    def runTrajectories(self):
-        pass
+        self.numfeats = rs.numfeats
+        self.numberOfRepeat = rs.numberOfRepeatEachTraj
+        self.tm = TrajMaker(arm, rs, sizeOfTarget, saveA, controller)
+        self.dimState = rs.inputDim
+        self.dimOutput = rs.outputDim
+        self.mac = arm.mac
+        self.posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
     
     def initTheta(self, theta):
         '''
@@ -55,20 +53,31 @@ class Experiments:
         self.theta = unNormNP(self.theta)
         #give the theta to the muscularActivationCommand class
         self.mac.setThetaMAC(self.theta)
+
+    def saveData(self, foldername):
+        nameToSaveThetaCma = rs.CMAESpath + str(sizeOfTarget) + "/"
+        i = 1
+        for el in os.listdir(foldername):
+            tryName = "traj" + str(i) + ".log"
+            if tryName in el:
+                i += 1
+                tryName = "traj" + str(i) + ".log"
+        filename = foldername + tryname
+        tm.saveData(filename)
         
-    def saveThetaCmaes(self, meanCost):
+    def saveThetaCmaes(self, meanCost, iter):
         rs = ReadSetupFile()
-        nameFileSave = rs.CMAESpath + str(self.tg.sizeOfTarget) + "/thetaSolTmp_target" + str(self.tg.sizeOfTarget)
+        nameFileSave = rs.CMAESpath + str(self.tm.sizeOfTarget) + "/thetaTmp" + str(iter)
         f = open(nameFileSave, 'ab')
         np.savetxt(f, self.theta)
-        nameFileSaveMeanCost = rs.CMAESpath + str(self.tg.sizeOfTarget) + "/meanCost" + str(self.tg.sizeOfTarget)
+        nameFileSaveMeanCost = rs.CMAESpath + str(self.tm.sizeOfTarget) + "/meanCost" + str(iter)
         g = open(nameFileSaveMeanCost, 'ab')
         np.savetxt(g, np.asarray([meanCost]))
         
     def runOneTrajectory(self, theta, coord):
         thetaTG = np.copy(theta)
         self.mac.setThetaMAC(thetaTG)
-        cost = self.tg.runTrajectory(coord[0], coord[1])
+        cost = self.tm.runTrajectory(coord[0], coord[1])
         return cost
         
     def runTrajectoriesResultsGeneration(self, theta, repeat, rbfn = False):
@@ -77,7 +86,7 @@ class Experiments:
         else:
             thetaTG = np.copy(theta)
             self.mac.setThetaMAC(thetaTG)
-        costAll = [[self.tg.runTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(repeat)]
+        costAll = [[self.tm.runTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(repeat)]
         meanByTraj = np.mean(np.asarray(costAll).reshape((repeat, len(self.posIni))), axis = 0)    
         return meanByTraj
     
@@ -92,15 +101,15 @@ class Experiments:
         t0 = time.time()
         self.initTheta(theta)
         #compute all the trajectories x times each, x = numberOfRepeat
-        costAll = [[self.tg.runTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(self.numberOfRepeat)]
+        costAll = [[self.tm.runTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(self.numberOfRepeat)]
         #compute the mean cost for the x times generated trajectories
         meanByTraj = np.mean(np.asarray(costAll).reshape((self.numberOfRepeat, len(self.posIni))), axis = 0)   
         #compute the mean cost for all trajectories 
         meanAll = np.mean(meanByTraj)
         self.saveCost.append(meanAll)
         print("Call #: ", self.call, "\n Cost: ", meanAll, "\n Time: ", time.time() - t0, "s")
+        self.saveThetaCmaes(meanAll,self.call)
         self.call += 1
-        self.saveThetaCmaes(meanAll)
         return meanAll*(-1)
     
     

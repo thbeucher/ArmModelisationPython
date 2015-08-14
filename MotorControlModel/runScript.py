@@ -7,6 +7,7 @@ Module: runScript
 
 Description: main script to run what we want in the project
 '''
+import time
 import site
 import os
 from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTargetSizes #launchCMAESForSpecificTargetSize, generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize,\ generateTrajectoryForScattergram
@@ -15,9 +16,8 @@ from Regression.RunRegressionRBFN import runRBFN
 from Plot.TrajectoryAnimation import trajectoriesAnimation
 
 from Plot.MuscularActivationsPlotFunctions import plotMuscularActivations
-from Plot.plotFunctions import plotCostMapCMAES, plotCostMapRBFN, plotTimeDistanceTarget,\
-    plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram,\
-    plotVelocityProfiles, plotVelocityProfileBrent, plotXYPositionsBrent, plotArticularPositionsBrent
+from Plot.plotFunctions import plotCostMapCMAES, plotCostMapRBFN, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram,\
+    plotVelocityProfiles, plotVelocityProfileBrent, plotXYPositionsBrent, plotArticularPositionsBrent, plotInitPos
 
 from Utils.UsefulFunctions import checkReachAllTarget
 
@@ -74,10 +74,10 @@ def printMainMenu():
     print('		2 plot articular positions')
     print('		3 plot XY positions')
     print('		4 plot muscular actuations (NOT AVAILABLE)')
-    print('		5 (NOT AVAILABLE)')
     print('-------------------------------------------------')
     print('	RBFN:')
-    print('		6 train from Brent data')
+    print('		5 train from Brent data')
+    print('		6 generate results from RBFN controller')
     print('		7 plot velocity profiles')
     print('		8 plot articular positions (NOT AVAILABLE)')
     print('		9 plot muscular actuations')
@@ -140,12 +140,20 @@ def chooseFunction(choix):
         plotArticularPositionsBrent()
     elif choix == 3:
         plotXYPositionsBrent()
-    elif choix == 6:
+    elif choix == 5:
         name = raw_input('Name of file to save the RBFN controller: ')
+        t0 = time.time()
         runRBFN(name)
+        t1 = time.time()
+        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
 
+    elif choix == 6:
+        name = raw_input('Name of the RBFN controller file: ')
         nbret = input("Number of repeat for each trajectory (int): ")
+        t0 = time.time()
         generateFromRBFN(nbret, name)
+        t1 = time.time()
+        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
     elif choix == 7:
         nameF = raw_input('Folder where the results are saved: ')
         plotVelocityProfiles(nameF,True)
@@ -155,14 +163,20 @@ def chooseFunction(choix):
     elif choix == 10:
         nameF = raw_input('Folder where the results are saved: ')
         plotCostMapRBFN(nameF)
-        generateFromCMAES(nbret, nameTheta, name)
     elif choix == 11:
+        t0 = time.time()
         launchCMAESForAllTargetSizes()
+        t1 = time.time()
+        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
     elif choix == 12:
         nameTheta = raw_input('Name of the controller file: ')
         name = raw_input('Folder where you want to save the results: ')
         nbret = input("Number of repeat for each trajectory (int): ")
         nbret = int(nbret)
+        t0 = time.time()
+        generateFromCMAES(nbret, nameTheta, name)
+        t1 = time.time()
+        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
     elif choix == 13:
         nameF = raw_input('Folder where the results are saved: ')
         plotVelocityProfiles(nameF,False)
@@ -213,7 +227,7 @@ JUNK
         generateResultsWithBestThetaTmp(nameF, nbret)
 '''
 
-    
+#plotInitPos()  
 runChoice()
 #runAuto()
 #generateFromRBFN(nbret, nameC)
