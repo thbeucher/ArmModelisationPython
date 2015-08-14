@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-Author: Thomas Beucher
+Author: Olivier Sigaud
 
 Module: runScript
 
