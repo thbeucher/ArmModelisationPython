@@ -13,63 +13,21 @@ import numpy as np
 
 from multiprocessing.pool import Pool
 
-from Utils.FileReading import getStateAndCommandDataFromBrent, dicToArray
 from Utils.ThetaNormalization import normalizationNP, matrixToVector, normalizationNPWithoutSaving
 from Utils.ReadDataTmp import getBestTheta
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.PurgeData import purgeCostNThetaTmp
 
 from ArmModel.Arm import Arm
-from Regression.functionApproximator_RBFN import fa_rbfn
 from Experiments.Experiments import Experiments
 
-from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder
-
-def initRBFNController(rs):
-    '''
-	Initializes the controller allowing to compute the output from the input and the vector of parameters theta
-	
-	Input:		-rs: ReadSetup, class object
-			-fr, FileReading, class object
-	'''
-    #Initializes the function approximator with the number of feature used
-    fa = fa_rbfn(rs.numfeats,rs.inputDim,rs.outputDim)
-    #Get state and command to initializes the controller by putting the features
-    state, command = getStateAndCommandDataFromBrent(BrentTrajectoriesFolder)
-    #Transform data from dictionary into array
-    stateAll, commandAll = dicToArray(state), dicToArray(command)
-
-    #Set the data for training the RBFN model (actually, we don't train it here, just needed for dimensioning)
-    fa.setTrainingData(stateAll, commandAll)
-    #set the center and width for the features
-    fa.setCentersAndWidths()
-    return fa
-
-def initAll(sizeOfTarget, rs, save = False):
-    '''
-	Initializes class object needed to generate trajectories
-	
-	Input:		-sizeOfTarget: the size of the target, float
-				-fr, FileReading, class object
-				-rs, ReadSetup, class object
-	'''
-    #fa, function approximator i.e. the controller
-    fa = initRBFNController(rs)
-    #arm model
-    arm = Arm()
-    arm.setDT(rs.dt)
-
-    #here 5 is the number of repeat of each trajectory, 4 is the dimension of the input, 6 is the dimension of the ouput
-    exp = Experiments(arm, rs, sizeOfTarget, save, fa)
-    return exp
-
-def GenerateDataFromTheta(sizeOfTarget, thetaLoadFile, dataSaveDir, repeat, rs):
+def GenerateDataFromTheta(sizeOfTarget, thetaLoadFile, foldername, repeat, rs):
     theta = np.loadtxt(thetaLoadFile)
     theta = normalizationNP(theta)
-    exp = initAll(sizeOfTarget, rs, True)
+    exp = Experiments(rs, sizeOfTarget, True, foldername)
     cost = exp.runTrajectoriesResultsGeneration(theta, repeat)
     print("Cost: ", cost)
-    exp.saveData(dataSaveDir)
+    exp.saveCost(foldername)
 
 def generateFromCMAES(repeat, thetaFile, saveDir = 'Data'):
     rs = ReadSetupFile()
@@ -101,10 +59,10 @@ def generateOneTrajFromRBFN(folderName, saveFile = 'None'):
     y = input("y: ")
     y = float(y)
     coord = (x, y)
-    exp = initAll(rs.sizeOfTarget[3], rs, True)
+    exp = Experiments(rs, rs.sizeOfTarget[3], True, foldername)
     cost = exp.runOneTrajectory(theta, coord)
     print("Cost: ", cost)
-    exp.saveData(folderName)
+    exp.saveCost(foldername)
     print("End of generation")
 
 def generateResultsWithBestThetaTmp(folderName, nbret):
@@ -113,10 +71,10 @@ def generateResultsWithBestThetaTmp(folderName, nbret):
     for el in listBT:
         print("Results generation for target ", el[0])
         theta = el[1]
-        exp = initAll(el[0], rs, True)
+        exp = Experiments(rs,el[0], True, foldername)
         cost = exp.runTrajectoriesResultsGeneration(theta, nbret)
         print("Cost: ", cost)
-        exp.saveData(folderName)
+        exp.saveCost(foldername)
     print("End of generation")
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
@@ -127,7 +85,8 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
     '''
     print("Starting the CMAES Optimization for target " + str(sizeOfTarget) + " !")
     rs = ReadSetupFile()
-    thetaLocalisation =  rs.CMAESpath + str(sizeOfTarget) + "/" + thetaFile
+    foldername = rs.CMAESpath + str(sizeOfTarget) + "/"
+    thetaLocalisation =  foldername + thetaFile
     #load the controller, ie the vector of parameters theta
     theta = np.loadtxt(thetaLocalisation)
     #normalize the vector
@@ -135,51 +94,21 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
     #put theta to a one dimension numpy array, ie row vector form
     theta = matrixToVector(theta)
     #Initializes all the class used to generate trajectory
-    exp = initAll(sizeOfTarget, rs)
+    exp = Experiments(rs, sizeOfTarget, True, foldername)
     #run the optimization (cmaes)
     resCma = cma.fmin(exp.runTrajectoriesCMAES, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     #name used to save the controller obtained from optimization
-    nameToSaveThetaCma = rs.CMAESpath + str(sizeOfTarget) + "/"
     i = 1
     tryName = "thetaCma" + str(sizeOfTarget) + "save"
-    for el in os.listdir(nameToSaveThetaCma):
+    for el in os.listdir(foldername):
         if tryName in el:
             i += 1
             tryName += str(i)
         nameToSaveThetaCma += tryName
-        np.savetxt(nameToSaveThetaCma, resCma[0])
+        np.savetxt(foldername, resCma[0])
         theta = resCma[0]
         print("end loop step")
 
-    print("End of optimization for target " + str(sizeOfTarget) + " !")
-    
-def launchCMAESWithBestThetaTmpForSpecificTargetSize(sizeOfTarget):
-    '''
-    Run cmaes for a specific target size with the best theta tmp
-
-    Input:    -sizeOfTarget, size of the target, float
-    '''
-    print("Start of the CMAES Optimization for target " + str(sizeOfTarget) + " !")
-    rs = ReadSetupFile()
-    listBT = getBestTheta()
-    #get the best theta corresponding to the target size given
-    for el in listBT:
-        if el[0] == sizeOfTarget:
-            theta = el[1]
-    theta = normalizationNPWithoutSaving(theta)
-    theta = matrixToVector(theta)
-    purgeCostNThetaTmp(sizeOfTarget)
-    exp = initAll(sizeOfTarget, rs)
-    resCma = cma.fmin(exp.runTrajectoriesCMAES, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
-    nameToSaveThetaCma = rs.CMAESpath + str(sizeOfTarget) + "/"
-    i = 1
-    tryName = "thetaCma" + str(sizeOfTarget) + "TGUKF"
-    for el in os.listdir(nameToSaveThetaCma):
-        if tryName in el:
-            i += 1
-    tryName += str(i)
-    nameToSaveThetaCma += tryName
-    np.savetxt(nameToSaveThetaCma, resCma[0])
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     
 def launchCMAESForAllTargetSizes():

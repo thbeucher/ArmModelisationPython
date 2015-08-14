@@ -11,13 +11,41 @@ import numpy as np
 
 from Utils.CreateVectorUtil import createVector
 from ArmModel.Arm import Arm, createStateVector, getDotQAndQFromStateVector
+from ArmModel.MuscularActivation import getNoisyCommand
+
+from Regression.functionApproximator_RBFN import fa_rbfn
+from Utils.FileReading import getStateAndCommandDataFromBrent, dicToArray
 
 from CostComputation import CostComputation
 from UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
 
+from GlobalVariables import BrentTrajectoriesFolder
+
+def initRBFNController(rs):
+    '''
+	Initializes the controller allowing to compute the output from the input and the vector of parameters theta
+	
+	Input:		-rs: ReadSetup, class object
+			-fr, FileReading, class object
+	'''
+    #Initializes the function approximator with the number of feature used
+    fa = fa_rbfn(rs.numfeats,rs.inputDim,rs.outputDim)
+    #Get state and command to initializes the controller by putting the features
+    state, command = getStateAndCommandDataFromBrent(BrentTrajectoriesFolder)
+    #Transform data from dictionary into array
+    stateAll, commandAll = dicToArray(state), dicToArray(command)
+
+    #Set the data for training the RBFN model (actually, we don't train it here, just needed for dimensioning)
+    fa.setTrainingData(stateAll, commandAll)
+    #set the center and width for the features
+    fa.setCentersAndWidths()
+    return fa
+
+#------------------------------------------------------------------------
+
 class TrajMaker:
     
-    def __init__(self, arm, rs, sizeOfTarget, saveA, controller):
+    def __init__(self, rs, sizeOfTarget, saveA):
         '''
     	Initializes the parameters used to run the functions below
     
@@ -30,20 +58,25 @@ class TrajMaker:
     			-saveA, Boolean: true = Data are saved, false = data are not saved
     	'''
         self.name = "TrajectoryGenerator"
-        self.arm = arm
+
+        self.arm = Arm()
+        self.arm.setDT(rs.dt)
+
+        self.controller = initRBFNController(rs)
+
         self.rs = rs
         self.cc = CostComputation(rs)
         self.sizeOfTarget = sizeOfTarget
         #6 is the dimension of the state for the filter, 4 is the dimension of the observation for the filter, 25 is the delay used
-        self.Ukf = UnscentedKalmanFilterControl(rs.dimStateUKF, rs.dimObsUKF, rs.delayUKF, arm, rs.knoiseU, controller)
-        self.mac = arm.mac
+        self.Ukf = UnscentedKalmanFilterControl(rs.dimStateUKF, rs.dimObsUKF, rs.delayUKF, self.arm, rs.knoiseU, self.controller)
         self.saveA = saveA
-        self.controller = controller
         #Initializes variables used to save trajectory
-        self.dataStore = []
         self.costStore = []
+
+    def setTheta(self, theta):
+        self.controller.setTheta(theta)
     
-    def runTrajectory(self, x, y):
+    def runTrajectory(self, x, y, filename):
         '''
     	Generates trajectory from the initial position (x, y)
     
@@ -63,17 +96,21 @@ class TrajMaker:
 
         #computes the coordinates of the hand and the elbow from the position vector
         coordElbow, coordHand = self.arm.mgd(q)
+        #assert(coordHand[0]==x and coordHand[1]==y), "Erreur de MGD" does not work because of rounding effects
+
         #initializes parameters for the trajectory
         i, t, cost = 0, 0, 0
         self.Ukf.initObsStore(state)
         self.arm.setState(state)
         estimState = state
+        dataStore = []
+
         #loop to generate next position until the target is reached 
         while coordHand[1] < self.rs.targetOrdinate and i < self.rs.numMaxIter:
             stepStore = []
             #computation of the next muscular activation vector using the controller theta
-            U = self.controller.computeOutput(estimState, self.mac.theta)
-            Unoisy = self.mac.getNoisyCommand(U,self.rs.knoiseU)
+            U = self.controller.computeOutput(estimState, self.controller.theta)
+            Unoisy = getNoisyCommand(U,self.rs.knoiseU)
             #computation of the arm state
             realNextState = self.arm.computeNextState(Unoisy,self.arm.state)
             self.arm.setState(realNextState)
@@ -98,7 +135,10 @@ class TrajMaker:
                 stepStore.append(realNextState)
                 stepStore.append(coordElbow)
                 stepStore.append(coordHand)
-                #print stepStore
+                print stepStore
+                store = np.vstack(np.array(stepStore))
+                print store
+                dataStore.append(store)
 
             estimState = estimNextState
             i += 1
@@ -108,13 +148,14 @@ class TrajMaker:
         if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.targetOrdinate:
             cost = self.cc.computeFinalCostReward(cost, t)
         #return the cost of the trajectory
-        self.dataStore.append(stepStore)
+        self.costStore.append([x, y])
         self.costStore.append(cost)
+
+        if self.saveA == True:
+            np.savetxt(filename,dataStore)
         return cost
-    
-    def saveData(self,filename):
-        np.savetxt(filename+".log",self.dataStore)
-        np.savetxt(filename+".cost",self.costStore)
+
+        
     
     
     

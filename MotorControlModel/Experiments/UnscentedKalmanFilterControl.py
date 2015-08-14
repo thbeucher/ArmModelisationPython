@@ -11,6 +11,8 @@ Uses the librairy pykalman.
 import numpy as np
 from pykalman import UnscentedKalmanFilter
 
+from ArmModel.MuscularActivation import getNoisyCommand
+
 class UnscentedKalmanFilterControl:
     
     def __init__(self, dimState, dimObs, delay, arm, knoiseU, controller):
@@ -29,7 +31,6 @@ class UnscentedKalmanFilterControl:
         self.dimObs = dimObs
         self.delay = delay
         self.arm = arm
-        self.mac = arm.mac
         self.controller = controller
 
         #initialization of some parameters for the filter
@@ -64,8 +65,8 @@ class UnscentedKalmanFilterControl:
         state = np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1))
         nextX = self.arm.computeNextState(np.asarray(stateU).reshape((self.dimState, 1)), state)
         #computation of the next muscular activation vector U
-        U = self.controller.computeOutput(nextX, self.mac.theta)
-        nextStateU = self.mac.getNoisyCommand(U, self.knoiseU)
+        U = self.controller.computeOutput(nextX, self.controller.theta)
+        nextStateU = getNoisyCommand(U, self.knoiseU)
          #noise add to the next state generated
         nextStateUNoise = nextStateU.T[0] + transitionNoise
         return nextStateUNoise

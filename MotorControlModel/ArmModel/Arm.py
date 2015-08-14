@@ -15,7 +15,6 @@ import math
 
 from ArmModel.ArmParameters import ArmParameters
 from ArmModel.MusclesParameters import MusclesParameters
-from ArmModel.MuscularActivation import MuscularActivation
 
 # -------------------- functions ---------------------------------
 
@@ -72,7 +71,6 @@ class Arm:
         self.__dotq0 = np.array([0.,0.])
         self.armP = ArmParameters()
         self.musclesP = MusclesParameters()
-        self.mac = MuscularActivation()
         
   def setState(self, state):
         self.state = state

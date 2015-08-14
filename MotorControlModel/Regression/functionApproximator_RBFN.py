@@ -30,6 +30,10 @@ class fa_rbfn():
         print "dimensions : " + str(self.inputDimension) + "x" +  str(self.outputDimension)
         self.theta = np.zeros((self.nbFeat, self.outputDimension))
 
+    def setTheta(self, theta):
+        self.theta = theta
+ 
+
     def setTrainingData(self, inputData, outputData):
         '''
         Verifies the validity of the given input and output data
