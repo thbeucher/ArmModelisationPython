@@ -183,9 +183,10 @@ def plotInitPos():
         x.append(el[0])
         y.append(el[1])
         a = math.sqrt((el[0]**2) + (el[1] - rs.targetOrdinate)**2)
-        if tronquerNB(a, 3) not in aa:
-            aa.append(tronquerNB(a, 3))
-        if a < 0.11:
+        b = tronquerNB(a, 3)
+        if b not in aa:
+            aa.append(b)
+        if a < 0.11: #Note : WTF ???
             keyy.append(key)
         
     plt.figure()
