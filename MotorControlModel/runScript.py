@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-Author: Olivier Sigaud
+Author: Thomas Beucher + Olivier Sigaud
 
 Module: runScript
 
@@ -237,6 +237,6 @@ JUNK
 '''
 
 #plotInitPos()  
-runChoice()
+runInstall()
 #runAuto()
 #generateFromRBFN(nbret, nameC)
