@@ -12,9 +12,8 @@ import time
 from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTargetSizes #launchCMAESForSpecificTargetSize, generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize,\ generateTrajectoryForScattergram
 
 from Regression.RunRegressionRBFN import runRBFN
-from Plot.TrajectoryAnimation import trajectoriesAnimation
 
-from Plot.plotFunctions import plotCostMapCMAES, plotCostMapRBFN, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations
+from Plot.plotFunctions import trajectoriesAnimation, plotCostMapCMAES, plotCostMapRBFN, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations
 
 from Utils.UsefulFunctions import checkReachAllTarget
 
@@ -163,23 +162,23 @@ def chooseFunction(choix):
         nameF = raw_input('Folder where the results are saved: ')
         plotMapTimeTrajectories(nameF)
     elif choix == 21:
-        rorc = input("enter 1 if cmaes results or 2 if rbfn results: ")
+        rorc = input("enter 0 if Brent, 1 if RBFN or 2 if CMAES results: ")
         rorc = int(rorc)
-        nameF = raw_input('Folder where the results are saved: ')
-        if rorc == 2:
-            trajectoriesAnimation(nameF, True)
+        if rorc == 0:
+            trajectoriesAnimation("Brent")
         elif rorc == 1:
-            trajectoriesAnimation(nameF)
+            nameF = raw_input('Folder where the results are saved: ')
+            trajectoriesAnimation("RBFN",nameF)
+        if rorc == 2:
+            nameF = raw_input('Folder where the results are saved: ')
+            tSize = raw_input('Target Size: ')
+            trajectoriesAnimation("CMAES",nameF, tSize)
     elif choix == 22:
         nameF = raw_input('Folder where the results are saved: ')
         plotScattergram(nameF)
 '''
 JUNK
 
-        else:
-        st = input('Size of target: ')
-        st = float(st)
-        launchCMAESForSpecificTargetSize(st)
     elif choix == 14:
         nameF = raw_input('Folder where the results are saved: ')
         checkReachAllTarget(nameF)

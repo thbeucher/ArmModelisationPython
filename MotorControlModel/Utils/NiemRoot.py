@@ -6,7 +6,7 @@ Module: NiemRoot
 Description: on retrouve dans ce fichier une fonction permettant de recuperer la raciene n-ieme d'un nombre
 '''
 from math import fabs
-y        
+
 def tronquerNB(nb, vir):
     ex = 10**vir
     nb = nb*ex

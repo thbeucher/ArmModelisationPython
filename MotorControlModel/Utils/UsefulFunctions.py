@@ -16,7 +16,7 @@ import timeit
 
 from Utils.NiemRoot import tronquerNB
 from Utils.ReadSetupFile import ReadSetupFile
-from Utils.FileReading import getStateDataFromBrent, getInitPos, getobjread, getobjreadJson
+from Utils.FileReading import getInitPos, getobjread, getobjreadJson
 from Utils.FileSaving import saveBin, saveStr
 from Utils.ThetaNormalization import normalization, matrixToVector, vectorToMatrix, unNorm
 

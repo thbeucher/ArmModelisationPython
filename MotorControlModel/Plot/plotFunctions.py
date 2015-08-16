@@ -16,9 +16,10 @@ from scipy import stats
 
 import matplotlib.pyplot as plt
 from matplotlib import cm
+from matplotlib import animation
 from matplotlib.mlab import griddata
 
-from Utils.FileReading import getStateDataFromBrent, getCommandDataFromBrent, getInitPos, getobjread, getobjreadJson
+from Utils.FileReading import getStateData, getXYHandData, getXYElbowData, getCommandData, getInitPos, getobjread, getobjreadJson
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.NiemRoot import tronquerNB
 
@@ -28,6 +29,57 @@ from Utils.UsefulFunctions import returnX0Y0Z, returnDifCostBrentRBFN,\
 from ArmModel.Arm import Arm
 
 from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder
+
+#--------------------------- trajectory animations ---------------------------------------------------------------------------------------------
+
+def trajectoriesAnimation(what, folderName = "None", targetSize = "0.1"):
+    rs = ReadSetupFile()
+    if what == "CMAES":
+        name = rs.CMAESpath + targetSize + folderName + "/Log/"
+    elif what == "Brent":
+        name = BrentTrajectoriesFolder
+    else:
+        name = rs.RBFNpath + folderName + "/Log/"
+
+    ec = getXYElbowData(name)
+    hc = getXYHandData(name)
+    
+    posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
+    
+    xEl, yEl, xHa, yHa = [], [], [], []
+    for key, val in ec.items():
+        for el in val:
+            xEl.append(el[0])
+            yEl.append(el[1])
+        for elhc in hc[key]:
+            xHa.append(elhc[0])
+            yHa.append(elhc[1])
+    
+    fig = plt.figure()
+    upperArm, = plt.plot([],[]) 
+    foreArm, = plt.plot([],[])
+    plt.xlim(-0.7, 0.7)
+    plt.ylim(-0.7,0.7)
+    plt.plot([-0.7,0.7], [rs.YTarget, rs.YTarget])
+    plt.scatter([-rs.sizeOfTarget[3]/2, rs.sizeOfTarget[3]/2], [rs.YTarget, rs.YTarget], c ='g', marker='o', s=50)
+    plt.scatter([el[0] for el in posIni],[el[1] for el in posIni], c='b')
+    
+    def init():
+        upperArm.set_data([0], [0])
+        foreArm.set_data([xEl[0]], [yEl[0]])
+        return upperArm, foreArm
+    
+    def animate(i):
+        xe = (0, xEl[i])
+        ye = (0, yEl[i])
+        xh = (xEl[i], xHa[i])
+        yh = (yEl[i], yHa[i])
+        upperArm.set_data(xe, ye)
+        foreArm.set_data(xh, yh)
+        return upperArm, foreArm
+    
+    ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(xEl), blit=True, interval=20, repeat=True)
+    plt.show(block = True)
 
 #----------------------------------------------------------------------------------------------------------------------------
 #Functions related to velocity profiles
@@ -40,7 +92,7 @@ def plotVelocityProfile(what, folderName = "None"):
         for i in range(4):
             ax = plt.subplot2grid((2,2), (i/2,i%2))
             name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + foldername + "/Log"
-            state = getStateDataFromBrent(name)
+            state = getStateData(name)
             for k,v in state.items():
                 index, speed = [], []
                 for j in range(len(v)):
@@ -56,7 +108,7 @@ def plotVelocityProfile(what, folderName = "None"):
         else:
             name = rs.RBFNpath + folderName + "/Log/"
 
-        state = getStateDataFromBrent(name)
+        state = getStateData(name)
         for k,v in state.items():
             if rd.random()<0.06:
                 index, speed = [], []
@@ -72,9 +124,6 @@ def plotVelocityProfile(what, folderName = "None"):
 def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
     rs = ReadSetupFile()
     plt.figure(1, figsize=(16,9))
-
-    arm = Arm()
- 
     if what == "CMAES":
         name = rs.CMAESpath + targetSize + folderName + "/Log/"
     elif what == "Brent":
@@ -82,14 +131,13 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
     else:
         name = rs.RBFNpath + folderName + "/Log/"
 
-    state = getStateDataFromBrent(name)
+    state = getXYHandData(name)
     for k,v in state.items():
         if rd.random()<0.06:
             posX, posY = [], []
             for j in range(len(v)):
-                coordElbow, coordHand = arm.mgd(v[j])
-                posX.append(coordHand[0])
-                posY.append(coordHand[1])
+                posX.append(v[j][0])
+                posY.append(v[j][1])
 
             print posX, posY
             plt.plot(posX,posY, c ='b')
@@ -109,7 +157,7 @@ def plotArticularPositions(what, folderName = "None", targetSize = "0.1"):
     else:
         name = rs.RBFNpath + folderName + "/Log/"
 
-    state = getStateDataFromBrent(name)
+    state = getStateData(name)
 
     for k,v in state.items():
         if rd.random()<0.06:
@@ -139,7 +187,7 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
     else:
         name = rs.RBFNpath + folderName + "/Log/"
 
-    U = getCommandDataFromBrent(name)
+    U = getCommandData(name)
 
     u1, u2, u3, u4, u5, u6 = [], [], [], [], [], []
     t = []
@@ -176,13 +224,13 @@ def plotInitPos():
     for el in posIni:
         x0.append(el[0])
         y0.append(el[1])
-    xy, junk = getInitPos(BrentTrajectoriesFolder)
+    xy = getInitPos(BrentTrajectoriesFolder)
     x, y = [], []
     aa, keyy = [], []
     for key, el in xy.items():
         x.append(el[0])
         y.append(el[1])
-        a = math.sqrt((el[0] - rs.XTarget)**2) + (el[1] - rs.YTarget)**2)
+        a = math.sqrt((el[0] - rs.XTarget)**2 + (el[1] - rs.YTarget)**2)
         b = tronquerNB(a, 3)
         if b not in aa:
             aa.append(b)
@@ -602,7 +650,7 @@ def plotTrackTraj():
 
 def plotPlayWithTraj():
     rs = ReadSetupFile()
-    data, junk = getInitPos(BrentTrajectoriesFolder)
+    data= getInitPos(BrentTrajectoriesFolder)
     x, y, x1, y1 = [], [], [], []
     todel = []
     for key, el in data.items():
@@ -636,7 +684,7 @@ def plotLearningFieldRBFN():
         r.append(a)
         ang.append(b)
     
-    xy, junk = getInitPos(BrentTrajectoriesFolder)
+    xy= getInitPos(BrentTrajectoriesFolder)
     sx, sy = [], []
     for key, val in xy.items():
         rr, tt = invPosCircle(val[0], val[1])
@@ -659,7 +707,7 @@ def plotLearningFieldRBFNSquare():
     for el in posIni:
         x.append(el[0])
         y.append(el[1])
-    xy, junk = getInitPos(BrentTrajectoriesFolder)
+    xy= getInitPos(BrentTrajectoriesFolder)
     sx, sy = [], []
     for key, val in xy.items():
         if val[0] <= (np.max(x) + 0.02) and val[0] >= (np.min(x) - 0.02) and val[1] >= (np.min(y) - 0.01) and val[1] <= (np.max(y) + 0.02):
@@ -698,7 +746,7 @@ def plotTimeVariationForEachDistance(sizeTarget):
 # those functions are not used
 
 def plotPosTAT(fr, rs):
-    xtr, junk = getInitPos(pathDataFolder + "ThetaAllTraj/")
+    xtr= getInitPos(pathDataFolder + "ThetaAllTraj/")
     xt1, yt1 = [], []
     for key, el in xtr.items():
         xt1.append(el[0])
@@ -763,7 +811,7 @@ def plotTrajThetaAllTraj():
     Note: deprecated
     '''
     name = "/home/beucher/workspace/Data/ThetaAllTraj/"
-    traj, junk = getInitPos(name)
+    traj = getInitPos(name)
     x, y, x1, y1 = [], [], [], []
     for el in traj.values():
         x.append(el[0])

@@ -14,7 +14,7 @@ from ArmModel.Arm import Arm, createStateVector, getDotQAndQFromStateVector
 from ArmModel.MuscularActivation import getNoisyCommand
 
 from Regression.functionApproximator_RBFN import fa_rbfn
-from Utils.FileReading import getStateAndCommandDataFromBrent, dicToArray
+from Utils.FileReading import getStateAndCommandData, dicToArray
 
 from CostComputation import CostComputation
 from UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
@@ -31,7 +31,7 @@ def initRBFNController(rs):
     #Initializes the function approximator with the number of feature used
     fa = fa_rbfn(rs.numfeats,rs.inputDim,rs.outputDim)
     #Get state and command to initializes the controller by putting the features
-    state, command = getStateAndCommandDataFromBrent(BrentTrajectoriesFolder)
+    state, command = getStateAndCommandData(BrentTrajectoriesFolder)
     #Transform data from dictionary into array
     stateAll, commandAll = dicToArray(state), dicToArray(command)
 

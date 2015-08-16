@@ -13,7 +13,7 @@ from shutil import copyfile
 
 from Utils.FileSaving import saveTxt
 from Utils.ReadSetupFile import ReadSetupFile
-from Utils.FileReading import getStateAndCommandDataFromBrent, dicToArray
+from Utils.FileReading import getStateAndCommandData, dicToArray
 
 from Regression.functionApproximator_RBFN import fa_rbfn
 
@@ -24,7 +24,7 @@ def runRBFN(name):
     Takes the Brent trajectories as input, shuffles them, and then runs the RBFN regression algorithm
     '''
     rs = ReadSetupFile()
-    state, command = getStateAndCommandDataFromBrent(BrentTrajectoriesFolder)
+    state, command = getStateAndCommandData(BrentTrajectoriesFolder)
     stateAll, commandAll = dicToArray(state), dicToArray(command)
     np.random.seed(0)
     np.random.shuffle(stateAll)
