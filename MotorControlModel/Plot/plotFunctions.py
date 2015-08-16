@@ -124,6 +124,7 @@ def plotVelocityProfile(what, folderName = "None"):
 def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
     rs = ReadSetupFile()
     plt.figure(1, figsize=(16,9))
+
     if what == "CMAES":
         name = rs.CMAESpath + targetSize + folderName + "/Log/"
     elif what == "Brent":
@@ -139,11 +140,42 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
                 posX.append(v[j][0])
                 posY.append(v[j][1])
 
-            print posX, posY
             plt.plot(posX,posY, c ='b')
+
     plt.xlabel("X")
     plt.ylabel("Y")
     plt.title("XY Positions for Brent")
+
+    x0 = []
+    y0 = []
+    xt = 0
+    yt = rs.YTarget
+    posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
+    for el in posIni:
+        x0.append(el[0])
+        y0.append(el[1])
+    xy = getInitPos(BrentTrajectoriesFolder)
+    x, y = [], []
+    aa, keyy = [], []
+    for key, el in xy.items():
+        x.append(el[0])
+        y.append(el[1])
+        a = math.sqrt((el[0] - rs.XTarget)**2 + (el[1] - rs.YTarget)**2)
+        b = tronquerNB(a, 3)
+        if b not in aa:
+            aa.append(b)
+        if a < 0.11: #Note : WTF ???
+            keyy.append(key)
+        
+    plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
+    plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
+    plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
+
+
+
+
+
+
     plt.show(block = True)
 
 def plotArticularPositions(what, folderName = "None", targetSize = "0.1"):
@@ -215,9 +247,9 @@ def plotInitPos():
     '''
     Plots the initial position of trajectories present in the Brent directory
     '''
+    rs = ReadSetupFile()
     x0 = []
     y0 = []
-    rs = ReadSetupFile()
     xt = 0
     yt = rs.YTarget
     posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)

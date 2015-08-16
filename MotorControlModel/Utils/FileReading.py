@@ -111,7 +111,7 @@ def getXYHandData(foldername):
         xy[el] = []
         mati = np.loadtxt(foldername + el)
         for i in range(mati.shape[0]):
-           coordElbow, coordHand = arm.mgd(np.array([[mati[0,10]], [mati[0,11]]]))
+           coordElbow, coordHand = arm.mgd(np.array([[mati[i][10]], [mati[i][11]]]))
            xy[el].append((coordHand[0], coordHand[1]))
     return xy
 
@@ -127,7 +127,7 @@ def getXYElbowData(foldername):
         xy[el] = []
         mati = np.loadtxt(foldername + el)
         for i in range(mati.shape[0]):
-           coordElbow, coordHand = arm.mgd(np.array([[mati[0,10]], [mati[0,11]]]))
+           coordElbow, coordHand = arm.mgd(np.array([[mati[i][10]], [mati[i][11]]]))
            xy[el].append((coordElbow[0], coordElbow[1]))
     return xy
 
@@ -157,7 +157,7 @@ def getEstimatedXYHandData(foldername):
         xy[el] = []
         mati = np.loadtxt(foldername + el)
         for i in range(mati.shape[0]):
-           coordElbow, coordHand = arm.mgd(np.array([[mati[0,6]], [mati[0,7]]]))
+           coordElbow, coordHand = arm.mgd(np.array([[mati[i][6]], [mati[i][7]]]))
            yxy[el].append((coordHand[0], coordHand[1]))
     return xy
 
