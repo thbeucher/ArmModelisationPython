@@ -171,7 +171,7 @@ def plotInitPos():
     y0 = []
     rs = ReadSetupFile()
     xt = 0
-    yt = rs.targetOrdinate
+    yt = rs.YTarget
     posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
     for el in posIni:
         x0.append(el[0])
@@ -182,7 +182,7 @@ def plotInitPos():
     for key, el in xy.items():
         x.append(el[0])
         y.append(el[1])
-        a = math.sqrt((el[0]**2) + (el[1] - rs.targetOrdinate)**2)
+        a = math.sqrt((el[0] - rs.XTarget)**2) + (el[1] - rs.YTarget)**2)
         b = tronquerNB(a, 3)
         if b not in aa:
             aa.append(b)
@@ -205,8 +205,6 @@ def costColorPlot(what):
     Entrees:    -nbfeat: nombre de features utilises pour generer le controleur actuel
                 -what: choix des donnees a afficher
     '''
-    xt = 0
-    
     rs = ReadSetupFile()
     nbfeat = rs.numfeats
     
@@ -265,7 +263,7 @@ def costColorPlot(what):
     
     fig = plt.figure()
     t1 = plt.scatter(x0, y0, c=zb, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    plt.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
+    plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
     CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
     fig.colorbar(t1, shrink=0.5, aspect=5)
     plt.show(block = True)
@@ -275,7 +273,6 @@ def costColorPlot(what):
 def plotCostMapRBFN(nameF):
     rs = ReadSetupFile()
     x0, y0, z = [], [], []
-    xt = 0
     name = rs.RBFNpath + nameF + "/saveMvtCost"
     data = getobjreadJson(name)
     for key, val in data.items():
@@ -287,7 +284,7 @@ def plotCostMapRBFN(nameF):
     zi = griddata(x0, y0, z, xi, yi)
     plt.figure()
     t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    plt.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
+    plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
     plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
     plt.colorbar(t1, shrink=0.5, aspect=5)
     plt.show(block = True)
@@ -295,7 +292,6 @@ def plotCostMapRBFN(nameF):
 def plotCostMapCMAES(nameF):
     rs = ReadSetupFile()
     x0, y0, z = {}, {}, {}
-    xt = 0
     zDico = []
     for i in range(len(rs.sizeOfTarget)):
         try:
@@ -325,7 +321,7 @@ def plotCostMapCMAES(nameF):
     for j in range(4):
         ax = plt.subplot2grid((2,2), (j/2,j%2))
         t1 = ax.scatter(x0[j], y0[j], c=z[j], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-        ax.scatter(xt, rs.targetOrdinate, c ='g', marker='v', s=200)
+        ax.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
         ax.contourf(xi, yi, zi[j], 15, cmap=cm.get_cmap('RdYlBu'))
         fig.colorbar(t1, shrink=0.5, aspect=5)
         ax.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[j])))
@@ -439,7 +435,7 @@ def plotMapTimeTrajectories(folderName, rbfn = False):
 
         ax = plt.subplot2grid((2,2), (i/2,i%2))
         t1 = ax.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-        ax.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
+        ax.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
         ax.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
         fig.colorbar(t1, shrink=0.5, aspect=5)
         ax.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[i])))
@@ -479,7 +475,7 @@ def plotCostColorMapForAllTheta():
         zi = griddata(x0, y0, z, xi, yi)
         fig = plt.figure()
         t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-        plt.scatter(0, rs.targetOrdinate, c ='g', marker='v', s=200)
+        plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
         plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
         fig.colorbar(t1, shrink=0.5, aspect=5)
         plt.show(block = True)
@@ -567,10 +563,10 @@ def plotHitDispersion(sizeT):
     tabx, taby = [], []
     for el in tab:
         tabx.append(el[0])
-        taby.append(rs.targetOrdinate)
+        taby.append(rs.YTarget)
     plt.figure()
-    plt.plot([-0.12, 0.12], [rs.targetOrdinate, rs.targetOrdinate], c = 'r')
-    plt.scatter([-rs.sizeOfTarget[0]/2, rs.sizeOfTarget[0]/2], [rs.targetOrdinate, rs.targetOrdinate], marker=u'|', s = 100)
+    plt.plot([-0.12, 0.12], [rs.YTarget, rs.YTarget], c = 'r')
+    plt.scatter([-rs.sizeOfTarget[0]/2, rs.sizeOfTarget[0]/2], [rs.YTarget, rs.YTarget], marker=u'|', s = 100)
     plt.scatter(tabx, taby, c = 'b')
     plt.show(block = True)
 

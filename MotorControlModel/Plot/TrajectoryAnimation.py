@@ -43,8 +43,8 @@ def trajectoriesAnimation(folderName, rbfn = False):
     foreArm, = plt.plot([],[])
     plt.xlim(-0.7, 0.7)
     plt.ylim(-0.7,0.7)
-    plt.plot([-0.7,0.7], [rs.targetOrdinate, rs.targetOrdinate])
-    plt.scatter([-rs.sizeOfTarget[3]/2, rs.sizeOfTarget[3]/2], [rs.targetOrdinate, rs.targetOrdinate], c ='g', marker='o', s=50)
+    plt.plot([-0.7,0.7], [rs.YTarget, rs.YTarget])
+    plt.scatter([-rs.sizeOfTarget[3]/2, rs.sizeOfTarget[3]/2], [rs.YTarget, rs.YTarget], c ='g', marker='o', s=50)
     plt.scatter([el[0] for el in posIni],[el[1] for el in posIni], c='b')
     
     def init():

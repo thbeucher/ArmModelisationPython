@@ -106,7 +106,7 @@ class TrajMaker:
         dataStore = []
 
         #loop to generate next position until the target is reached 
-        while coordHand[1] < self.rs.targetOrdinate and i < self.rs.numMaxIter:
+        while coordHand[1] < self.rs.YTarget and i < self.rs.numMaxIter:
             stepStore = []
             #computation of the next muscular activation vector using the controller theta
             U = self.controller.computeOutput(estimState, self.controller.theta)
@@ -127,7 +127,7 @@ class TrajMaker:
 
             #Note : these structures might be much improved
             if self.saveA == True:
-                stepStore.append([0.0, self.rs.targetOrdinate])
+                stepStore.append([self.rs.XTarget, self.rs.YTarget])
                 stepStore.append(estimState.flatten().tolist())
                 stepStore.append(state.flatten().tolist())
                 stepStore.append(Unoisy.flatten().tolist())
@@ -147,7 +147,7 @@ class TrajMaker:
             t += self.rs.dt
 
         #check if the target is reached and give the reward if yes
-        if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.targetOrdinate:
+        if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.YTarget:
             cost = self.cc.computeFinalCostReward(cost, t)
         #return the cost of the trajectory
 

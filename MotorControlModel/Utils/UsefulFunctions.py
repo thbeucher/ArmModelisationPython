@@ -49,7 +49,7 @@ def timeDistance():
         key[i][1] = float(key[i][1])
     r = []
     for el in key:
-        r1 = math.sqrt(((tronquerNB(el[0], 5)**2) + ((tronquerNB(el[1], 5) - rs.targetOrdinate)**2)))/2
+        r1 = math.sqrt((((tronquerNB(el[0] - rs.XTarget), 5)**2) + ((tronquerNB(el[1], 5) - rs.YTarget)**2)))/2
         r.append(tronquerNB(r1, 2))
     
 
@@ -131,8 +131,8 @@ def posCircle(r, t):
                 -y: scalar, absciss
     '''
     rs = ReadSetupFile()
-    x0 = 0
-    y0 = rs.targetOrdinate
+    x0 = rs.XTarget
+    y0 = rs.YTarget
     x = x0 + r * math.cos(t)
     y = y0 + r * math.sin(t)
     return x, y
@@ -148,8 +148,8 @@ def invPosCircle(x, y):
                 -t: scalar, angle
     '''
     rs = ReadSetupFile()
-    r = math.sqrt((x**2) + (y - rs.targetOrdinate)**2)
-    t = math.atan2(y - rs.targetOrdinate, x)
+    r = math.sqrt(((x - rs.XTarget)**2) + (y - rs.YTarget)**2)
+    t = math.atan2(y - rs.YTarget, x - rs.XTarget)
     return r, t
 
 def remakeTrajFolder():
