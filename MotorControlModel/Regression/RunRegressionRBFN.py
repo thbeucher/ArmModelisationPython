@@ -9,6 +9,7 @@ Description: We find here the function to run rbfn algorithm to create the contr
 '''
 
 import numpy as np
+import random as rd
 from shutil import copyfile
 
 from Utils.FileSaving import saveTxt
@@ -40,5 +41,10 @@ def runRBFN(name):
     for el in rs.sizeOfTarget:
         copyfile(savename, rs.CMAESpath + str(el) + "/" + name)
     
+    for el in commandAll:
+        if rd.random()<0.06:
+            retour = fa.computeOutput(el,fa.theta)
+            print("in:", el)
+            print(" out:", retour)
     
     
