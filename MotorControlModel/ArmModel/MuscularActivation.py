@@ -18,7 +18,9 @@ def getNoisyCommand(U, knoiseU):
     Output:		-Unoise: the muscular activation vector U with motor noise
     '''
     #add the motor noise
-    UnoiseTmp = U*(1+ np.random.normal(0,knoiseU))
+    UnoiseTmp = []
+    for i in range(len(U)):
+        UnoiseTmp.append(U[i]*(1+ np.random.normal(0,knoiseU)))
     #check if the muscular activation are normed, ie between 0 and 1
     UnoiseTmp = checkRangeEndpoint(UnoiseTmp)
     #put U in column vector form
@@ -33,7 +35,7 @@ def checkRangeEndpoint(UnoiseTmp):
 		
     Output:		-UnoiseTmp: muscular activation vector
     '''
-    for i in range(UnoiseTmp.shape[0]):
+    for i in range(len(UnoiseTmp)):
        if UnoiseTmp[i] < 0:
             UnoiseTmp[i] = 0
        elif UnoiseTmp[i] > 1:

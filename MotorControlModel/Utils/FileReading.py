@@ -6,10 +6,8 @@ Module: FileReading
 Description: Functions to read project data
 '''
 import random as rd
-import pickle
 import numpy as np
 import os
-import json
 
 from ArmModel.Arm import Arm
 
@@ -41,7 +39,6 @@ def getStateAndCommandData(foldername):
     '''
     state, command = {}, {}
     for el in os.listdir(foldername):
-        #if rd.random()<0.001:
             state[el], command[el] = [], []
             data = np.loadtxt(foldername + el)
             for i in range(data.shape[0]):

@@ -13,7 +13,8 @@ from Utils.CreateVectorUtil import createVector
 from ArmModel.Arm import Arm, createStateVector, getDotQAndQFromStateVector
 from ArmModel.MuscularActivation import getNoisyCommand
 
-from Regression.functionApproximator_RBFN import fa_rbfn
+from Regression.RBFN import rbfn
+
 from Utils.FileReading import getStateAndCommandData, dicToArray
 
 from CostComputation import CostComputation
@@ -29,7 +30,7 @@ def initRBFNController(rs):
 			-fr, FileReading, class object
 	'''
     #Initializes the function approximator with the number of feature used
-    fa = fa_rbfn(rs.numfeats,rs.inputDim,rs.outputDim)
+    fa = rbfn(rs.numfeats,rs.inputDim,rs.outputDim)
     #Get state and command to initializes the controller by putting the features
     state, command = getStateAndCommandData(BrentTrajectoriesFolder)
     #Transform data from dictionary into array
@@ -38,14 +39,13 @@ def initRBFNController(rs):
     #Set the data for training the RBFN model (actually, we don't train it here, just needed for dimensioning)
     fa.setTrainingData(stateAll, commandAll)
     #set the center and width for the features
-    fa.setCentersAndWidths()
     return fa
 
 #------------------------------------------------------------------------
 
 class TrajMaker:
     
-    def __init__(self, rs, sizeOfTarget, saveA):
+    def __init__(self, rs, sizeOfTarget, saveA, thetaFile):
         '''
     	Initializes the parameters used to run the functions below
     
@@ -63,7 +63,11 @@ class TrajMaker:
         self.arm.setDT(rs.dt)
 
         self.controller = initRBFNController(rs)
-
+        #load the controller, i.e. the vector of parameters theta
+        theta = self.controller.loadTheta(thetaFile)
+        #put theta to a one dimension numpy array, ie row vector form
+        #theta = matrixToVector(theta)
+ 
         self.rs = rs
         self.cc = CostComputation(rs)
         self.sizeOfTarget = sizeOfTarget
@@ -109,7 +113,9 @@ class TrajMaker:
         while coordHand[1] < self.rs.YTarget and i < self.rs.numMaxIter:
             stepStore = []
             #computation of the next muscular activation vector using the controller theta
-            U = self.controller.computeOutput(estimState, self.controller.theta)
+            #print ("theta Calc:",self.controller.theta)
+            U = self.controller.computeOutput(estimState.T[0])
+            #print ("U:",U)
             Unoisy = getNoisyCommand(U,self.rs.knoiseU)
             #computation of the arm state
             realNextState = self.arm.computeNextState(Unoisy,self.arm.state)
@@ -131,7 +137,7 @@ class TrajMaker:
                 stepStore.append(estimState.flatten().tolist())
                 stepStore.append(state.flatten().tolist())
                 stepStore.append(Unoisy.flatten().tolist())
-                stepStore.append(U.flatten().tolist())
+                stepStore.append(U)
                 stepStore.append(estimNextState.flatten().tolist())
                 stepStore.append(realNextState.flatten().tolist())
                 stepStore.append([coordElbow[0][0], coordElbow[1][0]])

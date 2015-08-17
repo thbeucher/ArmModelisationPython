@@ -65,7 +65,7 @@ class UnscentedKalmanFilterControl:
         state = np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1))
         nextX = self.arm.computeNextState(np.asarray(stateU).reshape((self.dimState, 1)), state)
         #computation of the next muscular activation vector U
-        U = self.controller.computeOutput(nextX, self.controller.theta)
+        U = self.controller.computeOutput(nextX.T[0])
         nextStateU = getNoisyCommand(U, self.knoiseU)
          #noise add to the next state generated
         nextStateUNoise = nextStateU.T[0] + transitionNoise

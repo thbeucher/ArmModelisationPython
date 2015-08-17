@@ -11,7 +11,8 @@ import time
 
 from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTargetSizes #launchCMAESForSpecificTargetSize, generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize,\ generateTrajectoryForScattergram
 
-from Regression.RunRegressionRBFN import runRBFN
+from Regression.RunRegressionRBFN import runRBFN, UnitTest, UnitTestRBFNController
+
 
 from Plot.plotFunctions import trajectoriesAnimation, plotCostColorMap, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations
 
@@ -99,15 +100,16 @@ def chooseFunction(choix):
         t0 = time.time()
         runRBFN(name)
         t1 = time.time()
-        print("Fin du traitement! Temps d'exécution:", (t1-t0), "s")
+        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
 
     elif choix == 6:
         name = raw_input('Name of the RBFN controller file: ')
+        fname = raw_input('Folder where you want to save the results: ')
         nbret = input("Number of repeat for each trajectory (int): ")
         t0 = time.time()
-        generateFromRBFN(nbret, name)
+        generateFromRBFN(nbret, name, fname)
         t1 = time.time()
-        print("Fin du traitement! Temps d'exécution:", (t1-t0), "s")
+        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
     elif choix == 7:
         nameF = raw_input('Folder where the results are saved: ')
         plotVelocityProfile("RBFN",nameF)
@@ -129,7 +131,7 @@ def chooseFunction(choix):
         t0 = time.time()
         launchCMAESForAllTargetSizes()
         t1 = time.time()
-        print("Fin du traitement! Temps d'exécution:", (t1-t0), "s")
+        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
     elif choix == 12:
         nameTheta = raw_input('Name of the controller file: ')
         name = raw_input('Folder where you want to save the results: ')
@@ -138,7 +140,7 @@ def chooseFunction(choix):
         t0 = time.time()
         generateFromCMAES(nbret, nameTheta, name)
         t1 = time.time()
-        print("Fin du traitement! Temps d'exécution:", (t1-t0), "s")
+        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
     elif choix == 13:
         nameF = raw_input('Folder where the results are saved: ')
         plotVelocityProfiles("CMAES",nameF)
@@ -177,21 +179,12 @@ def chooseFunction(choix):
     elif choix == 22:
         nameF = raw_input('Folder where the results are saved: ')
         plotScattergram(nameF)
-'''
-JUNK
-
-    elif choix == 14:
-        nameF = raw_input('Folder where the results are saved: ')
-        checkReachAllTarget(nameF)
-    elif choix == 9:
-        print("Generate results with the best theta temp !")
-        nameF = raw_input('Folder where you want to save the results: ')
-        nbret = input("Number of repeat for each trajectory (int): ")
-        nbret = int(nbret)
-        generateResultsWithBestThetaTmp(nameF, nbret)
-'''
 
 #plotInitPos()  
 #runAuto()
 #generateFromRBFN(nbret, nameC)
 runChoice()
+
+
+#UnitTest()
+#UnitTestRBFNController()

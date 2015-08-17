@@ -13,70 +13,32 @@ import numpy as np
 
 from multiprocessing.pool import Pool
 
-from Utils.ThetaNormalization import normalizationNP, matrixToVector, normalizationNPWithoutSaving
-from Utils.ReadDataTmp import getBestTheta
 from Utils.ReadSetupFile import ReadSetupFile
-from Utils.PurgeData import purgeCostNThetaTmp
 
 from ArmModel.Arm import Arm
 from Experiments.Experiments import Experiments
 
-def GenerateDataFromTheta(sizeOfTarget, thetaLoadFile, foldername, repeat, rs):
-    theta = np.loadtxt(thetaLoadFile)
-    theta = normalizationNP(theta)
-    exp = Experiments(rs, sizeOfTarget, True, foldername)
-    cost = exp.runTrajectoriesResultsGeneration(theta, repeat)
+def GenerateDataFromTheta(rs,sizeOfTarget, foldername, thetaFile, repeat):
+    exp = Experiments(rs, sizeOfTarget, True, foldername,thetaFile)
+    cost = exp.runTrajectoriesResultsGeneration(repeat)
     print("CostArray: ", cost)
     print("foldername : ", foldername)
     exp.saveCost()
 
 def generateFromCMAES(repeat, thetaFile, saveDir = 'Data'):
     rs = ReadSetupFile()
+    thetaName = rs.RBFNpath + thetaFile
     for el in rs.sizeOfTarget:
-        thetaName = rs.CMAESpath + str(el) + "/" + thetaFile
         saveName = rs.CMAESpath + str(el) + "/" + saveDir + "/"
-        GenerateDataFromTheta(el,thetaName,saveName,repeat,rs)
+        GenerateDataFromTheta(rs,el,saveName,thetaName,repeat)
     print("CMAES:End of generation")
 
-def generateFromRBFN(repeat, thetaFile, saveDir = 'Data'):
+def generateFromRBFN(repeat, thetaFile, saveDir):
     rs = ReadSetupFile()
     thetaName = rs.RBFNpath + thetaFile
     saveName = rs.RBFNpath + saveDir + "/"
-    GenerateDataFromTheta(0.1,thetaName,saveName,repeat,rs)
+    GenerateDataFromTheta(rs,0.1,saveName,thetaName,repeat)
     print("RBFN:End of generation")
-
-#------------------------- not updated -------------------------------------
-    
-def generateOneTrajFromRBFN(folderName, saveFile = 'None'):
-    rs = ReadSetupFile()
-    if saveFile == 'None':
-        thetaName = rs.RBFNpath + "ThetaX7NP"
-    else:
-        thetaName = rs.RBFNpath + saveFile
-    theta = np.loadtxt(thetaName)
-    print("Enter coordinate of the initial point!")
-    x = input("x: ")
-    x = float(x)
-    y = input("y: ")
-    y = float(y)
-    coord = (x, y)
-    exp = Experiments(rs, rs.sizeOfTarget[3], True, foldername)
-    cost = exp.runOneTrajectory(theta, coord[0], coord[1])
-    print("Cost: ", cost)
-    exp.saveCost()
-    print("End of generation")
-
-def generateResultsWithBestThetaTmp(folderName, nbret):
-    rs = ReadSetupFile()
-    listBT = getBestTheta()
-    for el in listBT:
-        print("Results generation for target ", el[0])
-        theta = el[1]
-        exp = Experiments(rs,el[0], True, foldername)
-        cost = exp.runTrajectoriesResultsGeneration(theta, nbret)
-        print("Cost: ", cost)
-    exp.saveCost()
-    print("End of generation")
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
     '''
@@ -87,17 +49,13 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
     print("Starting the CMAES Optimization for target " + str(sizeOfTarget) + " !")
     rs = ReadSetupFile()
     foldername = rs.CMAESpath + str(sizeOfTarget) + "/"
-    thetaLocalisation =  foldername + thetaFile
-    #load the controller, ie the vector of parameters theta
-    theta = np.loadtxt(thetaLocalisation)
-    #normalize the vector
-    theta = normalizationNP(theta)
-    #put theta to a one dimension numpy array, ie row vector form
-    theta = matrixToVector(theta)
+    thetaname = foldername + thetafile
+
     #Initializes all the class used to generate trajectory
-    exp = Experiments(rs, sizeOfTarget, True, foldername)
+    exp = Experiments(rs, sizeOfTarget, True, foldername, thetaname)
+    theta = exp.tm.theta
     #run the optimization (cmaes)
-    resCma = cma.fmin(exp.runTrajectoriesCMAES, np.copy(theta), rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    resCma = cma.fmin(exp.runTrajectoriesCMAES, theta, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     #name used to save the controller obtained from optimization
     i = 1
     tryName = "thetaCma" + str(sizeOfTarget) + "save"
@@ -107,8 +65,8 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
             tryName += str(i)
         nameToSaveThetaCma += tryName
         np.savetxt(foldername, resCma[0])
-        theta = resCma[0]
-        print("end loop step")
+    theta = resCma[0]
+    print("end loop step")
 
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     

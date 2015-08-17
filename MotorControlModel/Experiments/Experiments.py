@@ -18,8 +18,13 @@ from GlobalVariables import pathDataFolder
 
 from TrajMaker import TrajMaker
 
+def checkIfFolderExists(name):
+    if not os.path.isdir(name):
+        os.makedirs(name)
+
 def findDataFileName(foldername, extension):
     i = 1
+    checkIfFolderExists(foldername)
     tryName = "traj1" + extension
     while tryName in os.listdir(foldername):
         i += 1
@@ -30,7 +35,7 @@ def findDataFileName(foldername, extension):
 #------------------------------------------------------------------------------
 
 class Experiments:
-    def __init__(self, rs, sizeOfTarget, saveA, foldername):
+    def __init__(self, rs, sizeOfTarget, saveA, foldername, thetafile):
         '''
     	Initializes parameters used to run functions below
     
@@ -40,12 +45,12 @@ class Experiments:
         self.name = "Experiments"
         self.call = 0
         self.numfeats = rs.numfeats
-        self.numberOfRepeat = rs.numberOfRepeatEachTraj
-        self.tm = TrajMaker(rs, sizeOfTarget, saveA)
         self.dimState = rs.inputDim
         self.dimOutput = rs.outputDim
-        self.posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
+        self.numberOfRepeat = rs.numberOfRepeatEachTraj
         self.foldername = foldername
+        self.tm = TrajMaker(rs, sizeOfTarget, saveA, thetafile)
+        self.posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
 
     def setTheta(self, theta):
         self.tm.setTheta(theta)
@@ -67,19 +72,17 @@ class Experiments:
         filename = findDataFileName(self.foldername+"Cost/",".cost")
         np.savetxt(filename, dicToArray(self.tm.costStore))
          
-    def runOneTrajectory(self, theta, x, y):
-        self.setTheta(theta)
+    def runOneTrajectory(self, x, y):
         filename = findDataFileName(self.foldername+"Log/",".log")
         cost = self.tm.runTrajectory(x, y, filename)
         return cost
             
-    def runTrajectoriesResultsGeneration(self, theta, repeat):
-        self.setTheta(theta)
-        costAll = [[self.runOneTrajectory(theta, xy[0], xy[1]) for xy in self.posIni] for i in range(repeat)]
+    def runTrajectoriesResultsGeneration(self, repeat):
+        costAll = [[self.runOneTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(repeat)]
         meanByTraj = np.mean(np.asarray(costAll).reshape((repeat, len(self.posIni))), axis = 0)    
         return meanByTraj
     
-    def runTrajectoriesCMAES(self, theta):
+    def runTrajectoriesCMAES(self,theta):
         '''
     	Generates all the trajectories of the experimental setup and return the mean cost. This function is used by cmaes to optimize the controller.
     

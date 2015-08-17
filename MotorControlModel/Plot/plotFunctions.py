@@ -18,7 +18,7 @@ from matplotlib import cm
 from matplotlib import animation
 from matplotlib.mlab import griddata
 
-from Utils.FileReading import getStateData, getXYHandData, getXYElbowData, getCommandData, getInitPos
+from Utils.FileReading import getStateData, getEstimatedStateData, getEstimatedXYHandData, getXYHandData, getXYElbowData, getCommandData, getInitPos, getCostData
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.NiemRoot import tronquerNB
 
@@ -116,7 +116,7 @@ def plotVelocityProfile(what, folderName = "None"):
                     plt.plot(index, speed, c ='b')
         plt.xlabel("time")
         plt.ylabel("Instantaneous velocity")
-        plt.title("Velocity profiles for" + what)
+        plt.title("Velocity profiles for " + what)
     plt.show(block = True)
 
 def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
@@ -131,6 +131,7 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
         name = rs.RBFNpath + folderName + "/Log/"
 
     state = getXYHandData(name)
+    estimState = getEstimatedXYHandData(name)
     for k,v in state.items():
 #        if rd.random()<0.06:
             posX, posY = [], []
@@ -139,6 +140,15 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
                 posY.append(v[j][1])
 
             plt.plot(posX,posY, c ='b')
+
+    for k,v in estimState.items():
+#        if rd.random()<0.06:
+            eX, eY = [], []
+            for j in range(len(v)):
+                eX.append(v[j][0])
+                eY.append(v[j][1])
+
+            plt.plot(eX,eY, c ='r')
 
     plt.xlabel("X")
     plt.ylabel("Y")
@@ -202,6 +212,7 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
               -what: get from Brent, rbfn or from cmaes controllers
 
     '''
+    plt.figure()
     rs = ReadSetupFile()
     if what == "CMAES":
         name = rs.CMAESpath + targetSize + folderName + "/Log/"
@@ -215,23 +226,23 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
     u1, u2, u3, u4, u5, u6 = [], [], [], [], [], []
     t = []
     for key, el1 in U.items():
-        for i in range(len(el1)):
-            t.append(i)
-            u1.append(el1[i][0])
-            u2.append(el1[i][1])
-            u3.append(el1[i][2])
-            u4.append(el1[i][3])
-            u5.append(el1[i][4])
-            u6.append(el1[i][5])
+        if rd.random()<0.01:
+            for i in range(len(el1)):
+                t.append(i)
+                u1.append(el1[i][0])
+                u2.append(el1[i][1])
+                u3.append(el1[i][2])
+                u4.append(el1[i][3])
+                u5.append(el1[i][4])
+                u6.append(el1[i][5])
 
-        plt.figure()
-        plt.plot(t, u1)
-        plt.plot(t, u2)
-        plt.plot(t, u3)
-        plt.plot(t, u4)
-        plt.plot(t, u5)
-        plt.plot(t, u6)
-        break
+    plt.plot(t, u1)
+    plt.plot(t, u2)
+    plt.plot(t, u3)
+    plt.plot(t, u4)
+    plt.plot(t, u5)
+    plt.plot(t, u6)
+
     plt.show(block = True)
 
 def plotInitPos():

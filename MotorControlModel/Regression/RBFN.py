@@ -3,18 +3,15 @@
 '''
 Author: Thomas Beucher
 
-Module: functionApproximator_RBFN
+Module: RBFN
 
 Description: We find here functions which allow to compute a RBFN regression
 '''
 
 import numpy as np
 from Utils.CartesianProduct import cartesian
-from multiprocessing import Process
-from multiprocessing.sharedctypes import Array
-import ctypes as ct
 
-class fa_rbfn():
+class rbfn():
     
     def __init__(self, nbFeatures, inputDim, outputDim):
         '''
@@ -33,6 +30,21 @@ class fa_rbfn():
     def setTheta(self, theta):
         self.theta = theta
 
+    def loadTheta(self,thetaFile):
+        self.theta = np.loadtxt(thetaFile)
+        print ("theta LOAD : ", self.theta)
+        return self.theta
+
+    def saveTheta(self,fileName):
+        '''
+        Records theta under numpy format
+        
+        Input:    -fileName: name of the file where theta will be recorded
+              -theta: recorded theta
+        '''
+        #print ("theta SAVE:", self.theta)
+        np.savetxt(fileName, self.theta)
+
     def setTrainingData(self, inputData, outputData):
         '''
         Verifies the validity of the given input and output data
@@ -41,8 +53,8 @@ class fa_rbfn():
         Input:      -inputdata, numpy N-D array
                     -outputData, numpy N-D array
         '''
-        self.inputData = inputData.T
-        self.outputData = outputData.T
+        self.inputData = inputData
+        self.outputData = outputData
 
         #Getting input and output dimensions and number of samples
         numberOfInputSamples = len(inputData)
@@ -54,81 +66,96 @@ class fa_rbfn():
         assert(len(outputData[0]) == self.outputDimension), "Mismatch in output dimension"
 
         self.numberOfSamples = numberOfInputSamples
-
-    def computeA(self, A, fop):
-        At = np.dot(fop, fop.T)
-        for i in range(At.shape[0]):
-            for j in range(At.shape[1]):
-                A[i,j] = At[i,j]
-        
-    def computeb(self, b, fop):
-        bt = np.dot(fop, self.outputData.T)
-        for i in range(bt.shape[0]):
-            for j in range(bt.shape[1]):
-                b[i,j] = bt[i,j]
-    
-    def train_rbfn(self):
-        '''
-        Training function to learn the approximation (multiprocessing version)
-        
-        '''
-        fop = self.computeFeatureWeight(self.inputData.T)
-        n = self.nbFeat**self.inputDimension
-        #creation of the shared objects between process
-        AshareObj = Array(ct.c_double, n*n)
-        bshareObj = Array(ct.c_double, n*self.outputDimension)
-        #link shared object to a numpy object
-        AnumpyShare = np.frombuffer(AshareObj.get_obj())
-        bnumpyShare = np.frombuffer(bshareObj.get_obj())
-        #Reshaping of the numpy object to obtain an array with the dimension desired
-        A = AnumpyShare.reshape((n, n))
-        b = bnumpyShare.reshape((n, self.outputDimension))
-        #creation of the different processes
-        p1 = Process(target=self.computeA, args=(A, fop))
-        p2 = Process(target=self.computeb, args=(b, fop))
-        p1.start()
-        p2.start()
-        p1.join()
-        p2.join()
-        self.theta = np.dot(np.linalg.pinv(A), b)
-       
+        self.setCentersAndWidths()
+           
     def setCentersAndWidths(self):
         '''
         Sets the centers and widths of Gaussian features.
         Uses linspace to evenly distribute the features.
         '''
         #get max and min of the input data
-        minInputData = np.min(self.inputData, axis = 1)
-        maxInputData = np.max(self.inputData, axis = 1)
+        minInputData = np.min(self.inputData, axis = 0)
+        maxInputData = np.max(self.inputData, axis = 0)
         rangeForEachDim = maxInputData - minInputData
         #set the sigmas
         widthConstant = rangeForEachDim / self.nbFeat
         #create the diagonal matrix of sigmas to compute the gaussian
         self.widths = np.diag(widthConstant)
-        #coef for Gaussian features
+         #coef for Gaussian features
         self.norma = 1/np.sqrt(((2*np.pi)**self.inputDimension)*np.linalg.det(self.widths)) 
+        self.invcovar = np.linalg.pinv(self.widths)
         linspaceForEachDim = []
         #set the number of gaussian used and allocate them in each dimensions
         for i in range(self.inputDimension):
             linspaceForEachDim.append(np.linspace(minInputData[i], maxInputData[i], self.nbFeat))
             #get matrix with all the possible combinations to find each centers
         self.centersInEachDimensions = cartesian(linspaceForEachDim)
+        self.nbFeatures = len(self.centersInEachDimensions)
+        print("nbfeatures:", self.nbFeatures)
+
+    def train_rbfn(self):
+        '''
+        Training function to learn the approximation
+        
+        '''
+        self.theta = []
+        for i in range(self.outputDimension):
+            K = []
+            for val in self.inputData:
+                 K.append(self.computeAllWeights(val))
+            Kmat = np.matrix(K).T
+            A = np.dot(Kmat, Kmat.T)
+            inv = np.linalg.pinv(A)
+            vec = self.outputData.T
+            y = np.array(vec[i].T)
+            b = np.dot(Kmat, y).T
+            self.theta.append(np.dot(inv,b))
     
-    def computeFeatureWeight(self, inputData):
+    def computeFeatureWeight(self, inputVal, gauss):
+        '''
+        Computes the value of an input with respect to a Gaussian
+        
+        Input:     -inputVal: one point in the input space (an input vector)
+        
+        Output:    -phi: a number: the value of phi(inputVal)
+        '''
+        xu = inputVal - gauss
+        xus = np.dot(xu, self.invcovar)
+        xg = np.dot(xus,xu.T)
+        phi = self.norma*np.exp(-0.5*xg)
+        return phi
+
+    def computeAllWeights(self, inputVal):
         '''
         Computes Gaussian parameters
         
-        Input:     -inputData: numpy N-D array
+        Input:     -inputVal: one point in the input space (an input vector)
         
-        Output:    -phi: numpy N-D array
+        Output:    -phi: a vector of values of all phi(x) for the input x and all phi
         '''
-        #if only one sample
-        if inputData.shape[0] == 1:
-            x_u = inputData - self.centersInEachDimensions.T
-            x_u_s = np.dot(x_u.T, np.linalg.pinv(self.widths))
-            x = x_u_s * (x_u.T)
-            xf = np.sum(x, axis = 1)
-            phi = self.norma*np.exp(-0.5*xf)
+        retour = []
+        for x in self.centersInEachDimensions:
+            phi = self.computeFeatureWeight(inputVal, x)
+            retour.append(phi)
+        return retour
+
+    def computeOutput(self, inputVal):
+        '''
+        Returns the output depending on the given input and theta
+        
+        Input:      -inputVal: numpy N-D array
+                    -theta: numpy N-D array
+        
+        Output:     -fa_out: numpy N-D array, output approximated
+        '''
+        assert(inputVal.shape[0]==self.inputDimension), "Bad input format"
+        output = []
+        for i in range(self.outputDimension):
+            tmp = self.computeAllWeights(inputVal)
+            output.append(np.dot(tmp, self.theta[i]))
+        return output
+    
+        '''
         #if more than one sample
         else:
             for i in range(inputData.shape[0]):
@@ -141,21 +168,4 @@ class fa_rbfn():
                     phi = np.array([xfe]).T
                 else:
                     phi = np.hstack((phi, np.array([xfe]).T))
-        return phi
-
-
-    def computeOutput(self, inputData, theta):
         '''
-        Returns the output depending on the given input and theta
-        
-        Input:      -inputData: numpy N-D array
-                    -theta: numpy N-D array
-        
-        Output:     -fa_out: numpy N-D array, output approximated
-        '''
-        phi = self.computeFeatureWeight(inputData)
-        fa_out = np.dot(phi.T, theta) 
-        return fa_out
-       
-    
-        
