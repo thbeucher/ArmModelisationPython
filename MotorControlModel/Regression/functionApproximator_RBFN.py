@@ -32,7 +32,6 @@ class fa_rbfn():
 
     def setTheta(self, theta):
         self.theta = theta
- 
 
     def setTrainingData(self, inputData, outputData):
         '''
@@ -124,7 +123,7 @@ class fa_rbfn():
         Output:    -phi: numpy N-D array
         '''
         #if only one sample
-        if inputData.shape[1] == 1:
+        if inputData.shape[0] == 1:
             x_u = inputData - self.centersInEachDimensions.T
             x_u_s = np.dot(x_u.T, np.linalg.pinv(self.widths))
             x = x_u_s * (x_u.T)

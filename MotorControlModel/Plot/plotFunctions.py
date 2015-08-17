@@ -7,7 +7,6 @@ Module: plotFunctions
 
 Description: some plotting functions
 '''
-
 import os
 import random as rd
 import math
@@ -134,7 +133,7 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
 
     state = getXYHandData(name)
     for k,v in state.items():
-        if rd.random()<0.06:
+#        if rd.random()<0.06:
             posX, posY = [], []
             for j in range(len(v)):
                 posX.append(v[j][0])
@@ -148,8 +147,6 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
 
     x0 = []
     y0 = []
-    xt = 0
-    yt = rs.YTarget
     posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
     for el in posIni:
         x0.append(el[0])
@@ -168,13 +165,8 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
             keyy.append(key)
         
     plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
-    plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
-    plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
-
-
-
-
-
+    plt.scatter(rs.XTarget, rs.YTarget, c = "r", marker=u'*', s = 100)
+    plt.scatter(x0, y0, c = "r", marker=u'o', s=25)
 
     plt.show(block = True)
 
@@ -276,9 +268,9 @@ def plotInitPos():
     
     plt.show(block = True)
 
-# ---------------------------------------------------------------------------------------------
+#-------------------------- cost maps ----------------------------------------------
 
-def costColorPlot(what):
+def plotCostColorMap(what, folderName = "None", targetSize = "0.1"):
     '''
     Cette fonction permet d'afficher le profil de cout des trajectoires
     
@@ -286,15 +278,30 @@ def costColorPlot(what):
                 -what: choix des donnees a afficher
     '''
     rs = ReadSetupFile()
-    nbfeat = rs.numfeats
+    if what == "CMAES":
+        name = rs.CMAESpath + targetSize + folderName + "/Cost/"
+    elif what == "Brent":
+        name = BrentTrajectoriesFolder
+    else:
+        name = rs.RBFNpath + folderName + "/Cost/"
+
+    costs = getCostData(name)
     
     x0 = []
     y0 = []
+    cost = []
+
+    for k, v in costs.items():
+        x0.append(v[0])
+        y0.append(v[1])
+        cost.append(v[2])
+
+    '''
     posi = getobjread(rs.experimentFilePosIni)
     for el in posi:
         x0.append(el[0])
         y0.append(el[1])
-        
+
     if what == "rbfn":
         name = rs.RBFNpath
         x0, y0, z = returnX0Y0Z(name)
@@ -313,7 +320,7 @@ def costColorPlot(what):
             z.append(el[1]-rs.rhoCF)
             x0.append(el[2])
             y0.append(el[3])
-    
+
     elif what == "difBR":
         dif = returnDifCostBrentRBFN()
         z, zobj, x0, y0 = [], [], [], []
@@ -321,10 +328,8 @@ def costColorPlot(what):
             if el[2] < 10:
                 z.append(el[2])
                 zobj.append(el)
-                x0.append(el[0])
-                y0.append(el[1])
-    
-    zb = z
+    '''
+    zb = cost
     xi = np.linspace(-0.25,0.25,100)
     yi = np.linspace(0.35,0.5,100)
     er = 0
@@ -334,9 +339,9 @@ def costColorPlot(what):
         er = 1
     except AttributeError:
         er = 1
-    if type(zb) == type([]):
+    if type(zb) == type([]) or er == 1:
         zi = griddata(x0, y0, zb, xi, yi)
-    elif er == 1:
+    elif 
         zi = griddata(x0, y0, zb, xi, yi)
     else:
         zi = griddata(x0, y0, zb.T[0], xi, yi)
@@ -346,66 +351,6 @@ def costColorPlot(what):
     plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
     CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
     fig.colorbar(t1, shrink=0.5, aspect=5)
-    plt.show(block = True)
-
-#-------------------------- cost maps ----------------------------------------------
-
-def plotCostMapRBFN(nameF):
-    rs = ReadSetupFile()
-    x0, y0, z = [], [], []
-    name = rs.RBFNpath + nameF + "/saveMvtCost"
-    data = getobjreadJson(name)
-    for key, val in data.items():
-        x0.append(float(key.split("//")[0]))
-        y0.append(float(key.split("//")[1]))
-        z.append(np.mean(val))
-    xi = np.linspace(-0.25,0.25,200)
-    yi = np.linspace(0.35,0.5,200)
-    zi = griddata(x0, y0, z, xi, yi)
-    plt.figure()
-    t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
-    plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
-    plt.colorbar(t1, shrink=0.5, aspect=5)
-    plt.show(block = True)
-
-def plotCostMapCMAES(nameF):
-    rs = ReadSetupFile()
-    x0, y0, z = {}, {}, {}
-    zDico = []
-    for i in range(len(rs.sizeOfTarget)):
-        try:
-            name = rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + nameF + "/saveMvtCost"
-            zDico.append(getobjreadJson(name))
-        except:
-            pass
- 
-    for i in range(len(zDico)):
-        x0[i], y0[i], z[i] = [], [], []
-        for keyu, valu in zDico[i].items():
-            x0[i].append(float(keyu.split("//")[0]))    
-            y0[i].append(float(keyu.split("//")[1]))   
-            z[i].append(np.mean(valu))
-        x0[i] = np.asarray(x0[i])
-        y0[i] = np.asarray(y0[i])
-        z[i] = np.asarray(z[i])
-    
-    xi = np.linspace(-0.25,0.25,200)
-    yi = np.linspace(0.35,0.5,200)
-    zi = {}
-    for i in range(len(z)):
-        zi[i] = griddata(x0[i], y0[i], z[i], xi, yi)
-    
-    fig = plt.figure(1, figsize=(16,9))
-
-    for j in range(4):
-        ax = plt.subplot2grid((2,2), (j/2,j%2))
-        t1 = ax.scatter(x0[j], y0[j], c=z[j], marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-        ax.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
-        ax.contourf(xi, yi, zi[j], 15, cmap=cm.get_cmap('RdYlBu'))
-        fig.colorbar(t1, shrink=0.5, aspect=5)
-        ax.set_title(str("CostMap for Target " + str(rs.sizeOfTarget[j])))
-    
     plt.show(block = True)
 
 #-----------------------------------------------------------------------------------------------------------
@@ -522,6 +467,49 @@ def plotMapTimeTrajectories(folderName, rbfn = False):
     
     plt.show(block = True)
  
+# ---------------- hit dispersion ---------------------------------------
+
+def plotHitDispersion(sizeT):
+    rs = ReadSetupFile()
+    #name = rs.RBFNpath + "CoordHitTargetBIN" 
+    name = rs.CMAESpath + str(sizeT) + "/ResTry1/CoordHitTargetCmaBIN"
+    data = getobjread(name)
+    tab = []
+    for el in data.values():
+        for el1 in el:
+            tab.append(el1)
+    tabx, taby = [], []
+    for el in tab:
+        tabx.append(el[0])
+        taby.append(rs.YTarget)
+    plt.figure()
+    plt.plot([-0.12, 0.12], [rs.YTarget, rs.YTarget], c = 'r')
+    plt.scatter([-rs.sizeOfTarget[0]/2, rs.sizeOfTarget[0]/2], [rs.YTarget, rs.YTarget], marker=u'|', s = 100)
+    plt.scatter(tabx, taby, c = 'b')
+    plt.show(block = True)
+
+def plotScattergram(folderName):
+    rs = ReadSetupFile()
+    data = {}
+    for i in range(len(rs.sizeOfTarget)):
+        data[rs.sizeOfTarget[i]] = getDataScattergram(rs.sizeOfTarget[i], folderName)
+    print(data)
+            
+    plt.figure(1, figsize=(16,9))
+
+    for i in range(4):
+        ax = plt.subplot2grid((2,2), (i/2,i%2))
+        ax.hist(data[rs.sizeOfTarget[i]], 20)
+        ax.plot([-rs.sizeOfTarget[i], -rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
+        ax.plot([rs.sizeOfTarget[i], rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
+        ax.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[i])))
+    
+    plt.show(block = True)
+        
+# ---------------- end of hit dispersion ---------------------------------------
+
+# --------------------------------- misc ------------------------------------------------------------
+
 def plotcmaesCostProgress():
     rs = ReadSetupFile()
     costCma = {}
@@ -543,22 +531,6 @@ def plotcmaesCostProgress():
         ax[int(key.split("_")[0])].plot(y, x)
         ax[int(key.split("_")[0])].set_title(str("Target " + key.split("_")[1]))
     plt.show(block = True)
-
-def plotCostColorMapForAllTheta():
-    rs = ReadSetupFile()
-    name = rs.RBFNpath + "EvaluationOFTheta/"
-    xi = np.linspace(-0.25,0.25,100)
-    yi = np.linspace(0.35,0.5,100)
-    for el in os.listdir(pathDataFolder + name):
-        nameTmp = name + el + "/"
-        x0, y0, z = returnX0Y0Z(nameTmp)
-        zi = griddata(x0, y0, z, xi, yi)
-        fig = plt.figure()
-        t1 = plt.scatter(x0, y0, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-        plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
-        plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
-        fig.colorbar(t1, shrink=0.5, aspect=5)
-        plt.show(block = True)
         
 def plotTrajWhenTargetNotReach():
     rs = ReadSetupFile()
@@ -628,47 +600,6 @@ def plotExperimentSetup():
     plt.plot(xb, yb, c = 'r')
     plt.plot([-0.3,0.3], [0.6175, 0.6175], c = 'g')
     plt.show(block = True)
-
-# ---------------- hit dispersion ---------------------------------------
-
-def plotHitDispersion(sizeT):
-    rs = ReadSetupFile()
-    #name = rs.RBFNpath + "CoordHitTargetBIN" 
-    name = rs.CMAESpath + str(sizeT) + "/ResTry1/CoordHitTargetCmaBIN"
-    data = getobjread(name)
-    tab = []
-    for el in data.values():
-        for el1 in el:
-            tab.append(el1)
-    tabx, taby = [], []
-    for el in tab:
-        tabx.append(el[0])
-        taby.append(rs.YTarget)
-    plt.figure()
-    plt.plot([-0.12, 0.12], [rs.YTarget, rs.YTarget], c = 'r')
-    plt.scatter([-rs.sizeOfTarget[0]/2, rs.sizeOfTarget[0]/2], [rs.YTarget, rs.YTarget], marker=u'|', s = 100)
-    plt.scatter(tabx, taby, c = 'b')
-    plt.show(block = True)
-
-def plotScattergram(folderName):
-    rs = ReadSetupFile()
-    data = {}
-    for i in range(len(rs.sizeOfTarget)):
-        data[rs.sizeOfTarget[i]] = getDataScattergram(rs.sizeOfTarget[i], folderName)
-    print(data)
-            
-    plt.figure(1, figsize=(16,9))
-
-    for i in range(4):
-        ax = plt.subplot2grid((2,2), (i/2,i%2))
-        ax.hist(data[rs.sizeOfTarget[i]], 20)
-        ax.plot([-rs.sizeOfTarget[i], -rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
-        ax.plot([rs.sizeOfTarget[i], rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
-        ax.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[i])))
-    
-    plt.show(block = True)
-        
-# ---------------- end of hit dispersion ---------------------------------------
 
 def plotTrackTraj():
     rs = ReadSetupFile()
@@ -785,72 +716,6 @@ def plotPosTAT(fr, rs):
         yt1.append(el[1])
     plt.scatter(xt1, yt1, c = 'y')
 
-
-
-def plotInitPosOutputSolver():
-    '''
-    plots the initial positions of trajectories in output_solver(bin)
-    Note: explicit path to be removed
-    '''
-    angleIni = {}
-    Q = []
-    name1 = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/"
-    for el in os.listdir(name1):
-        if "brentbvp" in el and not "fail" in el:
-            #Chargement du fichier
-            mati = np.loadtxt(name1 + el)
-            Q.append((el, mati[0,10], mati[0,11]))
-            #recuperation de q1 et q2 initiales et conversion en coordonnees
-            coordElbow, coordHand = mgd(np.mat([[mati[0,10]], [mati[0,11]]]), 0.3, 0.35)
-            angleIni[el] = (coordHand[0], coordHand[1])
-    
-    angleIni2 = {}  
-    name2 = "/home/beucher/Desktop/Monfray/Codes/Java/bin/output_solver/cluster2/"
-    for el in os.listdir(name2):
-        if "brentbvp" in el and not "fail" in el:
-            #Chargement du fichier
-            mati2 = np.loadtxt(name2 + el)
-            #Q.append((el, mati[0,10], mati[0,11]))
-            #recuperation de q1 et q2 initiales et conversion en coordonnees
-            coordElbow2, coordHand2 = mgd(np.mat([[mati2[0,10]], [mati2[0,11]]]), 0.3, 0.35)
-            angleIni2[el] = (coordHand2[0], coordHand2[1])
-    
-    x, y, xy = [], [], []
-    for key, el in angleIni.items():
-        x.append(el[0])
-        y.append(el[1])
-        xy.append((key, el[0], el[1]))
-        
-    x2, y2, xy2 = [], [], []
-    for key, el in angleIni2.items():
-        x2.append(el[0])
-        y2.append(el[1])
-        xy2.append((key, el[0], el[1]))
-    
-    gt = []
-    for el in xy2:
-        if not el in xy:
-            gt.append(el[0])
-            
-    print(len(gt), gt)
-    
-    plt.figure()
-    plt.scatter(x, y, c = 'b')
-    plt.show(block = True)
-
-def plotTrajThetaAllTraj():
-    '''
-    Note: deprecated
-    '''
-    name = "/home/beucher/workspace/Data/ThetaAllTraj/"
-    traj = getInitPos(name)
-    x, y, x1, y1 = [], [], [], []
-    for el in traj.values():
-        x.append(el[0])
-        y.append(el[1])
-    plt.figure()
-    plt.scatter(x, y, c = 'b')
-    plt.show(block = True)
 
 
         

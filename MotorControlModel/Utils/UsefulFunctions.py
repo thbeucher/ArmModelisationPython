@@ -26,7 +26,7 @@ def checkReachAllTarget(folderName):
     rs = ReadSetupFile()
     listOfDic = []
     for el in rs.sizeOfTarget:
-        dicTmp = checkIfTargetIsReach(el, folderName)
+        dicTmp = checkIfTargetIsReached(el, folderName)
         for key, val in dicTmp.items():
             i = 0
             for elt in val:
@@ -52,54 +52,33 @@ def timeDistance():
         r1 = math.sqrt((((tronquerNB(el[0] - rs.XTarget), 5)**2) + ((tronquerNB(el[1], 5) - rs.YTarget)**2)))/2
         r.append(tronquerNB(r1, 2))
     
-
-def returnX0Y0Z(name):
+def returnDifCost(what1,what2):
     rs = ReadSetupFile()
-    zdico = getobjread(name + "costTrajRBFNBIN")
-    xAbn, yAbn, zWithoutAbn, xyAbn, valcost = [], [], [], [], []
-    for key,el in zdico.items():
-        if not el < 200:
-            xAbn.append(tronquerNB(float(key.split("//")[0]), 3))
-            yAbn.append(tronquerNB(float(key.split("//")[1]), 3))
-            xyAbn.append((tronquerNB(float(key.split("//")[0]), 3), tronquerNB(float(key.split("//")[1]), 3)))
-            valcost.append(el-rs.rhoCF)
-        else:
-            zWithoutAbn.append(el)
-    x0, y0 = [], []
-    for el in xyAbn:
-        x0.append(el[0])
-        y0.append(el[1])
-    z = valcost
-    if not z:
-        x0 = []
-        y0 = []
-        posi = getobjread(rs.experimentFilePosIni)
-        for el in posi:
-            x0.append(el[0])
-            y0.append(el[1])
-        z = getobjread(name + "costBIN")
-    return x0, y0, z
 
-def returnDifCostBrentRBFN():
-    rs = ReadSetupFile()
-    name = rs.RBFNpath + "costTrajBIN"
-    RBFN = getobjread(name)
-    Brent = getobjread("trajectoires_cout/trajectoire_coutCoordXBIN")
-    dataRBFN, dataBrent, xyRBFN, xyBrent = [], [], [], []
-    for el in Brent:
-        dataBrent.append((el[2], el[3], el[1]))
-        xyBrent.append((el[2], el[3]))
-    for key, el in RBFN.items():
-        dataRBFN.append((tronquerNB(float(key.split("//")[0]), 3), tronquerNB(float(key.split("//")[1]), 3), el))
-        xyRBFN.append((tronquerNB(float(key.split("//")[0]), 3), tronquerNB(float(key.split("//")[1]), 3)))
-    difAllPts = []
-    for el in xyBrent:
-        if el in xyRBFN:
-            a = np.abs(dataBrent[xyBrent.index(el)][2] - dataRBFN[xyRBFN.index(el)][2])
-            difAllPts.append((el[0], el[1], a))
-    saveStr(name + "difCostBrentRBFN", difAllPts)
-    saveBin(name + "difCostBrentRBFNBIN", difAllPts)
-    return difAllPts
+    if what1 == "CMAES":
+        name1 = rs.CMAESpath + targetSize + folderName + "/Cost/"
+    elif what1 == "Brent":
+        name1 = BrentTrajectoriesFolder
+    else:
+        name1 = rs.RBFNpath + folderName + "/Cost/"
+
+    if what2 == "CMAES":
+        name2 = rs.CMAESpath + targetSize + folderName + "/Cost/"
+    elif what2 == "Brent":
+        name2 = BrentTrajectoriesFolder
+    else:
+        name2 = rs.RBFNpath + folderName + "/Cost/"
+
+    costs1 = getCostData(name1)
+    costs2 = getCostData(name2)
+
+    #Note: todo : indexer par xy pour retrouver les couts correspondants
+    for k, v in costs.items():
+        x0.append(v[0])
+        y0.append(v[1])
+        cost.append(costs2[2]_costs1[2])
+
+    return dif
 
 def checkForDoublonInTraj(localisation):
     '''
@@ -107,7 +86,7 @@ def checkForDoublonInTraj(localisation):
     Input:    -localisation: String, path given the folder where the trajectories are
     '''
     rs = ReadSetupFile()
-    data, junk = getInitPos(localisation)
+    data = getInitPos(localisation)
     tabEl, doublon = [], []
     for key, el in data.items():
         if el in tabEl:
@@ -119,44 +98,6 @@ def checkForDoublonInTraj(localisation):
     print("ici", len(doublon), doublon)
     c = input("cc")
     print("la", len(tabEl), tabEl)
-
-def posCircle(r, t):
-    '''
-    give coordinate (x,y) from couple (radius, angle)
-    
-    Input:      -r: scalar, radius of the circle
-                -t: scalar, angle
-    
-    Output:    -x: scalar, ordinate
-                -y: scalar, absciss
-    '''
-    rs = ReadSetupFile()
-    x0 = rs.XTarget
-    y0 = rs.YTarget
-    x = x0 + r * math.cos(t)
-    y = y0 + r * math.sin(t)
-    return x, y
-
-def invPosCircle(x, y):
-    '''
-    give couple (radius, angle) from coordinate (x, y), here the center of the circle is (0, yt) (yt = 0.6175)
-    
-    Input:      -x: scalar, ordinate
-                -y: scalar, absciss
-    
-    Output:     -r: scalar, radius of the circle
-                -t: scalar, angle
-    '''
-    rs = ReadSetupFile()
-    r = math.sqrt(((x - rs.XTarget)**2) + (y - rs.YTarget)**2)
-    t = math.atan2(y - rs.YTarget, x - rs.XTarget)
-    return r, t
-
-def remakeTrajFolder():
-    rs = ReadSetupFile()
-    for el in os.listdir(pathDataFolder + "/trajNotUsedTmp/"):
-        copyfile(pathDataFolder + "/trajNotUsedTmp/" + el, BrentTrajectoriesFolder + el)
-        remove(pathDataFolder + "/trajNotUsedTmp/" + el)
 
 def getTimeDistance(sizeTarget, folderName, rbfn = False):
     rs = ReadSetupFile()
@@ -178,25 +119,6 @@ def getTimeDistance(sizeTarget, folderName, rbfn = False):
         distTimeDico[key] = int(np.mean(distTimeDico[key]))
         distTime.append((key, distTimeDico[key]))
     return distTime
-
-def testNPDOT():
-    try:
-        import numpy.core._dotblas
-        print ('FAST BLAS')
-    except ImportError:
-        print ('slow blas')
-     
-    print ("version:", numpy.__version__)
-    #print ("maxint:", sys.maxint)
-    #print
-     
-    x = numpy.random.random((1000,1000))
-     
-    setup = "import numpy; x = numpy.random.random((1000,1000))"
-    count = 5
-     
-    t = timeit.Timer("numpy.dot(x, x.T)", setup=setup)
-    print ("dot:", t.timeit(count)/count, "sec")
         
 def getDataScattergram(sizeT, nameFolder):
     rs = ReadSetupFile()
@@ -249,7 +171,7 @@ def getTimeByArea(sizeT, folderName, rbfn = False):
         areaTime.append((round(float(key.split("//")[0]), 4), round(float(key.split("//")[1]), 4), int(np.mean(val))))
     return areaTime
 
-def checkIfTargetIsReach(sizeOfTarget, folderName):
+def checkIfTargetIsReached(sizeOfTarget, folderName):
     name = rs.CMAESpath + str(sizeOfTarget) + "/" + folderName + "/saveCoordEndTraj"
     data = getobjreadJson(name)
     targetReachOrNot = {}
