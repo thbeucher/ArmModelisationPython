@@ -18,12 +18,11 @@ from matplotlib import cm
 from matplotlib import animation
 from matplotlib.mlab import griddata
 
-from Utils.FileReading import getStateData, getXYHandData, getXYElbowData, getCommandData, getInitPos, getobjread, getobjreadJson
+from Utils.FileReading import getStateData, getXYHandData, getXYElbowData, getCommandData, getInitPos
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.NiemRoot import tronquerNB
 
-from Utils.UsefulFunctions import returnX0Y0Z, returnDifCostBrentRBFN,\
-     getTimeDistance, getDistPerfSize, getTimeByArea, getDataScattergram, checkIfTargetIsReach
+from Utils.UsefulFunctions import getTimeDistance, getDistPerfSize, getTimeByArea, getDataScattergram, returnDifCost
 
 from ArmModel.Arm import Arm
 
@@ -340,8 +339,6 @@ def plotCostColorMap(what, folderName = "None", targetSize = "0.1"):
     except AttributeError:
         er = 1
     if type(zb) == type([]) or er == 1:
-        zi = griddata(x0, y0, zb, xi, yi)
-    elif 
         zi = griddata(x0, y0, zb, xi, yi)
     else:
         zi = griddata(x0, y0, zb.T[0], xi, yi)

@@ -16,9 +16,8 @@ import timeit
 
 from Utils.NiemRoot import tronquerNB
 from Utils.ReadSetupFile import ReadSetupFile
-from Utils.FileReading import getInitPos, getobjread, getobjreadJson
-from Utils.FileSaving import saveBin, saveStr
-from Utils.ThetaNormalization import normalization, matrixToVector, vectorToMatrix, unNorm
+from Utils.FileReading import getInitPos
+from Utils.ThetaNormalization import matrixToVector, vectorToMatrix
 
 from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder
 
@@ -76,7 +75,7 @@ def returnDifCost(what1,what2):
     for k, v in costs.items():
         x0.append(v[0])
         y0.append(v[1])
-        cost.append(costs2[2]_costs1[2])
+        cost.append(costs2[2]-costs1[2])
 
     return dif
 

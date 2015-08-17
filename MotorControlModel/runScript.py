@@ -13,7 +13,7 @@ from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTarg
 
 from Regression.RunRegressionRBFN import runRBFN
 
-from Plot.plotFunctions import trajectoriesAnimation, plotCostMapCMAES, plotCostMapRBFN, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations
+from Plot.plotFunctions import trajectoriesAnimation, plotCostColorMap, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations
 
 from Utils.UsefulFunctions import checkReachAllTarget
 
@@ -124,7 +124,7 @@ def chooseFunction(choix):
         plotMuscularActivations("RBFN",nameF)
     elif choix == 10:
         nameF = raw_input('Folder where the results are saved: ')
-        plotCostMapRBFN(nameF)
+        plotCostColorMap("RBFN",nameF)
     elif choix == 11:
         t0 = time.time()
         launchCMAESForAllTargetSizes()
@@ -148,7 +148,8 @@ def chooseFunction(choix):
         plotMuscularActivations("CMAES",nameF,tSize)
     elif choix == 16:
         nameF = raw_input('Folder where the results are saved: ')
-        plotCostMapCMAES(nameF)
+        tSize = raw_input('Target Size: ')
+        plotCostColorMap("CMAES",nameF,tSize)
     elif choix == 17:
         nameF = raw_input('Folder where the results are saved: ')
         plotTimeDistanceTarget(nameF)

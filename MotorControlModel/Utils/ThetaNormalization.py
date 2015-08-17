@@ -9,15 +9,8 @@ Description: On retrouve dans ce fichier les fonctions pour normaliser theta
 '''
 
 import numpy as np
-from Utils.FileSaving import saveBin
+
 from GlobalVariables import pathDataFolder, cmaesPath    
-    
-def normalization(theta):
-    maxT = np.max(np.abs(theta), axis = 0)
-    for i in range(theta.shape[1]):
-        theta[:,i] = theta[:,i] / maxT[i]
-    saveBin(str(cmaesPath + "/maxTBIN"), maxT)
-    return theta
 
 def normalizationNP(theta):
     maxT = np.max(np.abs(theta), axis = 0)

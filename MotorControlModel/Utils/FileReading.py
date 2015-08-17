@@ -13,27 +13,6 @@ import json
 
 from ArmModel.Arm import Arm
 
-def getobjread(name):
-    '''
-    Get data from a file
-    
-    Input: the full name of the file to read
-    
-    Output: the obtained data
-    '''
-    with open(name, "rb") as file:
-        mondepickler = pickle.Unpickler(file)
-        data = mondepickler.load()
-    return data
-
-def getobjreadJson(name):
-    '''
-    Reads data from file saved with json
-    '''
-    f = open(name, 'r')
-    data = json.load(f)
-    return data
-
 def getInitPos(foldername):
     '''
     Cette fonction permet de recuperer toutes les positions initiales des trajectoires utilisees pour
