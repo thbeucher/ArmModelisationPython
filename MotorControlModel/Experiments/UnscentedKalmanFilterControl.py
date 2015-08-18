@@ -9,13 +9,14 @@ Description: Class with some functions to use the unscented kalman filter to gen
 Uses the librairy pykalman.
 '''
 import numpy as np
+import random as rd
 from pykalman import UnscentedKalmanFilter
 
 from ArmModel.MuscularActivation import getNoisyCommand
 
 class UnscentedKalmanFilterControl:
     
-    def __init__(self, dimState, dimObs, delay, arm, knoiseU, controller):
+    def __init__(self, dimState, delay, arm, knoiseU, controller):
         '''
     	Initializes parameters to uses the function implemented below
     	
@@ -28,7 +29,6 @@ class UnscentedKalmanFilterControl:
         self.name = "UnscentedKalmanFilter"
         self.knoiseU = knoiseU
         self.dimState = dimState
-        self.dimObs = dimObs
         self.delay = delay
         self.arm = arm
         self.controller = controller
@@ -36,23 +36,38 @@ class UnscentedKalmanFilterControl:
         #initialization of some parameters for the filter
         transition_covariance = np.eye(self.dimState)*0.01
         initial_state_mean = np.zeros(self.dimState)
-        observation_covariance = 1000*np.eye(self.dimObs) 
+        observation_covariance = 1000*np.eye(self.dimState) 
         initial_state_covariance = np.eye(self.dimState)
         self.nextCovariance = np.eye(self.dimState)*0.0001
         self.ukf = UnscentedKalmanFilter(self.transitionFunctionUKF, self.observationFunctionUKF,
                                     transition_covariance, observation_covariance,
                                     initial_state_mean, initial_state_covariance)
-        
     
-    def setDelayUKF(self, delay):
+    def initObsStore(self, state):
         '''
-    	Sets the delay used for the filter
-    	
-    	Input:		-delay, int
-    	'''
-        self.delay = delay
+    	Initialization of the observation storage
     
-    def transitionFunctionUKF(self, stateU, transitionNoise = 0):
+    	Input:		-state: the state stored
+    	'''
+        self.obsStore = []
+        for i in range(self.delay):
+            self.obsStore.append(state)
+        #print ("InitStore:", self.obsStore)
+    
+    def storeObs(self, state):
+        '''
+    	Stores the current state and returns the delayed state
+    
+    	Input:		-state: the state to store
+    	'''
+        for i in range (self.delay-1):
+           self.obsStore[self.delay-i-1]=self.obsStore[self.delay-i-2]
+        self.obsStore[0]=state
+        #print ("After store:", self.obsStore)
+        #print ("retour:", self.obsStore[self.delay-1])
+        return self.obsStore[self.delay-1]
+    
+    def transitionFunctionUKF(self, state, transitionNoise = 0):
         '''
     	Transition function used by the filter, function of the state and the transition noise at time t and produces the state at time t+1
     	
@@ -61,17 +76,12 @@ class UnscentedKalmanFilterControl:
     
     	Output:		-nextStateUNoise: the next State with noise added, numpy array
     	'''
-        #computation of the next Q vector [dotq1, dotq2, q1, q2]
-        state = np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1))
-        nextX = self.arm.computeNextState(np.asarray(stateU).reshape((self.dimState, 1)), state)
-        #computation of the next muscular activation vector U
-        U = self.controller.computeOutput(nextX.T[0])
-        nextStateU = getNoisyCommand(U, self.knoiseU)
-         #noise add to the next state generated
-        nextStateUNoise = nextStateU.T[0] + transitionNoise
-        return nextStateUNoise
+        #print("UKF trans state :", state)
+        U = self.controller.computeOutput(state)
+        nextState = self.arm.computeNextState(U, state)
+        return nextState + transitionNoise
     
-    def observationFunctionUKF(self, stateU, observationNoise = 0):
+    def observationFunctionUKF(self, state, observationNoise = 0):
         '''
     	Observation function used by the filter, function of the state and the observation noise at time t and produces the observation at time t
     
@@ -80,47 +90,32 @@ class UnscentedKalmanFilterControl:
     
     	Output:		-nextObsNoise: observation at time t+1
     	'''
-        #computation of the next observation
-        state = np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1))
-        nextObs = self.arm.computeNextState(np.asarray(stateU).reshape((self.dimState, 1)), state)
-        nextObsNoise = nextObs.T[0] + observationNoise
+        U = self.controller.computeOutput(state)
+        nextObs = self.arm.computeNextState(U, state)
+        nextObsNoise = nextObs + observationNoise
         return nextObsNoise
     
-    def initObsStore(self, state):
-        '''
-    	Initialization of the observation storage
-    
-    	Input:		-state: the state to store in order to create the delay wanted
-    	'''
-        self.obsStore = np.tile(state, (1, self.delay))
-    
-    def storeObs(self, state):
-        '''
-    	Stores the state to create the delay wanted
-    
-    	Input:		-state: the state to store
-    	'''
-        self.obsStore = np.roll(self.obsStore, 1, axis = 1)
-        self.obsStore.T[0] = state.T
-    
-    def runUKF(self, stateU, obs):
+    def runUKF(self, state):
         '''
     	Function used to compute the next state approximation with the filter
     
-    	Inputs:		-stateU: the state to feed the filter, here its the muscular activation vector U, numpy array of dimension (x, 1), here x = 6
-    			    -obs: the observation of the arm position, numpy array of dimension (x, 1), here x = 4
+    	Inputs:		-Unoisy: the state to feed the filter, here its the muscular activation vector U, numpy array of dimension (x, 1), here x = 6
+    			    -state: the state of the arm
     
     	Output:		-stateApprox: the next state approximation, numpy array of dimension (x, 1), here x = 4
     	'''
         #store the state of the arm to feed the filter with a delay on the observation
-        self.storeObs(obs)
+        oldstate = self.storeObs(state)
+        #print("UKF old state :", oldstate)
         #compute the nextState approximation ie here the next muscular activation
-        nextState, nextCovariance = self.ukf.filter_update(stateU.T[0], self.nextCovariance, self.obsStore.T[self.delay-1])
-        #compute the nextState ie the next position vector from the approximation of the next muscular activation vector given by the filter
-        state = np.asarray(self.obsStore.T[self.delay-1]).reshape((self.dimObs, 1))
-        stateApprox = self.arm.computeNextState(np.asarray(nextState).reshape((self.dimState, 1)), state)
-        return stateApprox
+        nextState, nextCovariance = self.ukf.filter_update(state, self.nextCovariance, oldstate)
+        #compute the nextState i.e. the next position vector from the approximation of the next muscular activation vector given by the filter
+        return nextState
     
-    
-    
+    def debugStore(self):
+        state = np.array([1,2,3,4])
+        self.initObsStore(state)
+        for i in range(5):
+            tmp = [rd.random() for x in range(4)]
+            self.storeObs(tmp)
     

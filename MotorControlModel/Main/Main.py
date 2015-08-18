@@ -49,13 +49,21 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
     print("Starting the CMAES Optimization for target " + str(sizeOfTarget) + " !")
     rs = ReadSetupFile()
     foldername = rs.CMAESpath + str(sizeOfTarget) + "/"
-    thetaname = foldername + thetafile
+    thetaname = foldername + thetaFile
 
     #Initializes all the class used to generate trajectory
     exp = Experiments(rs, sizeOfTarget, True, foldername, thetaname)
-    theta = exp.tm.theta
+    theta = exp.tm.controller.theta
+    print ("theta: ",theta)
+    thetaIn = theta.flatten()
+    print ("thetaIn: ",thetaIn)
     #run the optimization (cmaes)
-    resCma = cma.fmin(exp.runTrajectoriesCMAES, theta, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    resCma = cma.fmin(exp.runTrajectoriesCMAES, thetaIn, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    thetaOut = resCma[0]
+    print ("theta Out: ",thetaOut)
+    thetaOut = np.asarray(self.theta).reshape((self.dimOutput, self.numfeats**self.dimState))
+    print ("theta Out: ", thetaOut)
+    print "----------------------------------------"
     #name used to save the controller obtained from optimization
     i = 1
     tryName = "thetaCma" + str(sizeOfTarget) + "save"
@@ -70,10 +78,10 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
 
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     
-def launchCMAESForAllTargetSizes():
+def launchCMAESForAllTargetSizes(thetaname):
     rs = ReadSetupFile()
     for el in rs.sizeOfTarget:
-        launchCMAESForSpecificTargetSize(el, "theta")
+        launchCMAESForSpecificTargetSize(el, thetaname)
 
 #--------------------------- multiprocessing -------------------------------------------------------
 

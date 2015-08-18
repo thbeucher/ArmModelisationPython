@@ -10,7 +10,6 @@ Description: creates a vector from data
 
 import numpy as np
 
-
 def createVector(*data):
     '''
     creates vector from data given

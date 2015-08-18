@@ -32,7 +32,7 @@ class rbfn():
 
     def loadTheta(self,thetaFile):
         self.theta = np.loadtxt(thetaFile)
-        print ("theta LOAD : ", self.theta)
+        #print ("theta LOAD : ", self.theta)
         return self.theta
 
     def saveTheta(self,fileName):

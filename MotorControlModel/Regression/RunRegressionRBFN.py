@@ -17,6 +17,7 @@ from Utils.ReadSetupFile import ReadSetupFile
 from Utils.FileReading import getStateAndCommandData, dicToArray
 
 from Regression.RBFN import rbfn
+from ArmModel.Arm import Arm
 from Experiments.TrajMaker import initRBFNController
 
 from GlobalVariables import BrentTrajectoriesFolder
@@ -85,16 +86,52 @@ def UnitTestRBFNController():
     state, command = {}, {}
     for el in os.listdir(BrentTrajectoriesFolder):
             state[el], command[el] = [], []
-            data = np.loadtxt(foldername + el)
+            data = np.loadtxt(BrentTrajectoriesFolder + el)
             for i in range(data.shape[0]):
                 state[el].append((data[i][8], data[i][9], data[i][10], data[i][11]))
                 command[el].append((data[i][18], data[i][19], data[i][20], data[i][21], data[i][22], data[i][23]))
 
-    for el in os.listdir(foldername):
+    for el in os.listdir(BrentTrajectoriesFolder):
             for i in range(len(state[el])):
-                outrbfn = fa.computeOutput(np.array(state[el][i]))
-                print("Real  :", command[el][i]) 
-                print("Learn :",outrbfn)
+                if rd.random()<0.06:
+                    outrbfn = fa.computeOutput(np.array(state[el][i]))
+                    print("Real  :", command[el][i]) 
+                    print("Learn :",outrbfn)
+  
+def UnitTestArmModel():
+    '''
+    Tests the next state 
+    '''
+    rs = ReadSetupFile()
+
+    arm = Arm()
+    arm.setDT(rs.dt)
+
+    state, estimState, command, noisycommand, nextEstimState, nextState = {}, {}, {}, {}, {}, {}
+    for el in os.listdir(BrentTrajectoriesFolder):
+            state[el], estimState[el], command[el], noisycommand[el], nextEstimState[el], nextState[el] = [], [], [], [], [], []
+            data = np.loadtxt(BrentTrajectoriesFolder + el)
+            for i in range(data.shape[0]):
+                estimState[el].append(np.array([data[i][4], data[i][5], data[i][6], data[i][7]]))
+                state[el].append(np.array([data[i][8], data[i][9], data[i][10], data[i][11]]))
+                noisycommand[el].append(np.array([data[i][12], data[i][13], data[i][14], data[i][15], data[i][16], data[i][17]]))
+                command[el].append(np.array([data[i][18], data[i][19], data[i][20], data[i][21], data[i][22], data[i][23]]))
+                nextEstimState[el].append(np.array([data[i][24], data[i][25], data[i][26], data[i][27]]))
+                nextState[el].append(np.array([data[i][28], data[i][29], data[i][30], data[i][31]]))
+
+    for el in os.listdir(BrentTrajectoriesFolder):
+            for i in range(len(state[el])):
+                if rd.random()<0.06:
+                    outNextStateNoisy = arm.computeNextState(noisycommand[el][i],state[el][i])
+                    outNextState = arm.computeNextState(command[el][i],state[el][i])
+                    
+                    print("U      :", command[el][i]) 
+                    print("UNoisy :", noisycommand[el][i])
+                    print("---------------------------------------------------------")
+                    print("Real :", nextState[el][i]) 
+                    print("ArmN :", outNextStateNoisy)
+                    print("Arm :", outNextState)
+                    print("---------------------------------------------------------")
 
     
     

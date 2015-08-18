@@ -59,19 +59,21 @@ class ReadSetupFile:
         self.errorPosEnd = float((allsByLign[15].split(":"))[1])
         #reading line 17, Dimension de l'etat pour le filtre de kalman(int)
         self.dimStateUKF = int((allsByLign[16].split(":"))[1])
-        #reading line 18, Dimension de l'observation pour le filtre de kalman(int)
-        self.dimObsUKF = int((allsByLign[17].split(":"))[1])
-        #reading line 19, Delai utilise pour le filtre de kalman(int)
-        self.delayUKF = int((allsByLign[18].split(":"))[1])
-        #reading line 20, Nombre de repetition pour chaque trajectoire(int)
-        self.numberOfRepeatEachTraj = int((allsByLign[19].split(":"))[1])
-        #reading line 21, Dimension de l'entree, ici le vecteur position(int)
-        self.inputDim = int((allsByLign[20].split(":"))[1])
-        #reading line 22, Dimension de la sortie, ici le vecteur d'activation musculaire
-        self.outputDim = int((allsByLign[21].split(":"))[1])
+        #reading line 18, Delai utilise pour le filtre de kalman(int)
+        self.delayUKF = int((allsByLign[17].split(":"))[1])
+        #reading line 19, Nombre de repetition pour chaque trajectoire(int)
+        self.numberOfRepeatEachTraj = int((allsByLign[18].split(":"))[1])
+        #reading line 20, Dimension de l'entree, ici le vecteur position(int)
+        self.inputDim = int((allsByLign[19].split(":"))[1])
+        #reading line 21, Dimension de la sortie, ici le vecteur d'activation musculaire
+        self.outputDim = int((allsByLign[20].split(":"))[1])
 
         self.RBFNpath = pathDataFolder + "RBFN/" + str(self.numfeats) + "feats/"
         self.CMAESpath = pathDataFolder + cmaesPath + "/ResCma"
+
+    def getDistance(self, x, y):
+        return math.sqrt((x - rs.XTarget)**2 + (y - rs.YTarget)**2)
+
            
         
 

@@ -18,7 +18,7 @@ from matplotlib import cm
 from matplotlib import animation
 from matplotlib.mlab import griddata
 
-from Utils.FileReading import getStateData, getEstimatedStateData, getEstimatedXYHandData, getXYHandData, getXYElbowData, getCommandData, getInitPos, getCostData
+from Utils.FileReading import getStateData, getEstimatedStateData, getEstimatedXYHandData, getXYHandData, getXYElbowData, getCommandData, getInitPos, getCostData, getTrajTimeData
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.NiemRoot import tronquerNB
 
@@ -108,7 +108,7 @@ def plotVelocityProfile(what, folderName = "None"):
 
         state = getStateData(name)
         for k,v in state.items():
-            if rd.random()<0.06:
+            if what == "RBFN" or rd.random()<0.06:
                 index, speed = [], []
                 for j in range(len(v)):
                     index.append(j)
@@ -133,7 +133,7 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
     state = getXYHandData(name)
     estimState = getEstimatedXYHandData(name)
     for k,v in state.items():
-#        if rd.random()<0.06:
+        if rd.random()<0.06 or what != "Brent":
             posX, posY = [], []
             for j in range(len(v)):
                 posX.append(v[j][0])
@@ -142,7 +142,7 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
             plt.plot(posX,posY, c ='b')
 
     for k,v in estimState.items():
-#        if rd.random()<0.06:
+        if rd.random()<0.06 or what != "Brent":
             eX, eY = [], []
             for j in range(len(v)):
                 eX.append(v[j][0])
@@ -152,7 +152,7 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
 
     plt.xlabel("X")
     plt.ylabel("Y")
-    plt.title("XY Positions for Brent")
+    plt.title("XY Positions for " + what)
 
     x0 = []
     y0 = []
@@ -166,12 +166,6 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
     for key, el in xy.items():
         x.append(el[0])
         y.append(el[1])
-        a = math.sqrt((el[0] - rs.XTarget)**2 + (el[1] - rs.YTarget)**2)
-        b = tronquerNB(a, 3)
-        if b not in aa:
-            aa.append(b)
-        if a < 0.11: #Note : WTF ???
-            keyy.append(key)
         
     plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(rs.XTarget, rs.YTarget, c = "r", marker=u'*', s = 100)
@@ -193,7 +187,7 @@ def plotArticularPositions(what, folderName = "None", targetSize = "0.1"):
     state = getStateData(name)
 
     for k,v in state.items():
-        if rd.random()<0.06:
+        if rd.random()<0.06 or what != "Brent":
             Q1, Q2 = [], []
             for j in range(len(v)):
                 Q1.append(v[j][2])
@@ -201,7 +195,7 @@ def plotArticularPositions(what, folderName = "None", targetSize = "0.1"):
             plt.plot(Q1,Q2, c ='b')
     plt.xlabel("Q1")
     plt.ylabel("Q2")
-    plt.title("Articular positions for Brent")
+    plt.title("Articular positions for " + what)
     plt.show(block = True)
 
 def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
@@ -226,7 +220,7 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
     u1, u2, u3, u4, u5, u6 = [], [], [], [], [], []
     t = []
     for key, el1 in U.items():
-        if rd.random()<0.01:
+        if rd.random()<0.01 or what != "Brent":
             for i in range(len(el1)):
                 t.append(i)
                 u1.append(el1[i][0])
@@ -243,6 +237,9 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
     plt.plot(t, u5)
     plt.plot(t, u6)
 
+    plt.xlabel("time")
+    plt.ylabel("U")
+    plt.title("Muscular Activations for " + what)
     plt.show(block = True)
 
 def plotInitPos():
@@ -264,12 +261,14 @@ def plotInitPos():
     for key, el in xy.items():
         x.append(el[0])
         y.append(el[1])
-        a = math.sqrt((el[0] - rs.XTarget)**2 + (el[1] - rs.YTarget)**2)
+        '''
+        a = rs.getDistance(el[0],el[1])
         b = tronquerNB(a, 3)
         if b not in aa:
             aa.append(b)
         if a < 0.11: #Note : WTF ???
             keyy.append(key)
+        '''
         
     plt.figure()
     plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
@@ -302,60 +301,18 @@ def plotCostColorMap(what, folderName = "None", targetSize = "0.1"):
     cost = []
 
     for k, v in costs.items():
-        x0.append(v[0])
-        y0.append(v[1])
-        cost.append(v[2])
+        for i in range(len(v)):
+            x0.append(v[i][0])
+            y0.append(v[i][1])
+            cost.append(v[i][2])
 
-    '''
-    posi = getobjread(rs.experimentFilePosIni)
-    for el in posi:
-        x0.append(el[0])
-        y0.append(el[1])
-
-    if what == "rbfn":
-        name = rs.RBFNpath
-        x0, y0, z = returnX0Y0Z(name)
-        
-    elif what == "cma":
-        name = rs.RBFNpath + "costBINCma"
-        z = getobjread(name)
-        for i in range(len(z)):
-            if z[i] > 0:
-                z[i] -= rs.rhoCF
-        
-    elif wha == "brent":
-        data = getobjread("Exp12TrajBrent/trajectoire_coutCoordXBIN")
-        z, x0, y0 = [], [], []
-        for el in data:
-            z.append(el[1]-rs.rhoCF)
-            x0.append(el[2])
-            y0.append(el[3])
-
-    elif what == "difBR":
-        dif = returnDifCostBrentRBFN()
-        z, zobj, x0, y0 = [], [], [], []
-        for el in dif:
-            if el[2] < 10:
-                z.append(el[2])
-                zobj.append(el)
-    '''
-    zb = cost
     xi = np.linspace(-0.25,0.25,100)
     yi = np.linspace(0.35,0.5,100)
-    er = 0
-    try:
-        zb.shape[1]
-    except IndexError:
-        er = 1
-    except AttributeError:
-        er = 1
-    if type(zb) == type([]) or er == 1:
-        zi = griddata(x0, y0, zb, xi, yi)
-    else:
-        zi = griddata(x0, y0, zb.T[0], xi, yi)
+
+    zi = griddata(x0, y0, cost, xi, yi)
     
     fig = plt.figure()
-    t1 = plt.scatter(x0, y0, c=zb, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+    t1 = plt.scatter(x0, y0, c=cost, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
     CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
     fig.colorbar(t1, shrink=0.5, aspect=5)
@@ -363,8 +320,25 @@ def plotCostColorMap(what, folderName = "None", targetSize = "0.1"):
 
 #-----------------------------------------------------------------------------------------------------------
     
-def plotTimeDistanceTarget(folderName, rbfn = False):
+def plotTimeDistanceTarget(what, folderName = "None", targetSize = "0.1"):
     rs = ReadSetupFile()
+    if what == "CMAES":
+        name = rs.CMAESpath + targetSize + folderName + "/TrajTime/"
+    else:
+        name = rs.RBFNpath + folderName + "/TrajTime/"
+
+    trajTimes = getTrajTimeData(name)
+
+    x0 = []
+    y0 = []
+    trajTime = []
+
+    for k, v in trajTimes.items():
+        for i in range(len(v)):
+            x0.append(v[i][0])
+            y0.append(v[i][1])
+            trajTime.append(v[i][2])
+
     targetDic = {}
     for i in range(len(rs.sizeOfTarget)):
         try:
@@ -395,6 +369,8 @@ def plotTimeDistanceTarget(folderName, rbfn = False):
         plotTab.append(plt.plot(dicoTest[key], dicoTest2[key], label = str("Distance: " + str(key))))
     plt.legend(loc = 0)
     plt.show(block = True)
+
+#-----------------------------------------------------------------------------------------------------------
             
 def plotFittsLaw(folderName, rbfn = False):
     rs = ReadSetupFile()
@@ -423,6 +399,8 @@ def plotFittsLaw(folderName, rbfn = False):
     plt.xlabel("log(D/W)/log(2)")
     plt.ylabel("Time")
     plt.show(block = True)
+
+#-----------------------------------------------------------------------------------------------------------
     
 def plotPerfSizeDist(folderName, rbfn = False):
     rs = ReadSetupFile()
@@ -446,6 +424,8 @@ def plotPerfSizeDist(folderName, rbfn = False):
         plotTab.append(plt.plot([x[0] for x in distDico[key]], [x[1] for x in distDico[key]], label = str("Distance: " + str(key))))
     plt.legend(loc = 0)
     plt.show(block = True)
+
+#-----------------------------------------------------------------------------------------------------------
 
 def plotMapTimeTrajectories(folderName, rbfn = False):
     rs = ReadSetupFile()
@@ -538,23 +518,6 @@ def plotcmaesCostProgress():
     for key, x in costEvo.items():
         ax[int(key.split("_")[0])].plot(y, x)
         ax[int(key.split("_")[0])].set_title(str("Target " + key.split("_")[1]))
-    plt.show(block = True)
-        
-def plotTrajWhenTargetNotReach():
-    rs = ReadSetupFile()
-    name = rs.RBFNpath + "costTrajRBFNBIN"
-    data = getobjread(name)
-    xr, xnr, yr, ynr = [], [], [], []
-    for key, val in data.items():
-        if val <= 280:
-            xnr.append(float(key.split("//")[0]))
-            ynr.append(float(key.split("//")[1]))
-        else:
-            xr.append(float(key.split("//")[0]))
-            yr.append(float(key.split("//")[1]))
-    plt.figure()
-    plt.scatter(xr, yr, c = 'b')
-    plt.scatter(xnr, ynr, c = 'r')
     plt.show(block = True)
    
 def plotCostVariation(sizeT):
@@ -712,17 +675,6 @@ def plotTimeVariationForEachDistance(sizeTarget):
             plt.scatter(el[1], el[0])
         break
     plt.show(block = True)
-
-#-----------------------------------------------------------------------------------------
-# those functions are not used
-
-def plotPosTAT(fr, rs):
-    xtr= getInitPos(pathDataFolder + "ThetaAllTraj/")
-    xt1, yt1 = [], []
-    for key, el in xtr.items():
-        xt1.append(el[0])
-        yt1.append(el[1])
-    plt.scatter(xt1, yt1, c = 'y')
 
 
 

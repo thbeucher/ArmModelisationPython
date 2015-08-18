@@ -51,6 +51,8 @@ class Experiments:
         self.foldername = foldername
         self.tm = TrajMaker(rs, sizeOfTarget, saveA, thetafile)
         self.posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
+        self.costStore = []
+        self.trajTimeStore = []
 
     def setTheta(self, theta):
         self.tm.setTheta(theta)
@@ -62,27 +64,34 @@ class Experiments:
         self.theta = np.copy(theta)
         #reshaping of the parameters vector because this function is used by the cmaes algorithm and 
         #cmaes feeds the function with a one dimension numpy array but in the rest of the algorithm the 2 dimensions numpy array is expected for the vector of parameters theta
-        self.theta = np.asarray(self.theta).reshape((self.numfeats**self.dimState, self.dimOutput))
-        #UnNorm the vector of parameters, because for cmaes we use a normalize vector
-        self.theta = unNormNP(self.theta)
-        #give the theta to the muscularActivationCommand class
+        self.theta = np.asarray(self.theta).reshape((self.dimOutput, self.numfeats**self.dimState))
+        print ("theta Exp: ", self.theta)
+
         self.setTheta(self.theta)
-         
+
     def saveCost(self):
         filename = findDataFileName(self.foldername+"Cost/",".cost")
-        np.savetxt(filename, dicToArray(self.tm.costStore))
+        filenameTime = findDataFileName(self.foldername+"TrajTime/",".time")
+        np.savetxt(filename, self.costStore)
+        np.savetxt(filenameTime, self.trajTimeStore)
          
     def runOneTrajectory(self, x, y):
         filename = findDataFileName(self.foldername+"Log/",".log")
-        cost = self.tm.runTrajectory(x, y, filename)
-        return cost
+        cost, trajTime = self.tm.runTrajectory(x, y, filename)
+        return cost, trajTime
             
     def runTrajectoriesResultsGeneration(self, repeat):
-        costAll = [[self.runOneTrajectory(xy[0], xy[1]) for xy in self.posIni] for i in range(repeat)]
-        meanByTraj = np.mean(np.asarray(costAll).reshape((repeat, len(self.posIni))), axis = 0)    
-        return meanByTraj
+        for xy in self.posIni:
+            costAll, trajTimeAll = np.zeros(repeat), np.zeros(repeat)
+            for i in range(repeat):
+                costAll[i], trajTimeAll[i]  = self.runOneTrajectory(xy[0], xy[1]) 
+            meanCost = np.mean(costAll)
+            meanTrajTime = np.mean(trajTimeAll)
+            self.costStore.append([xy[0], xy[1], meanCost])
+            self.trajTimeStore.append([xy[0], xy[1], meanTrajTime])
+        return meanCost
     
-    def runTrajectoriesCMAES(self,theta):
+    def runTrajectoriesCMAES(self, theta):
         '''
     	Generates all the trajectories of the experimental setup and return the mean cost. This function is used by cmaes to optimize the controller.
     
@@ -93,16 +102,12 @@ class Experiments:
         t0 = time.time()
         self.initTheta(theta)
         #compute all the trajectories x times each, x = numberOfRepeat
-        filename = findDataFileName(self.foldername+"Log/",".log")
-        costAll = [[self.runOneTrajectory(theta, xy[0], xy[1]) for xy in self.posIni] for i in range(self.numberOfRepeat)]
-        #compute the mean cost for the x times generated trajectories
-        meanByTraj = np.mean(np.asarray(costAll).reshape((self.numberOfRepeat, len(self.posIni))), axis = 0)   
-        #compute the mean cost for all trajectories 
-        meanAll = np.mean(meanByTraj)
+        meanCost = runTrajectoriesResultsGeneration(self, self.numberOfRepeat)
+
         print("Call #: ", self.call, "\n Cost: ", meanAll, "\n Time: ", time.time() - t0, "s")
         self.saveThetaCmaes(meanAll,self.call)
         self.call += 1
-        return meanAll*(-1)
+        return meanCost*(-1)
     
     
     

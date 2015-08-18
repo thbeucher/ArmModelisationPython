@@ -9,9 +9,9 @@ Description: main script to run what we want in the project
 '''
 import time
 
-from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTargetSizes #launchCMAESForSpecificTargetSize, generateResultsWithBestThetaTmp, launchCMAESWithBestThetaTmpForAllTargetSize,\ generateTrajectoryForScattergram
+from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTargetSizes
 
-from Regression.RunRegressionRBFN import runRBFN, UnitTest, UnitTestRBFNController
+from Regression.RunRegressionRBFN import runRBFN, UnitTest, UnitTestRBFNController, UnitTestArmModel
 
 
 from Plot.plotFunctions import trajectoriesAnimation, plotCostColorMap, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations
@@ -129,7 +129,8 @@ def chooseFunction(choix):
         plotCostColorMap("RBFN",nameF)
     elif choix == 11:
         t0 = time.time()
-        launchCMAESForAllTargetSizes()
+        name = raw_input('Name of the controller file: ')
+        launchCMAESForAllTargetSizes(name)
         t1 = time.time()
         print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
     elif choix == 12:
@@ -188,3 +189,4 @@ runChoice()
 
 #UnitTest()
 #UnitTestRBFNController()
+#UnitTestArmModel()

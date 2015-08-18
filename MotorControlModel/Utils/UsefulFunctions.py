@@ -34,22 +34,6 @@ def checkReachAllTarget(folderName):
             dicTmp[key] = i*100/len(val)
         listOfDic.append(dicTmp)
     print(listOfDic)
-        
-    
-def timeDistance():
-    rs = ReadSetupFile()
-    name = rs.RBFNpath + "nbIteBIN" 
-    data = getobjread(name)
-    key = []
-    for el in data.keys():
-        key.append(el.split("//"))
-    for i in range(len(key)):
-        key[i][0] = float(key[i][0])
-        key[i][1] = float(key[i][1])
-    r = []
-    for el in key:
-        r1 = math.sqrt((((tronquerNB(el[0] - rs.XTarget), 5)**2) + ((tronquerNB(el[1], 5) - rs.YTarget)**2)))/2
-        r.append(tronquerNB(r1, 2))
     
 def returnDifCost(what1,what2):
     rs = ReadSetupFile()

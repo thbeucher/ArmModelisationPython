@@ -10,7 +10,7 @@ Description: Class to generate a trajectory
 import numpy as np
 
 from Utils.CreateVectorUtil import createVector
-from ArmModel.Arm import Arm, createStateVector, getDotQAndQFromStateVector
+from ArmModel.Arm import Arm, getDotQAndQFromStateVector
 from ArmModel.MuscularActivation import getNoisyCommand
 
 from Regression.RBFN import rbfn
@@ -72,14 +72,13 @@ class TrajMaker:
         self.cc = CostComputation(rs)
         self.sizeOfTarget = sizeOfTarget
         #6 is the dimension of the state for the filter, 4 is the dimension of the observation for the filter, 25 is the delay used
-        self.Ukf = UnscentedKalmanFilterControl(rs.dimStateUKF, rs.dimObsUKF, rs.delayUKF, self.arm, rs.knoiseU, self.controller)
+        self.Ukf = UnscentedKalmanFilterControl(rs.dimStateUKF, rs.delayUKF, self.arm, rs.knoiseU, self.controller)
         self.saveA = saveA
         #Initializes variables used to save trajectory
-        self.costStore = {}
-
+ 
     def setTheta(self, theta):
         self.controller.setTheta(theta)
-    
+        
     def runTrajectory(self, x, y, filename):
         '''
     	Generates trajectory from the initial position (x, y)
@@ -91,12 +90,10 @@ class TrajMaker:
     	'''
         #computes the articular position q1, q2 from the initial coordinates (x, y)
         q1, q2 = self.arm.mgi(x, y)
-        #creates the position vector [q1, q2]
-        q = createVector(q1, q2)
-        #creates the speed vector [dotq1, dotq2]
-        dotq = createVector(0., 0.)
         #creates the state vector [dotq1, dotq2, q1, q2]
-        state = createStateVector(dotq, q)
+        q = createVector(q1,q2)
+        state = np.array([0., 0., q1, q2])
+        #print("coord init ",[x,y])
 
         #computes the coordinates of the hand and the elbow from the position vector
         coordElbow, coordHand = self.arm.mgd(q)
@@ -107,41 +104,52 @@ class TrajMaker:
         self.Ukf.initObsStore(state)
         self.arm.setState(state)
         estimState = state
+        #estimState = np.array([0.2, 0.2, 0.2, 0.2])
         dataStore = []
 
         #loop to generate next position until the target is reached 
         while coordHand[1] < self.rs.YTarget and i < self.rs.numMaxIter:
             stepStore = []
             #computation of the next muscular activation vector using the controller theta
-            #print ("theta Calc:",self.controller.theta)
-            U = self.controller.computeOutput(estimState.T[0])
+            #print ("state :",self.arm.state)
+
+            U = self.controller.computeOutput(estimState)
+            #U = self.controller.computeOutput(self.arm.state) #used to ignore the filter
+
             #print ("U:",U)
             Unoisy = getNoisyCommand(U,self.rs.knoiseU)
             #computation of the arm state
-            realNextState = self.arm.computeNextState(Unoisy,self.arm.state)
+            realNextState = self.arm.computeNextState(Unoisy, self.arm.state)
+ 
+            #computation of the approximated state
+            tmpstate = self.arm.state
+            estimNextState = self.Ukf.runUKF(tmpstate)
+            #print estimNextState
+            #estimNextState = np.array([0.2, 0.2, 0.2, 0.2,])
+
             self.arm.setState(realNextState)
 
-            #computation of the approximated state
-            estimNextState = self.Ukf.runUKF(Unoisy, realNextState)
             #computation of the cost
             cost = self.cc.computeStateTransitionCost(cost, Unoisy, t)
             #get dotq and q from the state vector
             dotq, q = getDotQAndQFromStateVector(realNextState)
+            #print ("dotq :",dotq)
             #computation of the coordinates to check if the target is reach or not
-            coordElbow, coordHand = self.arm.mgd(q)
             #code to save data of the trajectory
 
             #Note : these structures might be much improved
             if self.saveA == True:
-                stepStore.append([self.rs.XTarget, self.rs.YTarget])
-                stepStore.append(estimState.flatten().tolist())
-                stepStore.append(state.flatten().tolist())
-                stepStore.append(Unoisy.flatten().tolist())
-                stepStore.append(U)
-                stepStore.append(estimNextState.flatten().tolist())
-                stepStore.append(realNextState.flatten().tolist())
-                stepStore.append([coordElbow[0][0], coordElbow[1][0]])
-                stepStore.append([coordHand[0][0], coordHand[1][0]])
+                qt1, qt2 = self.arm.mgi(self.rs.XTarget, self.rs.YTarget)
+ 
+                stepStore.append([0.0, 0.0, qt1, qt2])
+                stepStore.append(estimState)
+                stepStore.append(tmpstate)
+                stepStore.append(Unoisy)
+                stepStore.append(np.array(U))
+                stepStore.append(estimNextState)
+                stepStore.append(realNextState)
+                stepStore.append([coordElbow[0], coordElbow[1]])
+                stepStore.append([coordHand[0], coordHand[1]])
                 #print ("before",stepStore)
                 tmpstore = np.array(stepStore).flatten()
                 row = [item for sub in tmpstore for item in sub]
@@ -149,30 +157,19 @@ class TrajMaker:
                 dataStore.append(row)
 
             estimState = estimNextState
+            coordElbow, coordHand = self.arm.mgd(q)
             i += 1
             t += self.rs.dt
 
         #check if the target is reached and give the reward if yes
         if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.YTarget:
             cost = self.cc.computeFinalCostReward(cost, t)
-        #return the cost of the trajectory
-
-        '''
-        tmp = []
-        tmp.append([x, y])
-        tmp.append([cost])
-        tmps = np.array(tmp).flatten()
-        print tmps
-        row = [item for sub in tmps for item in sub]
-        print row
-
-        self.costStore[filename] = row
-        '''
-        self.costStore[filename] = [x, y, cost]
-  
+   
         if self.saveA == True:
             np.savetxt(filename,dataStore)
-        return cost
+
+        #print "end of trajectory"
+        return cost, t
 
         
     

@@ -16,20 +16,6 @@ import math
 from ArmModel.ArmParameters import ArmParameters
 from ArmModel.MusclesParameters import MusclesParameters
 
-# -------------------- functions ---------------------------------
-
-def  createStateVector(dotq, q):
-  '''
-  Creates the state vector [dotq1, dotq2, q1, q2]
-  
-  Inputs:     -dotq: numpy array
-              -q: numpy array
-    
-  Outputs:    -state: numpy array, the state vector
-  '''
-  state = np.array([dotq[0], dotq[1], q[0], q[1]])   #.flatten()
-  return state
-
 def getDotQAndQFromStateVector(state):
         '''
         Returns dotq and q from the state vector state
@@ -93,40 +79,46 @@ class Arm:
 
         Output:    -state: (4,1) numpy array, the resulting state
         '''
+        #print ("state:", state)
         dotq, q = getDotQAndQFromStateVector(state)
+        #print ("dotq:",dotq)
         M = np.array([[self.armP.k1+2*self.armP.k2*math.cos(q[1]),self.armP.k3+self.armP.k2*math.cos(q[1])],[self.armP.k3+self.armP.k2*math.cos(q[1]),self.armP.k3]])
-        C = np.array([-dotq[1]*(2*dotq[0]+dotq[1])*self.armP.k2*math.sin(q[1]),(dotq[0]**2)*self.armP.k2*math.sin(q[1])])
+        #print ("M:",M)
         Minv = np.linalg.inv(M)
+        #print ("Minv:",Minv)
+        C = np.array([-dotq[1]*(2*dotq[0]+dotq[1])*self.armP.k2*math.sin(q[1]),(dotq[0]**2)*self.armP.k2*math.sin(q[1])])
+        #print ("C:",C)
         #the commented version uses a non null stiffness for the muscles
         #beware of dot product Kraid times q: q may not be the correct vector/matrix
         #Gamma = np.dot((np.dot(armP.At, musclesP.fmax)-np.dot(musclesP.Kraid, q)), U)
         #Gamma = np.dot((np.dot(self.armP.At, self.musclesP.fmax)-np.dot(self.musclesP.Knulle, Q)), U)
         #above Knulle is null, so it can be simplified
+
+        #print ("U:",U)
         Gamma = np.dot(np.dot(self.armP.At, self.musclesP.fmax), U)
+        #print ("Gamma:",Gamma)
+
         #Gamma = np.dot(armP.At, np.dot(musclesP.fmax,U))
         #computes the acceleration ddotq and integrates
+        
+        b = np.dot(self.armP.B, dotq)
+        #print ("b:",b)
 
-        #print ("M:",M)
-        #print ("C:",C)
-        #print ("Gamma:",Gamma)
-        #print ("dotq:",dotq)
- 
-        ddotq = np.dot(Minv,(Gamma - C - np.dot(self.armP.B, dotq)))
-
+        ddotq = np.dot(Minv,Gamma - C - b)
         #print ("ddotq",ddotq)
 
         dotq += ddotq*self.dt
         q += dotq*self.dt
         #save the real state to compute the state at the next step with the real previous state
         q = jointStop(q)
-        nextState = createStateVector(dotq, q)
+        nextState = np.array([dotq[0], dotq[1], q[0], q[1]])
         return nextState
     
   def mgd(self, q):
         '''
         Direct geometric model of the arm
     
-        Inputs:     -q: (2,1) numpy array
+        Inputs:     -q: (2,1) numpy array, the joint coordinates
     
         Outputs:
         -coordElbow: elbow coordinate
