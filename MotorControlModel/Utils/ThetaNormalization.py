@@ -18,5 +18,5 @@ def normalization(theta):
 
 def unNormalization(theta, maxT):
     for i in range(len(theta)):
-        theta[i] = theta[i] * maxT * 10.0
+        theta[i] = theta[i] * maxT
     return theta
