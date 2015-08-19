@@ -17,7 +17,7 @@ from matplotlib import cm
 from matplotlib import animation
 from matplotlib.mlab import griddata
 
-from Utils.FileReading import getStateData, getEstimatedStateData, getEstimatedXYHandData, getXYHandData, getXYElbowData, getCommandData, getInitPos, getCostData, getTrajTimeData, getTrajTimeData
+from Utils.FileReading import getStateData, getEstimatedStateData, getEstimatedXYHandData, getXYHandData, getXYElbowData, getCommandData, getInitPos, getCostData, getTrajTimeData, getTrajTimeData, getLastXData
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.NiemRoot import tronquerNB
 
@@ -488,17 +488,19 @@ def plotFittsLaw(folderName, rbfn = False):
  
 # ---------------- hit dispersion ---------------------------------------
 
-def plotHitDispersion(sizeT):
+def plotHitDispersion(folderName,sizeT):
     rs = ReadSetupFile()
     name =  rs.CMAESpath + sizeT + "/" + folderName + "/finalX/"
     data = getLastXData(name)
 
     tabx, taby = [], []
     for el in data.values():
-        tabx.append(el[0])
-        taby.append(rs.YTarget)
+           for j in range(len(el)):
+               tabx.append(el[j])
+               taby.append(rs.YTarget)
+
     plt.figure()
-    plt.plot([-0.12, 0.12], [rs.YTarget, rs.YTarget], c = 'r')
+    plt.plot([-rs.sizeOfTarget[0]/2, rs.sizeOfTarget[0]/2], [rs.YTarget, rs.YTarget], c = 'r')
     plt.scatter([-rs.sizeOfTarget[0]/2, rs.sizeOfTarget[0]/2], [rs.YTarget, rs.YTarget], marker=u'|', s = 100)
     plt.scatter(tabx, taby, c = 'b')
     plt.show(block = True)
@@ -511,12 +513,11 @@ def plotScattergram(folderName):
         tmp = getLastXData(name)
         tabx = []
         for el in tmp.values():
-            tabx.append(el[0])
+           for j in range(len(el)):
+               tabx.append(el[j])
 
         data[rs.sizeOfTarget[i]] = tabx
 
-    print(data)
-            
     plt.figure(1, figsize=(16,9))
 
     for i in range(4):

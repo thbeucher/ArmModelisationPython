@@ -27,7 +27,7 @@ class Chrono:
             minutes = int(dif/60)
             difstring = difstring + str(minutes) + "mn "
             dif = dif - (minutes*60)
-        difstring = difstring + str(int(dif)) + "s"
-        dif = dif - int(dif)
+        difstring = difstring + str(int(dif)) + "s "
+        dif = int((dif - int(dif))*1000)
         difstring = difstring + str(dif) + "ms"
         print("Temps d'execution:", difstring)

@@ -191,7 +191,7 @@ def getLastXData(foldername):
         xDico[el] = []
         data = np.loadtxt(foldername + el)
         for i in range(data.shape[0]):
-            xDico[el].append(data[i][0])
+            xDico[el].append(data[i])
     return xDico
 
 def dicToArray(data):

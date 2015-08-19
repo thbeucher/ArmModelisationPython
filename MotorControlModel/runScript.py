@@ -191,7 +191,7 @@ def chooseFunction(choix):
             trajectoriesAnimation("CMAES",nameF, tSize)
     elif choix == 22:
         nameF = raw_input('Folder where the results are saved: ')
-        plotHitDispersion("0.05")
+        plotHitDispersion(nameF,"0.05")
         plotScattergram(nameF)
 
 #plotInitPos()  

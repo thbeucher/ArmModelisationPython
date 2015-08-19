@@ -86,6 +86,7 @@ class Experiments:
         filenameTime = findDataFileName(self.foldername+"TrajTime/","traj",".time")
         filenameX = findDataFileName(self.foldername+"finalX/","x",".last")
         np.savetxt(filename, self.costStore)
+        np.savetxt(filenameTime, self.trajTimeStore)
         np.savetxt(filenameX, self.lastCoord)
          
     def runOneTrajectory(self, x, y):
