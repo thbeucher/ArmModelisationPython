@@ -21,8 +21,6 @@ from Utils.FileReading import getStateData, getEstimatedStateData, getEstimatedX
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.NiemRoot import tronquerNB
 
-from Utils.UsefulFunctions import getDistPerfSize, getDataScattergram, returnDifCost
-
 from ArmModel.Arm import Arm
 
 from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder
@@ -492,15 +490,11 @@ def plotFittsLaw(folderName, rbfn = False):
 
 def plotHitDispersion(sizeT):
     rs = ReadSetupFile()
-    #name = rs.RBFNpath + "CoordHitTargetBIN" 
-    name = rs.CMAESpath + str(sizeT) + "/ResTry1/CoordHitTargetCmaBIN"
-    data = getobjread(name)
-    tab = []
-    for el in data.values():
-        for el1 in el:
-            tab.append(el1)
+    name =  rs.CMAESpath + sizeT + "/" + folderName + "/finalX/"
+    data = getLastXData(name)
+
     tabx, taby = [], []
-    for el in tab:
+    for el in data.values():
         tabx.append(el[0])
         taby.append(rs.YTarget)
     plt.figure()
@@ -513,7 +507,14 @@ def plotScattergram(folderName):
     rs = ReadSetupFile()
     data = {}
     for i in range(len(rs.sizeOfTarget)):
-        data[rs.sizeOfTarget[i]] = getDataScattergram(rs.sizeOfTarget[i], folderName)
+        name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + folderName + "/finalX/"
+        tmp = getLastXData(name)
+        tabx = []
+        for el in tmp.values():
+            tabx.append(el[0])
+
+        data[rs.sizeOfTarget[i]] = tabx
+
     print(data)
             
     plt.figure(1, figsize=(16,9))
@@ -552,36 +553,21 @@ def plotcmaesCostProgress():
         ax[int(key.split("_")[0])].plot(y, x)
         ax[int(key.split("_")[0])].set_title(str("Target " + key.split("_")[1]))
     plt.show(block = True)
-   
-def plotCostVariation(sizeT):
-    rs = ReadSetupFile()
-    name = rs.RBFNpath + "costArrayAll/costArrayBIN" + str(sizeT)
-    costArr = getobjread(name)
-    print(costArr.shape)
-    lineCost = {}
-    for i in range(costArr.shape[0]):
-        lineCost[i] = costArr.T[i]
-    t = []
-    for i in range(costArr.shape[0]):
-        t.append(i)
-    plt.figure()
-    for i in range(costArr.shape[0]):
-        plt.plot(t, lineCost[i])
-        plt.show(block = True)
 
 def plotExperimentSetup():
     rs = ReadSetupFile()
+    arm = Arm()
     q1 = np.linspace(-0.6, 2.6, 100, True)
     q2 = np.linspace(-0.2, 3, 100, True)
-    posIni = getobjread(rs.experimentFilePosIni)
+    posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
     xi, yi = [], []
     xb, yb = [0], [0]
     t = 0
     for el in posIni:
         if el[1] == np.min(posIni, axis = 0)[1] and t == 0:
             t += 1
-            a, b = mgi(el[0], el[1], 0.3, 0.35)
-            a1, b1 = mgd(np.array([[a], [b]]), 0.3, 0.35)
+            a, b = arm.mgi(el[0], el[1])
+            a1, b1 = arm.mgd(np.array([[a], [b]]))
             xb.append(a1[0])
             xb.append(b1[0])
             yb.append(a1[1])
@@ -591,7 +577,7 @@ def plotExperimentSetup():
     pos = []
     for i in range(len(q1)):
         for j in range(len(q2)):
-            coordEl, coordHa = mgd(np.array([[q1[i]], [q2[j]]]), 0.3, 0.35)
+            coordEl, coordHa = arm.mgd(np.array([[q1[i]], [q2[j]]]))
             pos.append(coordHa)
     x, y = [], []
     for el in pos:
@@ -604,112 +590,3 @@ def plotExperimentSetup():
     plt.plot(xb, yb, c = 'r')
     plt.plot([-0.3,0.3], [0.6175, 0.6175], c = 'g')
     plt.show(block = True)
-
-def plotTrackTraj():
-    rs = ReadSetupFile()
-    name = rs.RBFNpath + "ResShuffleAll/coordEndEffectorRBFN" + str(rs.sizeOfTarget[3]) + "BIN"
-    coordAll = getobjread(name)
-    plt.figure()
-    for key, val in coordAll.items():
-        plt.plot([x[0] for x in val], [y[1] for y in val])
-    plt.show(block = True)
-    print(len(coordAll))
-
-def plotPlayWithTraj():
-    rs = ReadSetupFile()
-    data= getInitPos(BrentTrajectoriesFolder)
-    x, y, x1, y1 = [], [], [], []
-    todel = []
-    for key, el in data.items():
-        if el[0] > -0.25 and el[0] < 0.2499 and el[1] > 0.271: 
-            x.append(el[0])
-            y.append(el[1])
-        else:
-            x1.append(el[0])
-            y1.append(el[1])
-            todel.append(key)
-
-    print(len(todel), todel)
-    print(np.max(x), np.min(x), np.min(y))
-    plt.figure()
-    plt.scatter(x, y, c = 'b')
-    plt.scatter(x1, y1, c = 'r')
-    plt.show(block = True)
-        
-def plotLearningFieldRBFN():
-    rs = ReadSetupFile()
-    posIni = getobjread(rs.experimentFilePosIni)
-    x, y = [], []
-    for el in posIni:
-        x.append(el[0])
-        y.append(el[1])
-        
-    r, ang = [], []
-    for el in posIni:
-        a, b = invPosCircle(el[0], el[1])
-        a, b = round(a, 2), round(b, 3)
-        r.append(a)
-        ang.append(b)
-    
-    xy= getInitPos(BrentTrajectoriesFolder)
-    sx, sy = [], []
-    for key, val in xy.items():
-        rr, tt = invPosCircle(val[0], val[1])
-        rr, tt = round(rr, 2), round(tt, 3)
-        if rr <= (np.max(r) + (abs(r[1] - r[0]))) and rr >= (np.min(r) - (r[1] - r[0])) and tt >= (np.min(ang) - abs(ang[1] - ang[0])) and tt <= (np.max(ang) + abs(ang[1] - ang[0])):
-            sx.append(val[0])
-            sy.append(val[1])
-        else:
-            pass
-    
-    plt.figure()
-    plt.scatter(x, y, c = 'b')
-    plt.scatter(sx, sy, c = 'r')
-    plt.show(block = True)
-
-def plotLearningFieldRBFNSquare():
-    rs = ReadSetupFile()
-    posIni = getobjread(rs.experimentFilePosIni)
-    x, y = [], []
-    for el in posIni:
-        x.append(el[0])
-        y.append(el[1])
-    xy= getInitPos(BrentTrajectoriesFolder)
-    sx, sy = [], []
-    for key, val in xy.items():
-        if val[0] <= (np.max(x) + 0.02) and val[0] >= (np.min(x) - 0.02) and val[1] >= (np.min(y) - 0.01) and val[1] <= (np.max(y) + 0.02):
-            sx.append(val[0])
-            sy.append(val[1])
-        else:
-            pass
-    
-    plt.figure()
-    plt.scatter(x, y, c = 'b')
-    plt.scatter(sx, sy, c = 'r')
-    plt.show(block = True)
-
-def plotTimeVariationForEachDistance(sizeTarget):
-    rs = ReadSetupFile()
-    name = rs.CMAESpath + str(sizeTarget) + "/nbItecp5CmaBIN"
-    nbIteTraj = getobjread(name)
-    distTimeDico = {}
-    for key, val in nbIteTraj.items():
-        nbIteTraj[key] = int(np.mean(nbIteTraj[key]))
-        r, t = invPosCircle(float(key.split("//")[0]), float(key.split("//")[1]))
-        r, t = round(r, 2), round(t, 3)
-        if not r in distTimeDico.keys():
-            distTimeDico[r] = []
-        distTimeDico[r].append((nbIteTraj[key], t))
-    print(distTimeDico)
-    
-    plt.figure()
-    for key, val in distTimeDico.items():
-        for el in val:
-            plt.scatter(el[1], el[0])
-        break
-    plt.show(block = True)
-
-
-
-        
-        

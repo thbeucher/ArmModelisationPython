@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-Author: OLivier Sigaud
+Author: Olivier Sigaud
 
 Module: Chrono
 
 Description: Class to display time spent in human format rather than seconds
 '''
 import time
-
-from GlobalVariables import pathWorkingDirectory, pathDataFolder, cmaesPath
 
 class Chrono:
     

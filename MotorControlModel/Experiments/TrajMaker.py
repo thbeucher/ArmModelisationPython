@@ -168,8 +168,11 @@ class TrajMaker:
         if self.saveTraj == True:
             np.savetxt(filename,dataStore)
 
+        lastX = -1000
+        if coordHand[1] >= self.rs.YTarget:
+            lastX = coordHand[0]
         #print "end of trajectory"
-        return cost, t
+        return cost, t, lastX
 
         
     

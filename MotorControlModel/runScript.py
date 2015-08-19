@@ -13,7 +13,8 @@ from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTarg
 from Regression.RunRegressionRBFN import runRBFN, UnitTest, UnitTestRBFNController, UnitTestArmModel
 
 
-from Plot.plotFunctions import trajectoriesAnimation, plotCostColorMap, plotTimeColorMap, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotScattergram, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations
+from Plot.plotFunctions import trajectoriesAnimation, plotCostColorMap, plotTimeColorMap, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations, plotScattergram, plotHitDispersion, plotExperimentSetup
+
 
 from Utils.UsefulFunctions import checkReachAllTarget
 from Utils.Chrono import Chrono
@@ -190,6 +191,7 @@ def chooseFunction(choix):
             trajectoriesAnimation("CMAES",nameF, tSize)
     elif choix == 22:
         nameF = raw_input('Folder where the results are saved: ')
+        plotHitDispersion("0.05")
         plotScattergram(nameF)
 
 #plotInitPos()  
@@ -200,3 +202,4 @@ runChoice()
 #UnitTest()
 #UnitTestRBFNController()
 #UnitTestArmModel()
+#plotExperimentSetup()

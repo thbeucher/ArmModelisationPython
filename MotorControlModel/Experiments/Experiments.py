@@ -64,6 +64,7 @@ class Experiments:
         self.costStore = []
         self.trajTimeStore = []
         self.bestCost = -10000.0
+        self.lastCoord = []
 
     def setTheta(self, theta):
         self.tm.setTheta(theta)
@@ -83,12 +84,15 @@ class Experiments:
     def saveCost(self):
         filename = findDataFileName(self.foldername+"Cost/","traj",".cost")
         filenameTime = findDataFileName(self.foldername+"TrajTime/","traj",".time")
+        filenameX = findDataFileName(self.foldername+"finalX/","x",".last")
         np.savetxt(filename, self.costStore)
-        np.savetxt(filenameTime, self.trajTimeStore)
+        np.savetxt(filenameX, self.lastCoord)
          
     def runOneTrajectory(self, x, y):
         filename = findDataFileName(self.foldername+"Log/","traj",".log")
-        cost, trajTime = self.tm.runTrajectory(x, y, filename)
+        cost, trajTime, lastX = self.tm.runTrajectory(x, y, filename)
+        if lastX != -1000:
+            self.lastCoord.append(lastX)
         return cost, trajTime
             
     def runTrajectoriesResultsGeneration(self, repeat):

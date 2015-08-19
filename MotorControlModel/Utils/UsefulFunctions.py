@@ -35,7 +35,7 @@ def checkReachAllTarget(folderName):
         listOfDic.append(dicTmp)
     print(listOfDic)
     
-def returnDifCost(what1,what2):
+def getDifCost(what1,what2):
     rs = ReadSetupFile()
 
     if what1 == "CMAES":
@@ -56,10 +56,15 @@ def returnDifCost(what1,what2):
     costs2 = getCostData(name2)
 
     #Note: todo : indexer par xy pour retrouver les couts correspondants
-    for k, v in costs.items():
-        x0.append(v[0])
-        y0.append(v[1])
-        cost.append(costs2[2]-costs1[2])
+    x0 = []
+    y0 = []
+    cost = []
+
+    for k, v in costs1.items():
+        for j in range(len(v)):
+            x0.append(v[j][0])
+            y0.append(v[j][1])
+            cost.append(v[j][2]-costs2[2])
 
     return dif
 
@@ -81,45 +86,6 @@ def checkForDoublonInTraj(localisation):
     print("ici", len(doublon), doublon)
     c = input("cc")
     print("la", len(tabEl), tabEl)
-        
-def getDataScattergram(sizeT, nameFolder):
-    rs = ReadSetupFile()
-    name = rs.CMAESpath + str(sizeT) + "/" + nameFolder + "/hitDispersion"
-    coordHit = getobjread(name)
-    allX = []
-    for key, val in coordHit.items():
-        xByPosIni = [x[0] for x in val]
-        allX.append(xByPosIni)
-    s = 0
-    for el in allX:
-        if s == 0:
-            allXArray = np.asarray(el)
-            s += 1
-        else:
-            allXArray = np.hstack((allXArray, el))
-    return allXArray
-
-def getDistPerfSize(sizeT, folderName, rbfn = False):
-    rs = ReadSetupFile()
-    if rbfn == False:
-        name = rs.CMAESpath + str(sizeT) + "/" + folderName + "/saveU"
-    else:
-        name = rs.RBFNpath + folderName + "/saveU"
-
-    data = getobjreadJson(name)
-    DistPerf = {}
-    for key, val in data.items():
-        r, t = invPosCircle(float(key.split("//")[0]), float(key.split("//")[1]))
-        r = round(r, 2)
-        if not r in DistPerf.keys():
-            DistPerf[r] = []
-        DistPerf[r].append(np.mean(val[0]))
-    for key, val in DistPerf.items():
-        DistPerf[key] = np.mean(val)
-    sizeDistPerf = []
-    for key, val in DistPerf.items():
-        sizeDistPerf.append((sizeT, key, val))
-    return sizeDistPerf
 
 def checkIfTargetIsReached(sizeOfTarget, folderName):
     name = rs.CMAESpath + str(sizeOfTarget) + "/" + folderName + "/saveCoordEndTraj"
