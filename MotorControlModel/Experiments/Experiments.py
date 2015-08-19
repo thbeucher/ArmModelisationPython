@@ -8,13 +8,14 @@ Module: Experiments
 Description: Class used to generate all the trajectories of the experimental setup and also used for CMAES optimization
 '''
 import os
-import time
+
 import numpy as np
 from shutil import copyfile
 
 from Utils.ThetaNormalization import unNormNP
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.FileReading import dicToArray
+from Utils.Chrono import Chrono
 
 from GlobalVariables import pathDataFolder
 
@@ -111,12 +112,13 @@ class Experiments:
     
     	Ouput:		-meanAll: the mean of the cost of all trajectories generated, float
     	'''
-        t0 = time.time()
+        c = Chrono()
         self.initTheta(theta)
         #compute all the trajectories x times each, x = numberOfRepeat
         meanCost = self.runTrajectoriesResultsGeneration(self.numberOfRepeat)
 
-        print("Call #: ", self.call, "\n Cost: ", meanCost, "\n Time: ", time.time() - t0, "s")
+        print("Call #: ", self.call, "\n Cost: ", meanCost)
+        c.stop()
         if meanCost>self.bestCost:
             self.bestCost = meanCost
             extension = ".save" + str(meanCost)

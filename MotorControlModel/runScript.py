@@ -7,16 +7,16 @@ Module: runScript
 
 Description: main script to run what we want in the project
 '''
-import time
 
 from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTargetSizes
 
 from Regression.RunRegressionRBFN import runRBFN, UnitTest, UnitTestRBFNController, UnitTestArmModel
 
 
-from Plot.plotFunctions import trajectoriesAnimation, plotCostColorMap, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotMapTimeTrajectories,plotScattergram, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations
+from Plot.plotFunctions import trajectoriesAnimation, plotCostColorMap, plotTimeColorMap, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotScattergram, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations
 
 from Utils.UsefulFunctions import checkReachAllTarget
+from Utils.Chrono import Chrono
 
 #----------------------------- main list of available actions ----------------------------------------------------------------------
 
@@ -97,19 +97,17 @@ def chooseFunction(choix):
         plotMuscularActivations("Brent")
     elif choix == 5:
         name = raw_input('Name of file to save the RBFN controller: ')
-        t0 = time.time()
+        c = Chrono()
         runRBFN(name)
-        t1 = time.time()
-        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
+        c.stop()
 
     elif choix == 6:
         name = raw_input('Name of the RBFN controller file: ')
         fname = raw_input('Folder where you want to save the results: ')
         nbret = input("Number of repeat for each trajectory (int): ")
-        t0 = time.time()
+        c = Chrono()
         generateFromRBFN(nbret, name, fname)
-        t1 = time.time()
-        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
+        c.stop()
     elif choix == 7:
         nameF = raw_input('Folder where the results are saved: ')
         plotVelocityProfile("RBFN",nameF)
@@ -128,20 +126,23 @@ def chooseFunction(choix):
         nameF = raw_input('Folder where the results are saved: ')
         plotCostColorMap("RBFN",nameF)
     elif choix == 11:
-        t0 = time.time()
+        rorc = input("enter 1 if from RBFN, anything if from previous CMAES")
+        save = False
+        rorc = int(rorc)
+        if rorc == 1:
+            save = True
         name = raw_input('Name of the controller file: ')
-        launchCMAESForAllTargetSizes(name)
-        t1 = time.time()
-        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
+        c = Chrono()
+        launchCMAESForAllTargetSizes(name,save)
+        c.stop()
     elif choix == 12:
         nameTheta = raw_input('Name of the controller file: ')
         name = raw_input('Folder where you want to save the results: ')
         nbret = input("Number of repeat for each trajectory (int): ")
         nbret = int(nbret)
-        t0 = time.time()
+        c = Chrono()
         generateFromCMAES(nbret, nameTheta, name)
-        t1 = time.time()
-        print("Fin du traitement! Temps d'execution:", (t1-t0), "s")
+        c.stop()
     elif choix == 13:
         nameF = raw_input('Folder where the results are saved: ')
         plotVelocityProfile("CMAES",nameF)
@@ -160,8 +161,9 @@ def chooseFunction(choix):
         plotMuscularActivations("CMAES",nameF,tSize)
     elif choix == 16:
         nameF = raw_input('Folder where the results are saved: ')
-        tSize = raw_input('Target Size: ')
-        plotCostColorMap("CMAES",nameF,tSize)
+        #tSize = raw_input('Target Size: ')
+        #plotCostColorMap("CMAES",nameF,tSize)
+        plotCostColorMap("CMAES",nameF)
     elif choix == 17:
         nameF = raw_input('Folder where the results are saved: ')
         plotTimeDistanceTarget(nameF)
@@ -173,7 +175,7 @@ def chooseFunction(choix):
         plotFittsLaw(nameF)
     elif choix == 20:
         nameF = raw_input('Folder where the results are saved: ')
-        plotMapTimeTrajectories(nameF)
+        plotTimeColorMap("CMAES",nameF)
     elif choix == 21:
         rorc = input("enter 0 if Brent, 1 if RBFN or 2 if CMAES results: ")
         rorc = int(rorc)
@@ -194,7 +196,6 @@ def chooseFunction(choix):
 #runAuto()
 #generateFromRBFN(nbret, nameC)
 runChoice()
-
 
 #UnitTest()
 #UnitTestRBFNController()

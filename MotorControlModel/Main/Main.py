@@ -61,9 +61,10 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
     exp.call = 0
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     
-def launchCMAESForAllTargetSizes(thetaname):
+def launchCMAESForAllTargetSizes(thetaname, save):
     rs = ReadSetupFile()
-    copyRBFNtoCMAES(rs, thetaname)
+    if save:
+        copyRBFNtoCMAES(rs, thetaname)
     for el in rs.sizeOfTarget:
         launchCMAESForSpecificTargetSize(el, thetaname)
 

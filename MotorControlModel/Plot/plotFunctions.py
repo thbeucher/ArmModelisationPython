@@ -9,7 +9,6 @@ Description: some plotting functions
 '''
 import os
 import random as rd
-import math
 import numpy as np
 from scipy import stats
 
@@ -18,11 +17,11 @@ from matplotlib import cm
 from matplotlib import animation
 from matplotlib.mlab import griddata
 
-from Utils.FileReading import getStateData, getEstimatedStateData, getEstimatedXYHandData, getXYHandData, getXYElbowData, getCommandData, getInitPos, getCostData, getTrajTimeData
+from Utils.FileReading import getStateData, getEstimatedStateData, getEstimatedXYHandData, getXYHandData, getXYElbowData, getCommandData, getInitPos, getCostData, getTrajTimeData, getTrajTimeData
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.NiemRoot import tronquerNB
 
-from Utils.UsefulFunctions import getTimeDistance, getDistPerfSize, getTimeByArea, getDataScattergram, returnDifCost
+from Utils.UsefulFunctions import getDistPerfSize, getDataScattergram, returnDifCost
 
 from ArmModel.Arm import Arm
 
@@ -30,7 +29,7 @@ from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder
 
 #--------------------------- trajectory animations ---------------------------------------------------------------------------------------------
 
-def trajectoriesAnimation(what, folderName = "None", targetSize = "0.1"):
+def trajectoriesAnimation(what, folderName = "None", targetSize = "0.05"):
     rs = ReadSetupFile()
     if what == "CMAES":
         name = rs.CMAESpath + targetSize + folderName + "/Log/"
@@ -119,9 +118,8 @@ def plotVelocityProfile(what, folderName = "None"):
         plt.title("Velocity profiles for " + what)
     plt.show(block = True)
 
-def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
+def plotXYPositions(what, folderName = "None", targetSize = "0.05"):
     rs = ReadSetupFile()
-    plt.figure(1, figsize=(16,9))
 
     if what == "CMAES":
         name = rs.CMAESpath + targetSize + "/" + folderName + "/Log/"
@@ -132,6 +130,8 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
 
     state = getXYHandData(name)
     estimState = getEstimatedXYHandData(name)
+
+    plt.figure(1, figsize=(16,9))
     for k,v in state.items():
         if rd.random()<0.06 or what != "Brent":
             posX, posY = [], []
@@ -154,29 +154,13 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
     plt.ylabel("Y")
     plt.title("XY Positions for " + what)
 
-    x0 = []
-    y0 = []
-    posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
-    for el in posIni:
-        x0.append(el[0])
-        y0.append(el[1])
-    xy = getInitPos(BrentTrajectoriesFolder)
-    x, y = [], []
-    aa, keyy = [], []
-    for key, el in xy.items():
-        x.append(el[0])
-        y.append(el[1])
-        
-    plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
-    plt.scatter(rs.XTarget, rs.YTarget, c = "r", marker=u'*', s = 100)
-    plt.scatter(x0, y0, c = "r", marker=u'o', s=25)
+    makeInitPlot(rs)
 
     plt.show(block = True)
 
-def plotArticularPositions(what, folderName = "None", targetSize = "0.1"):
+def plotArticularPositions(what, folderName = "None", targetSize = "0.05"):
     rs = ReadSetupFile()
-    plt.figure(1, figsize=(16,9))
-
+ 
     if what == "CMAES":
         name = rs.CMAESpath + targetSize + "/" + folderName + "/Log/"
     elif what == "Brent":
@@ -186,6 +170,7 @@ def plotArticularPositions(what, folderName = "None", targetSize = "0.1"):
 
     state = getStateData(name)
 
+    plt.figure(1, figsize=(16,9))
     for k,v in state.items():
         if rd.random()<0.06 or what != "Brent":
             Q1, Q2 = [], []
@@ -198,7 +183,7 @@ def plotArticularPositions(what, folderName = "None", targetSize = "0.1"):
     plt.title("Articular positions for " + what)
     plt.show(block = True)
 
-def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
+def plotMuscularActivations(what, folderName = "None", targetSize = "0.05"):
     '''
     plots the muscular activations from a folder
     
@@ -206,7 +191,6 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
               -what: get from Brent, rbfn or from cmaes controllers
 
     '''
-    plt.figure()
     rs = ReadSetupFile()
     if what == "CMAES":
         name = rs.CMAESpath + targetSize + "/" + folderName + "/Log/"
@@ -230,6 +214,7 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
                 u5.append(el1[i][4])
                 u6.append(el1[i][5])
 
+    plt.figure()
     plt.plot(t, u1)
     plt.plot(t, u2)
     plt.plot(t, u3)
@@ -242,11 +227,7 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
     plt.title("Muscular Activations for " + what)
     plt.show(block = True)
 
-def plotInitPos():
-    '''
-    Plots the initial position of trajectories present in the Brent directory
-    '''
-    rs = ReadSetupFile()
+def makeInitPlot(rs):
     x0 = []
     y0 = []
     xt = 0
@@ -261,112 +242,216 @@ def plotInitPos():
     for key, el in xy.items():
         x.append(el[0])
         y.append(el[1])
-        '''
-        a = rs.getDistance(el[0],el[1])
-        b = tronquerNB(a, 3)
-        if b not in aa:
-            aa.append(b)
-        if a < 0.11: #Note : WTF ???
-            keyy.append(key)
-        '''
         
-    plt.figure()
     plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
     plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
+
+def plotInitPos():
+    '''
+    Plots the initial position of trajectories present in the Brent directory
+    '''
+    plt.figure()
+    rs = ReadSetupFile()
+    makeInitPlot(rs)
     
     plt.show(block = True)
 
 #-------------------------- cost maps ----------------------------------------------
 
-def plotCostColorMap(what, folderName = "None", targetSize = "0.1"):
+def plotCostColorMap(what, folderName = "None", targetSize = "All"):
     '''
     Cette fonction permet d'afficher le profil de cout des trajectoires
     
-    Entrees:    -nbfeat: nombre de features utilises pour generer le controleur actuel
-                -what: choix des donnees a afficher
+    Entrees:  -what: choix des donnees a afficher
     '''
     rs = ReadSetupFile()
-    if what == "CMAES":
-        name = rs.CMAESpath + targetSize + "/" + folderName + "/Cost/"
-    elif what == "Brent":
-        name = BrentTrajectoriesFolder
-    else:
-        name = rs.RBFNpath + folderName + "/Cost/"
-
-    costs = getCostData(name)
-    
-    x0 = []
-    y0 = []
-    cost = []
-
-    for k, v in costs.items():
-        for i in range(len(v)):
-            x0.append(v[i][0])
-            y0.append(v[i][1])
-            cost.append(v[i][2])
-
-    xi = np.linspace(-0.25,0.25,100)
-    yi = np.linspace(0.35,0.5,100)
-
-    zi = griddata(x0, y0, cost, xi, yi)
-    
     fig = plt.figure()
-    t1 = plt.scatter(x0, y0, c=cost, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-    plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
-    CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
-    fig.colorbar(t1, shrink=0.5, aspect=5)
+
+    if what == "CMAES" and targetSize == "All":
+        for i in range(len(rs.sizeOfTarget)):
+            ax = plt.subplot2grid((2,2), (i/2,i%2))
+            name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + folderName + "/Cost/"
+            costs = getCostData(name)
+
+    
+            x0 = []
+            y0 = []
+            cost = []
+
+            for k, v in costs.items():
+                for j in range(len(v)):
+                    x0.append(v[j][0])
+                    y0.append(v[j][1])
+                    cost.append(v[j][2])
+
+            xi = np.linspace(-0.25,0.25,100)
+            yi = np.linspace(0.35,0.5,100)
+            zi = griddata(x0, y0, cost, xi, yi)
+
+            t1 = ax.scatter(x0, y0, c=cost, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+            ax.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
+            CS = ax.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+            ax.set_title(str("Cost map for target " + str(rs.sizeOfTarget[i])))
+            fig.colorbar(t1, shrink=0.5, aspect=5)
+
+    else:
+        if what == "CMAES":
+            name = rs.CMAESpath + targetSize + "/" + folderName + "/Cost/"
+        elif what == "Brent":
+            name = BrentTrajectoriesFolder
+        else:
+            name = rs.RBFNpath + folderName + "/Cost/"
+
+        costs = getCostData(name)
+   
+        x0 = []
+        y0 = []
+        cost = []
+
+        for k, v in costs.items():
+            for j in range(len(v)):
+                x0.append(v[j][0])
+                y0.append(v[j][1])
+                cost.append(v[j][2])
+
+        xi = np.linspace(-0.25,0.25,100)
+        yi = np.linspace(0.35,0.5,100)
+        zi = griddata(x0, y0, cost, xi, yi)
+    
+        t1 = plt.scatter(x0, y0, c=cost, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+        plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
+        CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+        fig.colorbar(t1, shrink=0.5, aspect=5)
+        plt.title("Cost map for " + what)
+
+    plt.show(block = True)
+
+#-------------------------- time maps ----------------------------------------------
+
+def plotTimeColorMap(what, folderName = "None", targetSize = "All"):
+    '''
+    Cette fonction permet d'afficher le profil de temps des trajectoires
+    
+    Entrees:      -what: choix des donnees a afficher
+    '''
+    rs = ReadSetupFile()
+    fig = plt.figure()
+
+    if what == "CMAES" and targetSize == "All":
+        for i in range(len(rs.sizeOfTarget)):
+            ax = plt.subplot2grid((2,2), (i/2,i%2))
+            name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + folderName + "/TrajTime/"
+            times = getTrajTimeData(name)
+
+            x0 = []
+            y0 = []
+            time = []
+
+            for k, v in times.items():
+                for j in range(len(v)):
+                    x0.append(v[j][0])
+                    y0.append(v[j][1])
+                    time.append(v[j][2])
+
+            xi = np.linspace(-0.25,0.25,100)
+            yi = np.linspace(0.35,0.5,100)
+            zi = griddata(x0, y0, time, xi, yi)
+
+            t1 = ax.scatter(x0, y0, c=time, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+            ax.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
+            CS = ax.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+            ax.set_title(str("Time map for target " + str(rs.sizeOfTarget[i])))
+            fig.colorbar(t1, shrink=0.5, aspect=5)
+
+    else:
+        if what == "CMAES":
+            name = rs.CMAESpath + targetSize + "/" + folderName + "/TrajTime/"
+        elif what == "Brent":
+            name = BrentTrajectoriesFolder
+        else:
+            name = rs.RBFNpath + folderName + "/TrajTime/"
+
+        times = getTrajTimeData(name)
+   
+        x0 = []
+        y0 = []
+        time = []
+
+        for k, v in times.items():
+            for j in range(len(v)):
+                x0.append(v[j][0])
+                y0.append(v[j][1])
+                time.append(v[j][2])
+
+        xi = np.linspace(-0.25,0.25,100)
+        yi = np.linspace(0.35,0.5,100)
+        zi = griddata(x0, y0, time, xi, yi)
+    
+        t1 = plt.scatter(x0, y0, c=time, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+        plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
+        CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+        fig.colorbar(t1, shrink=0.5, aspect=5)
+
     plt.show(block = True)
 
 #-----------------------------------------------------------------------------------------------------------
     
-def plotTimeDistanceTarget(what, folderName = "None", targetSize = "0.1"):
+def plotTimeDistanceTarget(folderName):
     rs = ReadSetupFile()
-    if what == "CMAES":
-        name = rs.CMAESpath + targetSize + folderName + "/TrajTime/"
-    else:
-        name = rs.RBFNpath + folderName + "/TrajTime/"
 
-    trajTimes = getTrajTimeData(name)
-
-    x0 = []
-    y0 = []
-    trajTime = []
-
-    for k, v in trajTimes.items():
-        for i in range(len(v)):
-            x0.append(v[i][0])
-            y0.append(v[i][1])
-            trajTime.append(v[i][2])
-
-    targetDic = {}
+    dicoTime = {}
+ 
     for i in range(len(rs.sizeOfTarget)):
-        try:
-            targetDic[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i], folderName, rbfn)
-        except:
-            pass
-    targetDistTime = []
-    for key, val in targetDic.items():
-        for el in val:
-            targetDistTime.append((key, el[0], el[1]))
-    dicoTest, dicoTest2 = {}, {}
+        name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + folderName + "/TrajTime/"
 
-    targetDistTimeSorted = sorted(targetDistTime, key = lambda col:(col[0],col[1]))
-    for el in targetDistTimeSorted:
-        if not el[1] in dicoTest.keys():
-            dicoTest[el[1]] = []
-        if not el[1] in dicoTest2.keys():
-            dicoTest2[el[1]] = []
-        dicoTest[el[1]].append(el[0])
-        dicoTest2[el[1]].append(el[2])
+        trajTimes = getTrajTimeData(name)
+
+        for k, v in trajTimes.items():
+            for j in range(len(v)):
+                distance = round(rs.getDistanceToTarget(v[j][0],v[j][1]),2)
+                if not distance in dicoTime.keys():
+                    dicoTime[distance] = {}
+                if not rs.sizeOfTarget[i] in dicoTime[distance].keys():
+                    dicoTime[distance][rs.sizeOfTarget[i]] = []
+                dicoTime[distance][rs.sizeOfTarget[i]].append(v[j][2])
+ 
     plotTab = []
 
     plt.figure()
     plt.ylabel("time")
-    plt.xlabel("size (mm)")
-    for key in sorted([x for x in dicoTest.keys()]):
-        print(key, dicoTest[key], dicoTest2[key])
-        plotTab.append(plt.plot(dicoTest[key], dicoTest2[key], label = str("Distance: " + str(key))))
+    plt.xlabel("Target size (mm)")
+    for key in sorted(dicoTime.keys()):
+        plotTab.append(plt.plot([i for i in sorted(dicoTime[key].keys())], [np.mean(dicoTime[key][i]) for i in sorted(dicoTime[key].keys())], label = str("Distance: " + str(key))))
+    plt.legend(loc = 0)
+    plt.show(block = True)
+
+#-----------------------------------------------------------------------------------------------------------
+    
+def plotPerfSizeDist(folderName):
+    rs = ReadSetupFile()
+    dicoCost = {}
+ 
+    for i in range(len(rs.sizeOfTarget)):
+        name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + folderName + "/Cost/"
+
+        costs = getCostData(name)
+
+        for k, v in costs.items():
+            for j in range(len(v)):
+                distance = round(rs.getDistanceToTarget(v[j][0],v[j][1]),2)
+                if not distance in dicoCost.keys():
+                    dicoCost[distance] = {}
+                if not rs.sizeOfTarget[i] in dicoCost[distance].keys():
+                    dicoCost[distance][rs.sizeOfTarget[i]] = []
+                dicoCost[distance][rs.sizeOfTarget[i]].append(v[j][2])
+
+    plotTab = []
+    plt.figure()
+    plt.ylabel("performance")
+    plt.xlabel("Target size (mm)")
+    for key in sorted(dicoCost.keys()):
+        plotTab.append(plt.plot([i for i in sorted(dicoCost[key].keys())], [np.mean(dicoCost[key][i]) for i in sorted(dicoCost[key].keys())], label = str("Distance: " + str(key))))
     plt.legend(loc = 0)
     plt.show(block = True)
 
@@ -374,85 +459,33 @@ def plotTimeDistanceTarget(what, folderName = "None", targetSize = "0.1"):
             
 def plotFittsLaw(folderName, rbfn = False):
     rs = ReadSetupFile()
-    data = {}
-    for i in range(len(rs.sizeOfTarget)):
-        try:
-            data[rs.sizeOfTarget[i]] = getTimeDistance(rs.sizeOfTarget[i], folderName, rbfn)
-        except:
-            pass
 
     timeDistWidth = []
-    for key, val in data.items():
-        for el in val:
-            timeDistWidth.append((el[1], el[0], key))
+    for i in range(len(rs.sizeOfTarget)):
+        name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + folderName + "/TrajTime/"
+
+        trajTimes = getTrajTimeData(name)
+
+        for k, v in trajTimes.items():
+            for j in range(len(v)):
+                distance = rs.getDistanceToTarget(v[j][0],v[j][1])
+                trajtime = v[j][2]
+                size = rs.sizeOfTarget[i]
+                timeDistWidth.append((distance, size, trajtime))
+            
     MT, DI = [], []
     for el in timeDistWidth:
-        MT.append(el[0])
-        DI.append(np.log2(el[1]/el[2]))
+        MT.append(el[2])
+        DI.append(np.log2(el[0]/el[1]))
     slope, intercept, r_value, p_value, std_err = stats.linregress(DI,MT)
     yLR = slope * np.asarray(DI) + intercept
     plt.figure()
     for el in timeDistWidth:
-        plt.scatter(np.log2(el[1]/el[2]), el[0])
+        plt.scatter(np.log2(el[0]/el[1]), el[2])
     plt.plot(DI, yLR)
     plt.title(str("a = " + str(slope) + " b = " + str(intercept)))
     plt.xlabel("log(D/W)/log(2)")
-    plt.ylabel("Time")
-    plt.show(block = True)
-
-#-----------------------------------------------------------------------------------------------------------
-    
-def plotPerfSizeDist(folderName, rbfn = False):
-    rs = ReadSetupFile()
-    sizeDistPerfTmp = {}
-    for i in range(len(rs.sizeOfTarget)):
-        try:
-            sizeDistPerfTmp[i] = getDistPerfSize(rs.sizeOfTarget[i], folderName, rbfn)
-        except:
-            pass
-    distDico = {}
-    for key, val in sizeDistPerfTmp.items():
-        for el in val:
-            if not el[1] in distDico.keys():
-                distDico[el[1]] = []
-            distDico[el[1]].append((el[0], el[2]))
-    plotTab = []
-    plt.figure()
-    plt.ylabel("performance")
-    plt.xlabel("size (mm)")
-    for key in sorted([x for x in distDico.keys()]):
-        plotTab.append(plt.plot([x[0] for x in distDico[key]], [x[1] for x in distDico[key]], label = str("Distance: " + str(key))))
-    plt.legend(loc = 0)
-    plt.show(block = True)
-
-#-----------------------------------------------------------------------------------------------------------
-
-def plotMapTimeTrajectories(folderName, rbfn = False):
-    rs = ReadSetupFile()
-    areaTimeBySize = {}
-    for i in range(len(rs.sizeOfTarget)):
-        try:
-            areaTimeBySize[rs.sizeOfTarget[i]] = getTimeByArea(rs.sizeOfTarget[i], folderName, rbfn)
-        except:
-            pass
-        
-    fig = plt.figure(1, figsize=(16,9))
-
-    for i in range(4):
-        x = [x[0] for x in areaTimeBySize[rs.sizeOfTarget[i]]]
-        y = [y[1] for y in areaTimeBySize[rs.sizeOfTarget[i]]]
-        z = [z[2] for z in areaTimeBySize[rs.sizeOfTarget[i]]]
-        xi = np.linspace(-0.25,0.25,200)
-        yi = np.linspace(0.35,0.5,200)
-        zi = griddata(x, y, z, xi, yi)
-
-        ax = plt.subplot2grid((2,2), (i/2,i%2))
-        t1 = ax.scatter(x, y, c=z, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
-        ax.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
-        ax.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
-        fig.colorbar(t1, shrink=0.5, aspect=5)
-        ax.set_title(str("TimeMap for Target " + str(rs.sizeOfTarget[i])))
-    
+    plt.ylabel("Movement time")
     plt.show(block = True)
  
 # ---------------- hit dispersion ---------------------------------------

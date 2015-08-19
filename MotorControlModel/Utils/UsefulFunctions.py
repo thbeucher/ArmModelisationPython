@@ -81,27 +81,6 @@ def checkForDoublonInTraj(localisation):
     print("ici", len(doublon), doublon)
     c = input("cc")
     print("la", len(tabEl), tabEl)
-
-def getTimeDistance(sizeTarget, folderName, rbfn = False):
-    rs = ReadSetupFile()
-    if rbfn == False:
-        name = rs.CMAESpath + str(sizeTarget) + "/" + folderName + "/saveNumberOfIteration"
-    else:
-        name = rs.RBFNpath + folderName + "/saveNumberOfIteration"
-    nbIteTraj = getobjreadJson(name)
-    distTimeDico = {}
-    for key, val in nbIteTraj.items():
-        nbIteTraj[key] = int(np.mean(nbIteTraj[key]))
-        r, t = invPosCircle(float(key.split("//")[0]), float(key.split("//")[1]))
-        r = round(r, 2)
-        if not r in distTimeDico.keys():
-            distTimeDico[r] = []
-        distTimeDico[r].append(nbIteTraj[key])
-    distTime = []
-    for key, val in distTimeDico.items():
-        distTimeDico[key] = int(np.mean(distTimeDico[key]))
-        distTime.append((key, distTimeDico[key]))
-    return distTime
         
 def getDataScattergram(sizeT, nameFolder):
     rs = ReadSetupFile()
@@ -141,18 +120,6 @@ def getDistPerfSize(sizeT, folderName, rbfn = False):
     for key, val in DistPerf.items():
         sizeDistPerf.append((sizeT, key, val))
     return sizeDistPerf
-
-def getTimeByArea(sizeT, folderName, rbfn = False):
-    rs = ReadSetupFile()
-    if rbfn == False:
-        name = rs.CMAESpath + str(sizeT) + "/" + folderName + "/saveNumberOfIteration"
-    else:
-        name = rs.RBFNpath + folderName + "/saveNumberOfIteration"
-    data = getobjreadJson(name)
-    areaTime = []
-    for key, val in data.items():
-        areaTime.append((round(float(key.split("//")[0]), 4), round(float(key.split("//")[1]), 4), int(np.mean(val))))
-    return areaTime
 
 def checkIfTargetIsReached(sizeOfTarget, folderName):
     name = rs.CMAESpath + str(sizeOfTarget) + "/" + folderName + "/saveCoordEndTraj"

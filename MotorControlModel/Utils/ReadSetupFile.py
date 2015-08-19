@@ -3,10 +3,11 @@
 '''
 Author: Thomas beucher
 
-Module: ReadConfFile
+Module: ReadSetupFile
 
 Description: On retrouve dans ce fichier une fonction permettant de lire le fichier de configuration 
 '''
+import math
 
 from GlobalVariables import pathWorkingDirectory, pathDataFolder, cmaesPath
 
@@ -69,8 +70,8 @@ class ReadSetupFile:
         self.RBFNpath = pathDataFolder + "RBFN/" + str(self.numfeats) + "feats/"
         self.CMAESpath = pathDataFolder + cmaesPath + "/ResCma"
 
-    def getDistance(self, x, y):
-        return math.sqrt((x - rs.XTarget)**2 + (y - rs.YTarget)**2)
+    def getDistanceToTarget(self, x, y):
+        return math.sqrt((x - self.XTarget)**2 + (y - self.YTarget)**2)
 
            
         
