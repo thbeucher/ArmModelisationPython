@@ -12,7 +12,7 @@ import os
 import numpy as np
 from shutil import copyfile
 
-from Utils.ThetaNormalization import unNormNP
+from Utils.ThetaNormalization import normalization, unNormalization
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.FileReading import dicToArray
 from Utils.Chrono import Chrono
@@ -65,6 +65,7 @@ class Experiments:
         self.trajTimeStore = []
         self.bestCost = -10000.0
         self.lastCoord = []
+        self.maxT = 1
 
     def setTheta(self, theta):
         self.tm.setTheta(theta)
@@ -76,7 +77,8 @@ class Experiments:
         self.theta = np.copy(theta)
         #reshaping of the parameters vector because this function is used by the cmaes algorithm and 
         #cmaes feeds the function with a one dimension numpy array but in the rest of the algorithm the 2 dimensions numpy array is expected for the vector of parameters theta
-        self.theta = np.asarray(self.theta).reshape((self.dimOutput, self.numfeats**self.dimState))
+        th = unNormalization(self.theta, self.maxT)
+        self.theta = np.asarray(th).reshape((self.dimOutput, self.numfeats**self.dimState))
         #print ("theta Exp: ", self.theta)
 
         self.setTheta(self.theta)
@@ -130,7 +132,7 @@ class Experiments:
             filename = findDataFileName(self.foldername+"Theta/", "theta", extension)
             np.savetxt(filename, self.theta)
         self.call += 1
-        return -1*meanCost
+        return (300.0-meanCost)/200.0
     
     
     

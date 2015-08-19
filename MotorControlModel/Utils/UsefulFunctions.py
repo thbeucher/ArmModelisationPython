@@ -17,7 +17,6 @@ import timeit
 from Utils.NiemRoot import tronquerNB
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.FileReading import getInitPos
-from Utils.ThetaNormalization import matrixToVector, vectorToMatrix
 
 from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder
 

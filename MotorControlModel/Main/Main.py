@@ -14,6 +14,7 @@ import numpy as np
 from multiprocessing.pool import Pool
 
 from Utils.ReadSetupFile import ReadSetupFile
+from Utils.ThetaNormalization import normalization, unNormalization
 
 from ArmModel.Arm import Arm
 from Experiments.Experiments import Experiments, copyRBFNtoCMAES
@@ -56,8 +57,13 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
     exp = Experiments(rs, sizeOfTarget, False, foldername, thetaname)
     theta = exp.tm.controller.theta
     thetaIn = theta.flatten()
+    thetaCMA, max = normalization(thetaIn)
+    exp.maxT = max
+    print ("max normalisation :", max)
+    print (theta CMA : ", thetaCMA)
+
     #run the optimization (cmaes)
-    resCma = cma.fmin(exp.runTrajectoriesCMAES, thetaIn, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
+    resCma = cma.fmin(exp.runTrajectoriesCMAES, thetaCMA, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
     exp.call = 0
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     

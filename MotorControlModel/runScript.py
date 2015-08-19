@@ -127,7 +127,7 @@ def chooseFunction(choix):
         nameF = raw_input('Folder where the results are saved: ')
         plotCostColorMap("RBFN",nameF)
     elif choix == 11:
-        rorc = input("enter 1 if from RBFN, anything if from previous CMAES")
+        rorc = input("enter 1 if from RBFN, anything if from previous CMAES: ")
         save = False
         rorc = int(rorc)
         if rorc == 1:
