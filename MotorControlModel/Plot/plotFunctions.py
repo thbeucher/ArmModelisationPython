@@ -89,7 +89,7 @@ def plotVelocityProfile(what, folderName = "None"):
     if what == "CMAES":
         for i in range(4):
             ax = plt.subplot2grid((2,2), (i/2,i%2))
-            name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + foldername + "/Log"
+            name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + folderName + "/Log/"
             state = getStateData(name)
             for k,v in state.items():
                 index, speed = [], []
@@ -124,7 +124,7 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.1"):
     plt.figure(1, figsize=(16,9))
 
     if what == "CMAES":
-        name = rs.CMAESpath + targetSize + folderName + "/Log/"
+        name = rs.CMAESpath + targetSize + "/" + folderName + "/Log/"
     elif what == "Brent":
         name = BrentTrajectoriesFolder
     else:
@@ -178,7 +178,7 @@ def plotArticularPositions(what, folderName = "None", targetSize = "0.1"):
     plt.figure(1, figsize=(16,9))
 
     if what == "CMAES":
-        name = rs.CMAESpath + targetSize + folderName + "/Log/"
+        name = rs.CMAESpath + targetSize + "/" + folderName + "/Log/"
     elif what == "Brent":
         name = BrentTrajectoriesFolder
     else:
@@ -209,7 +209,7 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.1"):
     plt.figure()
     rs = ReadSetupFile()
     if what == "CMAES":
-        name = rs.CMAESpath + targetSize + folderName + "/Log/"
+        name = rs.CMAESpath + targetSize + "/" + folderName + "/Log/"
     elif what == "Brent":
         name = BrentTrajectoriesFolder
     else:
@@ -288,7 +288,7 @@ def plotCostColorMap(what, folderName = "None", targetSize = "0.1"):
     '''
     rs = ReadSetupFile()
     if what == "CMAES":
-        name = rs.CMAESpath + targetSize + folderName + "/Cost/"
+        name = rs.CMAESpath + targetSize + "/" + folderName + "/Cost/"
     elif what == "Brent":
         name = BrentTrajectoriesFolder
     else:

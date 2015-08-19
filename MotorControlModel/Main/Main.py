@@ -23,12 +23,13 @@ def GenerateDataFromTheta(rs,sizeOfTarget, foldername, thetaFile, repeat, save):
     cost = exp.runTrajectoriesResultsGeneration(repeat)
     print("Average cost: ", cost)
     print("foldername : ", foldername)
-    if (save) exp.saveCost()
+    if (save):
+        exp.saveCost()
 
 def generateFromCMAES(repeat, thetaFile, saveDir = 'Data'):
     rs = ReadSetupFile()
-    thetaName = rs.RBFNpath + thetaFile
     for el in rs.sizeOfTarget:
+        thetaName = rs.CMAESpath + str(el) + "/" + thetaFile
         saveName = rs.CMAESpath + str(el) + "/" + saveDir + "/"
         GenerateDataFromTheta(rs,el,saveName,thetaName,repeat,True)
     print("CMAES:End of generation")
