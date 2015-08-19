@@ -16,28 +16,28 @@ from multiprocessing.pool import Pool
 from Utils.ReadSetupFile import ReadSetupFile
 
 from ArmModel.Arm import Arm
-from Experiments.Experiments import Experiments
+from Experiments.Experiments import Experiments, copyRBFNtoCMAES
 
-def GenerateDataFromTheta(rs,sizeOfTarget, foldername, thetaFile, repeat):
-    exp = Experiments(rs, sizeOfTarget, True, foldername,thetaFile)
+def GenerateDataFromTheta(rs,sizeOfTarget, foldername, thetaFile, repeat, save):
+    exp = Experiments(rs, sizeOfTarget, save, foldername,thetaFile)
     cost = exp.runTrajectoriesResultsGeneration(repeat)
-    print("CostArray: ", cost)
+    print("Average cost: ", cost)
     print("foldername : ", foldername)
-    exp.saveCost()
+    if (save) exp.saveCost()
 
 def generateFromCMAES(repeat, thetaFile, saveDir = 'Data'):
     rs = ReadSetupFile()
     thetaName = rs.RBFNpath + thetaFile
     for el in rs.sizeOfTarget:
         saveName = rs.CMAESpath + str(el) + "/" + saveDir + "/"
-        GenerateDataFromTheta(rs,el,saveName,thetaName,repeat)
+        GenerateDataFromTheta(rs,el,saveName,thetaName,repeat,True)
     print("CMAES:End of generation")
 
 def generateFromRBFN(repeat, thetaFile, saveDir):
     rs = ReadSetupFile()
     thetaName = rs.RBFNpath + thetaFile
     saveName = rs.RBFNpath + saveDir + "/"
-    GenerateDataFromTheta(rs,0.1,saveName,thetaName,repeat)
+    GenerateDataFromTheta(rs,0.1,saveName,thetaName,repeat,True)
     print("RBFN:End of generation")
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
@@ -52,34 +52,17 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
     thetaname = foldername + thetaFile
 
     #Initializes all the class used to generate trajectory
-    exp = Experiments(rs, sizeOfTarget, True, foldername, thetaname)
+    exp = Experiments(rs, sizeOfTarget, False, foldername, thetaname)
     theta = exp.tm.controller.theta
-    print ("theta: ",theta)
     thetaIn = theta.flatten()
-    print ("thetaIn: ",thetaIn)
     #run the optimization (cmaes)
     resCma = cma.fmin(exp.runTrajectoriesCMAES, thetaIn, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
-    thetaOut = resCma[0]
-    print ("theta Out: ",thetaOut)
-    thetaOut = np.asarray(self.theta).reshape((self.dimOutput, self.numfeats**self.dimState))
-    print ("theta Out: ", thetaOut)
-    print "----------------------------------------"
-    #name used to save the controller obtained from optimization
-    i = 1
-    tryName = "thetaCma" + str(sizeOfTarget) + "save"
-    for el in os.listdir(foldername):
-        if tryName in el:
-            i += 1
-            tryName += str(i)
-        nameToSaveThetaCma += tryName
-        np.savetxt(foldername, resCma[0])
-    theta = resCma[0]
-    print("end loop step")
-
+    exp.call = 0
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     
 def launchCMAESForAllTargetSizes(thetaname):
     rs = ReadSetupFile()
+    copyRBFNtoCMAES(rs, thetaname)
     for el in rs.sizeOfTarget:
         launchCMAESForSpecificTargetSize(el, thetaname)
 

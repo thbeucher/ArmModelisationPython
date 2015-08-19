@@ -71,22 +71,23 @@ class Arm:
         self.__dotq0 = value
 
   def computeNextState(self, U, state):
-        '''
-        Computes the next state resulting from the direct dynamic model of the arm given the muscles activation vector U
+	  '''
+	  Computes the next state resulting from the direct dynamic model of the arm given the muscles activation vector U
     
-        Inputs:     -U: (6,1) numpy array
-                   -state: (4,1) numpy array (used for Kalman, not based on the current system state)
+	  Inputs:     -U: (6,1) numpy array
+	              -state: (4,1) numpy array (used for Kalman, not based on the current system state)
 
-        Output:    -state: (4,1) numpy array, the resulting state
-        '''
+	  Output:    -state: (4,1) numpy array, the resulting state
+	  '''
         #print ("state:", state)
-        dotq, q = getDotQAndQFromStateVector(state)
+	  dotq, q = getDotQAndQFromStateVector(state)
+	  #print ("U :",U)
         #print ("dotq:",dotq)
-        M = np.array([[self.armP.k1+2*self.armP.k2*math.cos(q[1]),self.armP.k3+self.armP.k2*math.cos(q[1])],[self.armP.k3+self.armP.k2*math.cos(q[1]),self.armP.k3]])
+	  M = np.array([[self.armP.k1+2*self.armP.k2*math.cos(q[1]),self.armP.k3+self.armP.k2*math.cos(q[1])],[self.armP.k3+self.armP.k2*math.cos(q[1]),self.armP.k3]])
         #print ("M:",M)
-        Minv = np.linalg.inv(M)
+	  Minv = np.linalg.inv(M)
         #print ("Minv:",Minv)
-        C = np.array([-dotq[1]*(2*dotq[0]+dotq[1])*self.armP.k2*math.sin(q[1]),(dotq[0]**2)*self.armP.k2*math.sin(q[1])])
+	  C = np.array([-dotq[1]*(2*dotq[0]+dotq[1])*self.armP.k2*math.sin(q[1]),(dotq[0]**2)*self.armP.k2*math.sin(q[1])])
         #print ("C:",C)
         #the commented version uses a non null stiffness for the muscles
         #beware of dot product Kraid times q: q may not be the correct vector/matrix
@@ -94,25 +95,24 @@ class Arm:
         #Gamma = np.dot((np.dot(self.armP.At, self.musclesP.fmax)-np.dot(self.musclesP.Knulle, Q)), U)
         #above Knulle is null, so it can be simplified
 
-        #print ("U:",U)
-        Gamma = np.dot(np.dot(self.armP.At, self.musclesP.fmax), U)
+	  Gamma = np.dot(np.dot(self.armP.At, self.musclesP.fmax), U)
         #print ("Gamma:",Gamma)
 
         #Gamma = np.dot(armP.At, np.dot(musclesP.fmax,U))
         #computes the acceleration ddotq and integrates
         
-        b = np.dot(self.armP.B, dotq)
+	  b = np.dot(self.armP.B, dotq)
         #print ("b:",b)
 
-        ddotq = np.dot(Minv,Gamma - C - b)
+	  ddotq = np.dot(Minv,Gamma - C - b)
         #print ("ddotq",ddotq)
 
-        dotq += ddotq*self.dt
-        q += dotq*self.dt
+	  dotq += ddotq*self.dt
+	  q += dotq*self.dt
         #save the real state to compute the state at the next step with the real previous state
-        q = jointStop(q)
-        nextState = np.array([dotq[0], dotq[1], q[0], q[1]])
-        return nextState
+	  q = jointStop(q)
+	  nextState = np.array([dotq[0], dotq[1], q[0], q[1]])
+	  return nextState
     
   def mgd(self, q):
         '''

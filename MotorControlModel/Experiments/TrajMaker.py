@@ -18,7 +18,7 @@ from Regression.RBFN import rbfn
 from Utils.FileReading import getStateAndCommandData, dicToArray
 
 from CostComputation import CostComputation
-from UnscentedKalmanFilterControl import UnscentedKalmanFilterControl
+from StateEstimator import StateEstimator
 
 from GlobalVariables import BrentTrajectoriesFolder
 
@@ -45,7 +45,7 @@ def initRBFNController(rs):
 
 class TrajMaker:
     
-    def __init__(self, rs, sizeOfTarget, saveA, thetaFile):
+    def __init__(self, rs, sizeOfTarget, saveTraj, thetaFile):
         '''
     	Initializes the parameters used to run the functions below
     
@@ -55,7 +55,7 @@ class TrajMaker:
     			-cc, costComputation, class object
     			-sizeOfTarget, size of the target, float
     			-Ukf, unscented kalman filter, class object
-    			-saveA, Boolean: true = Data are saved, false = data are not saved
+    			-saveTraj, Boolean: true = Data are saved, false = data are not saved
     	'''
         self.name = "TrajectoryGenerator"
 
@@ -72,8 +72,8 @@ class TrajMaker:
         self.cc = CostComputation(rs)
         self.sizeOfTarget = sizeOfTarget
         #6 is the dimension of the state for the filter, 4 is the dimension of the observation for the filter, 25 is the delay used
-        self.Ukf = UnscentedKalmanFilterControl(rs.dimStateUKF, rs.delayUKF, self.arm, rs.knoiseU, self.controller)
-        self.saveA = saveA
+        self.stateEstimator = StateEstimator(rs.outputDim, rs.delayUKF, self.arm)
+        self.saveTraj = saveTraj
         #Initializes variables used to save trajectory
  
     def setTheta(self, theta):
@@ -101,7 +101,7 @@ class TrajMaker:
 
         #initializes parameters for the trajectory
         i, t, cost = 0, 0, 0
-        self.Ukf.initObsStore(state)
+        self.stateEstimator.initStore(state)
         self.arm.setState(state)
         estimState = state
         #estimState = np.array([0.2, 0.2, 0.2, 0.2])
@@ -123,7 +123,7 @@ class TrajMaker:
  
             #computation of the approximated state
             tmpstate = self.arm.state
-            estimNextState = self.Ukf.runUKF(tmpstate)
+            estimNextState = self.stateEstimator.getEstimState(tmpstate,U)
             #print estimNextState
             #estimNextState = np.array([0.2, 0.2, 0.2, 0.2,])
 
@@ -138,7 +138,7 @@ class TrajMaker:
             #code to save data of the trajectory
 
             #Note : these structures might be much improved
-            if self.saveA == True:
+            if self.saveTraj == True:
                 qt1, qt2 = self.arm.mgi(self.rs.XTarget, self.rs.YTarget)
  
                 stepStore.append([0.0, 0.0, qt1, qt2])
@@ -165,7 +165,7 @@ class TrajMaker:
         if coordHand[0] >= -self.sizeOfTarget/2 and coordHand[0] <= self.sizeOfTarget/2 and coordHand[1] >= self.rs.YTarget:
             cost = self.cc.computeFinalCostReward(cost, t)
    
-        if self.saveA == True:
+        if self.saveTraj == True:
             np.savetxt(filename,dataStore)
 
         #print "end of trajectory"

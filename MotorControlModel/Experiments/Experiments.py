@@ -10,6 +10,8 @@ Description: Class used to generate all the trajectories of the experimental set
 import os
 import time
 import numpy as np
+from shutil import copyfile
+
 from Utils.ThetaNormalization import unNormNP
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.FileReading import dicToArray
@@ -22,20 +24,27 @@ def checkIfFolderExists(name):
     if not os.path.isdir(name):
         os.makedirs(name)
 
-def findDataFileName(foldername, extension):
+def copyRBFNtoCMAES(rs, name):
+    savename = rs.RBFNpath + name
+    for el in rs.sizeOfTarget:
+        cmaname =  rs.CMAESpath + str(el) + "/"
+        checkIfFolderExists(cmaname)
+        copyfile(savename, cmaname + name)
+
+def findDataFileName(foldername, name, extension):
     i = 1
     checkIfFolderExists(foldername)
-    tryName = "traj1" + extension
+    tryName = name + "1" + extension
     while tryName in os.listdir(foldername):
         i += 1
-        tryName = "traj" + str(i) + extension
+        tryName = name + str(i) + extension
     filename = foldername + tryName
     return filename
 
 #------------------------------------------------------------------------------
 
 class Experiments:
-    def __init__(self, rs, sizeOfTarget, saveA, foldername, thetafile):
+    def __init__(self, rs, sizeOfTarget, saveTraj, foldername, thetafile):
         '''
     	Initializes parameters used to run functions below
     
@@ -49,10 +58,11 @@ class Experiments:
         self.dimOutput = rs.outputDim
         self.numberOfRepeat = rs.numberOfRepeatEachTraj
         self.foldername = foldername
-        self.tm = TrajMaker(rs, sizeOfTarget, saveA, thetafile)
+        self.tm = TrajMaker(rs, sizeOfTarget, saveTraj, thetafile)
         self.posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
         self.costStore = []
         self.trajTimeStore = []
+        self.bestCost = -10000.0
 
     def setTheta(self, theta):
         self.tm.setTheta(theta)
@@ -65,22 +75,23 @@ class Experiments:
         #reshaping of the parameters vector because this function is used by the cmaes algorithm and 
         #cmaes feeds the function with a one dimension numpy array but in the rest of the algorithm the 2 dimensions numpy array is expected for the vector of parameters theta
         self.theta = np.asarray(self.theta).reshape((self.dimOutput, self.numfeats**self.dimState))
-        print ("theta Exp: ", self.theta)
+        #print ("theta Exp: ", self.theta)
 
         self.setTheta(self.theta)
 
     def saveCost(self):
-        filename = findDataFileName(self.foldername+"Cost/",".cost")
-        filenameTime = findDataFileName(self.foldername+"TrajTime/",".time")
+        filename = findDataFileName(self.foldername+"Cost/","traj",".cost")
+        filenameTime = findDataFileName(self.foldername+"TrajTime/","traj",".time")
         np.savetxt(filename, self.costStore)
         np.savetxt(filenameTime, self.trajTimeStore)
          
     def runOneTrajectory(self, x, y):
-        filename = findDataFileName(self.foldername+"Log/",".log")
+        filename = findDataFileName(self.foldername+"Log/","traj",".log")
         cost, trajTime = self.tm.runTrajectory(x, y, filename)
         return cost, trajTime
             
     def runTrajectoriesResultsGeneration(self, repeat):
+        globCost = []
         for xy in self.posIni:
             costAll, trajTimeAll = np.zeros(repeat), np.zeros(repeat)
             for i in range(repeat):
@@ -89,7 +100,8 @@ class Experiments:
             meanTrajTime = np.mean(trajTimeAll)
             self.costStore.append([xy[0], xy[1], meanCost])
             self.trajTimeStore.append([xy[0], xy[1], meanTrajTime])
-        return meanCost
+            globCost.append(meanCost)
+        return np.mean(globCost)
     
     def runTrajectoriesCMAES(self, theta):
         '''
@@ -102,12 +114,16 @@ class Experiments:
         t0 = time.time()
         self.initTheta(theta)
         #compute all the trajectories x times each, x = numberOfRepeat
-        meanCost = runTrajectoriesResultsGeneration(self, self.numberOfRepeat)
+        meanCost = self.runTrajectoriesResultsGeneration(self.numberOfRepeat)
 
-        print("Call #: ", self.call, "\n Cost: ", meanAll, "\n Time: ", time.time() - t0, "s")
-        self.saveThetaCmaes(meanAll,self.call)
+        print("Call #: ", self.call, "\n Cost: ", meanCost, "\n Time: ", time.time() - t0, "s")
+        if meanCost>self.bestCost:
+            self.bestCost = meanCost
+            extension = ".save" + str(meanCost)
+            filename = findDataFileName(self.foldername+"Theta/", "theta", extension)
+            np.savetxt(filename, self.theta)
         self.call += 1
-        return meanCost*(-1)
+        return -1*meanCost
     
     
     

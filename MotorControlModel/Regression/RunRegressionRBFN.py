@@ -11,7 +11,6 @@ Description: We find here the function to run rbfn algorithm to create the contr
 import os
 import numpy as np
 import random as rd
-from shutil import copyfile
 
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.FileReading import getStateAndCommandData, dicToArray
@@ -43,8 +42,6 @@ def runRBFN(name):
 def saveThetaControllers(rs, name, fa):
     savename = rs.RBFNpath + name
     fa.saveTheta(savename)
-    for el in rs.sizeOfTarget:
-        copyfile(savename, rs.CMAESpath + str(el) + "/" + name)
     
 def test(fa, state):
     for el in state:
