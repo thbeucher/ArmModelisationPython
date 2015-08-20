@@ -219,6 +219,8 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.05"):
             plt.plot(t, u4, label = "U4")
             plt.plot(t, u5, label = "U5")
             plt.plot(t, u6, label = "U6")
+            plt.legend(loc = 0)
+
             print key
             val = raw_input('1 to see data, anything otherwise: ')
             val = int(val)
@@ -229,7 +231,6 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.05"):
     plt.xlabel("time")
     plt.ylabel("U")
     plt.title("Muscular Activations for " + what)
-    plt.legend(loc = 0)
     plt.show(block = True)
 
 def makeInitPlot(rs):
