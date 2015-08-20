@@ -5,8 +5,8 @@ Parametre gamma cost function(float):0.998
 Parametre rho cost function(int):300
 Parametre upsilon cost function(int):1
 Pour CMAES, sigma(float):0.000001
-Pour CMAES, maxIteration(int):50
-POUR CMAES, popsize(int):8
+Pour CMAES, maxIteration(int):500
+POUR CMAES, popsize(int):10
 Tailles des cibles pour l'experimentation(m)(float)(4 target max):0.005/0.01/0.02/0.05
 Abscisse de la cible(float):0.0
 Ordonnee de la cible(float):0.628

@@ -520,7 +520,7 @@ def plotScattergram(folderName):
 
     plt.figure(1, figsize=(16,9))
 
-    for i in range(4):
+    for i in range(len(rs.sizeOfTarget)):
         ax = plt.subplot2grid((2,2), (i/2,i%2))
         ax.hist(data[rs.sizeOfTarget[i]], 20)
         ax.plot([-rs.sizeOfTarget[i], -rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
@@ -531,28 +531,21 @@ def plotScattergram(folderName):
         
 # ---------------- end of hit dispersion ---------------------------------------
 
-# --------------------------------- misc ------------------------------------------------------------
-
-def plotcmaesCostProgress():
+def plotCMAESCostProgress():
     rs = ReadSetupFile()
-    costCma = {}
+
     for i in range(len(rs.sizeOfTarget)):
-        try:
-            name = rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/costEvalAll/costEval" + str(100)
-            costCma[str(str(i) + "_" + str(rs.sizeOfTarget[i]))] = getobjread(name)
-        except:
-            pass
-    costEvo = {}
-    for key, val in costCma.items():
-        costArray = np.asarray(val).reshape(rs.maxIterCmaes, rs.popsizeCmaes)
-        costEvo[key] = np.mean(costArray, axis = 1)
-    y = []
-    for i in range(rs.maxIterCmaes):
-        y.append(i)
-    f, ax = plt.subplots(len(rs.sizeOfTarget), sharex = True)
-    for key, x in costEvo.items():
-        ax[int(key.split("_")[0])].plot(y, x)
-        ax[int(key.split("_")[0])].set_title(str("Target " + key.split("_")[1]))
+        ax = plt.subplot2grid((2,2), (i/2,i%2))
+        name = rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/Cost/cmaesCost.log"
+        data = np.loadtxt(name)
+
+        x,y = [],[]
+        for j in range(len(data)):
+            x.append(j)
+            y.append(data[j])
+        ax.plot(x, y)
+        ax.set_title(str("Target " + str(rs.sizeOfTarget[i])))
+
     plt.show(block = True)
 
 def plotExperimentSetup():

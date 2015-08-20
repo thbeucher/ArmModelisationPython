@@ -10,7 +10,6 @@ Description: Class used to generate all the trajectories of the experimental set
 import os
 
 import numpy as np
-from shutil import copyfile
 
 from Utils.ThetaNormalization import normalization, unNormalization
 from Utils.ReadSetupFile import ReadSetupFile
@@ -24,13 +23,6 @@ from TrajMaker import TrajMaker
 def checkIfFolderExists(name):
     if not os.path.isdir(name):
         os.makedirs(name)
-
-def copyRBFNtoCMAES(rs, name):
-    savename = rs.RBFNpath + name
-    for el in rs.sizeOfTarget:
-        cmaname =  rs.CMAESpath + str(el) + "/"
-        checkIfFolderExists(cmaname)
-        copyfile(savename, cmaname + name)
 
 def findDataFileName(foldername, name, extension):
     i = 1
@@ -62,6 +54,7 @@ class Experiments:
         self.tm = TrajMaker(rs, sizeOfTarget, saveTraj, thetafile)
         self.posIni = np.loadtxt(pathDataFolder + rs.experimentFilePosIni)
         self.costStore = []
+        self.CMAEScostStore = []
         self.trajTimeStore = []
         self.bestCost = -10000.0
         self.lastCoord = []
@@ -125,6 +118,11 @@ class Experiments:
         meanCost = self.runTrajectoriesResultsGeneration(self.numberOfRepeat)
 
         print("Call #: ", self.call, "\n Cost: ", meanCost)
+        self.CMAEScostStore.append(meanCost)
+        costfoldername = self.foldername+"Cost/"
+        checkIfFolderExists(costfoldername)
+        np.savetxt(costfoldername+"cmaesCost.log",self.CMAEScostStore) #Note: pas efficace
+
         c.stop()
         if meanCost>self.bestCost:
             self.bestCost = meanCost
@@ -132,7 +130,7 @@ class Experiments:
             filename = findDataFileName(self.foldername+"Theta/", "theta", extension)
             np.savetxt(filename, self.theta)
         self.call += 1
-        return (300.0-meanCost)/200.0
+        return (300.0-meanCost)/20.0
     
     
     

@@ -10,6 +10,7 @@ Description: useful functions to run cmaes and some scripts to run trajectories
 import os
 import cma
 import numpy as np
+from shutil import copyfile
 
 from multiprocessing.pool import Pool
 
@@ -17,9 +18,15 @@ from Utils.ReadSetupFile import ReadSetupFile
 from Utils.ThetaNormalization import normalization, unNormalization
 
 from ArmModel.Arm import Arm
-from Experiments.Experiments import Experiments, copyRBFNtoCMAES
+from Experiments.Experiments import Experiments, checkIfFolderExists
 
-def GenerateDataFromTheta(rs,sizeOfTarget, foldername, thetaFile, repeat, save):
+def copyRBFNtoCMAES(rs, name, size):
+    savename = rs.RBFNpath + name
+    cmaname =  rs.CMAESpath + str(size) + "/"
+    checkIfFolderExists(cmaname)
+    copyfile(savename, cmaname + name)
+
+def GenerateDataFromTheta(rs, sizeOfTarget, foldername, thetaFile, repeat, save):
     exp = Experiments(rs, sizeOfTarget, save, foldername,thetaFile)
     cost = exp.runTrajectoriesResultsGeneration(repeat)
     print("Average cost: ", cost)
@@ -42,7 +49,7 @@ def generateFromRBFN(repeat, thetaFile, saveDir):
     GenerateDataFromTheta(rs,0.1,saveName,thetaName,repeat,True)
     print("RBFN:End of generation")
 
-def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
+def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile, save):
     '''
     Run cmaes for a specific target size
 
@@ -52,6 +59,8 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
     rs = ReadSetupFile()
     foldername = rs.CMAESpath + str(sizeOfTarget) + "/"
     thetaname = foldername + thetaFile
+    if save:
+        copyRBFNtoCMAES(rs, thetaFile, sizeOfTarget)
 
     #Initializes all the class used to generate trajectory
     exp = Experiments(rs, sizeOfTarget, False, foldername, thetaname)
@@ -69,10 +78,8 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile):
     
 def launchCMAESForAllTargetSizes(thetaname, save):
     rs = ReadSetupFile()
-    if save:
-        copyRBFNtoCMAES(rs, thetaname)
     for el in rs.sizeOfTarget:
-        launchCMAESForSpecificTargetSize(el, thetaname)
+        launchCMAESForSpecificTargetSize(el, thetaname,save)
 
 #--------------------------- multiprocessing -------------------------------------------------------
 

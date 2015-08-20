@@ -8,12 +8,12 @@ Module: runScript
 Description: main script to run what we want in the project
 '''
 
-from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTargetSizes
+from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTargetSizes, launchCMAESForSpecificTargetSize
 
 from Regression.RunRegressionRBFN import runRBFN, UnitTest, UnitTestRBFNController, UnitTestArmModel
 
 
-from Plot.plotFunctions import trajectoriesAnimation, plotCostColorMap, plotTimeColorMap, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations, plotScattergram, plotHitDispersion, plotExperimentSetup
+from Plot.plotFunctions import trajectoriesAnimation, plotCostColorMap, plotTimeColorMap, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations, plotScattergram, plotHitDispersion, plotExperimentSetup, plotCMAESCostProgress
 
 
 from Utils.UsefulFunctions import checkReachAllTarget
@@ -38,7 +38,7 @@ def printMainMenu():
     print('		10 plot cost Map')
     print('-------------------------------------------------')
     print('	CMAES:')
-    print('		11 train for all targets')
+    print('		11 train CMAES for all targets')
     print('		12 generate results from current controllers')
     print('		13 plot velocity profiles')
     print('		14 plot articular positions')
@@ -50,6 +50,8 @@ def printMainMenu():
     print('		20 plot Map Time x Trajectory')
     print('		21 show trajectory animations')                 
     print('		22 plot Hit dispersion')
+    print('		23 train CMAES for one target')
+    print('		24 plot CMAES cost progress')
 
 def runAll():
     runInstall()
@@ -193,6 +195,19 @@ def chooseFunction(choix):
         nameF = raw_input('Folder where the results are saved: ')
         plotHitDispersion(nameF,"0.05")
         plotScattergram(nameF)
+    elif choix == 23:
+        name = raw_input('Name of the controller file: ')
+        rorc = input("enter 1 if from RBFN, anything if from previous CMAES: ")
+        save = False
+        rorc = int(rorc)
+        if rorc == 1:
+            save = True
+        tSize = raw_input('Target Size: ')
+        c = Chrono()
+        launchCMAESForSpecificTargetSize(float(tSize),name,save)
+        c.stop()
+    elif choix == 24:
+        plotCMAESCostProgress()
 
 #plotInitPos()  
 #runAuto()

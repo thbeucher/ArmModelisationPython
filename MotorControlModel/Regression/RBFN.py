@@ -78,11 +78,12 @@ class rbfn():
         maxInputData = np.max(self.inputData, axis = 0)
         rangeForEachDim = maxInputData - minInputData
         #set the sigmas
-        widthConstant = rangeForEachDim / self.nbFeat
+        widthConstant = 3*rangeForEachDim / self.nbFeat
         #create the diagonal matrix of sigmas to compute the gaussian
         self.widths = np.diag(widthConstant)
          #coef for Gaussian features
-        self.norma = 1/np.sqrt(((2*np.pi)**self.inputDimension)*np.linalg.det(self.widths)) 
+        self.norma = 1/np.sqrt(((2*np.pi)**self.inputDimension)*np.linalg.det(self.widths))
+        print ("RBFN : constante de normalisation : ", self.norma)
         self.invcovar = np.linalg.pinv(self.widths)
         linspaceForEachDim = []
         #set the number of gaussian used and allocate them in each dimensions
@@ -95,7 +96,7 @@ class rbfn():
 
     def train_rbfn(self):
         '''
-        Training function to learn the approximation
+        Training function to learn the approximation (i.e. regression)
         
         '''
         self.theta = []
@@ -113,7 +114,7 @@ class rbfn():
     
     def computeFeatureWeight(self, inputVal, gauss):
         '''
-        Computes the value of an input with respect to a Gaussian
+        Computes the value of an input with respect to one Gaussian feature
         
         Input:     -inputVal: one point in the input space (an input vector)
         
@@ -127,7 +128,7 @@ class rbfn():
 
     def computeAllWeights(self, inputVal):
         '''
-        Computes Gaussian parameters
+        Computes the value of an input with respect to all Gaussian features
         
         Input:     -inputVal: one point in the input space (an input vector)
         
@@ -148,7 +149,7 @@ class rbfn():
         
         Output:     -fa_out: numpy N-D array, output approximated
         '''
-        assert(inputVal.shape[0]==self.inputDimension), "Bad input format"
+        assert(inputVal.shape[0]==self.inputDimension), "RBFN: Bad input format"
         output = []
         for i in range(self.outputDimension):
             tmp = self.computeAllWeights(inputVal)
