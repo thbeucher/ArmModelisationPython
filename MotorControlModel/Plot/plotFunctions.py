@@ -199,9 +199,9 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.05"):
 
     U = getCommandData(name)
 
-    u1, u2, u3, u4, u5, u6 = [], [], [], [], [], []
-    t = []
     for key, el1 in U.items():
+        t = []
+        u1, u2, u3, u4, u5, u6 = [], [], [], [], [], []
         if rd.random()<0.01 or what != "Brent":
             for i in range(len(el1)):
                 t.append(i)
@@ -212,17 +212,24 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.05"):
                 u5.append(el1[i][4])
                 u6.append(el1[i][5])
 
-    plt.figure()
-    plt.plot(t, u1)
-    plt.plot(t, u2)
-    plt.plot(t, u3)
-    plt.plot(t, u4)
-    plt.plot(t, u5)
-    plt.plot(t, u6)
+            plt.figure()
+            plt.plot(t, u1, label = "U1")
+            plt.plot(t, u2, label = "U2")
+            plt.plot(t, u3, label = "U3")
+            plt.plot(t, u4, label = "U4")
+            plt.plot(t, u5, label = "U5")
+            plt.plot(t, u6, label = "U6")
+            print key
+            val = raw_input('1 to see data, anything otherwise: ')
+            val = int(val)
+            if val == 1:
+                print el1
+            #plt.clf()
 
     plt.xlabel("time")
     plt.ylabel("U")
     plt.title("Muscular Activations for " + what)
+    plt.legend(loc = 0)
     plt.show(block = True)
 
 def makeInitPlot(rs):
