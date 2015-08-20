@@ -248,7 +248,7 @@ def makeInitPlot(rs):
         x.append(el[0])
         y.append(el[1])
         
-    plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdYlBu'))
+    plt.scatter(x, y, c = "b", marker=u'o', s=10, cmap=cm.get_cmap('RdGrBu'))
     plt.scatter(xt, yt, c = "r", marker=u'*', s = 100)
     plt.scatter(x0, y0, c = "r", marker=u'o', s=25)  
 
@@ -294,9 +294,9 @@ def plotCostColorMap(what, folderName = "None", targetSize = "All"):
             yi = np.linspace(0.35,0.5,100)
             zi = griddata(x0, y0, cost, xi, yi)
 
-            t1 = ax.scatter(x0, y0, c=cost, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+            t1 = ax.scatter(x0, y0, c=cost, marker=u'o', s=50, cmap=cm.get_cmap('RdGrBu'))
             ax.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
-            CS = ax.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+            CS = ax.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdGrBu'))
             ax.set_title(str("Cost map for target " + str(rs.sizeOfTarget[i])))
             fig.colorbar(t1, shrink=0.5, aspect=5)
 
@@ -324,9 +324,9 @@ def plotCostColorMap(what, folderName = "None", targetSize = "All"):
         yi = np.linspace(0.35,0.5,100)
         zi = griddata(x0, y0, cost, xi, yi)
     
-        t1 = plt.scatter(x0, y0, c=cost, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+        t1 = plt.scatter(x0, y0, c=cost, marker=u'o', s=50, cmap=cm.get_cmap('RdGrBu'))
         plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
-        CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+        CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdGrBu'))
         fig.colorbar(t1, shrink=0.5, aspect=5)
         plt.title("Cost map for " + what)
 
@@ -363,9 +363,9 @@ def plotTimeColorMap(what, folderName = "None", targetSize = "All"):
             yi = np.linspace(0.35,0.5,100)
             zi = griddata(x0, y0, time, xi, yi)
 
-            t1 = ax.scatter(x0, y0, c=time, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+            t1 = ax.scatter(x0, y0, c=time, marker=u'o', s=50, cmap=cm.get_cmap('RdGrBu'))
             ax.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
-            CS = ax.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+            CS = ax.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdGrBu'))
             ax.set_title(str("Time map for target " + str(rs.sizeOfTarget[i])))
             fig.colorbar(t1, shrink=0.5, aspect=5)
 
@@ -393,9 +393,9 @@ def plotTimeColorMap(what, folderName = "None", targetSize = "All"):
         yi = np.linspace(0.35,0.5,100)
         zi = griddata(x0, y0, time, xi, yi)
     
-        t1 = plt.scatter(x0, y0, c=time, marker=u'o', s=50, cmap=cm.get_cmap('RdYlBu'))
+        t1 = plt.scatter(x0, y0, c=time, marker=u'o', s=50, cmap=cm.get_cmap('RdGrBu'))
         plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
-        CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdYlBu'))
+        CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdGrBu'))
         fig.colorbar(t1, shrink=0.5, aspect=5)
 
     plt.show(block = True)

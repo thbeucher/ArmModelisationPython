@@ -64,6 +64,7 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile, save):
 
     #Initializes all the class used to generate trajectory
     exp = Experiments(rs, sizeOfTarget, False, foldername, thetaname)
+    exp.popSize = rs.popsizeCmaes
     theta = exp.tm.controller.theta
     thetaIn = theta.flatten()
     thetaCMA, max = normalization(thetaIn)
@@ -73,7 +74,6 @@ def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile, save):
 
     #run the optimization (cmaes)
     resCma = cma.fmin(exp.runTrajectoriesCMAES, thetaCMA, rs.sigmaCmaes, options={'maxiter':rs.maxIterCmaes, 'popsize':rs.popsizeCmaes})
-    exp.call = 0
     print("End of optimization for target " + str(sizeOfTarget) + " !")
     
 def launchCMAESForAllTargetSizes(thetaname, save):

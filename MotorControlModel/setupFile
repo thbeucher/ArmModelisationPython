@@ -6,7 +6,7 @@ Parametre rho cost function(int):300
 Parametre upsilon cost function(int):1
 Pour CMAES, sigma(float):0.000001
 Pour CMAES, maxIteration(int):500
-POUR CMAES, popsize(int):10
+POUR CMAES, popsize(int):5
 Tailles des cibles pour l'experimentation(m)(float)(4 target max):0.005/0.01/0.02/0.05
 Abscisse de la cible(float):0.0
 Ordonnee de la cible(float):0.628
@@ -15,6 +15,6 @@ fichier d'experimentation contenant les positions initiales:PosCircu24
 Nombre d'iteration avant d'arreter une trajectoire non résolue:300
 Erreur de position finale acceptable:0.001
 Nombre de pas de delai utilise pour le filtre d'etat(int):10
-Nombre de repetitions pour chaque trajectoire(int):20
+Nombre de repetitions pour chaque trajectoire(int):1
 Dimension de l'entree, ici le vecteur position(int):4
 Dimension de la sortie, ici le vecteur d'activation musculaire:6

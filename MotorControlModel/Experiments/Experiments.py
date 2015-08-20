@@ -59,6 +59,7 @@ class Experiments:
         self.bestCost = -10000.0
         self.lastCoord = []
         self.maxT = 1
+        self.popSize = 0
 
     def setTheta(self, theta):
         self.tm.setTheta(theta)
@@ -112,24 +113,34 @@ class Experiments:
     
     	Ouput:		-meanAll: the mean of the cost of all trajectories generated, float
     	'''
+        if (self.call==0):
+            self.localBestCost = -10000.0
         c = Chrono()
         self.initTheta(theta)
         #compute all the trajectories x times each, x = numberOfRepeat
         meanCost = self.runTrajectoriesResultsGeneration(self.numberOfRepeat)
-
-        print("Call #: ", self.call, "\n Cost: ", meanCost)
-        self.CMAEScostStore.append(meanCost)
-        costfoldername = self.foldername+"Cost/"
-        checkIfFolderExists(costfoldername)
-        np.savetxt(costfoldername+"cmaesCost.log",self.CMAEScostStore) #Note: pas efficace
-
         c.stop()
+
+        print("Indiv #: ", self.call, "\n Cost: ", meanCost)
+
+        if meanCost>self.localBestCost:
+            self.localBestCost = meanCost
+
         if meanCost>self.bestCost:
             self.bestCost = meanCost
             extension = ".save" + str(meanCost)
             filename = findDataFileName(self.foldername+"Theta/", "theta", extension)
             np.savetxt(filename, self.theta)
+
         self.call += 1
+        self.call = self.call%self.popSize
+
+        if (self.call==0):
+            self.CMAEScostStore.append(self.localBestCost)
+            costfoldername = self.foldername+"Cost/"
+            checkIfFolderExists(costfoldername)
+            np.savetxt(costfoldername+"cmaesCost.log",self.CMAEScostStore) #Note: inefficient, should rather add to the file
+
         return (300.0-meanCost)/20.0
     
     

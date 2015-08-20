@@ -30,4 +30,4 @@ class Chrono:
         difstring = difstring + str(int(dif)) + "s "
         dif = int((dif - int(dif))*1000)
         difstring = difstring + str(dif) + "ms"
-        print("Temps d'execution:", difstring)
+        print("Time :", difstring)
