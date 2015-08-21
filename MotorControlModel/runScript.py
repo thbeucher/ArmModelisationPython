@@ -187,14 +187,20 @@ def chooseFunction(choix):
         elif rorc == 1:
             nameF = raw_input('Folder where the results are saved: ')
             trajectoriesAnimation("RBFN",nameF)
-        if rorc == 2:
+        elif rorc == 2:
             nameF = raw_input('Folder where the results are saved: ')
             tSize = raw_input('Target Size: ')
             trajectoriesAnimation("CMAES",nameF, tSize)
     elif choix == 22:
         nameF = raw_input('Folder where the results are saved: ')
-        plotHitDispersion(nameF,"0.05")
-        plotScattergram(nameF)
+        rorc = input("enter 1 if RBFN or 2 if CMAES results: ")
+        #plotHitDispersion(nameF,"0.05")
+        rorc = int(rorc)
+        if rorc == 1:
+            plotScattergram("RBFN",nameF)
+        elif rorc == 2:
+            plotScattergram("CMAES",nameF)
+
     elif choix == 23:
         name = raw_input('Name of the controller file: ')
         rorc = input("enter 1 if from RBFN, anything if from previous CMAES: ")

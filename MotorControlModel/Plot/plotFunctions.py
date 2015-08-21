@@ -17,7 +17,7 @@ from matplotlib import cm
 from matplotlib import animation
 from matplotlib.mlab import griddata
 
-from Utils.FileReading import getStateData, getEstimatedStateData, getEstimatedXYHandData, getXYHandData, getXYElbowData, getCommandData, getInitPos, getCostData, getTrajTimeData, getTrajTimeData, getLastXData
+from Utils.FileReading import getStateData, getEstimatedStateData, getEstimatedXYHandData, getXYHandData, getXYElbowData, getCommandData, getNoiselessCommandData, getInitPos, getCostData, getTrajTimeData, getTrajTimeData, getLastXData
 from Utils.ReadSetupFile import ReadSetupFile
 from Utils.NiemRoot import tronquerNB
 
@@ -105,7 +105,7 @@ def plotVelocityProfile(what, folderName = "None"):
 
         state = getStateData(name)
         for k,v in state.items():
-            if what == "RBFN" or rd.random()<0.06:
+            if  rd.random()<0.06:#what == "RBFN" or
                 index, speed = [], []
                 for j in range(len(v)):
                     index.append(j)
@@ -131,7 +131,7 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.05"):
 
     plt.figure(1, figsize=(16,9))
     for k,v in state.items():
-        if rd.random()<0.06 or what != "Brent":
+        if rd.random()<0.2 or what != "Brent":
             posX, posY = [], []
             for j in range(len(v)):
                 posX.append(v[j][0])
@@ -139,6 +139,7 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.05"):
 
             plt.plot(posX,posY, c ='b')
 
+    '''
     for k,v in estimState.items():
         if rd.random()<0.06 or what != "Brent":
             eX, eY = [], []
@@ -147,6 +148,7 @@ def plotXYPositions(what, folderName = "None", targetSize = "0.05"):
                 eY.append(v[j][1])
 
             plt.plot(eX,eY, c ='r')
+    '''
 
     plt.xlabel("X")
     plt.ylabel("Y")
@@ -197,7 +199,7 @@ def plotMuscularActivations(what, folderName = "None", targetSize = "0.05"):
     else:
         name = rs.RBFNpath + folderName + "/Log/"
 
-    U = getCommandData(name)
+    U = getNoiselessCommandData(name)
 
     for key, el1 in U.items():
         t = []
@@ -280,7 +282,6 @@ def plotCostColorMap(what, folderName = "None", targetSize = "All"):
             name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + folderName + "/Cost/"
             costs = getCostData(name)
 
-    
             x0 = []
             y0 = []
             cost = []
@@ -295,9 +296,10 @@ def plotCostColorMap(what, folderName = "None", targetSize = "All"):
             yi = np.linspace(0.35,0.5,100)
             zi = griddata(x0, y0, cost, xi, yi)
 
-            t1 = ax.scatter(x0, y0, c=cost, marker=u'o', s=50, cmap=cm.get_cmap('RdGrBu'))
+            t1 = ax.scatter(x0, y0, c=cost, marker=u'o', s=5, cmap=cm.get_cmap('RdGrBu'))
             ax.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
             CS = ax.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdGrBu'))
+            t1 = ax.scatter(x0, y0, c='b', marker=u'o', s=20)
             ax.set_title(str("Cost map for target " + str(rs.sizeOfTarget[i])))
             fig.colorbar(t1, shrink=0.5, aspect=5)
 
@@ -325,9 +327,10 @@ def plotCostColorMap(what, folderName = "None", targetSize = "All"):
         yi = np.linspace(0.35,0.5,100)
         zi = griddata(x0, y0, cost, xi, yi)
     
-        t1 = plt.scatter(x0, y0, c=cost, marker=u'o', s=50, cmap=cm.get_cmap('RdGrBu'))
+        t1 = plt.scatter(x0, y0, c=cost, marker=u'o', s=5, cmap=cm.get_cmap('RdGrBu'))
         plt.scatter(rs.XTarget, rs.YTarget, c ='g', marker='v', s=200)
         CS = plt.contourf(xi, yi, zi, 15, cmap=cm.get_cmap('RdGrBu'))
+        plt.scatter(x0, y0, c='b', marker=u'o', s=20)
         fig.colorbar(t1, shrink=0.5, aspect=5)
         plt.title("Cost map for " + what)
 
@@ -513,27 +516,42 @@ def plotHitDispersion(folderName,sizeT):
     plt.scatter(tabx, taby, c = 'b')
     plt.show(block = True)
 
-def plotScattergram(folderName):
+def plotScattergram(what,folderName):
     rs = ReadSetupFile()
     data = {}
-    for i in range(len(rs.sizeOfTarget)):
-        name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + folderName + "/finalX/"
-        tmp = getLastXData(name)
-        tabx = []
-        for el in tmp.values():
-           for j in range(len(el)):
-               tabx.append(el[j])
 
-        data[rs.sizeOfTarget[i]] = tabx
+    if what=="CMAES":
+        for i in range(len(rs.sizeOfTarget)):
+            name =  rs.CMAESpath + str(rs.sizeOfTarget[i]) + "/" + folderName + "/finalX/"
+            tmp = getLastXData(name)
+            tabx = []
+            for el in tmp.values():
+                for j in range(len(el)):
+                    tabx.append(el[j])
 
-    plt.figure(1, figsize=(16,9))
+                    data[rs.sizeOfTarget[i]] = tabx
 
-    for i in range(len(rs.sizeOfTarget)):
-        ax = plt.subplot2grid((2,2), (i/2,i%2))
-        ax.hist(data[rs.sizeOfTarget[i]], 20)
-        ax.plot([-rs.sizeOfTarget[i], -rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
-        ax.plot([rs.sizeOfTarget[i], rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
-        ax.set_title(str("HitDispersion for Target " + str(rs.sizeOfTarget[i])))
+        plt.figure(1, figsize=(16,9))
+
+        for i in range(len(rs.sizeOfTarget)):
+            ax = plt.subplot2grid((2,2), (i/2,i%2))
+            ax.hist(data[rs.sizeOfTarget[i]], 20)
+            ax.plot([-rs.sizeOfTarget[i], -rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
+            ax.plot([rs.sizeOfTarget[i], rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
+            ax.set_title(str("Hit Dispersion for Target " + str(rs.sizeOfTarget[i])))
+
+    elif what=="RBFN":
+            name =  rs.RBFNpath + folderName + "/finalX/"
+            tmp = getLastXData(name)
+            tabx = []
+            for el in tmp.values():
+                for j in range(len(el)):
+                    tabx.append(el[j])
+            plt.hist(tabx, 20)
+            for i in range(len(rs.sizeOfTarget)):
+                plt.plot([-rs.sizeOfTarget[i], -rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
+                plt.plot([rs.sizeOfTarget[i], rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
+            plt.title("Hit Dispersion for RBFN")
     
     plt.show(block = True)
         
