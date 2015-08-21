@@ -116,13 +116,3 @@ def launchCMAESForAllTargetSizesMulti():
     p = Pool()
     #run cmaes on each targets size on separate processor
     p.map(launchCMAESForSpecificTargetSize, rs.sizeOfTarget, "theta")
-
-
-
-
-
-    
-    
-    
-    
-    

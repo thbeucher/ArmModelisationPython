@@ -15,8 +15,6 @@ from Regression.RunRegressionRBFN import runRBFN, UnitTest, UnitTestRBFNControll
 
 from Plot.plotFunctions import trajectoriesAnimation, plotCostColorMap, plotTimeColorMap, plotTimeDistanceTarget, plotFittsLaw, plotPerfSizeDist, plotVelocityProfile, plotXYPositions, plotArticularPositions, plotInitPos, plotMuscularActivations, plotScattergram, plotHitDispersion, plotExperimentSetup, plotCMAESCostProgress
 
-
-from Utils.UsefulFunctions import checkReachAllTarget
 from Utils.Chrono import Chrono
 
 #----------------------------- main list of available actions ----------------------------------------------------------------------
@@ -54,26 +52,6 @@ def printMainMenu():
     print('		24 plot CMAES cost progress')
     print('		25 generate rich results from RBFN controller')
     print('		26 generate rich results from CMAES controllers')
-
-def runAll():
-    runInstall()
-    runChoice()
-
-def runInstall():
-    checkV = True
-    choix = 0
-    while checkV:
-        try:
-            c = input("Is it the first time you run the program? (0 = No, 1 = Yes) : ")
-            c = int(c)
-            if c == 0 or c == 1:
-                checkV = False
-        except:
-            print("Enter 0 or 1")
-    if c == 1:
-        packageList = checkPackages()
-        installMissingPackage(packageList)
-    from distlib.compat import raw_input
 
 def runChoice():
     checkL = True

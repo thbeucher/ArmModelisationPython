@@ -5,6 +5,6 @@ from Cython.Distutils import build_ext
 
 setup(
     cmdclass = {'build_ext':build_ext},
-    ext_modules = cythonize("*/*.py"),
+    ext_modules = cythonize("runScript.py"),#"*/*.py"),
 )
 
