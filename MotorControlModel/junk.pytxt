@@ -1,0 +1,193 @@
+
+#------------------- plotFunctions ------------------------------------
+
+def plotTimeVariationForEachDistance(sizeTarget):
+    rs = ReadSetupFile()
+    name = rs.CMAESpath + str(sizeTarget) + "/nbItecp5CmaBIN"
+    nbIteTraj = getobjread(name)
+    distTimeDico = {}
+    for key, val in nbIteTraj.items():
+        nbIteTraj[key] = int(np.mean(nbIteTraj[key]))
+        r, t = invPosCircle(float(key.split("//")[0]), float(key.split("//")[1]))
+        r, t = round(r, 2), round(t, 3)
+        if not r in distTimeDico.keys():
+            distTimeDico[r] = []
+        distTimeDico[r].append((nbIteTraj[key], t))
+    print(distTimeDico)
+    
+    plt.figure()
+    for key, val in distTimeDico.items():
+        for el in val:
+            plt.scatter(el[1], el[0])
+        break
+    plt.show(block = True)
+
+
+#------------------- usefulFunctions ------------------------------------
+
+def returnX0Y0Z(name):
+    rs = ReadSetupFile()
+    zdico = getobjread(name + "costTrajRBFNBIN")
+    xAbn, yAbn, zWithoutAbn, xyAbn, valcost = [], [], [], [], []
+    for key,el in zdico.items():
+        if not el < 200:
+            xAbn.append(tronquerNB(float(key.split("//")[0]), 3))
+            yAbn.append(tronquerNB(float(key.split("//")[1]), 3))
+            xyAbn.append((tronquerNB(float(key.split("//")[0]), 3), tronquerNB(float(key.split("//")[1]), 3)))
+            valcost.append(el-rs.rhoCF) #Note: Big WTF!!!
+        else:
+            zWithoutAbn.append(el)
+    x0, y0 = [], []
+    for el in xyAbn:
+        x0.append(el[0])
+        y0.append(el[1])
+    z = valcost
+    if not z:
+        x0 = []
+        y0 = []
+        posi = getobjread(rs.experimentFilePosIni)
+        for el in posi:
+            x0.append(el[0])
+            y0.append(el[1])
+        z = getobjread(name + "costBIN")
+    return x0, y0, z
+
+def posCircle(r, t):
+    '''
+    give coordinate (x,y) from couple (radius, angle)
+    
+    Input:      -r: scalar, radius of the circle
+                -t: scalar, angle
+    
+    Output:    -x: scalar, ordinate
+                -y: scalar, absciss
+    '''
+    rs = ReadSetupFile()
+    x0 = rs.XTarget
+    y0 = rs.YTarget
+    x = x0 + r * math.cos(t)
+    y = y0 + r * math.sin(t)
+    return x, y
+
+def invPosCircle(x, y):
+    '''
+    give couple (radius, angle) from coordinate (x, y), here the center of the circle is (0, yt) (yt = 0.6175)
+    
+    Input:      -x: scalar, ordinate
+                -y: scalar, absciss
+    
+    Output:     -r: scalar, radius of the circle
+                -t: scalar, angle
+    '''
+    rs = ReadSetupFile()
+    r = math.sqrt(((x - rs.XTarget)**2) + (y - rs.YTarget)**2)
+    t = math.atan2(y - rs.YTarget, x - rs.XTarget)
+    return r, t
+
+def remakeTrajFolder():
+    rs = ReadSetupFile()
+    for el in os.listdir(pathDataFolder + "/trajNotUsedTmp/"):
+        copyfile(pathDataFolder + "/trajNotUsedTmp/" + el, BrentTrajectoriesFolder + el)
+        remove(pathDataFolder + "/trajNotUsedTmp/" + el)
+
+def testNPDOT():
+    try:
+        import numpy.core._dotblas
+        print ('FAST BLAS')
+    except ImportError:
+        print ('slow blas')
+     
+    print ("version:", numpy.__version__)
+    #print ("maxint:", sys.maxint)
+    #print
+     
+    x = numpy.random.random((1000,1000))
+     
+    setup = "import numpy; x = numpy.random.random((1000,1000))"
+    count = 5
+     
+    t = timeit.Timer("numpy.dot(x, x.T)", setup=setup)
+    print ("dot:", t.timeit(count)/count, "sec")
+
+#------------------- FileReading ------------------------------------
+
+def getobjread(name):
+    '''
+    Get data from a file
+    
+    Input: the full name of the file to read
+    
+    Output: the obtained data
+    '''
+    with open(name, "rb") as file:
+        mondepickler = pickle.Unpickler(file)
+        data = mondepickler.load()
+    return data
+
+def getobjreadJson(name):
+    '''
+    Reads data from file saved with json
+    '''
+    f = open(name, 'r')
+    data = json.load(f)
+    return data
+
+#------------------- FileSaving ------------------------------------
+        
+def saveStr(fileName, data):
+    '''
+    Records data under str format
+    
+    Input:    -fileName: name of the file where data will be recorded
+                -data: recorded data
+                
+    '''
+    print ("str taille", len(data))
+    with open(fileName, "w") as file:
+        file.write(str(data))
+    
+def saveJson(fileName, data):
+    '''
+    Records data under Json format
+    
+    Input:    -fileName: name of the file where data will be recorded
+                -data: recorded data
+                
+    '''
+    print ("json taille", len(data))
+    f = open(fileName, 'w')
+    json.dump(data, f)
+
+def saveBin(fileName, data):
+    '''
+    Records data under binary format
+    
+    Input:    -fileName: name of the file where data will be recorded
+                -data: recorded data
+                
+    '''
+    print ("taille", len(data))
+    with open(fileName, "wb") as file:
+        monPickler = pickle.Pickler(file)
+        monPickler.dump(data)
+
+def saveAllData(sizeOfTarget, tg, folderName):
+    checkIfFolderExists(folderName)
+    print("folder Name : ",folderName)
+    saveJson(folderName + "saveSpeed", tg.saveSpeed)
+    saveJson(folderName + "saveNumberOfIteration", tg.saveNumberOfIteration)
+    saveJson(folderName + "saveMvtCost", tg.saveMvtCost)
+    for key, val in tg.saveU.items():
+        valTmpR = []
+        for el in val:
+            valTmp = [elt.tolist() for elt in el]
+            valTmpR.append(valTmp)
+        tg.saveU[key] = valTmpR
+    saveJson(folderName + "saveU", tg.saveU)
+
+    #----------------- the next 3 cannot be saved with Json ------------------
+    #dispersion, used for scattergram
+    saveStr(folderName + "saveCoordEndTraj", tg.saveCoordEndTraj)
+
+    saveStr(folderName + "elbowCoord", tg.elbowAllCoord)
+    saveStr(folderName + "handCoord", tg.handAllCoord)
