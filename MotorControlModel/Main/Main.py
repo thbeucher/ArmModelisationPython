@@ -105,17 +105,6 @@ def launchCMAESForAllTargetSizes(thetaname, save):
         launchCMAESForSpecificTargetSize(el, thetaname,save)
 
 #--------------------------- multiprocessing -------------------------------------------------------
-
-def launchCMAESWithBestThetaTmpForAllTargetSize():
-    '''
-    Launch in parallel cmaes optimization for each target size with the best theta temp
-    '''
-    #initializes setup variables
-    rs = ReadSetupFile()
-    #initializes a pool of worker, ie multiprocessing
-    p = Pool()
-    #run cmaes on each targets size on separate processor
-    p.map(launchCMAESWithBestThetaTmpForSpecificTargetSize, rs.sizeOfTarget)
     
 def launchCMAESForAllTargetSizesMulti():
     '''
