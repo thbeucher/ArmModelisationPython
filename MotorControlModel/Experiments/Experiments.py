@@ -13,10 +13,10 @@ import numpy as np
 
 from Utils.ThetaNormalization import normalization, unNormalization
 from Utils.ReadSetupFile import ReadSetupFile
-from Utils.FileReading import dicToArray
+from Utils.FileReading import dicToArray, getInitPos
 from Utils.Chrono import Chrono
 
-from GlobalVariables import pathDataFolder
+from GlobalVariables import BrentTrajectoriesFolder, pathDataFolder
 
 from TrajMaker import TrajMaker
 
@@ -92,7 +92,21 @@ class Experiments:
             self.lastCoord.append(lastX)
         return cost, trajTime
             
-    def runTrajectoriesResultsGeneration(self, repeat):
+    def runTrajectoriesForCostMap(self, repeat):
+        globCost = []
+        xy = getInitPos(BrentTrajectoriesFolder)
+        for key, el in xy.items():
+            costAll, trajTimeAll = np.zeros(repeat), np.zeros(repeat)
+            for i in range(repeat):
+                costAll[i], trajTimeAll[i]  = self.runOneTrajectory(el[0], el[1]) 
+            meanCost = np.mean(costAll)
+            meanTrajTime = np.mean(trajTimeAll)
+            self.costStore.append([el[0], el[1], meanCost])
+            self.trajTimeStore.append([el[0], el[1], meanTrajTime])
+            globCost.append(meanCost)
+        return np.mean(globCost)
+            
+    def runTrajectoriesForResultsGeneration(self, repeat):
         globCost = []
         for xy in self.posIni:
             costAll, trajTimeAll = np.zeros(repeat), np.zeros(repeat)

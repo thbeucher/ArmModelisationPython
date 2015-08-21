@@ -73,20 +73,20 @@ class Arm:
   def computeNextState(self, U, state):
 	  '''
 	  Computes the next state resulting from the direct dynamic model of the arm given the muscles activation vector U
-    
+	  
 	  Inputs:     -U: (6,1) numpy array
-	              -state: (4,1) numpy array (used for Kalman, not based on the current system state)
+	  -state: (4,1) numpy array (used for Kalman, not based on the current system state)
 
 	  Output:    -state: (4,1) numpy array, the resulting state
 	  '''
-        #print ("state:", state)
+#print ("state:", state)
 	  dotq, q = getDotQAndQFromStateVector(state)
-	  #print ("U :",U)
-        #print ("dotq:",dotq)
+#print ("U :",U)
+#print ("dotq:",dotq)
 	  M = np.array([[self.armP.k1+2*self.armP.k2*math.cos(q[1]),self.armP.k3+self.armP.k2*math.cos(q[1])],[self.armP.k3+self.armP.k2*math.cos(q[1]),self.armP.k3]])
-        #print ("M:",M)
+#print ("M:",M)
 	  Minv = np.linalg.inv(M)
-        #print ("Minv:",Minv)
+#print ("Minv:",Minv)
 	  C = np.array([-dotq[1]*(2*dotq[0]+dotq[1])*self.armP.k2*math.sin(q[1]),(dotq[0]**2)*self.armP.k2*math.sin(q[1])])
         #print ("C:",C)
         #the commented version uses a non null stiffness for the muscles
@@ -100,7 +100,7 @@ class Arm:
 
         #Gamma = np.dot(armP.At, np.dot(musclesP.fmax,U))
         #computes the acceleration ddotq and integrates
-        
+	  
 	  b = np.dot(self.armP.B, dotq)
         #print ("b:",b)
 

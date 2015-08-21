@@ -8,7 +8,7 @@ Module: runScript
 Description: main script to run what we want in the project
 '''
 
-from Main.Main import generateFromRBFN, generateFromCMAES, launchCMAESForAllTargetSizes, launchCMAESForSpecificTargetSize
+from Main.Main import generateFromRBFN, generateFromCMAES, generateCostMapFromRBFN, generateCostMapFromCMAES, launchCMAESForAllTargetSizes, launchCMAESForSpecificTargetSize
 
 from Regression.RunRegressionRBFN import runRBFN, UnitTest, UnitTestRBFNController, UnitTestArmModel
 
@@ -39,7 +39,7 @@ def printMainMenu():
     print('-------------------------------------------------')
     print('	CMAES:')
     print('		11 train CMAES for all targets')
-    print('		12 generate results from current controllers')
+    print('		12 generate results from CMAES controllers')
     print('		13 plot velocity profiles')
     print('		14 plot articular positions')
     print('		15 plot muscular activations')
@@ -48,10 +48,12 @@ def printMainMenu():
     print('		18 plot Size x Dist')                  
     print('		19 plot Fitts Law')                  
     print('		20 plot Map Time x Trajectory')
-    print('		21 show trajectory animations')                 
-    print('		22 plot Hit dispersion')
+    print('		21 show trajectory animations (all)')                 
+    print('		22 plot Hit dispersion (CMAES or RBFN)')
     print('		23 train CMAES for one target')
     print('		24 plot CMAES cost progress')
+    print('		25 generate rich results from RBFN controller')
+    print('		26 generate rich results from CMAES controllers')
 
 def runAll():
     runInstall()
@@ -214,6 +216,21 @@ def chooseFunction(choix):
         c.stop()
     elif choix == 24:
         plotCMAESCostProgress()
+    elif choix == 25:
+        name = raw_input('Name of the RBFN controller file: ')
+        fname = raw_input('Folder where you want to save the results: ')
+        nbret = input("Number of repeat for each trajectory (int): ")
+        c = Chrono()
+        generateCostMapFromRBFN(nbret, name, fname)
+        c.stop()
+    elif choix == 26:
+        nameTheta = raw_input('Name of the controller file: ')
+        name = raw_input('Folder where you want to save the results: ')
+        nbret = input("Number of repeat for each trajectory (int): ")
+        nbret = int(nbret)
+        c = Chrono()
+        generateCostMapFromCMAES(nbret, nameTheta, name)
+        c.stop()
 
 #plotInitPos()  
 #runAuto()

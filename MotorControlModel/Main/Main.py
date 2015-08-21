@@ -28,7 +28,15 @@ def copyRBFNtoCMAES(rs, name, size):
 
 def GenerateDataFromTheta(rs, sizeOfTarget, foldername, thetaFile, repeat, save):
     exp = Experiments(rs, sizeOfTarget, save, foldername,thetaFile)
-    cost = exp.runTrajectoriesResultsGeneration(repeat)
+    cost = exp.runTrajectoriesForResultsGeneration(repeat)
+    print("Average cost: ", cost)
+    print("foldername : ", foldername)
+    if (save):
+        exp.saveCost()
+
+def GenerateCostMapDataFromTheta(rs, sizeOfTarget, foldername, thetaFile, repeat, save):
+    exp = Experiments(rs, sizeOfTarget, save, foldername,thetaFile)
+    cost = exp.runTrajectoriesForCostMap(repeat)
     print("Average cost: ", cost)
     print("foldername : ", foldername)
     if (save):
@@ -42,11 +50,26 @@ def generateFromCMAES(repeat, thetaFile, saveDir = 'Data'):
         GenerateDataFromTheta(rs,el,saveName,thetaName,repeat,True)
     print("CMAES:End of generation")
 
+def generateCostMapFromCMAES(repeat, thetaFile, saveDir = 'Data'):
+    rs = ReadSetupFile()
+    for el in rs.sizeOfTarget:
+        thetaName = rs.CMAESpath + str(el) + "/" + thetaFile
+        saveName = rs.CMAESpath + str(el) + "/" + saveDir + "/"
+        GenerateCostMapDataFromTheta(rs,el,saveName,thetaName,repeat,True)
+    print("CMAES:End of generation")
+
 def generateFromRBFN(repeat, thetaFile, saveDir):
     rs = ReadSetupFile()
     thetaName = rs.RBFNpath + thetaFile
     saveName = rs.RBFNpath + saveDir + "/"
     GenerateDataFromTheta(rs,0.1,saveName,thetaName,repeat,True)
+    print("RBFN:End of generation")
+
+def generateCostMapFromRBFN(repeat, thetaFile, saveDir):
+    rs = ReadSetupFile()
+    thetaName = rs.RBFNpath + thetaFile
+    saveName = rs.RBFNpath + saveDir + "/"
+    GenerateCostMapDataFromTheta(rs,0.1,saveName,thetaName,repeat,True)
     print("RBFN:End of generation")
 
 def launchCMAESForSpecificTargetSize(sizeOfTarget, thetaFile, save):

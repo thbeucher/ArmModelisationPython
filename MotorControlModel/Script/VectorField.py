@@ -7,10 +7,8 @@ Description: We find here script which print the moving vector for some point of
 '''
 import sys
 name = "/home/beucher/ProjetCluster/ArmModelPython/"
-sys.path.append(name + "Utils")
-sys.path.append(name + "Optimisation")
-sys.path.append(name + "Script")
-sys.path.append(name + "Regression")
+sys.path.append(name + "ArmModel")
+sys.path.append(name + "Main")
 
 import numpy as np
 import matplotlib.pyplot as plt

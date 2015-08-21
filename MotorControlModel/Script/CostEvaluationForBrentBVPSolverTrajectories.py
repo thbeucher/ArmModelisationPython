@@ -1,3 +1,13 @@
+import sys
+name = "/home/beucher/ProjetCluster/ArmModelPython/"
+sys.path.append(name + "Utils")
+sys.path.append(name + "ArmModel")
+sys.path.append(name + "Main")
+sys.path.append(name + "Regression")
+sys.path.append(name + "Script")
+sys.path.append(name + "Optimisation")
+
+
 from Utils.FileReading import FileReading
 from Utils.FileSaving import fileSavingStr, fileSavingBin
 import os
