@@ -10,7 +10,57 @@ import numpy as np
 import os
 
 from ArmModel.Arm import Arm
-#from ArmModel.MuscularActivation import muscleFilter
+
+
+def loadStateCommandPairsByStartCoords(foldername):
+    '''
+    Get all the data from a set of trajectories, sorted by the starting xy coordinates
+    
+    Output : dictionary of data whose keys are y then x coordinates
+    '''
+    arm = Arm()
+    dataOut = {}
+    for el in os.listdir(foldername):
+            data = np.loadtxt(foldername + el)
+            coordElbow, coordHand = arm.mgd(np.array([[data[0,10]], [data[0,11]]]))
+            x,y = str(coordHand[0][0]), str(coordHand[1][0])
+            if not y in dataOut.keys():
+                dataOut[y] = {}
+            if not x in dataOut[y].keys():
+                dataOut[y][x] = []
+            traj = []
+            for i in range(data.shape[0]):
+                pair = ((data[i][8], data[i][9], data[i][10], data[i][11]), ([data[i][12], data[i][13], data[i][14], data[i][15], data[i][16], data[i][17]]))
+                traj.append(pair)
+            dataOut[y][x].append(traj)
+    return dataOut
+
+def stateAndCommandDataFromTrajs(data):
+        '''
+        Reorganizes trajectory data into an array of trajectories made of (state, command) pairs
+        
+        Input:     -data: dictionary
+        Output:    -dataA: numpy array
+        '''
+        state, command = [], []
+        for key, v in data.items():
+            #if float(key) < 0.58:
+                for k2, xvals in data[key].items():
+                    for i in range(len(xvals)):
+                        stateVec, commandVec = [], []
+                        for j in range(len(xvals[i])):
+                            stateVec.append(xvals[i][j][0])
+                            commandVec.append(xvals[i][j][1])
+                        state.append(stateVec)
+                        command.append(commandVec)
+        '''
+        state = np.vstack(np.array(state))
+        command = np.vstack(np.array(command))
+        '''
+        return state,command
+
+# -------------------------------------------------------------------------------------------
+    
 
 def getInitPos(foldername):
     '''
@@ -23,7 +73,9 @@ def getInitPos(foldername):
     for el in os.listdir(foldername):
             data = np.loadtxt(foldername + el)
             coordElbow, coordHand = arm.mgd(np.array([[data[0,10]], [data[0,11]]]))
+            #if coordHand[1]<0.58:
             xy[el] = (coordHand[0], coordHand[1])
+ 
     return xy
   
 def getStateAndCommandData(foldername):
@@ -217,7 +269,6 @@ def dicToArray(data):
         for k, v in data.items():
             retour.append(v)
         return np.vstack(np.array(retour))
-    
             
     
 

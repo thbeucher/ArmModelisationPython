@@ -13,7 +13,7 @@ import numpy as np
 import random as rd
 
 from Utils.ReadSetupFile import ReadSetupFile
-from Utils.FileReading import getStateAndCommandData, dicToArray
+from Utils.FileReading import getStateAndCommandData, dicToArray,stateAndCommandDataFromTrajs,loadStateCommandPairsByStartCoords
 
 from Regression.RBFN import rbfn
 from ArmModel.Arm import Arm
@@ -26,12 +26,23 @@ def runRBFN(name):
     Takes the Brent trajectories as input, shuffles them, and then runs the RBFN regression algorithm
     '''
     rs = ReadSetupFile()
-    state, command = getStateAndCommandData(BrentTrajectoriesFolder)
-    stateAll, commandAll = dicToArray(state), dicToArray(command)
+    #state, command = getStateAndCommandData(BrentTrajectoriesFolder)
+    #stateAll, commandAll = dicToArray(state), dicToArray(command)
+    #print ("old:", stateAll[0])
+
+    stateAll, commandAll = stateAndCommandDataFromTrajs(loadStateCommandPairsByStartCoords(BrentTrajectoriesFolder))
+    #print ("len:", len(commandAll[0]))
+    stateAll = np.vstack(np.array(stateAll))
+    commandAll = np.vstack(np.array(commandAll))
+    #print ("len global:", len(commandAll))
+    #print ("new:", commandAll[0])
+
+    #this works because both shuffles generate the same order, due to the seed
     np.random.seed(0)
     np.random.shuffle(stateAll)
     np.random.seed(0)
     np.random.shuffle(commandAll)
+
     print("nombre d'echantillons: ", len(stateAll))
     fa = rbfn(rs.numfeats,rs.inputDim,rs.outputDim)
     fa.setTrainingData(stateAll, commandAll)

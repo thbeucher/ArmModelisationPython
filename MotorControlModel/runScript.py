@@ -39,7 +39,7 @@ def printMainMenu():
     print('		11 train CMAES for all targets')
     print('		12 generate results from CMAES controllers')
     print('		13 plot velocity profiles')
-    print('		14 plot articular positions')
+    print('		14 plot XY and articular positions')
     print('		15 plot muscular activations')
     print('		16 plot cost Map')                  
     print('		17 plot Time x Distance for Targets')                  
@@ -131,12 +131,12 @@ def chooseFunction(choix):
         plotVelocityProfile("CMAES",nameF)
     elif choix == 14:
         nameF = raw_input('Folder where the results are saved: ')
-        tSize = raw_input('Target Size: ')
         rorc = input("enter 1 if XY or 2 if Joint results: ")
         rorc = int(rorc)
         if rorc == 1:
-            plotXYPositions("CMAES",nameF,tSize)
+            plotXYPositions("CMAES",nameF)
         else:
+            tSize = raw_input('Target Size: ')
             plotArticularPositions("CMAES",nameF,tSize)
     elif choix == 15:
         nameF = raw_input('Folder where the results are saved: ')

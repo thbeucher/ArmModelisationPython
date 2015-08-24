@@ -78,12 +78,12 @@ class rbfn():
         maxInputData = np.max(self.inputData, axis = 0)
         rangeForEachDim = maxInputData - minInputData
         #set the sigmas
-        widthConstant = 3*rangeForEachDim / self.nbFeat
+        widthConstant = 2.2*rangeForEachDim / self.nbFeat
         #create the diagonal matrix of sigmas to compute the gaussian
         self.widths = np.diag(widthConstant)
          #coef for Gaussian features
         self.norma = 1/np.sqrt(((2*np.pi)**self.inputDimension)*np.linalg.det(self.widths))
-        print ("RBFN : constante de normalisation : ", self.norma)
+        #print ("RBFN : constante de normalisation : ", self.norma)
         self.invcovar = np.linalg.pinv(self.widths)
         linspaceForEachDim = []
         #set the number of gaussian used and allocate them in each dimensions

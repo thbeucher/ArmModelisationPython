@@ -77,6 +77,9 @@ class StateEstimator:
             if isNull(U):
                 return state
             estimState = self.arm.computeNextState(U,estimState)
+            for i in range(2,4):#len(estimState)):
+                estimState[i] = estimState[i]*(1+ np.random.normal(0,0.001))
+
         return estimState
     
     def debugStore(self):
