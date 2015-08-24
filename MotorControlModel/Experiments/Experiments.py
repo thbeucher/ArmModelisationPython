@@ -132,7 +132,7 @@ class Experiments:
         c = Chrono()
         self.initTheta(theta)
         #compute all the trajectories x times each, x = numberOfRepeat
-        meanCost = self.runTrajectoriesResultsGeneration(self.numberOfRepeat)
+        meanCost = self.runTrajectoriesForResultsGeneration(self.numberOfRepeat)
         c.stop()
 
         print("Indiv #: ", self.call, "\n Cost: ", meanCost)

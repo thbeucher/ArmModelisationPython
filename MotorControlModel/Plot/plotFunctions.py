@@ -92,9 +92,10 @@ def plotVelocityProfile(what, folderName = "None"):
             state = getStateData(name)
             for k,v in state.items():
                 index, speed = [], []
-                for j in range(len(v)):
-                    index.append(j)
-                    speed.append(np.linalg.norm([v[j][0],v[j][1]]))
+                if  rd.random()<0.06:#what == "RBFN" or
+                    for j in range(len(v)):
+                        index.append(j)
+                        speed.append(np.linalg.norm([v[j][0],v[j][1]]))
                 ax.plot(index, speed, c ='b')
                 ax.set_xlabel("time (s)")
                 ax.set_ylabel("Instantaneous velocity (m/s)")
@@ -107,9 +108,9 @@ def plotVelocityProfile(what, folderName = "None"):
 
         state = getStateData(name)
         for k,v in state.items():
-            if  rd.random()<0.06:#what == "RBFN" or
-                index, speed = [], []
-                for j in range(len(v)):
+            index, speed = [], []
+            if rd.random()<0.06:#what == "RBFN" or
+                 for j in range(len(v)):
                     index.append(j)
                     speed.append(np.linalg.norm([v[j][0],v[j][1]]))
                     plt.plot(index, speed, c ='b')
@@ -559,8 +560,8 @@ def plotScattergram(what,folderName):
         for i in range(len(rs.sizeOfTarget)):
             ax = plt.subplot2grid((2,2), (i/2,i%2))
             ax.hist(data[rs.sizeOfTarget[i]], 20)
-            ax.plot([-rs.sizeOfTarget[i], -rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
-            ax.plot([rs.sizeOfTarget[i], rs.sizeOfTarget[i]], [0, 20], c = 'r', linewidth = 3)
+            ax.plot([-rs.sizeOfTarget[i], -rs.sizeOfTarget[i]], [0, 500], c = 'r', linewidth = 3)
+            ax.plot([rs.sizeOfTarget[i], rs.sizeOfTarget[i]], [0, 500], c = 'r', linewidth = 3)
             ax.set_title(str("Hit Dispersion for Target " + str(rs.sizeOfTarget[i])))
 
     elif what=="RBFN":
