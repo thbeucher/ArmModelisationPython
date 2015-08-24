@@ -679,6 +679,7 @@ static PyObject *__pyx_pf_9runScript_4runAuto(CYTHON_UNUSED PyObject *__pyx_self
 static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_choix); /* proto */
 static char __pyx_k_[] = "-------------------------------------------------";
 static char __pyx_k_c[] = "c";
+static char __pyx_k_All[] = "All";
 static char __pyx_k_end[] = "end";
 static char __pyx_k_RBFN[] = "\tRBFN:";
 static char __pyx_k_file[] = "file";
@@ -809,6 +810,7 @@ static PyObject *__pyx_kp_s_6_generate_results_from_RBFN_co;
 static PyObject *__pyx_kp_s_7_plot_velocity_profiles;
 static PyObject *__pyx_kp_s_8_plot_XY_positions;
 static PyObject *__pyx_kp_s_9_plot_muscular_activations;
+static PyObject *__pyx_n_s_All;
 static PyObject *__pyx_kp_s_Available_scripts;
 static PyObject *__pyx_kp_s_Brent;
 static PyObject *__pyx_n_s_Brent_2;
@@ -2202,7 +2204,7 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
  *         rorc = input("enter 1 if XY or 2 if Joint results: ")
  *         rorc = int(rorc)             # <<<<<<<<<<<<<<
  *         if rorc == 1:
- *             plotXYPositions("RBFN",nameF)
+ *             plotXYPositions("RBFN",nameF,"All",True)
  */
     __pyx_t_1 = PyNumber_Int(__pyx_v_rorc); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 100; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -2213,7 +2215,7 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
  *         rorc = input("enter 1 if XY or 2 if Joint results: ")
  *         rorc = int(rorc)
  *         if rorc == 1:             # <<<<<<<<<<<<<<
- *             plotXYPositions("RBFN",nameF)
+ *             plotXYPositions("RBFN",nameF,"All",True)
  *         else:
  */
     __pyx_t_1 = PyObject_RichCompare(__pyx_v_rorc, __pyx_int_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2224,7 +2226,7 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
       /* "runScript.py":102
  *         rorc = int(rorc)
  *         if rorc == 1:
- *             plotXYPositions("RBFN",nameF)             # <<<<<<<<<<<<<<
+ *             plotXYPositions("RBFN",nameF,"All",True)             # <<<<<<<<<<<<<<
  *         else:
  *             plotArticularPositions("RBFN",nameF)
  */
@@ -2242,7 +2244,7 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
           __pyx_t_6 = 1;
         }
       }
-      __pyx_t_4 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       if (__pyx_t_5) {
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -2253,6 +2255,12 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
       __Pyx_INCREF(__pyx_v_nameF);
       __Pyx_GIVEREF(__pyx_v_nameF);
       PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_6, __pyx_v_nameF);
+      __Pyx_INCREF(__pyx_n_s_All);
+      __Pyx_GIVEREF(__pyx_n_s_All);
+      PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_6, __pyx_n_s_All);
+      __Pyx_INCREF(Py_True);
+      __Pyx_GIVEREF(Py_True);
+      PyTuple_SET_ITEM(__pyx_t_4, 3+__pyx_t_6, Py_True);
       __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -2263,7 +2271,7 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
     /*else*/ {
 
       /* "runScript.py":104
- *             plotXYPositions("RBFN",nameF)
+ *             plotXYPositions("RBFN",nameF,"All",True)
  *         else:
  *             plotArticularPositions("RBFN",nameF)             # <<<<<<<<<<<<<<
  *     elif choix == 9:
@@ -2881,7 +2889,7 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
  *         rorc = input("enter 1 if XY or 2 if Joint results: ")
  *         rorc = int(rorc)             # <<<<<<<<<<<<<<
  *         if rorc == 1:
- *             plotXYPositions("CMAES",nameF)
+ *             plotXYPositions("CMAES",nameF,"All",False)
  */
     __pyx_t_1 = PyNumber_Int(__pyx_v_rorc); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -2892,7 +2900,7 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
  *         rorc = input("enter 1 if XY or 2 if Joint results: ")
  *         rorc = int(rorc)
  *         if rorc == 1:             # <<<<<<<<<<<<<<
- *             plotXYPositions("CMAES",nameF)
+ *             plotXYPositions("CMAES",nameF,"All",False)
  *         else:
  */
     __pyx_t_1 = PyObject_RichCompare(__pyx_v_rorc, __pyx_int_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2903,7 +2911,7 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
       /* "runScript.py":137
  *         rorc = int(rorc)
  *         if rorc == 1:
- *             plotXYPositions("CMAES",nameF)             # <<<<<<<<<<<<<<
+ *             plotXYPositions("CMAES",nameF,"All",False)             # <<<<<<<<<<<<<<
  *         else:
  *             tSize = raw_input('Target Size: ')
  */
@@ -2921,7 +2929,7 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
           __pyx_t_6 = 1;
         }
       }
-      __pyx_t_5 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
       if (__pyx_t_7) {
         __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -2932,6 +2940,12 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
       __Pyx_INCREF(__pyx_v_nameF);
       __Pyx_GIVEREF(__pyx_v_nameF);
       PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_6, __pyx_v_nameF);
+      __Pyx_INCREF(__pyx_n_s_All);
+      __Pyx_GIVEREF(__pyx_n_s_All);
+      PyTuple_SET_ITEM(__pyx_t_5, 2+__pyx_t_6, __pyx_n_s_All);
+      __Pyx_INCREF(Py_False);
+      __Pyx_GIVEREF(Py_False);
+      PyTuple_SET_ITEM(__pyx_t_5, 3+__pyx_t_6, Py_False);
       __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -2942,7 +2956,7 @@ static PyObject *__pyx_pf_9runScript_6chooseFunction(CYTHON_UNUSED PyObject *__p
     /*else*/ {
 
       /* "runScript.py":139
- *             plotXYPositions("CMAES",nameF)
+ *             plotXYPositions("CMAES",nameF,"All",False)
  *         else:
  *             tSize = raw_input('Target Size: ')             # <<<<<<<<<<<<<<
  *             plotArticularPositions("CMAES",nameF,tSize)
@@ -4396,6 +4410,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_7_plot_velocity_profiles, __pyx_k_7_plot_velocity_profiles, sizeof(__pyx_k_7_plot_velocity_profiles), 0, 0, 1, 0},
   {&__pyx_kp_s_8_plot_XY_positions, __pyx_k_8_plot_XY_positions, sizeof(__pyx_k_8_plot_XY_positions), 0, 0, 1, 0},
   {&__pyx_kp_s_9_plot_muscular_activations, __pyx_k_9_plot_muscular_activations, sizeof(__pyx_k_9_plot_muscular_activations), 0, 0, 1, 0},
+  {&__pyx_n_s_All, __pyx_k_All, sizeof(__pyx_k_All), 0, 0, 1, 1},
   {&__pyx_kp_s_Available_scripts, __pyx_k_Available_scripts, sizeof(__pyx_k_Available_scripts), 0, 0, 1, 0},
   {&__pyx_kp_s_Brent, __pyx_k_Brent, sizeof(__pyx_k_Brent), 0, 0, 1, 0},
   {&__pyx_n_s_Brent_2, __pyx_k_Brent_2, sizeof(__pyx_k_Brent_2), 0, 0, 1, 1},
@@ -4735,7 +4750,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__23);
 
   /* "runScript.py":139
- *             plotXYPositions("CMAES",nameF)
+ *             plotXYPositions("CMAES",nameF,"All",False)
  *         else:
  *             tSize = raw_input('Target Size: ')             # <<<<<<<<<<<<<<
  *             plotArticularPositions("CMAES",nameF,tSize)

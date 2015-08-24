@@ -99,7 +99,7 @@ def chooseFunction(choix):
         rorc = input("enter 1 if XY or 2 if Joint results: ")
         rorc = int(rorc)
         if rorc == 1:
-            plotXYPositions("RBFN",nameF)
+            plotXYPositions("RBFN",nameF,"All",True)
         else:
             plotArticularPositions("RBFN",nameF)
     elif choix == 9:
@@ -134,7 +134,7 @@ def chooseFunction(choix):
         rorc = input("enter 1 if XY or 2 if Joint results: ")
         rorc = int(rorc)
         if rorc == 1:
-            plotXYPositions("CMAES",nameF)
+            plotXYPositions("CMAES",nameF,"All",False)
         else:
             tSize = raw_input('Target Size: ')
             plotArticularPositions("CMAES",nameF,tSize)
